@@ -1,0 +1,759 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Brand {
+  id          String    @id @default(uuid()) @db.Uuid
+  name        String    @db.VarChar(255)
+  slug        String    @unique @db.VarChar(255)
+  logoUrl     String?   @map("logo_url")
+  description String?
+  websiteUrl  String?   @map("website_url")
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  metadata    Json?
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  createdBy   String?   @map("created_by") @db.Uuid
+  updatedBy   String?   @map("updated_by") @db.Uuid
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+  products    Product[]
+
+  @@index([isActive, sortOrder])
+  @@index([deletedAt])
+  @@map("brands")
+}
+
+model Category {
+  id          String     @id @default(uuid()) @db.Uuid
+  parentId    String?    @map("parent_id") @db.Uuid
+  name        String     @db.VarChar(255)
+  slug        String     @unique @db.VarChar(255)
+  description String?
+  imageUrl    String?    @map("image_url")
+  depth       Int        @default(0)
+  sortOrder   Int        @default(0) @map("sort_order")
+  path        String?    @db.VarChar(1000)
+  isActive    Boolean    @default(true) @map("is_active")
+  metadata    Json?
+  createdAt   DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime   @updatedAt @map("updated_at") @db.Timestamptz(6)
+  createdBy   String?    @map("created_by") @db.Uuid
+  updatedBy   String?    @map("updated_by") @db.Uuid
+  deletedAt   DateTime?  @map("deleted_at") @db.Timestamptz(6)
+  parent      Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children    Category[] @relation("CategoryHierarchy")
+  products    Product[]
+
+  @@index([parentId])
+  @@index([isActive, sortOrder])
+  @@index([path])
+  @@index([depth])
+  @@index([deletedAt])
+  @@map("categories")
+}
+
+model Product {
+  id                  String            @id @default(uuid()) @db.Uuid
+  brandId             String?           @map("brand_id") @db.Uuid
+  categoryId          String?           @map("category_id") @db.Uuid
+  name                String            @db.VarChar(500)
+  slug                String            @unique @db.VarChar(500)
+  barcode             String?           @db.VarChar(100)
+  sku                 String?           @db.VarChar(100)
+  modelCode           String?           @map("model_code") @db.VarChar(255)
+  description         String?
+  shortDescription    String?           @map("short_description") @db.VarChar(1000)
+  specs               Json?
+  images              String[]          @default([])
+  weight              Decimal?          @db.Decimal(10, 3)
+  dimensions          Json?
+  warrantyMonths      Int?              @map("warranty_months")
+  isActive            Boolean           @default(true) @map("is_active")
+  isFeatured          Boolean           @default(false) @map("is_featured")
+  isNew               Boolean           @default(false) @map("is_new")
+  isOutlet            Boolean           @default(false) @map("is_outlet")
+  minOrderQuantity    Int               @default(1) @map("min_order_quantity")
+  unit                Unit              @default(ADET)
+  viewCount           Int               @default(0) @map("view_count")
+  metadata            Json?
+  createdAt           DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime          @updatedAt @map("updated_at") @db.Timestamptz(6)
+  createdBy           String?           @map("created_by") @db.Uuid
+  updatedBy           String?           @map("updated_by") @db.Uuid
+  deletedAt           DateTime?         @map("deleted_at") @db.Timestamptz(6)
+  manualPrice         Decimal?          @map("manual_price") @db.Decimal(12, 2)
+  manualPriceCurrency String?           @map("manual_price_currency") @db.VarChar(3)
+  orderItems          OrderItem[]
+  priceListItems      PriceListItem[]
+  productTags         ProductTag[]
+  brand               Brand?            @relation(fields: [brandId], references: [id])
+  category            Category?         @relation(fields: [categoryId], references: [id])
+  supplierProducts    SupplierProduct[]
+
+  @@index([brandId])
+  @@index([categoryId])
+  @@index([barcode])
+  @@index([sku])
+  @@index([isActive, isFeatured])
+  @@index([isActive, isNew])
+  @@index([isActive, isOutlet])
+  @@index([deletedAt])
+  @@index([viewCount(sort: Desc)])
+  @@map("products")
+}
+
+model Tag {
+  id          String       @id @default(uuid()) @db.Uuid
+  name        String       @unique @db.VarChar(100)
+  slug        String       @unique @db.VarChar(100)
+  color       String?      @db.VarChar(7)
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime     @updatedAt @map("updated_at") @db.Timestamptz(6)
+  productTags ProductTag[]
+
+  @@map("tags")
+}
+
+model ProductTag {
+  id        String   @id @default(uuid()) @db.Uuid
+  productId String   @map("product_id") @db.Uuid
+  tagId     String   @map("tag_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, tagId])
+  @@index([tagId])
+  @@map("product_tags")
+}
+
+model Supplier {
+  id                  String             @id @default(uuid()) @db.Uuid
+  code                String             @unique @db.VarChar(50)
+  name                String             @db.VarChar(255)
+  websiteUrl          String?            @map("website_url")
+  contactEmail        String?            @map("contact_email") @db.VarChar(255)
+  contactPhone        String?            @map("contact_phone") @db.VarChar(50)
+  scraperType         ScraperType        @default(PLAYWRIGHT) @map("scraper_type")
+  scraperConfig       Json?              @map("scraper_config")
+  isActive            Boolean            @default(true) @map("is_active")
+  priority            Int                @default(0)
+  lastSyncAt          DateTime?          @map("last_sync_at") @db.Timestamptz(6)
+  syncStatus          SupplierSyncStatus @default(IDLE) @map("sync_status")
+  syncError           String?            @map("sync_error")
+  syncIntervalMinutes Int                @default(360) @map("sync_interval_minutes")
+  metadata            Json?
+  createdAt           DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime           @updatedAt @map("updated_at") @db.Timestamptz(6)
+  createdBy           String?            @map("created_by") @db.Uuid
+  updatedBy           String?            @map("updated_by") @db.Uuid
+  deletedAt           DateTime?          @map("deleted_at") @db.Timestamptz(6)
+  scraperLogs         ScraperLog[]
+  supplierProducts    SupplierProduct[]
+
+  @@index([isActive, priority])
+  @@index([syncStatus])
+  @@index([deletedAt])
+  @@map("suppliers")
+}
+
+model SupplierProduct {
+  id              String         @id @default(uuid()) @db.Uuid
+  supplierId      String         @map("supplier_id") @db.Uuid
+  productId       String?        @map("product_id") @db.Uuid
+  externalId      String?        @map("external_id") @db.VarChar(255)
+  externalName    String?        @map("external_name")
+  externalBarcode String?        @map("external_barcode") @db.VarChar(100)
+  externalSku     String?        @map("external_sku") @db.VarChar(100)
+  externalUrl     String?        @map("external_url")
+  purchasePrice   Decimal?       @map("purchase_price") @db.Decimal(12, 4)
+  currency        String         @default("TRY") @db.VarChar(3)
+  vatRate         Decimal?       @map("vat_rate") @db.Decimal(5, 2)
+  stockQuantity   Int            @default(0) @map("stock_quantity")
+  isAvailable     Boolean        @default(true) @map("is_available")
+  rawData         Json?          @map("raw_data")
+  matchConfidence Int?           @map("match_confidence")
+  matchMethod     MatchMethod?   @map("match_method")
+  lastScrapedAt   DateTime?      @map("last_scraped_at") @db.Timestamptz(6)
+  createdAt       DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime       @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt       DateTime?      @map("deleted_at") @db.Timestamptz(6)
+  orderItems      OrderItem[]
+  priceHistory    PriceHistory[]
+  product         Product?       @relation(fields: [productId], references: [id])
+  supplier        Supplier       @relation(fields: [supplierId], references: [id])
+
+  @@unique([supplierId, externalId])
+  @@index([productId])
+  @@index([externalBarcode])
+  @@index([externalSku])
+  @@index([isAvailable])
+  @@index([deletedAt])
+  @@map("supplier_products")
+}
+
+model PriceHistory {
+  id                String          @id @default(uuid()) @db.Uuid
+  supplierProductId String          @map("supplier_product_id") @db.Uuid
+  oldPrice          Decimal?        @map("old_price") @db.Decimal(12, 4)
+  newPrice          Decimal         @map("new_price") @db.Decimal(12, 4)
+  currency          String          @default("TRY") @db.VarChar(3)
+  priceChangePct    Decimal?        @map("price_change_pct") @db.Decimal(8, 2)
+  recordedAt        DateTime        @default(now()) @map("recorded_at") @db.Timestamptz(6)
+  supplierProduct   SupplierProduct @relation(fields: [supplierProductId], references: [id], onDelete: Cascade)
+
+  @@index([supplierProductId, recordedAt(sort: Desc)])
+  @@index([recordedAt])
+  @@map("price_history")
+}
+
+model ProfitMargin {
+  id           String      @id @default(uuid()) @db.Uuid
+  scope        MarginScope
+  scopeId      String?     @map("scope_id") @db.Uuid
+  marginPct    Decimal     @map("margin_pct") @db.Decimal(8, 2)
+  minMarginPct Decimal?    @map("min_margin_pct") @db.Decimal(8, 2)
+  maxMarginPct Decimal?    @map("max_margin_pct") @db.Decimal(8, 2)
+  priority     Int         @default(0)
+  isActive     Boolean     @default(true) @map("is_active")
+  validFrom    DateTime?   @map("valid_from") @db.Timestamptz(6)
+  validUntil   DateTime?   @map("valid_until") @db.Timestamptz(6)
+  notes        String?
+  createdAt    DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime    @updatedAt @map("updated_at") @db.Timestamptz(6)
+  createdBy    String?     @map("created_by") @db.Uuid
+  updatedBy    String?     @map("updated_by") @db.Uuid
+  deletedAt    DateTime?   @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([scope, isActive, priority(sort: Desc)])
+  @@index([scopeId])
+  @@index([deletedAt])
+  @@map("profit_margins")
+}
+
+model Customer {
+  id                    String                 @id @default(uuid()) @db.Uuid
+  dealerCode            String                 @unique @map("dealer_code") @db.VarChar(50)
+  passwordHash          String                 @map("password_hash") @db.VarChar(255)
+  companyName           String                 @map("company_name") @db.VarChar(500)
+  tradeName             String?                @map("trade_name") @db.VarChar(500)
+  contactName           String?                @map("contact_name") @db.VarChar(255)
+  contactTitle          String?                @map("contact_title") @db.VarChar(100)
+  phone                 String?                @db.VarChar(50)
+  phone2                String?                @db.VarChar(50)
+  email                 String?                @db.VarChar(255)
+  taxOffice             String?                @map("tax_office") @db.VarChar(255)
+  taxNumber             String?                @map("tax_number") @db.VarChar(20)
+  identityNumber        String?                @map("identity_number") @db.VarChar(11)
+  address               String?
+  city                  String?                @db.VarChar(100)
+  district              String?                @db.VarChar(100)
+  postalCode            String?                @map("postal_code") @db.VarChar(10)
+  country               String                 @default("TR") @db.VarChar(2)
+  balance               Decimal                @default(0) @db.Decimal(14, 2)
+  creditLimit           Decimal                @default(0) @map("credit_limit") @db.Decimal(14, 2)
+  discountRate          Decimal                @default(0) @map("discount_rate") @db.Decimal(5, 2)
+  priceListId           String?                @map("price_list_id") @db.Uuid
+  status                CustomerStatus         @default(PENDING)
+  taxCertificateUrl     String?                @map("tax_certificate_url")
+  tradeRegistryUrl      String?                @map("trade_registry_url")
+  notes                 String?
+  tags                  String[]               @default([])
+  approvedAt            DateTime?              @map("approved_at") @db.Timestamptz(6)
+  approvedBy            String?                @map("approved_by") @db.Uuid
+  lastLoginAt           DateTime?              @map("last_login_at") @db.Timestamptz(6)
+  lastOrderAt           DateTime?              @map("last_order_at") @db.Timestamptz(6)
+  whatsappPhone         String?                @map("whatsapp_phone") @db.VarChar(50)
+  metadata              Json?
+  createdAt             DateTime               @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt             DateTime               @updatedAt @map("updated_at") @db.Timestamptz(6)
+  createdBy             String?                @map("created_by") @db.Uuid
+  updatedBy             String?                @map("updated_by") @db.Uuid
+  deletedAt             DateTime?              @map("deleted_at") @db.Timestamptz(6)
+  accountTransactions   AccountTransaction[]
+  priceList             PriceList?             @relation(fields: [priceListId], references: [id])
+  dealerApplications    DealerApplication[]
+  orders                Order[]
+  whatsappConversations WhatsAppConversation[]
+
+  @@index([phone])
+  @@index([whatsappPhone])
+  @@index([taxNumber])
+  @@index([status])
+  @@index([email])
+  @@index([deletedAt])
+  @@map("customers")
+}
+
+model DealerApplication {
+  id                 String            @id @default(uuid()) @db.Uuid
+  companyName        String            @map("company_name") @db.VarChar(500)
+  contactName        String            @map("contact_name") @db.VarChar(255)
+  phone              String            @db.VarChar(50)
+  email              String            @db.VarChar(255)
+  taxOffice          String?           @map("tax_office") @db.VarChar(255)
+  taxNumber          String?           @map("tax_number") @db.VarChar(20)
+  address            String?
+  city               String?           @db.VarChar(100)
+  taxCertificateUrl  String?           @map("tax_certificate_url")
+  tradeRegistryUrl   String?           @map("trade_registry_url")
+  businessType       String?           @map("business_type") @db.VarChar(255)
+  annualRevenueRange String?           @map("annual_revenue_range") @db.VarChar(100)
+  referenceInfo      String?           @map("reference_info")
+  status             ApplicationStatus @default(PENDING)
+  adminNotes         String?           @map("admin_notes")
+  reviewedAt         DateTime?         @map("reviewed_at") @db.Timestamptz(6)
+  reviewedBy         String?           @map("reviewed_by") @db.Uuid
+  customerId         String?           @map("customer_id") @db.Uuid
+  createdAt          DateTime          @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime          @updatedAt @map("updated_at") @db.Timestamptz(6)
+  customer           Customer?         @relation(fields: [customerId], references: [id])
+
+  @@index([status])
+  @@index([email])
+  @@map("dealer_applications")
+}
+
+model Order {
+  id                     String        @id @default(uuid()) @db.Uuid
+  customerId             String        @map("customer_id") @db.Uuid
+  orderNumber            String        @unique @map("order_number") @db.VarChar(20)
+  status                 OrderStatus   @default(PENDING)
+  subtotal               Decimal       @default(0) @db.Decimal(14, 2)
+  discountTotal          Decimal       @default(0) @map("discount_total") @db.Decimal(14, 2)
+  vatTotal               Decimal       @default(0) @map("vat_total") @db.Decimal(14, 2)
+  shippingTotal          Decimal       @default(0) @map("shipping_total") @db.Decimal(14, 2)
+  grandTotal             Decimal       @default(0) @map("grand_total") @db.Decimal(14, 2)
+  currency               String        @default("TRY") @db.VarChar(3)
+  shippingAddress        Json?         @map("shipping_address")
+  billingAddress         Json?         @map("billing_address")
+  notes                  String?
+  adminNotes             String?       @map("admin_notes")
+  paymentMethod          PaymentMethod @default(BANK_TRANSFER) @map("payment_method")
+  paymentStatus          PaymentStatus @default(PENDING) @map("payment_status")
+  shippingTrackingNumber String?       @map("shipping_tracking_number") @db.VarChar(255)
+  shippingCarrier        String?       @map("shipping_carrier") @db.VarChar(100)
+  bizimhesapInvoiceId    String?       @map("bizimhesap_invoice_id") @db.VarChar(100)
+  bizimhesapInvoiceUrl   String?       @map("bizimhesap_invoice_url")
+  cancelledAt            DateTime?     @map("cancelled_at") @db.Timestamptz(6)
+  cancelledReason        String?       @map("cancelled_reason")
+  shippedAt              DateTime?     @map("shipped_at") @db.Timestamptz(6)
+  deliveredAt            DateTime?     @map("delivered_at") @db.Timestamptz(6)
+  createdAt              DateTime      @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt              DateTime      @updatedAt @map("updated_at") @db.Timestamptz(6)
+  createdBy              String?       @map("created_by") @db.Uuid
+  updatedBy              String?       @map("updated_by") @db.Uuid
+  deletedAt              DateTime?     @map("deleted_at") @db.Timestamptz(6)
+  orderItems             OrderItem[]
+  customer               Customer      @relation(fields: [customerId], references: [id])
+
+  @@index([customerId])
+  @@index([status])
+  @@index([paymentStatus])
+  @@index([createdAt(sort: Desc)])
+  @@index([deletedAt])
+  @@map("orders")
+}
+
+model OrderItem {
+  id                String           @id @default(uuid()) @db.Uuid
+  orderId           String           @map("order_id") @db.Uuid
+  productId         String?          @map("product_id") @db.Uuid
+  supplierProductId String?          @map("supplier_product_id") @db.Uuid
+  productName       String           @map("product_name") @db.VarChar(500)
+  productBarcode    String?          @map("product_barcode") @db.VarChar(100)
+  quantity          Int
+  unitPrice         Decimal          @map("unit_price") @db.Decimal(12, 4)
+  discountAmount    Decimal          @default(0) @map("discount_amount") @db.Decimal(12, 4)
+  vatRate           Decimal          @map("vat_rate") @db.Decimal(5, 2)
+  lineSubtotal      Decimal          @map("line_subtotal") @db.Decimal(14, 2)
+  lineVat           Decimal          @map("line_vat") @db.Decimal(14, 2)
+  lineTotal         Decimal          @map("line_total") @db.Decimal(14, 2)
+  purchasePrice     Decimal?         @map("purchase_price") @db.Decimal(12, 4)
+  profitMarginPct   Decimal?         @map("profit_margin_pct") @db.Decimal(8, 2)
+  notes             String?
+  createdAt         DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime         @updatedAt @map("updated_at") @db.Timestamptz(6)
+  order             Order            @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product           Product?         @relation(fields: [productId], references: [id])
+  supplierProduct   SupplierProduct? @relation(fields: [supplierProductId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+  @@map("order_items")
+}
+
+model AccountTransaction {
+  id            String          @id @default(uuid()) @db.Uuid
+  customerId    String          @map("customer_id") @db.Uuid
+  type          TransactionType
+  amount        Decimal         @db.Decimal(14, 2)
+  balanceAfter  Decimal         @map("balance_after") @db.Decimal(14, 2)
+  currency      String          @default("TRY") @db.VarChar(3)
+  referenceType String?         @map("reference_type") @db.VarChar(50)
+  referenceId   String?         @map("reference_id") @db.VarChar(100)
+  description   String?
+  notes         String?
+  createdAt     DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+  createdBy     String?         @map("created_by") @db.Uuid
+  customer      Customer        @relation(fields: [customerId], references: [id])
+
+  @@index([customerId, createdAt(sort: Desc)])
+  @@index([referenceType, referenceId])
+  @@map("account_transactions")
+}
+
+model WhatsAppConversation {
+  id            String             @id @default(uuid()) @db.Uuid
+  phoneNumber   String             @map("phone_number") @db.VarChar(50)
+  customerId    String?            @map("customer_id") @db.Uuid
+  customerName  String?            @map("customer_name") @db.VarChar(255)
+  status        ConversationStatus @default(ACTIVE)
+  context       Json?
+  lastMessageAt DateTime?          @map("last_message_at") @db.Timestamptz(6)
+  totalMessages Int                @default(0) @map("total_messages")
+  assignedTo    String?            @map("assigned_to") @db.Uuid
+  createdAt     DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime           @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt     DateTime?          @map("deleted_at") @db.Timestamptz(6)
+  customer      Customer?          @relation(fields: [customerId], references: [id])
+  messages      WhatsAppMessage[]
+
+  @@index([phoneNumber])
+  @@index([customerId])
+  @@index([status])
+  @@index([lastMessageAt(sort: Desc)])
+  @@index([deletedAt])
+  @@map("whatsapp_conversations")
+}
+
+model WhatsAppMessage {
+  id             String               @id @default(uuid()) @db.Uuid
+  conversationId String               @map("conversation_id") @db.Uuid
+  direction      MessageDirection
+  messageType    MessageType          @default(TEXT) @map("message_type")
+  content        String?
+  mediaUrl       String?              @map("media_url")
+  aiGenerated    Boolean              @default(false) @map("ai_generated")
+  aiModel        String?              @map("ai_model") @db.VarChar(100)
+  aiTokensUsed   Int?                 @map("ai_tokens_used")
+  waMessageId    String?              @map("wa_message_id") @db.VarChar(255)
+  status         MessageStatus        @default(SENT)
+  metadata       Json?
+  createdAt      DateTime             @default(now()) @map("created_at") @db.Timestamptz(6)
+  conversation   WhatsAppConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId, createdAt(sort: Desc)])
+  @@index([waMessageId])
+  @@index([status])
+  @@map("whatsapp_messages")
+}
+
+model AdminUser {
+  id           String    @id @default(uuid()) @db.Uuid
+  email        String    @unique @db.VarChar(255)
+  passwordHash String    @map("password_hash") @db.VarChar(255)
+  name         String    @db.VarChar(255)
+  avatarUrl    String?   @map("avatar_url")
+  role         AdminRole @default(ADMIN)
+  isActive     Boolean   @default(true) @map("is_active")
+  lastLoginAt  DateTime? @map("last_login_at") @db.Timestamptz(6)
+  permissions  Json?
+  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt    DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive])
+  @@index([deletedAt])
+  @@map("admin_users")
+}
+
+model ScraperLog {
+  id              String             @id @default(uuid()) @db.Uuid
+  supplierId      String             @map("supplier_id") @db.Uuid
+  startedAt       DateTime           @default(now()) @map("started_at") @db.Timestamptz(6)
+  finishedAt      DateTime?          @map("finished_at") @db.Timestamptz(6)
+  status          SupplierSyncStatus @default(RUNNING)
+  productsFound   Int                @default(0) @map("products_found")
+  productsUpdated Int                @default(0) @map("products_updated")
+  productsNew     Int                @default(0) @map("products_new")
+  productsRemoved Int                @default(0) @map("products_removed")
+  errorsCount     Int                @default(0) @map("errors_count")
+  errorMessage    String?            @map("error_message")
+  durationMs      Int?               @map("duration_ms")
+  metadata        Json?
+  supplier        Supplier           @relation(fields: [supplierId], references: [id])
+
+  @@index([supplierId, startedAt(sort: Desc)])
+  @@index([status])
+  @@map("scraper_logs")
+}
+
+model Notification {
+  id            String              @id @default(uuid()) @db.Uuid
+  recipientType String              @map("recipient_type") @db.VarChar(20)
+  recipientId   String              @map("recipient_id") @db.Uuid
+  channel       NotificationChannel
+  type          NotificationType
+  title         String              @db.VarChar(500)
+  body          String?
+  data          Json?
+  readAt        DateTime?           @map("read_at") @db.Timestamptz(6)
+  sentAt        DateTime?           @map("sent_at") @db.Timestamptz(6)
+  status        MessageStatus       @default(SENT)
+  createdAt     DateTime            @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([recipientType, recipientId])
+  @@index([type])
+  @@index([status])
+  @@index([createdAt(sort: Desc)])
+  @@map("notifications")
+}
+
+model Setting {
+  id          String   @id @default(uuid()) @db.Uuid
+  key         String   @unique @db.VarChar(255)
+  value       Json
+  group       String   @default("GENERAL") @db.VarChar(50)
+  description String?
+  isPublic    Boolean  @default(false) @map("is_public")
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime @updatedAt @map("updated_at") @db.Timestamptz(6)
+  updatedBy   String?  @map("updated_by") @db.Uuid
+
+  @@index([group])
+  @@map("settings")
+}
+
+model AuditLog {
+  id         String      @id @default(uuid()) @db.Uuid
+  userType   String      @map("user_type") @db.VarChar(20)
+  userId     String?     @map("user_id") @db.Uuid
+  action     AuditAction
+  entityType String      @map("entity_type") @db.VarChar(50)
+  entityId   String?     @map("entity_id") @db.Uuid
+  oldValues  Json?       @map("old_values")
+  newValues  Json?       @map("new_values")
+  ipAddress  String?     @map("ip_address") @db.VarChar(45)
+  userAgent  String?     @map("user_agent")
+  metadata   Json?
+  createdAt  DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@index([entityType, entityId])
+  @@index([userType, userId])
+  @@index([action])
+  @@index([createdAt(sort: Desc)])
+  @@map("audit_logs")
+}
+
+model PriceList {
+  id             String          @id @default(uuid()) @db.Uuid
+  name           String          @db.VarChar(255)
+  description    String?
+  discountType   DiscountType    @default(PERCENTAGE) @map("discount_type")
+  discountValue  Decimal         @default(0) @map("discount_value") @db.Decimal(8, 2)
+  isActive       Boolean         @default(true) @map("is_active")
+  validFrom      DateTime?       @map("valid_from") @db.Timestamptz(6)
+  validUntil     DateTime?       @map("valid_until") @db.Timestamptz(6)
+  createdAt      DateTime        @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt      DateTime        @updatedAt @map("updated_at") @db.Timestamptz(6)
+  createdBy      String?         @map("created_by") @db.Uuid
+  updatedBy      String?         @map("updated_by") @db.Uuid
+  deletedAt      DateTime?       @map("deleted_at") @db.Timestamptz(6)
+  customers      Customer[]
+  priceListItems PriceListItem[]
+
+  @@index([isActive])
+  @@index([deletedAt])
+  @@map("price_lists")
+}
+
+model PriceListItem {
+  id          String    @id @default(uuid()) @db.Uuid
+  priceListId String    @map("price_list_id") @db.Uuid
+  productId   String    @map("product_id") @db.Uuid
+  customPrice Decimal?  @map("custom_price") @db.Decimal(12, 4)
+  discountPct Decimal?  @map("discount_pct") @db.Decimal(5, 2)
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  priceList   PriceList @relation(fields: [priceListId], references: [id], onDelete: Cascade)
+  product     Product   @relation(fields: [productId], references: [id])
+
+  @@unique([priceListId, productId])
+  @@index([productId])
+  @@map("price_list_items")
+}
+
+model City {
+  id        Int        @id
+  name      String     @unique @db.VarChar(100)
+  plateCode Int        @unique @map("plate_code")
+  districts District[]
+
+  @@map("cities")
+}
+
+model District {
+  id     Int    @id @default(autoincrement())
+  name   String @db.VarChar(200)
+  cityId Int    @map("city_id")
+  city   City   @relation(fields: [cityId], references: [id])
+
+  @@unique([cityId, name])
+  @@index([cityId])
+  @@map("districts")
+}
+
+enum SupplierSyncStatus {
+  IDLE
+  RUNNING
+  SUCCESS
+  PARTIAL
+  ERROR
+}
+
+enum ScraperType {
+  PLAYWRIGHT
+  API
+  MANUAL
+}
+
+enum CustomerStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SUSPENDED
+  BLACKLISTED
+}
+
+enum ApplicationStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  NEEDS_INFO
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PREPARING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  RETURNED
+}
+
+enum PaymentStatus {
+  PENDING
+  PARTIAL
+  PAID
+  REFUNDED
+}
+
+enum PaymentMethod {
+  BANK_TRANSFER
+  CREDIT_CARD
+  ON_ACCOUNT
+}
+
+enum TransactionType {
+  INVOICE
+  PAYMENT
+  REFUND
+  ADJUSTMENT
+  OPENING_BALANCE
+}
+
+enum MessageDirection {
+  INBOUND
+  OUTBOUND
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  DOCUMENT
+  AUDIO
+  VIDEO
+  LOCATION
+  BUTTON
+}
+
+enum MessageStatus {
+  SENT
+  DELIVERED
+  READ
+  FAILED
+}
+
+enum ConversationStatus {
+  ACTIVE
+  CLOSED
+  BLOCKED
+}
+
+enum MatchMethod {
+  BARCODE
+  SKU
+  NAME_SIMILARITY
+  MANUAL
+}
+
+enum AdminRole {
+  ADMIN
+  SUPER_ADMIN
+  VIEWER
+}
+
+enum NotificationChannel {
+  EMAIL
+  SMS
+  WHATSAPP
+  PUSH
+  IN_APP
+}
+
+enum NotificationType {
+  ORDER_STATUS
+  PRICE_DROP
+  STOCK_ALERT
+  NEW_PRODUCT
+  SYSTEM
+}
+
+enum MarginScope {
+  GLOBAL
+  CATEGORY
+  BRAND
+  PRODUCT
+  CUSTOMER
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  LOGIN
+  LOGOUT
+  EXPORT
+  IMPORT
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED
+}
+
+enum Unit {
+  ADET
+  KUTU
+  PAKET
+  KOLI
+  METRE
+  KILOGRAM
+}
