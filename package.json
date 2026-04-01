@@ -7,13 +7,19 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:api": "vitest run src/app/api/__tests__/",
     "db:seed": "node --experimental-strip-types prisma/seed.ts",
     "db:seed:categories": "tsx prisma/seed-categories.ts",
     "scraper:run": "tsx workers/scraper/scheduler.ts",
     "scraper:watch": "tsx workers/scraper/scheduler.ts --watch",
     "fetch:images": "tsx scripts/fetch-product-images.ts",
     "storage:migrate": "tsx scripts/migrate-uploads-to-minio.ts",
-    "storage:migrate:dry": "tsx scripts/migrate-uploads-to-minio.ts --dry-run"
+    "storage:migrate:dry": "tsx scripts/migrate-uploads-to-minio.ts --dry-run",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "prisma": {
     "seed": "node --experimental-strip-types prisma/seed.ts"
@@ -60,10 +66,13 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^4.1.2",
     "eslint": "^9",
     "eslint-config-next": "16.2.1",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite-tsconfig-paths": "^6.1.1",
+    "vitest": "^4.1.2"
   }
 }
