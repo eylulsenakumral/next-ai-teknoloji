@@ -1,0 +1,262 @@
+"use client"
+
+import { useState } from "react"
+import Link from "next/link"
+import { Package, ShoppingCart, Eye, Heart } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { formatCurrency } from "@/lib/utils/format"
+import type { CatalogProduct, BrandItem, CategoryNode } from "@/types/catalog"
+
+interface ProductImageProps {
+  src?: string
+  alt: string
+  className?: string
+}
+
+function ProductImage({ src, alt, className }: ProductImageProps) {
+  const [error, setError] = useState(false)
+
+  if (!src || error) {
+    return (
+      <div className={cn("flex h-full w-full items-center justify-center bg-white", className)}>
+        <Package className="h-14 w-14 text-[#eeeeee]" aria-hidden />
+      </div>
+    )
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={cn(
+        "h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105",
+        className
+      )}
+      onError={() => setError(true)}
+    />
+  )
+}
+
+/** Flatten CategoryNode tree into a depth-aware list for select options */
+function flattenCategories(
+  nodes: CategoryNode[],
+  depth = 0
+): Array<{ id: string; name: string; depth: number }> {
+  const result: Array<{ id: string; name: string; depth: number }> = []
+  for (const node of nodes) {
+    result.push({ id: node.id, name: node.name, depth })
+    if (node.children?.length) {
+      result.push(...flattenCategories(node.children, depth + 1))
+    }
+  }
+  return result
+}
+
+async function updateProduct(
+  productId: string,
+  data: { brandId?: string | null; categoryId?: string | null }
+) {
+  const res = await fetch(`/api/catalog/products/${productId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
+  return res.ok
+}
+
+interface ProductCardProps {
+  product: CatalogProduct
+  onAddToCart?: (product: CatalogProduct) => void
+  brands?: BrandItem[]
+  categories?: CategoryNode[]
+}
+
+export function ProductCard({ product, onAddToCart, brands, categories }: ProductCardProps) {
+  const mainImage = product.images[0]
+
+  const [updating, setUpdating] = useState(false)
+  const [flash, setFlash] = useState<Record<string, "ok" | "err">>({})
+
+  const flatCategories = categories ? flattenCategories(categories) : []
+
+  async function handleFieldChange(field: "brandId" | "categoryId", value: string) {
+    setUpdating(true)
+    const ok = await updateProduct(product.id, { [field]: value || null })
+    setFlash((prev) => ({ ...prev, [field]: ok ? "ok" : "err" }))
+    setTimeout(() => {
+      setFlash((prev) => {
+        const next = { ...prev }
+        delete next[field]
+        return next
+      })
+    }, 1500)
+    setUpdating(false)
+  }
+
+  const showDropdowns = (brands && brands.length > 0) || (categories && categories.length > 0)
+
+  return (
+    <article className="group relative flex flex-col bg-white cursor-pointer">
+      {/* Ürün Görseli */}
+      <Link
+        href={`/urunler/${product.slug}`}
+        className="relative block overflow-hidden bg-white"
+        style={{ aspectRatio: "1 / 1" }}
+        tabIndex={-1}
+        aria-hidden
+      >
+        <ProductImage src={mainImage} alt={product.name} />
+
+        {/* Hover overlay + aksiyon butonları */}
+        <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+        <div className="absolute inset-0 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+          {product.stock.isAvailable && onAddToCart && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault()
+                e.stopPropagation()
+                onAddToCart(product)
+              }}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#333333] hover:bg-[#00179e] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
+              aria-label={`${product.name} sepete ekle`}
+            >
+              <ShoppingCart className="h-4 w-4" aria-hidden />
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              window.location.href = `/urunler/${product.slug}`
+            }}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#333333] hover:bg-[#00179e] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
+            aria-label={`${product.name} hızlı bak`}
+          >
+            <Eye className="h-4 w-4" aria-hidden />
+          </button>
+          <button
+            type="button"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#333333] hover:bg-[#00179e] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
+            aria-label={`${product.name} favorilere ekle`}
+          >
+            <Heart className="h-4 w-4" aria-hidden />
+          </button>
+        </div>
+      </Link>
+
+      {/* Badge'ler — sol üst */}
+      <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
+        {product.isNew && (
+          <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold text-white bg-[#00179e]">
+            YENİ
+          </span>
+        )}
+        {product.isOutlet && (
+          <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold text-white bg-[#c82333]">
+            OUTLET
+          </span>
+        )}
+        {!product.stock.isAvailable && (
+          <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold text-white bg-[#767676]">
+            TÜKENDI
+          </span>
+        )}
+      </div>
+
+      {/* Kart içeriği — fiyat ÖNCE, isim SONRA */}
+      <div className="flex flex-col gap-1 pt-2.5 pb-3 px-1">
+        {/* Fiyat — ÖNCE */}
+        {product.pricing ? (
+          <div className="flex items-baseline gap-1.5">
+            <p className="text-[16px] font-bold text-[#333333] leading-tight">
+              {formatCurrency(product.pricing.salePriceIncVat, product.pricing.currency)}
+            </p>
+            {product.pricing.salePriceIncVat < product.pricing.salePriceIncVat * 1.1 && (
+              <p className="text-[12px] text-[#767676] line-through leading-tight">
+                {formatCurrency(product.pricing.salePriceIncVat * 1.15, product.pricing.currency)}
+              </p>
+            )}
+          </div>
+        ) : (
+          <p className="text-[14px] text-[#767676]">—</p>
+        )}
+
+        {/* Ürün adı — SONRA */}
+        <Link
+          href={`/urunler/${product.slug}`}
+          className="text-[13px] text-[#767676] leading-snug line-clamp-2 hover:text-[#00179e] transition-colors min-h-[2.4rem]"
+        >
+          {product.name}
+        </Link>
+
+        {/* Stok durumu — sadece kritik durumlarda */}
+        {!product.stock.isAvailable ? (
+          <p className="text-[11px] text-[#c82333] font-medium">Stok Yok</p>
+        ) : product.stock.quantity < 5 ? (
+          <p className="text-[11px] text-amber-600 font-medium">Son {product.stock.quantity} adet</p>
+        ) : null}
+
+        {/* Inline marka/kategori dropdown'ları */}
+        {showDropdowns && (
+          <div className="flex flex-col gap-0.5 mt-1" onClick={(e) => e.stopPropagation()}>
+            {brands && brands.length > 0 && (
+              <select
+                value={product.brand?.id ?? ""}
+                disabled={updating}
+                onChange={(e) => handleFieldChange("brandId", e.target.value)}
+                className={cn(
+                  "w-full text-xs py-0.5 px-1 rounded border bg-transparent outline-none cursor-pointer",
+                  "border-transparent hover:border-gray-300 focus:border-[#00179e] transition-colors",
+                  flash["brandId"] === "ok" && "border-green-500 text-green-700",
+                  flash["brandId"] === "err" && "border-red-500 text-red-600",
+                )}
+                aria-label="Marka seç"
+              >
+                <option value="">— Marka Seç —</option>
+                {brands.map((b) => (
+                  <option key={b.id} value={b.id}>{b.name}</option>
+                ))}
+              </select>
+            )}
+            {flatCategories.length > 0 && (
+              <select
+                value={product.category?.id ?? ""}
+                disabled={updating}
+                onChange={(e) => handleFieldChange("categoryId", e.target.value)}
+                className={cn(
+                  "w-full text-xs py-0.5 px-1 rounded border bg-transparent outline-none cursor-pointer",
+                  "border-transparent hover:border-gray-300 focus:border-[#00179e] transition-colors text-[#767676]",
+                  flash["categoryId"] === "ok" && "border-green-500 text-green-700",
+                  flash["categoryId"] === "err" && "border-red-500 text-red-600",
+                )}
+                aria-label="Kategori seç"
+              >
+                <option value="">— Kategori Seç —</option>
+                {flatCategories.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.depth > 0 ? `${"  ".repeat(c.depth)}↳ ` : ""}{c.name}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
+        )}
+      </div>
+    </article>
+  )
+}
+
+export function ProductCardSkeleton() {
+  return (
+    <div className="flex flex-col bg-white animate-pulse">
+      <div className="aspect-square bg-[#f5f5f5]" />
+      <div className="pt-2.5 pb-3 px-1 space-y-2">
+        <div className="h-4 w-24 bg-[#f5f5f5] rounded" />
+        <div className="h-3.5 w-full bg-[#f5f5f5] rounded" />
+        <div className="h-3.5 w-3/4 bg-[#f5f5f5] rounded" />
+      </div>
+    </div>
+  )
+}
