@@ -50,12 +50,6 @@ export async function checkStock(
   }
 
   const totalStock = suppliers.reduce((sum, s) => sum + s.stockQuantity, 0);
-  const stockInfo = suppliers
-    .map(
-      (s) =>
-        `• ${s.supplier.name}: ${s.stockQuantity} adet`,
-    )
-    .join("\n");
 
-  return `📦 Ürün: ${product.name}${product.brand ? ` — ${product.brand.name}` : ""}\n\nStok Durumu:\n${stockInfo}\n\nToplam: ${totalStock} adet`;
+  return `📦 Ürün: ${product.name}${product.brand ? ` — ${product.brand.name}` : ""}\n\nStok: ${totalStock} adet`;
 }

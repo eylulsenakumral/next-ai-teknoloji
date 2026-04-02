@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { PublicHeader } from "@/components/public/public-header"
 import { PublicFooter } from "@/components/public/public-footer"
+import { WhatsAppButton } from "@/components/whatsapp-button"
 
 export const metadata: Metadata = {
   title: {
@@ -21,6 +22,7 @@ export default function PublicLayout({
       <PublicHeader />
       <main className="flex-1 w-full">{children}</main>
       <PublicFooter />
+      <WhatsAppButton />
     </div>
   )
 }

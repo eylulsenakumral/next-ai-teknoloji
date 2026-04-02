@@ -14,6 +14,8 @@ import "dotenv/config"
 import { PrismaClient } from "@prisma/client"
 import { PrismaPg } from "@prisma/adapter-pg"
 import pg from "pg"
+import fs from "fs"
+import path from "path"
 
 // ============================================================================
 // DB BAĞLANTISI (proje standardı)
@@ -92,6 +94,27 @@ const TAŞIMA_KURALLARI: MoveRule[] = [
   // --- Root'ta kalsın ama pasif yapılsın ---
   { wrongSlug: "diger-urunler",       correctParentSlug: "keep-as-root-inactive",   aciklama: "Tampon kategori → root'ta kalır, pasif işaretlenir" },
 ]
+
+// ============================================================================
+// ÜRÜN EŞLEME VERİSİ
+// ============================================================================
+
+interface UrunEslesme {
+  productId: string
+  productName: string
+  fromCategory: string
+  toCategory: string
+  toCategorySlug: string
+  confidence: string
+  reason: string
+}
+
+function eslesmeVerisiniYukle(): UrunEslesme[] {
+  const dosyaYolu = path.join(__dirname, "..", "data", "category-reassignment.json")
+  const ham = fs.readFileSync(dosyaYolu, "utf-8")
+  const veri = JSON.parse(ham)
+  return veri.matched as UrunEslesme[]
+}
 
 // ============================================================================
 // YARDIMCI TİPLER
@@ -329,6 +352,50 @@ async function main() {
   console.log("=".repeat(70))
   console.log()
 
+  // --------------------------------------------------------------------------
+  // FAZE 2.5: Ürün eşleme verisini yükle ve analiz et
+  // --------------------------------------------------------------------------
+  console.log("[FAZE 2.5] Ürün eşleme verisi yükleniyor...")
+
+  const urunEslesmeleri = eslesmeVerisiniYukle()
+  console.log(`  Eşleşen ürün sayısı: ${urunEslesmeleri.length}`)
+
+  // Eşleşen slug'ları doğrula
+  const slugSet = new Set(slugMap.keys())
+  const gecersizSluglar = new Set<string>()
+  for (const es of urunEslesmeleri) {
+    if (!slugSet.has(es.toCategorySlug)) {
+      gecersizSluglar.add(es.toCategorySlug)
+    }
+  }
+  if (gecersizSluglar.size > 0) {
+    console.log(`  UYARI: ${gecersizSluglar.size} geçersiz hedef slug bulundu:`)
+    for (const s of gecersizSluglar) console.log(`    - ${s}`)
+  }
+
+  // Confidence dağılımı
+  const confidenceDagilimi = new Map<string, number>()
+  for (const es of urunEslesmeleri) {
+    confidenceDagilimi.set(es.confidence, (confidenceDagilimi.get(es.confidence) ?? 0) + 1)
+  }
+  console.log("  Confidence dağılımı:")
+  for (const [conf, sayi] of confidenceDagilimi) {
+    console.log(`    ${conf}: ${sayi}`)
+  }
+
+  // Hedef kategori dağılımı (top 10)
+  const hedefDagilimi = new Map<string, number>()
+  for (const es of urunEslesmeleri) {
+    hedefDagilimi.set(es.toCategorySlug, (hedefDagilimi.get(es.toCategorySlug) ?? 0) + 1)
+  }
+  const topHedefler = [...hedefDagilimi.entries()].sort((a, b) => b[1] - a[1]).slice(0, 10)
+  console.log("  En çok atanan hedef kategoriler (top 10):")
+  for (const [slug, sayi] of topHedefler) {
+    const kat = slugMap.get(slug)
+    console.log(`    ${kat?.name ?? slug}: ${sayi} ürün`)
+  }
+  console.log()
+
   if (DRY_RUN) {
     console.log("  DRY-RUN modu: Veritabanına HİÇBİR ŞEYE YAZILMADI.")
     console.log("  Çalıştırmak için: npx tsx scripts/fix-root-categories.ts --execute")
@@ -341,6 +408,7 @@ async function main() {
       tasimaIslemleri.filter((i) => i.kural.correctParentSlug !== "keep-as-root-inactive").length
     console.log(`  Mevcut root sayısı:  ${mevcutRootSayisi}`)
     console.log(`  İşlem sonrası beklenen root: ${yeniRootSayisi}`)
+    console.log(`  Taşınacak ürün:     ${urunEslesmeleri.length}`)
     console.log()
 
     await prisma.$disconnect()
@@ -424,6 +492,53 @@ async function main() {
           }
         }
       }
+
+      // ====================================================================
+      // FAZE 3.5: Ürünleri doğru kategorilere taşı
+      // ====================================================================
+      console.log()
+      console.log("  [FAZE 3.5] Ürünler doğru kategorilere taşınıyor...")
+
+      let urunGuncellemeSayaci = 0
+      const BATCH_SIZE = 50
+
+      // Hedef slug → id haritası
+      const hedefSlugIdMap = new Map<string, string>()
+      for (const es of urunEslesmeleri) {
+        if (!hedefSlugIdMap.has(es.toCategorySlug)) {
+          const kat = slugMap.get(es.toCategorySlug)
+          if (kat) hedefSlugIdMap.set(es.toCategorySlug, kat.id)
+        }
+      }
+
+      // Toplu güncelleme (aynı hedef kategoriye giden ürünleri grupla)
+      const slugGruplari = new Map<string, string[]>()
+      for (const es of urunEslesmeleri) {
+        const katId = hedefSlugIdMap.get(es.toCategorySlug)
+        if (!katId) {
+          console.log(`    UYARI: "${es.productName}" → "${es.toCategorySlug}" slug bulunamadı, atlanıyor`)
+          continue
+        }
+        if (!slugGruplari.has(katId)) slugGruplari.set(katId, [])
+        slugGruplari.get(katId)!.push(es.productId)
+      }
+
+      for (const [hedefKatId, urunIdleri] of slugGruplari) {
+        // Her ürünü tek tek güncelle (doğruluk için)
+        for (let i = 0; i < urunIdleri.length; i += BATCH_SIZE) {
+          const batch = urunIdleri.slice(i, i + BATCH_SIZE)
+          const sonuc = await tx.product.updateMany({
+            where: { id: { in: batch }, deletedAt: null },
+            data: { categoryId: hedefKatId },
+          })
+          urunGuncellemeSayaci += sonuc.count
+        }
+        const hedefSlug = [...hedefSlugIdMap.entries()].find(([, id]) => id === hedefKatId)?.[0] ?? hedefKatId
+        console.log(`    ${urunIdleri.length} ürün → ${hedefSlug} (${urunGuncellemeSayaci}/${urunEslesmeleri.length})`)
+      }
+
+      console.log(`  Toplam taşınan ürün: ${urunGuncellemeSayaci}`)
+      toplamGuncellenenUrun = urunGuncellemeSayaci
     })
 
     console.log()
@@ -436,11 +551,12 @@ async function main() {
   }
 
   // --------------------------------------------------------------------------
-  // FAZE 4: Etkilenen ürünleri say (bilgi amaçlı, ürünleri taşımıyoruz)
+  // FAZE 4: Boş kategorileri temizle
   // --------------------------------------------------------------------------
   console.log()
-  console.log("[FAZE 4] Ürün etki raporu hazırlanıyor...")
+  console.log("[FAZE 4] Boş kategoriler kontrol ediliyor...")
 
+  // Eski yanlış root kategorilerinde ürün kaldı mı kontrol et
   for (const islem of tasimaIslemleri) {
     if (islem.kural.correctParentSlug === "keep-as-root-inactive") continue
 
@@ -449,13 +565,16 @@ async function main() {
       ...islem.altKategoriler.map((k) => k.id),
     ]
 
-    const urunSayisi = await prisma.product.count({
+    const kalanUrun = await prisma.product.count({
       where: {
         deletedAt: null,
         categoryId: { in: etkilenenKatIdleri },
       },
     })
-    toplamGuncellenenUrun += urunSayisi
+
+    if (kalanUrun > 0) {
+      console.log(`  UYARI: "${islem.yanliKategori.name}" içinde hala ${kalanUrun} ürün var`)
+    }
   }
 
   // --------------------------------------------------------------------------

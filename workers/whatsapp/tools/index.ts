@@ -3,10 +3,12 @@
 // ============================================================================
 import type { ToolDefinition, ConversationContext } from "../types";
 import { searchProducts } from "./product-search";
+import { getProductDetails } from "./product-details";
 import { checkStock } from "./stock-check";
 import { inquiryPrice } from "./price-inquiry";
 import { createOrder } from "./order-create";
 import { getCustomerInfo } from "./customer-info";
+import { getCategories } from "./categories";
 
 // ---------------------------------------------------------------------------
 // Tool Definitions (OpenAI function calling format)
@@ -17,7 +19,7 @@ export const toolDefinitions: ToolDefinition[] = [
     function: {
       name: "search_products",
       description:
-        "Ürün ara. İsim, marka veya kategori ile arama yap. Müşteri bir ürün sorduğunda kullan.",
+        "Ürün ara. Müşteri bir ürün sorduğunda (kamera, kayıt cihazı, switch vb.) KULLAN. İsim, marka veya kategori ile arama yap.",
       parameters: {
         type: "object",
         properties: {
@@ -31,6 +33,40 @@ export const toolDefinitions: ToolDefinition[] = [
           },
         },
         required: ["query"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_product_details",
+      description:
+        "Ürünün TÜM detaylarını getir. Özellikler, teknik spesifikasyonlar, disk kapasitesi, kanal sayısı, çözünürlük, PoE desteği gibi teknik bilgiler. Ürün bulunduktan sonra MUTLAKA kullan.",
+      parameters: {
+        type: "object",
+        properties: {
+          productId: {
+            type: "string",
+            description: "Ürün UUID'si",
+          },
+          productName: {
+            type: "string",
+            description: "Ürün adı (productId yoksa)",
+          },
+        },
+        required: [],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_categories",
+      description:
+        "Tüm ürün kategorilerini listele. Müşteri kategorileri görmek isterse veya hangi kategorilerin olduğunu öğrenmek için kullan.",
+      parameters: {
+        type: "object",
+        properties: {},
       },
     },
   },
@@ -61,7 +97,7 @@ export const toolDefinitions: ToolDefinition[] = [
     function: {
       name: "inquiry_price",
       description:
-        "Ürün fiyat bilgisi ver. Alış fiyatı gizlenir, sadece satış fiyatı (alış + marj) gösterilir.",
+        "Ürün fiyat bilgisi ver. DOĞRULAMAYA GÖRE: Bayi=alış+marj, Misafir=manualPrice.",
       parameters: {
         type: "object",
         properties: {
@@ -134,6 +170,13 @@ export async function executeTool(
   switch (name) {
     case "search_products":
       return searchProducts(args.query as string, (args.limit as number) ?? 5);
+    case "get_product_details":
+      return getProductDetails(
+        args.productId as string | undefined,
+        args.productName as string | undefined,
+      );
+    case "get_categories":
+      return getCategories();
     case "check_stock":
       return checkStock(
         args.productId as string | undefined,
@@ -146,12 +189,13 @@ export async function executeTool(
         context,
       );
     case "create_order":
+      const orderItems = args.items as Array<{
+        productId: string;
+        supplierProductId?: string;
+        quantity: number;
+      }>;
       return createOrder(
-        args.items as Array<{
-          productId: string;
-          supplierProductId?: string;
-          quantity: number;
-        }>,
+        orderItems,
         args.notes as string | undefined,
         context,
       );

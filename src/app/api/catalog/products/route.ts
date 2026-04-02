@@ -56,6 +56,26 @@ export async function GET(req: NextRequest) {
     ]
   }
 
+  // Kategori filtresi: seçilen kategori + tüm alt kategorileri dahil et
+  let categoryFilter: Record<string, unknown> = {}
+  if (categoryId) {
+    const allCats = await prisma.category.findMany({
+      where: { deletedAt: null },
+      select: { id: true, parentId: true },
+    })
+    const descendantIds = new Set<string>([categoryId])
+    function findDescendants(parentId: string) {
+      for (const c of allCats) {
+        if (c.parentId === parentId && !descendantIds.has(c.id)) {
+          descendantIds.add(c.id)
+          findDescendants(c.id)
+        }
+      }
+    }
+    findDescendants(categoryId)
+    categoryFilter = { categoryId: { in: [...descendantIds] } }
+  }
+
   const where: Record<string, unknown> = {
     deletedAt: null,
     isActive: true,
@@ -70,7 +90,7 @@ export async function GET(req: NextRequest) {
         }
       : {}),
     ...(brandId ? { brandId } : {}),
-    ...(categoryId ? { categoryId } : {}),
+    ...categoryFilter,
     ...(supplierId
       ? { supplierProducts: { some: { supplierId, deletedAt: null } } }
       : {}),

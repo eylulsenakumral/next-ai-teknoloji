@@ -7,7 +7,8 @@ import { getConnectionStatus, getSocket } from "@/lib/whatsapp/client";
 export async function GET() {
   const status = getConnectionStatus();
   const sock = getSocket();
-  const user = sock?.user;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const user = (sock as any)?.user;
 
   return NextResponse.json({
     status,
