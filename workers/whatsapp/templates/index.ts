@@ -3,8 +3,19 @@
 // ============================================================================
 
 export const TEMPLATES = {
-  welcome(name: string): string {
-    return `Merhaba ${name}! 👋\n\nNexaDepo WhatsApp satış asistanına hoş geldiniz.\n\nSize yardımcı olabileceğim konular:\n• 🔍 Ürün arama\n• 📦 Stok kontrolü\n• 💰 Fiyat bilgisi\n• 🛒 Sipariş oluşturma\n• 👤 Hesap bilgileriniz\n\nNasıl yardımcı olabilirim?`;
+  welcome(name: string, isVerified: boolean = false): string {
+    if (isVerified) {
+      return `Merhaba ${name}! 👋\n\nNexaDepo ürün danışmanına hoş geldiniz.\n✅ Bayi hesabınız doğrulandı.\n\nNasıl yardımcı olabilirim?\n• 🔍 Ürün arama\n• 📦 Stok kontrolü\n• 💰 Fiyat bilgisi\n• 📋 Teknik danışmanlık`;
+    }
+    return `Merhaba! 👋\n\nNexaDepo ürün danışmanına hoş geldiniz.\n\nSize yardımcı olabilirim:\n• 🔍 Ürün arama ve öneri\n• 📦 Stok kontrolü\n• 💰 Fiyat bilgisi\n• 📋 Teknik özellik danışmanlığı`;
+  },
+
+  verifyPrompt(): string {
+    return `🔐 *Bayi Doğrulama*\n\nBayi fiyatlarını görmek için lütfen aşağıdaki bilgilerden birini girin:\n\n• *Bayi Kodunuz* - Örn: 12345\n• *Vergi Kimlik Numaranız* - Örn: 1234567890\n\nKomut örneği:\n➡️ "DOĞRULA 12345" veya "DOĞRULA 1234567890"\n\nDoğrulamak istemiyorsanız normal şekilde ürün sorabilirsiniz, son kullanıcı fiyatlarını gösteririm.`;
+  },
+
+  verifyReminder(): string {
+    return `🔔 *Hatırlatma*\n\nBayi fiyatlarınızı görmek için doğrulama yapabilirsiniz.\n\nKomut: *DOĞRULA [bayi_kodu]* veya *DOĞRULA [vergi_no]*\n\nDoğruladıktan sonra özel fiyatlarınızı görüntüleyebilirsiniz.`;
   },
 
   productInfo(product: {

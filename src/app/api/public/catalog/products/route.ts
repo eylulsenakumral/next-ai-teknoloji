@@ -20,12 +20,38 @@ export async function GET(req: NextRequest) {
           ? { name: "desc" as const }
           : { createdAt: "desc" as const }
 
+    // Kategori filtresi: seçilen kategori + tüm alt kategorileri dahil et
+    let categoryFilter: Record<string, unknown> = {}
+    if (categorySlug) {
+      const cat = await prisma.category.findFirst({
+        where: { slug: categorySlug, deletedAt: null, isActive: true },
+        select: { id: true },
+      })
+      if (cat) {
+        const allCats = await prisma.category.findMany({
+          where: { deletedAt: null, isActive: true },
+          select: { id: true, parentId: true },
+        })
+        const descendantIds = new Set<string>([cat.id])
+        function findDescendants(parentId: string) {
+          for (const c of allCats) {
+            if (c.parentId === parentId && !descendantIds.has(c.id)) {
+              descendantIds.add(c.id)
+              findDescendants(c.id)
+            }
+          }
+        }
+        findDescendants(cat.id)
+        categoryFilter = { categoryId: { in: [...descendantIds] } }
+      }
+    }
+
     const where = {
       deletedAt: null,
       isActive: true,
       ...(search ? { name: { contains: search, mode: "insensitive" as const } } : {}),
       ...(brandSlug ? { brand: { slug: brandSlug } } : {}),
-      ...(categorySlug ? { category: { slug: categorySlug } } : {}),
+      ...categoryFilter,
       ...(inStock
         ? { supplierProducts: { some: { deletedAt: null, isAvailable: true, stockQuantity: { gt: 0 } } } }
         : {}),

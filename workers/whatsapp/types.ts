@@ -37,6 +37,8 @@ export interface ConversationContext {
   customerId?: string;
   customerName?: string;
   dealerCode?: string;
+  isVerified?: boolean;        // Bayi doğrulandı mı?
+  verificationMethod?: "phone" | "dealer_code" | "tax_id"; // Nasıl doğrulandı
   lastIntent?: string;
   lastProducts?: Array<{ id: string; name: string }>;
   lastSearch?: string;

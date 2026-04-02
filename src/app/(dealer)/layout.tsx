@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { DealerHeader } from "@/components/layout/dealer-header"
 import { DealerFooter } from "@/components/layout/dealer-footer"
+import { WhatsAppButton } from "@/components/whatsapp-button"
 
 export const metadata: Metadata = {
   title: {
@@ -21,6 +22,7 @@ export default function DealerLayout({
         {children}
       </main>
       <DealerFooter />
+      <WhatsAppButton />
     </div>
   )
 }

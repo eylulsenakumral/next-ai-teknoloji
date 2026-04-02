@@ -77,8 +77,8 @@ export async function searchProducts(
       (r, i) =>
         `${i + 1}. ${r.name}${r.brand ? ` — ${r.brand}` : ""}${r.category ? ` (${r.category})` : ""}` +
         (r.bestSupplier
-          ? `\n   Tedarikçi: ${r.bestSupplier.supplier} | Stok: ${r.bestSupplier.stock} adet`
-          : "\n   Tedarikçi bulunamadı"),
+          ? `\n   Stok: ${r.bestSupplier.stock} adet`
+          : "\n   Stok bilgisi mevcut değil"),
     )
     .join("\n\n");
 

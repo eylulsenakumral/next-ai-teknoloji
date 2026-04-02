@@ -26,14 +26,17 @@ type PrismaCategory = {
 }
 
 function mapCategory(cat: PrismaCategory): CategoryTreeNode {
+  const children = (cat.children ?? []).map(mapCategory)
+  // Alt kategorilerdeki ürünleri de dahil et
+  const childrenProductCount = children.reduce((sum, c) => sum + c.productCount, 0)
   return {
     id: cat.id,
     name: cat.name,
     slug: cat.slug,
     parentId: cat.parentId,
     depth: cat.depth,
-    productCount: cat._count.products,
-    children: (cat.children ?? []).map(mapCategory),
+    productCount: cat._count.products + childrenProductCount,
+    children,
   }
 }
 
