@@ -420,24 +420,13 @@ export async function syncProducts(token: string): Promise<SyncProductsResult> {
         brandId = brand.id
       }
 
-      // 2. Category eşleştir veya oluştur
+      // 2. Category eşleştir - SADECE BUL, otomatik oluşturma
       let categoryId: string | undefined
       if (categoryName) {
         let cat = await prisma.category.findFirst({
           where: { name: { equals: categoryName, mode: "insensitive" }, deletedAt: null },
         })
-        if (!cat) {
-          const catSlug = categoryName.toLowerCase().replace(/[^a-z0-9ğüşıöçĞÜŞİÖÇ]+/g, "-").replace(/^-|-$/g, "") || `cat-${Date.now()}`
-          cat = await prisma.category.findFirst({ where: { slug: catSlug, deletedAt: null } })
-          if (!cat) {
-            try {
-              cat = await prisma.category.create({ data: { name: categoryName, slug: catSlug, depth: 0, sortOrder: 0, path: categoryName.toLowerCase() } })
-            } catch {
-              cat = await prisma.category.create({ data: { name: categoryName, slug: `${catSlug}-${Date.now()}`, depth: 0, sortOrder: 0, path: categoryName.toLowerCase() } })
-            }
-          }
-        }
-        categoryId = cat.id
+        categoryId = cat?.id ?? undefined
       }
 
       // 3. Ürünü barkod → sku → bizimhesap_id sırasıyla bul

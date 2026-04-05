@@ -48,29 +48,29 @@ interface MoveRule {
 
 const TAŞIMA_KURALLARI: MoveRule[] = [
   // --- CCTV altına alınacak markalar ---
-  { wrongSlug: "dahua",               correctParentSlug: "cctv",                    aciklama: "Marka adı → CCTV altına" },
-  { wrongSlug: "tiandy",              correctParentSlug: "cctv",                    aciklama: "Marka adı → CCTV altına" },
-  { wrongSlug: "cnb",                 correctParentSlug: "cctv",                    aciklama: "Marka adı → CCTV altına" },
-  { wrongSlug: "hikvision",           correctParentSlug: "cctv",                    aciklama: "Marka adı → CCTV altına" },
+  { wrongSlug: "dahua",               correctParentSlug: "guvenlik-cctv",                    aciklama: "Marka adı → CCTV altına" },
+  { wrongSlug: "tiandy",              correctParentSlug: "guvenlik-cctv",                    aciklama: "Marka adı → CCTV altına" },
+  { wrongSlug: "cnb",                 correctParentSlug: "guvenlik-cctv",                    aciklama: "Marka adı → CCTV altına" },
+  { wrongSlug: "hikvision",           correctParentSlug: "guvenlik-cctv",                    aciklama: "Marka adı → CCTV altına" },
 
   // --- CCTV altına alınacak alt kategoriler ---
-  { wrongSlug: "hdcvi-kamera",        correctParentSlug: "cctv",                    aciklama: "Alt kategori → CCTV altına" },
-  { wrongSlug: "hdcvi-urunler",       correctParentSlug: "cctv",                    aciklama: "Alt kategori → CCTV altına" },
-  { wrongSlug: "ip-urunler",          correctParentSlug: "cctv",                    aciklama: "Alt kategori → CCTV altına" },
-  { wrongSlug: "ex-proof-ve-anti-korozyon", correctParentSlug: "cctv",             aciklama: "Alt kategori → CCTV altına" },
-  { wrongSlug: "goruntuleme-ve-kontrol",    correctParentSlug: "cctv",             aciklama: "Alt kategori → CCTV altına" },
-  { wrongSlug: "trafik-cozumleri",    correctParentSlug: "cctv",                    aciklama: "Alt kategori → CCTV altına" },
-  { wrongSlug: "mobil-urunler",       correctParentSlug: "cctv",                    aciklama: "Alt kategori → CCTV altına" },
-  { wrongSlug: "lazer-termal-urunler",correctParentSlug: "cctv",                    aciklama: "Alt kategori → CCTV altına" },
+  { wrongSlug: "hdcvi-kamera",        correctParentSlug: "guvenlik-cctv",                    aciklama: "Alt kategori → CCTV altına" },
+  { wrongSlug: "hdcvi-urunler",       correctParentSlug: "guvenlik-cctv",                    aciklama: "Alt kategori → CCTV altına" },
+  { wrongSlug: "ip-urunler",          correctParentSlug: "guvenlik-cctv",                    aciklama: "Alt kategori → CCTV altına" },
+  { wrongSlug: "ex-proof-ve-anti-korozyon", correctParentSlug: "guvenlik-cctv",             aciklama: "Alt kategori → CCTV altına" },
+  { wrongSlug: "goruntuleme-ve-kontrol",    correctParentSlug: "guvenlik-cctv",             aciklama: "Alt kategori → CCTV altına" },
+  { wrongSlug: "trafik-cozumleri",    correctParentSlug: "guvenlik-cctv",                    aciklama: "Alt kategori → CCTV altına" },
+  { wrongSlug: "mobil-urunler",       correctParentSlug: "guvenlik-cctv",                    aciklama: "Alt kategori → CCTV altına" },
+  { wrongSlug: "lazer-termal-urunler",correctParentSlug: "guvenlik-cctv",                    aciklama: "Alt kategori → CCTV altına" },
 
   // --- CCTV altına alınacak özellik değerleri (megapixel) ---
-  { wrongSlug: "12-megapixel",        correctParentSlug: "cctv",                    aciklama: "Özellik değeri → CCTV altına" },
-  { wrongSlug: "2-megapixel",         correctParentSlug: "cctv",                    aciklama: "Özellik değeri → CCTV altına" },
-  { wrongSlug: "3-megapiksel",        correctParentSlug: "cctv",                    aciklama: "Özellik değeri → CCTV altına" },
-  { wrongSlug: "4-megapixel",         correctParentSlug: "cctv",                    aciklama: "Özellik değeri → CCTV altına" },
-  { wrongSlug: "4k-serisi",           correctParentSlug: "cctv",                    aciklama: "Özellik değeri → CCTV altına" },
-  { wrongSlug: "5-megapixel",         correctParentSlug: "cctv",                    aciklama: "Özellik değeri → CCTV altına" },
-  { wrongSlug: "8-megapixel",         correctParentSlug: "cctv",                    aciklama: "Özellik değeri → CCTV altına" },
+  { wrongSlug: "12-megapixel",        correctParentSlug: "guvenlik-cctv",                    aciklama: "Özellik değeri → CCTV altına" },
+  { wrongSlug: "2-megapixel",         correctParentSlug: "guvenlik-cctv",                    aciklama: "Özellik değeri → CCTV altına" },
+  { wrongSlug: "3-megapiksel",        correctParentSlug: "guvenlik-cctv",                    aciklama: "Özellik değeri → CCTV altına" },
+  { wrongSlug: "4-megapixel",         correctParentSlug: "guvenlik-cctv",                    aciklama: "Özellik değeri → CCTV altına" },
+  { wrongSlug: "4k-serisi",           correctParentSlug: "guvenlik-cctv",                    aciklama: "Özellik değeri → CCTV altına" },
+  { wrongSlug: "5-megapixel",         correctParentSlug: "guvenlik-cctv",                    aciklama: "Özellik değeri → CCTV altına" },
+  { wrongSlug: "8-megapixel",         correctParentSlug: "guvenlik-cctv",                    aciklama: "Özellik değeri → CCTV altına" },
 
   // --- Geçiş Kontrol & Alarm altına alınacaklar ---
   { wrongSlug: "vth",                 correctParentSlug: "gecis-kontrol-alarm",     aciklama: "Dahua VTH kapı telefonu → Geçiş Kontrol altına" },

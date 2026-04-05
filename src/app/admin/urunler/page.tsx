@@ -15,6 +15,7 @@ import {
   List,
   Filter,
   ChevronDown,
+  AlertCircle,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -132,6 +133,7 @@ export default function UrunlerPage() {
   const [filterFeatured, setFilterFeatured] = useState(false)
   const [filterNew, setFilterNew] = useState(false)
   const [filterOutlet, setFilterOutlet] = useState(false)
+  const [filterUncategorized, setFilterUncategorized] = useState(false)
   const [sortBy, setSortBy] = useState<SortBy>("createdAt")
   const [sortOrder, setSortOrder] = useState<SortOrder>("desc")
   const [page, setPage] = useState(1)
@@ -246,6 +248,7 @@ export default function UrunlerPage() {
     if (filterFeatured) params.set("isFeatured", "true")
     if (filterNew) params.set("isNew", "true")
     if (filterOutlet) params.set("isOutlet", "true")
+    if (filterUncategorized) params.set("hasCategory", "false")
 
     const res = await fetch(`/api/products?${params}`)
     if (res.ok) {
@@ -255,7 +258,7 @@ export default function UrunlerPage() {
       // brands/categories/suppliers ayrı useEffect'te yükleniyor
     }
     setLoading(false)
-  }, [page, limit, debouncedSearch, filterBrand, filterCategory, filterSupplier, filterStatus, filterStock, filterFeatured, filterNew, filterOutlet, sortBy, sortOrder, publishTab])
+  }, [page, limit, debouncedSearch, filterBrand, filterCategory, filterSupplier, filterStatus, filterStock, filterFeatured, filterNew, filterOutlet, filterUncategorized, sortBy, sortOrder, publishTab])
 
   useEffect(() => { fetchProducts() }, [fetchProducts])
 
@@ -317,6 +320,7 @@ export default function UrunlerPage() {
   const activeFilterCount = [
     filterBrand, filterCategory, filterSupplier, filterStatus, filterStock,
     filterFeatured ? "1" : "", filterNew ? "1" : "", filterOutlet ? "1" : "",
+    filterUncategorized ? "1" : "",
   ].filter(Boolean).length
 
   return (
@@ -337,6 +341,32 @@ export default function UrunlerPage() {
           Yeni Ürün Ekle
         </Link>
       </div>
+
+      {/* Kategorisiz Ürünler Quick Access */}
+      <button
+        type="button"
+        onClick={() => {
+          setFilterUncategorized(!filterUncategorized)
+          if (!filterUncategorized) {
+            setFilterCategory("")
+            setShowFilters(true)
+          }
+        }}
+        className={cn(
+          "inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-medium transition-colors w-fit",
+          filterUncategorized
+            ? "bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-700"
+            : "border-amber-200 text-amber-700 hover:bg-amber-50 dark:border-amber-800 dark:text-amber-400 dark:hover:bg-amber-950/30"
+        )}
+      >
+        <AlertCircle className="h-4 w-4" />
+        Kategorisiz Ürünler
+        {filterUncategorized && meta && (
+          <span className="bg-amber-200 text-amber-800 dark:bg-amber-800 dark:text-amber-200 rounded-full px-1.5 py-0.5 text-xs font-bold">
+            {meta.total.toLocaleString("tr-TR")}
+          </span>
+        )}
+      </button>
 
       {/* Yayın Durumu Tab'ları */}
       <div className="flex rounded-lg border border-input overflow-hidden text-sm w-fit">
@@ -536,6 +566,7 @@ export default function UrunlerPage() {
                   { key: "filterFeatured", label: "Öne Çıkan", val: filterFeatured, set: setFilterFeatured },
                   { key: "filterNew", label: "Yeni", val: filterNew, set: setFilterNew },
                   { key: "filterOutlet", label: "Outlet", val: filterOutlet, set: setFilterOutlet },
+                  { key: "filterUncategorized", label: "Kategorisiz", val: filterUncategorized, set: setFilterUncategorized },
                 ].map(({ key, label, val, set }) => (
                   <button
                     key={key}
@@ -565,6 +596,7 @@ export default function UrunlerPage() {
                       setFilterFeatured(false)
                       setFilterNew(false)
                       setFilterOutlet(false)
+                      setFilterUncategorized(false)
                     }}
                   >
                     Filtreleri Temizle

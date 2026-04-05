@@ -13,6 +13,22 @@ interface ProductFiltersProps {
   onChange: (updated: Partial<ProductFilters>) => void
 }
 
+const depthPad: Record<number, string> = {
+  0: "pl-0",
+  1: "pl-3",
+  2: "pl-6",
+  3: "pl-8",
+  4: "pl-9",
+}
+
+const depthFont: Record<number, string> = {
+  0: "text-[13px]",
+  1: "text-[12px]",
+  2: "text-[11px]",
+  3: "text-[11px]",
+  4: "text-[10px]",
+}
+
 function CategoryItem({
   category,
   selectedId,
@@ -35,8 +51,8 @@ function CategoryItem({
     <div>
       <div
         className={cn(
-          "flex items-center gap-1",
-          depth > 0 && "pl-4"
+          "flex items-center gap-0.5",
+          depthPad[depth] ?? depthPad[4]
         )}
       >
         {hasChildren ? (
@@ -59,8 +75,10 @@ function CategoryItem({
         <button
           type="button"
           onClick={() => onSelect(isSelected ? "" : category.id)}
+          title={category.name}
           className={cn(
-            "flex-1 flex items-center justify-between py-1.5 px-2 text-[13px] transition-colors text-left",
+            "flex-1 flex items-center justify-between py-1 px-1.5 transition-colors text-left min-w-0",
+            depthFont[depth] ?? depthFont[4],
             isSelected
               ? "text-[#00179e] font-semibold"
               : "text-[#767676] hover:text-[#00179e]"
@@ -68,14 +86,14 @@ function CategoryItem({
           aria-pressed={isSelected}
         >
           <span className="truncate">{category.name}</span>
-          <span className="text-[11px] text-[#767676] shrink-0 ml-1 tabular-nums">
+          <span className="text-[10px] text-[#767676] shrink-0 ml-1 tabular-nums">
             ({category._count?.products ?? 0})
           </span>
         </button>
       </div>
 
       {hasChildren && expanded && (
-        <div className="mt-0.5">
+        <div>
           {category.children!.map((child) => (
             <CategoryItem
               key={child.id}
@@ -208,39 +226,6 @@ export function ProductFilters({
         </FilterSection>
       )}
 
-      {/* Tedarikçiler */}
-      {suppliers.length > 0 && (
-        <FilterSection title="Tedarikçiler">
-          <div
-            className="space-y-0 max-h-40 overflow-y-auto"
-            role="group"
-            aria-label="Tedarikçi filtresi"
-          >
-            {suppliers.map((supplier) => {
-              const checked = filters.supplierId === supplier.id
-              return (
-                <label
-                  key={supplier.id}
-                  className="flex items-center gap-2.5 py-1.5 cursor-pointer hover:text-[#00179e] transition-colors"
-                >
-                  <input
-                    type="checkbox"
-                    checked={checked}
-                    onChange={() =>
-                      onChange({ supplierId: checked ? "" : supplier.id, page: 1 })
-                    }
-                    aria-label={`${supplier.name} tedarikçisini filtrele`}
-                    className="h-3.5 w-3.5 border-[#eeeeee] text-[#00179e] focus:ring-[#00179e] focus:ring-offset-0 accent-[#00179e]"
-                  />
-                  <span className="text-[13px] text-[#767676] flex-1 truncate hover:text-[#00179e]">
-                    {supplier.name}
-                  </span>
-                </label>
-              )
-            })}
-          </div>
-        </FilterSection>
-      )}
 
       {/* Fiyat aralığı */}
       <FilterSection title="Fiyat Aralığı">
@@ -283,39 +268,6 @@ export function ProductFilters({
         </div>
       </FilterSection>
 
-      {/* Stok Durumu */}
-      <FilterSection title="Stok Durumu">
-        <div className="flex flex-col gap-1" role="group" aria-label="Stok durumu filtresi">
-          {[
-            { value: "", label: "Tümü" },
-            { value: "in", label: "Stokta" },
-            { value: "out", label: "Stok Yok" },
-          ].map(({ value, label }) => {
-            const stockValue = filters.inStock === true ? "in" : filters.inStock === false ? "out" : ""
-            const isSelected = stockValue === value
-            return (
-              <button
-                key={value}
-                type="button"
-                onClick={() => {
-                  if (value === "in") onChange({ inStock: true, page: 1 })
-                  else if (value === "out") onChange({ inStock: false, page: 1 })
-                  else onChange({ inStock: undefined as unknown as boolean, page: 1 })
-                }}
-                className={cn(
-                  "flex items-center gap-2.5 py-1.5 px-2 text-[13px] transition-colors text-left rounded",
-                  isSelected
-                    ? "text-[#00179e] font-semibold bg-[#00179e]/5"
-                    : "text-[#767676] hover:text-[#00179e]"
-                )}
-                aria-pressed={isSelected}
-              >
-                {label}
-              </button>
-            )
-          })}
-        </div>
-      </FilterSection>
     </aside>
   )
 }
