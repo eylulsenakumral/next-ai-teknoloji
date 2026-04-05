@@ -24,7 +24,7 @@ function createRedisClient(): Redis | null {
     maxRetriesPerRequest: 2,
     connectTimeout: 3000,
     lazyConnect: true,
-    enableOfflineQueue: false,
+    enableOfflineQueue: true,
   })
 
   client.on("connect", () => {

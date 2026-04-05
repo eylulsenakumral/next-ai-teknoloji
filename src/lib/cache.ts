@@ -57,7 +57,8 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
     console.debug(`[cache] HIT  ${key}`)
     return JSON.parse(raw) as T
   } catch (err) {
-    console.error(`[cache] GET error for key "${key}":`, (err as Error).message)
+    // Non-blocking: Redis transient errors should not break the app
+    console.debug(`[cache] GET error for key "${key}":`, (err as Error).message)
     return null
   }
 }

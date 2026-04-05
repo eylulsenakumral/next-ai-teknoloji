@@ -126,8 +126,8 @@ function buildSoapEnvelope(
   password: string,
   token: string
 ): string {
-  // Token GUID formatında {XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX} olmalı
-  const formattedToken = token.startsWith("{") ? token : `{${token}}`
+  // Token süslü parantezsiz gönderilmeli (Tesan beklediği format)
+  const formattedToken = token.replace(/[{}]/g, "")
 
   return `<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope

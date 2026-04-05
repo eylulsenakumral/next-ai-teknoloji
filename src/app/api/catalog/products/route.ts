@@ -79,6 +79,13 @@ export async function GET(req: NextRequest) {
   const where: Record<string, unknown> = {
     deletedAt: null,
     isActive: true,
+    supplierProducts: {
+      some: {
+        deletedAt: null,
+        isAvailable: true,
+        stockQuantity: { gt: 0 },
+      },
+    },
     ...(q
       ? {
           OR: [
@@ -92,7 +99,7 @@ export async function GET(req: NextRequest) {
     ...(brandId ? { brandId } : {}),
     ...categoryFilter,
     ...(supplierId
-      ? { supplierProducts: { some: { supplierId, deletedAt: null } } }
+      ? { supplierProducts: { some: { supplierId, deletedAt: null, isAvailable: true, stockQuantity: { gt: 0 } } } }
       : {}),
     ...(filteredProductIds ? { id: { in: filteredProductIds } } : {}),
   }

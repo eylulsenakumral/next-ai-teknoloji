@@ -198,62 +198,27 @@ async function resolveCategory(
 ): Promise<string | undefined> {
   if (!ustKategori) return undefined
 
-  // 1. Ust kategori
+  // 1. Ust kategori - SADECE BUL, otomatik oluşturma
   let parent = await prisma.category.findFirst({
     where: { name: { equals: ustKategori, mode: "insensitive" }, parentId: null, deletedAt: null },
   })
-  if (!parent) {
-    const slug = await uniqueSlug(ustKategori, "category")
-    parent = await prisma.category.create({
-      data: {
-        name: ustKategori,
-        slug,
-        depth: 0,
-        path: slug,
-        isActive: true,
-      },
-    })
-  }
+  if (!parent) return undefined
 
   if (!altKategori) return parent.id
 
-  // 2. Alt kategori
+  // 2. Alt kategori - SADECE BUL, otomatik oluşturma
   let mid = await prisma.category.findFirst({
     where: { name: { equals: altKategori, mode: "insensitive" }, parentId: parent.id, deletedAt: null },
   })
-  if (!mid) {
-    const slug = await uniqueSlug(altKategori, "category")
-    mid = await prisma.category.create({
-      data: {
-        name: altKategori,
-        slug,
-        parentId: parent.id,
-        depth: 1,
-        path: `${parent.path ?? parent.slug}/${slug}`,
-        isActive: true,
-      },
-    })
-  }
+  if (!mid) return undefined
 
   if (!enAltKategori) return mid.id
 
-  // 3. En alt kategori
+  // 3. En alt kategori - SADECE BUL, otomatik oluşturma
   let leaf = await prisma.category.findFirst({
     where: { name: { equals: enAltKategori, mode: "insensitive" }, parentId: mid.id, deletedAt: null },
   })
-  if (!leaf) {
-    const slug = await uniqueSlug(enAltKategori, "category")
-    leaf = await prisma.category.create({
-      data: {
-        name: enAltKategori,
-        slug,
-        parentId: mid.id,
-        depth: 2,
-        path: `${mid.path ?? mid.slug}/${slug}`,
-        isActive: true,
-      },
-    })
-  }
+  if (!leaf) return undefined
 
   return leaf.id
 }
