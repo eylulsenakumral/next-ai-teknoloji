@@ -138,41 +138,43 @@ function RecentOrdersTable({ orders }: RecentOrdersTableProps) {
             <p className="text-sm text-muted-foreground">Henüz sipariş yok</p>
           </div>
         ) : (
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>No</TableHead>
-                <TableHead>Bayi</TableHead>
-                <TableHead className="hidden md:table-cell text-right">Ürün</TableHead>
-                <TableHead className="text-right">Tutar</TableHead>
-                <TableHead className="text-right">Durum</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {orders.map((order) => (
-                <TableRow key={order.id}>
-                  <TableCell className="font-medium text-sm">
-                    <Link
-                      href={`/admin/siparisler/${order.id}`}
-                      className="hover:text-primary transition-colors"
-                    >
-                      {order.orderNumber}
-                    </Link>
-                  </TableCell>
-                  <TableCell className="text-sm">{order.customer.companyName}</TableCell>
-                  <TableCell className="hidden md:table-cell text-right text-sm text-muted-foreground">
-                    {order.orderItems.length}
-                  </TableCell>
-                  <TableCell className="text-right font-semibold text-sm">
-                    {formatCurrency(Number(order.grandTotal))}
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <OrderStatusBadge status={order.status} />
-                  </TableCell>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>No</TableHead>
+                  <TableHead>Bayi</TableHead>
+                  <TableHead className="hidden md:table-cell text-right">Ürün</TableHead>
+                  <TableHead className="text-right">Tutar</TableHead>
+                  <TableHead className="text-right">Durum</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {orders.map((order) => (
+                  <TableRow key={order.id}>
+                    <TableCell className="font-medium text-sm">
+                      <Link
+                        href={`/admin/siparisler/${order.id}`}
+                        className="hover:text-primary transition-colors"
+                      >
+                        {order.orderNumber}
+                      </Link>
+                    </TableCell>
+                    <TableCell className="text-sm">{order.customer.companyName}</TableCell>
+                    <TableCell className="hidden md:table-cell text-right text-sm text-muted-foreground">
+                      {order.orderItems.length}
+                    </TableCell>
+                    <TableCell className="text-right font-semibold text-sm">
+                      {formatCurrency(Number(order.grandTotal))}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <OrderStatusBadge status={order.status} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         )}
       </CardContent>
     </Card>
@@ -437,7 +439,7 @@ export default async function AdminDashboardPage() {
 
       {/* İstatistikler */}
       <section aria-label="Özet istatistikler">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat) => (
             <StatCard key={stat.label} {...stat} />
           ))}
