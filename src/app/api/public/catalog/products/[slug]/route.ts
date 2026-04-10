@@ -1,12 +1,16 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
 
 export async function GET(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
     const { slug } = await params
+    const session = await getServerSession(authOptions)
+    const isAuthenticated = !!session?.user
 
     const product = await prisma.product.findFirst({
       where: { slug, deletedAt: null, isActive: true },
@@ -22,7 +26,10 @@ export async function GET(
         category: { select: { name: true, slug: true } },
         supplierProducts: {
           where: { deletedAt: null, isAvailable: true },
-          select: { stockQuantity: true },
+          select: {
+            stockQuantity: true,
+            purchasePrice: isAuthenticated,
+          },
         },
       },
     })
@@ -32,6 +39,16 @@ export async function GET(
     }
 
     const totalStock = product.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
+
+    // Get lowest price if authenticated
+    const prices = isAuthenticated
+      ? product.supplierProducts
+          .map((sp) => sp.purchasePrice)
+          .filter((p) => p !== null)
+          .map((p) => Number(p))
+      : []
+
+    const lowestPrice = isAuthenticated && prices.length > 0 ? Math.min(...prices) : null
 
     const relatedProducts = product.categoryId
       ? await prisma.product.findMany({
@@ -74,6 +91,8 @@ export async function GET(
         brand: product.brand,
         category: product.category,
         stockStatus: totalStock > 0,
+        price: isAuthenticated && lowestPrice !== Infinity ? lowestPrice : null,
+        currency: "TRY",
         relatedProducts: relatedProducts.map((rp) => {
           const stock = rp.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
           return {

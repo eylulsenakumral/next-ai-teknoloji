@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
+    const session = await getServerSession(authOptions)
+    const isAuthenticated = !!session?.user
 
     const brandSlug = searchParams.get("brandSlug") ?? ""
     const categorySlug = searchParams.get("categorySlug") ?? ""
@@ -74,7 +78,10 @@ export async function GET(req: NextRequest) {
           category: { select: { name: true, slug: true } },
           supplierProducts: {
             where: { deletedAt: null, isAvailable: true },
-            select: { stockQuantity: true },
+            select: {
+              stockQuantity: true,
+              purchasePrice: isAuthenticated,
+            },
           },
         },
       }),
@@ -83,6 +90,17 @@ export async function GET(req: NextRequest) {
 
     const data = products.map((p) => {
       const totalStock = p.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
+
+      // Get lowest price if authenticated
+      const prices = isAuthenticated
+        ? p.supplierProducts
+            .map((sp) => sp.purchasePrice)
+            .filter((price) => price !== null)
+            .map((price) => Number(price))
+        : []
+
+      const lowestPrice = isAuthenticated && prices.length > 0 ? Math.min(...prices) : null
+
       return {
         id: p.id,
         name: p.name,
@@ -93,6 +111,8 @@ export async function GET(req: NextRequest) {
         brand: p.brand,
         category: p.category,
         stockStatus: totalStock > 0,
+        price: lowestPrice,
+        currency: "TRY",
       }
     })
 

@@ -194,13 +194,13 @@ function CategoryGrid({
         <p className="text-[11px] font-bold text-[#767676] uppercase tracking-widest mb-3">
           Kategoriler
         </p>
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
           {/* Tümü */}
           <button
             type="button"
             onClick={() => onSelect("")}
             className={cn(
-              "flex flex-col items-center gap-2 p-3 border transition-all text-center",
+              "flex flex-col items-center gap-2 p-3 border transition-all text-center rounded-lg",
               !activeSlug
                 ? "border-[#00179e] bg-[#00179e]/5 text-[#00179e]"
                 : "border-[#eeeeee] hover:border-[#00179e]/40 hover:bg-[#f9f9f9] text-[#555555]"
@@ -211,24 +211,55 @@ function CategoryGrid({
             <span className="text-[11px] font-semibold leading-tight">Tüm Ürünler</span>
           </button>
 
-          {categories.slice(0, 7).map((cat) => (
-            <button
-              key={cat.id}
-              type="button"
-              onClick={() => onSelect(cat.slug)}
-              className={cn(
-                "flex flex-col items-center gap-2 p-3 border transition-all text-center",
-                activeSlug === cat.slug
-                  ? "border-[#00179e] bg-[#00179e]/5 text-[#00179e]"
-                  : "border-[#eeeeee] hover:border-[#00179e]/40 hover:bg-[#f9f9f9] text-[#555555]"
+          {categories.slice(0, 5).map((cat) => (
+            <div key={cat.id} className="flex flex-col gap-2">
+              <button
+                type="button"
+                onClick={() => onSelect(cat.slug)}
+                className={cn(
+                  "flex flex-col items-center gap-2 p-3 border transition-all text-center rounded-lg",
+                  activeSlug === cat.slug
+                    ? "border-[#00179e] bg-[#00179e]/5 text-[#00179e]"
+                    : "border-[#eeeeee] hover:border-[#00179e]/40 hover:bg-[#f9f9f9] text-[#555555]"
+                )}
+                aria-pressed={activeSlug === cat.slug}
+              >
+                {getCategoryIcon(cat.slug)}
+                <span className="text-[11px] font-semibold leading-tight line-clamp-2">
+                  {cat.name}
+                </span>
+              </button>
+              {/* Show first 2 subcategories */}
+              {cat.children && cat.children.length > 0 && (
+                <div className="flex flex-col gap-1 pl-2">
+                  {cat.children.slice(0, 2).map((child) => (
+                    <button
+                      key={child.id}
+                      type="button"
+                      onClick={() => onSelect(child.slug)}
+                      className={cn(
+                        "text-left text-[10px] px-2 py-1 rounded transition-colors truncate",
+                        activeSlug === child.slug
+                          ? "bg-[#00179e]/10 text-[#00179e] font-semibold"
+                          : "text-[#767676] hover:text-[#00179e] hover:bg-[#f5f5f5]"
+                      )}
+                      aria-pressed={activeSlug === child.slug}
+                    >
+                      {child.name}
+                    </button>
+                  ))}
+                  {cat.children.length > 2 && (
+                    <button
+                      type="button"
+                      onClick={() => onSelect(cat.slug)}
+                      className="text-left text-[9px] text-[#00179e] hover:underline pl-2"
+                    >
+                      +{cat.children.length - 2} daha
+                    </button>
+                  )}
+                </div>
               )}
-              aria-pressed={activeSlug === cat.slug}
-            >
-              {getCategoryIcon(cat.slug)}
-              <span className="text-[11px] font-semibold leading-tight line-clamp-2">
-                {cat.name}
-              </span>
-            </button>
+            </div>
           ))}
         </div>
       </div>
