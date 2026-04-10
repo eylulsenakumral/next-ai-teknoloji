@@ -10,16 +10,15 @@ export function middleware(request: NextRequest) {
     pathname === route || pathname.startsWith(route + "/")
   ) || pathname.startsWith("/api/public")
 
-  // Allow public routes
+  // Allow public routes without authentication check
   if (isPublicRoute) {
     return NextResponse.next()
   }
 
-  // Check for session token in cookies
+  // For protected routes, check session
   const sessionToken = request.cookies.get("next-auth.session-token") || 
                        request.cookies.get("__Secure-next-auth.session-token")
 
-  // Redirect to login if no session and trying to access protected route
   if (!sessionToken && !pathname.startsWith("/login")) {
     const url = request.nextUrl.clone()
     url.pathname = "/login"
