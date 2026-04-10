@@ -290,13 +290,15 @@ function NewProductsSection({ products }: { products: ProductItem[] }) {
             const imageUrl = product.images[0] ?? null
 
             return (
-              <Link
+              <div
                 key={product.id}
-                href={`/katalog/${product.slug}`}
                 className="group flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 transition-all duration-300"
               >
-                {/* Gorsel */}
-                <div className="aspect-square bg-gray-50 flex items-center justify-center overflow-hidden relative">
+                {/* Gorsel - Link */}
+                <Link
+                  href={`/katalog/${product.slug}`}
+                  className="aspect-square bg-gray-50 flex items-center justify-center overflow-hidden relative"
+                >
                   {imageUrl ? (
                     <img
                       src={imageUrl}
@@ -306,28 +308,38 @@ function NewProductsSection({ products }: { products: ProductItem[] }) {
                   ) : (
                     <Package className="h-16 w-16 text-gray-200" aria-hidden />
                   )}
-                </div>
+                </Link>
                 {/* Icerik */}
                 <div className="p-4">
                   {product.brand && (
-                    <p className="text-[11px] font-semibold uppercase tracking-wide text-[#00179e] truncate mb-1">
-                      {product.brand.name}
-                    </p>
+                    <Link
+                      href={`/katalog/${product.slug}`}
+                      className="block"
+                    >
+                      <p className="text-[11px] font-semibold uppercase tracking-wide text-[#00179e] truncate mb-1 group-hover:text-blue-700 transition-colors">
+                        {product.brand.name}
+                      </p>
+                    </Link>
                   )}
-                  <p className="text-sm text-gray-500 leading-snug line-clamp-2 group-hover:text-[#00179e] transition-colors duration-200">
-                    {product.name}
-                  </p>
+                  <Link
+                    href={`/katalog/${product.slug}`}
+                    className="block"
+                  >
+                    <p className="text-sm text-gray-500 leading-snug line-clamp-2 group-hover:text-[#00179e] transition-colors duration-200">
+                      {product.name}
+                    </p>
+                  </Link>
                   <div className="mt-2 flex items-center justify-between">
-                    <button
-                      onClick={() => window.location.href = '/login'}
-                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#00179e] hover:underline bg-transparent border-0 cursor-pointer"
+                    <Link
+                      href="/login"
+                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#00179e] hover:underline"
                     >
                       <LogIn className="h-3 w-3" aria-hidden />
                       Fiyat için giriş
-                    </button>
+                    </Link>
                   </div>
                 </div>
-              </Link>
+              </div>
             )
           })}
         </div>
