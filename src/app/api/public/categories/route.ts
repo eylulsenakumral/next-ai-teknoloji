@@ -75,6 +75,18 @@ function buildPublicInclude(depth: number): any {
 /*    - (default)    -> Nested tree (root categories with children)    */
 /* ------------------------------------------------------------------ */
 
+// Searchbox autocomplete'ten gizlenecek genel kategoriler
+const EXCLUDED_FROM_SEARCH = [
+  "Tüm Ürünler",
+  "Bilgisayar Bileşenleri",
+  "Güvenlik & CCTV Ürünleri",
+  "Güvenlik Ürünleri",
+  "Kablo & Çevirici",
+  "Kesintisiz Güç Kaynakları",
+  "Kişisel Bilgisayarlar",
+  "Kurumsal Ürünler",
+]
+
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
@@ -83,7 +95,11 @@ export async function GET(req: NextRequest) {
     // Flat list - sidebar filtreler ve arama icin
     if (flat) {
       const categories = await prisma.category.findMany({
-        where: { deletedAt: null, isActive: true },
+        where: {
+          deletedAt: null,
+          isActive: true,
+          name: { notIn: EXCLUDED_FROM_SEARCH },
+        },
         orderBy: [{ depth: "asc" }, { sortOrder: "asc" }, { name: "asc" }],
         select: {
           id: true,
