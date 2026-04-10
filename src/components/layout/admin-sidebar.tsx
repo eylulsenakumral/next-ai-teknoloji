@@ -91,7 +91,7 @@ function SidebarItem({ href, label, icon: Icon, collapsed, active }: SidebarItem
 }
 
 export function AdminSidebar() {
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(true)
   const pathname = usePathname()
 
   return (

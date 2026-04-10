@@ -335,10 +335,11 @@ export default function UrunlerPage() {
         </div>
         <Link
           href="/admin/urunler/yeni"
-          className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg border border-transparent bg-primary px-2.5 py-0 h-8 text-sm font-medium text-primary-foreground transition-all"
+          className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg border border-transparent bg-primary px-3 py-2 h-9 text-sm font-medium text-primary-foreground transition-all sm:px-4 sm:h-10"
         >
           <Plus className="h-4 w-4" />
-          Yeni Ürün Ekle
+          <span className="hidden sm:inline">Yeni Ürün Ekle</span>
+          <span className="sm:hidden">Yeni</span>
         </Link>
       </div>
 
