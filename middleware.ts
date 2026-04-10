@@ -1,29 +1,33 @@
-import NextAuth from "next-auth"
-import { authOptions } from "@/lib/auth"
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
 
-const auth = NextAuth(authOptions)
-
-export default auth((req) => {
-  const isAuthenticated = !!req.auth
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl
   
-  // Define public routes
-  const publicRoutes = ["/", "/katalog", "/markalar", "/urunler", "/basvuru", "/garanti-takip"]
+  // Define public routes that don't require authentication
+  const publicRoutes = ["/", "/katalog", "/markalar", "/urunler", "/basvuru", "/garanti-takip", "/kategoriler", "/login"]
   const isPublicRoute = publicRoutes.some(route => 
-    req.nextUrl.pathname === route || req.nextUrl.pathname.startsWith(route + "/")
-  ) || req.nextUrl.pathname.startsWith("/api/public") || req.nextUrl.pathname.startsWith("/kategoriler")
+    pathname === route || pathname.startsWith(route + "/")
+  ) || pathname.startsWith("/api/public")
 
-  // Allow public routes without authentication
+  // Allow public routes
   if (isPublicRoute) {
-    return null
+    return NextResponse.next()
   }
 
-  // Require authentication for other routes
-  if (!isAuthenticated && !req.nextUrl.pathname.startsWith("/login")) {
-    return Response.redirect(new URL("/login", req.url))
+  // Check for session token in cookies
+  const sessionToken = request.cookies.get("next-auth.session-token") || 
+                       request.cookies.get("__Secure-next-auth.session-token")
+
+  // Redirect to login if no session and trying to access protected route
+  if (!sessionToken && !pathname.startsWith("/login")) {
+    const url = request.nextUrl.clone()
+    url.pathname = "/login"
+    return NextResponse.redirect(url)
   }
 
-  return null
-})
+  return NextResponse.next()
+}
 
 export const config = {
   matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
