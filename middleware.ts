@@ -6,9 +6,9 @@ export function middleware(request: NextRequest) {
   
   // Public routes that don't need authentication
   const publicRoutes = ["/", "/katalog", "/markalar", "/urunler", "/basvuru", "/garanti-takip", "/kategoriler", "/login"]
-  const isPublicRoute = publicRoutes.some(route => 
+  const isPublicRoute = publicRoutes.some(route =>
     pathname === route || pathname.startsWith(route + "/")
-  ) || pathname.startsWith("/api/public")
+  ) || pathname.startsWith("/api/public") || pathname.startsWith("/api/auth")
   
   // Allow public routes WITHOUT any auth check
   if (isPublicRoute) {
