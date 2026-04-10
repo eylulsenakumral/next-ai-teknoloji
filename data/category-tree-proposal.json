@@ -1,0 +1,526 @@
+{
+  "_comment": "Profesyonel Kategori Ağacı Önerisi - B2B IT & Güvenlik Bayi Portalı",
+  "_design_principles": [
+    "1. Müşteri düşünce modeline göre: 'Ne arıyorum?' → Bul",
+    "2. Max 3 seviye derinlik (root > alt > detay)",
+    "3. Her kategori adı self-explanatory, teknik terim + Türkçe açıklama",
+    "4. Benzer ürünler bir arada (cross-sell kolaylığı)",
+    "5. SEO-friendly slug'lar"
+  ],
+  "tree": [
+    {
+      "name": "Güvenlik & CCTV",
+      "slug": "guvenlik-cctv",
+      "icon": "shield",
+      "children": [
+        {
+          "name": "IP Kameralar",
+          "slug": "ip-kameralar",
+          "children": [
+            { "name": "Bullet Kamera", "slug": "bullet-kamera" },
+            { "name": "Dome Kamera", "slug": "dome-kamera" },
+            { "name": "PTZ Kamera", "slug": "ptz-kamera" },
+            { "name": "Fisheye Kamera", "slug": "fisheye-kamera" },
+            { "name": "Turret Kamera", "slug": "turret-kamera" }
+          ]
+        },
+        {
+          "name": "Analog & HDCVI Kameralar",
+          "slug": "analog-hdcvi-kameralar",
+          "children": [
+            { "name": "AHD Kamera", "slug": "ahd-kamera" },
+            { "name": "HDCVI Kamera", "slug": "hdcvi-kamera" },
+            { "name": "HD-TVI Kamera", "slug": "hd-tvi-kamera" }
+          ]
+        },
+        {
+          "name": "Kayıt Cihazları",
+          "slug": "kayit-cihazlari",
+          "children": [
+            { "name": "NVR", "slug": "nvr" },
+            { "name": "DVR", "slug": "dvr" },
+            { "name": "XVR (Hibrit)", "slug": "xvr" }
+          ]
+        },
+        {
+          "name": "Termal Kameralar",
+          "slug": "termal-kameralar"
+        },
+        {
+          "name": "CCTV Aksesuarları",
+          "slug": "cctv-aksesuarlari",
+          "children": [
+            { "name": "Kayıt Aksesuarları", "slug": "kayit-aksesuarlari" },
+            { "name": "Kamera Aksesuarları", "slug": "kamera-aksesuarlari" },
+            { "name": "CCTV Kabloları", "slug": "cctv-kablolari" },
+            { "name": "Güç Kaynakları", "slug": "guc-kaynaklari" },
+            { "name": "Monitörler", "slug": "monitorler" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Geçiş Kontrol & Alarm",
+      "slug": "gecis-kontrol-alarm",
+      "icon": "lock",
+      "children": [
+        {
+          "name": "Geçiş Kontrol Sistemleri",
+          "slug": "gecis-kontrol",
+          "children": [
+            { "name": "Kart Okuyucu", "slug": "kart-okuyucu" },
+            { "name": "Biyometrik Okuyucu", "slug": "biyometrik-okuyucu" },
+            { "name": "Kapı İstasyonu", "slug": "kapi-istasyonu" },
+            { "name": "Geçiş Kartı & Tag", "slug": "gecis-karti-tag" }
+          ]
+        },
+        {
+          "name": "Hırsız Alarm",
+          "slug": "hirsiz-alarm",
+          "children": [
+            { "name": "Alarm Paneli", "slug": "alarm-paneli" },
+            { "name": "Dedektör", "slug": "dedektor" },
+            { "name": "Siren & Flaşör", "slug": "siren-flasor" },
+            { "name": "Kumanda & Tuş Takımı", "slug": "kumanda-tus-takimi" }
+          ]
+        },
+        {
+          "name": "Yangın Alarm",
+          "slug": "yangin-alarm",
+          "children": [
+            { "name": "Yangın Paneli", "slug": "yangin-paneli" },
+            { "name": "Duman Dedektörü", "slug": "duman-dedektoru" },
+            { "name": "Isı Dedektörü", "slug": "isi-dedektoru" },
+            { "name": "Yangın Sireni", "slug": "yangin-sireni" }
+          ]
+        },
+        {
+          "name": "Intercom & Kapı Telefonu",
+          "slug": "intercom"
+        }
+      ]
+    },
+    {
+      "name": "Ağ & Network",
+      "slug": "ag-network",
+      "icon": "network",
+      "children": [
+        {
+          "name": "Switch",
+          "slug": "switch",
+          "children": [
+            { "name": "PoE Switch", "slug": "poe-switch" },
+            { "name": "Yönetilebilir Switch", "slug": "yonetilebilir-switch" },
+            { "name": "Yönetilemez Switch", "slug": "yonetilemez-switch" },
+            { "name": "Endüstriyel Switch", "slug": "endustriyel-switch" }
+          ]
+        },
+        {
+          "name": "Kablosuz Ağ",
+          "slug": "kablosuz-ag",
+          "children": [
+            { "name": "Access Point", "slug": "access-point" },
+            { "name": "Router", "slug": "router" },
+            { "name": "Kablosuz Adaptör", "slug": "kablosuz-adapter" }
+          ]
+        },
+        {
+          "name": "Fiber Optik",
+          "slug": "fiber-optik",
+          "children": [
+            { "name": "Media Converter", "slug": "media-converter" },
+            { "name": "SFP Modül", "slug": "sfp-modul" },
+            { "name": "Fiber Patch Cord", "slug": "fiber-patch-cord" },
+            { "name": "Fiber Panel & Aksesuar", "slug": "fiber-panel-aksesuar" },
+            { "name": "Fiber Kablo", "slug": "fiber-kablo" }
+          ]
+        },
+        {
+          "name": "Yapısal Kablolama",
+          "slug": "yapisal-kablolama",
+          "children": [
+            { "name": "Patch Kablo", "slug": "patch-kablo" },
+            { "name": "Patch Panel", "slug": "patch-panel" },
+            { "name": "Konnektör & Jack", "slug": "konnektor-jack" }
+          ]
+        },
+        {
+          "name": "Network Güvenlik",
+          "slug": "network-guvenlik",
+          "children": [
+            { "name": "Firewall", "slug": "firewall" },
+            { "name": "Gateway", "slug": "gateway" }
+          ]
+        },
+        {
+          "name": "Network Kabin",
+          "slug": "network-kabin"
+        },
+        {
+          "name": "Modem",
+          "slug": "modem"
+        }
+      ]
+    },
+    {
+      "name": "Bilgisayar",
+      "slug": "bilgisayar",
+      "icon": "monitor",
+      "children": [
+        {
+          "name": "Dizüstü Bilgisayar",
+          "slug": "dizustu-bilgisayar",
+          "children": [
+            { "name": "Notebook", "slug": "notebook" },
+            { "name": "İş İstasyonu (Mobil)", "slug": "is-istasyonu-mobil" }
+          ]
+        },
+        {
+          "name": "Masaüstü Bilgisayar",
+          "slug": "masaustu-bilgisayar",
+          "children": [
+            { "name": "Masaüstü PC", "slug": "masaustu-pc" },
+            { "name": "All-in-One", "slug": "all-in-one" },
+            { "name": "Mini PC", "slug": "mini-pc" },
+            { "name": "İş İstasyonu", "slug": "is-istasyonu" }
+          ]
+        },
+        {
+          "name": "Monitör",
+          "slug": "monitor",
+          "children": [
+            { "name": "19-22\" Monitör", "slug": "19-22-monitor" },
+            { "name": "24-27\" Monitör", "slug": "24-27-monitor" },
+            { "name": "32\" ve Üzeri", "slug": "32-ve-uzeri-monitor" }
+          ]
+        },
+        {
+          "name": "Sunucu",
+          "slug": "sunucu",
+          "children": [
+            { "name": "Rack Sunucu", "slug": "rack-sunucu" },
+            { "name": "Sunucu Aksesuarları", "slug": "sunucu-aksesuarlari" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "PC Bileşenleri",
+      "slug": "pc-bilesenleri",
+      "icon": "cpu",
+      "children": [
+        {
+          "name": "İşlemci (CPU)",
+          "slug": "islemci"
+        },
+        {
+          "name": "Anakart",
+          "slug": "anakart"
+        },
+        {
+          "name": "Ekran Kartı",
+          "slug": "ekran-karti"
+        },
+        {
+          "name": "Bellek (RAM)",
+          "slug": "bellek-ram",
+          "children": [
+            { "name": "Masaüstü RAM", "slug": "masaustu-ram" },
+            { "name": "Notebook RAM", "slug": "notebook-ram" },
+            { "name": "Sunucu RAM", "slug": "sunucu-ram" }
+          ]
+        },
+        {
+          "name": "Depolama",
+          "slug": "depolama",
+          "children": [
+            { "name": "SSD", "slug": "ssd" },
+            { "name": "NVMe M.2", "slug": "nvme-m2" },
+            { "name": "HDD", "slug": "hdd" },
+            { "name": "Taşınabilir Disk", "slug": "tasinabilir-disk" },
+            { "name": "Hafıza Kartı", "slug": "hafiza-karti" },
+            { "name": "USB Bellek", "slug": "usb-bellek" }
+          ]
+        },
+        {
+          "name": "Kasa",
+          "slug": "kasa"
+        },
+        {
+          "name": "Güç Kaynağı (PSU)",
+          "slug": "guc-kaynagi"
+        },
+        {
+          "name": "Soğutma",
+          "slug": "sogutma"
+        }
+      ]
+    },
+    {
+      "name": "Yazıcı & Tarayıcı",
+      "slug": "yazici-tarayici",
+      "icon": "printer",
+      "children": [
+        {
+          "name": "Lazer Yazıcı",
+          "slug": "lazer-yazici",
+          "children": [
+            { "name": "Siyah Beyaz Lazer", "slug": "siyah-beyaz-lazer" },
+            { "name": "Renkli Lazer", "slug": "renkli-lazer" },
+            { "name": "Çok Fonksiyonlu (MFP)", "slug": "cok-fonksiyonlu-mfp" }
+          ]
+        },
+        {
+          "name": "Mürekkep Püskürtmeli",
+          "slug": "murekkep-puskurtmeli",
+          "children": [
+            { "name": "Tanklı Yazıcı", "slug": "tankli-yazici" },
+            { "name": "Standart Inkjet", "slug": "standart-inkjet" }
+          ]
+        },
+        {
+          "name": "Barkod & Etiket Yazıcı",
+          "slug": "barkod-etiket-yazici"
+        },
+        {
+          "name": "Termal Fiş Yazıcı",
+          "slug": "termal-fis-yazici"
+        },
+        {
+          "name": "Tarayıcı",
+          "slug": "tarayici",
+          "children": [
+            { "name": "Döküman Tarayıcı", "slug": "dokuman-tarayici" },
+            { "name": "Fiş Okuyucu", "slug": "fis-okuyucu" }
+          ]
+        },
+        {
+          "name": "Sarf Malzemeleri",
+          "slug": "sarf-malzemeleri",
+          "children": [
+            { "name": "Toner", "slug": "toner" },
+            { "name": "Kartuş", "slug": "kartus" },
+            { "name": "Mürekkep", "slug": "murekkep" },
+            { "name": "Etiket Rulosu", "slug": "etiket-rulosu" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "POS & Barkod",
+      "slug": "pos-barkod",
+      "icon": "barcode",
+      "children": [
+        {
+          "name": "POS Terminal",
+          "slug": "pos-terminal",
+          "children": [
+            { "name": "Masaüstü POS", "slug": "masaustu-pos" },
+            { "name": "Mobil POS", "slug": "mobil-pos" },
+            { "name": "Tablet POS", "slug": "tablet-pos" }
+          ]
+        },
+        {
+          "name": "Barkod Okuyucu",
+          "slug": "barkod-okuyucu",
+          "children": [
+            { "name": "El Tipi Okuyucu", "slug": "el-tipi-okuyucu" },
+            { "name": "Masaüstü Okuyucu", "slug": "masaustu-okuyucu" }
+          ]
+        },
+        {
+          "name": "El Terminali",
+          "slug": "el-terminali"
+        },
+        {
+          "name": "Para Çekmecesi",
+          "slug": "para-cekmecesi"
+        },
+        {
+          "name": "Ödeme Terminali",
+          "slug": "odeme-terminali"
+        }
+      ]
+    },
+    {
+      "name": "Güç Elektroniği",
+      "slug": "guc-elektronigi",
+      "icon": "zap",
+      "children": [
+        {
+          "name": "UPS",
+          "slug": "ups",
+          "children": [
+            { "name": "Line-Interactive UPS", "slug": "line-interactive-ups" },
+            { "name": "Online UPS", "slug": "online-ups" }
+          ]
+        },
+        {
+          "name": "Akü & Pil",
+          "slug": "aku-pil",
+          "children": [
+            { "name": "Kurşun Asit Akü", "slug": "kursun-asit-aku" },
+            { "name": "Şarj Edilebilir Pil", "slug": "sarj-edilebilir-pil" }
+          ]
+        },
+        {
+          "name": "Şarj Cihazı & Powerbank",
+          "slug": "sarj-cihazi"
+        },
+        {
+          "name": "Priz & Uzatma",
+          "slug": "priz-uzatma"
+        }
+      ]
+    },
+    {
+      "name": "Kablo & Aksesuar",
+      "slug": "kablo-aksesuar",
+      "icon": "cable",
+      "children": [
+        {
+          "name": "Görüntü Kabloları",
+          "slug": "goruntu-kablolari",
+          "children": [
+            { "name": "HDMI Kablo", "slug": "hdmi-kablo" },
+            { "name": "DisplayPort Kablo", "slug": "displayport-kablo" },
+            { "name": "VGA Kablo", "slug": "vga-kablo" }
+          ]
+        },
+        {
+          "name": "Çevirici & Adaptör",
+          "slug": "cevirici-adaptor",
+          "children": [
+            { "name": "USB Çevirici", "slug": "usb-cevirici" },
+            { "name": "Type-C Çevirici", "slug": "type-c-cevirici" },
+            { "name": "HDMI Çevirici", "slug": "hdmi-cevirici" },
+            { "name": "Display Çevirici", "slug": "display-cevirici" }
+          ]
+        },
+        {
+          "name": "Çoklayıcı & Splitter",
+          "slug": "coklayici-splitter"
+        },
+        {
+          "name": "USB Kabloları",
+          "slug": "usb-kablolari"
+        },
+        {
+          "name": "Güç Kabloları",
+          "slug": "guc-kablolari"
+        },
+        {
+          "name": "Ses Kabloları",
+          "slug": "ses-kablolari"
+        }
+      ]
+    },
+    {
+      "name": "Çevre Birimleri",
+      "slug": "cevre-birimleri",
+      "icon": "peripheral",
+      "children": [
+        {
+          "name": "Klavye & Mouse",
+          "slug": "klavye-mouse",
+          "children": [
+            { "name": "Klavye & Mouse Set", "slug": "klavye-mouse-set" },
+            { "name": "Klavye", "slug": "klavye" },
+            { "name": "Mouse", "slug": "mouse" }
+          ]
+        },
+        {
+          "name": "Kulaklık & Mikrofon",
+          "slug": "kulaklik-mikrofon",
+          "children": [
+            { "name": "Kulaklık", "slug": "kulaklik" },
+            { "name": "Mikrofonlu Kulaklık", "slug": "mikrofonlu-kulaklik" }
+          ]
+        },
+        {
+          "name": "Hoparlör & Ses",
+          "slug": "hoparlor-ses"
+        },
+        {
+          "name": "Web Kamerası",
+          "slug": "web-kamerasi"
+        },
+        {
+          "name": "Notebook Aksesuarı",
+          "slug": "notebook-aksesuari"
+        },
+        {
+          "name": "Powerbank",
+          "slug": "powerbank"
+        }
+      ]
+    },
+    {
+      "name": "Yazılım & Lisans",
+      "slug": "yazilim-lisans",
+      "icon": "code",
+      "children": [
+        {
+          "name": "İşletim Sistemi",
+          "slug": "isletim-sistemi"
+        },
+        {
+          "name": "Ofis Yazılımları",
+          "slug": "ofis-yazilimlari"
+        },
+        {
+          "name": "Antivirüs & Güvenlik",
+          "slug": "antivirus-guvenlik"
+        },
+        {
+          "name": "Yedekleme Yazılımı",
+          "slug": "yedekleme-yazilimi"
+        },
+        {
+          "name": "VMS Yazılımı",
+          "slug": "vms-yazilimi"
+        },
+        {
+          "name": "Sunucu Lisansı",
+          "slug": "sunucu-lisansi"
+        }
+      ]
+    },
+    {
+      "name": "Akıllı Sistemler",
+      "slug": "akilli-sistemler",
+      "icon": "brain",
+      "children": [
+        {
+          "name": "Yüz Tanıma",
+          "slug": "yuz-tanima"
+        },
+        {
+          "name": "Trafik Çözümleri",
+          "slug": "trafik-cozumleri"
+        },
+        {
+          "name": "Akıllı Ev Ürünleri",
+          "slug": "akilli-ev"
+        },
+        {
+          "name": "Projeksiyon & Görüntüleme",
+          "slug": "projeksiyon-goruntuleme",
+          "children": [
+            { "name": "Projeksiyon Cihazı", "slug": "projeksiyon-cihazi" },
+            { "name": "Projeksiyon Perdesi", "slug": "projeksiyon-perdesi" },
+            { "name": "Akıllı Tahta", "slug": "akilli-tahta" }
+          ]
+        },
+        {
+          "name": "IP Telefon",
+          "slug": "ip-telefon"
+        },
+        {
+          "name": "Video Konferans",
+          "slug": "video-konferans"
+        }
+      ]
+    }
+  ]
+}

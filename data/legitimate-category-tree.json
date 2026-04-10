@@ -1,0 +1,4961 @@
+[
+  {
+    "id": "5184c209-411b-4b05-b51d-0e452498f10c",
+    "name": "Akıllı Sistemler",
+    "slug": "akilli-sistemler",
+    "parentId": null,
+    "depth": 0,
+    "path": "akilli-sistemler",
+    "productCount": 0
+  },
+  {
+    "id": "b7ed5f86-1720-4add-866c-05b272d4bdaf",
+    "name": "Bilgisayar & Sunucu",
+    "slug": "bilgisayar-sunucu",
+    "parentId": null,
+    "depth": 0,
+    "path": "bilgisayar-sunucu",
+    "productCount": 1044
+  },
+  {
+    "id": "55fbfe09-59db-4a47-bab6-7672c561e843",
+    "name": "CCTV",
+    "slug": "cctv",
+    "parentId": null,
+    "depth": 0,
+    "path": "cctv",
+    "productCount": 70
+  },
+  {
+    "id": "7593b74a-394c-4e7b-bcf6-2380c9b6eee3",
+    "name": "Geçiş Kontrol & Alarm",
+    "slug": "gecis-kontrol-alarm",
+    "parentId": null,
+    "depth": 0,
+    "path": "gecis-kontrol-alarm",
+    "productCount": 0
+  },
+  {
+    "id": "fd46401d-f884-4169-be49-1ba1bd4b2cee",
+    "name": "Güç Elektroniği",
+    "slug": "guc-elektronigi",
+    "parentId": null,
+    "depth": 0,
+    "path": "guc-elektronigi",
+    "productCount": 31
+  },
+  {
+    "id": "0e648dbc-fb14-41cc-98cd-e1de1ee4f1d8",
+    "name": "Kablo & Aksesuar",
+    "slug": "kablo-aksesuar",
+    "parentId": null,
+    "depth": 0,
+    "path": "kablo-aksesuar",
+    "productCount": 20
+  },
+  {
+    "id": "8479356b-5f63-4904-a434-6ab97efe3f75",
+    "name": "Network & Fiber",
+    "slug": "network-fiber",
+    "parentId": null,
+    "depth": 0,
+    "path": "network-fiber",
+    "productCount": 817
+  },
+  {
+    "id": "18a016b0-5aeb-487d-9a0e-25f93adaa53e",
+    "name": "PC Bileşenleri",
+    "slug": "pc-bilesenleri",
+    "parentId": null,
+    "depth": 0,
+    "path": "pc-bilesenleri",
+    "productCount": 0
+  },
+  {
+    "id": "61117d79-d1e0-4a72-9156-41d710ea0eba",
+    "name": "POS & Barkod",
+    "slug": "pos-barkod",
+    "parentId": null,
+    "depth": 0,
+    "path": "pos-barkod",
+    "productCount": 1
+  },
+  {
+    "id": "bfb5c873-3e94-4025-8059-58e2b85d1bad",
+    "name": "Yazıcı & Tarayıcı",
+    "slug": "yazici-tarayici",
+    "parentId": null,
+    "depth": 0,
+    "path": "yazici-tarayici",
+    "productCount": 87
+  },
+  {
+    "id": "1101198b-86d0-4172-b23c-fdb15c3b0a23",
+    "name": "Yazılım & Lisans",
+    "slug": "yazilim-lisans",
+    "parentId": null,
+    "depth": 0,
+    "path": "yazilim-lisans",
+    "productCount": 48
+  },
+  {
+    "id": "be82af78-5233-4d60-aaba-d8212c85b2c4",
+    "name": "Çevre Birimleri & Aksesuar",
+    "slug": "cevre-birimleri-aksesuar",
+    "parentId": null,
+    "depth": 0,
+    "path": "cevre-birimleri-aksesuar",
+    "productCount": 142
+  },
+  {
+    "id": "c990120d-99cb-4587-af76-295e36654fec",
+    "name": "AHD Kameralar",
+    "slug": "cctv-ahd-kameralar",
+    "parentId": "55fbfe09-59db-4a47-bab6-7672c561e843",
+    "depth": 1,
+    "path": "cctv/ahd-kameralar",
+    "productCount": 0
+  },
+  {
+    "id": "3e0befed-26c7-4d68-ad44-d92f0a3b3a4f",
+    "name": "Adaptör",
+    "slug": "guc-elektronigi-adaptor",
+    "parentId": "fd46401d-f884-4169-be49-1ba1bd4b2cee",
+    "depth": 1,
+    "path": "guc-elektronigi/adaptor",
+    "productCount": 0
+  },
+  {
+    "id": "7fefb540-955a-443d-897f-83552a44c720",
+    "name": "Aksesuarlar",
+    "slug": "cctv-aksesuarlar",
+    "parentId": "55fbfe09-59db-4a47-bab6-7672c561e843",
+    "depth": 1,
+    "path": "cctv/aksesuarlar",
+    "productCount": 182
+  },
+  {
+    "id": "2b651e96-c5a8-41c7-81de-b3438c26de99",
+    "name": "Akü",
+    "slug": "guc-elektronigi-aku",
+    "parentId": "fd46401d-f884-4169-be49-1ba1bd4b2cee",
+    "depth": 1,
+    "path": "guc-elektronigi/guc-elektronigi/guc-elektronigi-aku",
+    "productCount": 4
+  },
+  {
+    "id": "bf7acfb2-2d3d-4628-abd8-5cc4af79b45a",
+    "name": "Akıllı Ev",
+    "slug": "cevre-birimleri-aksesuar-akilli-ev",
+    "parentId": "be82af78-5233-4d60-aaba-d8212c85b2c4",
+    "depth": 1,
+    "path": "cevre-birimleri-aksesuar/akilli-ev",
+    "productCount": 0
+  },
+  {
+    "id": "c5bf301b-1074-4059-91fa-9c6a1eaa85b6",
+    "name": "Anakart",
+    "slug": "pc-bilesenleri-anakart",
+    "parentId": "18a016b0-5aeb-487d-9a0e-25f93adaa53e",
+    "depth": 1,
+    "path": "pc-bilesenleri/anakart",
+    "productCount": 1
+  },
+  {
+    "id": "a2786431-fada-4145-8d4d-4f10dd406271",
+    "name": "Analog Kameralar",
+    "slug": "cctv-analog-kameralar",
+    "parentId": "55fbfe09-59db-4a47-bab6-7672c561e843",
+    "depth": 1,
+    "path": "cctv/analog-kameralar",
+    "productCount": 0
+  },
+  {
+    "id": "577d719f-a316-44b1-bc38-64b96218b3d6",
+    "name": "Antivirüs & Güvenlik",
+    "slug": "yazilim-lisans-antivirus-guvenlik",
+    "parentId": "1101198b-86d0-4172-b23c-fdb15c3b0a23",
+    "depth": 1,
+    "path": "yazilim-lisans/antivirus-guvenlik",
+    "productCount": 337
+  },
+  {
+    "id": "86110c9b-9270-4937-b79f-849d87c2fb34",
+    "name": "Ağ Güvenliği",
+    "slug": "network-fiber-ag-guvenligi",
+    "parentId": "8479356b-5f63-4904-a434-6ab97efe3f75",
+    "depth": 1,
+    "path": "network-fiber/ag-guvenligi",
+    "productCount": 0
+  },
+  {
+    "id": "4769b6ee-2e55-4fd3-a3a5-c4169e1d42d9",
+    "name": "Barkod Okuyucu",
+    "slug": "pos-barkod-barkod-okuyucu",
+    "parentId": "61117d79-d1e0-4a72-9156-41d710ea0eba",
+    "depth": 1,
+    "path": "pos-barkod/barkod-okuyucu",
+    "productCount": 0
+  },
+  {
+    "id": "93e8cf0c-4acb-4a82-85a3-d8b9e1d7d86d",
+    "name": "Bellek (RAM)",
+    "slug": "pc-bilesenleri-bellek-ram",
+    "parentId": "18a016b0-5aeb-487d-9a0e-25f93adaa53e",
+    "depth": 1,
+    "path": "pc-bilesenleri/bellek-ram",
+    "productCount": 5
+  },
+  {
+    "id": "2e951be1-c270-42fd-980c-7ba8f433ccc7",
+    "name": "Depolama",
+    "slug": "pc-bilesenleri-depolama",
+    "parentId": "18a016b0-5aeb-487d-9a0e-25f93adaa53e",
+    "depth": 1,
+    "path": "pc-bilesenleri/depolama",
+    "productCount": 20
+  },
+  {
+    "id": "b0da825d-0e17-47a8-aed7-9070ab787e61",
+    "name": "Dönüştürücüler",
+    "slug": "kablo-aksesuar-donusturuculer",
+    "parentId": "0e648dbc-fb14-41cc-98cd-e1de1ee4f1d8",
+    "depth": 1,
+    "path": "kablo-aksesuar/donusturuculer",
+    "productCount": 0
+  },
+  {
+    "id": "3f3d9cd1-3b28-48f4-ae52-aafcdae8d7ca",
+    "name": "Ekran Kartı",
+    "slug": "pc-bilesenleri-ekran-karti",
+    "parentId": "18a016b0-5aeb-487d-9a0e-25f93adaa53e",
+    "depth": 1,
+    "path": "pc-bilesenleri/ekran-karti",
+    "productCount": 1
+  },
+  {
+    "id": "617d5030-0e3e-4f73-a3a7-945a3fa6f52f",
+    "name": "Etiket & POS Yazıcı",
+    "slug": "yazici-tarayici-etiket-pos-yazici",
+    "parentId": "bfb5c873-3e94-4025-8059-58e2b85d1bad",
+    "depth": 1,
+    "path": "yazici-tarayici/etiket-pos-yazici",
+    "productCount": 0
+  },
+  {
+    "id": "2f689991-ada8-4890-ba00-518a4bdc8197",
+    "name": "Fiber Optik",
+    "slug": "network-fiber-fiber-optik",
+    "parentId": "8479356b-5f63-4904-a434-6ab97efe3f75",
+    "depth": 1,
+    "path": "network-fiber/fiber-optik",
+    "productCount": 1
+  },
+  {
+    "id": "f0b60161-4294-40d4-b893-10474f21f4a1",
+    "name": "Fiş Yazıcı",
+    "slug": "pos-barkod-fis-yazici",
+    "parentId": "61117d79-d1e0-4a72-9156-41d710ea0eba",
+    "depth": 1,
+    "path": "pos-barkod/fis-yazici",
+    "productCount": 0
+  },
+  {
+    "id": "a40e6d27-ccd8-4e25-b1f3-3a4034a38db2",
+    "name": "Geçiş Kontrol",
+    "slug": "gecis-kontrol-alarm-gecis-kontrol",
+    "parentId": "7593b74a-394c-4e7b-bcf6-2380c9b6eee3",
+    "depth": 1,
+    "path": "gecis-kontrol-alarm/gecis-kontrol",
+    "productCount": 0
+  },
+  {
+    "id": "7292140b-035a-4e24-b3c0-ff3204525677",
+    "name": "Grafik & Tasarım",
+    "slug": "yazilim-lisans-grafik-tasarim",
+    "parentId": "1101198b-86d0-4172-b23c-fdb15c3b0a23",
+    "depth": 1,
+    "path": "yazilim-lisans/grafik-tasarim",
+    "productCount": 0
+  },
+  {
+    "id": "91b4158f-740a-4b4d-87f0-74a23a98347f",
+    "name": "Görüntü Analizi",
+    "slug": "akilli-sistemler-goruntu-analizi",
+    "parentId": "5184c209-411b-4b05-b51d-0e452498f10c",
+    "depth": 1,
+    "path": "akilli-sistemler/goruntu-analizi",
+    "productCount": 0
+  },
+  {
+    "id": "31cacdaf-be6e-4bdf-8bf0-80cf2d7f9a4c",
+    "name": "Görüntü Kabloları",
+    "slug": "kablo-aksesuar-goruntu-kablolari",
+    "parentId": "0e648dbc-fb14-41cc-98cd-e1de1ee4f1d8",
+    "depth": 1,
+    "path": "kablo-aksesuar/goruntu-kablolari",
+    "productCount": 123
+  },
+  {
+    "id": "54310553-dd6d-4f6a-ba0c-0ed82a1b2490",
+    "name": "Güneş Enerjisi",
+    "slug": "guc-elektronigi-gunes-enerjisi",
+    "parentId": "fd46401d-f884-4169-be49-1ba1bd4b2cee",
+    "depth": 1,
+    "path": "guc-elektronigi/gunes-enerjisi",
+    "productCount": 0
+  },
+  {
+    "id": "f94e653c-1b95-4bea-86a2-9cfea7bdb76d",
+    "name": "Güç Kabloları",
+    "slug": "kablo-aksesuar-guc-kablolari",
+    "parentId": "0e648dbc-fb14-41cc-98cd-e1de1ee4f1d8",
+    "depth": 1,
+    "path": "kablo-aksesuar/guc-kablolari",
+    "productCount": 0
+  },
+  {
+    "id": "e20a5109-04bd-46c1-b29d-ca72d5abee59",
+    "name": "Güç Kaynağı (PSU)",
+    "slug": "pc-bilesenleri-guc-kaynagi-psu",
+    "parentId": "18a016b0-5aeb-487d-9a0e-25f93adaa53e",
+    "depth": 1,
+    "path": "pc-bilesenleri/guc-kaynagi-psu",
+    "productCount": 3
+  },
+  {
+    "id": "5e0e1e16-675d-42d8-b64a-4811c324e16e",
+    "name": "HDCVI Kameralar",
+    "slug": "cctv-hdcvi-kameralar",
+    "parentId": "55fbfe09-59db-4a47-bab6-7672c561e843",
+    "depth": 1,
+    "path": "cctv/hdcvi-kameralar",
+    "productCount": 0
+  },
+  {
+    "id": "df81aae5-f5f5-4340-ac73-facec0ed87f0",
+    "name": "HDMI Splitter & Switch",
+    "slug": "kablo-aksesuar-hdmi-splitter-switch",
+    "parentId": "0e648dbc-fb14-41cc-98cd-e1de1ee4f1d8",
+    "depth": 1,
+    "path": "kablo-aksesuar/hdmi-splitter-switch",
+    "productCount": 0
+  },
+  {
+    "id": "cd8f4973-dfc4-4a07-9402-63f92a60a8e8",
+    "name": "Hoparlör",
+    "slug": "cevre-birimleri-aksesuar-hoparlor",
+    "parentId": "be82af78-5233-4d60-aaba-d8212c85b2c4",
+    "depth": 1,
+    "path": "cevre-birimleri-aksesuar/hoparlor",
+    "productCount": 0
+  },
+  {
+    "id": "a704606e-e8d6-431c-9c90-d63877fd4375",
+    "name": "Hırsız Alarm",
+    "slug": "gecis-kontrol-alarm-hirsiz-alarm",
+    "parentId": "7593b74a-394c-4e7b-bcf6-2380c9b6eee3",
+    "depth": 1,
+    "path": "gecis-kontrol-alarm/hirsiz-alarm",
+    "productCount": 3
+  },
+  {
+    "id": "0a1a045b-4a5f-42fd-8f9d-4a53a7d513e5",
+    "name": "IP Kameralar",
+    "slug": "cctv-ip-kameralar",
+    "parentId": "55fbfe09-59db-4a47-bab6-7672c561e843",
+    "depth": 1,
+    "path": "cctv/ip-kameralar",
+    "productCount": 306
+  },
+  {
+    "id": "05d9310c-44ea-4e41-8b4d-2011d0a4c807",
+    "name": "IoT Sensör",
+    "slug": "akilli-sistemler-iot-sensor",
+    "parentId": "5184c209-411b-4b05-b51d-0e452498f10c",
+    "depth": 1,
+    "path": "akilli-sistemler/iot-sensor",
+    "productCount": 0
+  },
+  {
+    "id": "d3231f00-343f-4f04-9e6a-68b4bd4359d5",
+    "name": "KVM Switch",
+    "slug": "kablo-aksesuar-kvm-switch",
+    "parentId": "0e648dbc-fb14-41cc-98cd-e1de1ee4f1d8",
+    "depth": 1,
+    "path": "kablo-aksesuar/kvm-switch",
+    "productCount": 0
+  },
+  {
+    "id": "4b9cee3b-62fa-4d52-b882-c03e3c6ad8f0",
+    "name": "Kablosuz Ağ",
+    "slug": "network-fiber-kablosuz-ag",
+    "parentId": "8479356b-5f63-4904-a434-6ab97efe3f75",
+    "depth": 1,
+    "path": "network-fiber/kablosuz-ag",
+    "productCount": 72
+  },
+  {
+    "id": "2eebc12f-b885-4b85-ab38-1840e19dbed6",
+    "name": "Kasa",
+    "slug": "pc-bilesenleri-kasa",
+    "parentId": "18a016b0-5aeb-487d-9a0e-25f93adaa53e",
+    "depth": 1,
+    "path": "pc-bilesenleri/kasa",
+    "productCount": 825
+  },
+  {
+    "id": "ce2e6ffa-7c4f-4b0f-bd04-7f8e60c7765b",
+    "name": "Kayıt Cihazı",
+    "slug": "cctv-kayit-cihazi",
+    "parentId": "55fbfe09-59db-4a47-bab6-7672c561e843",
+    "depth": 1,
+    "path": "cctv/kayit-cihazi",
+    "productCount": 23
+  },
+  {
+    "id": "fe0cbf0d-b735-4a61-951a-16bbb2eeebc7",
+    "name": "Kişisel Bilgisayarlar",
+    "slug": "bilgisayar-sunucu-kisisel-bilgisayarlar",
+    "parentId": "b7ed5f86-1720-4add-866c-05b272d4bdaf",
+    "depth": 1,
+    "path": "bilgisayar-sunucu/bilgisayar-sunucu/bilgisayar-sunucu-kisisel-bilgisayarlar",
+    "productCount": 7
+  },
+  {
+    "id": "c546b023-4868-4129-9f7f-9d44a003c518",
+    "name": "Klavye & Mouse",
+    "slug": "cevre-birimleri-aksesuar-klavye-mouse",
+    "parentId": "be82af78-5233-4d60-aaba-d8212c85b2c4",
+    "depth": 1,
+    "path": "cevre-birimleri-aksesuar/klavye-mouse",
+    "productCount": 3
+  },
+  {
+    "id": "67e7e22e-03b9-413f-bd8d-1262c24ecad4",
+    "name": "Kulaklık & Mikrofon",
+    "slug": "cevre-birimleri-aksesuar-kulaklik-mikrofon",
+    "parentId": "be82af78-5233-4d60-aaba-d8212c85b2c4",
+    "depth": 1,
+    "path": "cevre-birimleri-aksesuar/kulaklik-mikrofon",
+    "productCount": 3
+  },
+  {
+    "id": "18c33043-75be-4931-a2c7-bd2914d65e6c",
+    "name": "Lazer Yazıcı",
+    "slug": "yazici-tarayici-lazer-yazici",
+    "parentId": "bfb5c873-3e94-4025-8059-58e2b85d1bad",
+    "depth": 1,
+    "path": "yazici-tarayici/lazer-yazici",
+    "productCount": 10
+  },
+  {
+    "id": "4fb862ae-a474-4c70-8f7a-bf1318575935",
+    "name": "Masaüstü Bilgisayar",
+    "slug": "bilgisayar-sunucu-masaustu-bilgisayar",
+    "parentId": "b7ed5f86-1720-4add-866c-05b272d4bdaf",
+    "depth": 1,
+    "path": "bilgisayar-sunucu/masaustu-bilgisayar",
+    "productCount": 2
+  },
+  {
+    "id": "91144e1e-f2d9-4c54-8606-7244b05dca55",
+    "name": "Monitör",
+    "slug": "bilgisayar-sunucu-monitor",
+    "parentId": "b7ed5f86-1720-4add-866c-05b272d4bdaf",
+    "depth": 1,
+    "path": "bilgisayar-sunucu/monitor",
+    "productCount": 0
+  },
+  {
+    "id": "65c7bb27-83a7-4bcb-b59c-1bd64aa8609f",
+    "name": "Monitör Aparatı",
+    "slug": "cevre-birimleri-aksesuar-monitor-aparati",
+    "parentId": "be82af78-5233-4d60-aaba-d8212c85b2c4",
+    "depth": 1,
+    "path": "cevre-birimleri-aksesuar/monitor-aparati",
+    "productCount": 0
+  },
+  {
+    "id": "f5c327ac-b53f-41e4-960d-538342c1bda1",
+    "name": "Mürekkep Püskürtmeli",
+    "slug": "yazici-tarayici-murekkep-puskurtmeli",
+    "parentId": "bfb5c873-3e94-4025-8059-58e2b85d1bad",
+    "depth": 1,
+    "path": "yazici-tarayici/murekkep-puskurtmeli",
+    "productCount": 0
+  },
+  {
+    "id": "05be4b92-b5cc-43af-b25b-53140df4c5fe",
+    "name": "Müşteri Ekranı",
+    "slug": "pos-barkod-musteri-ekrani",
+    "parentId": "61117d79-d1e0-4a72-9156-41d710ea0eba",
+    "depth": 1,
+    "path": "pos-barkod/musteri-ekrani",
+    "productCount": 0
+  },
+  {
+    "id": "aa8bd567-300c-4c9e-9305-5ed2e2bbe80d",
+    "name": "Network Kabin",
+    "slug": "network-fiber-network-kabin",
+    "parentId": "8479356b-5f63-4904-a434-6ab97efe3f75",
+    "depth": 1,
+    "path": "network-fiber/network-kabin",
+    "productCount": 14
+  },
+  {
+    "id": "d6945140-7dfe-40c6-bf36-df837bebf581",
+    "name": "Notebook",
+    "slug": "bilgisayar-sunucu-notebook",
+    "parentId": "b7ed5f86-1720-4add-866c-05b272d4bdaf",
+    "depth": 1,
+    "path": "bilgisayar-sunucu/notebook",
+    "productCount": 173
+  },
+  {
+    "id": "c72e0f66-4d21-4be3-b5a8-07a0b83b2d5d",
+    "name": "Notebook Aksesuarı",
+    "slug": "cevre-birimleri-aksesuar-notebook-aksesuari",
+    "parentId": "be82af78-5233-4d60-aaba-d8212c85b2c4",
+    "depth": 1,
+    "path": "cevre-birimleri-aksesuar/notebook-aksesuari",
+    "productCount": 2
+  },
+  {
+    "id": "175f8464-da1e-4ed1-9e60-747daa760dac",
+    "name": "Ofis Yazılımı",
+    "slug": "yazilim-lisans-ofis-yazilimi",
+    "parentId": "1101198b-86d0-4172-b23c-fdb15c3b0a23",
+    "depth": 1,
+    "path": "yazilim-lisans/ofis-yazilimi",
+    "productCount": 0
+  },
+  {
+    "id": "5523479f-c6b0-433d-8c57-29f2118a15ff",
+    "name": "POE Switchler",
+    "slug": "network-fiber-poe-switchler",
+    "parentId": "8479356b-5f63-4904-a434-6ab97efe3f75",
+    "depth": 1,
+    "path": "network-fiber/network-fiber/network-fiber-poe-switchler",
+    "productCount": 8
+  },
+  {
+    "id": "d09fc2ce-9fcd-4552-86a1-9b1d80a668d8",
+    "name": "POS Terminal",
+    "slug": "pos-barkod-pos-terminal",
+    "parentId": "61117d79-d1e0-4a72-9156-41d710ea0eba",
+    "depth": 1,
+    "path": "pos-barkod/pos-terminal",
+    "productCount": 5
+  },
+  {
+    "id": "a3645db0-4428-4707-98ae-f7fa85b1f953",
+    "name": "Para Kasası",
+    "slug": "pos-barkod-para-kasasi",
+    "parentId": "61117d79-d1e0-4a72-9156-41d710ea0eba",
+    "depth": 1,
+    "path": "pos-barkod/para-kasasi",
+    "productCount": 0
+  },
+  {
+    "id": "d3c04648-8686-4c2b-88fd-4ad3e27bf767",
+    "name": "Pil & Akü",
+    "slug": "guc-elektronigi-pil-aku",
+    "parentId": "fd46401d-f884-4169-be49-1ba1bd4b2cee",
+    "depth": 1,
+    "path": "guc-elektronigi/pil-aku",
+    "productCount": 0
+  },
+  {
+    "id": "d52124e7-e695-4e52-b471-a91a8a1b9123",
+    "name": "Plaka Tanıma",
+    "slug": "akilli-sistemler-plaka-tanima",
+    "parentId": "5184c209-411b-4b05-b51d-0e452498f10c",
+    "depth": 1,
+    "path": "akilli-sistemler/plaka-tanima",
+    "productCount": 0
+  },
+  {
+    "id": "a82bfdd7-3e77-4ecf-9bee-263701b99979",
+    "name": "Projeksiyon",
+    "slug": "yazici-tarayici-projeksiyon",
+    "parentId": "bfb5c873-3e94-4025-8059-58e2b85d1bad",
+    "depth": 1,
+    "path": "yazici-tarayici/projeksiyon",
+    "productCount": 0
+  },
+  {
+    "id": "948858fe-e214-42fa-9f3d-ac89a26a19c3",
+    "name": "Seri Sonu NVR",
+    "slug": "cctv-seri-sonu-nvr",
+    "parentId": "55fbfe09-59db-4a47-bab6-7672c561e843",
+    "depth": 1,
+    "path": "cctv/cctv/cctv-seri-sonu-nvr",
+    "productCount": 0
+  },
+  {
+    "id": "c30ae8c1-0167-427d-9f0d-3cc60dbab416",
+    "name": "Ses Kabloları",
+    "slug": "kablo-aksesuar-ses-kablolari",
+    "parentId": "0e648dbc-fb14-41cc-98cd-e1de1ee4f1d8",
+    "depth": 1,
+    "path": "kablo-aksesuar/ses-kablolari",
+    "productCount": 0
+  },
+  {
+    "id": "52f6494e-4cbf-459b-bfda-a10351ee422f",
+    "name": "Soğutma",
+    "slug": "pc-bilesenleri-sogutma",
+    "parentId": "18a016b0-5aeb-487d-9a0e-25f93adaa53e",
+    "depth": 1,
+    "path": "pc-bilesenleri/sogutma",
+    "productCount": 3
+  },
+  {
+    "id": "3cfdfcd6-dc5d-41d2-8eaf-133cfc0c6355",
+    "name": "Sunucu",
+    "slug": "bilgisayar-sunucu-sunucu",
+    "parentId": "b7ed5f86-1720-4add-866c-05b272d4bdaf",
+    "depth": 1,
+    "path": "bilgisayar-sunucu/sunucu",
+    "productCount": 1
+  },
+  {
+    "id": "2e65418e-1c88-442e-8ec0-c20dbea06e9f",
+    "name": "Switch",
+    "slug": "network-fiber-switch",
+    "parentId": "8479356b-5f63-4904-a434-6ab97efe3f75",
+    "depth": 1,
+    "path": "network-fiber/switch",
+    "productCount": 9
+  },
+  {
+    "id": "e04cab90-94a2-4e33-9364-38ed220cb663",
+    "name": "Tarayıcı",
+    "slug": "yazici-tarayici-tarayici",
+    "parentId": "bfb5c873-3e94-4025-8059-58e2b85d1bad",
+    "depth": 1,
+    "path": "yazici-tarayici/tarayici",
+    "productCount": 0
+  },
+  {
+    "id": "0459e9f2-ec59-4749-9670-7188e2f99b8c",
+    "name": "Termal Kameralar",
+    "slug": "cctv-termal-kameralar",
+    "parentId": "55fbfe09-59db-4a47-bab6-7672c561e843",
+    "depth": 1,
+    "path": "cctv/termal-kameralar",
+    "productCount": 0
+  },
+  {
+    "id": "b4c90adf-89b2-43ce-bd21-a1764ed84ec6",
+    "name": "Trafik DSP Kameraları",
+    "slug": "cctv-trafik-dsp-kameralari",
+    "parentId": "55fbfe09-59db-4a47-bab6-7672c561e843",
+    "depth": 1,
+    "path": "cctv/cctv/cctv-trafik-dsp-kameralari",
+    "productCount": 1
+  },
+  {
+    "id": "9de158bb-541f-46f9-a2bc-3b218e5c094a",
+    "name": "UPS",
+    "slug": "guc-elektronigi-ups",
+    "parentId": "fd46401d-f884-4169-be49-1ba1bd4b2cee",
+    "depth": 1,
+    "path": "guc-elektronigi/ups",
+    "productCount": 0
+  },
+  {
+    "id": "31075a5c-4a78-46b5-893f-4e0f8f082d2d",
+    "name": "USB Hub & Dongle",
+    "slug": "cevre-birimleri-aksesuar-usb-hub-dongle",
+    "parentId": "be82af78-5233-4d60-aaba-d8212c85b2c4",
+    "depth": 1,
+    "path": "cevre-birimleri-aksesuar/usb-hub-dongle",
+    "productCount": 0
+  },
+  {
+    "id": "01ddef10-244b-4b1b-8253-953fdb0e70bf",
+    "name": "USB Kablolar",
+    "slug": "kablo-aksesuar-usb-kablolar",
+    "parentId": "0e648dbc-fb14-41cc-98cd-e1de1ee4f1d8",
+    "depth": 1,
+    "path": "kablo-aksesuar/usb-kablolar",
+    "productCount": 0
+  },
+  {
+    "id": "9bd7feba-3936-4d4f-bc9b-b124f9e2d1e0",
+    "name": "VMS Yazılımı",
+    "slug": "yazilim-lisans-vms-yazilimi",
+    "parentId": "1101198b-86d0-4172-b23c-fdb15c3b0a23",
+    "depth": 1,
+    "path": "yazilim-lisans/vms-yazilimi",
+    "productCount": 0
+  },
+  {
+    "id": "cb274bb1-903c-4f38-8669-f69e2cda894f",
+    "name": "Voltaj Regülatörü",
+    "slug": "guc-elektronigi-voltaj-regulatoru",
+    "parentId": "fd46401d-f884-4169-be49-1ba1bd4b2cee",
+    "depth": 1,
+    "path": "guc-elektronigi/voltaj-regulatoru",
+    "productCount": 0
+  },
+  {
+    "id": "2d8592c0-f33f-488c-b176-e4643b275a6b",
+    "name": "Webcam",
+    "slug": "cevre-birimleri-aksesuar-webcam",
+    "parentId": "be82af78-5233-4d60-aaba-d8212c85b2c4",
+    "depth": 1,
+    "path": "cevre-birimleri-aksesuar/webcam",
+    "productCount": 0
+  },
+  {
+    "id": "6f852895-cb67-4e0c-aad1-2cf0e944350a",
+    "name": "Webserverlar",
+    "slug": "bilgisayar-sunucu-webserverlar",
+    "parentId": "b7ed5f86-1720-4add-866c-05b272d4bdaf",
+    "depth": 1,
+    "path": "bilgisayar-sunucu/bilgisayar-sunucu/bilgisayar-sunucu-webserverlar",
+    "productCount": 0
+  },
+  {
+    "id": "0d446a13-0550-4165-b287-a15ed16f97d3",
+    "name": "Yangın Alarm",
+    "slug": "gecis-kontrol-alarm-yangin-alarm",
+    "parentId": "7593b74a-394c-4e7b-bcf6-2380c9b6eee3",
+    "depth": 1,
+    "path": "gecis-kontrol-alarm/yangin-alarm",
+    "productCount": 0
+  },
+  {
+    "id": "88b7d667-7a46-443f-8551-8bdf039df404",
+    "name": "Yapısal Kablolama",
+    "slug": "network-fiber-yapisal-kablolama",
+    "parentId": "8479356b-5f63-4904-a434-6ab97efe3f75",
+    "depth": 1,
+    "path": "network-fiber/yapisal-kablolama",
+    "productCount": 0
+  },
+  {
+    "id": "f0b60b4b-b142-46c7-9211-ed070657bcfd",
+    "name": "Yazıcı Sarf Malzemeleri",
+    "slug": "yazici-tarayici-yazici-sarf-malzemeleri",
+    "parentId": "bfb5c873-3e94-4025-8059-58e2b85d1bad",
+    "depth": 1,
+    "path": "yazici-tarayici/yazici-sarf-malzemeleri",
+    "productCount": 115
+  },
+  {
+    "id": "aef5464b-01bd-4bfd-8380-74ef9c45f927",
+    "name": "Yedekleme Yazılımı",
+    "slug": "yazilim-lisans-yedekleme-yazilimi",
+    "parentId": "1101198b-86d0-4172-b23c-fdb15c3b0a23",
+    "depth": 1,
+    "path": "yazilim-lisans/yedekleme-yazilimi",
+    "productCount": 76
+  },
+  {
+    "id": "81092deb-9bcb-415d-ab62-31e310fe3c62",
+    "name": "Yüz Tanıma",
+    "slug": "akilli-sistemler-yuz-tanima",
+    "parentId": "5184c209-411b-4b05-b51d-0e452498f10c",
+    "depth": 1,
+    "path": "akilli-sistemler/yuz-tanima",
+    "productCount": 9
+  },
+  {
+    "id": "9d9e6ea1-c05a-41c2-ade9-0f900f8fe411",
+    "name": "Çok Fonksiyonlu (MFP)",
+    "slug": "yazici-tarayici-cok-fonksiyonlu-mfp",
+    "parentId": "bfb5c873-3e94-4025-8059-58e2b85d1bad",
+    "depth": 1,
+    "path": "yazici-tarayici/cok-fonksiyonlu-mfp",
+    "productCount": 14
+  },
+  {
+    "id": "f1ae8295-6098-4cd3-8203-2e8e09fba683",
+    "name": "Ödeme Terminali",
+    "slug": "pos-barkod-odeme-terminali",
+    "parentId": "61117d79-d1e0-4a72-9156-41d710ea0eba",
+    "depth": 1,
+    "path": "pos-barkod/odeme-terminali",
+    "productCount": 1
+  },
+  {
+    "id": "7577fa77-8b46-4e23-b1f5-29a089873e10",
+    "name": "İşlemci",
+    "slug": "pc-bilesenleri-i-slemci",
+    "parentId": "18a016b0-5aeb-487d-9a0e-25f93adaa53e",
+    "depth": 1,
+    "path": "pc-bilesenleri/i-slemci",
+    "productCount": 0
+  },
+  {
+    "id": "57f428c1-ce24-46b4-9436-70281de35c1d",
+    "name": "İşletim Sistemi",
+    "slug": "yazilim-lisans-i-sletim-sistemi",
+    "parentId": "1101198b-86d0-4172-b23c-fdb15c3b0a23",
+    "depth": 1,
+    "path": "yazilim-lisans/i-sletim-sistemi",
+    "productCount": 0
+  },
+  {
+    "id": "5f96e11a-8cc8-4c53-94a5-618c936e7dcd",
+    "name": "Şarj Cihazı",
+    "slug": "guc-elektronigi-sarj-cihazi",
+    "parentId": "fd46401d-f884-4169-be49-1ba1bd4b2cee",
+    "depth": 1,
+    "path": "guc-elektronigi/sarj-cihazi",
+    "productCount": 0
+  },
+  {
+    "id": "e7712cc3-45c9-4157-b9db-5dbd59f0bde0",
+    "name": "1 Cihaz Lisans",
+    "slug": "antivirus-guvenlik-1-cihaz-lisans",
+    "parentId": "577d719f-a316-44b1-bc38-64b96218b3d6",
+    "depth": 2,
+    "path": "yazilim-lisans/antivirus-guvenlik/1-cihaz-lisans",
+    "productCount": 0
+  },
+  {
+    "id": "05d2853a-44d7-495b-8b1a-801b0cdcb5f3",
+    "name": "10 Cihaz Lisans",
+    "slug": "antivirus-guvenlik-10-cihaz-lisans",
+    "parentId": "577d719f-a316-44b1-bc38-64b96218b3d6",
+    "depth": 2,
+    "path": "yazilim-lisans/antivirus-guvenlik/10-cihaz-lisans",
+    "productCount": 0
+  },
+  {
+    "id": "b6c3a831-aa37-4b09-8fe3-6bd4b4205985",
+    "name": "1000TVL",
+    "slug": "analog-kameralar-1000tvl",
+    "parentId": "a2786431-fada-4145-8d4d-4f10dd406271",
+    "depth": 2,
+    "path": "cctv/analog-kameralar/1000tvl",
+    "productCount": 0
+  },
+  {
+    "id": "f979dd16-8bec-4286-9565-6cf17af8ce00",
+    "name": "1000VA Regülatör",
+    "slug": "voltaj-regulatoru-1000va-regulator",
+    "parentId": "cb274bb1-903c-4f38-8669-f69e2cda894f",
+    "depth": 2,
+    "path": "guc-elektronigi/voltaj-regulatoru/1000va-regulator",
+    "productCount": 0
+  },
+  {
+    "id": "7762adde-0262-4d36-b605-fc55cd6737b9",
+    "name": "1000W PSU",
+    "slug": "guc-kaynagi-psu-1000w-psu",
+    "parentId": "e20a5109-04bd-46c1-b29d-ca72d5abee59",
+    "depth": 2,
+    "path": "pc-bilesenleri/guc-kaynagi-psu/1000w-psu",
+    "productCount": 0
+  },
+  {
+    "id": "2ef61690-246b-46eb-a89b-18db42a8ff53",
+    "name": "1200TVL",
+    "slug": "analog-kameralar-1200tvl",
+    "parentId": "a2786431-fada-4145-8d4d-4f10dd406271",
+    "depth": 2,
+    "path": "cctv/analog-kameralar/1200tvl",
+    "productCount": 0
+  },
+  {
+    "id": "12347d73-9799-4c11-b8b7-5dd8cf9ee33a",
+    "name": "1200W PSU",
+    "slug": "guc-kaynagi-psu-1200w-psu",
+    "parentId": "e20a5109-04bd-46c1-b29d-ca72d5abee59",
+    "depth": 2,
+    "path": "pc-bilesenleri/guc-kaynagi-psu/1200w-psu",
+    "productCount": 0
+  },
+  {
+    "id": "6509db35-2300-4652-bc25-be63fe99e5b0",
+    "name": "12U Kabin",
+    "slug": "network-kabin-12u-kabin",
+    "parentId": "aa8bd567-300c-4c9e-9305-5ed2e2bbe80d",
+    "depth": 2,
+    "path": "network-fiber/network-kabin/12u-kabin",
+    "productCount": 0
+  },
+  {
+    "id": "b15382ec-7dc9-4d3f-8d61-a1638e251352",
+    "name": "16 Kanal VMS",
+    "slug": "vms-yazilimi-16-kanal-vms",
+    "parentId": "9bd7feba-3936-4d4f-bc9b-b124f9e2d1e0",
+    "depth": 2,
+    "path": "yazilim-lisans/vms-yazilimi/16-kanal-vms",
+    "productCount": 0
+  },
+  {
+    "id": "c0fa7d16-16ae-4d1b-9074-68e419ecde5d",
+    "name": "1D Barkod Okuyucu",
+    "slug": "barkod-okuyucu-1d-barkod-okuyucu",
+    "parentId": "4769b6ee-2e55-4fd3-a3a5-c4169e1d42d9",
+    "depth": 2,
+    "path": "pos-barkod/barkod-okuyucu/1d-barkod-okuyucu",
+    "productCount": 0
+  },
+  {
+    "id": "1d79e886-f99c-4eee-9021-6dc8460d3cf9",
+    "name": "2000VA Regülatör",
+    "slug": "voltaj-regulatoru-2000va-regulator",
+    "parentId": "cb274bb1-903c-4f38-8669-f69e2cda894f",
+    "depth": 2,
+    "path": "guc-elektronigi/voltaj-regulatoru/2000va-regulator",
+    "productCount": 0
+  },
+  {
+    "id": "39c1d277-cbe3-4583-b725-0f33fd710fb6",
+    "name": "22\" Monitör",
+    "slug": "monitor-22-monitor",
+    "parentId": "91144e1e-f2d9-4c54-8606-7244b05dca55",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/monitor/22-monitor",
+    "productCount": 0
+  },
+  {
+    "id": "3f8cfa60-4ded-40e4-b22e-02f1809d6013",
+    "name": "22U Kabin",
+    "slug": "network-kabin-22u-kabin",
+    "parentId": "aa8bd567-300c-4c9e-9305-5ed2e2bbe80d",
+    "depth": 2,
+    "path": "network-fiber/network-kabin/22u-kabin",
+    "productCount": 0
+  },
+  {
+    "id": "b2a00561-0cd4-4f18-bdeb-88912a866694",
+    "name": "24\" Monitör",
+    "slug": "monitor-24-monitor",
+    "parentId": "91144e1e-f2d9-4c54-8606-7244b05dca55",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/monitor/24-monitor",
+    "productCount": 0
+  },
+  {
+    "id": "91488b22-2340-4411-8731-01a4a7c533c3",
+    "name": "27\" Monitör",
+    "slug": "monitor-27-monitor",
+    "parentId": "91144e1e-f2d9-4c54-8606-7244b05dca55",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/monitor/27-monitor",
+    "productCount": 0
+  },
+  {
+    "id": "9e353451-ee07-476a-b570-65811f52749f",
+    "name": "2D Barkod Okuyucu",
+    "slug": "barkod-okuyucu-2d-barkod-okuyucu",
+    "parentId": "4769b6ee-2e55-4fd3-a3a5-c4169e1d42d9",
+    "depth": 2,
+    "path": "pos-barkod/barkod-okuyucu/2d-barkod-okuyucu",
+    "productCount": 0
+  },
+  {
+    "id": "2d3cf9b3-e65b-4138-bd3d-8d297fdcd766",
+    "name": "3 Cihaz Lisans",
+    "slug": "antivirus-guvenlik-3-cihaz-lisans",
+    "parentId": "577d719f-a316-44b1-bc38-64b96218b3d6",
+    "depth": 2,
+    "path": "yazilim-lisans/antivirus-guvenlik/3-cihaz-lisans",
+    "productCount": 0
+  },
+  {
+    "id": "2e8afec2-efcd-4382-a07b-458398a70a41",
+    "name": "3.5mm Jack Kablo",
+    "slug": "ses-kablolari-3-5mm-jack-kablo",
+    "parentId": "c30ae8c1-0167-427d-9f0d-3cc60dbab416",
+    "depth": 2,
+    "path": "kablo-aksesuar/ses-kablolari/3-5mm-jack-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "663a09ca-6482-4077-b62f-5687ecf61e91",
+    "name": "3000VA Regülatör",
+    "slug": "voltaj-regulatoru-3000va-regulator",
+    "parentId": "cb274bb1-903c-4f38-8669-f69e2cda894f",
+    "depth": 2,
+    "path": "guc-elektronigi/voltaj-regulatoru/3000va-regulator",
+    "productCount": 0
+  },
+  {
+    "id": "9476b00e-f324-4200-9802-0498430662bf",
+    "name": "32 Kanal VMS",
+    "slug": "vms-yazilimi-32-kanal-vms",
+    "parentId": "9bd7feba-3936-4d4f-bc9b-b124f9e2d1e0",
+    "depth": 2,
+    "path": "yazilim-lisans/vms-yazilimi/32-kanal-vms",
+    "productCount": 0
+  },
+  {
+    "id": "a36b4fcd-8e10-4feb-abec-4f0f34344e0d",
+    "name": "32\" Monitör",
+    "slug": "monitor-32-monitor",
+    "parentId": "91144e1e-f2d9-4c54-8606-7244b05dca55",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/monitor/32-monitor",
+    "productCount": 0
+  },
+  {
+    "id": "680b1bc0-d632-4658-bedb-a3b0ad4a63b8",
+    "name": "34\" Ultrawide",
+    "slug": "monitor-34-ultrawide",
+    "parentId": "91144e1e-f2d9-4c54-8606-7244b05dca55",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/monitor/34-ultrawide",
+    "productCount": 0
+  },
+  {
+    "id": "1af6550c-065b-4377-8b56-bc7584b00ef5",
+    "name": "3D Tarayıcı",
+    "slug": "tarayici-3d-tarayici",
+    "parentId": "e04cab90-94a2-4e33-9364-38ed220cb663",
+    "depth": 2,
+    "path": "yazici-tarayici/tarayici/3d-tarayici",
+    "productCount": 0
+  },
+  {
+    "id": "7bc4cb9a-0745-4778-9292-2841518ab6ff",
+    "name": "4 Kanal VMS",
+    "slug": "vms-yazilimi-4-kanal-vms",
+    "parentId": "9bd7feba-3936-4d4f-bc9b-b124f9e2d1e0",
+    "depth": 2,
+    "path": "yazilim-lisans/vms-yazilimi/4-kanal-vms",
+    "productCount": 0
+  },
+  {
+    "id": "3683b1fc-4e9a-4f7c-a7a4-a623326f351a",
+    "name": "42U Kabin",
+    "slug": "network-kabin-42u-kabin",
+    "parentId": "aa8bd567-300c-4c9e-9305-5ed2e2bbe80d",
+    "depth": 2,
+    "path": "network-fiber/network-kabin/42u-kabin",
+    "productCount": 0
+  },
+  {
+    "id": "bd51b92c-c8f4-4a53-9eb9-b5e635fbc0d1",
+    "name": "5 Cihaz Lisans",
+    "slug": "antivirus-guvenlik-5-cihaz-lisans",
+    "parentId": "577d719f-a316-44b1-bc38-64b96218b3d6",
+    "depth": 2,
+    "path": "yazilim-lisans/antivirus-guvenlik/5-cihaz-lisans",
+    "productCount": 0
+  },
+  {
+    "id": "9e8e4f45-eef7-46f3-805f-417b09d450f0",
+    "name": "5000VA Regülatör",
+    "slug": "voltaj-regulatoru-5000va-regulator",
+    "parentId": "cb274bb1-903c-4f38-8669-f69e2cda894f",
+    "depth": 2,
+    "path": "guc-elektronigi/voltaj-regulatoru/5000va-regulator",
+    "productCount": 0
+  },
+  {
+    "id": "febe32d2-a848-4d18-8af1-277282e6ed2a",
+    "name": "500VA Regülatör",
+    "slug": "voltaj-regulatoru-500va-regulator",
+    "parentId": "cb274bb1-903c-4f38-8669-f69e2cda894f",
+    "depth": 2,
+    "path": "guc-elektronigi/voltaj-regulatoru/500va-regulator",
+    "productCount": 0
+  },
+  {
+    "id": "43f5f95f-13fb-4a9a-9bad-5737667119b4",
+    "name": "500W PSU",
+    "slug": "guc-kaynagi-psu-500w-psu",
+    "parentId": "e20a5109-04bd-46c1-b29d-ca72d5abee59",
+    "depth": 2,
+    "path": "pc-bilesenleri/guc-kaynagi-psu/500w-psu",
+    "productCount": 0
+  },
+  {
+    "id": "49b8f646-1aff-4e4d-96be-ddb2c28f46bb",
+    "name": "58mm Fiş Yazıcı",
+    "slug": "fis-yazici-58mm-fis-yazici",
+    "parentId": "f0b60161-4294-40d4-b893-10474f21f4a1",
+    "depth": 2,
+    "path": "pos-barkod/fis-yazici/58mm-fis-yazici",
+    "productCount": 0
+  },
+  {
+    "id": "609a824c-82e6-4993-8af7-5d0a040ba201",
+    "name": "64 Kanal VMS",
+    "slug": "vms-yazilimi-64-kanal-vms",
+    "parentId": "9bd7feba-3936-4d4f-bc9b-b124f9e2d1e0",
+    "depth": 2,
+    "path": "yazilim-lisans/vms-yazilimi/64-kanal-vms",
+    "productCount": 0
+  },
+  {
+    "id": "9b2497ff-9154-4c23-955c-a5bb9afa286c",
+    "name": "650W PSU",
+    "slug": "guc-kaynagi-psu-650w-psu",
+    "parentId": "e20a5109-04bd-46c1-b29d-ca72d5abee59",
+    "depth": 2,
+    "path": "pc-bilesenleri/guc-kaynagi-psu/650w-psu",
+    "productCount": 0
+  },
+  {
+    "id": "48ee808f-f092-4fdb-87cb-502b845c4903",
+    "name": "6U Kabin",
+    "slug": "network-kabin-6u-kabin",
+    "parentId": "aa8bd567-300c-4c9e-9305-5ed2e2bbe80d",
+    "depth": 2,
+    "path": "network-fiber/network-kabin/6u-kabin",
+    "productCount": 0
+  },
+  {
+    "id": "87af0594-1c93-4c7f-821a-f09c232b2442",
+    "name": "750W PSU",
+    "slug": "guc-kaynagi-psu-750w-psu",
+    "parentId": "e20a5109-04bd-46c1-b29d-ca72d5abee59",
+    "depth": 2,
+    "path": "pc-bilesenleri/guc-kaynagi-psu/750w-psu",
+    "productCount": 0
+  },
+  {
+    "id": "94a23aee-abb2-43f0-b2e8-62441ba8c3a2",
+    "name": "8 Kanal VMS",
+    "slug": "vms-yazilimi-8-kanal-vms",
+    "parentId": "9bd7feba-3936-4d4f-bc9b-b124f9e2d1e0",
+    "depth": 2,
+    "path": "yazilim-lisans/vms-yazilimi/8-kanal-vms",
+    "productCount": 0
+  },
+  {
+    "id": "c5a363bf-6f94-44e1-8b96-6293affeae10",
+    "name": "800TVL",
+    "slug": "analog-kameralar-800tvl",
+    "parentId": "a2786431-fada-4145-8d4d-4f10dd406271",
+    "depth": 2,
+    "path": "cctv/analog-kameralar/800tvl",
+    "productCount": 0
+  },
+  {
+    "id": "55407924-11cc-4f5b-abc0-1fbac952ffcd",
+    "name": "80mm Fiş Yazıcı",
+    "slug": "fis-yazici-80mm-fis-yazici",
+    "parentId": "f0b60161-4294-40d4-b893-10474f21f4a1",
+    "depth": 2,
+    "path": "pos-barkod/fis-yazici/80mm-fis-yazici",
+    "productCount": 0
+  },
+  {
+    "id": "2d82f099-6455-4149-a15c-a6da8cf3129b",
+    "name": "850W PSU",
+    "slug": "guc-kaynagi-psu-850w-psu",
+    "parentId": "e20a5109-04bd-46c1-b29d-ca72d5abee59",
+    "depth": 2,
+    "path": "pc-bilesenleri/guc-kaynagi-psu/850w-psu",
+    "productCount": 0
+  },
+  {
+    "id": "e7b588a5-7bb0-4a7b-9b5d-64c25e7b8bfc",
+    "name": "9U Kabin",
+    "slug": "network-kabin-9u-kabin",
+    "parentId": "aa8bd567-300c-4c9e-9305-5ed2e2bbe80d",
+    "depth": 2,
+    "path": "network-fiber/network-kabin/9u-kabin",
+    "productCount": 0
+  },
+  {
+    "id": "d56fcc48-0cf0-44af-a143-02198d2d94b2",
+    "name": "AA / AAA Pil",
+    "slug": "pil-aku-aa-aaa-pil",
+    "parentId": "d3c04648-8686-4c2b-88fd-4ad3e27bf767",
+    "depth": 2,
+    "path": "guc-elektronigi/pil-aku/aa-aaa-pil",
+    "productCount": 0
+  },
+  {
+    "id": "1b6fb9c2-d448-47cb-9261-7a51c7ece81b",
+    "name": "AHD Bullet",
+    "slug": "ahd-kameralar-ahd-bullet",
+    "parentId": "c990120d-99cb-4587-af76-295e36654fec",
+    "depth": 2,
+    "path": "cctv/ahd-kameralar/ahd-bullet",
+    "productCount": 0
+  },
+  {
+    "id": "d12a8ee8-f8b6-4113-aaf6-6b8144580a77",
+    "name": "AHD Dome",
+    "slug": "ahd-kameralar-ahd-dome",
+    "parentId": "c990120d-99cb-4587-af76-295e36654fec",
+    "depth": 2,
+    "path": "cctv/ahd-kameralar/ahd-dome",
+    "productCount": 0
+  },
+  {
+    "id": "7e28a1a2-ad49-438b-b330-b0fc057c7c7c",
+    "name": "AMD",
+    "slug": "i-slemci-amd",
+    "parentId": "7577fa77-8b46-4e23-b1f5-29a089873e10",
+    "depth": 2,
+    "path": "pc-bilesenleri/i-slemci/amd",
+    "productCount": 0
+  },
+  {
+    "id": "cbab6f02-062f-4e65-bdaf-51659428fbec",
+    "name": "AMD",
+    "slug": "ekran-karti-amd",
+    "parentId": "3f3d9cd1-3b28-48f4-ae52-aafcdae8d7ca",
+    "depth": 2,
+    "path": "pc-bilesenleri/ekran-karti/amd",
+    "productCount": 0
+  },
+  {
+    "id": "fe4f758e-b426-45cd-acc8-12320289db75",
+    "name": "AMD Anakart",
+    "slug": "anakart-amd-anakart",
+    "parentId": "c5bf301b-1074-4059-91fa-9c6a1eaa85b6",
+    "depth": 2,
+    "path": "pc-bilesenleri/anakart/amd-anakart",
+    "productCount": 0
+  },
+  {
+    "id": "15e023c0-45fe-4c82-89b5-bd8a7adf2f5c",
+    "name": "Access Point",
+    "slug": "kablosuz-ag-access-point",
+    "parentId": "4b9cee3b-62fa-4d52-b882-c03e3c6ad8f0",
+    "depth": 2,
+    "path": "network-fiber/kablosuz-ag/access-point",
+    "productCount": 0
+  },
+  {
+    "id": "32b208fe-d5a0-465b-9ad2-9fe62d5330e7",
+    "name": "Acil Aydınlatma",
+    "slug": "yangin-alarm-acil-aydinlatma",
+    "parentId": "0d446a13-0550-4165-b287-a15ed16f97d3",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/yangin-alarm/acil-aydinlatma",
+    "productCount": 0
+  },
+  {
+    "id": "f31a6431-0de2-46c5-badd-67cee15289f5",
+    "name": "Adaptörler",
+    "slug": "aksesuarlar-adaptorler",
+    "parentId": "7fefb540-955a-443d-897f-83552a44c720",
+    "depth": 2,
+    "path": "cctv/aksesuarlar/adaptorler",
+    "productCount": 5
+  },
+  {
+    "id": "944a3465-0607-42c3-a51a-90c95ff7fb74",
+    "name": "Adobe Creative Cloud",
+    "slug": "grafik-tasarim-adobe-creative-cloud",
+    "parentId": "7292140b-035a-4e24-b3c0-ff3204525677",
+    "depth": 2,
+    "path": "yazilim-lisans/grafik-tasarim/adobe-creative-cloud",
+    "productCount": 0
+  },
+  {
+    "id": "540b879b-486d-4c81-955b-874629f87bbf",
+    "name": "Akü (Kurşun)",
+    "slug": "pil-aku-aku-kursun",
+    "parentId": "d3c04648-8686-4c2b-88fd-4ad3e27bf767",
+    "depth": 2,
+    "path": "guc-elektronigi/pil-aku/aku-kursun",
+    "productCount": 0
+  },
+  {
+    "id": "31faf5a3-d5ab-4ddb-8afd-ea472b8c39f0",
+    "name": "Akıllı Ampul",
+    "slug": "akilli-ev-akilli-ampul",
+    "parentId": "bf7acfb2-2d3d-4628-abd8-5cc4af79b45a",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/akilli-ev/akilli-ampul",
+    "productCount": 0
+  },
+  {
+    "id": "69911e8d-b1e0-4ad3-8c35-652d13d6b5c0",
+    "name": "Akıllı Priz",
+    "slug": "akilli-ev-akilli-priz",
+    "parentId": "bf7acfb2-2d3d-4628-abd8-5cc4af79b45a",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/akilli-ev/akilli-priz",
+    "productCount": 0
+  },
+  {
+    "id": "1ba9448e-4701-4d75-be26-ad167913652b",
+    "name": "Akıllı Sensör",
+    "slug": "akilli-ev-akilli-sensor",
+    "parentId": "bf7acfb2-2d3d-4628-abd8-5cc4af79b45a",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/akilli-ev/akilli-sensor",
+    "productCount": 0
+  },
+  {
+    "id": "fa0c4f95-6bd0-4c57-99b1-361e414d1ef6",
+    "name": "Alarm Paneli",
+    "slug": "hirsiz-alarm-alarm-paneli",
+    "parentId": "a704606e-e8d6-431c-9c90-d63877fd4375",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/hirsiz-alarm/alarm-paneli",
+    "productCount": 0
+  },
+  {
+    "id": "bcfb272f-5a1e-4a99-9f3d-9b5dff6e7070",
+    "name": "All-in-One PC",
+    "slug": "masaustu-bilgisayar-all-in-one-pc",
+    "parentId": "4fb862ae-a474-4c70-8f7a-bf1318575935",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/masaustu-bilgisayar/all-in-one-pc",
+    "productCount": 0
+  },
+  {
+    "id": "3da50d97-522a-4c60-951a-9bb77ff58522",
+    "name": "All-in-One POS",
+    "slug": "pos-terminal-all-in-one-pos",
+    "parentId": "d09fc2ce-9fcd-4552-86a1-9b1d80a668d8",
+    "depth": 2,
+    "path": "pos-barkod/pos-terminal/all-in-one-pos",
+    "productCount": 0
+  },
+  {
+    "id": "21b54f0b-c48b-4aae-b7f5-b950933bd01e",
+    "name": "AutoCAD",
+    "slug": "grafik-tasarim-autocad",
+    "parentId": "7292140b-035a-4e24-b3c0-ff3204525677",
+    "depth": 2,
+    "path": "yazilim-lisans/grafik-tasarim/autocad",
+    "productCount": 0
+  },
+  {
+    "id": "becfc4e4-003a-4697-9496-bc5f537a805a",
+    "name": "BNC / Konektörler",
+    "slug": "aksesuarlar-bnc-konektorler",
+    "parentId": "7fefb540-955a-443d-897f-83552a44c720",
+    "depth": 2,
+    "path": "cctv/aksesuarlar/bnc-konektorler",
+    "productCount": 0
+  },
+  {
+    "id": "b56390be-fb42-44ad-b19e-946c15da9579",
+    "name": "Barebone",
+    "slug": "masaustu-bilgisayar-barebone",
+    "parentId": "4fb862ae-a474-4c70-8f7a-bf1318575935",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/masaustu-bilgisayar/barebone",
+    "productCount": 0
+  },
+  {
+    "id": "aeb97ae0-8343-4bf7-a4d1-a536e53c6367",
+    "name": "Bariyer",
+    "slug": "gecis-kontrol-bariyer",
+    "parentId": "a40e6d27-ccd8-4e25-b1f3-3a4034a38db2",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/bariyer",
+    "productCount": 0
+  },
+  {
+    "id": "500a3c5d-bf1f-4640-a79b-bb2886f2ca99",
+    "name": "Barkod Yazıcı",
+    "slug": "etiket-pos-yazici-barkod-yazici",
+    "parentId": "617d5030-0e3e-4f73-a3a7-945a3fa6f52f",
+    "depth": 2,
+    "path": "yazici-tarayici/etiket-pos-yazici/barkod-yazici",
+    "productCount": 115
+  },
+  {
+    "id": "36c8af08-6220-4eb4-ac36-1dca2280958e",
+    "name": "Biyometrik",
+    "slug": "gecis-kontrol-biyometrik",
+    "parentId": "a40e6d27-ccd8-4e25-b1f3-3a4034a38db2",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/biyometrik",
+    "productCount": 20
+  },
+  {
+    "id": "ada8b8a3-0157-46d7-a63e-4fbcef42899d",
+    "name": "Bluetooth Para Kasası",
+    "slug": "para-kasasi-bluetooth-para-kasasi",
+    "parentId": "a3645db0-4428-4707-98ae-f7fa85b1f953",
+    "depth": 2,
+    "path": "pos-barkod/para-kasasi/bluetooth-para-kasasi",
+    "productCount": 0
+  },
+  {
+    "id": "67b1f922-5eb9-411a-bac4-47672714e79a",
+    "name": "Cat5e Kablo",
+    "slug": "yapisal-kablolama-cat5e-kablo",
+    "parentId": "88b7d667-7a46-443f-8551-8bdf039df404",
+    "depth": 2,
+    "path": "network-fiber/yapisal-kablolama/cat5e-kablo",
+    "productCount": 766
+  },
+  {
+    "id": "1011d647-7268-4aec-a02c-07f66da80e45",
+    "name": "Cat6 Kablo",
+    "slug": "yapisal-kablolama-cat6-kablo",
+    "parentId": "88b7d667-7a46-443f-8551-8bdf039df404",
+    "depth": 2,
+    "path": "network-fiber/yapisal-kablolama/cat6-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "d0271f57-aad9-4e16-a982-0585a2d22bb5",
+    "name": "Cat6a Kablo",
+    "slug": "yapisal-kablolama-cat6a-kablo",
+    "parentId": "88b7d667-7a46-443f-8551-8bdf039df404",
+    "depth": 2,
+    "path": "network-fiber/yapisal-kablolama/cat6a-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "76f79723-106a-43eb-b701-d14248b2d5cb",
+    "name": "Chromebook",
+    "slug": "notebook-chromebook",
+    "parentId": "d6945140-7dfe-40c6-bf36-df837bebf581",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/notebook/chromebook",
+    "productCount": 0
+  },
+  {
+    "id": "bbc22d4d-0266-4808-9280-39485508de46",
+    "name": "CorelDRAW",
+    "slug": "grafik-tasarim-coreldraw",
+    "parentId": "7292140b-035a-4e24-b3c0-ff3204525677",
+    "depth": 2,
+    "path": "yazilim-lisans/grafik-tasarim/coreldraw",
+    "productCount": 0
+  },
+  {
+    "id": "10f0eb08-6dd4-49dd-8e5f-4c59334fdf52",
+    "name": "DDR4",
+    "slug": "bellek-ram-ddr4",
+    "parentId": "93e8cf0c-4acb-4a82-85a3-d8b9e1d7d86d",
+    "depth": 2,
+    "path": "pc-bilesenleri/bellek-ram/ddr4",
+    "productCount": 0
+  },
+  {
+    "id": "21fe4f78-5d62-4920-a1d5-028855aab3e7",
+    "name": "DDR5",
+    "slug": "bellek-ram-ddr5",
+    "parentId": "93e8cf0c-4acb-4a82-85a3-d8b9e1d7d86d",
+    "depth": 2,
+    "path": "pc-bilesenleri/bellek-ram/ddr5",
+    "productCount": 0
+  },
+  {
+    "id": "2f085c3c-575a-422b-8378-732ac2ade810",
+    "name": "DLP Projeksiyon",
+    "slug": "projeksiyon-dlp-projeksiyon",
+    "parentId": "a82bfdd7-3e77-4ecf-9bee-263701b99979",
+    "depth": 2,
+    "path": "yazici-tarayici/projeksiyon/dlp-projeksiyon",
+    "productCount": 0
+  },
+  {
+    "id": "bc1cc046-b6fa-4e68-962d-878874e09e84",
+    "name": "DVI Kablo",
+    "slug": "goruntu-kablolari-dvi-kablo",
+    "parentId": "31cacdaf-be6e-4bdf-8bf0-80cf2d7f9a4c",
+    "depth": 2,
+    "path": "kablo-aksesuar/goruntu-kablolari/dvi-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "86315426-2d09-4713-9be9-70850c717fdf",
+    "name": "DVR",
+    "slug": "kayit-cihazi-dvr",
+    "parentId": "ce2e6ffa-7c4f-4b0f-bd04-7f8e60c7765b",
+    "depth": 2,
+    "path": "cctv/kayit-cihazi/dvr",
+    "productCount": 0
+  },
+  {
+    "id": "6c725dc8-a961-494a-afe9-90671f17c1f8",
+    "name": "Dedektör",
+    "slug": "hirsiz-alarm-dedektor",
+    "parentId": "a704606e-e8d6-431c-9c90-d63877fd4375",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/hirsiz-alarm/dedektor",
+    "productCount": 0
+  },
+  {
+    "id": "03ddf88c-0afa-4f72-9fef-9a25171f4b1e",
+    "name": "DisplayPort Adaptör",
+    "slug": "donusturuculer-displayport-adaptor",
+    "parentId": "b0da825d-0e17-47a8-aed7-9070ab787e61",
+    "depth": 2,
+    "path": "kablo-aksesuar/donusturuculer/displayport-adaptor",
+    "productCount": 0
+  },
+  {
+    "id": "c81744ab-07de-4f6d-8173-bc18aef90b51",
+    "name": "DisplayPort Kablo",
+    "slug": "goruntu-kablolari-displayport-kablo",
+    "parentId": "31cacdaf-be6e-4bdf-8bf0-80cf2d7f9a4c",
+    "depth": 2,
+    "path": "kablo-aksesuar/goruntu-kablolari/displayport-kablo",
+    "productCount": 11
+  },
+  {
+    "id": "a92e4ca5-a57d-4835-881e-1dbcf65f1023",
+    "name": "Docking Station",
+    "slug": "notebook-aksesuari-docking-station",
+    "parentId": "c72e0f66-4d21-4be3-b5a8-07a0b83b2d5d",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/notebook-aksesuari/docking-station",
+    "productCount": 0
+  },
+  {
+    "id": "f4603428-68d1-4651-9d09-bd513aa6d679",
+    "name": "Doküman Tarayıcı",
+    "slug": "tarayici-dokuman-tarayici",
+    "parentId": "e04cab90-94a2-4e33-9364-38ed220cb663",
+    "depth": 2,
+    "path": "yazici-tarayici/tarayici/dokuman-tarayici",
+    "productCount": 7
+  },
+  {
+    "id": "673a048f-c8af-4c1e-b3c0-4d0086281c41",
+    "name": "Drum",
+    "slug": "yazici-sarf-malzemeleri-drum",
+    "parentId": "f0b60b4b-b142-46c7-9211-ed070657bcfd",
+    "depth": 2,
+    "path": "yazici-tarayici/yazici-sarf-malzemeleri/drum",
+    "productCount": 0
+  },
+  {
+    "id": "c006d5a5-cf65-473d-8e3a-4ac1987165ca",
+    "name": "Dual Monitör Stand",
+    "slug": "monitor-aparati-dual-monitor-stand",
+    "parentId": "65c7bb27-83a7-4bcb-b59c-1bd64aa8609f",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/monitor-aparati/dual-monitor-stand",
+    "productCount": 0
+  },
+  {
+    "id": "88f5f2ac-d1e0-4974-b0fd-d1eea9e139da",
+    "name": "Duman Dedektörü",
+    "slug": "yangin-alarm-duman-dedektoru",
+    "parentId": "0d446a13-0550-4165-b287-a15ed16f97d3",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/yangin-alarm/duman-dedektoru",
+    "productCount": 0
+  },
+  {
+    "id": "d57fc435-0f60-48b7-b030-d61960570085",
+    "name": "El Tipi Termal",
+    "slug": "termal-kameralar-el-tipi-termal",
+    "parentId": "0459e9f2-ec59-4749-9670-7188e2f99b8c",
+    "depth": 2,
+    "path": "cctv/termal-kameralar/el-tipi-termal",
+    "productCount": 1
+  },
+  {
+    "id": "95736dbb-f1b5-481c-9a96-b08ecd9e9bf3",
+    "name": "Elektrikli Kilit",
+    "slug": "gecis-kontrol-elektrikli-kilit",
+    "parentId": "a40e6d27-ccd8-4e25-b1f3-3a4034a38db2",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/elektrikli-kilit",
+    "productCount": 0
+  },
+  {
+    "id": "48e4b56b-7ba9-4662-9059-bc41eb62f7cb",
+    "name": "Endüstriyel Switch",
+    "slug": "switch-endustriyel-switch",
+    "parentId": "2e65418e-1c88-442e-8ec0-c20dbea06e9f",
+    "depth": 2,
+    "path": "network-fiber/switch/endustriyel-switch",
+    "productCount": 12
+  },
+  {
+    "id": "2a1c67f9-3c4f-4729-b7de-e826252a4e38",
+    "name": "Enterprise Lisans",
+    "slug": "antivirus-guvenlik-enterprise-lisans",
+    "parentId": "577d719f-a316-44b1-bc38-64b96218b3d6",
+    "depth": 2,
+    "path": "yazilim-lisans/antivirus-guvenlik/enterprise-lisans",
+    "productCount": 0
+  },
+  {
+    "id": "e0ac7572-4e34-4ff6-860d-fc013be9fc5c",
+    "name": "Etiket Yazıcı",
+    "slug": "etiket-pos-yazici-etiket-yazici",
+    "parentId": "617d5030-0e3e-4f73-a3a7-945a3fa6f52f",
+    "depth": 2,
+    "path": "yazici-tarayici/etiket-pos-yazici/etiket-yazici",
+    "productCount": 0
+  },
+  {
+    "id": "5274b1fa-2fe9-4889-90b2-42a2edb3fa24",
+    "name": "Fiber Kablo",
+    "slug": "fiber-optik-fiber-kablo",
+    "parentId": "2f689991-ada8-4890-ba00-518a4bdc8197",
+    "depth": 2,
+    "path": "network-fiber/fiber-optik/fiber-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "d3898ad8-4aac-4dcc-a69b-436ab2cdab1e",
+    "name": "Fiber Panel & Aksesuar",
+    "slug": "fiber-optik-fiber-panel-aksesuar",
+    "parentId": "2f689991-ada8-4890-ba00-518a4bdc8197",
+    "depth": 2,
+    "path": "network-fiber/fiber-optik/fiber-panel-aksesuar",
+    "productCount": 0
+  },
+  {
+    "id": "d8dee0d6-4e2b-41e8-ac6c-533850b0a184",
+    "name": "Fiber Patch Cord",
+    "slug": "fiber-optik-fiber-patch-cord",
+    "parentId": "2f689991-ada8-4890-ba00-518a4bdc8197",
+    "depth": 2,
+    "path": "network-fiber/fiber-optik/fiber-patch-cord",
+    "productCount": 0
+  },
+  {
+    "id": "8eae5c65-def8-4403-943c-5d0f12ce20b3",
+    "name": "Firewall",
+    "slug": "ag-guvenligi-firewall",
+    "parentId": "86110c9b-9270-4937-b79f-849d87c2fb34",
+    "depth": 2,
+    "path": "network-fiber/ag-guvenligi/firewall",
+    "productCount": 4
+  },
+  {
+    "id": "4b0483e8-23b4-4dba-837e-8dd398524ed3",
+    "name": "Fisheye",
+    "slug": "ip-kameralar-fisheye",
+    "parentId": "0a1a045b-4a5f-42fd-8f9d-4a53a7d513e5",
+    "depth": 2,
+    "path": "cctv/ip-kameralar/fisheye",
+    "productCount": 0
+  },
+  {
+    "id": "b0fe45b3-0a61-4ef0-b2f9-39475466d199",
+    "name": "Fiş Okuyucu",
+    "slug": "tarayici-fis-okuyucu",
+    "parentId": "e04cab90-94a2-4e33-9364-38ed220cb663",
+    "depth": 2,
+    "path": "yazici-tarayici/tarayici/fis-okuyucu",
+    "productCount": 38
+  },
+  {
+    "id": "278b6bb8-8122-4df7-8bbb-6361f388adcf",
+    "name": "Full Tower",
+    "slug": "kasa-full-tower",
+    "parentId": "2eebc12f-b885-4b85-ab38-1840e19dbed6",
+    "depth": 2,
+    "path": "pc-bilesenleri/kasa/full-tower",
+    "productCount": 1
+  },
+  {
+    "id": "34d1db5c-ffc9-4eb3-ab4b-5d8b11680018",
+    "name": "Gaming Notebook",
+    "slug": "notebook-gaming-notebook",
+    "parentId": "d6945140-7dfe-40c6-bf36-df837bebf581",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/notebook/gaming-notebook",
+    "productCount": 0
+  },
+  {
+    "id": "67787b98-e8ac-495e-8a8a-e0943de37a93",
+    "name": "Geçiş Kartı & Anahtarlık",
+    "slug": "gecis-kontrol-gecis-karti-anahtarlik",
+    "parentId": "a40e6d27-ccd8-4e25-b1f3-3a4034a38db2",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/gecis-karti-anahtarlik",
+    "productCount": 1
+  },
+  {
+    "id": "9f897280-3e8e-485b-8eef-7099635ee10b",
+    "name": "Güneş Paneli",
+    "slug": "gunes-enerjisi-gunes-paneli",
+    "parentId": "54310553-dd6d-4f6a-ba0c-0ed82a1b2490",
+    "depth": 2,
+    "path": "guc-elektronigi/gunes-enerjisi/gunes-paneli",
+    "productCount": 0
+  },
+  {
+    "id": "079a385e-7dfd-49af-812c-1a9ee1059503",
+    "name": "Güç Dağıtım Kutuları",
+    "slug": "aksesuarlar-guc-dagitim-kutulari",
+    "parentId": "7fefb540-955a-443d-897f-83552a44c720",
+    "depth": 2,
+    "path": "cctv/aksesuarlar/guc-dagitim-kutulari",
+    "productCount": 0
+  },
+  {
+    "id": "3fd863c7-cbeb-4b23-a103-0492e74dde7b",
+    "name": "HDCVI Bullet",
+    "slug": "hdcvi-kameralar-hdcvi-bullet",
+    "parentId": "5e0e1e16-675d-42d8-b64a-4811c324e16e",
+    "depth": 2,
+    "path": "cctv/hdcvi-kameralar/hdcvi-bullet",
+    "productCount": 0
+  },
+  {
+    "id": "806a405e-4353-4e73-a304-87e16cc2bc64",
+    "name": "HDCVI Dome",
+    "slug": "hdcvi-kameralar-hdcvi-dome",
+    "parentId": "5e0e1e16-675d-42d8-b64a-4811c324e16e",
+    "depth": 2,
+    "path": "cctv/hdcvi-kameralar/hdcvi-dome",
+    "productCount": 0
+  },
+  {
+    "id": "e7d49e77-ee44-4417-a036-6629a2ca8bfa",
+    "name": "HDCVI PTZ",
+    "slug": "hdcvi-kameralar-hdcvi-ptz",
+    "parentId": "5e0e1e16-675d-42d8-b64a-4811c324e16e",
+    "depth": 2,
+    "path": "cctv/hdcvi-kameralar/hdcvi-ptz",
+    "productCount": 0
+  },
+  {
+    "id": "36b86813-bca5-4a39-aa7e-9a81775d93fb",
+    "name": "HDD (Masaüstü)",
+    "slug": "depolama-hdd-masaustu",
+    "parentId": "2e951be1-c270-42fd-980c-7ba8f433ccc7",
+    "depth": 2,
+    "path": "pc-bilesenleri/depolama/hdd-masaustu",
+    "productCount": 24
+  },
+  {
+    "id": "7867032f-cbf6-40bf-a1be-ac05d2152339",
+    "name": "HDMI Extender",
+    "slug": "hdmi-splitter-switch-hdmi-extender",
+    "parentId": "df81aae5-f5f5-4340-ac73-facec0ed87f0",
+    "depth": 2,
+    "path": "kablo-aksesuar/hdmi-splitter-switch/hdmi-extender",
+    "productCount": 1
+  },
+  {
+    "id": "64110fe5-e319-414d-8675-8d80f5e5d6b9",
+    "name": "HDMI Kablo",
+    "slug": "goruntu-kablolari-hdmi-kablo",
+    "parentId": "31cacdaf-be6e-4bdf-8bf0-80cf2d7f9a4c",
+    "depth": 2,
+    "path": "kablo-aksesuar/goruntu-kablolari/hdmi-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "79c47cd2-ced2-4a01-9023-dc4322abd951",
+    "name": "HDMI Splitter",
+    "slug": "hdmi-splitter-switch-hdmi-splitter",
+    "parentId": "df81aae5-f5f5-4340-ac73-facec0ed87f0",
+    "depth": 2,
+    "path": "kablo-aksesuar/hdmi-splitter-switch/hdmi-splitter",
+    "productCount": 0
+  },
+  {
+    "id": "70c0654e-721e-48fe-87a3-f38ff610c678",
+    "name": "HDMI Switch",
+    "slug": "hdmi-splitter-switch-hdmi-switch",
+    "parentId": "df81aae5-f5f5-4340-ac73-facec0ed87f0",
+    "depth": 2,
+    "path": "kablo-aksesuar/hdmi-splitter-switch/hdmi-switch",
+    "productCount": 0
+  },
+  {
+    "id": "a1818543-103a-4bd4-98f7-ce75715c2061",
+    "name": "HDMI to VGA Adaptör",
+    "slug": "donusturuculer-hdmi-to-vga-adaptor",
+    "parentId": "b0da825d-0e17-47a8-aed7-9070ab787e61",
+    "depth": 2,
+    "path": "kablo-aksesuar/donusturuculer/hdmi-to-vga-adaptor",
+    "productCount": 0
+  },
+  {
+    "id": "bf899fc6-2b69-47f4-922a-dd5b54d01d95",
+    "name": "Hafıza Kartı",
+    "slug": "depolama-hafiza-karti",
+    "parentId": "2e951be1-c270-42fd-980c-7ba8f433ccc7",
+    "depth": 2,
+    "path": "pc-bilesenleri/depolama/hafiza-karti",
+    "productCount": 2
+  },
+  {
+    "id": "9edc4532-38ac-4053-9f33-0edfc0b322e8",
+    "name": "Hard Diskler",
+    "slug": "aksesuarlar-hard-diskler",
+    "parentId": "7fefb540-955a-443d-897f-83552a44c720",
+    "depth": 2,
+    "path": "cctv/aksesuarlar/hard-diskler",
+    "productCount": 0
+  },
+  {
+    "id": "f95402b4-cee8-4bde-bc20-4ff89c3dc4d1",
+    "name": "Hareket Analizi",
+    "slug": "goruntu-analizi-hareket-analizi",
+    "parentId": "91b4158f-740a-4b4d-87f0-74a23a98347f",
+    "depth": 2,
+    "path": "akilli-sistemler/goruntu-analizi/hareket-analizi",
+    "productCount": 0
+  },
+  {
+    "id": "c3bc1a7c-03e9-4ae8-8fdb-a87bbdf8419a",
+    "name": "IEC Güç Kablosu",
+    "slug": "guc-kablolari-iec-guc-kablosu",
+    "parentId": "f94e653c-1b95-4bea-86a2-9cfea7bdb76d",
+    "depth": 2,
+    "path": "kablo-aksesuar/guc-kablolari/iec-guc-kablosu",
+    "productCount": 0
+  },
+  {
+    "id": "b246176d-fbfd-45cb-bd13-6cae85db89fe",
+    "name": "IR Bullet",
+    "slug": "ip-kameralar-ir-bullet",
+    "parentId": "0a1a045b-4a5f-42fd-8f9d-4a53a7d513e5",
+    "depth": 2,
+    "path": "cctv/ip-kameralar/ir-bullet",
+    "productCount": 1
+  },
+  {
+    "id": "2451233f-d9eb-4132-98fd-f5116354b5d4",
+    "name": "IR Dome",
+    "slug": "ip-kameralar-ir-dome",
+    "parentId": "0a1a045b-4a5f-42fd-8f9d-4a53a7d513e5",
+    "depth": 2,
+    "path": "cctv/ip-kameralar/ir-dome",
+    "productCount": 0
+  },
+  {
+    "id": "b362d143-8ad5-42d7-ab07-23dd4275b2b3",
+    "name": "IR Turret",
+    "slug": "ip-kameralar-ir-turret",
+    "parentId": "0a1a045b-4a5f-42fd-8f9d-4a53a7d513e5",
+    "depth": 2,
+    "path": "cctv/ip-kameralar/ir-turret",
+    "productCount": 0
+  },
+  {
+    "id": "2d2f244b-957f-456b-8d66-4e5890e8ef5c",
+    "name": "Intel",
+    "slug": "i-slemci-intel",
+    "parentId": "7577fa77-8b46-4e23-b1f5-29a089873e10",
+    "depth": 2,
+    "path": "pc-bilesenleri/i-slemci/intel",
+    "productCount": 0
+  },
+  {
+    "id": "41746b54-49a0-4e2d-ab27-fdec12074712",
+    "name": "Intel Anakart",
+    "slug": "anakart-intel-anakart",
+    "parentId": "c5bf301b-1074-4059-91fa-9c6a1eaa85b6",
+    "depth": 2,
+    "path": "pc-bilesenleri/anakart/intel-anakart",
+    "productCount": 0
+  },
+  {
+    "id": "4239fc6b-34c5-4fc5-ab57-3423a8dc108d",
+    "name": "Isı Dedektörü",
+    "slug": "yangin-alarm-isi-dedektoru",
+    "parentId": "0d446a13-0550-4165-b287-a15ed16f97d3",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/yangin-alarm/isi-dedektoru",
+    "productCount": 0
+  },
+  {
+    "id": "49900989-e824-413f-8e0d-b79e6e3b8472",
+    "name": "Kablolar",
+    "slug": "aksesuarlar-kablolar",
+    "parentId": "7fefb540-955a-443d-897f-83552a44c720",
+    "depth": 2,
+    "path": "cctv/aksesuarlar/kablolar",
+    "productCount": 314
+  },
+  {
+    "id": "c286ffe7-46c4-4922-b457-1d7b0fc7b8ed",
+    "name": "Kablosuz Barkod Okuyucu",
+    "slug": "barkod-okuyucu-kablosuz-barkod-okuyucu",
+    "parentId": "4769b6ee-2e55-4fd3-a3a5-c4169e1d42d9",
+    "depth": 2,
+    "path": "pos-barkod/barkod-okuyucu/kablosuz-barkod-okuyucu",
+    "productCount": 0
+  },
+  {
+    "id": "8bc8b012-10f7-4da4-88ce-5994a9116943",
+    "name": "Kapı İstasyonu",
+    "slug": "gecis-kontrol-kapi-i-stasyonu",
+    "parentId": "a40e6d27-ccd8-4e25-b1f3-3a4034a38db2",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/kapi-i-stasyonu",
+    "productCount": 2
+  },
+  {
+    "id": "8b04ffe1-905d-4e57-85aa-e11156471c5b",
+    "name": "Kart Okuyucu",
+    "slug": "gecis-kontrol-kart-okuyucu",
+    "parentId": "a40e6d27-ccd8-4e25-b1f3-3a4034a38db2",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/kart-okuyucu",
+    "productCount": 2
+  },
+  {
+    "id": "a4400928-c8b3-4206-87ea-c6a473a0281b",
+    "name": "Kartuş",
+    "slug": "yazici-sarf-malzemeleri-kartus",
+    "parentId": "f0b60b4b-b142-46c7-9211-ed070657bcfd",
+    "depth": 2,
+    "path": "yazici-tarayici/yazici-sarf-malzemeleri/kartus",
+    "productCount": 0
+  },
+  {
+    "id": "9d7def2a-4e2f-4d03-8629-701da72c5ce6",
+    "name": "Kartuşlu Yazıcı",
+    "slug": "murekkep-puskurtmeli-kartuslu-yazici",
+    "parentId": "f5c327ac-b53f-41e4-960d-538342c1bda1",
+    "depth": 2,
+    "path": "yazici-tarayici/murekkep-puskurtmeli/kartuslu-yazici",
+    "productCount": 0
+  },
+  {
+    "id": "cf5c50b6-1036-4a53-b69f-c0cd8d1772fb",
+    "name": "Kasa Fanı",
+    "slug": "sogutma-kasa-fani",
+    "parentId": "52f6494e-4cbf-459b-bfda-a10351ee422f",
+    "depth": 2,
+    "path": "pc-bilesenleri/sogutma/kasa-fani",
+    "productCount": 0
+  },
+  {
+    "id": "4c4f4da8-bb27-45dd-9d08-0da521b41d8b",
+    "name": "Keystone & RJ45",
+    "slug": "yapisal-kablolama-keystone-rj45",
+    "parentId": "88b7d667-7a46-443f-8551-8bdf039df404",
+    "depth": 2,
+    "path": "network-fiber/yapisal-kablolama/keystone-rj45",
+    "productCount": 0
+  },
+  {
+    "id": "4bd72d0a-74c9-4bf3-b9b3-4e5f44ffef9f",
+    "name": "Klavye",
+    "slug": "klavye-mouse-klavye",
+    "parentId": "c546b023-4868-4129-9f7f-9d44a003c518",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/klavye-mouse/klavye",
+    "productCount": 0
+  },
+  {
+    "id": "3ae08812-1be6-4cba-8497-760399966e85",
+    "name": "Klavye + Mouse Set",
+    "slug": "klavye-mouse-klavye-mouse-set",
+    "parentId": "c546b023-4868-4129-9f7f-9d44a003c518",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/klavye-mouse/klavye-mouse-set",
+    "productCount": 0
+  },
+  {
+    "id": "eadb82e8-418a-4d15-b78d-283fa8533b95",
+    "name": "Kontrol Paneli",
+    "slug": "gecis-kontrol-kontrol-paneli",
+    "parentId": "a40e6d27-ccd8-4e25-b1f3-3a4034a38db2",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/kontrol-paneli",
+    "productCount": 0
+  },
+  {
+    "id": "09201dc1-479c-4383-a3b6-71aa35b2439b",
+    "name": "Kulaklık",
+    "slug": "kulaklik-mikrofon-kulaklik",
+    "parentId": "67e7e22e-03b9-413f-bd8d-1262c24ecad4",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/kulaklik-mikrofon/kulaklik",
+    "productCount": 0
+  },
+  {
+    "id": "062a152d-5937-4544-8ade-02252453c3c9",
+    "name": "Kumanda & Tuş Takımı",
+    "slug": "hirsiz-alarm-kumanda-tus-takimi",
+    "parentId": "a704606e-e8d6-431c-9c90-d63877fd4375",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/hirsiz-alarm/kumanda-tus-takimi",
+    "productCount": 0
+  },
+  {
+    "id": "b1ea7410-3990-428f-99fe-2668d3ee15de",
+    "name": "LCD Projeksiyon",
+    "slug": "projeksiyon-lcd-projeksiyon",
+    "parentId": "a82bfdd7-3e77-4ecf-9bee-263701b99979",
+    "depth": 2,
+    "path": "yazici-tarayici/projeksiyon/lcd-projeksiyon",
+    "productCount": 0
+  },
+  {
+    "id": "f750e4a7-e73b-4ec2-8a01-0ea19880bd4a",
+    "name": "LPR / Plaka Tanıma",
+    "slug": "ip-kameralar-lpr-plaka-tanima",
+    "parentId": "0a1a045b-4a5f-42fd-8f9d-4a53a7d513e5",
+    "depth": 2,
+    "path": "cctv/ip-kameralar/lpr-plaka-tanima",
+    "productCount": 0
+  },
+  {
+    "id": "8daa9307-41a1-4fdb-9997-c30ce8cd39b1",
+    "name": "Laptop Standı",
+    "slug": "monitor-aparati-laptop-standi",
+    "parentId": "65c7bb27-83a7-4bcb-b59c-1bd64aa8609f",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/monitor-aparati/laptop-standi",
+    "productCount": 0
+  },
+  {
+    "id": "c0900452-7b39-463d-ac05-e5abeba0e1c6",
+    "name": "Laser Projeksiyon",
+    "slug": "projeksiyon-laser-projeksiyon",
+    "parentId": "a82bfdd7-3e77-4ecf-9bee-263701b99979",
+    "depth": 2,
+    "path": "yazici-tarayici/projeksiyon/laser-projeksiyon",
+    "productCount": 0
+  },
+  {
+    "id": "dbaafd8e-0541-4f97-bf7b-394d1c6355ae",
+    "name": "Lazer MFP",
+    "slug": "cok-fonksiyonlu-mfp-lazer-mfp",
+    "parentId": "9d9e6ea1-c05a-41c2-ade9-0f900f8fe411",
+    "depth": 2,
+    "path": "yazici-tarayici/cok-fonksiyonlu-mfp/lazer-mfp",
+    "productCount": 0
+  },
+  {
+    "id": "b27ca69a-e900-4419-89e9-af001a9a6fa1",
+    "name": "Lensler",
+    "slug": "aksesuarlar-lensler",
+    "parentId": "7fefb540-955a-443d-897f-83552a44c720",
+    "depth": 2,
+    "path": "cctv/aksesuarlar/lensler",
+    "productCount": 0
+  },
+  {
+    "id": "6f94a1c5-89f6-43ca-844f-cd518fecddf9",
+    "name": "Line-Interactive UPS",
+    "slug": "ups-line-interactive-ups",
+    "parentId": "9de158bb-541f-46f9-a2bc-3b218e5c094a",
+    "depth": 2,
+    "path": "guc-elektronigi/ups/line-interactive-ups",
+    "productCount": 18
+  },
+  {
+    "id": "b7651c52-fa5e-4d12-bae1-8dc8d86051e9",
+    "name": "Linux",
+    "slug": "i-sletim-sistemi-linux",
+    "parentId": "57f428c1-ce24-46b4-9436-70281de35c1d",
+    "depth": 2,
+    "path": "yazilim-lisans/i-sletim-sistemi/linux",
+    "productCount": 0
+  },
+  {
+    "id": "661d654a-3b45-40fb-b5fb-4b503dd415bf",
+    "name": "Managed Switch",
+    "slug": "switch-managed-switch",
+    "parentId": "2e65418e-1c88-442e-8ec0-c20dbea06e9f",
+    "depth": 2,
+    "path": "network-fiber/switch/managed-switch",
+    "productCount": 0
+  },
+  {
+    "id": "b0298215-6504-4934-87af-0c678307129a",
+    "name": "Masaüstü Hoparlör",
+    "slug": "hoparlor-masaustu-hoparlor",
+    "parentId": "cd8f4973-dfc4-4a07-9402-63f92a60a8e8",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/hoparlor/masaustu-hoparlor",
+    "productCount": 0
+  },
+  {
+    "id": "3da2e3cb-3dcc-49a9-8b4b-fd02824c061d",
+    "name": "Media Converter",
+    "slug": "fiber-optik-media-converter",
+    "parentId": "2f689991-ada8-4890-ba00-518a4bdc8197",
+    "depth": 2,
+    "path": "network-fiber/fiber-optik/media-converter",
+    "productCount": 5
+  },
+  {
+    "id": "a9a0b4e6-6c44-49fb-bfa0-7a4ed7889d14",
+    "name": "Mesh Sistem",
+    "slug": "kablosuz-ag-mesh-sistem",
+    "parentId": "4b9cee3b-62fa-4d52-b882-c03e3c6ad8f0",
+    "depth": 2,
+    "path": "network-fiber/kablosuz-ag/mesh-sistem",
+    "productCount": 0
+  },
+  {
+    "id": "228bfc79-98c6-4bb8-bac2-1a20b03a5f95",
+    "name": "Microsoft 365",
+    "slug": "ofis-yazilimi-microsoft-365",
+    "parentId": "175f8464-da1e-4ed1-9e60-747daa760dac",
+    "depth": 2,
+    "path": "yazilim-lisans/ofis-yazilimi/microsoft-365",
+    "productCount": 0
+  },
+  {
+    "id": "a6c91a00-92a1-4ccd-a79b-bcbcdd0eea50",
+    "name": "Mid Tower",
+    "slug": "kasa-mid-tower",
+    "parentId": "2eebc12f-b885-4b85-ab38-1840e19dbed6",
+    "depth": 2,
+    "path": "pc-bilesenleri/kasa/mid-tower",
+    "productCount": 0
+  },
+  {
+    "id": "ac4479b5-ba43-4074-965e-b09c074287d2",
+    "name": "Mikrofon",
+    "slug": "kulaklik-mikrofon-mikrofon",
+    "parentId": "67e7e22e-03b9-413f-bd8d-1262c24ecad4",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/kulaklik-mikrofon/mikrofon",
+    "productCount": 0
+  },
+  {
+    "id": "ea138a73-29f4-4188-a11b-9627e4d0343b",
+    "name": "Mini ITX Kasa",
+    "slug": "kasa-mini-itx-kasa",
+    "parentId": "2eebc12f-b885-4b85-ab38-1840e19dbed6",
+    "depth": 2,
+    "path": "pc-bilesenleri/kasa/mini-itx-kasa",
+    "productCount": 1
+  },
+  {
+    "id": "cb0f6445-0aec-4ffe-ad46-baa2281a24ea",
+    "name": "Mini PC",
+    "slug": "masaustu-bilgisayar-mini-pc",
+    "parentId": "4fb862ae-a474-4c70-8f7a-bf1318575935",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/masaustu-bilgisayar/mini-pc",
+    "productCount": 11
+  },
+  {
+    "id": "cf4ec943-7436-4f41-82de-949d62dcc318",
+    "name": "Mobil POS",
+    "slug": "pos-terminal-mobil-pos",
+    "parentId": "d09fc2ce-9fcd-4552-86a1-9b1d80a668d8",
+    "depth": 2,
+    "path": "pos-barkod/pos-terminal/mobil-pos",
+    "productCount": 13
+  },
+  {
+    "id": "89b02af1-a9e7-493b-8df0-b79e2e76661a",
+    "name": "Mobil Plaka Tanıma",
+    "slug": "plaka-tanima-mobil-plaka-tanima",
+    "parentId": "d52124e7-e695-4e52-b471-a91a8a1b9123",
+    "depth": 2,
+    "path": "akilli-sistemler/plaka-tanima/mobil-plaka-tanima",
+    "productCount": 0
+  },
+  {
+    "id": "9dd8a530-3a7b-4b4a-8b9a-a738cc073bc0",
+    "name": "Monitör Kolu",
+    "slug": "monitor-aparati-monitor-kolu",
+    "parentId": "65c7bb27-83a7-4bcb-b59c-1bd64aa8609f",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/monitor-aparati/monitor-kolu",
+    "productCount": 0
+  },
+  {
+    "id": "89b020a8-452e-4c62-b984-ee335bd3fb91",
+    "name": "Monitörler",
+    "slug": "aksesuarlar-monitorler",
+    "parentId": "7fefb540-955a-443d-897f-83552a44c720",
+    "depth": 2,
+    "path": "cctv/aksesuarlar/monitorler",
+    "productCount": 0
+  },
+  {
+    "id": "7ca86e1b-a26a-4527-978b-42b7fd49d0ec",
+    "name": "Mono Lazer Yazıcı",
+    "slug": "lazer-yazici-mono-lazer-yazici",
+    "parentId": "18c33043-75be-4931-a2c7-bd2914d65e6c",
+    "depth": 2,
+    "path": "yazici-tarayici/lazer-yazici/mono-lazer-yazici",
+    "productCount": 0
+  },
+  {
+    "id": "f1b79797-089b-4c4f-916b-59399d2a8873",
+    "name": "Montaj Aparatları",
+    "slug": "aksesuarlar-montaj-aparatlari",
+    "parentId": "7fefb540-955a-443d-897f-83552a44c720",
+    "depth": 2,
+    "path": "cctv/aksesuarlar/montaj-aparatlari",
+    "productCount": 0
+  },
+  {
+    "id": "068599df-ce4d-4487-a612-a1684867a905",
+    "name": "Mouse",
+    "slug": "klavye-mouse-mouse",
+    "parentId": "c546b023-4868-4129-9f7f-9d44a003c518",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/klavye-mouse/mouse",
+    "productCount": 0
+  },
+  {
+    "id": "d1be05f9-eb9c-423a-8549-ab8e3d0dc6d4",
+    "name": "Mouse Pad",
+    "slug": "klavye-mouse-mouse-pad",
+    "parentId": "c546b023-4868-4129-9f7f-9d44a003c518",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/klavye-mouse/mouse-pad",
+    "productCount": 0
+  },
+  {
+    "id": "b7094449-4d94-46e6-a590-deb89e6ea714",
+    "name": "Mürekkep MFP",
+    "slug": "cok-fonksiyonlu-mfp-murekkep-mfp",
+    "parentId": "9d9e6ea1-c05a-41c2-ade9-0f900f8fe411",
+    "depth": 2,
+    "path": "yazici-tarayici/cok-fonksiyonlu-mfp/murekkep-mfp",
+    "productCount": 0
+  },
+  {
+    "id": "a5818308-20c3-4f1e-b3f6-ee46fa8b9c37",
+    "name": "NAS / Depolama Sunucusu",
+    "slug": "sunucu-nas-depolama-sunucusu",
+    "parentId": "3cfdfcd6-dc5d-41d2-8eaf-133cfc0c6355",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/sunucu/nas-depolama-sunucusu",
+    "productCount": 0
+  },
+  {
+    "id": "1aaa038f-606b-4fb2-afc8-c4bcadc70e66",
+    "name": "NVIDIA",
+    "slug": "ekran-karti-nvidia",
+    "parentId": "3f3d9cd1-3b28-48f4-ae52-aafcdae8d7ca",
+    "depth": 2,
+    "path": "pc-bilesenleri/ekran-karti/nvidia",
+    "productCount": 0
+  },
+  {
+    "id": "6250ac56-fab8-41e9-9ad6-f0357644093c",
+    "name": "NVMe M.2",
+    "slug": "depolama-nvme-m-2",
+    "parentId": "2e951be1-c270-42fd-980c-7ba8f433ccc7",
+    "depth": 2,
+    "path": "pc-bilesenleri/depolama/nvme-m-2",
+    "productCount": 61
+  },
+  {
+    "id": "548cda90-2826-409a-bf34-e6f6df181792",
+    "name": "NVR",
+    "slug": "kayit-cihazi-nvr",
+    "parentId": "ce2e6ffa-7c4f-4b0f-bd04-7f8e60c7765b",
+    "depth": 2,
+    "path": "cctv/kayit-cihazi/nvr",
+    "productCount": 0
+  },
+  {
+    "id": "f021a015-1049-459d-9c06-a59fd6f6c893",
+    "name": "Nem Sensörü",
+    "slug": "iot-sensor-nem-sensoru",
+    "parentId": "05d9310c-44ea-4e41-8b4d-2011d0a4c807",
+    "depth": 2,
+    "path": "akilli-sistemler/iot-sensor/nem-sensoru",
+    "productCount": 0
+  },
+  {
+    "id": "04e785b7-c223-4060-b225-b08dbf9865bc",
+    "name": "Nesne Tanıma",
+    "slug": "goruntu-analizi-nesne-tanima",
+    "parentId": "91b4158f-740a-4b4d-87f0-74a23a98347f",
+    "depth": 2,
+    "path": "akilli-sistemler/goruntu-analizi/nesne-tanima",
+    "productCount": 0
+  },
+  {
+    "id": "caf35097-2f14-491b-831c-2e5e962b501b",
+    "name": "Notebook Adaptörü",
+    "slug": "adaptor-notebook-adaptoru",
+    "parentId": "3e0befed-26c7-4d68-ad44-d92f0a3b3a4f",
+    "depth": 2,
+    "path": "guc-elektronigi/adaptor/notebook-adaptoru",
+    "productCount": 0
+  },
+  {
+    "id": "16f82446-7167-490c-8a82-afcf22d20da7",
+    "name": "Notebook Soğutucu",
+    "slug": "notebook-aksesuari-notebook-sogutucu",
+    "parentId": "c72e0f66-4d21-4be3-b5a8-07a0b83b2d5d",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/notebook-aksesuari/notebook-sogutucu",
+    "productCount": 0
+  },
+  {
+    "id": "47ddb181-0dfc-4706-a2a8-e76c00d25dfd",
+    "name": "Notebook Çanta",
+    "slug": "notebook-aksesuari-notebook-canta",
+    "parentId": "c72e0f66-4d21-4be3-b5a8-07a0b83b2d5d",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/notebook-aksesuari/notebook-canta",
+    "productCount": 0
+  },
+  {
+    "id": "3bc4d43b-dbc3-4af5-a99c-5d8491b11e80",
+    "name": "Office 2024",
+    "slug": "ofis-yazilimi-office-2024",
+    "parentId": "175f8464-da1e-4ed1-9e60-747daa760dac",
+    "depth": 2,
+    "path": "yazilim-lisans/ofis-yazilimi/office-2024",
+    "productCount": 0
+  },
+  {
+    "id": "bbfb8892-adc7-437d-8a4e-69ee3c03c8ba",
+    "name": "Online UPS",
+    "slug": "ups-online-ups",
+    "parentId": "9de158bb-541f-46f9-a2bc-3b218e5c094a",
+    "depth": 2,
+    "path": "guc-elektronigi/ups/online-ups",
+    "productCount": 42
+  },
+  {
+    "id": "e2182e61-9f2a-4fb9-80fb-661506b883a5",
+    "name": "Optik Ses Kablosu",
+    "slug": "ses-kablolari-optik-ses-kablosu",
+    "parentId": "c30ae8c1-0167-427d-9f0d-3cc60dbab416",
+    "depth": 2,
+    "path": "kablo-aksesuar/ses-kablolari/optik-ses-kablosu",
+    "productCount": 0
+  },
+  {
+    "id": "71a130d9-1cb6-4dc1-8011-9888d7b4933e",
+    "name": "PA Sistem",
+    "slug": "hoparlor-pa-sistem",
+    "parentId": "cd8f4973-dfc4-4a07-9402-63f92a60a8e8",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/hoparlor/pa-sistem",
+    "productCount": 0
+  },
+  {
+    "id": "dd8d3026-1834-44b2-a3ba-583355e86557",
+    "name": "POS Yazıcı",
+    "slug": "etiket-pos-yazici-pos-yazici",
+    "parentId": "617d5030-0e3e-4f73-a3a7-945a3fa6f52f",
+    "depth": 2,
+    "path": "yazici-tarayici/etiket-pos-yazici/pos-yazici",
+    "productCount": 0
+  },
+  {
+    "id": "231ce810-393c-439a-9bcc-1fb4312923b1",
+    "name": "PTZ Kameralar",
+    "slug": "ip-kameralar-ptz-kameralar",
+    "parentId": "0a1a045b-4a5f-42fd-8f9d-4a53a7d513e5",
+    "depth": 2,
+    "path": "cctv/ip-kameralar/ptz-kameralar",
+    "productCount": 0
+  },
+  {
+    "id": "2bb5bb42-3525-4350-b137-53d9c601debb",
+    "name": "PTZ Termal",
+    "slug": "termal-kameralar-ptz-termal",
+    "parentId": "0459e9f2-ec59-4749-9670-7188e2f99b8c",
+    "depth": 2,
+    "path": "cctv/termal-kameralar/ptz-termal",
+    "productCount": 0
+  },
+  {
+    "id": "93f46d68-ec48-4b69-a7a2-f5a565cbd99c",
+    "name": "Patch Kablo",
+    "slug": "yapisal-kablolama-patch-kablo",
+    "parentId": "88b7d667-7a46-443f-8551-8bdf039df404",
+    "depth": 2,
+    "path": "network-fiber/yapisal-kablolama/patch-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "401029fb-0c3b-4913-abfa-f9da119c1aa5",
+    "name": "Patch Panel",
+    "slug": "yapisal-kablolama-patch-panel",
+    "parentId": "88b7d667-7a46-443f-8551-8bdf039df404",
+    "depth": 2,
+    "path": "network-fiber/yapisal-kablolama/patch-panel",
+    "productCount": 57
+  },
+  {
+    "id": "fcbffdc6-f581-43d7-9ca8-ab7cff402bdc",
+    "name": "PoE Switch",
+    "slug": "switch-poe-switch",
+    "parentId": "2e65418e-1c88-442e-8ec0-c20dbea06e9f",
+    "depth": 2,
+    "path": "network-fiber/switch/poe-switch",
+    "productCount": 0
+  },
+  {
+    "id": "43b16787-46da-471a-bc3b-247e7f969a63",
+    "name": "Powerbank",
+    "slug": "sarj-cihazi-powerbank",
+    "parentId": "5f96e11a-8cc8-4c53-94a5-618c936e7dcd",
+    "depth": 2,
+    "path": "guc-elektronigi/sarj-cihazi/powerbank",
+    "productCount": 1
+  },
+  {
+    "id": "8445e37c-ab98-4018-b6b2-611f1ef123d1",
+    "name": "Priz & Uzatma",
+    "slug": "guc-kablolari-priz-uzatma",
+    "parentId": "f94e653c-1b95-4bea-86a2-9cfea7bdb76d",
+    "depth": 2,
+    "path": "kablo-aksesuar/guc-kablolari/priz-uzatma",
+    "productCount": 0
+  },
+  {
+    "id": "0e2cfb0c-e10d-4cdb-80d8-fff27f4614ce",
+    "name": "Projeksiyon Perdesi",
+    "slug": "projeksiyon-projeksiyon-perdesi",
+    "parentId": "a82bfdd7-3e77-4ecf-9bee-263701b99979",
+    "depth": 2,
+    "path": "yazici-tarayici/projeksiyon/projeksiyon-perdesi",
+    "productCount": 0
+  },
+  {
+    "id": "20eb47db-bf82-4735-9d84-f352ffc045d8",
+    "name": "Rack Sunucu",
+    "slug": "sunucu-rack-sunucu",
+    "parentId": "3cfdfcd6-dc5d-41d2-8eaf-133cfc0c6355",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/sunucu/rack-sunucu",
+    "productCount": 4
+  },
+  {
+    "id": "47897d6c-4376-4d5e-85be-f6020ad5827e",
+    "name": "Rack UPS",
+    "slug": "ups-rack-ups",
+    "parentId": "9de158bb-541f-46f9-a2bc-3b218e5c094a",
+    "depth": 2,
+    "path": "guc-elektronigi/ups/rack-ups",
+    "productCount": 0
+  },
+  {
+    "id": "f1a6f8ca-58b7-4181-9858-eedba4db5a59",
+    "name": "Renkli Lazer Yazıcı",
+    "slug": "lazer-yazici-renkli-lazer-yazici",
+    "parentId": "18c33043-75be-4931-a2c7-bd2914d65e6c",
+    "depth": 2,
+    "path": "yazici-tarayici/lazer-yazici/renkli-lazer-yazici",
+    "productCount": 1
+  },
+  {
+    "id": "5394dad4-eb60-40fd-aabe-bb7b1a26ca4b",
+    "name": "Router",
+    "slug": "kablosuz-ag-router",
+    "parentId": "4b9cee3b-62fa-4d52-b882-c03e3c6ad8f0",
+    "depth": 2,
+    "path": "network-fiber/kablosuz-ag/router",
+    "productCount": 0
+  },
+  {
+    "id": "9b691b51-7d2b-4d2d-a20d-218314d75faa",
+    "name": "SFP Modül",
+    "slug": "fiber-optik-sfp-modul",
+    "parentId": "2f689991-ada8-4890-ba00-518a4bdc8197",
+    "depth": 2,
+    "path": "network-fiber/fiber-optik/sfp-modul",
+    "productCount": 0
+  },
+  {
+    "id": "9636813a-d734-43ee-a5b5-0b999760cf57",
+    "name": "SFP Uplink Switch",
+    "slug": "switch-sfp-uplink-switch",
+    "parentId": "2e65418e-1c88-442e-8ec0-c20dbea06e9f",
+    "depth": 2,
+    "path": "network-fiber/switch/sfp-uplink-switch",
+    "productCount": 1
+  },
+  {
+    "id": "4e5b2f67-7431-4c91-a44d-50026eab709b",
+    "name": "SO-DIMM (Laptop)",
+    "slug": "bellek-ram-so-dimm-laptop",
+    "parentId": "93e8cf0c-4acb-4a82-85a3-d8b9e1d7d86d",
+    "depth": 2,
+    "path": "pc-bilesenleri/bellek-ram/so-dimm-laptop",
+    "productCount": 0
+  },
+  {
+    "id": "2f33a3a3-2876-4784-82e5-976abc31bf02",
+    "name": "SSD",
+    "slug": "depolama-ssd",
+    "parentId": "2e951be1-c270-42fd-980c-7ba8f433ccc7",
+    "depth": 2,
+    "path": "pc-bilesenleri/depolama/ssd",
+    "productCount": 75
+  },
+  {
+    "id": "e021d1ce-ca49-44d6-9b77-5e0f8f517b2c",
+    "name": "Sabit Barkod Okuyucu",
+    "slug": "barkod-okuyucu-sabit-barkod-okuyucu",
+    "parentId": "4769b6ee-2e55-4fd3-a3a5-c4169e1d42d9",
+    "depth": 2,
+    "path": "pos-barkod/barkod-okuyucu/sabit-barkod-okuyucu",
+    "productCount": 0
+  },
+  {
+    "id": "fcca05ff-f38a-4655-af44-ddd5e9ad9721",
+    "name": "Sabit Plaka Tanıma",
+    "slug": "plaka-tanima-sabit-plaka-tanima",
+    "parentId": "d52124e7-e695-4e52-b471-a91a8a1b9123",
+    "depth": 2,
+    "path": "akilli-sistemler/plaka-tanima/sabit-plaka-tanima",
+    "productCount": 0
+  },
+  {
+    "id": "df94ec8e-54bd-49a9-9db4-7a4d0f564447",
+    "name": "Sabit Termal",
+    "slug": "termal-kameralar-sabit-termal",
+    "parentId": "0459e9f2-ec59-4749-9670-7188e2f99b8c",
+    "depth": 2,
+    "path": "cctv/termal-kameralar/sabit-termal",
+    "productCount": 2
+  },
+  {
+    "id": "0e9b38ac-400b-4484-bf95-2e509aa1264f",
+    "name": "Server Aksesuarları",
+    "slug": "sunucu-server-aksesuarlari",
+    "parentId": "3cfdfcd6-dc5d-41d2-8eaf-133cfc0c6355",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/sunucu/server-aksesuarlari",
+    "productCount": 389
+  },
+  {
+    "id": "72f27540-d00a-466b-9da6-8953b3b9f1db",
+    "name": "Server Kasa",
+    "slug": "kasa-server-kasa",
+    "parentId": "2eebc12f-b885-4b85-ab38-1840e19dbed6",
+    "depth": 2,
+    "path": "pc-bilesenleri/kasa/server-kasa",
+    "productCount": 0
+  },
+  {
+    "id": "c7a7216b-7ae2-4be0-8aca-d8a8581f70ec",
+    "name": "Siren",
+    "slug": "yangin-alarm-siren",
+    "parentId": "0d446a13-0550-4165-b287-a15ed16f97d3",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/yangin-alarm/siren",
+    "productCount": 0
+  },
+  {
+    "id": "f7a602d4-fcc3-4ae8-828e-e77e85ca291a",
+    "name": "Siren & Flaşör",
+    "slug": "hirsiz-alarm-siren-flasor",
+    "parentId": "a704606e-e8d6-431c-9c90-d63877fd4375",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/hirsiz-alarm/siren-flasor",
+    "productCount": 0
+  },
+  {
+    "id": "e9051bee-f016-4b97-8a96-7fd3222295bf",
+    "name": "Solar Akü",
+    "slug": "gunes-enerjisi-solar-aku",
+    "parentId": "54310553-dd6d-4f6a-ba0c-0ed82a1b2490",
+    "depth": 2,
+    "path": "guc-elektronigi/gunes-enerjisi/solar-aku",
+    "productCount": 0
+  },
+  {
+    "id": "b573e5f3-18a8-4dcf-8c1c-f5ffcd558f57",
+    "name": "Solar Kontrolcü",
+    "slug": "gunes-enerjisi-solar-kontrolcu",
+    "parentId": "54310553-dd6d-4f6a-ba0c-0ed82a1b2490",
+    "depth": 2,
+    "path": "guc-elektronigi/gunes-enerjisi/solar-kontrolcu",
+    "productCount": 0
+  },
+  {
+    "id": "f749a728-70a0-4ca6-80f6-810d26357eca",
+    "name": "Soundbar",
+    "slug": "hoparlor-soundbar",
+    "parentId": "cd8f4973-dfc4-4a07-9402-63f92a60a8e8",
+    "depth": 2,
+    "path": "cevre-birimleri-aksesuar/hoparlor/soundbar",
+    "productCount": 0
+  },
+  {
+    "id": "2faa7a12-d0a3-4a4e-9b9b-e797819432ae",
+    "name": "Special Kameralar",
+    "slug": "ip-kameralar-special-kameralar",
+    "parentId": "0a1a045b-4a5f-42fd-8f9d-4a53a7d513e5",
+    "depth": 2,
+    "path": "cctv/ip-kameralar/special-kameralar",
+    "productCount": 0
+  },
+  {
+    "id": "d0650e7f-c16c-4f8a-9488-06c0acf65113",
+    "name": "Su Sensörü",
+    "slug": "iot-sensor-su-sensoru",
+    "parentId": "05d9310c-44ea-4e41-8b4d-2011d0a4c807",
+    "depth": 2,
+    "path": "akilli-sistemler/iot-sensor/su-sensoru",
+    "productCount": 0
+  },
+  {
+    "id": "55817e9b-884d-46c6-9179-2bf9136ba28d",
+    "name": "Sunucu Bellek (ECC)",
+    "slug": "bellek-ram-sunucu-bellek-ecc",
+    "parentId": "93e8cf0c-4acb-4a82-85a3-d8b9e1d7d86d",
+    "depth": 2,
+    "path": "pc-bilesenleri/bellek-ram/sunucu-bellek-ecc",
+    "productCount": 0
+  },
+  {
+    "id": "68210089-5f11-4393-913e-3379461182a1",
+    "name": "Sıcaklık Sensörü",
+    "slug": "iot-sensor-sicaklik-sensoru",
+    "parentId": "05d9310c-44ea-4e41-8b4d-2011d0a4c807",
+    "depth": 2,
+    "path": "akilli-sistemler/iot-sensor/sicaklik-sensoru",
+    "productCount": 0
+  },
+  {
+    "id": "8e36dab7-1e3f-4913-8b2a-8af0da656169",
+    "name": "Sınırsız Kanal",
+    "slug": "vms-yazilimi-sinirsiz-kanal",
+    "parentId": "9bd7feba-3936-4d4f-bc9b-b124f9e2d1e0",
+    "depth": 2,
+    "path": "yazilim-lisans/vms-yazilimi/sinirsiz-kanal",
+    "productCount": 0
+  },
+  {
+    "id": "3845a459-c679-4e50-b567-e7003de85b2b",
+    "name": "Sıvı Soğutma (AIO)",
+    "slug": "sogutma-sivi-sogutma-aio",
+    "parentId": "52f6494e-4cbf-459b-bfda-a10351ee422f",
+    "depth": 2,
+    "path": "pc-bilesenleri/sogutma/sivi-sogutma-aio",
+    "productCount": 0
+  },
+  {
+    "id": "b7549ef0-1aa2-4e7e-92ae-05fd67356dd6",
+    "name": "Tablet POS",
+    "slug": "pos-terminal-tablet-pos",
+    "parentId": "d09fc2ce-9fcd-4552-86a1-9b1d80a668d8",
+    "depth": 2,
+    "path": "pos-barkod/pos-terminal/tablet-pos",
+    "productCount": 2
+  },
+  {
+    "id": "0f5dcbcb-5d90-48c7-bf62-62ac447834ff",
+    "name": "Tanklı Yazıcı",
+    "slug": "murekkep-puskurtmeli-tankli-yazici",
+    "parentId": "f5c327ac-b53f-41e4-960d-538342c1bda1",
+    "depth": 2,
+    "path": "yazici-tarayici/murekkep-puskurtmeli/tankli-yazici",
+    "productCount": 28
+  },
+  {
+    "id": "801b1128-5f51-4441-9f59-968cdd0fe4ef",
+    "name": "Taşınabilir Disk",
+    "slug": "depolama-tasinabilir-disk",
+    "parentId": "2e951be1-c270-42fd-980c-7ba8f433ccc7",
+    "depth": 2,
+    "path": "pc-bilesenleri/depolama/tasinabilir-disk",
+    "productCount": 68
+  },
+  {
+    "id": "9f7329e7-7b06-4e5f-a2f9-190af1125418",
+    "name": "Termal Macun",
+    "slug": "sogutma-termal-macun",
+    "parentId": "52f6494e-4cbf-459b-bfda-a10351ee422f",
+    "depth": 2,
+    "path": "pc-bilesenleri/sogutma/termal-macun",
+    "productCount": 0
+  },
+  {
+    "id": "2efe1eaa-564f-456b-a46d-cef0fa63891e",
+    "name": "Toner",
+    "slug": "yazici-sarf-malzemeleri-toner",
+    "parentId": "f0b60b4b-b142-46c7-9211-ed070657bcfd",
+    "depth": 2,
+    "path": "yazici-tarayici/yazici-sarf-malzemeleri/toner",
+    "productCount": 0
+  },
+  {
+    "id": "774e45fc-4d0b-4343-becf-13f62a6907e3",
+    "name": "Touchscreen Monitör",
+    "slug": "monitor-touchscreen-monitor",
+    "parentId": "91144e1e-f2d9-4c54-8606-7244b05dca55",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/monitor/touchscreen-monitor",
+    "productCount": 0
+  },
+  {
+    "id": "460a6089-73a4-41d1-8f39-da1e465c6e48",
+    "name": "Tower PC",
+    "slug": "masaustu-bilgisayar-tower-pc",
+    "parentId": "4fb862ae-a474-4c70-8f7a-bf1318575935",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/masaustu-bilgisayar/tower-pc",
+    "productCount": 0
+  },
+  {
+    "id": "b4453b61-1b39-4893-8968-84484fecdf28",
+    "name": "Tower Sunucu",
+    "slug": "sunucu-tower-sunucu",
+    "parentId": "3cfdfcd6-dc5d-41d2-8eaf-133cfc0c6355",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/sunucu/tower-sunucu",
+    "productCount": 0
+  },
+  {
+    "id": "da14301f-416b-48ff-a8c5-83631c7409f6",
+    "name": "Turnike",
+    "slug": "gecis-kontrol-turnike",
+    "parentId": "a40e6d27-ccd8-4e25-b1f3-3a4034a38db2",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/turnike",
+    "productCount": 0
+  },
+  {
+    "id": "9a57726b-7afc-4a5b-bc5a-b731b9a68a4d",
+    "name": "UPS Akü",
+    "slug": "ups-ups-aku",
+    "parentId": "9de158bb-541f-46f9-a2bc-3b218e5c094a",
+    "depth": 2,
+    "path": "guc-elektronigi/ups/ups-aku",
+    "productCount": 0
+  },
+  {
+    "id": "7d7d1e99-9df9-4d89-85f8-62a340951da8",
+    "name": "USB Bellek",
+    "slug": "depolama-usb-bellek",
+    "parentId": "2e951be1-c270-42fd-980c-7ba8f433ccc7",
+    "depth": 2,
+    "path": "pc-bilesenleri/depolama/usb-bellek",
+    "productCount": 0
+  },
+  {
+    "id": "8ec98ac5-fbb6-415b-8b59-afe462c2e46a",
+    "name": "USB Para Kasası",
+    "slug": "para-kasasi-usb-para-kasasi",
+    "parentId": "a3645db0-4428-4707-98ae-f7fa85b1f953",
+    "depth": 2,
+    "path": "pos-barkod/para-kasasi/usb-para-kasasi",
+    "productCount": 0
+  },
+  {
+    "id": "fd34578f-3eae-4582-b57a-27baeaf54d85",
+    "name": "USB Uzatma Kablo",
+    "slug": "usb-kablolar-usb-uzatma-kablo",
+    "parentId": "01ddef10-244b-4b1b-8253-953fdb0e70bf",
+    "depth": 2,
+    "path": "kablo-aksesuar/usb-kablolar/usb-uzatma-kablo",
+    "productCount": 1
+  },
+  {
+    "id": "bbbc5041-3aa4-4a03-bcf4-13847b5749d1",
+    "name": "USB Şarj İstasyonu",
+    "slug": "sarj-cihazi-usb-sarj-i-stasyonu",
+    "parentId": "5f96e11a-8cc8-4c53-94a5-618c936e7dcd",
+    "depth": 2,
+    "path": "guc-elektronigi/sarj-cihazi/usb-sarj-i-stasyonu",
+    "productCount": 0
+  },
+  {
+    "id": "e012e995-b122-49ff-8d7f-edd02ad87826",
+    "name": "USB-A to USB-B",
+    "slug": "usb-kablolar-usb-a-to-usb-b",
+    "parentId": "01ddef10-244b-4b1b-8253-953fdb0e70bf",
+    "depth": 2,
+    "path": "kablo-aksesuar/usb-kablolar/usb-a-to-usb-b",
+    "productCount": 0
+  },
+  {
+    "id": "c732e75a-0e54-459c-a8da-b0db48f76f66",
+    "name": "USB-C Hub",
+    "slug": "donusturuculer-usb-c-hub",
+    "parentId": "b0da825d-0e17-47a8-aed7-9070ab787e61",
+    "depth": 2,
+    "path": "kablo-aksesuar/donusturuculer/usb-c-hub",
+    "productCount": 0
+  },
+  {
+    "id": "a20a3804-240a-406b-8689-5badd9114ce9",
+    "name": "USB-C Kablo",
+    "slug": "usb-kablolar-usb-c-kablo",
+    "parentId": "01ddef10-244b-4b1b-8253-953fdb0e70bf",
+    "depth": 2,
+    "path": "kablo-aksesuar/usb-kablolar/usb-c-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "ed8a2d52-d8f7-4eb5-aa08-a7302e8a571f",
+    "name": "USB-C to Lightning",
+    "slug": "usb-kablolar-usb-c-to-lightning",
+    "parentId": "01ddef10-244b-4b1b-8253-953fdb0e70bf",
+    "depth": 2,
+    "path": "kablo-aksesuar/usb-kablolar/usb-c-to-lightning",
+    "productCount": 0
+  },
+  {
+    "id": "f3cc971d-66aa-425a-9d12-c5c057ff518b",
+    "name": "USB-C Şarj Adaptörü",
+    "slug": "adaptor-usb-c-sarj-adaptoru",
+    "parentId": "3e0befed-26c7-4d68-ad44-d92f0a3b3a4f",
+    "depth": 2,
+    "path": "guc-elektronigi/adaptor/usb-c-sarj-adaptoru",
+    "productCount": 0
+  },
+  {
+    "id": "cea2ad69-62cb-4de6-aee3-fb7b4fc296d6",
+    "name": "UTM Appliance",
+    "slug": "ag-guvenligi-utm-appliance",
+    "parentId": "86110c9b-9270-4937-b79f-849d87c2fb34",
+    "depth": 2,
+    "path": "network-fiber/ag-guvenligi/utm-appliance",
+    "productCount": 0
+  },
+  {
+    "id": "70c139c9-a997-4d11-8141-23945419f869",
+    "name": "Ultrabook",
+    "slug": "notebook-ultrabook",
+    "parentId": "d6945140-7dfe-40c6-bf36-df837bebf581",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/notebook/ultrabook",
+    "productCount": 0
+  },
+  {
+    "id": "459f69f0-97ba-42d2-8775-395f7b1a0def",
+    "name": "Universal Adaptör",
+    "slug": "adaptor-universal-adaptor",
+    "parentId": "3e0befed-26c7-4d68-ad44-d92f0a3b3a4f",
+    "depth": 2,
+    "path": "guc-elektronigi/adaptor/universal-adaptor",
+    "productCount": 0
+  },
+  {
+    "id": "f96acca2-4a51-43b4-949c-5291a371d29d",
+    "name": "Unmanaged Switch",
+    "slug": "switch-unmanaged-switch",
+    "parentId": "2e65418e-1c88-442e-8ec0-c20dbea06e9f",
+    "depth": 2,
+    "path": "network-fiber/switch/unmanaged-switch",
+    "productCount": 0
+  },
+  {
+    "id": "84f3d7e1-d385-4272-9df7-5b71f3aa2f8e",
+    "name": "VGA Kablo",
+    "slug": "goruntu-kablolari-vga-kablo",
+    "parentId": "31cacdaf-be6e-4bdf-8bf0-80cf2d7f9a4c",
+    "depth": 2,
+    "path": "kablo-aksesuar/goruntu-kablolari/vga-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "c7376468-a356-454a-815e-8d4d5549db94",
+    "name": "VPN Gateway",
+    "slug": "ag-guvenligi-vpn-gateway",
+    "parentId": "86110c9b-9270-4937-b79f-849d87c2fb34",
+    "depth": 2,
+    "path": "network-fiber/ag-guvenligi/vpn-gateway",
+    "productCount": 0
+  },
+  {
+    "id": "617c2b75-3c23-4e8f-a456-b5dda183d0b7",
+    "name": "Video Balunlar",
+    "slug": "aksesuarlar-video-balunlar",
+    "parentId": "7fefb540-955a-443d-897f-83552a44c720",
+    "depth": 2,
+    "path": "cctv/aksesuarlar/video-balunlar",
+    "productCount": 7
+  },
+  {
+    "id": "eb5e19e0-067a-4dce-8146-9ea7cdbe4474",
+    "name": "Windows",
+    "slug": "i-sletim-sistemi-windows",
+    "parentId": "57f428c1-ce24-46b4-9436-70281de35c1d",
+    "depth": 2,
+    "path": "yazilim-lisans/i-sletim-sistemi/windows",
+    "productCount": 0
+  },
+  {
+    "id": "a8f59865-a643-4f47-a563-5ac25a1491fc",
+    "name": "XLR Kablo",
+    "slug": "ses-kablolari-xlr-kablo",
+    "parentId": "c30ae8c1-0167-427d-9f0d-3cc60dbab416",
+    "depth": 2,
+    "path": "kablo-aksesuar/ses-kablolari/xlr-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "e4de154f-f32f-4f20-95b2-098ff948ae80",
+    "name": "XVR",
+    "slug": "kayit-cihazi-xvr",
+    "parentId": "ce2e6ffa-7c4f-4b0f-bd04-7f8e60c7765b",
+    "depth": 2,
+    "path": "cctv/kayit-cihazi/xvr",
+    "productCount": 0
+  },
+  {
+    "id": "fb8c39f9-24a4-4659-a300-e5cf96035412",
+    "name": "Yangın Paneli",
+    "slug": "yangin-alarm-yangin-paneli",
+    "parentId": "0d446a13-0550-4165-b287-a15ed16f97d3",
+    "depth": 2,
+    "path": "gecis-kontrol-alarm/yangin-alarm/yangin-paneli",
+    "productCount": 0
+  },
+  {
+    "id": "f5172b3e-eaf6-457f-8eca-1c7397a82197",
+    "name": "Yazıcı Bandı",
+    "slug": "yazici-sarf-malzemeleri-yazici-bandi",
+    "parentId": "f0b60b4b-b142-46c7-9211-ed070657bcfd",
+    "depth": 2,
+    "path": "yazici-tarayici/yazici-sarf-malzemeleri/yazici-bandi",
+    "productCount": 0
+  },
+  {
+    "id": "1ae187b4-5faf-464d-ac51-534b8f38f5aa",
+    "name": "Yüz Tanıma Terminali",
+    "slug": "yuz-tanima-yuz-tanima-terminali",
+    "parentId": "81092deb-9bcb-415d-ab62-31e310fe3c62",
+    "depth": 2,
+    "path": "akilli-sistemler/yuz-tanima/yuz-tanima-terminali",
+    "productCount": 0
+  },
+  {
+    "id": "110b4ac4-e196-4c24-9212-68904b472ce5",
+    "name": "Yüz Tanıma Yazılımı",
+    "slug": "yuz-tanima-yuz-tanima-yazilimi",
+    "parentId": "81092deb-9bcb-415d-ab62-31e310fe3c62",
+    "depth": 2,
+    "path": "akilli-sistemler/yuz-tanima/yuz-tanima-yazilimi",
+    "productCount": 0
+  },
+  {
+    "id": "df81404a-a658-430f-9eab-cf3e80b0fdae",
+    "name": "İnsan Sayma",
+    "slug": "goruntu-analizi-i-nsan-sayma",
+    "parentId": "91b4158f-740a-4b4d-87f0-74a23a98347f",
+    "depth": 2,
+    "path": "akilli-sistemler/goruntu-analizi/i-nsan-sayma",
+    "productCount": 0
+  },
+  {
+    "id": "42a0514f-c4be-41a5-aae2-a9e05b9156d1",
+    "name": "İş Notebooku",
+    "slug": "notebook-i-s-notebooku",
+    "parentId": "d6945140-7dfe-40c6-bf36-df837bebf581",
+    "depth": 2,
+    "path": "bilgisayar-sunucu/notebook/i-s-notebooku",
+    "productCount": 0
+  },
+  {
+    "id": "ccbe9e94-22ed-40f5-9d92-ccd92439fd58",
+    "name": "İşlemci Fanı (Air)",
+    "slug": "sogutma-i-slemci-fani-air",
+    "parentId": "52f6494e-4cbf-459b-bfda-a10351ee422f",
+    "depth": 2,
+    "path": "pc-bilesenleri/sogutma/i-slemci-fani-air",
+    "productCount": 0
+  },
+  {
+    "id": "339501d6-5948-4426-8902-d3202e3294eb",
+    "name": "1 Cihaz",
+    "slug": "microsoft-365-1-cihaz",
+    "parentId": "228bfc79-98c6-4bb8-bac2-1a20b03a5f95",
+    "depth": 3,
+    "path": "yazilim-lisans/ofis-yazilimi/microsoft-365/1-cihaz",
+    "productCount": 0
+  },
+  {
+    "id": "db897856-12a4-4c3c-b8dc-5787fdf99872",
+    "name": "1000VA UPS",
+    "slug": "line-interactive-ups-1000va-ups",
+    "parentId": "6f94a1c5-89f6-43ca-844f-cd518fecddf9",
+    "depth": 3,
+    "path": "guc-elektronigi/ups/line-interactive-ups/1000va-ups",
+    "productCount": 0
+  },
+  {
+    "id": "c2ee5a86-4966-4237-bf99-7f871ea6d00c",
+    "name": "1080P AHD Bullet",
+    "slug": "ahd-bullet-1080p-ahd-bullet",
+    "parentId": "1b6fb9c2-d448-47cb-9261-7a51c7ece81b",
+    "depth": 3,
+    "path": "cctv/ahd-kameralar/ahd-bullet/1080p-ahd-bullet",
+    "productCount": 1
+  },
+  {
+    "id": "c55b812d-d4b0-472b-9cee-2fb1ad1e7176",
+    "name": "1080P AHD Dome",
+    "slug": "ahd-dome-1080p-ahd-dome",
+    "parentId": "d12a8ee8-f8b6-4113-aaf6-6b8144580a77",
+    "depth": 3,
+    "path": "cctv/ahd-kameralar/ahd-dome/1080p-ahd-dome",
+    "productCount": 0
+  },
+  {
+    "id": "55b6155e-6e3b-4116-b6a0-fe0dceddf6e8",
+    "name": "10G SFP+",
+    "slug": "sfp-modul-10g-sfp",
+    "parentId": "9b691b51-7d2b-4d2d-a20d-218314d75faa",
+    "depth": 3,
+    "path": "network-fiber/fiber-optik/sfp-modul/10g-sfp",
+    "productCount": 0
+  },
+  {
+    "id": "0c643502-a562-4737-8fdc-7f4bd1c443fe",
+    "name": "10TB HDD",
+    "slug": "hard-diskler-10tb-hdd",
+    "parentId": "9edc4532-38ac-4053-9f33-0edfc0b322e8",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/hard-diskler/10tb-hdd",
+    "productCount": 0
+  },
+  {
+    "id": "bd05b12c-d8b9-4ac3-bc44-79485e9edfa8",
+    "name": "10kVA Online UPS",
+    "slug": "online-ups-10kva-online-ups",
+    "parentId": "bbfb8892-adc7-437d-8a4e-69ee3c03c8ba",
+    "depth": 3,
+    "path": "guc-elektronigi/ups/online-ups/10kva-online-ups",
+    "productCount": 0
+  },
+  {
+    "id": "03b3bd06-31c2-4298-85da-b513fb77eaf7",
+    "name": "120mm AIO",
+    "slug": "sivi-sogutma-aio-120mm-aio",
+    "parentId": "3845a459-c679-4e50-b567-e7003de85b2b",
+    "depth": 3,
+    "path": "pc-bilesenleri/sogutma/sivi-sogutma-aio/120mm-aio",
+    "productCount": 0
+  },
+  {
+    "id": "09151807-14a8-4e57-919c-b259f5bacf0f",
+    "name": "128 Kanal NVR",
+    "slug": "nvr-128-kanal-nvr",
+    "parentId": "548cda90-2826-409a-bf34-e6f6df181792",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/nvr/128-kanal-nvr",
+    "productCount": 0
+  },
+  {
+    "id": "43ad26f3-3792-44a7-8dac-21cb5bffb39f",
+    "name": "12MP Fisheye",
+    "slug": "fisheye-12mp-fisheye",
+    "parentId": "4b0483e8-23b4-4dba-837e-8dd398524ed3",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/fisheye/12mp-fisheye",
+    "productCount": 0
+  },
+  {
+    "id": "edd4229f-731e-4cf5-a0e5-8c7f28fc2516",
+    "name": "12V Adaptör",
+    "slug": "adaptorler-12v-adaptor",
+    "parentId": "f31a6431-0de2-46c5-badd-67cee15289f5",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/adaptorler/12v-adaptor",
+    "productCount": 0
+  },
+  {
+    "id": "fa41fc81-6910-4b21-9c2c-805067f1c7b8",
+    "name": "12mm Lens",
+    "slug": "lensler-12mm-lens",
+    "parentId": "b27ca69a-e900-4419-89e9-af001a9a6fa1",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/lensler/12mm-lens",
+    "productCount": 0
+  },
+  {
+    "id": "f1019f4f-de7d-45b5-b895-198a43e556e4",
+    "name": "1500VA UPS",
+    "slug": "line-interactive-ups-1500va-ups",
+    "parentId": "6f94a1c5-89f6-43ca-844f-cd518fecddf9",
+    "depth": 3,
+    "path": "guc-elektronigi/ups/line-interactive-ups/1500va-ups",
+    "productCount": 0
+  },
+  {
+    "id": "9761b947-d9f7-4adc-9d01-ebb7f412f36f",
+    "name": "16 Kanal DVR",
+    "slug": "dvr-16-kanal-dvr",
+    "parentId": "86315426-2d09-4713-9be9-70850c717fdf",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/dvr/16-kanal-dvr",
+    "productCount": 0
+  },
+  {
+    "id": "a12612d0-a01f-4c54-ae65-0e566d3ea732",
+    "name": "16 Kanal NVR",
+    "slug": "nvr-16-kanal-nvr",
+    "parentId": "548cda90-2826-409a-bf34-e6f6df181792",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/nvr/16-kanal-nvr",
+    "productCount": 0
+  },
+  {
+    "id": "e1f7a43e-3076-458d-920f-28f523f1719c",
+    "name": "16 Kanal XVR",
+    "slug": "xvr-16-kanal-xvr",
+    "parentId": "e4de154f-f32f-4f20-95b2-098ff948ae80",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/xvr/16-kanal-xvr",
+    "productCount": 0
+  },
+  {
+    "id": "029ab342-f8fb-4363-a4bc-3de120642d89",
+    "name": "16 Port Güç Kutusu",
+    "slug": "guc-dagitim-kutulari-16-port-guc-kutusu",
+    "parentId": "079a385e-7dfd-49af-812c-1a9ee1059503",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/guc-dagitim-kutulari/16-port-guc-kutusu",
+    "productCount": 0
+  },
+  {
+    "id": "38475c21-3624-42f9-b2c7-ea5b3afe305c",
+    "name": "16 Port Managed",
+    "slug": "managed-switch-16-port-managed",
+    "parentId": "661d654a-3b45-40fb-b5fb-4b503dd415bf",
+    "depth": 3,
+    "path": "network-fiber/switch/managed-switch/16-port-managed",
+    "productCount": 0
+  },
+  {
+    "id": "061a08fd-24a0-4cc1-959a-4a3d822bc81d",
+    "name": "16 Port PoE",
+    "slug": "poe-switch-16-port-poe",
+    "parentId": "fcbffdc6-f581-43d7-9ca8-ab7cff402bdc",
+    "depth": 3,
+    "path": "network-fiber/switch/poe-switch/16-port-poe",
+    "productCount": 0
+  },
+  {
+    "id": "a0de7112-c20d-4807-ba71-532cad3efaef",
+    "name": "16 Port Switch",
+    "slug": "unmanaged-switch-16-port-switch",
+    "parentId": "f96acca2-4a51-43b4-949c-5291a371d29d",
+    "depth": 3,
+    "path": "network-fiber/switch/unmanaged-switch/16-port-switch",
+    "productCount": 0
+  },
+  {
+    "id": "1ed307ab-002e-4f84-8ce5-323155df4c70",
+    "name": "16GB DDR4",
+    "slug": "ddr4-16gb-ddr4",
+    "parentId": "10f0eb08-6dd4-49dd-8e5f-4c59334fdf52",
+    "depth": 3,
+    "path": "pc-bilesenleri/bellek-ram/ddr4/16gb-ddr4",
+    "productCount": 2
+  },
+  {
+    "id": "4811403d-b207-4f36-96ce-1dcefe79690c",
+    "name": "16GB DDR5",
+    "slug": "ddr5-16gb-ddr5",
+    "parentId": "21fe4f78-5d62-4920-a1d5-028855aab3e7",
+    "depth": 3,
+    "path": "pc-bilesenleri/bellek-ram/ddr5/16gb-ddr5",
+    "productCount": 0
+  },
+  {
+    "id": "55bdb28f-2b26-4df7-bbf6-3689fbd0f028",
+    "name": "16GB SO-DIMM",
+    "slug": "so-dimm-laptop-16gb-so-dimm",
+    "parentId": "4e5b2f67-7431-4c91-a44d-50026eab709b",
+    "depth": 3,
+    "path": "pc-bilesenleri/bellek-ram/so-dimm-laptop/16gb-so-dimm",
+    "productCount": 0
+  },
+  {
+    "id": "0b087f2b-65d5-4755-aa8c-4899a49b7ef4",
+    "name": "18 Port Güç Kutusu",
+    "slug": "guc-dagitim-kutulari-18-port-guc-kutusu",
+    "parentId": "079a385e-7dfd-49af-812c-1a9ee1059503",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/guc-dagitim-kutulari/18-port-guc-kutusu",
+    "productCount": 0
+  },
+  {
+    "id": "d804abab-473e-475d-89d5-02434323a32b",
+    "name": "19\" Monitör",
+    "slug": "monitorler-19-monitor",
+    "parentId": "89b020a8-452e-4c62-b984-ee335bd3fb91",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/monitorler/19-monitor",
+    "productCount": 0
+  },
+  {
+    "id": "4d943386-d57d-4d0b-aec3-9b6f14ca99ba",
+    "name": "1G SFP",
+    "slug": "sfp-modul-1g-sfp",
+    "parentId": "9b691b51-7d2b-4d2d-a20d-218314d75faa",
+    "depth": 3,
+    "path": "network-fiber/fiber-optik/sfp-modul/1g-sfp",
+    "productCount": 0
+  },
+  {
+    "id": "83e8de98-6a79-4401-a3c9-b248d7049332",
+    "name": "1TB HDD",
+    "slug": "hdd-masaustu-1tb-hdd",
+    "parentId": "36b86813-bca5-4a39-aa7e-9a81775d93fb",
+    "depth": 3,
+    "path": "pc-bilesenleri/depolama/hdd-masaustu/1tb-hdd",
+    "productCount": 0
+  },
+  {
+    "id": "f4d9303b-b463-4c4e-818f-9ab19b6a3729",
+    "name": "1TB HDD",
+    "slug": "hard-diskler-1tb-hdd",
+    "parentId": "9edc4532-38ac-4053-9f33-0edfc0b322e8",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/hard-diskler/1tb-hdd",
+    "productCount": 0
+  },
+  {
+    "id": "36984e16-2879-4a1e-9671-2f7d52273a92",
+    "name": "1TB NVMe",
+    "slug": "nvme-m-2-1tb-nvme",
+    "parentId": "6250ac56-fab8-41e9-9ad6-f0357644093c",
+    "depth": 3,
+    "path": "pc-bilesenleri/depolama/nvme-m-2/1tb-nvme",
+    "productCount": 0
+  },
+  {
+    "id": "2c194fd2-6973-4ceb-a730-3dc3464c3efe",
+    "name": "1TB SSD",
+    "slug": "ssd-1tb-ssd",
+    "parentId": "2f33a3a3-2876-4784-82e5-976abc31bf02",
+    "depth": 3,
+    "path": "pc-bilesenleri/depolama/ssd/1tb-ssd",
+    "productCount": 0
+  },
+  {
+    "id": "076a6801-ac77-4f3a-bd9a-252371424be3",
+    "name": "1U Sunucu",
+    "slug": "rack-sunucu-1u-sunucu",
+    "parentId": "20eb47db-bf82-4735-9d84-f352ffc045d8",
+    "depth": 3,
+    "path": "bilgisayar-sunucu/sunucu/rack-sunucu/1u-sunucu",
+    "productCount": 0
+  },
+  {
+    "id": "df4ee65c-4d06-4d00-a565-8168cef4d7ce",
+    "name": "1kVA Online UPS",
+    "slug": "online-ups-1kva-online-ups",
+    "parentId": "bbfb8892-adc7-437d-8a4e-69ee3c03c8ba",
+    "depth": 3,
+    "path": "guc-elektronigi/ups/online-ups/1kva-online-ups",
+    "productCount": 0
+  },
+  {
+    "id": "06057cfe-3f44-447b-b63b-504042c919aa",
+    "name": "2.8mm Lens",
+    "slug": "lensler-2-8mm-lens",
+    "parentId": "b27ca69a-e900-4419-89e9-af001a9a6fa1",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/lensler/2-8mm-lens",
+    "productCount": 0
+  },
+  {
+    "id": "145ee15c-bffb-45a3-92cf-5c5182edc3ae",
+    "name": "2000VA UPS",
+    "slug": "line-interactive-ups-2000va-ups",
+    "parentId": "6f94a1c5-89f6-43ca-844f-cd518fecddf9",
+    "depth": 3,
+    "path": "guc-elektronigi/ups/line-interactive-ups/2000va-ups",
+    "productCount": 0
+  },
+  {
+    "id": "836eab2d-ac6b-44de-ba8c-7306e09da85f",
+    "name": "20kVA Online UPS",
+    "slug": "online-ups-20kva-online-ups",
+    "parentId": "bbfb8892-adc7-437d-8a4e-69ee3c03c8ba",
+    "depth": 3,
+    "path": "guc-elektronigi/ups/online-ups/20kva-online-ups",
+    "productCount": 0
+  },
+  {
+    "id": "1bffdc5d-9429-448a-bf9b-0c8ee444b183",
+    "name": "22\" Monitör",
+    "slug": "monitorler-22-monitor",
+    "parentId": "89b020a8-452e-4c62-b984-ee335bd3fb91",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/monitorler/22-monitor",
+    "productCount": 0
+  },
+  {
+    "id": "0ece7697-e49f-4b7d-ba6a-b7709ed380a2",
+    "name": "24 Port Managed",
+    "slug": "managed-switch-24-port-managed",
+    "parentId": "661d654a-3b45-40fb-b5fb-4b503dd415bf",
+    "depth": 3,
+    "path": "network-fiber/switch/managed-switch/24-port-managed",
+    "productCount": 0
+  },
+  {
+    "id": "d217b86a-46aa-4462-9263-904adf7a36ca",
+    "name": "24 Port PoE",
+    "slug": "poe-switch-24-port-poe",
+    "parentId": "fcbffdc6-f581-43d7-9ca8-ab7cff402bdc",
+    "depth": 3,
+    "path": "network-fiber/switch/poe-switch/24-port-poe",
+    "productCount": 0
+  },
+  {
+    "id": "71754dd2-7106-4efb-b7f5-db808b3820a7",
+    "name": "24 Port Switch",
+    "slug": "unmanaged-switch-24-port-switch",
+    "parentId": "f96acca2-4a51-43b4-949c-5291a371d29d",
+    "depth": 3,
+    "path": "network-fiber/switch/unmanaged-switch/24-port-switch",
+    "productCount": 0
+  },
+  {
+    "id": "d41be327-fe1d-4b50-a1da-ee555123937b",
+    "name": "240mm AIO",
+    "slug": "sivi-sogutma-aio-240mm-aio",
+    "parentId": "3845a459-c679-4e50-b567-e7003de85b2b",
+    "depth": 3,
+    "path": "pc-bilesenleri/sogutma/sivi-sogutma-aio/240mm-aio",
+    "productCount": 0
+  },
+  {
+    "id": "7cac95ae-5a11-4619-947c-2451f909895d",
+    "name": "24V Adaptör",
+    "slug": "adaptorler-24v-adaptor",
+    "parentId": "f31a6431-0de2-46c5-badd-67cee15289f5",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/adaptorler/24v-adaptor",
+    "productCount": 0
+  },
+  {
+    "id": "b4255d30-1b9c-458a-88fd-3c919ab80d9e",
+    "name": "250GB NVMe",
+    "slug": "nvme-m-2-250gb-nvme",
+    "parentId": "6250ac56-fab8-41e9-9ad6-f0357644093c",
+    "depth": 3,
+    "path": "pc-bilesenleri/depolama/nvme-m-2/250gb-nvme",
+    "productCount": 0
+  },
+  {
+    "id": "ef0f3fef-d15b-498a-81e6-7035271853ac",
+    "name": "250GB SSD",
+    "slug": "ssd-250gb-ssd",
+    "parentId": "2f33a3a3-2876-4784-82e5-976abc31bf02",
+    "depth": 3,
+    "path": "pc-bilesenleri/depolama/ssd/250gb-ssd",
+    "productCount": 0
+  },
+  {
+    "id": "5b68bb3c-8521-4015-bc83-82d44d8f56ed",
+    "name": "25G SFP28",
+    "slug": "sfp-modul-25g-sfp28",
+    "parentId": "9b691b51-7d2b-4d2d-a20d-218314d75faa",
+    "depth": 3,
+    "path": "network-fiber/fiber-optik/sfp-modul/25g-sfp28",
+    "productCount": 0
+  },
+  {
+    "id": "2ac89798-88b0-4a27-85ab-1fb256192d6e",
+    "name": "27\" Monitör",
+    "slug": "monitorler-27-monitor",
+    "parentId": "89b020a8-452e-4c62-b984-ee335bd3fb91",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/monitorler/27-monitor",
+    "productCount": 0
+  },
+  {
+    "id": "1104fc49-9ff7-4945-afbc-8ba464e03515",
+    "name": "2MP",
+    "slug": "ir-turret-2mp",
+    "parentId": "b362d143-8ad5-42d7-ab07-23dd4275b2b3",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ir-turret/2mp",
+    "productCount": 0
+  },
+  {
+    "id": "e5e988e7-5127-4605-85ca-d732c10f00b3",
+    "name": "2MP",
+    "slug": "ir-dome-2mp",
+    "parentId": "2451233f-d9eb-4132-98fd-f5116354b5d4",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ir-dome/2mp",
+    "productCount": 0
+  },
+  {
+    "id": "a733411f-3977-487d-b82a-b93e0ed55539",
+    "name": "2MP",
+    "slug": "ir-bullet-2mp",
+    "parentId": "b246176d-fbfd-45cb-bd13-6cae85db89fe",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ir-bullet/2mp",
+    "productCount": 0
+  },
+  {
+    "id": "7f14d1e8-5bae-4799-a0e8-d0bf9dcc64fa",
+    "name": "2MP HDCVI Bullet",
+    "slug": "hdcvi-bullet-2mp-hdcvi-bullet",
+    "parentId": "3fd863c7-cbeb-4b23-a103-0492e74dde7b",
+    "depth": 3,
+    "path": "cctv/hdcvi-kameralar/hdcvi-bullet/2mp-hdcvi-bullet",
+    "productCount": 0
+  },
+  {
+    "id": "87321d3a-b817-45b5-af8f-83c6c0c4ead3",
+    "name": "2MP HDCVI Dome",
+    "slug": "hdcvi-dome-2mp-hdcvi-dome",
+    "parentId": "806a405e-4353-4e73-a304-87e16cc2bc64",
+    "depth": 3,
+    "path": "cctv/hdcvi-kameralar/hdcvi-dome/2mp-hdcvi-dome",
+    "productCount": 0
+  },
+  {
+    "id": "7c91127a-9a09-442f-ad7d-c5d3ebbe7fef",
+    "name": "2MP LPR",
+    "slug": "lpr-plaka-tanima-2mp-lpr",
+    "parentId": "f750e4a7-e73b-4ec2-8a01-0ea19880bd4a",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/lpr-plaka-tanima/2mp-lpr",
+    "productCount": 0
+  },
+  {
+    "id": "b4162f3d-0ef1-41b1-8b4e-7418a7bb9a27",
+    "name": "2TB HDD",
+    "slug": "hdd-masaustu-2tb-hdd",
+    "parentId": "36b86813-bca5-4a39-aa7e-9a81775d93fb",
+    "depth": 3,
+    "path": "pc-bilesenleri/depolama/hdd-masaustu/2tb-hdd",
+    "productCount": 0
+  },
+  {
+    "id": "c0ec7739-3cb3-4ded-81f7-bf4969241e87",
+    "name": "2TB HDD",
+    "slug": "hard-diskler-2tb-hdd",
+    "parentId": "9edc4532-38ac-4053-9f33-0edfc0b322e8",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/hard-diskler/2tb-hdd",
+    "productCount": 0
+  },
+  {
+    "id": "28337ee7-36a0-4e44-8a22-f526292c909e",
+    "name": "2TB NVMe",
+    "slug": "nvme-m-2-2tb-nvme",
+    "parentId": "6250ac56-fab8-41e9-9ad6-f0357644093c",
+    "depth": 3,
+    "path": "pc-bilesenleri/depolama/nvme-m-2/2tb-nvme",
+    "productCount": 0
+  },
+  {
+    "id": "6f082c9c-a5d0-4250-9b95-e14a26b649f4",
+    "name": "2TB SSD",
+    "slug": "ssd-2tb-ssd",
+    "parentId": "2f33a3a3-2876-4784-82e5-976abc31bf02",
+    "depth": 3,
+    "path": "pc-bilesenleri/depolama/ssd/2tb-ssd",
+    "productCount": 0
+  },
+  {
+    "id": "90b4fb96-193f-48b2-b2f0-9039542a86dc",
+    "name": "2U Sunucu",
+    "slug": "rack-sunucu-2u-sunucu",
+    "parentId": "20eb47db-bf82-4735-9d84-f352ffc045d8",
+    "depth": 3,
+    "path": "bilgisayar-sunucu/sunucu/rack-sunucu/2u-sunucu",
+    "productCount": 0
+  },
+  {
+    "id": "cb04c7fd-253d-43f4-bab9-fd77eb528905",
+    "name": "2kVA Online UPS",
+    "slug": "online-ups-2kva-online-ups",
+    "parentId": "bbfb8892-adc7-437d-8a4e-69ee3c03c8ba",
+    "depth": 3,
+    "path": "guc-elektronigi/ups/online-ups/2kva-online-ups",
+    "productCount": 0
+  },
+  {
+    "id": "c402328a-1a62-48d0-93a1-5a69dc641372",
+    "name": "3.6mm Lens",
+    "slug": "lensler-3-6mm-lens",
+    "parentId": "b27ca69a-e900-4419-89e9-af001a9a6fa1",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/lensler/3-6mm-lens",
+    "productCount": 0
+  },
+  {
+    "id": "a7581bea-ddcb-47e5-a65d-08a0b25c6834",
+    "name": "3000VA UPS",
+    "slug": "line-interactive-ups-3000va-ups",
+    "parentId": "6f94a1c5-89f6-43ca-844f-cd518fecddf9",
+    "depth": 3,
+    "path": "guc-elektronigi/ups/line-interactive-ups/3000va-ups",
+    "productCount": 0
+  },
+  {
+    "id": "6fca3416-e7c7-483e-822e-1f616c4c5e9a",
+    "name": "32 Kanal DVR",
+    "slug": "dvr-32-kanal-dvr",
+    "parentId": "86315426-2d09-4713-9be9-70850c717fdf",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/dvr/32-kanal-dvr",
+    "productCount": 0
+  },
+  {
+    "id": "74c0624d-4e74-447b-aef2-05ae0b4a7ad0",
+    "name": "32 Kanal NVR",
+    "slug": "nvr-32-kanal-nvr",
+    "parentId": "548cda90-2826-409a-bf34-e6f6df181792",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/nvr/32-kanal-nvr",
+    "productCount": 0
+  },
+  {
+    "id": "042a7cab-5339-43e8-8859-596c4ae5b529",
+    "name": "32\" Monitör",
+    "slug": "monitorler-32-monitor",
+    "parentId": "89b020a8-452e-4c62-b984-ee335bd3fb91",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/monitorler/32-monitor",
+    "productCount": 0
+  },
+  {
+    "id": "06754ae2-fd7f-4a7b-aac5-da481fd7df2e",
+    "name": "32GB DDR4",
+    "slug": "ddr4-32gb-ddr4",
+    "parentId": "10f0eb08-6dd4-49dd-8e5f-4c59334fdf52",
+    "depth": 3,
+    "path": "pc-bilesenleri/bellek-ram/ddr4/32gb-ddr4",
+    "productCount": 0
+  },
+  {
+    "id": "758736fe-8c43-41ab-bb89-8c47340552ff",
+    "name": "32GB DDR5",
+    "slug": "ddr5-32gb-ddr5",
+    "parentId": "21fe4f78-5d62-4920-a1d5-028855aab3e7",
+    "depth": 3,
+    "path": "pc-bilesenleri/bellek-ram/ddr5/32gb-ddr5",
+    "productCount": 0
+  },
+  {
+    "id": "597cb652-c800-4aec-beda-7a5aebe0b5b2",
+    "name": "32GB SO-DIMM",
+    "slug": "so-dimm-laptop-32gb-so-dimm",
+    "parentId": "4e5b2f67-7431-4c91-a44d-50026eab709b",
+    "depth": 3,
+    "path": "pc-bilesenleri/bellek-ram/so-dimm-laptop/32gb-so-dimm",
+    "productCount": 0
+  },
+  {
+    "id": "753e774a-a29c-4b40-8772-86b7cba56239",
+    "name": "360mm AIO",
+    "slug": "sivi-sogutma-aio-360mm-aio",
+    "parentId": "3845a459-c679-4e50-b567-e7003de85b2b",
+    "depth": 3,
+    "path": "pc-bilesenleri/sogutma/sivi-sogutma-aio/360mm-aio",
+    "productCount": 0
+  },
+  {
+    "id": "48382d81-ca0a-43c8-a2cc-8e07605eb62c",
+    "name": "3MP Fisheye",
+    "slug": "fisheye-3mp-fisheye",
+    "parentId": "4b0483e8-23b4-4dba-837e-8dd398524ed3",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/fisheye/3mp-fisheye",
+    "productCount": 0
+  },
+  {
+    "id": "4966701e-e1fa-411a-a9f9-acc32dafd695",
+    "name": "3kVA Online UPS",
+    "slug": "online-ups-3kva-online-ups",
+    "parentId": "bbfb8892-adc7-437d-8a4e-69ee3c03c8ba",
+    "depth": 3,
+    "path": "guc-elektronigi/ups/online-ups/3kva-online-ups",
+    "productCount": 0
+  },
+  {
+    "id": "296322d1-fc0b-4928-afad-20b61474e917",
+    "name": "4 Kanal DVR",
+    "slug": "dvr-4-kanal-dvr",
+    "parentId": "86315426-2d09-4713-9be9-70850c717fdf",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/dvr/4-kanal-dvr",
+    "productCount": 0
+  },
+  {
+    "id": "80aba6b8-c9fd-41b4-8bcb-f82d819b5d2d",
+    "name": "4 Kanal NVR",
+    "slug": "nvr-4-kanal-nvr",
+    "parentId": "548cda90-2826-409a-bf34-e6f6df181792",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/nvr/4-kanal-nvr",
+    "productCount": 0
+  },
+  {
+    "id": "dfe49739-3bd7-4bcf-8921-47b7f51ac5df",
+    "name": "4 Kanal XVR",
+    "slug": "xvr-4-kanal-xvr",
+    "parentId": "e4de154f-f32f-4f20-95b2-098ff948ae80",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/xvr/4-kanal-xvr",
+    "productCount": 0
+  },
+  {
+    "id": "88bdb116-0307-4cb7-9aea-297b509b6ddc",
+    "name": "4 Port Güç Kutusu",
+    "slug": "guc-dagitim-kutulari-4-port-guc-kutusu",
+    "parentId": "079a385e-7dfd-49af-812c-1a9ee1059503",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/guc-dagitim-kutulari/4-port-guc-kutusu",
+    "productCount": 0
+  },
+  {
+    "id": "714fed1e-7adc-408d-b826-84d3d14810f7",
+    "name": "4 Port PoE",
+    "slug": "poe-switch-4-port-poe",
+    "parentId": "fcbffdc6-f581-43d7-9ca8-ab7cff402bdc",
+    "depth": 3,
+    "path": "network-fiber/switch/poe-switch/4-port-poe",
+    "productCount": 0
+  },
+  {
+    "id": "c582f1a7-4499-4622-bdd2-10aa9293bba9",
+    "name": "43\" Monitör",
+    "slug": "monitorler-43-monitor",
+    "parentId": "89b020a8-452e-4c62-b984-ee335bd3fb91",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/monitorler/43-monitor",
+    "productCount": 0
+  },
+  {
+    "id": "1b83cc32-1d4b-4488-8eea-c76fda4ed440",
+    "name": "48 Port Managed",
+    "slug": "managed-switch-48-port-managed",
+    "parentId": "661d654a-3b45-40fb-b5fb-4b503dd415bf",
+    "depth": 3,
+    "path": "network-fiber/switch/managed-switch/48-port-managed",
+    "productCount": 0
+  },
+  {
+    "id": "c75ba85f-f72a-47eb-a756-57d21551a0f5",
+    "name": "48 Port PoE",
+    "slug": "poe-switch-48-port-poe",
+    "parentId": "fcbffdc6-f581-43d7-9ca8-ab7cff402bdc",
+    "depth": 3,
+    "path": "network-fiber/switch/poe-switch/48-port-poe",
+    "productCount": 0
+  },
+  {
+    "id": "0c66d252-f5d8-4982-bd31-03b3f171672e",
+    "name": "48V PoE Adaptör",
+    "slug": "adaptorler-48v-poe-adaptor",
+    "parentId": "f31a6431-0de2-46c5-badd-67cee15289f5",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/adaptorler/48v-poe-adaptor",
+    "productCount": 0
+  },
+  {
+    "id": "614052ea-76bd-482e-98ec-aea960a3b714",
+    "name": "4MP",
+    "slug": "ir-turret-4mp",
+    "parentId": "b362d143-8ad5-42d7-ab07-23dd4275b2b3",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ir-turret/4mp",
+    "productCount": 0
+  },
+  {
+    "id": "95f1a007-852c-4fc7-b747-a093953ab0d4",
+    "name": "4MP",
+    "slug": "ir-bullet-4mp",
+    "parentId": "b246176d-fbfd-45cb-bd13-6cae85db89fe",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ir-bullet/4mp",
+    "productCount": 0
+  },
+  {
+    "id": "8bf20150-de82-42f3-9201-5dd477beca3b",
+    "name": "4MP",
+    "slug": "ir-dome-4mp",
+    "parentId": "2451233f-d9eb-4132-98fd-f5116354b5d4",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ir-dome/4mp",
+    "productCount": 0
+  },
+  {
+    "id": "eaef0958-25a9-46a7-8650-b764087c6714",
+    "name": "4MP AHD Bullet",
+    "slug": "ahd-bullet-4mp-ahd-bullet",
+    "parentId": "1b6fb9c2-d448-47cb-9261-7a51c7ece81b",
+    "depth": 3,
+    "path": "cctv/ahd-kameralar/ahd-bullet/4mp-ahd-bullet",
+    "productCount": 0
+  },
+  {
+    "id": "c6879999-acac-494e-81fe-3859ef210104",
+    "name": "4MP AHD Dome",
+    "slug": "ahd-dome-4mp-ahd-dome",
+    "parentId": "d12a8ee8-f8b6-4113-aaf6-6b8144580a77",
+    "depth": 3,
+    "path": "cctv/ahd-kameralar/ahd-dome/4mp-ahd-dome",
+    "productCount": 0
+  },
+  {
+    "id": "724130ba-b0ba-494f-b373-b09014189414",
+    "name": "4MP HDCVI Bullet",
+    "slug": "hdcvi-bullet-4mp-hdcvi-bullet",
+    "parentId": "3fd863c7-cbeb-4b23-a103-0492e74dde7b",
+    "depth": 3,
+    "path": "cctv/hdcvi-kameralar/hdcvi-bullet/4mp-hdcvi-bullet",
+    "productCount": 0
+  },
+  {
+    "id": "7b09876d-a969-4bdc-94e2-33d6b5798038",
+    "name": "4MP HDCVI Dome",
+    "slug": "hdcvi-dome-4mp-hdcvi-dome",
+    "parentId": "806a405e-4353-4e73-a304-87e16cc2bc64",
+    "depth": 3,
+    "path": "cctv/hdcvi-kameralar/hdcvi-dome/4mp-hdcvi-dome",
+    "productCount": 0
+  },
+  {
+    "id": "f6cbcb53-2514-4df9-89c7-e3b951fc0cbb",
+    "name": "4MP LPR",
+    "slug": "lpr-plaka-tanima-4mp-lpr",
+    "parentId": "f750e4a7-e73b-4ec2-8a01-0ea19880bd4a",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/lpr-plaka-tanima/4mp-lpr",
+    "productCount": 0
+  },
+  {
+    "id": "a639015e-990c-41e1-ac05-3207b9c5a91f",
+    "name": "4MP PTZ",
+    "slug": "ptz-kameralar-4mp-ptz",
+    "parentId": "231ce810-393c-439a-9bcc-1fb4312923b1",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ptz-kameralar/4mp-ptz",
+    "productCount": 0
+  },
+  {
+    "id": "6d2e7f68-9d94-424a-a1cb-00e839a75d7f",
+    "name": "4TB HDD",
+    "slug": "hdd-masaustu-4tb-hdd",
+    "parentId": "36b86813-bca5-4a39-aa7e-9a81775d93fb",
+    "depth": 3,
+    "path": "pc-bilesenleri/depolama/hdd-masaustu/4tb-hdd",
+    "productCount": 0
+  },
+  {
+    "id": "3bc0cf0f-5470-4d04-ac51-2ec609aa2d83",
+    "name": "4TB HDD",
+    "slug": "hard-diskler-4tb-hdd",
+    "parentId": "9edc4532-38ac-4053-9f33-0edfc0b322e8",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/hard-diskler/4tb-hdd",
+    "productCount": 0
+  },
+  {
+    "id": "87c6f14d-4f19-49ef-9c91-3db8af92360c",
+    "name": "4U Sunucu",
+    "slug": "rack-sunucu-4u-sunucu",
+    "parentId": "20eb47db-bf82-4735-9d84-f352ffc045d8",
+    "depth": 3,
+    "path": "bilgisayar-sunucu/sunucu/rack-sunucu/4u-sunucu",
+    "productCount": 0
+  },
+  {
+    "id": "c910753b-0d69-48ce-8a08-b84389960783",
+    "name": "5 Cihaz",
+    "slug": "microsoft-365-5-cihaz",
+    "parentId": "228bfc79-98c6-4bb8-bac2-1a20b03a5f95",
+    "depth": 3,
+    "path": "yazilim-lisans/ofis-yazilimi/microsoft-365/5-cihaz",
+    "productCount": 0
+  },
+  {
+    "id": "94ad6fc0-acb4-47db-bc07-a16d09cfba00",
+    "name": "5 Port Switch",
+    "slug": "unmanaged-switch-5-port-switch",
+    "parentId": "f96acca2-4a51-43b4-949c-5291a371d29d",
+    "depth": 3,
+    "path": "network-fiber/switch/unmanaged-switch/5-port-switch",
+    "productCount": 1
+  },
+  {
+    "id": "e3d7a27d-0e72-4729-b628-580c01999c3a",
+    "name": "500GB NVMe",
+    "slug": "nvme-m-2-500gb-nvme",
+    "parentId": "6250ac56-fab8-41e9-9ad6-f0357644093c",
+    "depth": 3,
+    "path": "pc-bilesenleri/depolama/nvme-m-2/500gb-nvme",
+    "productCount": 0
+  },
+  {
+    "id": "2935146f-1463-4797-b5d4-64084fe322ea",
+    "name": "500GB SSD",
+    "slug": "ssd-500gb-ssd",
+    "parentId": "2f33a3a3-2876-4784-82e5-976abc31bf02",
+    "depth": 3,
+    "path": "pc-bilesenleri/depolama/ssd/500gb-ssd",
+    "productCount": 0
+  },
+  {
+    "id": "bc8841b1-3aaa-433d-b1cb-d877d7c4af2d",
+    "name": "5MP",
+    "slug": "ir-turret-5mp",
+    "parentId": "b362d143-8ad5-42d7-ab07-23dd4275b2b3",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ir-turret/5mp",
+    "productCount": 0
+  },
+  {
+    "id": "63d8f1c7-a230-4bc0-b3f6-67b3b83f4a31",
+    "name": "5MP",
+    "slug": "ir-dome-5mp",
+    "parentId": "2451233f-d9eb-4132-98fd-f5116354b5d4",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ir-dome/5mp",
+    "productCount": 0
+  },
+  {
+    "id": "be435b83-6fff-42bf-8e4c-277037921451",
+    "name": "5MP",
+    "slug": "ir-bullet-5mp",
+    "parentId": "b246176d-fbfd-45cb-bd13-6cae85db89fe",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ir-bullet/5mp",
+    "productCount": 0
+  },
+  {
+    "id": "3186d19f-850f-4d8e-a54c-f39c0c53bca8",
+    "name": "5MP AHD Bullet",
+    "slug": "ahd-bullet-5mp-ahd-bullet",
+    "parentId": "1b6fb9c2-d448-47cb-9261-7a51c7ece81b",
+    "depth": 3,
+    "path": "cctv/ahd-kameralar/ahd-bullet/5mp-ahd-bullet",
+    "productCount": 0
+  },
+  {
+    "id": "5e30781a-38e6-4b92-a60f-5e7130fd2584",
+    "name": "5MP AHD Dome",
+    "slug": "ahd-dome-5mp-ahd-dome",
+    "parentId": "d12a8ee8-f8b6-4113-aaf6-6b8144580a77",
+    "depth": 3,
+    "path": "cctv/ahd-kameralar/ahd-dome/5mp-ahd-dome",
+    "productCount": 0
+  },
+  {
+    "id": "46162137-aba0-45be-8270-6bf937f47434",
+    "name": "5MP Fisheye",
+    "slug": "fisheye-5mp-fisheye",
+    "parentId": "4b0483e8-23b4-4dba-837e-8dd398524ed3",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/fisheye/5mp-fisheye",
+    "productCount": 0
+  },
+  {
+    "id": "db20c4cc-15e1-4609-bf50-c0b9676a353e",
+    "name": "5MP HDCVI Bullet",
+    "slug": "hdcvi-bullet-5mp-hdcvi-bullet",
+    "parentId": "3fd863c7-cbeb-4b23-a103-0492e74dde7b",
+    "depth": 3,
+    "path": "cctv/hdcvi-kameralar/hdcvi-bullet/5mp-hdcvi-bullet",
+    "productCount": 0
+  },
+  {
+    "id": "3889d8d6-8857-4be5-96bb-0ba82bc8ee2c",
+    "name": "5MP HDCVI Dome",
+    "slug": "hdcvi-dome-5mp-hdcvi-dome",
+    "parentId": "806a405e-4353-4e73-a304-87e16cc2bc64",
+    "depth": 3,
+    "path": "cctv/hdcvi-kameralar/hdcvi-dome/5mp-hdcvi-dome",
+    "productCount": 0
+  },
+  {
+    "id": "e0f9a1f4-4d86-44e4-b0e6-117c9783774a",
+    "name": "5MP PTZ",
+    "slug": "ptz-kameralar-5mp-ptz",
+    "parentId": "231ce810-393c-439a-9bcc-1fb4312923b1",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ptz-kameralar/5mp-ptz",
+    "productCount": 0
+  },
+  {
+    "id": "f7ae16be-e99f-4201-b552-b024bac1faee",
+    "name": "600VA UPS",
+    "slug": "line-interactive-ups-600va-ups",
+    "parentId": "6f94a1c5-89f6-43ca-844f-cd518fecddf9",
+    "depth": 3,
+    "path": "guc-elektronigi/ups/line-interactive-ups/600va-ups",
+    "productCount": 0
+  },
+  {
+    "id": "be5b2718-ad33-4acc-bdc6-cf203912e6bc",
+    "name": "64 Kanal NVR",
+    "slug": "nvr-64-kanal-nvr",
+    "parentId": "548cda90-2826-409a-bf34-e6f6df181792",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/nvr/64-kanal-nvr",
+    "productCount": 0
+  },
+  {
+    "id": "5dd9300c-540a-4987-b124-2da810ad5088",
+    "name": "64GB DDR5",
+    "slug": "ddr5-64gb-ddr5",
+    "parentId": "21fe4f78-5d62-4920-a1d5-028855aab3e7",
+    "depth": 3,
+    "path": "pc-bilesenleri/bellek-ram/ddr5/64gb-ddr5",
+    "productCount": 0
+  },
+  {
+    "id": "b042e60f-26cb-429f-b92c-d4cba2cc7727",
+    "name": "6TB HDD",
+    "slug": "hard-diskler-6tb-hdd",
+    "parentId": "9edc4532-38ac-4053-9f33-0edfc0b322e8",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/hard-diskler/6tb-hdd",
+    "productCount": 0
+  },
+  {
+    "id": "8caa1f97-2280-4b99-853a-b4dfd1c5f199",
+    "name": "6kVA Online UPS",
+    "slug": "online-ups-6kva-online-ups",
+    "parentId": "bbfb8892-adc7-437d-8a4e-69ee3c03c8ba",
+    "depth": 3,
+    "path": "guc-elektronigi/ups/online-ups/6kva-online-ups",
+    "productCount": 0
+  },
+  {
+    "id": "34d7c778-a9a2-4b0f-8473-fe0ddd93e628",
+    "name": "6mm Lens",
+    "slug": "lensler-6mm-lens",
+    "parentId": "b27ca69a-e900-4419-89e9-af001a9a6fa1",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/lensler/6mm-lens",
+    "productCount": 0
+  },
+  {
+    "id": "57e9e0d7-8e6c-40d3-837c-081d74bfa24e",
+    "name": "8 Kanal DVR",
+    "slug": "dvr-8-kanal-dvr",
+    "parentId": "86315426-2d09-4713-9be9-70850c717fdf",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/dvr/8-kanal-dvr",
+    "productCount": 0
+  },
+  {
+    "id": "9fec24ab-85b3-4080-8889-7986c3647745",
+    "name": "8 Kanal NVR",
+    "slug": "nvr-8-kanal-nvr",
+    "parentId": "548cda90-2826-409a-bf34-e6f6df181792",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/nvr/8-kanal-nvr",
+    "productCount": 0
+  },
+  {
+    "id": "99fa2978-8482-4c27-b384-f6cb0f3ed8c0",
+    "name": "8 Kanal XVR",
+    "slug": "xvr-8-kanal-xvr",
+    "parentId": "e4de154f-f32f-4f20-95b2-098ff948ae80",
+    "depth": 3,
+    "path": "cctv/kayit-cihazi/xvr/8-kanal-xvr",
+    "productCount": 0
+  },
+  {
+    "id": "613f4ad3-fab2-42ca-8fde-4236feec7fa6",
+    "name": "8 Port Güç Kutusu",
+    "slug": "guc-dagitim-kutulari-8-port-guc-kutusu",
+    "parentId": "079a385e-7dfd-49af-812c-1a9ee1059503",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/guc-dagitim-kutulari/8-port-guc-kutusu",
+    "productCount": 0
+  },
+  {
+    "id": "f34fb7cc-caa6-491f-8636-ab68a6bca99a",
+    "name": "8 Port Managed",
+    "slug": "managed-switch-8-port-managed",
+    "parentId": "661d654a-3b45-40fb-b5fb-4b503dd415bf",
+    "depth": 3,
+    "path": "network-fiber/switch/managed-switch/8-port-managed",
+    "productCount": 0
+  },
+  {
+    "id": "8d29871b-0440-404f-8165-a8ae2e83aa56",
+    "name": "8 Port PoE",
+    "slug": "poe-switch-8-port-poe",
+    "parentId": "fcbffdc6-f581-43d7-9ca8-ab7cff402bdc",
+    "depth": 3,
+    "path": "network-fiber/switch/poe-switch/8-port-poe",
+    "productCount": 0
+  },
+  {
+    "id": "6e5e05d6-f774-41fe-8a4c-d3d9c60cf836",
+    "name": "8 Port Switch",
+    "slug": "unmanaged-switch-8-port-switch",
+    "parentId": "f96acca2-4a51-43b4-949c-5291a371d29d",
+    "depth": 3,
+    "path": "network-fiber/switch/unmanaged-switch/8-port-switch",
+    "productCount": 0
+  },
+  {
+    "id": "03d2eba6-9077-45fa-bad4-cb4d43284bbe",
+    "name": "8GB DDR4",
+    "slug": "ddr4-8gb-ddr4",
+    "parentId": "10f0eb08-6dd4-49dd-8e5f-4c59334fdf52",
+    "depth": 3,
+    "path": "pc-bilesenleri/bellek-ram/ddr4/8gb-ddr4",
+    "productCount": 0
+  },
+  {
+    "id": "891dc0b8-b05c-4fde-a55b-c076979b8527",
+    "name": "8GB DDR5",
+    "slug": "ddr5-8gb-ddr5",
+    "parentId": "21fe4f78-5d62-4920-a1d5-028855aab3e7",
+    "depth": 3,
+    "path": "pc-bilesenleri/bellek-ram/ddr5/8gb-ddr5",
+    "productCount": 0
+  },
+  {
+    "id": "e236c732-8da9-471b-af2c-73234bb026f8",
+    "name": "8GB SO-DIMM",
+    "slug": "so-dimm-laptop-8gb-so-dimm",
+    "parentId": "4e5b2f67-7431-4c91-a44d-50026eab709b",
+    "depth": 3,
+    "path": "pc-bilesenleri/bellek-ram/so-dimm-laptop/8gb-so-dimm",
+    "productCount": 0
+  },
+  {
+    "id": "618b2ce6-7194-4a3f-b391-e4d9881030c9",
+    "name": "8MP",
+    "slug": "ir-dome-8mp",
+    "parentId": "2451233f-d9eb-4132-98fd-f5116354b5d4",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ir-dome/8mp",
+    "productCount": 0
+  },
+  {
+    "id": "cd430298-45db-4f5d-9888-45327700e755",
+    "name": "8MP",
+    "slug": "ir-bullet-8mp",
+    "parentId": "b246176d-fbfd-45cb-bd13-6cae85db89fe",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ir-bullet/8mp",
+    "productCount": 0
+  },
+  {
+    "id": "4a5ee888-a756-4d5b-885c-520056112068",
+    "name": "8MP",
+    "slug": "ir-turret-8mp",
+    "parentId": "b362d143-8ad5-42d7-ab07-23dd4275b2b3",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ir-turret/8mp",
+    "productCount": 0
+  },
+  {
+    "id": "4e01f7f0-4e0c-4e3f-ab39-d0fdef6802a6",
+    "name": "8MP HDCVI Bullet",
+    "slug": "hdcvi-bullet-8mp-hdcvi-bullet",
+    "parentId": "3fd863c7-cbeb-4b23-a103-0492e74dde7b",
+    "depth": 3,
+    "path": "cctv/hdcvi-kameralar/hdcvi-bullet/8mp-hdcvi-bullet",
+    "productCount": 0
+  },
+  {
+    "id": "ad0059d7-bad8-4eea-9649-408f561ba6a7",
+    "name": "8MP PTZ",
+    "slug": "ptz-kameralar-8mp-ptz",
+    "parentId": "231ce810-393c-439a-9bcc-1fb4312923b1",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/ptz-kameralar/8mp-ptz",
+    "productCount": 0
+  },
+  {
+    "id": "ca353b1e-8c3a-4c64-9a37-85cf32d6c0e4",
+    "name": "8TB HDD",
+    "slug": "hdd-masaustu-8tb-hdd",
+    "parentId": "36b86813-bca5-4a39-aa7e-9a81775d93fb",
+    "depth": 3,
+    "path": "pc-bilesenleri/depolama/hdd-masaustu/8tb-hdd",
+    "productCount": 0
+  },
+  {
+    "id": "88cbf83b-23b3-48fa-a3b6-1231aadfc4f4",
+    "name": "8TB HDD",
+    "slug": "hard-diskler-8tb-hdd",
+    "parentId": "9edc4532-38ac-4053-9f33-0edfc0b322e8",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/hard-diskler/8tb-hdd",
+    "productCount": 0
+  },
+  {
+    "id": "8fe024d2-35ed-499c-82bc-fb5d4a4a529f",
+    "name": "A3 Mono Lazer",
+    "slug": "mono-lazer-yazici-a3-mono-lazer",
+    "parentId": "7ca86e1b-a26a-4527-978b-42b7fd49d0ec",
+    "depth": 3,
+    "path": "yazici-tarayici/lazer-yazici/mono-lazer-yazici/a3-mono-lazer",
+    "productCount": 0
+  },
+  {
+    "id": "ffb395a9-edbe-424d-8439-0d6a4248ac77",
+    "name": "A3 Renkli Lazer",
+    "slug": "renkli-lazer-yazici-a3-renkli-lazer",
+    "parentId": "f1a6f8ca-58b7-4181-9858-eedba4db5a59",
+    "depth": 3,
+    "path": "yazici-tarayici/lazer-yazici/renkli-lazer-yazici/a3-renkli-lazer",
+    "productCount": 0
+  },
+  {
+    "id": "b01c2cb9-6e84-4a5d-b862-a60c19fef8c0",
+    "name": "A4 Mono Lazer",
+    "slug": "mono-lazer-yazici-a4-mono-lazer",
+    "parentId": "7ca86e1b-a26a-4527-978b-42b7fd49d0ec",
+    "depth": 3,
+    "path": "yazici-tarayici/lazer-yazici/mono-lazer-yazici/a4-mono-lazer",
+    "productCount": 0
+  },
+  {
+    "id": "8f08305c-9e3d-4966-8d1f-24e01c77afb4",
+    "name": "A4 Renkli Lazer",
+    "slug": "renkli-lazer-yazici-a4-renkli-lazer",
+    "parentId": "f1a6f8ca-58b7-4181-9858-eedba4db5a59",
+    "depth": 3,
+    "path": "yazici-tarayici/lazer-yazici/renkli-lazer-yazici/a4-renkli-lazer",
+    "productCount": 0
+  },
+  {
+    "id": "9ac14270-6b4d-42f0-9bd5-6edf292160ab",
+    "name": "A620",
+    "slug": "amd-anakart-a620",
+    "parentId": "fe4f758e-b426-45cd-acc8-12320289db75",
+    "depth": 3,
+    "path": "pc-bilesenleri/anakart/amd-anakart/a620",
+    "productCount": 0
+  },
+  {
+    "id": "b4c14323-ea3c-4ba7-a921-92aba6051548",
+    "name": "Analog İnterkom",
+    "slug": "kapi-i-stasyonu-analog-i-nterkom",
+    "parentId": "8bc8b012-10f7-4da4-88ce-5994a9116943",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/kapi-i-stasyonu/analog-i-nterkom",
+    "productCount": 0
+  },
+  {
+    "id": "58bc438d-47d0-4606-9a5e-2a89808b7cef",
+    "name": "B650",
+    "slug": "amd-anakart-b650",
+    "parentId": "fe4f758e-b426-45cd-acc8-12320289db75",
+    "depth": 3,
+    "path": "pc-bilesenleri/anakart/amd-anakart/b650",
+    "productCount": 0
+  },
+  {
+    "id": "c66bcc43-de4c-4e91-9587-5f1266912b67",
+    "name": "B760",
+    "slug": "intel-anakart-b760",
+    "parentId": "41746b54-49a0-4e2d-ab27-fdec12074712",
+    "depth": 3,
+    "path": "pc-bilesenleri/anakart/intel-anakart/b760",
+    "productCount": 0
+  },
+  {
+    "id": "1bdbfbb9-6505-46a7-a6dd-c48651afe511",
+    "name": "Body Worn",
+    "slug": "special-kameralar-body-worn",
+    "parentId": "2faa7a12-d0a3-4a4e-9b9b-e797819432ae",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/special-kameralar/body-worn",
+    "productCount": 0
+  },
+  {
+    "id": "5f51efe0-32ec-44ed-8500-6657a8ac6b88",
+    "name": "Business Basic",
+    "slug": "microsoft-365-business-basic",
+    "parentId": "228bfc79-98c6-4bb8-bac2-1a20b03a5f95",
+    "depth": 3,
+    "path": "yazilim-lisans/ofis-yazilimi/microsoft-365/business-basic",
+    "productCount": 0
+  },
+  {
+    "id": "54a25f11-5377-4059-af8f-d8b7a2fbc817",
+    "name": "Business Standard",
+    "slug": "microsoft-365-business-standard",
+    "parentId": "228bfc79-98c6-4bb8-bac2-1a20b03a5f95",
+    "depth": 3,
+    "path": "yazilim-lisans/ofis-yazilimi/microsoft-365/business-standard",
+    "productCount": 0
+  },
+  {
+    "id": "c64f5d3c-c7ab-4c34-9aca-1d99d0f486e9",
+    "name": "Cam Kırma Sensörü",
+    "slug": "dedektor-cam-kirma-sensoru",
+    "parentId": "6c725dc8-a961-494a-afe9-90671f17c1f8",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/hirsiz-alarm/dedektor/cam-kirma-sensoru",
+    "productCount": 0
+  },
+  {
+    "id": "37d74a33-2d09-488f-ae21-53531b433123",
+    "name": "Cat5e Kablo",
+    "slug": "kablolar-cat5e-kablo",
+    "parentId": "49900989-e824-413f-8e0d-b79e6e3b8472",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/kablolar/cat5e-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "8ce9c0a7-d617-439d-b92c-7b01d448abfd",
+    "name": "Cat6 Kablo",
+    "slug": "kablolar-cat6-kablo",
+    "parentId": "49900989-e824-413f-8e0d-b79e6e3b8472",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/kablolar/cat6-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "28f1e77a-a087-4ce4-964a-1b1ff851ba96",
+    "name": "Ceiling AP",
+    "slug": "access-point-ceiling-ap",
+    "parentId": "15e023c0-45fe-4c82-89b5-bd8a7adf2f5c",
+    "depth": 3,
+    "path": "network-fiber/kablosuz-ag/access-point/ceiling-ap",
+    "productCount": 0
+  },
+  {
+    "id": "fd0ec783-3197-4fab-98e6-067217d9d3b3",
+    "name": "CentOS",
+    "slug": "linux-centos",
+    "parentId": "b7651c52-fa5e-4d12-bae1-8dc8d86051e9",
+    "depth": 3,
+    "path": "yazilim-lisans/i-sletim-sistemi/linux/centos",
+    "productCount": 0
+  },
+  {
+    "id": "eb221d70-c8cb-48b8-87b1-1989a5efbf75",
+    "name": "Core i3",
+    "slug": "intel-core-i3",
+    "parentId": "2d2f244b-957f-456b-8d66-4e5890e8ef5c",
+    "depth": 3,
+    "path": "pc-bilesenleri/i-slemci/intel/core-i3",
+    "productCount": 0
+  },
+  {
+    "id": "43f62569-e441-4312-b481-14465305cebf",
+    "name": "Core i5",
+    "slug": "intel-core-i5",
+    "parentId": "2d2f244b-957f-456b-8d66-4e5890e8ef5c",
+    "depth": 3,
+    "path": "pc-bilesenleri/i-slemci/intel/core-i5",
+    "productCount": 0
+  },
+  {
+    "id": "4d168cdb-d4f7-4caa-874f-12bd7290691f",
+    "name": "Core i7",
+    "slug": "intel-core-i7",
+    "parentId": "2d2f244b-957f-456b-8d66-4e5890e8ef5c",
+    "depth": 3,
+    "path": "pc-bilesenleri/i-slemci/intel/core-i7",
+    "productCount": 0
+  },
+  {
+    "id": "0d054bf5-71a3-4920-901d-e9dcb3060bc1",
+    "name": "Core i9",
+    "slug": "intel-core-i9",
+    "parentId": "2d2f244b-957f-456b-8d66-4e5890e8ef5c",
+    "depth": 3,
+    "path": "pc-bilesenleri/i-slemci/intel/core-i9",
+    "productCount": 0
+  },
+  {
+    "id": "ef3a1692-2458-4ae0-ac65-87e6c9305907",
+    "name": "DP 1.4",
+    "slug": "displayport-kablo-dp-1-4",
+    "parentId": "c81744ab-07de-4f6d-8173-bc18aef90b51",
+    "depth": 3,
+    "path": "kablo-aksesuar/goruntu-kablolari/displayport-kablo/dp-1-4",
+    "productCount": 0
+  },
+  {
+    "id": "e6ca3af1-ae9b-41f8-bd9a-f9b920121b21",
+    "name": "DP 2.0",
+    "slug": "displayport-kablo-dp-2-0",
+    "parentId": "c81744ab-07de-4f6d-8173-bc18aef90b51",
+    "depth": 3,
+    "path": "kablo-aksesuar/goruntu-kablolari/displayport-kablo/dp-2-0",
+    "productCount": 0
+  },
+  {
+    "id": "8993610e-0bfe-4ae7-b8b6-814fb91b27fb",
+    "name": "Direk Aparatı",
+    "slug": "montaj-aparatlari-direk-aparati",
+    "parentId": "f1b79797-089b-4c4f-916b-59399d2a8873",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/montaj-aparatlari/direk-aparati",
+    "productCount": 0
+  },
+  {
+    "id": "d4e64c5e-66dd-480e-9c3f-805548ceef45",
+    "name": "Duman Dedektörü",
+    "slug": "dedektor-duman-dedektoru",
+    "parentId": "6c725dc8-a961-494a-afe9-90671f17c1f8",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/hirsiz-alarm/dedektor/duman-dedektoru",
+    "productCount": 0
+  },
+  {
+    "id": "d1e24d5c-ecd9-4ece-8ca4-3f7106182da6",
+    "name": "Duvar Braketi",
+    "slug": "montaj-aparatlari-duvar-braketi",
+    "parentId": "f1b79797-089b-4c4f-916b-59399d2a8873",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/montaj-aparatlari/duvar-braketi",
+    "productCount": 0
+  },
+  {
+    "id": "7a3589c4-909d-4afc-938a-0c021cf8ea71",
+    "name": "EPYC",
+    "slug": "amd-epyc",
+    "parentId": "7e28a1a2-ad49-438b-b330-b0fc057c7c7c",
+    "depth": 3,
+    "path": "pc-bilesenleri/i-slemci/amd/epyc",
+    "productCount": 0
+  },
+  {
+    "id": "ff1e8db9-4e2d-4cfd-a8d0-55267479773a",
+    "name": "Enterprise Router",
+    "slug": "router-enterprise-router",
+    "parentId": "5394dad4-eb60-40fd-aabe-bb7b1a26ca4b",
+    "depth": 3,
+    "path": "network-fiber/kablosuz-ag/router/enterprise-router",
+    "productCount": 0
+  },
+  {
+    "id": "dd9c506f-3aa3-401d-b0c3-caa23975f76f",
+    "name": "Ev Router",
+    "slug": "router-ev-router",
+    "parentId": "5394dad4-eb60-40fd-aabe-bb7b1a26ca4b",
+    "depth": 3,
+    "path": "network-fiber/kablosuz-ag/router/ev-router",
+    "productCount": 0
+  },
+  {
+    "id": "2ea7f03c-d33b-4d0c-b293-756104be211c",
+    "name": "Full Height Turnike",
+    "slug": "turnike-full-height-turnike",
+    "parentId": "da14301f-416b-48ff-a8c5-83631c7409f6",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/turnike/full-height-turnike",
+    "productCount": 0
+  },
+  {
+    "id": "1bd7383a-ff6e-4116-a43b-1764c51c2930",
+    "name": "Gaming Headset",
+    "slug": "kulaklik-gaming-headset",
+    "parentId": "09201dc1-479c-4383-a3b6-71aa35b2439b",
+    "depth": 3,
+    "path": "cevre-birimleri-aksesuar/kulaklik-mikrofon/kulaklik/gaming-headset",
+    "productCount": 0
+  },
+  {
+    "id": "2f385a17-b4e8-4083-a13e-553b7f212f56",
+    "name": "Gaming Mouse",
+    "slug": "mouse-gaming-mouse",
+    "parentId": "068599df-ce4d-4487-a612-a1684867a905",
+    "depth": 3,
+    "path": "cevre-birimleri-aksesuar/klavye-mouse/mouse/gaming-mouse",
+    "productCount": 0
+  },
+  {
+    "id": "4dca4379-1450-4c2e-a091-cff03083c184",
+    "name": "Grup Priz",
+    "slug": "priz-uzatma-grup-priz",
+    "parentId": "8445e37c-ab98-4018-b6b2-611f1ef123d1",
+    "depth": 3,
+    "path": "kablo-aksesuar/guc-kablolari/priz-uzatma/grup-priz",
+    "productCount": 1
+  },
+  {
+    "id": "1d48d86a-6af6-4d42-94fd-e03341e758e8",
+    "name": "H610",
+    "slug": "intel-anakart-h610",
+    "parentId": "41746b54-49a0-4e2d-ab27-fdec12074712",
+    "depth": 3,
+    "path": "pc-bilesenleri/anakart/intel-anakart/h610",
+    "productCount": 0
+  },
+  {
+    "id": "84fc9c66-9820-419a-b53e-b60349a1c221",
+    "name": "HDMI 2.0",
+    "slug": "hdmi-kablo-hdmi-2-0",
+    "parentId": "64110fe5-e319-414d-8675-8d80f5e5d6b9",
+    "depth": 3,
+    "path": "kablo-aksesuar/goruntu-kablolari/hdmi-kablo/hdmi-2-0",
+    "productCount": 0
+  },
+  {
+    "id": "4223cc70-7a86-4fb3-af83-387073fd4084",
+    "name": "HDMI 2.1",
+    "slug": "hdmi-kablo-hdmi-2-1",
+    "parentId": "64110fe5-e319-414d-8675-8d80f5e5d6b9",
+    "depth": 3,
+    "path": "kablo-aksesuar/goruntu-kablolari/hdmi-kablo/hdmi-2-1",
+    "productCount": 0
+  },
+  {
+    "id": "c788eb1a-4562-4e85-a817-81cc1f7ecfe3",
+    "name": "HDMI Fiber",
+    "slug": "hdmi-kablo-hdmi-fiber",
+    "parentId": "64110fe5-e319-414d-8675-8d80f5e5d6b9",
+    "depth": 3,
+    "path": "kablo-aksesuar/goruntu-kablolari/hdmi-kablo/hdmi-fiber",
+    "productCount": 0
+  },
+  {
+    "id": "983c9374-4cb9-4543-bcd7-04151484c808",
+    "name": "Home & Business",
+    "slug": "office-2024-home-business",
+    "parentId": "3bc4d43b-dbc3-4af5-a99c-5d8491b11e80",
+    "depth": 3,
+    "path": "yazilim-lisans/ofis-yazilimi/office-2024/home-business",
+    "productCount": 0
+  },
+  {
+    "id": "6e6f16ea-dea5-400f-88ef-b7f3bc5b25f8",
+    "name": "Home & Student",
+    "slug": "office-2024-home-student",
+    "parentId": "3bc4d43b-dbc3-4af5-a99c-5d8491b11e80",
+    "depth": 3,
+    "path": "yazilim-lisans/ofis-yazilimi/office-2024/home-student",
+    "productCount": 0
+  },
+  {
+    "id": "6319ae17-fff4-43c3-9796-d43f01d8f142",
+    "name": "IP Video İnterkom",
+    "slug": "kapi-i-stasyonu-ip-video-i-nterkom",
+    "parentId": "8bc8b012-10f7-4da4-88ce-5994a9116943",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/kapi-i-stasyonu/ip-video-i-nterkom",
+    "productCount": 0
+  },
+  {
+    "id": "ff407343-84c6-44f9-ba6d-7ad13af169d7",
+    "name": "Indoor AP",
+    "slug": "access-point-indoor-ap",
+    "parentId": "15e023c0-45fe-4c82-89b5-bd8a7adf2f5c",
+    "depth": 3,
+    "path": "network-fiber/kablosuz-ag/access-point/indoor-ap",
+    "productCount": 0
+  },
+  {
+    "id": "e9962b58-f838-43af-82c0-db9d89113f74",
+    "name": "Junction Box",
+    "slug": "montaj-aparatlari-junction-box",
+    "parentId": "f1b79797-089b-4c4f-916b-59399d2a8873",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/montaj-aparatlari/junction-box",
+    "productCount": 0
+  },
+  {
+    "id": "8ea6ca64-7ff2-4a94-8496-0e656a3d9580",
+    "name": "Kablolu Kulaklık",
+    "slug": "kulaklik-kablolu-kulaklik",
+    "parentId": "09201dc1-479c-4383-a3b6-71aa35b2439b",
+    "depth": 3,
+    "path": "cevre-birimleri-aksesuar/kulaklik-mikrofon/kulaklik/kablolu-kulaklik",
+    "productCount": 1
+  },
+  {
+    "id": "586a89a8-df30-46e8-860b-c873d0958796",
+    "name": "Kablosuz Klavye",
+    "slug": "klavye-kablosuz-klavye",
+    "parentId": "4bd72d0a-74c9-4bf3-b9b3-4e5f44ffef9f",
+    "depth": 3,
+    "path": "cevre-birimleri-aksesuar/klavye-mouse/klavye/kablosuz-klavye",
+    "productCount": 1
+  },
+  {
+    "id": "7201b793-460a-41e8-b21c-fa6b1dc4f50c",
+    "name": "Kablosuz Kulaklık",
+    "slug": "kulaklik-kablosuz-kulaklik",
+    "parentId": "09201dc1-479c-4383-a3b6-71aa35b2439b",
+    "depth": 3,
+    "path": "cevre-birimleri-aksesuar/kulaklik-mikrofon/kulaklik/kablosuz-kulaklik",
+    "productCount": 0
+  },
+  {
+    "id": "22f0322f-f76d-4abd-8551-6aa173300bc2",
+    "name": "Kablosuz Mouse",
+    "slug": "mouse-kablosuz-mouse",
+    "parentId": "068599df-ce4d-4487-a612-a1684867a905",
+    "depth": 3,
+    "path": "cevre-birimleri-aksesuar/klavye-mouse/mouse/kablosuz-mouse",
+    "productCount": 0
+  },
+  {
+    "id": "a8def5ea-4a64-436a-8da2-59d251fe6227",
+    "name": "Koaksiyel Kablo (RG59)",
+    "slug": "kablolar-koaksiyel-kablo-rg59",
+    "parentId": "49900989-e824-413f-8e0d-b79e6e3b8472",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/kablolar/koaksiyel-kablo-rg59",
+    "productCount": 0
+  },
+  {
+    "id": "8774fb53-bcc0-4c74-9a42-c56be1361d35",
+    "name": "Kombine Kablo",
+    "slug": "kablolar-kombine-kablo",
+    "parentId": "49900989-e824-413f-8e0d-b79e6e3b8472",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/kablolar/kombine-kablo",
+    "productCount": 0
+  },
+  {
+    "id": "6b6426bf-16f1-4f0a-abbc-f8b93b53913c",
+    "name": "LC-LC",
+    "slug": "fiber-patch-cord-lc-lc",
+    "parentId": "d8dee0d6-4e2b-41e8-ac6c-533850b0a184",
+    "depth": 3,
+    "path": "network-fiber/fiber-optik/fiber-patch-cord/lc-lc",
+    "productCount": 0
+  },
+  {
+    "id": "5b0d3510-17bd-423b-aa5c-e776e0aba190",
+    "name": "Manyetik Kontak",
+    "slug": "dedektor-manyetik-kontak",
+    "parentId": "6c725dc8-a961-494a-afe9-90671f17c1f8",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/hirsiz-alarm/dedektor/manyetik-kontak",
+    "productCount": 0
+  },
+  {
+    "id": "b360e73b-7c0a-42be-911d-33967cd789e1",
+    "name": "Mekanik Klavye",
+    "slug": "klavye-mekanik-klavye",
+    "parentId": "4bd72d0a-74c9-4bf3-b9b3-4e5f44ffef9f",
+    "depth": 3,
+    "path": "cevre-birimleri-aksesuar/klavye-mouse/klavye/mekanik-klavye",
+    "productCount": 0
+  },
+  {
+    "id": "540f6af1-2d11-4013-8cea-9a4d44fa8fa4",
+    "name": "Mifare Okuyucu",
+    "slug": "kart-okuyucu-mifare-okuyucu",
+    "parentId": "8b04ffe1-905d-4e57-85aa-e11156471c5b",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/kart-okuyucu/mifare-okuyucu",
+    "productCount": 0
+  },
+  {
+    "id": "94fffaa0-d299-44f0-8bc0-db2edfe9e016",
+    "name": "Multi Mode (MM)",
+    "slug": "fiber-kablo-multi-mode-mm",
+    "parentId": "5274b1fa-2fe9-4889-90b2-42a2edb3fa24",
+    "depth": 3,
+    "path": "network-fiber/fiber-optik/fiber-kablo/multi-mode-mm",
+    "productCount": 0
+  },
+  {
+    "id": "72ab305c-48c9-4e33-9024-ea6314e190b0",
+    "name": "Otopark Bariyeri",
+    "slug": "bariyer-otopark-bariyeri",
+    "parentId": "aeb97ae0-8343-4bf7-a4d1-a536e53c6367",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/bariyer/otopark-bariyeri",
+    "productCount": 0
+  },
+  {
+    "id": "23067011-948c-4267-90f4-3584d589288c",
+    "name": "Outdoor AP",
+    "slug": "access-point-outdoor-ap",
+    "parentId": "15e023c0-45fe-4c82-89b5-bd8a7adf2f5c",
+    "depth": 3,
+    "path": "network-fiber/kablosuz-ag/access-point/outdoor-ap",
+    "productCount": 0
+  },
+  {
+    "id": "aa6f3b07-575f-4efc-8cae-93a9be2473e4",
+    "name": "PIR Hareket Dedektörü",
+    "slug": "dedektor-pir-hareket-dedektoru",
+    "parentId": "6c725dc8-a961-494a-afe9-90671f17c1f8",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/hirsiz-alarm/dedektor/pir-hareket-dedektoru",
+    "productCount": 0
+  },
+  {
+    "id": "886a51f6-977e-495e-b0df-ff19724ec003",
+    "name": "Panomorfik",
+    "slug": "special-kameralar-panomorfik",
+    "parentId": "2faa7a12-d0a3-4a4e-9b9b-e797819432ae",
+    "depth": 3,
+    "path": "cctv/ip-kameralar/special-kameralar/panomorfik",
+    "productCount": 1
+  },
+  {
+    "id": "a4b9700c-f9b9-4f14-b03f-f190f4b52441",
+    "name": "Parmak İzi",
+    "slug": "biyometrik-parmak-i-zi",
+    "parentId": "36c8af08-6220-4eb4-ac36-1dca2280958e",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/biyometrik/parmak-i-zi",
+    "productCount": 0
+  },
+  {
+    "id": "04e5cfdd-359a-4291-a8f2-717b67d9d099",
+    "name": "Professional",
+    "slug": "office-2024-professional",
+    "parentId": "3bc4d43b-dbc3-4af5-a99c-5d8491b11e80",
+    "depth": 3,
+    "path": "yazilim-lisans/ofis-yazilimi/office-2024/professional",
+    "productCount": 0
+  },
+  {
+    "id": "de919377-3f40-4759-b90c-76c66b3090de",
+    "name": "Proximity Okuyucu",
+    "slug": "kart-okuyucu-proximity-okuyucu",
+    "parentId": "8b04ffe1-905d-4e57-85aa-e11156471c5b",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/kart-okuyucu/proximity-okuyucu",
+    "productCount": 0
+  },
+  {
+    "id": "7bc2c37c-8b7c-4ebb-83c9-cfd4dabcdc37",
+    "name": "RTX 4060",
+    "slug": "nvidia-rtx-4060",
+    "parentId": "1aaa038f-606b-4fb2-afc8-c4bcadc70e66",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/nvidia/rtx-4060",
+    "productCount": 0
+  },
+  {
+    "id": "21d1c91a-6dc9-4113-a701-1d259838545e",
+    "name": "RTX 4070",
+    "slug": "nvidia-rtx-4070",
+    "parentId": "1aaa038f-606b-4fb2-afc8-c4bcadc70e66",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/nvidia/rtx-4070",
+    "productCount": 0
+  },
+  {
+    "id": "cd85ec3c-38c6-494d-8007-8f7219cfb837",
+    "name": "RTX 4080",
+    "slug": "nvidia-rtx-4080",
+    "parentId": "1aaa038f-606b-4fb2-afc8-c4bcadc70e66",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/nvidia/rtx-4080",
+    "productCount": 0
+  },
+  {
+    "id": "a048b5fc-ee11-44f4-ae7e-2655f71c2761",
+    "name": "RTX 4090",
+    "slug": "nvidia-rtx-4090",
+    "parentId": "1aaa038f-606b-4fb2-afc8-c4bcadc70e66",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/nvidia/rtx-4090",
+    "productCount": 0
+  },
+  {
+    "id": "61d27244-a669-4f65-b308-001b584401a6",
+    "name": "RTX 5060",
+    "slug": "nvidia-rtx-5060",
+    "parentId": "1aaa038f-606b-4fb2-afc8-c4bcadc70e66",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/nvidia/rtx-5060",
+    "productCount": 0
+  },
+  {
+    "id": "686e957b-2a1e-401e-9960-ee74e4928417",
+    "name": "RTX 5070",
+    "slug": "nvidia-rtx-5070",
+    "parentId": "1aaa038f-606b-4fb2-afc8-c4bcadc70e66",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/nvidia/rtx-5070",
+    "productCount": 0
+  },
+  {
+    "id": "cf3a0974-a225-477b-87c7-660b87e6e0ac",
+    "name": "RTX 5080",
+    "slug": "nvidia-rtx-5080",
+    "parentId": "1aaa038f-606b-4fb2-afc8-c4bcadc70e66",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/nvidia/rtx-5080",
+    "productCount": 0
+  },
+  {
+    "id": "fc36053f-c659-489f-abf1-7067683e55ce",
+    "name": "RTX 5090",
+    "slug": "nvidia-rtx-5090",
+    "parentId": "1aaa038f-606b-4fb2-afc8-c4bcadc70e66",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/nvidia/rtx-5090",
+    "productCount": 0
+  },
+  {
+    "id": "0e03dea3-345d-46ce-91ae-0306ef5a326f",
+    "name": "RX 7600",
+    "slug": "amd-rx-7600",
+    "parentId": "cbab6f02-062f-4e65-bdaf-51659428fbec",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/amd/rx-7600",
+    "productCount": 0
+  },
+  {
+    "id": "2fdfe879-c5f8-431b-9a98-03820cbd3049",
+    "name": "RX 7700 XT",
+    "slug": "amd-rx-7700-xt",
+    "parentId": "cbab6f02-062f-4e65-bdaf-51659428fbec",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/amd/rx-7700-xt",
+    "productCount": 0
+  },
+  {
+    "id": "353157d1-708a-43a2-ac76-ae38d008e3a6",
+    "name": "RX 7800 XT",
+    "slug": "amd-rx-7800-xt",
+    "parentId": "cbab6f02-062f-4e65-bdaf-51659428fbec",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/amd/rx-7800-xt",
+    "productCount": 0
+  },
+  {
+    "id": "62de3b1e-a07a-413e-9d60-40485a1ce5a2",
+    "name": "RX 7900 XT",
+    "slug": "amd-rx-7900-xt",
+    "parentId": "cbab6f02-062f-4e65-bdaf-51659428fbec",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/amd/rx-7900-xt",
+    "productCount": 0
+  },
+  {
+    "id": "f7968923-a35c-4afa-97a6-dcb3ed4ace5d",
+    "name": "RX 7900 XTX",
+    "slug": "amd-rx-7900-xtx",
+    "parentId": "cbab6f02-062f-4e65-bdaf-51659428fbec",
+    "depth": 3,
+    "path": "pc-bilesenleri/ekran-karti/amd/rx-7900-xtx",
+    "productCount": 0
+  },
+  {
+    "id": "ae11d078-08a1-4d1a-af8a-31562f134d34",
+    "name": "Red Hat",
+    "slug": "linux-red-hat",
+    "parentId": "b7651c52-fa5e-4d12-bae1-8dc8d86051e9",
+    "depth": 3,
+    "path": "yazilim-lisans/i-sletim-sistemi/linux/red-hat",
+    "productCount": 0
+  },
+  {
+    "id": "324d18e5-a235-49e7-ba9c-7056ea02e232",
+    "name": "Ryzen 5",
+    "slug": "amd-ryzen-5",
+    "parentId": "7e28a1a2-ad49-438b-b330-b0fc057c7c7c",
+    "depth": 3,
+    "path": "pc-bilesenleri/i-slemci/amd/ryzen-5",
+    "productCount": 0
+  },
+  {
+    "id": "4ee080aa-1607-4143-802f-384886a74100",
+    "name": "Ryzen 7",
+    "slug": "amd-ryzen-7",
+    "parentId": "7e28a1a2-ad49-438b-b330-b0fc057c7c7c",
+    "depth": 3,
+    "path": "pc-bilesenleri/i-slemci/amd/ryzen-7",
+    "productCount": 0
+  },
+  {
+    "id": "a04e2e07-6176-4a93-9cf6-4c16388c3d8f",
+    "name": "Ryzen 9",
+    "slug": "amd-ryzen-9",
+    "parentId": "7e28a1a2-ad49-438b-b330-b0fc057c7c7c",
+    "depth": 3,
+    "path": "pc-bilesenleri/i-slemci/amd/ryzen-9",
+    "productCount": 0
+  },
+  {
+    "id": "cb5354b6-4cd0-4255-9dab-955018ab4f63",
+    "name": "SC-LC",
+    "slug": "fiber-patch-cord-sc-lc",
+    "parentId": "d8dee0d6-4e2b-41e8-ac6c-533850b0a184",
+    "depth": 3,
+    "path": "network-fiber/fiber-optik/fiber-patch-cord/sc-lc",
+    "productCount": 0
+  },
+  {
+    "id": "b046d778-70f2-48eb-91da-69cd2fdf9da3",
+    "name": "SC-SC",
+    "slug": "fiber-patch-cord-sc-sc",
+    "parentId": "d8dee0d6-4e2b-41e8-ac6c-533850b0a184",
+    "depth": 3,
+    "path": "network-fiber/fiber-optik/fiber-patch-cord/sc-sc",
+    "productCount": 0
+  },
+  {
+    "id": "96f4d419-2330-4ea4-a76c-1ac74d22c88c",
+    "name": "Single Mode (SM)",
+    "slug": "fiber-kablo-single-mode-sm",
+    "parentId": "5274b1fa-2fe9-4889-90b2-42a2edb3fa24",
+    "depth": 3,
+    "path": "network-fiber/fiber-optik/fiber-kablo/single-mode-sm",
+    "productCount": 0
+  },
+  {
+    "id": "e11962c0-2424-4597-9afc-2236ee5c66bd",
+    "name": "Swing Gate",
+    "slug": "turnike-swing-gate",
+    "parentId": "da14301f-416b-48ff-a8c5-83631c7409f6",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/turnike/swing-gate",
+    "productCount": 0
+  },
+  {
+    "id": "df857546-ee71-47ee-8909-776a9fb7e465",
+    "name": "Tavan Braketi",
+    "slug": "montaj-aparatlari-tavan-braketi",
+    "parentId": "f1b79797-089b-4c4f-916b-59399d2a8873",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/montaj-aparatlari/tavan-braketi",
+    "productCount": 0
+  },
+  {
+    "id": "251a50ab-3251-4a6c-bfb2-29dbbf0b34ee",
+    "name": "Titreşim Sensörü",
+    "slug": "dedektor-titresim-sensoru",
+    "parentId": "6c725dc8-a961-494a-afe9-90671f17c1f8",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/hirsiz-alarm/dedektor/titresim-sensoru",
+    "productCount": 0
+  },
+  {
+    "id": "aa956be7-4320-4d01-8c05-3ff84abb710f",
+    "name": "Tripod Turnike",
+    "slug": "turnike-tripod-turnike",
+    "parentId": "da14301f-416b-48ff-a8c5-83631c7409f6",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/turnike/tripod-turnike",
+    "productCount": 0
+  },
+  {
+    "id": "028405d8-1c5e-49ae-8402-3ac05ffad848",
+    "name": "USB Klavye",
+    "slug": "klavye-usb-klavye",
+    "parentId": "4bd72d0a-74c9-4bf3-b9b3-4e5f44ffef9f",
+    "depth": 3,
+    "path": "cevre-birimleri-aksesuar/klavye-mouse/klavye/usb-klavye",
+    "productCount": 0
+  },
+  {
+    "id": "7855f976-4442-4442-a36a-af745014417e",
+    "name": "USB Mouse",
+    "slug": "mouse-usb-mouse",
+    "parentId": "068599df-ce4d-4487-a612-a1684867a905",
+    "depth": 3,
+    "path": "cevre-birimleri-aksesuar/klavye-mouse/mouse/usb-mouse",
+    "productCount": 0
+  },
+  {
+    "id": "cbe39f39-2f79-4769-bed9-c8117c2b9f13",
+    "name": "Ubuntu",
+    "slug": "linux-ubuntu",
+    "parentId": "b7651c52-fa5e-4d12-bae1-8dc8d86051e9",
+    "depth": 3,
+    "path": "yazilim-lisans/i-sletim-sistemi/linux/ubuntu",
+    "productCount": 0
+  },
+  {
+    "id": "53c2a346-394a-4a7b-b630-18bd73f89ecb",
+    "name": "Uzatma Kablosu",
+    "slug": "priz-uzatma-uzatma-kablosu",
+    "parentId": "8445e37c-ab98-4018-b6b2-611f1ef123d1",
+    "depth": 3,
+    "path": "kablo-aksesuar/guc-kablolari/priz-uzatma/uzatma-kablosu",
+    "productCount": 0
+  },
+  {
+    "id": "b2d5ff18-0ead-45c0-b5d7-4b40391aa0e0",
+    "name": "Uzun Menzilli Okuyucu",
+    "slug": "kart-okuyucu-uzun-menzilli-okuyucu",
+    "parentId": "8b04ffe1-905d-4e57-85aa-e11156471c5b",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/kart-okuyucu/uzun-menzilli-okuyucu",
+    "productCount": 0
+  },
+  {
+    "id": "9b02b0c1-f853-42af-883c-c55cada053f6",
+    "name": "VPN Router",
+    "slug": "router-vpn-router",
+    "parentId": "5394dad4-eb60-40fd-aabe-bb7b1a26ca4b",
+    "depth": 3,
+    "path": "network-fiber/kablosuz-ag/router/vpn-router",
+    "productCount": 0
+  },
+  {
+    "id": "0d668942-f241-42e4-a943-3c60e300ba80",
+    "name": "Vari-focal Lens",
+    "slug": "lensler-vari-focal-lens",
+    "parentId": "b27ca69a-e900-4419-89e9-af001a9a6fa1",
+    "depth": 3,
+    "path": "cctv/aksesuarlar/lensler/vari-focal-lens",
+    "productCount": 0
+  },
+  {
+    "id": "f6734c82-5ad9-4c87-9b49-ed140781230e",
+    "name": "Windows 11 Home",
+    "slug": "windows-windows-11-home",
+    "parentId": "eb5e19e0-067a-4dce-8146-9ea7cdbe4474",
+    "depth": 3,
+    "path": "yazilim-lisans/i-sletim-sistemi/windows/windows-11-home",
+    "productCount": 0
+  },
+  {
+    "id": "9fc6bdc7-d7e7-4ad6-9477-6b0bfeeff7a3",
+    "name": "Windows 11 Pro",
+    "slug": "windows-windows-11-pro",
+    "parentId": "eb5e19e0-067a-4dce-8146-9ea7cdbe4474",
+    "depth": 3,
+    "path": "yazilim-lisans/i-sletim-sistemi/windows/windows-11-pro",
+    "productCount": 0
+  },
+  {
+    "id": "db86a1bf-e5f8-4f79-82fb-a1e916f523ba",
+    "name": "Windows Server 2022",
+    "slug": "windows-windows-server-2022",
+    "parentId": "eb5e19e0-067a-4dce-8146-9ea7cdbe4474",
+    "depth": 3,
+    "path": "yazilim-lisans/i-sletim-sistemi/windows/windows-server-2022",
+    "productCount": 0
+  },
+  {
+    "id": "e712fc76-3269-4302-b5fa-3c4632e7ce3c",
+    "name": "X670",
+    "slug": "amd-anakart-x670",
+    "parentId": "fe4f758e-b426-45cd-acc8-12320289db75",
+    "depth": 3,
+    "path": "pc-bilesenleri/anakart/amd-anakart/x670",
+    "productCount": 0
+  },
+  {
+    "id": "5d907068-0321-4e8c-95a3-8bd5356a76e4",
+    "name": "Xeon",
+    "slug": "intel-xeon",
+    "parentId": "2d2f244b-957f-456b-8d66-4e5890e8ef5c",
+    "depth": 3,
+    "path": "pc-bilesenleri/i-slemci/intel/xeon",
+    "productCount": 0
+  },
+  {
+    "id": "a67df54b-6bcb-4835-9315-8491b46fac09",
+    "name": "Yaya Bariyeri",
+    "slug": "bariyer-yaya-bariyeri",
+    "parentId": "aeb97ae0-8343-4bf7-a4d1-a536e53c6367",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/bariyer/yaya-bariyeri",
+    "productCount": 0
+  },
+  {
+    "id": "6818c266-a6c9-4f16-8e77-b2ca94ce6d7d",
+    "name": "Yüz Tanıma",
+    "slug": "biyometrik-yuz-tanima",
+    "parentId": "36c8af08-6220-4eb4-ac36-1dca2280958e",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/biyometrik/yuz-tanima",
+    "productCount": 0
+  },
+  {
+    "id": "c0dd286a-3127-4ed5-aab7-27c620beb5a1",
+    "name": "Z790",
+    "slug": "intel-anakart-z790",
+    "parentId": "41746b54-49a0-4e2d-ab27-fdec12074712",
+    "depth": 3,
+    "path": "pc-bilesenleri/anakart/intel-anakart/z790",
+    "productCount": 0
+  },
+  {
+    "id": "88751cd4-5c21-4744-b445-8a5c331a6b5b",
+    "name": "İris Tanıma",
+    "slug": "biyometrik-i-ris-tanima",
+    "parentId": "36c8af08-6220-4eb4-ac36-1dca2280958e",
+    "depth": 3,
+    "path": "gecis-kontrol-alarm/gecis-kontrol/biyometrik/i-ris-tanima",
+    "productCount": 0
+  }
+]
