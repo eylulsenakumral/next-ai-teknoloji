@@ -162,3 +162,6 @@ export const authOptions: NextAuthOptions = {
     },
   },
 }
+
+// Export for NextAuth middleware
+export const { auth: middlewareAuth } = NextAuth(authOptions)
