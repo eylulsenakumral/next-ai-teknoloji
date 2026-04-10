@@ -11,45 +11,9 @@ import {
   LogIn,
   UserPlus,
   Search,
-  ChevronDown,
-  Monitor,
-  Camera,
-  Wifi,
-  HardDrive,
   Package,
-  Headphones,
-  Shield,
-  Server,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
-
-/* ------------------------------------------------------------------ */
-/*  Types                                                               */
-/* ------------------------------------------------------------------ */
-
-interface CategoryNav {
-  name: string
-  slug: string
-  icon: React.ReactNode
-}
-
-/* ------------------------------------------------------------------ */
-/*  Static category nav (ikon + slug)                                  */
-/* ------------------------------------------------------------------ */
-
-const CATEGORY_ICONS: Record<string, React.ReactNode> = {
-  bilgisayar: <Monitor className="h-4 w-4" aria-hidden />,
-  "guvenlik-kameralari": <Camera className="h-4 w-4" aria-hidden />,
-  "guvenlik-sistemleri": <Shield className="h-4 w-4" aria-hidden />,
-  network: <Wifi className="h-4 w-4" aria-hidden />,
-  depolama: <HardDrive className="h-4 w-4" aria-hidden />,
-  sunucu: <Server className="h-4 w-4" aria-hidden />,
-  aksesuar: <Headphones className="h-4 w-4" aria-hidden />,
-}
-
-function getCategoryIcon(slug: string): React.ReactNode {
-  return CATEGORY_ICONS[slug] ?? <Package className="h-4 w-4" aria-hidden />
-}
 
 /* ------------------------------------------------------------------ */
 /*  Mobile Drawer                                                       */
@@ -58,11 +22,9 @@ function getCategoryIcon(slug: string): React.ReactNode {
 function MobileDrawer({
   open,
   onClose,
-  categories,
 }: {
   open: boolean
   onClose: () => void
-  categories: CategoryNav[]
 }) {
   useEffect(() => {
     if (open) document.body.style.overflow = "hidden"
@@ -103,24 +65,10 @@ function MobileDrawer({
           </button>
         </div>
 
-        {/* Kategoriler */}
+        {/* Menü */}
         <div className="flex-1 overflow-y-auto">
           <div className="px-4 pt-4 pb-2">
-            <p className="text-[10px] font-bold text-[#767676] uppercase tracking-widest mb-2 px-2">
-              Kategoriler
-            </p>
-            <nav aria-label="Mobil kategori navigasyonu">
-              {categories.map((cat) => (
-                <Link
-                  key={cat.slug}
-                  href={`/kategoriler/${cat.slug}`}
-                  onClick={onClose}
-                  className="flex items-center gap-3 px-3 py-2.5 text-[13px] font-semibold text-[#333333] hover:bg-[#f5f5f5] hover:text-[#00179e] transition-colors rounded"
-                >
-                  <span className="text-[#00179e]">{cat.icon}</span>
-                  {cat.name}
-                </Link>
-              ))}
+            <nav aria-label="Mobil navigasyon">
               <Link
                 href="/katalog"
                 onClick={onClose}
@@ -220,22 +168,6 @@ function HeaderSearchBar() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Category Bar Item                                                   */
-/* ------------------------------------------------------------------ */
-
-function CategoryBarItem({ category }: { category: CategoryNav }) {
-  return (
-    <Link
-      href={`/kategoriler/${category.slug}`}
-      className="inline-flex items-center gap-1.5 h-9 px-3 text-[12px] font-semibold text-[#444444] whitespace-nowrap hover:text-[#00179e] hover:bg-white/60 transition-colors border-b-2 border-transparent hover:border-[#00179e]"
-    >
-      <span className="text-[#00179e]/80">{category.icon}</span>
-      {category.name}
-    </Link>
-  )
-}
-
-/* ------------------------------------------------------------------ */
 /*  PublicHeader                                                        */
 /* ------------------------------------------------------------------ */
 
@@ -243,7 +175,6 @@ export function PublicHeader() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [isSticky, setIsSticky] = useState(false)
   const [isCompact, setIsCompact] = useState(false)
-  const [categories, setCategories] = useState<CategoryNav[]>([])
 
   useEffect(() => {
     function onScroll() {
@@ -253,23 +184,6 @@ export function PublicHeader() {
     }
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
-  }, [])
-
-  // Kategorileri API'den cek
-  useEffect(() => {
-    fetch("/api/public/categories")
-      .then((r) => r.json())
-      .then((data: { data?: Array<{ name: string; slug: string }> }) => {
-        const cats: CategoryNav[] = (data.data ?? [])
-          .slice(0, 8)
-          .map((c) => ({
-            name: c.name,
-            slug: c.slug,
-            icon: getCategoryIcon(c.slug),
-          }))
-        setCategories(cats)
-      })
-      .catch(() => setCategories([]))
   }, [])
 
   return (
@@ -401,34 +315,12 @@ export function PublicHeader() {
           </Link>
         </div>
 
-        {/* Kategori Bar -- desktop, compact modda gizlenir */}
-        {!isCompact && categories.length > 0 && (
-          <div className="hidden md:block border-t border-[#f0f0f0] bg-[#fafafa]">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <nav
-                className="flex items-center gap-1 overflow-x-auto scrollbar-hide"
-                aria-label="Kategori navigasyonu"
-              >
-                <Link
-                  href="/katalog"
-                  className="inline-flex items-center gap-1.5 h-9 px-3 text-[12px] font-bold text-[#00179e] whitespace-nowrap border-b-2 border-[#00179e]"
-                >
-                  Tum Urunler
-                </Link>
-                {categories.map((cat) => (
-                  <CategoryBarItem key={cat.slug} category={cat} />
-                ))}
-              </nav>
-            </div>
-          </div>
-        )}
       </header>
 
       {/* Mobil Drawer */}
       <MobileDrawer
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
-        categories={categories}
       />
     </>
   )
