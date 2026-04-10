@@ -318,13 +318,13 @@ function NewProductsSection({ products }: { products: ProductItem[] }) {
                     {product.name}
                   </p>
                   <div className="mt-2 flex items-center justify-between">
-                    <Link
-                      href="/login"
-                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#00179e] hover:underline"
+                    <button
+                      onClick={() => window.location.href = '/login'}
+                      className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#00179e] hover:underline bg-transparent border-0 cursor-pointer"
                     >
                       <LogIn className="h-3 w-3" aria-hidden />
                       Fiyat için giriş
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </Link>
