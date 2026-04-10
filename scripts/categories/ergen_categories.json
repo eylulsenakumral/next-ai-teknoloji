@@ -1,0 +1,1391 @@
+{
+  "site": "ergen",
+  "discoveredAt": "2026-04-03T00:00:30.066345",
+  "totalCategories": 173,
+  "categories": [
+    {
+      "name": "Notebook ve Netbook",
+      "url": "https://www.ergenelektronik.com/kategori/101011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Tablet",
+      "url": "https://www.ergenelektronik.com/kategori/101012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "All-in-One Pc",
+      "url": "https://www.ergenelektronik.com/kategori/101013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Sunucu Server / İş İstasyonu",
+      "url": "https://www.ergenelektronik.com/kategori/101014",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Masaüstü Hazır Pc",
+      "url": "https://www.ergenelektronik.com/kategori/101010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Kasa ve Powersupply",
+      "url": "https://www.ergenelektronik.com/kategori/111010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Anakart ve Test Ürünleri",
+      "url": "https://www.ergenelektronik.com/kategori/111011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "İşlemci",
+      "url": "https://www.ergenelektronik.com/kategori/111012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Harddisk / Kutu / Nas Server",
+      "url": "https://www.ergenelektronik.com/kategori/111013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Bellek",
+      "url": "https://www.ergenelektronik.com/kategori/111014",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Ekran Kartı",
+      "url": "https://www.ergenelektronik.com/kategori/111015",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Optik Sürücü",
+      "url": "https://www.ergenelektronik.com/kategori/111016",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Monitör",
+      "url": "https://www.ergenelektronik.com/kategori/111017",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Klavye",
+      "url": "https://www.ergenelektronik.com/kategori/111018",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Mouse",
+      "url": "https://www.ergenelektronik.com/kategori/111019",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Webcam",
+      "url": "https://www.ergenelektronik.com/kategori/111020",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Hoparlör /Mikrofon / Kulaklık",
+      "url": "https://www.ergenelektronik.com/kategori/111021",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Genişleme Yuvaları (PCI-PCIe)",
+      "url": "https://www.ergenelektronik.com/kategori/111022",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Fan ve Aksesuarları",
+      "url": "https://www.ergenelektronik.com/kategori/111023",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Usb Ürünleri",
+      "url": "https://www.ergenelektronik.com/kategori/111024",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Antivirüs Uygulamaları",
+      "url": "https://www.ergenelektronik.com/kategori/121010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Microsoft Yazılımları",
+      "url": "https://www.ergenelektronik.com/kategori/121011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Termal Kamera ve Kişi Sayma",
+      "url": "https://www.ergenelektronik.com/kategori/131030",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "HD Kamera / DVR",
+      "url": "https://www.ergenelektronik.com/kategori/131024",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "IP Kamera / NVR",
+      "url": "https://www.ergenelektronik.com/kategori/131010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Kontrol Klavyeleri",
+      "url": "https://www.ergenelektronik.com/kategori/131012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Güvenlik Proje Ürün Grubu",
+      "url": "https://www.ergenelektronik.com/kategori/131026",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Kablo/Muhafaza/Ayak/Soket-Aks.",
+      "url": "https://www.ergenelektronik.com/kategori/131016",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Lensler",
+      "url": "https://www.ergenelektronik.com/kategori/131015",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Araç Güvenlik Sistemleri",
+      "url": "https://www.ergenelektronik.com/kategori/131017",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Kablolu Alarm Sistemleri",
+      "url": "https://www.ergenelektronik.com/kategori/131019",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Kablosuz Alarm Sistemleri",
+      "url": "https://www.ergenelektronik.com/kategori/131020",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Yangın Alarm Sistemleri",
+      "url": "https://www.ergenelektronik.com/kategori/131021",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "İnterkom Diafon Sistemleri",
+      "url": "https://www.ergenelektronik.com/kategori/131023",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Güvenlik Test ve Monitörleri",
+      "url": "https://www.ergenelektronik.com/kategori/131018",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Barkod Okuyucular",
+      "url": "https://www.ergenelektronik.com/kategori/141010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Barkod Yazıcılar",
+      "url": "https://www.ergenelektronik.com/kategori/141011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Araç Yazıcı Setleri",
+      "url": "https://www.ergenelektronik.com/kategori/141012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Pos Yazıcılar/Pos Terminalleri",
+      "url": "https://www.ergenelektronik.com/kategori/141013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "El Terminalleri / Rfıd Uygulam",
+      "url": "https://www.ergenelektronik.com/kategori/141014",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Dijital Teraziler",
+      "url": "https://www.ergenelektronik.com/kategori/141015",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "PDKS / Access Controller",
+      "url": "https://www.ergenelektronik.com/kategori/141017",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Yedek Parçalar",
+      "url": "https://www.ergenelektronik.com/kategori/141018",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Sıramatik",
+      "url": "https://www.ergenelektronik.com/kategori/141019",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Usb Kablolar ve Çeviricileri",
+      "url": "https://www.ergenelektronik.com/kategori/151010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Paralel Kablolar ve Çev.",
+      "url": "https://www.ergenelektronik.com/kategori/151011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Monitör Kablolar ve Çev.",
+      "url": "https://www.ergenelektronik.com/kategori/151012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Klavye-Mouse Kab. ve Çev.",
+      "url": "https://www.ergenelektronik.com/kategori/151013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Telefon Kabloları ve Çev.",
+      "url": "https://www.ergenelektronik.com/kategori/151014",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Hdd Kabloları ve Çeviricileri",
+      "url": "https://www.ergenelektronik.com/kategori/151015",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Power Kablolar ve Çeviricileri",
+      "url": "https://www.ergenelektronik.com/kategori/151016",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Firewire Kabloları ve Çev.",
+      "url": "https://www.ergenelektronik.com/kategori/151017",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Scart Kabloları ve Çev.",
+      "url": "https://www.ergenelektronik.com/kategori/151018",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Ses ve Görüntü Kab.ve Çev.",
+      "url": "https://www.ergenelektronik.com/kategori/151019",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Svhs Kabloları ve Çeviricileri",
+      "url": "https://www.ergenelektronik.com/kategori/151020",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Hdmı Kabloları ve Çeviricileri",
+      "url": "https://www.ergenelektronik.com/kategori/151021",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Dvı Kabloları ve Çeviricileri",
+      "url": "https://www.ergenelektronik.com/kategori/151022",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Seri Port Kabloları ve Çev.",
+      "url": "https://www.ergenelektronik.com/kategori/151023",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Display Port Kab.ve Çev.",
+      "url": "https://www.ergenelektronik.com/kategori/151024",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Coaxiel Kablolar",
+      "url": "https://www.ergenelektronik.com/kategori/151025",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Daralan Makaronlar",
+      "url": "https://www.ergenelektronik.com/kategori/151026",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Modem Kabloları ve Çeviriciler",
+      "url": "https://www.ergenelektronik.com/kategori/151027",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Vga Çoklayıcılar",
+      "url": "https://www.ergenelektronik.com/kategori/151029",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Hdmı Çoklayıcılar",
+      "url": "https://www.ergenelektronik.com/kategori/151031",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Data Switchler",
+      "url": "https://www.ergenelektronik.com/kategori/151032",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Audio - Video Çoklayıcılar",
+      "url": "https://www.ergenelektronik.com/kategori/151033",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Ethernet Kartları (PCI-PCIe)",
+      "url": "https://www.ergenelektronik.com/kategori/161010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Switchler",
+      "url": "https://www.ergenelektronik.com/kategori/161011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Adsl / Vdsl Modemler/Hotspot",
+      "url": "https://www.ergenelektronik.com/kategori/161012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Access Point/Router",
+      "url": "https://www.ergenelektronik.com/kategori/161013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Wireless Adaptör ve Anten",
+      "url": "https://www.ergenelektronik.com/kategori/161014",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Network Kablo ve Konnektörleri",
+      "url": "https://www.ergenelektronik.com/kategori/161016",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Patch Kablo",
+      "url": "https://www.ergenelektronik.com/kategori/161017",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Patch Panel",
+      "url": "https://www.ergenelektronik.com/kategori/161018",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Kvm Switch ve Kabloları",
+      "url": "https://www.ergenelektronik.com/kategori/161020",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Keystone Jack ve Prizleri",
+      "url": "https://www.ergenelektronik.com/kategori/161021",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Network Pense ve Test Cihazlar",
+      "url": "https://www.ergenelektronik.com/kategori/161022",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Kablo Bağları ve Numaratörleri",
+      "url": "https://www.ergenelektronik.com/kategori/161023",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Kablo Kanal/Aksesuar",
+      "url": "https://www.ergenelektronik.com/kategori/161024",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Fiber Optik Converterler",
+      "url": "https://www.ergenelektronik.com/kategori/171010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Fiber Optik Kablolar",
+      "url": "https://www.ergenelektronik.com/kategori/171011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Fiber Optik Pigtailler",
+      "url": "https://www.ergenelektronik.com/kategori/171012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Fiber Optik Patch Kablolar",
+      "url": "https://www.ergenelektronik.com/kategori/171013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Fiber Optik Konnektörler",
+      "url": "https://www.ergenelektronik.com/kategori/171014",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Fiber Optik Adaptörler",
+      "url": "https://www.ergenelektronik.com/kategori/171015",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Fiber Optik Son. Kutular",
+      "url": "https://www.ergenelektronik.com/kategori/171016",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Fiber Optik Son. Aksesuarları",
+      "url": "https://www.ergenelektronik.com/kategori/171017",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Duvar Tip Kabinet",
+      "url": "https://www.ergenelektronik.com/kategori/181010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Duvar Tip Kabin Camları",
+      "url": "https://www.ergenelektronik.com/kategori/181011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Dikili Tip Kabinet",
+      "url": "https://www.ergenelektronik.com/kategori/181012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Sabit Raflar",
+      "url": "https://www.ergenelektronik.com/kategori/181013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Hareketli Raflar",
+      "url": "https://www.ergenelektronik.com/kategori/181014",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Priz Üniteleri",
+      "url": "https://www.ergenelektronik.com/kategori/181015",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Fan Üniteleri",
+      "url": "https://www.ergenelektronik.com/kategori/181016",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Tekerlek Üniteleri",
+      "url": "https://www.ergenelektronik.com/kategori/181017",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Kablo Organizerler",
+      "url": "https://www.ergenelektronik.com/kategori/181018",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Diger Aksesuarlar",
+      "url": "https://www.ergenelektronik.com/kategori/181019",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Yazıcı",
+      "url": "https://www.ergenelektronik.com/kategori/191010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Tarayıcı",
+      "url": "https://www.ergenelektronik.com/kategori/191012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Güç Kaynağı",
+      "url": "https://www.ergenelektronik.com/kategori/201010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Invertörler",
+      "url": "https://www.ergenelektronik.com/kategori/201012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Aküler",
+      "url": "https://www.ergenelektronik.com/kategori/201013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Muhtelif Adaptörler",
+      "url": "https://www.ergenelektronik.com/kategori/201014",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Grup Priz / Powerbank",
+      "url": "https://www.ergenelektronik.com/kategori/201015",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Pil / Şarj Cihazı",
+      "url": "https://www.ergenelektronik.com/kategori/201016",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Toner",
+      "url": "https://www.ergenelektronik.com/kategori/211011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Şerit",
+      "url": "https://www.ergenelektronik.com/kategori/211012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Fax Rulo",
+      "url": "https://www.ergenelektronik.com/kategori/211013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Bos Cd / Bos Dvd",
+      "url": "https://www.ergenelektronik.com/kategori/211014",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Cd / Kamera Çantası",
+      "url": "https://www.ergenelektronik.com/kategori/211015",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Notebook / Evrak Çantaları",
+      "url": "https://www.ergenelektronik.com/kategori/211016",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Ekran Filtre / Ekran Örtüleri",
+      "url": "https://www.ergenelektronik.com/kategori/211017",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Komp./ Sprey / Temiz. Ürünleri",
+      "url": "https://www.ergenelektronik.com/kategori/211018",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Netbook / Notebook Adaptörleri",
+      "url": "https://www.ergenelektronik.com/kategori/221023",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Notebook Adaptör Kabloları",
+      "url": "https://www.ergenelektronik.com/kategori/221024",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Notebook Soğutucuları",
+      "url": "https://www.ergenelektronik.com/kategori/221025",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Pcmcıa Kartlar",
+      "url": "https://www.ergenelektronik.com/kategori/221026",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Notebook Klavye Etiketleri",
+      "url": "https://www.ergenelektronik.com/kategori/221027",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Notebook Kilitleri",
+      "url": "https://www.ergenelektronik.com/kategori/221029",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Projeksiyonlar",
+      "url": "https://www.ergenelektronik.com/kategori/231010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Projeksiyon Perde / Aks.",
+      "url": "https://www.ergenelektronik.com/kategori/231011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Lcd / Led Plazma TV",
+      "url": "https://www.ergenelektronik.com/kategori/231012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "TV Askı Aparatı / Sehpa",
+      "url": "https://www.ergenelektronik.com/kategori/231013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Telefon / Telsiz / Santral",
+      "url": "https://www.ergenelektronik.com/kategori/241010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Cep Telefonu / Aksesuar",
+      "url": "https://www.ergenelektronik.com/kategori/241012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Reklam Ürünleri",
+      "url": "https://www.ergenelektronik.com/kategori/241016",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Power Anfiler",
+      "url": "https://www.ergenelektronik.com/kategori/251010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Mikrofonlar",
+      "url": "https://www.ergenelektronik.com/kategori/251011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Hoparlörler",
+      "url": "https://www.ergenelektronik.com/kategori/251012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Aksesuarlar",
+      "url": "https://www.ergenelektronik.com/kategori/251013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "El Aletleri",
+      "url": "https://www.ergenelektronik.com/kategori/261010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Ölçüm Cihazları Aksesuarları",
+      "url": "https://www.ergenelektronik.com/kategori/261012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Havyalar",
+      "url": "https://www.ergenelektronik.com/kategori/261013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Havya Sehpaları / Pompa",
+      "url": "https://www.ergenelektronik.com/kategori/261015",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Lehimlerme Ürün Akseuarları",
+      "url": "https://www.ergenelektronik.com/kategori/261016",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "SilikonTabanca ve Aksesuarları",
+      "url": "https://www.ergenelektronik.com/kategori/261017",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Diodlar",
+      "url": "https://www.ergenelektronik.com/kategori/281010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Dirençler",
+      "url": "https://www.ergenelektronik.com/kategori/281011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Trimpot - Potansiyometre - Ntc",
+      "url": "https://www.ergenelektronik.com/kategori/281012",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Entegreler ve Soketleri",
+      "url": "https://www.ergenelektronik.com/kategori/281013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Klemensler",
+      "url": "https://www.ergenelektronik.com/kategori/281014",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Kondansatörler",
+      "url": "https://www.ergenelektronik.com/kategori/281015",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Kristaller",
+      "url": "https://www.ergenelektronik.com/kategori/281016",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Led / Displayler",
+      "url": "https://www.ergenelektronik.com/kategori/281017",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Peltierler",
+      "url": "https://www.ergenelektronik.com/kategori/281018",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Röleler",
+      "url": "https://www.ergenelektronik.com/kategori/281019",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Soğutucular",
+      "url": "https://www.ergenelektronik.com/kategori/281020",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Solar Panaller",
+      "url": "https://www.ergenelektronik.com/kategori/281021",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Dip Switchler",
+      "url": "https://www.ergenelektronik.com/kategori/281022",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Sigortalar",
+      "url": "https://www.ergenelektronik.com/kategori/281023",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Trafolar",
+      "url": "https://www.ergenelektronik.com/kategori/281025",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Transistörler",
+      "url": "https://www.ergenelektronik.com/kategori/281026",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Triaklar - Varistörler",
+      "url": "https://www.ergenelektronik.com/kategori/281027",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Voltaj Regülatörleri",
+      "url": "https://www.ergenelektronik.com/kategori/281028",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Modüller",
+      "url": "https://www.ergenelektronik.com/kategori/281031",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Konnektörler",
+      "url": "https://www.ergenelektronik.com/kategori/281032",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Anten Fişleri",
+      "url": "https://www.ergenelektronik.com/kategori/281033",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Mini Din Fişler",
+      "url": "https://www.ergenelektronik.com/kategori/281034",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Canon &  XLR Fişler",
+      "url": "https://www.ergenelektronik.com/kategori/281035",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Speakon Konnektörler",
+      "url": "https://www.ergenelektronik.com/kategori/281036",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Sma Konnektörler",
+      "url": "https://www.ergenelektronik.com/kategori/281037",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Idc ve Sıra Pin Konnektörler",
+      "url": "https://www.ergenelektronik.com/kategori/281038",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "D-Sub Konnektörler",
+      "url": "https://www.ergenelektronik.com/kategori/281039",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Dc Fişler",
+      "url": "https://www.ergenelektronik.com/kategori/281040",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Plaketler",
+      "url": "https://www.ergenelektronik.com/kategori/281041",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Surge Proteckler",
+      "url": "https://www.ergenelektronik.com/kategori/281042",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Çeşitli Elektronik Ürünler",
+      "url": "https://www.ergenelektronik.com/kategori/281043",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Analog TV Çözümleri",
+      "url": "https://www.ergenelektronik.com/kategori/321010",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Dijital TV (QAM) Çözümleri",
+      "url": "https://www.ergenelektronik.com/kategori/321011",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Multiswitch Sistemleri",
+      "url": "https://www.ergenelektronik.com/kategori/321013",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "LNB",
+      "url": "https://www.ergenelektronik.com/kategori/321014",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Uydu Alıcıları",
+      "url": "https://www.ergenelektronik.com/kategori/321015",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    },
+    {
+      "name": "Çanak Antenler",
+      "url": "https://www.ergenelektronik.com/kategori/321016",
+      "parentName": "",
+      "level": 0,
+      "code": "",
+      "productCount": 0
+    }
+  ]
+}
