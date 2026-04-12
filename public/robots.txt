@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin/
+Disallow: /dealer/
+Disallow: /api/
+
+Sitemap: https://next-ai-teknoloji.com/sitemap.xml
