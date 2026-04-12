@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#e2dfe1",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#636264",
+                    "tertiary": "#58595b",
+                    "tertiary-fixed-dim": "#c6c6c8",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface": "#fcf8fb",
+                    "surface-container-highest": "#e4e2e4",
+                    "surface-container-high": "#eae7ea",
+                    "background": "#fcf8fb",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1b1b1d",
+                    "secondary-fixed-dim": "#c8c6c8",
+                    "secondary-fixed": "#e4e2e4",
+                    "on-tertiary-container": "#f8f8fa",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#424656",
+                    "surface-bright": "#fcf8fb",
+                    "surface-container": "#f0edef",
+                    "surface-variant": "#e4e2e4",
+                    "on-tertiary-fixed": "#1a1c1d",
+                    "surface-dim": "#dcd9dc",
+                    "outline-variant": "#c2c6d8",
+                    "tertiary-fixed": "#e2e2e4",
+                    "inverse-surface": "#303032",
+                    "on-primary-fixed": "#001849",
+                    "secondary": "#5f5e60",
+                    "on-primary-container": "#f8f7ff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#f3f0f2",
+                    "tertiary-container": "#707274",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#0066ff",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#0054d6",
+                    "outline": "#727687",
+                    "primary-fixed": "#dae1ff",
+                    "surface-container-low": "#f6f3f5",
+                    "on-secondary-fixed": "#1b1b1d",
+                    "on-background": "#1b1b1d",
+                    "primary": "#0050cb",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#b3c5ff",
+                    "on-secondary-fixed-variant": "#474649",
+                    "on-tertiary-fixed-variant": "#454749"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-[100] bg-[#fcf8fb]/80 backdrop-blur-xl shadow-[0px_4px_12px_rgba(27,27,29,0.02),0px_16px_32px_rgba(27,27,29,0.04)]">
+<div class="flex items-center justify-between px-8 py-4 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-12">
+<a class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#1b1b1d] to-[#0050cb] bg-clip-text text-transparent" href="#">Next AI Teknoloji</a>
+<div class="hidden md:flex items-center gap-8 font-['Inter'] font-medium text-sm tracking-tight">
+<a class="text-[#1b1b1d] opacity-70 hover:opacity-100 hover:text-[#0050cb] transition-all duration-300" href="#">Kategoriler</a>
+<a class="text-[#1b1b1d] opacity-70 hover:opacity-100 hover:text-[#0050cb] transition-all duration-300" href="#">Kampanyalar</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="favorite">favorite</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="shopping_cart">shopping_cart</button>
+</div>
+<button class="bg-gradient-to-br from-[#0050cb] to-[#0066ff] text-white px-6 py-2 rounded-xl text-sm font-semibold active:scale-95 transition-transform">Giriş Yap/Kayıt Ol</button>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 max-w-[1440px] mx-auto px-8">
+<!-- Product Detail Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+<!-- Left: Large Gallery (Asymmetric Layout) -->
+<div class="lg:col-span-7 grid grid-cols-2 gap-4">
+<div class="col-span-2 aspect-[4/5] rounded-xl overflow-hidden bg-surface-container-low shadow-sm">
+<img alt="Premium Monitor" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" data-alt="Close-up of a high-end minimalist computer monitor displaying vibrant colors in a clean studio setting with soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZAdqS9F02E_2y3DTJTb0bhPDJvTvnyDvYKo43UWptKh-NLXqtVdcYBTlFwtruJljP--aaAnWxYUyJjV372IRo4fjtR6amlbrjBnlfxVP34wQTcbDqQb5efGNWU8eKeyR0qI6-fEWgGf5sKcLy35POKoyQr3EC5uQvgcZTEoqdb3Zc2Z5wc0oWcl-rTEexnAl9b89QyW_XNj7LFgrIQsTUX6BhtDhIAbJ9rF7VU3ZaCW5LBrFCSIcGkM4B8sPc5CYi9n2Dx2V7KMRC"/>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden bg-surface-container-low">
+<img alt="Monitor Side View" class="w-full h-full object-cover hover:opacity-90 transition-opacity" data-alt="Side profile of an ultra-thin silver computer monitor showing its sleek industrial design on a minimalist desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAljSQNJipluZ4L6DXHl9r2c1m_i4eL2XlkHGnAAmGabZYYsXmlP-bBTE8rlqEwDV4vUnIj2BxZNQ3KwhCbWZYboauZUjBwUassZ8ICxQgAJ2BuvOfRP6i1Wo3OJpQh1GM_a8tSR4fsKFp1E3dboSfMZyMzPh3vJiJf5IlwvFaHBPe0zgHE-vOPrAFWbWZnfmIGb6sKHhT7gVGXy62go47ugZtv8K-nYDKYGZ5hWhJLxSJ35ppx2dZslBjIciEk7hYF1683Z_Gnyl5n"/>
+</div>
+<div class="aspect-square rounded-xl overflow-hidden bg-surface-container-low">
+<img alt="Technical Ports" class="w-full h-full object-cover hover:opacity-90 transition-opacity" data-alt="Macro detail shot of connectivity ports on the back of a luxury electronic device with matte metallic finish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtg_ai2EhN5xtmeoPXlVwpaanRuF1k0W1pwIMNJ8sZIkDcuGQ_iTm6lv-j0vcII6gf-B0JcWxPYoNZQ-csPq5fjPyz5rtwE7mJ50k_YIYUQttyCEs3Dw0Ph4dWCGspht9qTUrstGeBcPaJVZI5GlLdwhwA67allcMttWnesTFnSa28xTluBXaRsLa7Qa-1PinZAZMbOOwcXYcFWvCHQCThYbZisB0lhzO6oNzGCM3w0eiLIxaIqIaFjpDzqQEnePuJKRViVHvyxVti"/>
+</div>
+</div>
+<!-- Right: Product Info -->
+<div class="lg:col-span-5 sticky top-32 space-y-10">
+<header class="space-y-4">
+<span class="text-primary font-bold tracking-widest text-xs uppercase">Premium Koleksiyon</span>
+<h1 class="text-4xl font-extrabold text-on-surface tracking-tight leading-tight">Next Vision Pro AI-X 32" Curved OLED</h1>
+<p class="text-lg text-on-surface-variant font-medium">Next AI Teknoloji Signature Series</p>
+</header>
+<!-- Pricing & CTA -->
+<div class="p-8 rounded-2xl bg-surface-container-lowest shadow-[0px_16px_32px_rgba(27,27,29,0.04)] space-y-6">
+<div class="flex items-baseline justify-between">
+<span class="text-3xl font-black text-on-surface">₺34.999,00</span>
+<a class="text-primary text-sm font-medium hover:underline underline-offset-4" href="#">Taksit Seçenekleri</a>
+</div>
+<div class="space-y-4">
+<button class="w-full py-4 rounded-xl bg-surface-container-high text-on-surface-variant font-semibold cursor-not-allowed flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="lock">lock</span>
+                            Fiyat için giriş yapın
+                        </button>
+<p class="text-xs text-center text-on-surface-variant/60">Bu ürünü sepetinize eklemek için üye girişi yapmanız gerekmektedir.</p>
+</div>
+</div>
+<!-- Technical Specs (Icon-based) -->
+<div class="grid grid-cols-2 gap-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="speed">speed</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant">Yenileme Hızı</p>
+<p class="text-sm font-bold">240Hz Ultra</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="palette">palette</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant">Renk Gamutu</p>
+<p class="text-sm font-bold">%99 DCI-P3</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="settings_input_hdmi">settings_input_hdmi</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant">Bağlantı</p>
+<p class="text-sm font-bold">HDMI 2.1 &amp; DP</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="smart_toy">smart_toy</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant">Yapay Zeka</p>
+<p class="text-sm font-bold">AI Image Upscaling</p>
+</div>
+</div>
+</div>
+<div class="space-y-4 pt-4 border-t border-outline-variant/15">
+<h3 class="font-bold text-on-surface">Öne Çıkan Özellikler</h3>
+<ul class="space-y-3 text-sm text-on-surface-variant leading-relaxed">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5" data-icon="check_circle">check_circle</span>
+                            Dünyanın ilk AI entegreli kavisli OLED paneli ile benzersiz derinlik.
+                        </li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-sm mt-0.5" data-icon="check_circle">check_circle</span>
+                            0.03ms (GtG) tepki süresi ile profesyonel gaming performansı.
+                        </li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Description Section -->
+<section class="mt-32 space-y-12">
+<div class="max-w-3xl">
+<h2 class="text-3xl font-extrabold tracking-tight mb-8">Ürün Açıklaması</h2>
+<div class="space-y-6 text-lg text-on-surface-variant leading-relaxed font-['Inter']">
+<p>Next Vision Pro AI-X, dijital içerik üreticileri ve oyun tutkunları için özel olarak tasarlandı. Geleneksel ekran teknolojilerinin ötesine geçen AI Image Upscaling özelliği, düşük çözünürlüklü içerikleri gerçek zamanlı olarak 4K kalitesine yükseltir.</p>
+<p>Ergonomik standı ve minimalist metal gövdesi ile çalışma alanınıza sofistike bir dokunuş katar. Her pikselin bağımsız aydınlatıldığı OLED teknolojisi, sonsuz kontrast ve gerçek siyah deneyimi sunar.</p>
+</div>
+</div>
+<!-- Technical Highlights Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="p-8 rounded-2xl bg-surface-container-low border border-outline-variant/10 aspect-video md:aspect-square flex flex-col justify-end">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" data-icon="visibility">visibility</span>
+<h4 class="text-xl font-bold mb-2">Göz Sağlığı</h4>
+<p class="text-sm text-on-surface-variant">TÜV Rheinland onaylı düşük mavi ışık ve titreşimsiz ekran teknolojisi.</p>
+</div>
+<div class="p-8 rounded-2xl bg-surface-container-low border border-outline-variant/10 aspect-video md:aspect-square flex flex-col justify-end">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" data-icon="eco">eco</span>
+<h4 class="text-xl font-bold mb-2">Sürdürülebilirlik</h4>
+<p class="text-sm text-on-surface-variant">%100 geri dönüştürülebilir alüminyum gövde ve çevreci paketleme.</p>
+</div>
+<div class="p-8 rounded-2xl bg-surface-container-low border border-outline-variant/10 aspect-video md:aspect-square flex flex-col justify-end">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" data-icon="connected_tv">connected_tv</span>
+<h4 class="text-xl font-bold mb-2">Çoklu Bağlantı</h4>
+<p class="text-sm text-on-surface-variant">Aynı anda 3 farklı cihaz girişi ve akıllı geçiş asistanı.</p>
+</div>
+</div>
+</section>
+<!-- Recommendations Section -->
+<section class="mt-32">
+<div class="flex items-end justify-between mb-12">
+<div>
+<h2 class="text-3xl font-extrabold tracking-tight">Bunları da sevebilirsiniz</h2>
+<p class="text-on-surface-variant mt-2">Sizin için seçtiğimiz benzer teknolojik ürünler.</p>
+</div>
+<a class="text-primary font-bold hover:underline underline-offset-4 flex items-center gap-2" href="#">
+                    Tümünü Gör
+                    <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Product Card 1 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden hover:shadow-[0px_32px_64px_rgba(27,27,29,0.02)] transition-all duration-300">
+<div class="aspect-square bg-surface-container-low relative overflow-hidden">
+<img alt="Premium Headphones" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Sleek matte black wireless headphones resting on a minimalist concrete pedestal with dramatic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiY7Bm1neQZW9lR2mEJ79lFcBWsSRwMUPWTzCm-3YNH4AFw0E1U7xohqbYBZJq06XUA3hyNQOHiWETL3bYqkqvmBrSzab5UgqankKXYWVUFTlNrfEbgKdQ1HrZPBQJT68QGbWilWekRZm4g3O7eoBeUg7UiiYFiENkfqpgn4tvG4rAbIZiQlXk2O4z7bOvZYm7i0Hwb_0IqHEk0WBexsyd7eZCjstsAAW-TAyMXcbB43vQIy77KLRT0FJwBXSeYxWxcxMUCJuQgKJF"/>
+</div>
+<div class="p-6 space-y-3">
+<h3 class="font-bold text-on-surface">Next Sound Pro X1</h3>
+<p class="text-sm text-on-surface-variant">Gürültü Engelleyici Kulaklık</p>
+<p class="text-lg font-black text-primary">₺8.499,00</p>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden hover:shadow-[0px_32px_64px_rgba(27,27,29,0.02)] transition-all duration-300">
+<div class="aspect-square bg-surface-container-low relative overflow-hidden">
+<img alt="Mechanical Keyboard" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Professional custom mechanical keyboard with soft pastel RGB lighting and high-quality aluminum base" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwsQeqMGLmghV6AeqLQ0WuCNoYSw-SdYexwVRWcUFq9nQjIx1ggNfVbQZch9KlnYptJfuR9qQd64NCShyab_j_e3m4oIFZSLLn0rGrfJKdnbExBlGs8KpDLurgQjOgyMqXfwEg1OHpHUfjur6YnBHZgfYoVhp-1dY3_u0bQyM7rhE5Smb7lUKP_g-ijP9bh6aLhVb7uKoM-iPi4IJlJh3NheoFzGwRiX6SM8U-p2VAreoa0RqIrTF8pQS2hOqSdN99HvbBMiAlKzxt"/>
+</div>
+<div class="p-6 space-y-3">
+<h3 class="font-bold text-on-surface">Next Click Mechanical</h3>
+<p class="text-sm text-on-surface-variant">Kişiselleştirilebilir Klavye</p>
+<p class="text-lg font-black text-primary">₺4.299,00</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden hover:shadow-[0px_32px_64px_rgba(27,27,29,0.02)] transition-all duration-300">
+<div class="aspect-square bg-surface-container-low relative overflow-hidden">
+<img alt="Modern Mouse" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Ergonomic high-precision computer mouse in white matte finish on a felt desk mat" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9dFvs9LIp2NU5M9DdGLQQd30NDCM9xcMJ2Uivl0gl-5zQTocf0YKqMeDZooIAmIB6HI-xnCinP-4X0nNwnQAsZcz1vMVXE5v-2eY3ehiJSB9TpD_4gf-QBFyhKu3-59nvCrwp7aoxJ5egW5OsnbJ-aUNDfVbz4QSKBUEtO9qKl02XM9pkgf7NFE-0ESVJWwGgi_k6Mj-KA1KG6PCiAFPF8xfiC6a3GUXHFmltqs1N4X-G35qAeRH5l9bAp23Jzu2L0aUbqgzEpHJL"/>
+</div>
+<div class="p-6 space-y-3">
+<h3 class="font-bold text-on-surface">Next Precision Mouse</h3>
+<p class="text-sm text-on-surface-variant">Ergonomik Tasarım</p>
+<p class="text-lg font-black text-primary">₺2.199,00</p>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group bg-surface-container-lowest rounded-xl overflow-hidden hover:shadow-[0px_32px_64px_rgba(27,27,29,0.02)] transition-all duration-300">
+<div class="aspect-square bg-surface-container-low relative overflow-hidden">
+<img alt="Smart Speaker" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Minimalist smart speaker with fabric texture and glowing touch controls in a modern living room setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1q4a9-kZ37rCt4rm_F-wh4fTEI3whWkqe-2Z0I4P0E1a5wk7qCOsheOE35dXxiTUZFBVaPmPeULc9uOMbSAhlQiGKTV4qvD-Ej17Pt96L_0yJEyeHQ8CrOCmaSs4ZWnihJwIWn7yPy5wOiuh1VmEwxONQ_yTgcxV9KEo088qqOZKs7ods7KsuDZlQBMBRVKkHfIX-gtBSXxHTHfd1dfkWKDi7aPj4McJgeQuskTKxZ6Bhe618aCPR3p1ORiDhmjDLisGnuLRt9y6I"/>
+</div>
+<div class="p-6 space-y-3">
+<h3 class="font-bold text-on-surface">Next Echo AI Speaker</h3>
+<p class="text-sm text-on-surface-variant">Akıllı Ses Sistemi</p>
+<p class="text-lg font-black text-primary">₺5.999,00</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full mt-32 bg-[#f0edef] dark:bg-[#121212]">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-24 max-w-[1440px] mx-auto font-['Inter'] text-sm leading-relaxed">
+<div class="space-y-6">
+<h4 class="text-lg font-bold text-[#1b1b1d] dark:text-white">Next AI Teknoloji</h4>
+<p class="text-[#1b1b1d]/60 dark:text-white/60">Geleceğin teknolojisini bugünden keşfedin. Premium dijital kürasyon ve akıllı cihazlar.</p>
+</div>
+<div class="space-y-6">
+<h5 class="font-bold text-on-surface">Kurumsal</h5>
+<ul class="space-y-4">
+<li><a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb] underline-offset-4 hover:underline transition-all duration-200" href="#">Hakkımızda</a></li>
+<li><a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb] underline-offset-4 hover:underline transition-all duration-200" href="#">İletişim</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h5 class="font-bold text-on-surface">Yardım</h5>
+<ul class="space-y-4">
+<li><a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb] underline-offset-4 hover:underline transition-all duration-200" href="#">Taksit Seçenekleri</a></li>
+<li><a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb] underline-offset-4 hover:underline transition-all duration-200" href="#">Gizlilik Politikası</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<h5 class="font-bold text-on-surface">Bülten</h5>
+<p class="text-xs text-on-surface-variant">Yeni ürünlerden ilk siz haberdar olun.</p>
+<div class="flex gap-2">
+<input class="bg-surface-container-high border-none rounded-lg text-xs w-full focus:ring-1 focus:ring-primary/20" placeholder="E-posta" type="email"/>
+<button class="bg-primary text-white p-2 rounded-lg material-symbols-outlined" data-icon="send">send</button>
+</div>
+</div>
+</div>
+<div class="max-w-[1440px] mx-auto px-12 py-8 border-t border-outline-variant/10">
+<p class="text-[#1b1b1d]/60 dark:text-white/60 text-center">© 2024 Next AI Teknoloji. Tüm hakları saklıdır.</p>
+</div>
+</footer>
+</body></html>

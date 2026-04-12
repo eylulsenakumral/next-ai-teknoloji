@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="tr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#e2dfe1",
+                    "error-container": "#ffdad6",
+                    "on-secondary-container": "#636264",
+                    "tertiary": "#58595b",
+                    "tertiary-fixed-dim": "#c6c6c8",
+                    "primary-fixed-dim": "#b3c5ff",
+                    "on-primary-fixed-variant": "#003fa4",
+                    "surface": "#fcf8fb",
+                    "surface-container-highest": "#e4e2e4",
+                    "surface-container-high": "#eae7ea",
+                    "background": "#fcf8fb",
+                    "on-primary": "#ffffff",
+                    "on-surface": "#1b1b1d",
+                    "secondary-fixed-dim": "#c8c6c8",
+                    "secondary-fixed": "#e4e2e4",
+                    "on-tertiary-container": "#f8f8fa",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#424656",
+                    "surface-bright": "#fcf8fb",
+                    "surface-container": "#f0edef",
+                    "surface-variant": "#e4e2e4",
+                    "on-tertiary-fixed": "#1a1c1d",
+                    "surface-dim": "#dcd9dc",
+                    "outline-variant": "#c2c6d8",
+                    "tertiary-fixed": "#e2e2e4",
+                    "inverse-surface": "#303032",
+                    "on-primary-fixed": "#001849",
+                    "secondary": "#5f5e60",
+                    "on-primary-container": "#f8f7ff",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-on-surface": "#f3f0f2",
+                    "tertiary-container": "#707274",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "primary-container": "#0066ff",
+                    "error": "#ba1a1a",
+                    "surface-tint": "#0054d6",
+                    "outline": "#727687",
+                    "primary-fixed": "#dae1ff",
+                    "surface-container-low": "#f6f3f5",
+                    "on-secondary-fixed": "#1b1b1d",
+                    "on-background": "#1b1b1d",
+                    "primary": "#0050cb",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#b3c5ff",
+                    "on-secondary-fixed-variant": "#474649",
+                    "on-tertiary-fixed-variant": "#454749"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Inter"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0050cb 0%, #0066ff 100%);
+        }
+        body { font-family: 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #e4e2e4; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-[100] bg-[#fcf8fb]/80 dark:bg-[#1b1b1d]/80 backdrop-blur-xl shadow-[0px_4px_12px_rgba(27,27,29,0.02),0px_16px_32px_rgba(27,27,29,0.04)]">
+<div class="flex items-center justify-between px-8 py-4 max-w-[1440px] mx-auto">
+<div class="flex items-center gap-12">
+<a class="text-2xl font-black tracking-tighter bg-gradient-to-br from-[#1b1b1d] to-[#0050cb] bg-clip-text text-transparent" href="#">
+                    Next AI Teknoloji
+                </a>
+<div class="hidden md:flex items-center gap-8 font-['Inter'] font-medium text-sm tracking-tight">
+<a class="text-[#0050cb] font-bold border-b-2 border-[#0050cb] pb-1" href="#">Anasayfa</a>
+<a class="text-[#1b1b1d] opacity-70 hover:opacity-100 hover:text-[#0050cb] transition-all duration-300" href="#">Kategoriler</a>
+<a class="text-[#1b1b1d] opacity-70 hover:opacity-100 hover:text-[#0050cb] transition-all duration-300" href="#">Kampanyalar</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex items-center bg-surface-container-high px-4 py-2 rounded-full w-64 group focus-within:bg-surface-container-lowest focus-within:ring-1 focus-within:ring-primary/20 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-lg">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-on-surface-variant/60" placeholder="Ürün ara..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-[#1b1b1d]">
+<button class="hover:text-[#0050cb] transition-colors"><span class="material-symbols-outlined" data-icon="favorite">favorite</span></button>
+<button class="hover:text-[#0050cb] transition-colors"><span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span></button>
+<button class="ml-2 px-6 py-2 bg-primary text-on-primary rounded-full text-sm font-semibold active:scale-95 transition-transform">Giriş Yap/Kayıt Ol</button>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-24">
+<!-- Hero Section -->
+<section class="relative px-8 py-12 max-w-[1440px] mx-auto">
+<div class="relative w-full h-[700px] rounded-[2.5rem] overflow-hidden group">
+<img class="w-full h-full object-cover" data-alt="ultra-modern sleek metallic laptop on a minimalist white desk with soft volumetric lighting and a blue tech ambient glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJUk8PNUXi53PaUXvBiy0XOhDR_kibDDzd2aB0aL7vvYR6GdAp1rghOV2Hv1pMHv3XgCZK_HbW_djaXKL0DvCvdPUK9acB8eWOXcfMXQH8tGn_s2hZGMPjVHVJwaiDPhDgglISVdK9o98bRXZGt2_Xuoz5O6DUkk7ZhWV44XWrgN_Wh_YgksFqtGHzp4lVvGvUTeOoVIo3kihfmifRW2s_u6KtrPO-r40Shjm2q-Q-D_8-Eh-aCJPqcg-BfF_AiUtSt4FE4NA0DL5a"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent flex flex-col justify-center px-20">
+<span class="text-white/80 font-semibold tracking-widest text-sm mb-4 uppercase">Teknolojinin Zirvesi</span>
+<h1 class="text-white text-7xl font-extrabold tracking-tighter mb-6 leading-none max-w-2xl">
+                        Gelecek Burada.<br/>Next AI ile Tanışın.
+                    </h1>
+<p class="text-white/70 text-xl max-w-lg mb-10 leading-relaxed">
+                        Yapay zeka ile güçlendirilmiş donanımlar, kusursuz tasarım ve rakipsiz performans bir arada.
+                    </p>
+<div class="flex items-center gap-6">
+<button class="px-10 py-4 hero-gradient text-on-primary rounded-xl font-bold text-lg shadow-xl shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+                            Hemen İncele
+                        </button>
+<button class="px-10 py-4 glass-card text-white rounded-xl font-bold text-lg border border-white/20 hover:bg-white/10 transition-all">
+                            Video İzle
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Categories Horizontal Scroll -->
+<section class="mt-32 px-8 overflow-hidden">
+<div class="max-w-[1440px] mx-auto">
+<div class="flex items-center justify-between mb-12">
+<h2 class="text-4xl font-black tracking-tighter">Ekosistemi Keşfedin</h2>
+<div class="flex gap-2">
+<button class="w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center hover:bg-surface-container transition-colors"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center hover:bg-surface-container transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<div class="flex gap-8 overflow-x-auto pb-8 no-scrollbar scroll-smooth">
+<!-- Category Item -->
+<div class="flex-none w-48 aspect-square rounded-[2rem] bg-surface-container flex flex-col items-center justify-center gap-4 group cursor-pointer hover:bg-primary transition-all duration-500">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-lowest flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="smartphone">smartphone</span>
+</div>
+<span class="font-bold text-on-surface group-hover:text-on-primary transition-colors">Telefonlar</span>
+</div>
+<div class="flex-none w-48 aspect-square rounded-[2rem] bg-surface-container flex flex-col items-center justify-center gap-4 group cursor-pointer hover:bg-primary transition-all duration-500">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-lowest flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="laptop_mac">laptop_mac</span>
+</div>
+<span class="font-bold text-on-surface group-hover:text-on-primary transition-colors">Laptoplar</span>
+</div>
+<div class="flex-none w-48 aspect-square rounded-[2rem] bg-surface-container flex flex-col items-center justify-center gap-4 group cursor-pointer hover:bg-primary transition-all duration-500">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-lowest flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="home_app_logo">home_app_logo</span>
+</div>
+<span class="font-bold text-on-surface group-hover:text-on-primary transition-colors">Akıllı Ev</span>
+</div>
+<div class="flex-none w-48 aspect-square rounded-[2rem] bg-surface-container flex flex-col items-center justify-center gap-4 group cursor-pointer hover:bg-primary transition-all duration-500">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-lowest flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="headphones">headphones</span>
+</div>
+<span class="font-bold text-on-surface group-hover:text-on-primary transition-colors">Aksesuar</span>
+</div>
+<div class="flex-none w-48 aspect-square rounded-[2rem] bg-surface-container flex flex-col items-center justify-center gap-4 group cursor-pointer hover:bg-primary transition-all duration-500">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-lowest flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="watch">watch</span>
+</div>
+<span class="font-bold text-on-surface group-hover:text-on-primary transition-colors">Giyilebilir</span>
+</div>
+<div class="flex-none w-48 aspect-square rounded-[2rem] bg-surface-container flex flex-col items-center justify-center gap-4 group cursor-pointer hover:bg-primary transition-all duration-500">
+<div class="w-16 h-16 rounded-2xl bg-surface-container-lowest flex items-center justify-center group-hover:scale-110 transition-transform shadow-sm">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="tablet_mac">tablet_mac</span>
+</div>
+<span class="font-bold text-on-surface group-hover:text-on-primary transition-colors">Tabletler</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Highlights Bento Grid -->
+<section class="mt-32 px-8">
+<div class="max-w-[1440px] mx-auto">
+<h2 class="text-4xl font-black tracking-tighter mb-12">Öne Çıkanlar</h2>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 h-[900px]">
+<!-- Large Feature Card -->
+<div class="md:col-span-8 relative rounded-[2.5rem] overflow-hidden bg-surface-container-lowest shadow-[0px_16px_32px_rgba(27,27,29,0.04)] group">
+<img class="w-full h-full object-cover" data-alt="professional photo of a futuristic minimalist smartphone with a high-resolution glowing display, floating in a clean white space with soft blue shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvLhmH_PGyshfVpBS_TbjlsoPSsYyZv3wG11pzMpTlzIU9K6gHDNKEfw9caIfrmFZ368ul4xD2r-ATprs7mDGd2Jg_UUISkOG8PXOx8nsb654S6jXWo3aL2EAjZUT_g-wEwWSYzSyKzHvlHz91YzZA3GoSnXHPGoGgfWusm60DzrB-t1p9EWqGHrkMJ_X5yQXjQHfIvGGGUzvf9p-17XJCak4xS7AqKyq0Q0MKPa_wXFDNlpdC59r7HnvrG1W0dormJQht22Z_f76O"/>
+<div class="absolute bottom-0 left-0 right-0 p-12 glass-card">
+<div class="flex justify-between items-end">
+<div>
+<span class="text-primary font-bold tracking-widest text-xs uppercase mb-2 block">Yeni Sezon</span>
+<h3 class="text-3xl font-extrabold text-on-surface">Next Phone 15 Pro</h3>
+<p class="text-on-surface-variant mt-2 max-w-sm">Yapay zeka işlemci mimarisi ile sınırları zorlayın.</p>
+</div>
+<button class="px-8 py-3 bg-on-surface text-on-primary rounded-full font-bold hover:bg-primary transition-colors">Fiyat için giriş yapın</button>
+</div>
+</div>
+</div>
+<!-- Column for smaller cards -->
+<div class="md:col-span-4 grid grid-rows-2 gap-8">
+<div class="relative rounded-[2.5rem] overflow-hidden bg-surface-container group">
+<img class="w-full h-full object-cover" data-alt="minimalist wireless headphones in matte black finish on a soft grey textured surface with cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSQ1lVxzl67XOrbU1k8Xyeq2b_gEjDnMGuX7rYtj4L8XZmQWjt2dVaIXzwhPRN1kM6xyOUNYsElWVtmKlAIfSIufSXiX4vxuoIcIhfQ8Azt2pdnIJPOe5KDgIvyNS0I8RJ6IVRmVloSsQ3f1n2vWYBzHZLeN3Sebe1SLmGKWawmmbtWQk7e3Awl2xVr5WocX5daPrKHJvpQlN4bb8d0-MMEuZDe3UbXP9aiAkrdL7Viq7YLmf5XoGeMc3zvorQ_I-HuVOkfY5El_Zd"/>
+<div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
+<div class="absolute bottom-8 left-8">
+<h3 class="text-xl font-bold text-white mb-4">Sonic Pro X</h3>
+<button class="px-6 py-2 glass-card border border-white/30 text-white rounded-full text-sm font-bold">İncele</button>
+</div>
+</div>
+<div class="relative rounded-[2.5rem] overflow-hidden bg-primary-container group">
+<img class="w-full h-full object-cover" data-alt="high-tech smart home hub on a wooden shelf with warm lifestyle lighting and soft focus domestic background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJcjbyAK-2LdvLR-N5Z2Rw5D408ryADfEwjWPZLPcPpShwjezJ1UdsLfNlmTxspStvxAbmz1BR4-AVg35s-fHGuqj4xm_3jLtkuRTjGx1xbNPWTKvoVGBiWOQtQIqOMG1-VyFoKmAs8T0By5T1FTR9-GAltebszfT2gBorBSde4_g0XvhufQ051lWgn-yQpRg31Cki49GUUmKDSJqgBoofTbt21rdGrlCcSq2GwhXgkJGH91LWgMVSjGyvw416hkDEn7rX5tMNKiL3"/>
+<div class="absolute inset-0 bg-primary/20 group-hover:bg-primary/0 transition-colors"></div>
+<div class="absolute bottom-8 left-8">
+<h3 class="text-xl font-bold text-white mb-4">Next Home Hub</h3>
+<button class="px-6 py-2 glass-card border border-white/30 text-white rounded-full text-sm font-bold">İncele</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Gallery -->
+<section class="mt-32 px-8 py-24 bg-surface-container-low">
+<div class="max-w-[1440px] mx-auto">
+<div class="flex items-center justify-between mb-16">
+<h2 class="text-4xl font-black tracking-tighter">Popüler Ürünler</h2>
+<a class="text-primary font-bold flex items-center gap-2 group" href="#">
+                        Tümünü Gör <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Product Card 1 -->
+<div class="bg-surface-container-lowest rounded-[2rem] p-4 group transition-all duration-300 hover:shadow-[0px_32px_64px_rgba(27,27,29,0.04)]">
+<div class="aspect-square rounded-[1.5rem] overflow-hidden mb-6 bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="clean overhead shot of an elegant tablet with its stylus on a light surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnZ9QWUGIwsaIpVioSgCNpNr95RC27url-aNBCyFN-OCq_hIyPn408JexFd7oaAJqHJHfFArjm1cvtcXGW-CAQ000cDMQv8bl5ilT-1lJmA_O7b_zDT5ftItSB2BrBVQaauP6IwQOFbZw8D9cnfLByNrPgBMLZ-RPYhhQRF9Y_8tisraKA23J5kNrzyagdLIktksBgHLHho6PHJTep2qVKf4UzXnW53oxJi5MxIoTMc-WXzHFJjxZ_H6PbCrH8yYFJzMkF06elwoQU"/>
+</div>
+<div class="px-4 pb-4">
+<span class="text-on-surface-variant text-xs font-semibold uppercase tracking-widest">Next AI</span>
+<h4 class="text-xl font-bold text-on-surface mt-1">Next Tab Ultra</h4>
+<div class="h-4"></div>
+<button class="w-full py-4 rounded-xl border border-outline-variant/30 font-bold text-sm text-primary hover:bg-primary hover:text-on-primary transition-all">Fiyat için giriş yapın</button>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="bg-surface-container-lowest rounded-[2rem] p-4 group transition-all duration-300 hover:shadow-[0px_32px_64px_rgba(27,27,29,0.04)]">
+<div class="aspect-square rounded-[1.5rem] overflow-hidden mb-6 bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="sleek modern smartwatch with a vibrant circular display and ocean blue strap" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZAsXRva0Bdzfy8jLc_tbQ75vX-sKxBdEhDMtjRYs1lDSFtmSW8FD9fBedSnGrd6POe6w8nYvx6qpC7xTOwgNyt7LJt0qJPixjHPT_CXvJWuYkJHZJEWwRnTmzRXhQ7xBj6SuoUETNpOPDQBElR6WpjSKChycNZnxxtkcjl-3Q-o-Prw9QCW7ZWCIsmEOlaNEt3WhnqvvZ75tshiHytYAU3ynHCDEqabB7bIXChHce1blORPyc-lbx_ipNobqzWB8K8TQrvNsv3ux1"/>
+</div>
+<div class="px-4 pb-4">
+<span class="text-on-surface-variant text-xs font-semibold uppercase tracking-widest">Next AI</span>
+<h4 class="text-xl font-bold text-on-surface mt-1">Next Watch S4</h4>
+<div class="h-4"></div>
+<button class="w-full py-4 rounded-xl border border-outline-variant/30 font-bold text-sm text-primary hover:bg-primary hover:text-on-primary transition-all">Fiyat için giriş yapın</button>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="bg-surface-container-lowest rounded-[2rem] p-4 group transition-all duration-300 hover:shadow-[0px_32px_64px_rgba(27,27,29,0.04)]">
+<div class="aspect-square rounded-[1.5rem] overflow-hidden mb-6 bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="compact white smart speaker with a mesh texture and glowing top indicator" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBh7EsXxn8bQz_Uco5guANDCJseWAe9ycdAnHxBjMMCn6yoG3CtbYoQZW_YmpAY7s6lunNHBa-KBYouQCgORQqFMXuU9m9eBMe1eibmeW8jkaJjehTVAMyV4b4YrT4jW_ux_GNu7ALpg_3TaU48BlD8snbRK8CzkWCj3OPCcnyvQ2VTMK2rCuPeYvmJNxiYOPrTGA_wBRF2ZBa3hEg5B6-0dxnmAC1DSijArJtq2cIkIQZt8nBTovGenXfANSLfUoQ4PAuCqXGtlpHg"/>
+</div>
+<div class="px-4 pb-4">
+<span class="text-on-surface-variant text-xs font-semibold uppercase tracking-widest">Next AI</span>
+<h4 class="text-xl font-bold text-on-surface mt-1">Next Mini Speaker</h4>
+<div class="h-4"></div>
+<button class="w-full py-4 rounded-xl border border-outline-variant/30 font-bold text-sm text-primary hover:bg-primary hover:text-on-primary transition-all">Fiyat için giriş yapın</button>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="bg-surface-container-lowest rounded-[2rem] p-4 group transition-all duration-300 hover:shadow-[0px_32px_64px_rgba(27,27,29,0.04)]">
+<div class="aspect-square rounded-[1.5rem] overflow-hidden mb-6 bg-surface-container-high">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="minimalist laptop docking station with multiple ports and premium metal finish" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd-VobbcaarIUrg_bNWY2jSK_2v2Pol54F_-nH3U351AOdZEXpORJS6YOm57YSduznAK6XmbBvvQfSU6Bp44u6Oo144eJ0bHoeEF9dLEc0gKVoPjDK5CkFWBBPe4-Eh59n_JJbOOgPNMZJQFI2f_6Ixs8eVl9z_lRRocLO1j5DJaEIatpDxUgwiIucEJFmzpj93wx2LdDTo8SagZpeK7u1jgz090lS0LOk7wRYqcmGv-truBeIJfPliM1VGcEhUfwAB8YYNDQHkpa5"/>
+</div>
+<div class="px-4 pb-4">
+<span class="text-on-surface-variant text-xs font-semibold uppercase tracking-widest">Next AI</span>
+<h4 class="text-xl font-bold text-on-surface mt-1">Next Hub Pro</h4>
+<div class="h-4"></div>
+<button class="w-full py-4 rounded-xl border border-outline-variant/30 font-bold text-sm text-primary hover:bg-primary hover:text-on-primary transition-all">Fiyat için giriş yapın</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Trust Section -->
+<section class="mt-32 px-8 mb-32">
+<div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+<div class="flex flex-col items-center text-center p-12 bg-surface-container rounded-[3rem]">
+<div class="w-20 h-20 rounded-full bg-primary-container flex items-center justify-center mb-6 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-4xl text-on-primary" data-icon="local_shipping">local_shipping</span>
+</div>
+<h4 class="text-xl font-bold mb-4">Ücretsiz Kargo</h4>
+<p class="text-on-surface-variant">Tüm alışverişlerinizde kapınıza kadar ücretsiz teslimat.</p>
+</div>
+<div class="flex flex-col items-center text-center p-12 bg-surface-container rounded-[3rem]">
+<div class="w-20 h-20 rounded-full bg-primary-container flex items-center justify-center mb-6 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-4xl text-on-primary" data-icon="verified_user">verified_user</span>
+</div>
+<h4 class="text-xl font-bold mb-4">Güvenli Ödeme</h4>
+<p class="text-on-surface-variant">256-bit SSL korumasıyla alışverişiniz güvende.</p>
+</div>
+<div class="flex flex-col items-center text-center p-12 bg-surface-container rounded-[3rem]">
+<div class="w-20 h-20 rounded-full bg-primary-container flex items-center justify-center mb-6 shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-4xl text-on-primary" data-icon="support_agent">support_agent</span>
+</div>
+<h4 class="text-xl font-bold mb-4">7/24 Destek</h4>
+<p class="text-on-surface-variant">Uzman ekibimiz her sorunuz için bir tık uzağınızda.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- WhatsApp FAB -->
+<a class="fixed bottom-8 right-8 z-[110] w-16 h-16 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-2xl hover:scale-110 active:scale-95 transition-transform group" href="#">
+<span class="material-symbols-outlined text-4xl" data-icon="chat" style="font-variation-settings: 'FILL' 1;">chat</span>
+<div class="absolute right-full mr-4 bg-on-surface text-on-primary px-4 py-2 rounded-xl text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Destek Hattı</div>
+</a>
+<!-- Footer -->
+<footer class="w-full mt-32 bg-[#f0edef] dark:bg-[#121212]">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-24 max-w-[1440px] mx-auto">
+<div class="space-y-6">
+<div class="text-lg font-bold text-[#1b1b1d] dark:text-white">Next AI Teknoloji</div>
+<p class="font-['Inter'] text-sm leading-relaxed text-[#1b1b1d]/60 dark:text-white/60">
+                    Geleceğin teknolojisini bugünden sizinle buluşturan Türkiye'nin en inovatif AI teknoloji marketi.
+                </p>
+<div class="flex gap-4">
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:text-[#0050cb] transition-colors"><span class="material-symbols-outlined text-xl">brand_family</span></button>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:text-[#0050cb] transition-colors"><span class="material-symbols-outlined text-xl">share</span></button>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center hover:text-[#0050cb] transition-colors"><span class="material-symbols-outlined text-xl">public</span></button>
+</div>
+</div>
+<div class="space-y-6">
+<div class="font-bold text-[#1b1b1d] dark:text-white">Kurumsal</div>
+<ul class="space-y-4 font-['Inter'] text-sm">
+<li><a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb] underline-offset-4 hover:underline transition-all" href="#">Hakkımızda</a></li>
+<li><a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb] underline-offset-4 hover:underline transition-all" href="#">İletişim</a></li>
+<li><a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb] underline-offset-4 hover:underline transition-all" href="#">Mağazalarımız</a></li>
+<li><a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb] underline-offset-4 hover:underline transition-all" href="#">Kariyer</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<div class="font-bold text-[#1b1b1d] dark:text-white">Destek</div>
+<ul class="space-y-4 font-['Inter'] text-sm">
+<li><a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb] underline-offset-4 hover:underline transition-all" href="#">Taksit Seçenekleri</a></li>
+<li><a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb] underline-offset-4 hover:underline transition-all" href="#">İade ve Değişim</a></li>
+<li><a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb] underline-offset-4 hover:underline transition-all" href="#">Sıkça Sorulan Sorular</a></li>
+<li><a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb] underline-offset-4 hover:underline transition-all" href="#">Kargo Takip</a></li>
+</ul>
+</div>
+<div class="space-y-6">
+<div class="font-bold text-[#1b1b1d] dark:text-white">Bülten</div>
+<p class="font-['Inter'] text-sm leading-relaxed text-[#1b1b1d]/60 dark:text-white/60">Yeni ürünlerden ve kampanyalardan haberdar olun.</p>
+<div class="flex gap-2">
+<input class="bg-surface-container-high border-none rounded-xl text-sm px-4 py-2 w-full focus:ring-1 focus:ring-primary/30" placeholder="E-posta adresiniz" type="email"/>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-xl active:scale-95 transition-transform"><span class="material-symbols-outlined">send</span></button>
+</div>
+</div>
+</div>
+<div class="max-w-[1440px] mx-auto border-t border-outline-variant/10 px-12 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="font-['Inter'] text-sm text-[#1b1b1d]/60 dark:text-white/60">
+                © 2024 Next AI Teknoloji. Tüm hakları saklıdır.
+            </div>
+<div class="flex gap-8 font-['Inter'] text-sm">
+<a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb]" href="#">Gizlilik Politikası</a>
+<a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb]" href="#">Kullanım Koşulları</a>
+<a class="text-[#1b1b1d]/60 dark:text-white/60 hover:text-[#0050cb]" href="#">KVKK</a>
+</div>
+</div>
+</footer>
+</body></html>
