@@ -140,13 +140,13 @@ export default function LoginPage() {
       ====================================================== */}
       <div className="relative flex w-full flex-col bg-white md:w-1/2">
         {/* Üst çizgi aksanı */}
-        <div className="h-1 w-full bg-gradient-to-r from-[#00179e] to-[#00179e]" />
+        <div className="h-1 w-full bg-gradient-to-r from-[#2189ff] to-[#2189ff]" />
 
         {/* Header */}
         <header className="flex items-center justify-between px-8 py-5">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#00179e]">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#2189ff]">
               <span className="text-base font-bold text-white">N</span>
             </div>
             <div className="flex flex-col leading-tight">
@@ -158,13 +158,13 @@ export default function LoginPage() {
           <nav className="hidden items-center gap-5 sm:flex">
             <Link
               href="/basvuru"
-              className="text-xs font-medium text-[#6b7280] transition-colors hover:text-[#00179e]"
+              className="text-xs font-medium text-[#6b7280] transition-colors hover:text-[#2189ff]"
             >
               Bayilik Başvurusu
             </Link>
             <Link
               href="tel:+908501234567"
-              className="text-xs font-medium text-[#6b7280] transition-colors hover:text-[#00179e]"
+              className="text-xs font-medium text-[#6b7280] transition-colors hover:text-[#2189ff]"
             >
               İletişim
             </Link>
@@ -218,7 +218,7 @@ export default function LoginPage() {
                     className={cn(
                       "h-12 w-full border border-[#ccd1db] bg-white px-4 text-sm text-[#0e121a]",
                       "placeholder:text-[#9ca3af] outline-none",
-                      "transition-colors focus:border-[#00179e] focus:ring-2 focus:ring-[#00179e]/20",
+                      "transition-colors focus:border-[#2189ff] focus:ring-2 focus:ring-[#2189ff]/20",
                       "disabled:cursor-not-allowed disabled:bg-[#f9fafb] disabled:text-[#9ca3af]"
                     )}
                   />
@@ -245,7 +245,7 @@ export default function LoginPage() {
                       className={cn(
                         "h-12 w-full border border-[#ccd1db] bg-white px-4 pr-12 text-sm text-[#0e121a]",
                         "placeholder:text-[#9ca3af] outline-none",
-                        "transition-colors focus:border-[#00179e] focus:ring-2 focus:ring-[#00179e]/20",
+                        "transition-colors focus:border-[#2189ff] focus:ring-2 focus:ring-[#2189ff]/20",
                         "disabled:cursor-not-allowed disabled:bg-[#f9fafb] disabled:text-[#9ca3af]"
                       )}
                     />
@@ -272,13 +272,13 @@ export default function LoginPage() {
                       type="checkbox"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      className="h-4 w-4 rounded border-[#ccd1db] accent-[#00179e]"
+                      className="h-4 w-4 rounded border-[#ccd1db] accent-[#2189ff]"
                     />
                     <span className="text-xs text-[#374151]">Beni Hatırla</span>
                   </label>
                   <Link
                     href="/sifremi-unuttum"
-                    className="text-xs text-[#00179e] transition-colors hover:text-[#001060]"
+                    className="text-xs text-[#2189ff] transition-colors hover:text-[#1a6fd4]"
                   >
                     Şifremi Unuttum?
                   </Link>
@@ -291,7 +291,7 @@ export default function LoginPage() {
                     disabled={isLoading}
                     className={cn(
                       "flex h-12 w-full items-center justify-center gap-2",
-                      "bg-[#00179e] text-sm font-semibold uppercase tracking-wide text-white",
+                      "bg-[#2189ff] text-sm font-semibold uppercase tracking-wide text-white",
                       "transition-colors hover:bg-[#162d4a]",
                       "disabled:cursor-not-allowed disabled:opacity-60"
                     )}
@@ -313,7 +313,7 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => switchMode("admin")}
-                    className="text-[#00179e] transition-colors hover:text-[#001060]"
+                    className="text-[#2189ff] transition-colors hover:text-[#1a6fd4]"
                   >
                     Admin Girişi →
                   </button>
@@ -349,7 +349,7 @@ export default function LoginPage() {
                     className={cn(
                       "h-12 w-full border border-[#ccd1db] bg-white px-4 text-sm text-[#0e121a] normal-case",
                       "placeholder:text-[#9ca3af] outline-none",
-                      "transition-colors focus:border-[#00179e] focus:ring-2 focus:ring-[#00179e]/20",
+                      "transition-colors focus:border-[#2189ff] focus:ring-2 focus:ring-[#2189ff]/20",
                       "disabled:cursor-not-allowed disabled:bg-[#f9fafb] disabled:text-[#9ca3af]"
                     )}
                   />
@@ -376,7 +376,7 @@ export default function LoginPage() {
                       className={cn(
                         "h-12 w-full border border-[#ccd1db] bg-white px-4 pr-12 text-sm text-[#0e121a]",
                         "placeholder:text-[#9ca3af] outline-none",
-                        "transition-colors focus:border-[#00179e] focus:ring-2 focus:ring-[#00179e]/20",
+                        "transition-colors focus:border-[#2189ff] focus:ring-2 focus:ring-[#2189ff]/20",
                         "disabled:cursor-not-allowed disabled:bg-[#f9fafb] disabled:text-[#9ca3af]"
                       )}
                     />
@@ -402,7 +402,7 @@ export default function LoginPage() {
                   disabled={isLoading}
                   className={cn(
                     "flex h-12 w-full items-center justify-center gap-2",
-                    "bg-[#00179e] text-sm font-semibold uppercase tracking-wide text-white",
+                    "bg-[#2189ff] text-sm font-semibold uppercase tracking-wide text-white",
                     "transition-colors hover:bg-[#162d4a]",
                     "disabled:cursor-not-allowed disabled:opacity-60"
                   )}
@@ -423,7 +423,7 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => switchMode("dealer")}
-                    className="text-[#00179e] transition-colors hover:text-[#001060]"
+                    className="text-[#2189ff] transition-colors hover:text-[#1a6fd4]"
                   >
                     buraya tıklayın →
                   </button>
@@ -442,7 +442,7 @@ export default function LoginPage() {
                 className={cn(
                   "inline-flex h-10 w-full items-center justify-center gap-1.5",
                   "border border-[#ccd1db] text-sm font-medium text-[#374151]",
-                  "transition-colors hover:border-[#00179e] hover:text-[#00179e]"
+                  "transition-colors hover:border-[#2189ff] hover:text-[#2189ff]"
                 )}
               >
                 Ürün Kataloğunu İncele →
@@ -463,7 +463,7 @@ export default function LoginPage() {
       <aside
         className="relative hidden flex-col md:flex md:w-1/2"
         style={{
-          background: "linear-gradient(-45deg, #000d5e 0%, #00179e 50%, #0a2dc7 100%)",
+          background: "linear-gradient(-45deg, #000d5e 0%, #2189ff 50%, #2189ff 100%)",
         }}
         aria-hidden="true"
       >
@@ -511,7 +511,7 @@ export default function LoginPage() {
             className={cn(
               "inline-flex w-fit items-center justify-center px-8 py-3.5",
               "border-2 border-white text-sm font-semibold uppercase tracking-wide text-white",
-              "transition-all hover:bg-white hover:text-[#001060]"
+              "transition-all hover:bg-white hover:text-[#1a6fd4]"
             )}
           >
             Hemen Başvuru Yap

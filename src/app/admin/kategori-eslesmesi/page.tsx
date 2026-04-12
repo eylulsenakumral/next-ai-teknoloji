@@ -92,7 +92,6 @@ interface CategoryComboboxProps {
 }
 
 function CategoryCombobox({ categories, value, onChange, disabled }: CategoryComboboxProps) {
-  console.log("[DEBUG-COMBOBOX] Categories prop:", categories.length, "items")
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState("")
   const [position, setPosition] = useState<{ top: number; left: number; width: number } | null>(null)
@@ -148,7 +147,6 @@ function CategoryCombobox({ categories, value, onChange, disabled }: CategoryCom
 
   useEffect(() => {
     if (open) {
-      console.log("[DEBUG-COMBOBOX] Dropdown açıldı, filtered:", filtered.length, "items")
     }
   }, [open, filtered])
 
@@ -331,20 +329,15 @@ export default function KategoriEslesmesiPage() {
   }, [filterSupplier])
 
   useEffect(() => {
-    console.log("[DEBUG] Kategorileri fetch etmeye başlıyor...")
     fetch("/api/categories?flat=true", { credentials: 'include' })
       .then(async (r) => {
-        console.log("[DEBUG] API Response status:", r.status)
         if (!r.ok) {
           const json = await r.json()
-          console.log("[DEBUG] Error response:", json)
           throw new Error(json.error || "Kategoriler yüklenemedi")
         }
         return r.json()
       })
       .then((json) => {
-        console.log("[DEBUG] Kategoriler geldi, sayı:", json.data?.length ?? 0)
-        console.log("[DEBUG] İlk 3 kategori:", json.data?.slice(0, 3))
         setCategories(json.data ?? [])
       })
       .catch((err) => {

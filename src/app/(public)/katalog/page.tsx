@@ -122,7 +122,7 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
   }
 
   return (
-    <div className="bg-gradient-to-r from-[#00179e] to-[#0025d4] text-white">
+    <div className="bg-gradient-to-r from-[#2189ff] to-[#4da6ff] text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
         <div className="max-w-2xl">
           <p className="text-[12px] font-bold uppercase tracking-widest text-white/60 mb-2">
@@ -153,7 +153,7 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
               />
               <button
                 type="submit"
-                className="h-12 px-5 bg-[#00179e] hover:bg-[#001489] text-white font-bold text-[13px] uppercase tracking-wider transition-colors whitespace-nowrap border-l border-white/10"
+                className="h-12 px-5 bg-[#2189ff] hover:bg-[#001489] text-white font-bold text-[13px] uppercase tracking-wider transition-colors whitespace-nowrap border-l border-white/10"
               >
                 <Search className="h-4 w-4 sm:hidden" aria-hidden />
                 <span className="hidden sm:block">Ara</span>
@@ -203,8 +203,8 @@ function CategoryGrid({
             className={cn(
               "flex flex-col items-center gap-2 p-3 border transition-all text-center rounded-lg",
               !activeSlug
-                ? "border-[#00179e] bg-[#00179e]/5 text-[#00179e]"
-                : "border-[#eeeeee] hover:border-[#00179e]/40 hover:bg-[#f9f9f9] text-[#555555]"
+                ? "border-[#2189ff] bg-[#2189ff]/5 text-[#2189ff]"
+                : "border-[#eeeeee] hover:border-[#2189ff]/40 hover:bg-[#f9f9f9] text-[#555555]"
             )}
             aria-pressed={!activeSlug}
           >
@@ -220,8 +220,8 @@ function CategoryGrid({
                 className={cn(
                   "flex flex-col items-center gap-2 p-3 border transition-all text-center rounded-lg",
                   activeSlug === cat.slug
-                    ? "border-[#00179e] bg-[#00179e]/5 text-[#00179e]"
-                    : "border-[#eeeeee] hover:border-[#00179e]/40 hover:bg-[#f9f9f9] text-[#555555]"
+                    ? "border-[#2189ff] bg-[#2189ff]/5 text-[#2189ff]"
+                    : "border-[#eeeeee] hover:border-[#2189ff]/40 hover:bg-[#f9f9f9] text-[#555555]"
                 )}
                 aria-pressed={activeSlug === cat.slug}
               >
@@ -241,8 +241,8 @@ function CategoryGrid({
                       className={cn(
                         "text-left text-[10px] px-2 py-1 rounded transition-colors truncate",
                         activeSlug === child.slug
-                          ? "bg-[#00179e]/10 text-[#00179e] font-semibold"
-                          : "text-[#767676] hover:text-[#00179e] hover:bg-[#f5f5f5]"
+                          ? "bg-[#2189ff]/10 text-[#2189ff] font-semibold"
+                          : "text-[#767676] hover:text-[#2189ff] hover:bg-[#f5f5f5]"
                       )}
                       aria-pressed={activeSlug === child.slug}
                     >
@@ -253,7 +253,7 @@ function CategoryGrid({
                     <button
                       type="button"
                       onClick={() => onSelect(cat.slug)}
-                      className="text-left text-[9px] text-[#00179e] hover:underline pl-2"
+                      className="text-left text-[9px] text-[#2189ff] hover:underline pl-2"
                     >
                       +{cat.children.length - 2} daha
                     </button>
@@ -287,7 +287,7 @@ function EmptyState({ onClear }: { onClear: () => void }) {
       <button
         type="button"
         onClick={onClear}
-        className="inline-flex items-center gap-1.5 h-9 px-5 border border-[#eeeeee] text-[13px] text-[#333333] hover:border-[#00179e] hover:text-[#00179e] transition-colors"
+        className="inline-flex items-center gap-1.5 h-9 px-5 border border-[#eeeeee] text-[13px] text-[#333333] hover:border-[#2189ff] hover:text-[#2189ff] transition-colors"
       >
         Filtreleri Temizle
       </button>
@@ -347,7 +347,7 @@ function MobileFilterSheet({
           <button
             type="button"
             onClick={onClose}
-            className="w-full h-11 bg-[#00179e] text-white font-bold text-[13px] uppercase tracking-wider hover:bg-[#001489] transition-colors"
+            className="w-full h-11 bg-[#2189ff] text-white font-bold text-[13px] uppercase tracking-wider hover:bg-[#001489] transition-colors"
           >
             Filtreleri Uygula
           </button>
@@ -591,7 +591,7 @@ function ActiveFilterTags({
       {activeTags.map((tag) => (
         <span
           key={tag.key}
-          className="inline-flex items-center gap-1 h-6 px-2.5 bg-[#00179e]/10 text-[#00179e] text-[11px] font-semibold rounded-full"
+          className="inline-flex items-center gap-1 h-6 px-2.5 bg-[#2189ff]/10 text-[#2189ff] text-[11px] font-semibold rounded-full"
         >
           {tag.label}
           <button
@@ -810,13 +810,13 @@ export default function KatalogPage() {
                 <button
                   type="button"
                   onClick={() => setFilterSheetOpen(true)}
-                  className="lg:hidden inline-flex items-center gap-2 h-8 px-3 border border-[#eeeeee] text-[12px] font-semibold text-[#333333] hover:border-[#00179e] hover:text-[#00179e] transition-colors rounded"
+                  className="lg:hidden inline-flex items-center gap-2 h-8 px-3 border border-[#eeeeee] text-[12px] font-semibold text-[#333333] hover:border-[#2189ff] hover:text-[#2189ff] transition-colors rounded"
                   aria-label="Filtreleri aç"
                 >
                   <SlidersHorizontal className="h-3.5 w-3.5" aria-hidden />
                   Filtreler
                   {activeFilterCount > 0 && (
-                    <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#00179e] text-white text-[10px] font-bold">
+                    <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#2189ff] text-white text-[10px] font-bold">
                       {activeFilterCount}
                     </span>
                   )}
@@ -873,7 +873,7 @@ export default function KatalogPage() {
                       className={cn(
                         "p-2 transition-colors",
                         viewMode === "grid"
-                          ? "bg-[#00179e] text-white"
+                          ? "bg-[#2189ff] text-white"
                           : "text-[#767676] hover:bg-[#f5f5f5] hover:text-[#333333]"
                       )}
                       aria-label="Grid görünüm"
@@ -887,7 +887,7 @@ export default function KatalogPage() {
                       className={cn(
                         "p-2 transition-colors border-l border-[#eeeeee]",
                         viewMode === "list"
-                          ? "bg-[#00179e] text-white"
+                          ? "bg-[#2189ff] text-white"
                           : "text-[#767676] hover:bg-[#f5f5f5] hover:text-[#333333]"
                       )}
                       aria-label="Liste görünüm"
@@ -902,8 +902,8 @@ export default function KatalogPage() {
 
             {/* Progress bar */}
             {isPending && (
-              <div className="h-0.5 bg-[#00179e]/20 relative overflow-hidden">
-                <div className="absolute inset-y-0 left-0 bg-[#00179e] animate-[progress_1s_ease-in-out_infinite]" style={{ width: "40%" }} />
+              <div className="h-0.5 bg-[#2189ff]/20 relative overflow-hidden">
+                <div className="absolute inset-y-0 left-0 bg-[#2189ff] animate-[progress_1s_ease-in-out_infinite]" style={{ width: "40%" }} />
               </div>
             )}
 
@@ -951,7 +951,7 @@ export default function KatalogPage() {
                   onClick={() => updateURL({ page: filters.page - 1 })}
                   disabled={filters.page <= 1}
                   aria-label="Önceki sayfa"
-                  className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] text-[#767676] hover:border-[#00179e] hover:text-[#00179e] disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white rounded"
+                  className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] text-[#767676] hover:border-[#2189ff] hover:text-[#2189ff] disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white rounded"
                 >
                   <ChevronLeft className="h-4 w-4" aria-hidden />
                 </button>
@@ -978,8 +978,8 @@ export default function KatalogPage() {
                       className={cn(
                         "inline-flex items-center justify-center h-9 w-9 text-[13px] font-semibold transition-colors rounded",
                         filters.page === pageNum
-                          ? "bg-[#00179e] text-white border border-[#00179e]"
-                          : "bg-white border border-[#eeeeee] text-[#333333] hover:border-[#00179e] hover:text-[#00179e]"
+                          ? "bg-[#2189ff] text-white border border-[#2189ff]"
+                          : "bg-white border border-[#eeeeee] text-[#333333] hover:border-[#2189ff] hover:text-[#2189ff]"
                       )}
                     >
                       {pageNum}
@@ -992,7 +992,7 @@ export default function KatalogPage() {
                   onClick={() => updateURL({ page: filters.page + 1 })}
                   disabled={filters.page >= totalPages}
                   aria-label="Sonraki sayfa"
-                  className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] text-[#767676] hover:border-[#00179e] hover:text-[#00179e] disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white rounded"
+                  className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] text-[#767676] hover:border-[#2189ff] hover:text-[#2189ff] disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white rounded"
                 >
                   <ChevronRight className="h-4 w-4" aria-hidden />
                 </button>

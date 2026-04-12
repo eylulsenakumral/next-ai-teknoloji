@@ -281,7 +281,7 @@ function Pagination({
             className={cn(
               "inline-flex items-center justify-center h-8 min-w-[2rem] rounded-lg text-sm font-medium transition-colors",
               p === page
-                ? "bg-[#00179e] text-white border border-[#00179e]"
+                ? "bg-[#2189ff] text-white border border-[#2189ff]"
                 : "border border-gray-200 bg-white text-[#333333] hover:bg-gray-50"
             )}
           >
@@ -408,8 +408,8 @@ export default function CariPage() {
           label="Kredi Limiti"
           value={formatUSD(creditLimit)}
           icon={CreditCard}
-          accentClass="bg-[#00179e]/10 text-[#00179e]"
-          valueClass="text-[#00179e]"
+          accentClass="bg-[#2189ff]/10 text-[#2189ff]"
+          valueClass="text-[#2189ff]"
         />
         <BalanceCard
           label="Kullanılabilir Limit"
@@ -446,7 +446,7 @@ export default function CariPage() {
                   setTypeFilter(e.target.value)
                   setPage(1)
                 }}
-                className="w-full h-8 rounded-lg border border-gray-200 bg-white px-3 text-sm text-[#333333] outline-none focus:border-[#00179e] focus:ring-2 focus:ring-[#00179e]/20 transition-colors appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23767676%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:16px] bg-[right_8px_center] bg-no-repeat pr-8"
+                className="w-full h-8 rounded-lg border border-gray-200 bg-white px-3 text-sm text-[#333333] outline-none focus:border-[#2189ff] focus:ring-2 focus:ring-[#2189ff]/20 transition-colors appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23767676%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:16px] bg-[right_8px_center] bg-no-repeat pr-8"
               >
                 {TRANSACTION_TYPE_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -470,7 +470,7 @@ export default function CariPage() {
                     setDateFrom(e.target.value)
                     setPage(1)
                   }}
-                  className="h-8 rounded-lg border border-gray-200 bg-white px-3 text-sm text-[#333333] outline-none focus:border-[#00179e] focus:ring-2 focus:ring-[#00179e]/20 transition-colors w-[140px]"
+                  className="h-8 rounded-lg border border-gray-200 bg-white px-3 text-sm text-[#333333] outline-none focus:border-[#2189ff] focus:ring-2 focus:ring-[#2189ff]/20 transition-colors w-[140px]"
                 />
               </div>
               <span className="text-[#767676] text-sm select-none">&ndash;</span>
@@ -486,7 +486,7 @@ export default function CariPage() {
                     setDateTo(e.target.value)
                     setPage(1)
                   }}
-                  className="h-8 rounded-lg border border-gray-200 bg-white px-3 text-sm text-[#333333] outline-none focus:border-[#00179e] focus:ring-2 focus:ring-[#00179e]/20 transition-colors w-[140px]"
+                  className="h-8 rounded-lg border border-gray-200 bg-white px-3 text-sm text-[#333333] outline-none focus:border-[#2189ff] focus:ring-2 focus:ring-[#2189ff]/20 transition-colors w-[140px]"
                 />
               </div>
             </div>

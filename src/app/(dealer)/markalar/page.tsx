@@ -23,7 +23,7 @@ export default async function BrandsPage() {
           <h1 className="text-[22px] font-bold text-[#333333] uppercase tracking-wider">
             Markalar
           </h1>
-          <div className="w-12 h-0.5 bg-[#00179e] mx-auto mt-3" />
+          <div className="w-12 h-0.5 bg-[#2189ff] mx-auto mt-3" />
           <p className="text-[13px] text-[#767676] mt-3">
             Tüm markalarımızı inceleyin, markanın ürünlerini görüntüleyin
           </p>
@@ -42,18 +42,18 @@ export default async function BrandsPage() {
               <Link
                 key={brand.id}
                 href={`/urunler?marka=${encodeURIComponent(brand.slug)}`}
-                className="group flex flex-col items-center gap-3 bg-white border border-[#eeeeee] p-6 hover:border-[#00179e] hover:shadow-md transition-all duration-200"
+                className="group flex flex-col items-center gap-3 bg-white border border-[#eeeeee] p-6 hover:border-[#2189ff] hover:shadow-md transition-all duration-200"
               >
                 {/* Marka baş harfi */}
-                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-[#f0f4ff] group-hover:bg-[#00179e] transition-colors duration-200">
-                  <span className="text-[22px] font-bold text-[#00179e] group-hover:text-white transition-colors duration-200">
+                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-[#f0f4ff] group-hover:bg-[#2189ff] transition-colors duration-200">
+                  <span className="text-[22px] font-bold text-[#2189ff] group-hover:text-white transition-colors duration-200">
                     {brand.name.charAt(0).toUpperCase()}
                   </span>
                 </div>
 
                 {/* Marka adı */}
                 <div className="text-center">
-                  <p className="text-[14px] font-semibold text-[#333333] group-hover:text-[#00179e] transition-colors">
+                  <p className="text-[14px] font-semibold text-[#333333] group-hover:text-[#2189ff] transition-colors">
                     {brand.name}
                   </p>
                   <p className="text-[12px] text-[#767676] mt-1">

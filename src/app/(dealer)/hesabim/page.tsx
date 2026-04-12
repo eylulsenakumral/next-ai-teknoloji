@@ -120,8 +120,8 @@ function InfoRow({
 }) {
   return (
     <div className="flex items-start gap-3 py-2.5">
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#00179e]/5">
-        <Icon className="h-4 w-4 text-[#00179e]" />
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#2189ff]/5">
+        <Icon className="h-4 w-4 text-[#2189ff]" />
       </div>
       <div className="min-w-0">
         <p className="text-xs text-[#767676]">{label}</p>
@@ -420,7 +420,7 @@ export default function HesabimPage() {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* ==================== HERO BANNER ==================== */}
       {profile && (
-        <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#00179e] to-[#001060] p-6 sm:p-8 text-white shadow-lg">
+        <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#2189ff] to-[#1a6fd4] p-6 sm:p-8 text-white shadow-lg">
           {/* Decorative circles */}
           <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/5" />
           <div className="pointer-events-none absolute -left-8 -bottom-8 h-40 w-40 rounded-full bg-white/5" />
@@ -486,17 +486,17 @@ export default function HesabimPage() {
 
       {/* ==================== TABS ==================== */}
       <Tabs defaultValue="profil" className="space-y-6">
-        <TabsList className="!h-12 !rounded-xl !bg-[#00179e] !p-1">
+        <TabsList className="!h-12 !rounded-xl !bg-[#2189ff] !p-1">
           <TabsTrigger
             value="profil"
-            className="!gap-2 !rounded-lg !px-5 !text-[13px] !font-semibold !bg-transparent !text-white data-active:!bg-white data-active:!text-[#00179e] data-active:!shadow-md"
+            className="!gap-2 !rounded-lg !px-5 !text-[13px] !font-semibold !bg-transparent !text-white data-active:!bg-white data-active:!text-[#2189ff] data-active:!shadow-md"
           >
             <User className="h-4 w-4" />
             Profil
           </TabsTrigger>
           <TabsTrigger
             value="sifre"
-            className="!gap-2 !rounded-lg !px-5 !text-[13px] !font-semibold !bg-transparent !text-white data-active:!bg-white data-active:!text-[#00179e] data-active:!shadow-md"
+            className="!gap-2 !rounded-lg !px-5 !text-[13px] !font-semibold !bg-transparent !text-white data-active:!bg-white data-active:!text-[#2189ff] data-active:!shadow-md"
           >
             <KeyRound className="h-4 w-4" />
             Şifre Değiştir
@@ -510,7 +510,7 @@ export default function HesabimPage() {
             <section className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
               <div className="border-b border-black/5 px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-[#00179e]" />
+                  <Building2 className="h-5 w-5 text-[#2189ff]" />
                   <h2 className="text-base font-semibold text-[#333333]">Firma Bilgileri</h2>
                 </div>
                 <div className="mt-1 flex items-center gap-1.5 text-xs text-[#767676]">
@@ -561,7 +561,7 @@ export default function HesabimPage() {
           <section className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
             <div className="border-b border-black/5 px-6 py-4">
               <div className="flex items-center gap-2">
-                <Phone className="h-5 w-5 text-[#00179e]" />
+                <Phone className="h-5 w-5 text-[#2189ff]" />
                 <h2 className="text-base font-semibold text-[#333333]">İletişim Bilgileri</h2>
               </div>
               <p className="mt-1 text-xs text-[#767676]">
@@ -705,7 +705,7 @@ export default function HesabimPage() {
                 <Button
                   onClick={handleSaveProfile}
                   disabled={saving}
-                  className="gap-2 rounded-xl bg-[#00179e] text-white px-6 hover:bg-[#001060]"
+                  className="gap-2 rounded-xl bg-[#2189ff] text-white px-6 hover:bg-[#1a6fd4]"
                 >
                   {saving ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -724,7 +724,7 @@ export default function HesabimPage() {
           <section className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
             <div className="border-b border-black/5 px-6 py-4">
               <div className="flex items-center gap-2">
-                <Lock className="h-5 w-5 text-[#00179e]" />
+                <Lock className="h-5 w-5 text-[#2189ff]" />
                 <h2 className="text-base font-semibold text-[#333333]">Şifre Değiştir</h2>
               </div>
               <p className="mt-1 text-xs text-[#767676]">
@@ -849,7 +849,7 @@ export default function HesabimPage() {
                   <Button
                     onClick={handleChangePassword}
                     disabled={passwordSaving}
-                    className="gap-2 rounded-xl bg-[#00179e] text-white px-6 hover:bg-[#001060]"
+                    className="gap-2 rounded-xl bg-[#2189ff] text-white px-6 hover:bg-[#1a6fd4]"
                   >
                     {passwordSaving ? (
                       <Loader2 className="h-4 w-4 animate-spin" />

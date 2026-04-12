@@ -70,7 +70,7 @@ export default async function DealerKampanyaSetleriPage({
   return (
     <div className="bg-white min-h-screen">
       {/* Hero */}
-      <div className="bg-gradient-to-r from-[#00179e] via-[#1a3ab5] to-[#00179e] text-white">
+      <div className="bg-gradient-to-r from-[#2189ff] via-[#2189ff] to-[#2189ff] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
             <Layers className="h-6 w-6 text-orange-400" />
@@ -99,7 +99,7 @@ export default async function DealerKampanyaSetleriPage({
                 href={f.value ? `/kampanya-setleri?type=${f.value}` : "/kampanya-setleri"}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   active
-                    ? "bg-[#00179e] text-white"
+                    ? "bg-[#2189ff] text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -167,7 +167,7 @@ export default async function DealerKampanyaSetleriPage({
                     {/* Pricing row */}
                     <div className="flex items-center gap-3 pt-1">
                       {s.price && (
-                        <span className="font-bold text-[#00179e] text-[15px]">
+                        <span className="font-bold text-[#2189ff] text-[15px]">
                           {formatCurrency(parseFloat(String(s.price)), "TRY")}
                         </span>
                       )}

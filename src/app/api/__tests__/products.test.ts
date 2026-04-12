@@ -46,7 +46,7 @@ import { prisma } from "@/lib/db"
 // ---------------------------------------------------------------------------
 
 function makeRequest(url: string, options?: RequestInit): NextRequest {
-  return new NextRequest(url, options)
+  return new NextRequest(url, options as never)
 }
 
 const ADMIN_SESSION = {

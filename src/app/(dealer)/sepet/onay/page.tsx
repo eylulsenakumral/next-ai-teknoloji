@@ -146,7 +146,7 @@ function SuccessView({ orderNumber }: { orderNumber: string }) {
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
           <Button
             size="lg"
-            className="rounded-xl bg-[#2189ff] text-white hover:bg-[#00179e] transition-colors h-12"
+            className="rounded-xl bg-[#2189ff] text-white hover:bg-[#2189ff] transition-colors h-12"
             render={<Link href="/siparisler" />}
           >
             Siparişlerime Git
@@ -569,7 +569,7 @@ export default function CheckoutPage() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full rounded-xl bg-[#2189ff] text-white hover:bg-[#00179e] transition-colors h-12 text-sm font-semibold"
+                  className="w-full rounded-xl bg-[#2189ff] text-white hover:bg-[#2189ff] transition-colors h-12 text-sm font-semibold"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (

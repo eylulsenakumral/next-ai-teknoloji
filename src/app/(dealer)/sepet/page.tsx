@@ -85,7 +85,7 @@ function OrderSummary() {
         </div>
 
         <Button
-          className="w-full rounded-xl bg-[#2189ff] text-white hover:bg-[#00179e] transition-colors h-12 text-sm font-semibold"
+          className="w-full rounded-xl bg-[#2189ff] text-white hover:bg-[#2189ff] transition-colors h-12 text-sm font-semibold"
           size="lg"
           render={<Link href="/sepet/onay" />}
         >
@@ -117,7 +117,7 @@ export default function CartPage() {
           </div>
           <Button
             size="lg"
-            className="rounded-xl bg-[#2189ff] text-white hover:bg-[#00179e] transition-colors h-12"
+            className="rounded-xl bg-[#2189ff] text-white hover:bg-[#2189ff] transition-colors h-12"
             render={<Link href="/urunler" />}
           >
             Ürünlere Göz At
