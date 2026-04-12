@@ -50,6 +50,7 @@ model Category {
   products             Product[]
   supplierCategoryMaps SupplierCategoryMap[]
 
+  @@unique([parentId, name])
   @@index([parentId])
   @@index([isActive, sortOrder])
   @@index([path])
@@ -92,6 +93,7 @@ model Product {
   orderItems          OrderItem[]
   priceListItems      PriceListItem[]
   productTags         ProductTag[]
+  campaignSetProducts CampaignSetProduct[]
   brand               Brand?            @relation(fields: [brandId], references: [id])
   category            Category?         @relation(fields: [categoryId], references: [id])
   supplierProducts    SupplierProduct[]
@@ -627,6 +629,59 @@ model District {
   @@unique([cityId, name])
   @@index([cityId])
   @@map("districts")
+}
+
+model CampaignSet {
+  id                String               @id @default(uuid()) @db.Uuid
+  name              String               @db.VarChar(255)
+  slug              String               @unique @db.VarChar(255)
+  description       String?
+  imageUrl          String?              @map("image_url")
+  type              CampaignSetType      @default(BUNDLE)
+  discountPct       Decimal?             @map("discount_pct") @db.Decimal(5, 2)
+  price             Decimal?             @db.Decimal(12, 2)
+  validFrom         DateTime?            @map("valid_from") @db.Timestamptz(6)
+  validUntil        DateTime?            @map("valid_until") @db.Timestamptz(6)
+  minPurchaseAmount Decimal?             @map("min_purchase_amount") @db.Decimal(12, 2)
+  maxUsageCount     Int?                 @map("max_usage_count")
+  isActive          Boolean              @default(true) @map("is_active")
+  sortOrder         Int                  @default(0) @map("sort_order")
+  metadata          Json?
+  createdAt         DateTime             @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt         DateTime             @updatedAt @map("updated_at") @db.Timestamptz(6)
+  createdBy         String?              @map("created_by") @db.Uuid
+  updatedBy         String?              @map("updated_by") @db.Uuid
+  deletedAt         DateTime?            @map("deleted_at") @db.Timestamptz(6)
+  products          CampaignSetProduct[]
+
+  @@index([type, isActive])
+  @@index([isActive, sortOrder])
+  @@index([validFrom, validUntil])
+  @@index([deletedAt])
+  @@map("campaign_sets")
+}
+
+model CampaignSetProduct {
+  id            String      @id @default(uuid()) @db.Uuid
+  campaignSetId String      @map("campaign_set_id") @db.Uuid
+  productId     String      @map("product_id") @db.Uuid
+  quantity      Int         @default(1)
+  sortOrder     Int         @default(0) @map("sort_order")
+  label         String?     @db.VarChar(255)
+  createdAt     DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime    @updatedAt @map("updated_at") @db.Timestamptz(6)
+  campaignSet   CampaignSet @relation(fields: [campaignSetId], references: [id], onDelete: Cascade)
+  product       Product     @relation(fields: [productId], references: [id])
+
+  @@unique([campaignSetId, productId])
+  @@index([productId])
+  @@map("campaign_set_products")
+}
+
+enum CampaignSetType {
+  OUTLET
+  FEATURED
+  BUNDLE
 }
 
 enum SupplierSyncStatus {

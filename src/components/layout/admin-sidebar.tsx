@@ -23,6 +23,8 @@ import {
   ShieldCheck,
   Cpu,
   Megaphone,
+  ArrowLeftRight,
+  Layers,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -34,7 +36,9 @@ const menuItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/urunler", label: "Ürünler", icon: Package },
   { href: "/admin/kampanyalar", label: "Kampanyalar", icon: Megaphone },
+  { href: "/admin/kampanya-setleri", label: "Kampanya Setleri", icon: Layers },
   { href: "/admin/kategoriler", label: "Kategoriler", icon: Tag },
+  { href: "/admin/kategori-eslesmesi", label: "Kategori Eşleşmesi", icon: ArrowLeftRight },
   { href: "/admin/markalar", label: "Markalar", icon: Bookmark },
   { href: "/admin/tedarikciler", label: "Tedarikçiler", icon: Truck },
   { href: "/admin/musteriler", label: "Müşteriler", icon: Users },
@@ -68,8 +72,8 @@ function SidebarItem({ href, label, icon: Icon, collapsed, active }: SidebarItem
         "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
         collapsed ? "justify-center px-2" : "",
         active
-          ? "bg-sidebar-primary text-sidebar-primary-foreground"
-          : "text-sidebar-foreground/80 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+          ? "bg-[#2189ff] text-white"
+          : "text-[#f3f3f3]/80 hover:bg-[#2a2a2a] hover:text-[#f3f3f3]"
       )}
       aria-current={active ? "page" : undefined}
     >
@@ -91,13 +95,13 @@ function SidebarItem({ href, label, icon: Icon, collapsed, active }: SidebarItem
 }
 
 export function AdminSidebar() {
-  const [collapsed, setCollapsed] = useState(true)
+  const [collapsed, setCollapsed] = useState(false)
   const pathname = usePathname()
 
   return (
     <aside
       className={cn(
-        "flex flex-col h-screen sticky top-0 bg-sidebar border-r border-sidebar-border transition-all duration-200",
+        "flex flex-col h-screen sticky top-0 bg-[#1e1e1e] border-r border-[#333333] transition-all duration-200",
         collapsed ? "w-14" : "w-56"
       )}
       aria-label="Admin navigasyon"
@@ -105,26 +109,26 @@ export function AdminSidebar() {
       {/* Logo */}
       <div
         className={cn(
-          "flex items-center h-14 border-b border-sidebar-border px-3 shrink-0",
+          "flex items-center h-14 border-b border-[#333333] px-3 shrink-0",
           collapsed ? "justify-center" : "gap-2"
         )}
       >
-        <div className="w-7 h-7 rounded-md bg-sidebar-primary flex items-center justify-center shrink-0">
-          <Cpu className="w-4 h-4 text-sidebar-primary-foreground" />
+        <div className="w-7 h-7 rounded-md bg-[#2189ff] flex items-center justify-center shrink-0">
+          <Cpu className="w-4 h-4 text-white" />
         </div>
         {!collapsed && (
           <div className="flex flex-col leading-none min-w-0">
-            <span className="font-bold text-sm text-sidebar-foreground truncate">Next AI</span>
-            <span className="text-xs text-sidebar-foreground/60">Admin Panel</span>
+            <span className="font-bold text-sm text-[#f3f3f3] truncate">Next AI</span>
+            <span className="text-xs text-[#999999]">Admin Panel</span>
           </div>
         )}
       </div>
 
       {/* Admin badge */}
       {!collapsed && (
-        <div className="mx-3 mt-3 flex items-center gap-2 px-2 py-1.5 bg-sidebar-accent rounded-md">
-          <ShieldCheck className="h-3.5 w-3.5 text-sidebar-primary shrink-0" />
-          <span className="text-xs text-sidebar-accent-foreground font-medium">Yönetici</span>
+        <div className="mx-3 mt-3 flex items-center gap-2 px-2 py-1.5 bg-[#2a2a2a] rounded-md">
+          <ShieldCheck className="h-3.5 w-3.5 text-[#2189ff] shrink-0" />
+          <span className="text-xs text-[#f3f3f3] font-medium">Yönetici</span>
         </div>
       )}
 
@@ -143,7 +147,7 @@ export function AdminSidebar() {
         ))}
       </nav>
 
-      <Separator className="bg-sidebar-border" />
+      <Separator className="bg-[#333333]" />
 
       {/* Alt: kullanıcı bilgisi + çıkış */}
       <div className={cn("p-2 space-y-1 shrink-0", collapsed ? "" : "")}>
@@ -154,16 +158,16 @@ export function AdminSidebar() {
           )}
         >
           <Avatar className="h-7 w-7 shrink-0">
-            <AvatarFallback className="bg-sidebar-primary text-sidebar-primary-foreground text-xs font-semibold">
+            <AvatarFallback className="bg-[#2189ff] text-white text-xs font-semibold">
               AD
             </AvatarFallback>
           </Avatar>
           {!collapsed && (
             <div className="flex flex-col leading-tight min-w-0">
-              <span className="text-xs font-semibold text-sidebar-foreground truncate">
+              <span className="text-xs font-semibold text-[#f3f3f3] truncate">
                 Admin
               </span>
-              <span className="text-[10px] text-sidebar-foreground/60 truncate">
+              <span className="text-[10px] text-[#999999] truncate">
                 admin@nextai.com.tr
               </span>
             </div>
@@ -177,7 +181,7 @@ export function AdminSidebar() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="w-full text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent"
+                  className="w-full text-[#f3f3f3]/70 hover:text-[#f3f3f3] hover:bg-[#2a2a2a]"
                   onClick={() => signOut({ callbackUrl: "/login" })}
                   aria-label="Çıkış yap"
                 >
@@ -191,7 +195,7 @@ export function AdminSidebar() {
           <Button
             variant="ghost"
             size="sm"
-            className="w-full justify-start gap-2 text-sidebar-foreground/70 hover:text-sidebar-foreground hover:bg-sidebar-accent"
+            className="w-full justify-start gap-2 text-[#f3f3f3]/70 hover:text-[#f3f3f3] hover:bg-[#2a2a2a]"
             onClick={() => signOut({ callbackUrl: "/login" })}
           >
             <LogOut className="h-4 w-4" />
@@ -205,7 +209,7 @@ export function AdminSidebar() {
         <Button
           variant="ghost"
           size="icon"
-          className="w-full text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent"
+          className="w-full text-[#f3f3f3]/60 hover:text-[#f3f3f3] hover:bg-[#2a2a2a]"
           onClick={() => setCollapsed((v) => !v)}
           aria-label={collapsed ? "Menüyü genişlet" : "Menüyü daralt"}
         >
