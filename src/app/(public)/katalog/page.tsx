@@ -398,19 +398,31 @@ function CatalogFilters({
     <aside aria-label="Ürün filtreleri">
       {/* Kategoriler */}
       {flatCategories.length > 0 && (
-        <div className="py-4 border-b border-[#eeeeee]">
-          <p className="text-[11px] font-bold text-[#333333] uppercase tracking-widest mb-3">
-            Kategoriler
-          </p>
-          <div className="space-y-0.5" role="group" aria-label="Kategori filtresi">
+        <div className="py-4 border-b border-[#e9e9e9]">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[11px] font-bold text-[#1e1e1e] uppercase tracking-widest flex items-center gap-1.5">
+              <SlidersHorizontal className="h-3.5 w-3.5 text-[#2189ff]" aria-hidden />
+              Kategoriler
+            </p>
+            {filters.categorySlug && (
+              <button
+                type="button"
+                onClick={() => onChange({ categorySlug: "", page: 1 })}
+                className="text-[11px] font-semibold text-[#767676] hover:text-[#2189ff] transition-colors duration-150"
+              >
+                Tümü
+              </button>
+            )}
+          </div>
+          <div className="space-y-0.5 max-h-[350px] overflow-y-auto pr-2 custom-scrollbar" role="group" aria-label="Kategori filtresi">
             <button
               type="button"
               onClick={() => onChange({ categorySlug: "", page: 1 })}
               className={cn(
-                "w-full text-left px-2 py-1.5 text-[13px] transition-colors rounded",
+                "w-full text-left py-2.5 px-3 text-[13px] transition-all duration-150 rounded-lg",
                 !filters.categorySlug
-                  ? "text-[#00179e] font-bold bg-[#00179e]/5"
-                  : "text-[#555555] hover:text-[#00179e] hover:bg-[#f5f5f5]"
+                  ? "bg-[#2189ff]/10 text-[#2189ff] font-semibold"
+                  : "text-[#767676] hover:bg-[#2189ff]/5 hover:text-[#2189ff]"
               )}
               aria-pressed={!filters.categorySlug}
             >
@@ -427,11 +439,11 @@ function CatalogFilters({
                   })
                 }
                 className={cn(
-                  "w-full text-left px-2 py-1.5 text-[13px] transition-colors rounded",
-                  cat.parentId ? "pl-5" : "",
+                  "w-full text-left py-2.5 px-3 text-[13px] transition-all duration-150 rounded-lg relative",
+                  cat.parentId ? "ml-2.5 before:absolute before:left-0 before:top-2.5 before:bottom-2.5 before:w-0.5 before:bg-[#2189ff]/20 before:rounded-full" : "",
                   filters.categorySlug === cat.slug
-                    ? "text-[#00179e] font-bold bg-[#00179e]/5"
-                    : "text-[#555555] hover:text-[#00179e] hover:bg-[#f5f5f5]"
+                    ? "bg-[#2189ff]/10 text-[#2189ff] font-semibold"
+                    : "text-[#767676] hover:bg-[#2189ff]/5 hover:text-[#2189ff]"
                 )}
                 aria-pressed={filters.categorySlug === cat.slug}
               >
@@ -444,8 +456,9 @@ function CatalogFilters({
 
       {/* Markalar */}
       {brands.length > 0 && (
-        <div className="py-4 border-b border-[#eeeeee]">
-          <p className="text-[11px] font-bold text-[#333333] uppercase tracking-widest mb-3">
+        <div className="py-4 border-b border-[#e9e9e9]">
+          <p className="text-[11px] font-bold text-[#1e1e1e] uppercase tracking-widest mb-3 flex items-center gap-1.5">
+            <SlidersHorizontal className="h-3.5 w-3.5 text-[#2189ff]" aria-hidden />
             Markalar
           </p>
           <div className="relative mb-3">
@@ -458,12 +471,12 @@ function CatalogFilters({
               placeholder="Marka ara..."
               value={brandSearch}
               onChange={(e) => setBrandSearch(e.target.value)}
-              className="w-full h-8 border border-[#eeeeee] bg-white pl-8 pr-3 text-[12px] text-[#333333] placeholder:text-[#767676] focus:outline-none focus:border-[#00179e] transition-colors rounded"
+              className="w-full h-8 border border-[#e9e9e9] bg-white rounded-lg pl-8 pr-3 text-[12px] text-[#1e1e1e] placeholder:text-[#767676] focus:outline-none focus:border-[#2189ff] focus:ring-1 focus:ring-[#2189ff]/20 transition-all"
               aria-label="Marka ara"
             />
           </div>
           <div
-            className="space-y-0"
+            className="space-y-0 max-h-52 overflow-y-auto pr-2 custom-scrollbar"
             role="group"
             aria-label="Marka filtresi"
           >
@@ -473,7 +486,7 @@ function CatalogFilters({
               return (
                 <label
                   key={brand.id}
-                  className="flex items-center gap-2.5 py-1.5 cursor-pointer hover:text-[#00179e] transition-colors"
+                  className="flex items-center gap-2.5 py-2 px-2 cursor-pointer rounded-lg hover:bg-[#2189ff]/5 transition-colors duration-150"
                 >
                   <input
                     type="checkbox"
@@ -482,9 +495,9 @@ function CatalogFilters({
                       onChange({ brandSlug: isChecked ? "" : slug, page: 1 })
                     }}
                     aria-label={`${brand.name} markasını filtrele`}
-                    className="h-3.5 w-3.5 accent-[#00179e]"
+                    className="h-3.5 w-3.5 accent-[#2189ff] rounded"
                   />
-                  <span className="text-[13px] text-[#555555] flex-1 truncate">
+                  <span className="text-[13px] text-[#767676] flex-1 truncate hover:text-[#2189ff] transition-colors duration-150">
                     {brand.name}
                   </span>
                 </label>
@@ -495,7 +508,7 @@ function CatalogFilters({
             <button
               type="button"
               onClick={() => setShowAllBrands((v) => !v)}
-              className="mt-2 flex items-center gap-1 text-[12px] font-semibold text-[#00179e] hover:text-[#001489] transition-colors"
+              className="mt-2 flex items-center gap-1 text-[12px] font-semibold text-[#2189ff] hover:text-[#1a75eb] transition-colors duration-150"
             >
               {showAllBrands ? (
                 <>Daha az göster <ChevronDown className="h-3 w-3 rotate-180" /></>
@@ -509,7 +522,8 @@ function CatalogFilters({
 
       {/* Stok Durumu - placeholder */}
       <div className="py-4">
-        <p className="text-[11px] font-bold text-[#333333] uppercase tracking-widest mb-3">
+        <p className="text-[11px] font-bold text-[#1e1e1e] uppercase tracking-widest mb-3 flex items-center gap-1.5">
+          <SlidersHorizontal className="h-3.5 w-3.5 text-[#2189ff]" aria-hidden />
           Stok Durumu
         </p>
         <div className="flex flex-col gap-1">
@@ -762,7 +776,7 @@ export default function KatalogPage() {
         <div className="flex gap-5">
           {/* Sol Sidebar — desktop */}
           <aside
-            className="hidden lg:block w-[220px] shrink-0 self-start sticky top-4"
+            className="hidden lg:block w-[300px] shrink-0 self-start sticky top-4"
             aria-label="Filtreler"
           >
             <div className="bg-white border border-[#eeeeee]">
@@ -896,7 +910,7 @@ export default function KatalogPage() {
             {/* Ürün listesi */}
             {isLoadingProducts ? (
               viewMode === "grid" ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3">
                   {Array.from({ length: PAGE_LIMIT }).map((_, i) => (
                     <PublicProductCardSkeleton key={i} />
                   ))}
@@ -913,7 +927,7 @@ export default function KatalogPage() {
                 <EmptyState onClear={clearAllFilters} />
               </div>
             ) : viewMode === "grid" ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-3">
                 {products.map((product) => (
                   <PublicProductCard key={product.id} product={product} />
                 ))}
