@@ -14,8 +14,114 @@ import {
 } from "lucide-react"
 import { prisma } from "@/lib/db"
 import type { CategoryNode } from "@/types/catalog"
+import { GridBannerSection } from "@/components/public/grid-banner-section"
+import { BrandLogoBar } from "@/components/public/brand-logo-bar"
+import { BlogSection } from "@/components/public/blog-section"
+import { NewsletterSection } from "@/components/public/newsletter-section"
 
 // ─── Sabit Veriler ────────────────────────────────────────────────────────────
+
+const bannerItems3Col = [
+  {
+    id: "b1",
+    title: "Dizüstü Bilgisayarlar",
+    image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80",
+    link: "/katalog?categorySlug=dizustu-bilgisayar",
+  },
+  {
+    id: "b2",
+    title: "Monitörler",
+    image: "https://images.unsplash.com/photo-1593640408182-31c228fad549?w=600&q=80",
+    link: "/katalog?categorySlug=monitor",
+  },
+  {
+    id: "b3",
+    title: "Ağ Ekipmanları",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80",
+    link: "/katalog?categorySlug=ag-ekipmani",
+  },
+]
+
+const bannerItems2Col = [
+  {
+    id: "b4",
+    title: "Sunucular & Depolama",
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+    link: "/katalog?categorySlug=sunucu",
+  },
+  {
+    id: "b5",
+    title: "Yazıcılar & Sarf Malzemeleri",
+    image: "https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=800&q=80",
+    link: "/katalog?categorySlug=yazici",
+  },
+]
+
+const sampleBrands = [
+  {
+    id: "br1",
+    name: "HP",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/HP_logo_2012.svg/200px-HP_logo_2012.svg.png",
+    link: "/katalog?brand=hp",
+  },
+  {
+    id: "br2",
+    name: "Dell",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Dell_Logo.png/200px-Dell_Logo.png",
+    link: "/katalog?brand=dell",
+  },
+  {
+    id: "br3",
+    name: "Lenovo",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Lenovo_logo_2015.svg/200px-Lenovo_logo_2015.svg.png",
+    link: "/katalog?brand=lenovo",
+  },
+  {
+    id: "br4",
+    name: "Cisco",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Cisco_logo_blue_2016.svg/200px-Cisco_logo_blue_2016.svg.png",
+    link: "/katalog?brand=cisco",
+  },
+  {
+    id: "br5",
+    name: "Samsung",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/200px-Samsung_Logo.svg.png",
+    link: "/katalog?brand=samsung",
+  },
+]
+
+const sampleBlogPosts = [
+  {
+    id: "p1",
+    title: "2024 Yılının En İyi İş Dizüstü Bilgisayarları",
+    excerpt:
+      "Kurumsal kullanıcılar için en uygun dizüstü bilgisayar modellerini ve özelliklerini inceledik.",
+    image: "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&q=80",
+    date: "2024-03-15",
+    author: "DT Elektrix",
+    link: "/blog/2024-is-dizustu-bilgisayarlari",
+  },
+  {
+    id: "p2",
+    title: "Ofis Ağ Altyapısı Nasıl Kurulur?",
+    excerpt:
+      "Küçük ve orta ölçekli işletmeler için güvenilir ağ altyapısı kurulum rehberi.",
+    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&q=80",
+    date: "2024-02-28",
+    author: "DT Elektrix",
+    link: "/blog/ofis-ag-altyapisi-kurulum",
+  },
+  {
+    id: "p3",
+    title: "Monitör Seçiminde Dikkat Edilmesi Gerekenler",
+    excerpt:
+      "Doğru monitörü seçmek için çözünürlük, panel tipi ve bağlantı seçeneklerini karşılaştırdık.",
+    image: "https://images.unsplash.com/photo-1547082299-de196ea013d6?w=600&q=80",
+    date: "2024-02-10",
+    author: "DT Elektrix",
+    link: "/blog/monitor-secim-rehberi",
+  },
+]
 
 const features = [
   { icon: Truck, label: "Ücretsiz Kargo", desc: "Tüm siparişlerde ücretsiz" },
@@ -502,8 +608,15 @@ export default async function PublicHomePage() {
       <FeatureBand />
       <div className="py-12">
         <CategorySection categories={categories} />
+      </div>
+      <GridBannerSection columns={3} items={bannerItems3Col} />
+      <div className="py-12">
         <NewProductsSection products={newProducts} />
       </div>
+      <GridBannerSection columns={2} items={bannerItems2Col} />
+      <BlogSection posts={sampleBlogPosts} />
+      <BrandLogoBar brands={sampleBrands} />
+      <NewsletterSection />
       <CTASection />
     </div>
   )
