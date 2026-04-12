@@ -6,10 +6,7 @@ import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import { withCache, invalidateCategoryCache, CacheKey, TTL } from "@/lib/cache"
 
 export async function GET(req: NextRequest) {
-  const session = await getAdminSession()
-  const authError = requireAdminSession(session)
-  if (authError) return authError
-
+  // Categories are public data, no auth required for GET
   const { searchParams } = new URL(req.url)
   const flat = searchParams.get("flat") === "true"
   const search = searchParams.get("search") ?? ""

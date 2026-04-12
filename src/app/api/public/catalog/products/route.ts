@@ -53,7 +53,18 @@ export async function GET(req: NextRequest) {
     const where = {
       deletedAt: null,
       isActive: true,
-      ...(search ? { name: { contains: search, mode: "insensitive" as const } } : {}),
+      ...(search
+        ? {
+            OR: [
+              { name: { contains: search, mode: "insensitive" as const } },
+              { sku: { contains: search, mode: "insensitive" as const } },
+              { modelCode: { contains: search, mode: "insensitive" as const } },
+              { barcode: { contains: search, mode: "insensitive" as const } },
+              { description: { contains: search, mode: "insensitive" as const } },
+              { brand: { name: { contains: search, mode: "insensitive" as const } } },
+            ],
+          }
+        : {}),
       ...(brandSlug ? { brand: { slug: brandSlug } } : {}),
       ...categoryFilter,
       ...(inStock
