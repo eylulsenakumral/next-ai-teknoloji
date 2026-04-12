@@ -13,6 +13,7 @@ import {
   Home,
   ArrowRight,
 } from "lucide-react"
+import { prisma } from "@/lib/db"
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -31,6 +32,16 @@ interface CategoryTree {
   slug: string
   productCount: number
   children: CategoryChild[]
+}
+
+type PrismaCategory = {
+  id: string
+  name: string
+  slug: string
+  parentId: string | null
+  depth: number
+  _count: { products: number; children: number }
+  children?: PrismaCategory[]
 }
 
 /* ------------------------------------------------------------------ */
@@ -52,22 +63,61 @@ function getCategoryIcon(slug: string): React.ReactNode {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Data Fetching                                                      */
+/*  Data Fetching (Direct Prisma - No SSR network call)                */
 /* ------------------------------------------------------------------ */
 
+function mapCategory(cat: PrismaCategory): CategoryTree {
+  const children = (cat.children ?? []).map(mapCategory)
+  // Alt kategorilerdeki ürünleri de dahil et
+  const childrenProductCount = children.reduce((sum, c) => sum + c.productCount, 0)
+  return {
+    id: cat.id,
+    name: cat.name,
+    slug: cat.slug,
+    productCount: cat._count.products + childrenProductCount,
+    children,
+  }
+}
+
+// Recursive include builder - 5 seviye
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function buildInclude(depth: number): any {
+  const filter = { deletedAt: null, isActive: true }
+
+  if (depth === 0) {
+    return {
+      _count: {
+        select: { products: { where: filter } },
+      },
+    }
+  }
+
+  return {
+    _count: {
+      select: { products: { where: filter } },
+    },
+    children: {
+      where: filter,
+      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+      include: buildInclude(depth - 1),
+    },
+  }
+}
+
 async function getCategories(): Promise<CategoryTree[]> {
-  const baseUrl =
-    process.env.NEXT_PUBLIC_APP_URL ??
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
+  try {
+    // Tree yapisi - 5 seviye nested
+    const categories = await prisma.category.findMany({
+      where: { deletedAt: null, isActive: true, parentId: null },
+      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+      include: buildInclude(4),
+    })
 
-  const res = await fetch(`${baseUrl}/api/public/categories`, {
-    next: { revalidate: 300 },
-  })
-
-  if (!res.ok) return []
-
-  const json = await res.json()
-  return json.data ?? []
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return (categories as any[]).map(mapCategory)
+  } catch {
+    return []
+  }
 }
 
 /* ------------------------------------------------------------------ */

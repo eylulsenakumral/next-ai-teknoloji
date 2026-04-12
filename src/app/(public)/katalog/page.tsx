@@ -43,7 +43,7 @@ import { cn } from "@/lib/utils"
 /* ------------------------------------------------------------------ */
 
 type ViewMode = "grid" | "list"
-type SortOption = "newest" | "name"
+type SortOption = "newest" | "name-asc" | "name-desc"
 
 interface Brand {
   id: string
@@ -72,7 +72,8 @@ interface PublicFilters {
 
 const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: "newest", label: "En Yeni" },
-  { value: "name", label: "İsme Göre (A-Z)" },
+  { value: "name-asc", label: "İsme Göre (A-Z)" },
+  { value: "name-desc", label: "İsme Göre (Z-A)" },
 ]
 
 const PAGE_LIMIT = 20
@@ -655,7 +656,7 @@ export default function KatalogPage() {
       if (next.search) params.set("search", next.search)
       if (next.brandSlug) params.set("brandSlug", next.brandSlug)
       if (next.categorySlug) params.set("categorySlug", next.categorySlug)
-      if (next.sortBy !== "newest") params.set("sortBy", next.sortBy)
+      params.set("sortBy", next.sortBy)
       if (next.page > 1) params.set("page", String(next.page))
 
       startTransition(() => {
@@ -675,6 +676,7 @@ export default function KatalogPage() {
     if (filters.categorySlug) params.set("categorySlug", filters.categorySlug)
     params.set("page", String(filters.page))
     params.set("limit", String(PAGE_LIMIT))
+    params.set("sortBy", filters.sortBy)
 
     fetch(`/api/public/catalog/products?${params.toString()}`)
       .then((res) => res.json())
