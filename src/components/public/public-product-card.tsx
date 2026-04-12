@@ -62,14 +62,14 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
   return (
     <article
       className={cn(
-        "group bg-[#f3f3f3] rounded-2xl flex flex-col",
+        "group bg-[#f3f3f3] rounded-lg flex flex-col",
         "hover:shadow-lg transition-all duration-300"
       )}
     >
       {/* Ürün Görseli */}
       <Link
         href={`/katalog/${product.slug}`}
-        className="block relative aspect-square bg-white overflow-hidden rounded-t-2xl"
+        className="block relative aspect-square bg-white overflow-hidden rounded-t-lg"
         tabIndex={-1}
         aria-hidden
       >
@@ -233,8 +233,8 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
 
 export function PublicProductCardSkeleton() {
   return (
-    <div className="bg-[#f3f3f3] rounded-2xl flex flex-col animate-pulse">
-      <Skeleton className="aspect-square w-full rounded-t-2xl" />
+    <div className="bg-[#f3f3f3] rounded-lg flex flex-col animate-pulse">
+      <Skeleton className="aspect-square w-full rounded-t-lg" />
       <div className="p-3.5 space-y-2.5">
         <Skeleton className="h-3 w-16" />
         <Skeleton className="h-4 w-full" />

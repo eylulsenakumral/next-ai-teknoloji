@@ -302,7 +302,7 @@ export default function ProductsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex gap-6">
           {/* Sol Sidebar — desktop */}
-          <aside className="hidden lg:block w-[250px] shrink-0" aria-label="Filtreler">
+          <aside className="hidden lg:block w-[300px] shrink-0" aria-label="Filtreler">
             <div className="bg-white border border-[#eeeeee]">
               <div className="px-4 py-3 border-b border-[#eeeeee]">
                 <p className="font-bold text-[12px] text-[#333333] uppercase tracking-wider">
@@ -423,7 +423,7 @@ export default function ProductsPage() {
             {/* Ürün listesi */}
             {isLoadingProducts ? (
               viewMode === "grid" ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6">
                   {Array.from({ length: 12 }).map((_, i) => (
                     <div key={i} className="bg-white">
                       <ProductCardSkeleton />
@@ -442,7 +442,7 @@ export default function ProductsPage() {
                 <EmptyState onClear={clearAllFilters} />
               </div>
             ) : viewMode === "grid" ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-6">
                 {products.map((product) => (
                   <div
                     key={product.id}
