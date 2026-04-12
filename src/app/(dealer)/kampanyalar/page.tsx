@@ -29,7 +29,7 @@ export default async function CampaignsPage() {
   return (
     <div className="bg-white">
       {/* Hero Banner */}
-      <div className="bg-gradient-to-r from-[#00179e] via-[#1a3ab5] to-[#00179e] text-white">
+      <div className="bg-gradient-to-r from-[#2189ff] via-[#2189ff] to-[#2189ff] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
             <Flame className="h-6 w-6 text-orange-400" />
@@ -62,7 +62,7 @@ export default async function CampaignsPage() {
             </div>
             <Link
               href="/urunler"
-              className="inline-flex items-center gap-2 bg-[#00179e] text-white text-[13px] font-semibold px-6 py-2.5 hover:bg-[#001060] transition-colors"
+              className="inline-flex items-center gap-2 bg-[#2189ff] text-white text-[13px] font-semibold px-6 py-2.5 hover:bg-[#1a6fd4] transition-colors"
             >
               Tüm Ürünlere Göz At
             </Link>
@@ -106,10 +106,10 @@ export default async function CampaignsPage() {
                       {/* Hover overlay */}
                       <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                       <div className="absolute inset-0 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
-                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#333] hover:bg-[#00179e] hover:text-white transition-colors">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#333] hover:bg-[#2189ff] hover:text-white transition-colors">
                           <ShoppingCart className="h-4 w-4" />
                         </span>
-                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#333] hover:bg-[#00179e] hover:text-white transition-colors">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#333] hover:bg-[#2189ff] hover:text-white transition-colors">
                           <Eye className="h-4 w-4" />
                         </span>
                       </div>
@@ -119,7 +119,7 @@ export default async function CampaignsPage() {
                     <div className="p-4 flex flex-col gap-1.5">
                       {/* Marka */}
                       {product.brand && (
-                        <p className="text-[11px] font-semibold text-[#00179e] uppercase tracking-wide">
+                        <p className="text-[11px] font-semibold text-[#2189ff] uppercase tracking-wide">
                           {product.brand.name}
                         </p>
                       )}
@@ -134,7 +134,7 @@ export default async function CampaignsPage() {
                       )}
 
                       {/* Ürün adı */}
-                      <p className="text-[13px] text-[#767676] leading-snug line-clamp-2 group-hover:text-[#00179e] transition-colors">
+                      <p className="text-[13px] text-[#767676] leading-snug line-clamp-2 group-hover:text-[#2189ff] transition-colors">
                         {product.name}
                       </p>
                     </div>

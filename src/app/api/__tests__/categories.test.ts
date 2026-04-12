@@ -5,7 +5,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach } from "vitest"
-import { NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 vi.mock("@/lib/db", () => ({
   prisma: {
@@ -28,15 +28,21 @@ vi.mock("@/lib/cache", () => ({
   TTL: { CATEGORY_LIST: 1800, CATEGORY_TREE: 1800 },
 }))
 
+vi.mock("@/lib/auth-helpers", () => ({
+  getAdminSession: vi.fn(),
+  requireAdminSession: vi.fn(),
+}))
+
 import { GET, POST } from "@/app/api/categories/route"
 import { prisma } from "@/lib/db"
+import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 
 // ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 
 function makeRequest(url: string, options?: RequestInit): NextRequest {
-  return new NextRequest(url, options)
+  return new NextRequest(url, options as never)
 }
 
 const ADMIN_SESSION = {
@@ -58,24 +64,22 @@ describe("GET /api/categories", () => {
     vi.clearAllMocks()
   })
 
-  it("returns 401 when not authenticated", async () => {
-    const { getServerSession } = await import("next-auth")
-    vi.mocked(getServerSession).mockResolvedValueOnce(null)
+  it("returns 200 when not authenticated (public endpoint)", async () => {
+    vi.mocked(prisma.category.findMany).mockResolvedValueOnce([] as never)
 
     const req = makeRequest("http://localhost/api/categories")
     const res = await GET(req)
 
-    expect(res.status).toBe(401)
+    expect(res.status).toBe(200)
   })
 
-  it("returns 403 when authenticated as dealer", async () => {
-    const { getServerSession } = await import("next-auth")
-    vi.mocked(getServerSession).mockResolvedValueOnce(DEALER_SESSION as never)
+  it("returns 200 when authenticated as dealer (public endpoint)", async () => {
+    vi.mocked(prisma.category.findMany).mockResolvedValueOnce([] as never)
 
     const req = makeRequest("http://localhost/api/categories")
     const res = await GET(req)
 
-    expect(res.status).toBe(403)
+    expect(res.status).toBe(200)
   })
 
   it("returns flat list when flat=true", async () => {
@@ -156,8 +160,10 @@ describe("POST /api/categories", () => {
   })
 
   it("returns 401 when not authenticated", async () => {
-    const { getServerSession } = await import("next-auth")
-    vi.mocked(getServerSession).mockResolvedValueOnce(null)
+    vi.mocked(getAdminSession).mockResolvedValueOnce(null)
+    vi.mocked(requireAdminSession).mockReturnValueOnce(
+      NextResponse.json({ error: "Oturum açmanız gerekiyor." }, { status: 401 })
+    )
 
     const req = makeRequest("http://localhost/api/categories", {
       method: "POST",
@@ -170,8 +176,8 @@ describe("POST /api/categories", () => {
   })
 
   it("returns 400 when validation fails (missing name)", async () => {
-    const { getServerSession } = await import("next-auth")
-    vi.mocked(getServerSession).mockResolvedValueOnce(ADMIN_SESSION as never)
+    vi.mocked(getAdminSession).mockResolvedValueOnce(ADMIN_SESSION as never)
+    vi.mocked(requireAdminSession).mockReturnValueOnce(null)
 
     const req = makeRequest("http://localhost/api/categories", {
       method: "POST",
@@ -186,8 +192,8 @@ describe("POST /api/categories", () => {
   })
 
   it("returns 201 with created category on valid input", async () => {
-    const { getServerSession } = await import("next-auth")
-    vi.mocked(getServerSession).mockResolvedValueOnce(ADMIN_SESSION as never)
+    vi.mocked(getAdminSession).mockResolvedValueOnce(ADMIN_SESSION as never)
+    vi.mocked(requireAdminSession).mockReturnValueOnce(null)
 
     // No slug conflict
     vi.mocked(prisma.category.findFirst).mockResolvedValueOnce(null)
@@ -216,8 +222,8 @@ describe("POST /api/categories", () => {
   })
 
   it("returns 400 when parentId does not exist", async () => {
-    const { getServerSession } = await import("next-auth")
-    vi.mocked(getServerSession).mockResolvedValueOnce(ADMIN_SESSION as never)
+    vi.mocked(getAdminSession).mockResolvedValueOnce(ADMIN_SESSION as never)
+    vi.mocked(requireAdminSession).mockReturnValueOnce(null)
 
     // Parent lookup returns null
     vi.mocked(prisma.category.findFirst).mockResolvedValueOnce(null)
@@ -236,8 +242,8 @@ describe("POST /api/categories", () => {
   })
 
   it("sets correct depth and path for child category", async () => {
-    const { getServerSession } = await import("next-auth")
-    vi.mocked(getServerSession).mockResolvedValueOnce(ADMIN_SESSION as never)
+    vi.mocked(getAdminSession).mockResolvedValueOnce(ADMIN_SESSION as never)
+    vi.mocked(requireAdminSession).mockReturnValueOnce(null)
 
     const parentId = "550e8400-e29b-41d4-a716-446655440001"
     const parentCategory = {

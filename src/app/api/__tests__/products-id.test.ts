@@ -36,7 +36,7 @@ import { prisma } from "@/lib/db"
 // ---------------------------------------------------------------------------
 
 function makeRequest(url: string, options?: RequestInit): NextRequest {
-  return new NextRequest(url, options)
+  return new NextRequest(url, options as never)
 }
 
 const PRODUCT_ID = "550e8400-e29b-41d4-a716-446655440099"

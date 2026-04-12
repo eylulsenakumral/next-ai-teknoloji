@@ -147,7 +147,7 @@ function ProductBreadcrumb({
     >
       <Link
         href="/katalog"
-        className="flex items-center gap-1 hover:text-[#00179e] transition-colors"
+        className="flex items-center gap-1 hover:text-[#2189ff] transition-colors"
       >
         <Home className="h-3 w-3" aria-hidden />
         Katalog
@@ -157,7 +157,7 @@ function ProductBreadcrumb({
           <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
           <Link
             href={`/katalog?categorySlug=${category.slug}`}
-            className="hover:text-[#00179e] transition-colors"
+            className="hover:text-[#2189ff] transition-colors"
           >
             {category.name}
           </Link>
@@ -200,10 +200,10 @@ function StockBadge({ inStock }: { inStock: boolean }) {
 function QuoteCTA({ productName }: { productName: string }) {
   const waText = encodeURIComponent(`Merhaba, ${productName} ürünü hakkında fiyat teklifi almak istiyorum.`)
   return (
-    <div className="border border-[#00179e]/20 bg-gradient-to-br from-[#00179e]/5 to-white p-5 space-y-4">
+    <div className="border border-[#2189ff]/20 bg-gradient-to-br from-[#2189ff]/5 to-white p-5 space-y-4">
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#00179e]/10">
-          <MessageCircle className="h-5 w-5 text-[#00179e]" aria-hidden />
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#2189ff]/10">
+          <MessageCircle className="h-5 w-5 text-[#2189ff]" aria-hidden />
         </div>
         <div className="space-y-1">
           <p className="text-[14px] font-bold text-[#333333]">
@@ -219,7 +219,7 @@ function QuoteCTA({ productName }: { productName: string }) {
         href={`https://wa.me/905529895959?text=${waText}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex w-full items-center justify-center gap-2 h-11 bg-[#00179e] px-5 text-[13px] font-bold text-white uppercase tracking-wider transition-colors hover:bg-[#001489] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00179e] focus-visible:ring-offset-2"
+        className="flex w-full items-center justify-center gap-2 h-11 bg-[#2189ff] px-5 text-[13px] font-bold text-white uppercase tracking-wider transition-colors hover:bg-[#001489] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2189ff] focus-visible:ring-offset-2"
       >
         <MessageCircle className="h-4 w-4" aria-hidden />
         WhatsApp ile Teklif İste
@@ -229,7 +229,7 @@ function QuoteCTA({ productName }: { productName: string }) {
         Veya{" "}
         <a
           href="tel:+905529895959"
-          className="font-semibold text-[#00179e] underline-offset-2 hover:underline"
+          className="font-semibold text-[#2189ff] underline-offset-2 hover:underline"
         >
           0 552 989 5959
         </a>
@@ -283,14 +283,14 @@ function StickyMobileCTA({ productName }: { productName: string }) {
         href={`https://wa.me/905529895959?text=${waText}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex-1 flex items-center justify-center gap-2 h-11 bg-[#00179e] text-white text-[13px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
+        className="flex-1 flex items-center justify-center gap-2 h-11 bg-[#2189ff] text-white text-[13px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
       >
         <MessageCircle className="h-4 w-4" aria-hidden />
         Teklif İste
       </a>
       <a
         href="tel:+905529895959"
-        className="flex items-center justify-center gap-2 h-11 px-4 border border-[#00179e] text-[#00179e] text-[12px] font-semibold hover:bg-[#00179e]/5 transition-colors whitespace-nowrap"
+        className="flex items-center justify-center gap-2 h-11 px-4 border border-[#2189ff] text-[#2189ff] text-[12px] font-semibold hover:bg-[#2189ff]/5 transition-colors whitespace-nowrap"
       >
         <Phone className="h-4 w-4" aria-hidden />
         Ara
@@ -346,7 +346,7 @@ export default async function PublicProductDetailPage({
                 {product.brand && (
                   <Link
                     href={`/katalog?brandSlug=${product.brand.slug}`}
-                    className="text-[12px] font-bold uppercase tracking-wider text-[#00179e] hover:text-[#001489] transition-colors"
+                    className="text-[12px] font-bold uppercase tracking-wider text-[#2189ff] hover:text-[#001489] transition-colors"
                   >
                     {product.brand.name}
                   </Link>
@@ -372,7 +372,7 @@ export default async function PublicProductDetailPage({
 
               {/* Kısa açıklama */}
               {product.description && (
-                <p className="text-[13px] leading-relaxed text-[#767676] border-l-2 border-[#00179e]/20 pl-3 line-clamp-3">
+                <p className="text-[13px] leading-relaxed text-[#767676] border-l-2 border-[#2189ff]/20 pl-3 line-clamp-3">
                   {product.description}
                 </p>
               )}
@@ -452,7 +452,7 @@ export default async function PublicProductDetailPage({
                       ? `/katalog?categorySlug=${product.category.slug}`
                       : "/katalog"
                   }
-                  className="text-[12px] font-semibold text-[#00179e] hover:text-[#001489] transition-colors whitespace-nowrap"
+                  className="text-[12px] font-semibold text-[#2189ff] hover:text-[#001489] transition-colors whitespace-nowrap"
                 >
                   Tümünü Gör
                 </Link>

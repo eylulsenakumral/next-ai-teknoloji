@@ -160,7 +160,7 @@ function HeroSlider({ productCount, brandCount }: HeroSliderProps) {
       {/* Animated Background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         {/* Main gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0d2847] to-[#00179e]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0d2847] to-[#2189ff]" />
 
         {/* Grid pattern overlay */}
         <div
@@ -174,12 +174,12 @@ function HeroSlider({ productCount, brandCount }: HeroSliderProps) {
 
         {/* Animated gradient orbs */}
         <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-[#2189ff]/30 blur-[150px] animate-float" />
-        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-[#00179e]/40 blur-[140px] animate-float-reverse" />
+        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-[#2189ff]/40 blur-[140px] animate-float-reverse" />
         <div className="absolute top-[40%] left-[20%] w-[300px] h-[300px] rounded-full bg-[#1471dd]/20 blur-[120px] animate-float-slow" style={{ animationDelay: "5s" }} />
 
         {/* Additional accent orbs */}
         <div className="absolute top-[20%] left-[60%] w-[200px] h-[200px] rounded-full bg-[#2189ff]/15 blur-[100px] animate-float-medium" style={{ animationDelay: "2s" }} />
-        <div className="absolute bottom-[30%] right-[20%] w-[250px] h-[250px] rounded-full bg-[#00179e]/20 blur-[110px] animate-float-reverse" style={{ animationDelay: "8s" }} />
+        <div className="absolute bottom-[30%] right-[20%] w-[250px] h-[250px] rounded-full bg-[#2189ff]/20 blur-[110px] animate-float-reverse" style={{ animationDelay: "8s" }} />
       </div>
 
       {/* Main Content */}
@@ -207,8 +207,8 @@ function HeroSlider({ productCount, brandCount }: HeroSliderProps) {
 
             {/* Accent line */}
             <div className="relative w-24 h-1 mb-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#2189ff] to-[#00179e] rounded-full" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#2189ff] to-[#00179e] rounded-full animate-pulse-line" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#2189ff] to-[#2189ff] rounded-full" />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#2189ff] to-[#2189ff] rounded-full animate-pulse-line" />
             </div>
 
             {/* Subtitle */}

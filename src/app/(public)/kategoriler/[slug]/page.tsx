@@ -185,7 +185,7 @@ function CategoryBreadcrumb({
     >
       <Link
         href="/katalog"
-        className="flex items-center gap-1 hover:text-[#00179e] transition-colors"
+        className="flex items-center gap-1 hover:text-[#2189ff] transition-colors"
       >
         <Home className="h-3 w-3" aria-hidden />
         Katalog
@@ -195,7 +195,7 @@ function CategoryBreadcrumb({
           <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
           <Link
             href={`/kategoriler/${item.slug}`}
-            className="hover:text-[#00179e] transition-colors"
+            className="hover:text-[#2189ff] transition-colors"
           >
             {item.name}
           </Link>
@@ -217,16 +217,16 @@ function SubCategoryCard({ child }: { child: CategoryChild }) {
   return (
     <Link
       href={`/kategoriler/${child.slug}`}
-      className="group flex items-center gap-4 bg-white border border-[#eeeeee] p-4 hover:border-[#00179e]/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+      className="group flex items-center gap-4 bg-white border border-[#eeeeee] p-4 hover:border-[#2189ff]/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
     >
       {/* Ikon */}
-      <div className="flex items-center justify-center w-11 h-11 shrink-0 bg-[#00179e]/5 text-[#00179e] group-hover:bg-[#00179e]/10 transition-colors">
+      <div className="flex items-center justify-center w-11 h-11 shrink-0 bg-[#2189ff]/5 text-[#2189ff] group-hover:bg-[#2189ff]/10 transition-colors">
         {getCategoryIcon(child.slug)}
       </div>
 
       {/* Bilgi */}
       <div className="flex-1 min-w-0">
-        <p className="text-[14px] font-bold text-[#333333] group-hover:text-[#00179e] transition-colors truncate">
+        <p className="text-[14px] font-bold text-[#333333] group-hover:text-[#2189ff] transition-colors truncate">
           {child.name}
         </p>
         <div className="flex items-center gap-2 mt-0.5 text-[12px] text-[#767676]">
@@ -240,7 +240,7 @@ function SubCategoryCard({ child }: { child: CategoryChild }) {
         </div>
       </div>
 
-      <ArrowRight className="h-4 w-4 text-[#cccccc] group-hover:text-[#00179e] group-hover:translate-x-1 transition-all duration-200 shrink-0" aria-hidden />
+      <ArrowRight className="h-4 w-4 text-[#cccccc] group-hover:text-[#2189ff] group-hover:translate-x-1 transition-all duration-200 shrink-0" aria-hidden />
     </Link>
   )
 }
@@ -277,7 +277,7 @@ function Pagination({
         <Link
           href={`/kategoriler/${currentSlug}?page=${currentPage - 1}`}
           aria-label="Onceki sayfa"
-          className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] bg-white text-[#767676] hover:border-[#00179e] hover:text-[#00179e] transition-colors rounded"
+          className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] bg-white text-[#767676] hover:border-[#2189ff] hover:text-[#2189ff] transition-colors rounded"
         >
           <ChevronRight className="h-4 w-4 rotate-180" aria-hidden />
         </Link>
@@ -291,8 +291,8 @@ function Pagination({
           aria-current={pageNum === currentPage ? "page" : undefined}
           className={`inline-flex items-center justify-center h-9 w-9 text-[13px] font-semibold transition-colors rounded ${
             pageNum === currentPage
-              ? "bg-[#00179e] text-white border border-[#00179e]"
-              : "bg-white border border-[#eeeeee] text-[#333333] hover:border-[#00179e] hover:text-[#00179e]"
+              ? "bg-[#2189ff] text-white border border-[#2189ff]"
+              : "bg-white border border-[#eeeeee] text-[#333333] hover:border-[#2189ff] hover:text-[#2189ff]"
           }`}
         >
           {pageNum}
@@ -303,7 +303,7 @@ function Pagination({
         <Link
           href={`/kategoriler/${currentSlug}?page=${currentPage + 1}`}
           aria-label="Sonraki sayfa"
-          className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] bg-white text-[#767676] hover:border-[#00179e] hover:text-[#00179e] transition-colors rounded"
+          className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] bg-white text-[#767676] hover:border-[#2189ff] hover:text-[#2189ff] transition-colors rounded"
         >
           <ChevronRight className="h-4 w-4" aria-hidden />
         </Link>
@@ -346,7 +346,7 @@ export default async function CategoryDetailPage({
       </div>
 
       {/* Kategori Hero */}
-      <div className="bg-gradient-to-r from-[#00179e] to-[#0025d4] text-white">
+      <div className="bg-gradient-to-r from-[#2189ff] to-[#4da6ff] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
           <div className="flex items-start gap-5">
             {/* Kategori ikonu / gorsel */}
@@ -442,7 +442,7 @@ export default async function CategoryDetailPage({
             <div className="flex gap-3">
               <Link
                 href="/katalog"
-                className="inline-flex items-center gap-1.5 h-9 px-5 border border-[#eeeeee] text-[13px] text-[#333333] hover:border-[#00179e] hover:text-[#00179e] transition-colors"
+                className="inline-flex items-center gap-1.5 h-9 px-5 border border-[#eeeeee] text-[13px] text-[#333333] hover:border-[#2189ff] hover:text-[#2189ff] transition-colors"
               >
                 Kataloga Don
               </Link>
@@ -450,7 +450,7 @@ export default async function CategoryDetailPage({
                 href={`https://wa.me/905529895959?text=${encodeURIComponent(`Merhaba, ${category.name} kategorisinde aradigim urun hakkinda bilgi almak istiyorum.`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 h-9 px-5 bg-[#00179e] text-[13px] font-bold text-white hover:bg-[#001489] transition-colors"
+                className="inline-flex items-center gap-1.5 h-9 px-5 bg-[#2189ff] text-[13px] font-bold text-white hover:bg-[#001489] transition-colors"
               >
                 <MessageCircle className="h-3.5 w-3.5" aria-hidden />
                 Teklif Iste

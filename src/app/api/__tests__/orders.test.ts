@@ -25,7 +25,7 @@ import { getOrdersByCustomer, createOrder } from "@/services/order.service"
 // ---------------------------------------------------------------------------
 
 function makeRequest(url: string, options?: RequestInit): NextRequest {
-  return new NextRequest(url, options)
+  return new NextRequest(url, options as never)
 }
 
 const DEALER_SESSION = {

@@ -148,15 +148,15 @@ function CategoryCard({ category }: { category: CategoryTree }) {
   return (
     <Link
       href={`/kategoriler/${category.slug}`}
-      className="group relative flex flex-col bg-white border border-[#eeeeee] p-6 hover:border-[#00179e]/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+      className="group relative flex flex-col bg-white border border-[#eeeeee] p-6 hover:border-[#2189ff]/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
     >
       {/* İkon */}
-      <div className="flex items-center justify-center w-14 h-14 mb-4 bg-[#00179e]/5 text-[#00179e] group-hover:bg-[#00179e]/10 transition-colors">
+      <div className="flex items-center justify-center w-14 h-14 mb-4 bg-[#2189ff]/5 text-[#2189ff] group-hover:bg-[#2189ff]/10 transition-colors">
         {getCategoryIcon(category.slug)}
       </div>
 
       {/* İsim */}
-      <h2 className="text-[15px] font-bold text-[#333333] mb-1.5 group-hover:text-[#00179e] transition-colors">
+      <h2 className="text-[15px] font-bold text-[#333333] mb-1.5 group-hover:text-[#2189ff] transition-colors">
         {category.name}
       </h2>
 
@@ -174,13 +174,13 @@ function CategoryCard({ category }: { category: CategoryTree }) {
           {category.children.slice(0, 4).map((child) => (
             <span
               key={child.id}
-              className="text-[11px] text-[#555555] bg-[#f5f5f5] px-2 py-0.5 group-hover:bg-[#00179e]/5 group-hover:text-[#00179e] transition-colors truncate max-w-[140px]"
+              className="text-[11px] text-[#555555] bg-[#f5f5f5] px-2 py-0.5 group-hover:bg-[#2189ff]/5 group-hover:text-[#2189ff] transition-colors truncate max-w-[140px]"
             >
               {child.name}
             </span>
           ))}
           {category.children.length > 4 && (
-            <span className="text-[11px] text-[#00179e] font-semibold px-1 py-0.5">
+            <span className="text-[11px] text-[#2189ff] font-semibold px-1 py-0.5">
               +{category.children.length - 4}
             </span>
           )}
@@ -188,7 +188,7 @@ function CategoryCard({ category }: { category: CategoryTree }) {
       )}
 
       {/* Ok ikonu */}
-      <ArrowRight className="absolute top-6 right-6 h-4 w-4 text-[#cccccc] group-hover:text-[#00179e] group-hover:translate-x-1 transition-all duration-200" aria-hidden />
+      <ArrowRight className="absolute top-6 right-6 h-4 w-4 text-[#cccccc] group-hover:text-[#2189ff] group-hover:translate-x-1 transition-all duration-200" aria-hidden />
     </Link>
   )
 }
@@ -211,7 +211,7 @@ export default async function KategorilerPage() {
           >
             <Link
               href="/"
-              className="flex items-center gap-1 hover:text-[#00179e] transition-colors"
+              className="flex items-center gap-1 hover:text-[#2189ff] transition-colors"
             >
               <Home className="h-3 w-3" aria-hidden />
               Ana Sayfa
@@ -223,7 +223,7 @@ export default async function KategorilerPage() {
       </div>
 
       {/* Hero */}
-      <div className="bg-gradient-to-r from-[#00179e] to-[#0025d4] text-white">
+      <div className="bg-gradient-to-r from-[#2189ff] to-[#4da6ff] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
           <p className="text-[12px] font-bold uppercase tracking-widest text-white/60 mb-2">
             Kategoriler

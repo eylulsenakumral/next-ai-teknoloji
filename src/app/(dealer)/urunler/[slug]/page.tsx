@@ -180,7 +180,7 @@ function ErrorState({ message }: { message: string }) {
         </p>
         <Link
           href="/urunler"
-          className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-[#00179e] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#00179e]/90"
+          className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-[#2189ff] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#2189ff]/90"
         >
           Ürün Kataloğuna Dön
           <ChevronRight className="h-4 w-4" aria-hidden />
@@ -296,7 +296,7 @@ export default function ProductDetailPage() {
           {product.brand && (
             <Link
               href={`/urunler?brandId=${product.brand.id}`}
-              className="inline-block text-sm font-semibold uppercase tracking-wider text-[#00179e] hover:text-[#00179e]/80 transition-colors"
+              className="inline-block text-sm font-semibold uppercase tracking-wider text-[#2189ff] hover:text-[#2189ff]/80 transition-colors"
             >
               {product.brand.name}
             </Link>
@@ -310,7 +310,7 @@ export default function ProductDetailPage() {
           {/* Badge'ler */}
           <div className="flex flex-wrap gap-2">
             {product.isNew && (
-              <Badge className="rounded-full bg-[#00179e] px-3 py-1 text-xs font-semibold hover:bg-[#00179e]/90">
+              <Badge className="rounded-full bg-[#2189ff] px-3 py-1 text-xs font-semibold hover:bg-[#2189ff]/90">
                 Yeni
               </Badge>
             )}
@@ -374,7 +374,7 @@ export default function ProductDetailPage() {
 
           {/* Fiyat kutusu */}
           {product.pricing ? (
-            <div className="rounded-2xl border-2 border-[#00179e]/10 bg-gradient-to-br from-[#f9f9f9] to-white p-5 space-y-3">
+            <div className="rounded-2xl border-2 border-[#2189ff]/10 bg-gradient-to-br from-[#f9f9f9] to-white p-5 space-y-3">
               <div className="flex items-baseline justify-between">
                 <span className="text-sm text-[#767676]">KDV Haric</span>
                 <span className="text-lg font-bold text-[#333333]">
@@ -386,7 +386,7 @@ export default function ProductDetailPage() {
                 <span className="text-sm text-[#767676]">
                   KDV Dahil (%{product.pricing.vatRate})
                 </span>
-                <span className="text-3xl font-extrabold text-[#00179e]">
+                <span className="text-3xl font-extrabold text-[#2189ff]">
                   {formatCurrency(product.pricing.salePriceIncVat, currency)}
                 </span>
               </div>
@@ -414,7 +414,7 @@ export default function ProductDetailPage() {
 
           {/* Kisa aciklama */}
           {product.shortDescription && (
-            <p className="text-sm leading-relaxed text-[#767676] border-l-2 border-[#00179e]/20 pl-4">
+            <p className="text-sm leading-relaxed text-[#767676] border-l-2 border-[#2189ff]/20 pl-4">
               {product.shortDescription}
             </p>
           )}
@@ -429,14 +429,14 @@ export default function ProductDetailPage() {
         <TabsList className="inline-flex gap-1 rounded-xl bg-[#f9f9f9] p-1">
           <TabsTrigger
             value="specs"
-            className="rounded-lg px-5 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-white data-[state=active]:text-[#00179e] data-[state=active]:shadow-sm"
+            className="rounded-lg px-5 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-white data-[state=active]:text-[#2189ff] data-[state=active]:shadow-sm"
           >
             Teknik Özellikler
           </TabsTrigger>
           {product.description && (
             <TabsTrigger
               value="description"
-              className="rounded-lg px-5 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-white data-[state=active]:text-[#00179e] data-[state=active]:shadow-sm"
+              className="rounded-lg px-5 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-white data-[state=active]:text-[#2189ff] data-[state=active]:shadow-sm"
             >
               Açıklama
             </TabsTrigger>

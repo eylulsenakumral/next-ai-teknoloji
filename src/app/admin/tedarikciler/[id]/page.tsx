@@ -258,7 +258,7 @@ export default function TedarikciUrunlerPage() {
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
-            className="h-8 rounded-md border border-[#eeeeee] bg-white px-2.5 text-sm text-[#333] outline-none focus:border-[#00179e]"
+            className="h-8 rounded-md border border-[#eeeeee] bg-white px-2.5 text-sm text-[#333] outline-none focus:border-[var(--DTPrimaryColor)]"
           >
             <option value="">Tüm Kategoriler</option>
             {categories.map((cat) => (
@@ -273,7 +273,7 @@ export default function TedarikciUrunlerPage() {
           <select
             value={filterLinked}
             onChange={(e) => setFilterLinked(e.target.value as "" | "true" | "false")}
-            className="h-8 rounded-md border border-[#eeeeee] bg-white px-2.5 text-sm text-[#333] outline-none focus:border-[#00179e]"
+            className="h-8 rounded-md border border-[#eeeeee] bg-white px-2.5 text-sm text-[#333] outline-none focus:border-[var(--DTPrimaryColor)]"
           >
             <option value="">Tüm Durum</option>
             <option value="true">Ürün Bağlı</option>
@@ -314,8 +314,8 @@ export default function TedarikciUrunlerPage() {
                 className={cn(
                   "inline-flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-full border transition-colors",
                   filterCategory === (cat.categoryId ?? "")
-                    ? "bg-[#00179e] text-white border-[#00179e]"
-                    : "bg-white text-[#333] border-[#eeeeee] hover:border-[#00179e] hover:text-[#00179e]"
+                    ? "bg-[var(--DTPrimaryColor)] text-white border-[var(--DTPrimaryColor)]"
+                    : "bg-white text-[#333] border-[#eeeeee] hover:border-[var(--DTPrimaryColor)] hover:text-[var(--DTPrimaryColor)]"
                 )}
               >
                 <span className="truncate max-w-32">
@@ -434,7 +434,7 @@ export default function TedarikciUrunlerPage() {
                             {isLinked && sp.product && (
                               <a
                                 href={`/admin/urunler/${sp.product.id}`}
-                                className="inline-flex items-center gap-1 text-[11px] text-[#00179e] hover:underline mt-0.5"
+                                className="inline-flex items-center gap-1 text-[11px] text-[var(--DTPrimaryColor)] hover:underline mt-0.5"
                               >
                                 <Link2 className="h-3 w-3" />
                                 {sp.product.name}
@@ -446,7 +446,7 @@ export default function TedarikciUrunlerPage() {
                               href={sp.externalUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="shrink-0 text-[#767676] hover:text-[#00179e]"
+                              className="shrink-0 text-[#767676] hover:text-[var(--DTPrimaryColor)]"
                             >
                               <ExternalLink className="h-3.5 w-3.5" />
                             </a>
@@ -466,7 +466,7 @@ export default function TedarikciUrunlerPage() {
                         {hasMapping ? (
                           <Badge
                             variant="outline"
-                            className="text-[11px] border-[#00179e]/30 text-[#00179e] bg-[#00179e]/5 gap-1"
+                            className="text-[11px] border-[var(--DTPrimaryColor)]/30 text-[var(--DTPrimaryColor)] bg-[var(--DTPrimaryColor)]/5 gap-1"
                           >
                             <Tag className="h-3 w-3" />
                             {getCategoryName(mappedCatId!)}
@@ -539,7 +539,7 @@ export default function TedarikciUrunlerPage() {
                 type="button"
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page <= 1}
-                className="inline-flex items-center justify-center h-8 w-8 border border-[#eeeeee] text-[#767676] hover:border-[#00179e] hover:text-[#00179e] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="inline-flex items-center justify-center h-8 w-8 border border-[#eeeeee] text-[#767676] hover:border-[var(--DTPrimaryColor)] hover:text-[var(--DTPrimaryColor)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
@@ -562,8 +562,8 @@ export default function TedarikciUrunlerPage() {
                     className={cn(
                       "inline-flex items-center justify-center h-8 w-8 text-xs font-semibold transition-colors",
                       page === pageNum
-                        ? "bg-[#00179e] text-white border border-[#00179e]"
-                        : "border border-[#eeeeee] text-[#333] hover:border-[#00179e] hover:text-[#00179e]"
+                        ? "bg-[var(--DTPrimaryColor)] text-white border border-[var(--DTPrimaryColor)]"
+                        : "border border-[#eeeeee] text-[#333] hover:border-[var(--DTPrimaryColor)] hover:text-[var(--DTPrimaryColor)]"
                     )}
                   >
                     {pageNum}
@@ -574,7 +574,7 @@ export default function TedarikciUrunlerPage() {
                 type="button"
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page >= totalPages}
-                className="inline-flex items-center justify-center h-8 w-8 border border-[#eeeeee] text-[#767676] hover:border-[#00179e] hover:text-[#00179e] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="inline-flex items-center justify-center h-8 w-8 border border-[#eeeeee] text-[#767676] hover:border-[var(--DTPrimaryColor)] hover:text-[var(--DTPrimaryColor)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
@@ -616,7 +616,7 @@ function SummaryCard({
             ? "bg-emerald-50 text-emerald-600"
             : warning
               ? "bg-amber-50 text-amber-600"
-              : "bg-[#00179e]/10 text-[#00179e]"
+              : "bg-[var(--DTPrimaryColor)]/10 text-[var(--DTPrimaryColor)]"
         )}
       >
         {icon}

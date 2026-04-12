@@ -17,7 +17,7 @@ export default function CategoryDetailLoading() {
       </div>
 
       {/* Hero skeleton */}
-      <div className="bg-gradient-to-r from-[#00179e] to-[#0025d4]">
+      <div className="bg-gradient-to-r from-[#2189ff] to-[#4da6ff]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
           <div className="flex items-start gap-5">
             <Skeleton className="hidden sm:block w-16 h-16 shrink-0 bg-white/20" />
