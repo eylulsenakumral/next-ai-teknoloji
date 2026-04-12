@@ -6,6 +6,7 @@
 // ============================================================================
 
 import { prisma } from "@/lib/db"
+import { generateSlug } from "@/lib/utils/slug"
 import bcrypt from "bcryptjs"
 
 const BASE_URL = "https://bizimhesap.com/api/b2b"
@@ -221,30 +222,15 @@ async function getOrCreateBizimhesapSupplier(): Promise<string> {
 // slug üretici (Product için)
 // ============================================================================
 
-function generateSlug(name: string, suffix?: string): string {
-  const base = name
-    .toLowerCase()
-    .replace(/ğ/g, "g")
-    .replace(/ü/g, "u")
-    .replace(/ş/g, "s")
-    .replace(/ı/g, "i")
-    .replace(/ö/g, "o")
-    .replace(/ç/g, "c")
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-")
-    .slice(0, 200)
-  return suffix ? `${base}-${suffix}` : base
-}
-
 async function uniqueProductSlug(name: string): Promise<string> {
-  let slug = generateSlug(name)
+  const base = generateSlug(name)
+  let slug = base
   let attempt = 0
   while (true) {
     const existing = await prisma.product.findUnique({ where: { slug } })
     if (!existing) return slug
     attempt++
-    slug = generateSlug(name, String(attempt))
+    slug = `${base}-${attempt}`
   }
 }
 
@@ -516,7 +502,10 @@ export async function syncProducts(token: string): Promise<SyncProductsResult> {
         stockQuantity,
         isAvailable: isActive && stockQuantity >= 0,
         lastScrapedAt: new Date(),
-        rawData: item as unknown as import("@prisma/client").Prisma.InputJsonValue,
+        rawData: {
+          ...(item as Record<string, unknown>),
+          ...(categoryName ? { _supplierCategory: categoryName } : {}),
+        } as import("@prisma/client").Prisma.InputJsonValue,
         matchMethod,
         matchConfidence,
       }

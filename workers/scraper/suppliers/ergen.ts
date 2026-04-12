@@ -187,6 +187,7 @@ export class ErgenScraper extends BaseScraper {
         brand: p.brand,
         salePrice: p.salePrice,
         markupPercent: this.markupPercent,
+        ...(p.category ? { _supplierCategory: p.category } : {}),
       },
     }))
   }
