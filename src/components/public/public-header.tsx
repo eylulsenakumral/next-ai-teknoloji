@@ -46,7 +46,7 @@ function MobileDrawer({
         onClick={onClose}
         aria-hidden
       />
-      <div className="fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-2xl flex flex-col">
+      <div className="fixed inset-y-0 left-0 z-50 w-[400px] max-w-[85vw] bg-white shadow-2xl flex flex-col">
         {/* Drawer header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#eeeeee] bg-[#2189ff]">
           <div className="flex items-center gap-2.5">
@@ -274,7 +274,7 @@ function HeaderSearchBar() {
         role="search"
         aria-label="Site genelinde urun ara"
       >
-        <div className="flex h-10 bg-[#f3f3f3] rounded-full overflow-hidden focus-within:ring-2 focus-within:ring-[#2189ff] transition-all">
+        <div className="flex h-10 bg-[#f3f3f3] rounded-[20px] border border-[#e9e9e9] overflow-hidden focus-within:ring-2 focus-within:ring-[#2189ff] transition-all">
           <input
             ref={inputRef}
             type="search"
@@ -286,7 +286,7 @@ function HeaderSearchBar() {
               }
             }}
             placeholder="Aramak İstediğiniz Ürün, Marka, Model veya Kelimeyi Yazınız"
-            className="flex-1 px-5 text-[13px] text-[#1e1e1e] placeholder:text-[#767676] bg-transparent focus:outline-none"
+            className="flex-1 py-[12px] px-[20px] text-[13px] text-[#1e1e1e] placeholder:text-[#767676] bg-transparent focus:outline-none"
             aria-label="Arama"
             aria-expanded={isOpen}
             aria-controls="search-results"

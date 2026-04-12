@@ -24,7 +24,7 @@ export function BrandLogoBar({ brands, className = "" }: BrandLogoBarProps) {
             <Link
               key={brand.id}
               href={brand.link ?? "#"}
-              className="flex items-center justify-center p-4 bg-[#f3f3f3] rounded-2xl hover:shadow-lg transition-shadow duration-300"
+              className="flex items-center justify-center p-4 bg-[#f3f3f3] rounded-[20px] hover:shadow-lg transition-shadow duration-300"
             >
               <img
                 src={brand.logo}
