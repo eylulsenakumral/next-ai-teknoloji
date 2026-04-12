@@ -62,15 +62,14 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
   return (
     <article
       className={cn(
-        "group bg-white border border-[#eeeeee] flex flex-col",
-        "hover:border-[#00179e]/40 hover:shadow-lg transition-all duration-200",
-        "hover:-translate-y-0.5"
+        "group bg-[#f3f3f3] rounded-2xl flex flex-col",
+        "hover:shadow-lg transition-all duration-300"
       )}
     >
       {/* Ürün Görseli */}
       <Link
         href={`/katalog/${product.slug}`}
-        className="block relative aspect-square bg-white overflow-hidden border-b border-[#f5f5f5]"
+        className="block relative aspect-square bg-white overflow-hidden rounded-t-2xl"
         tabIndex={-1}
         aria-hidden
       >
@@ -80,7 +79,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
             alt={product.name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-contain p-5 transition-transform duration-300 group-hover:scale-[1.04]"
+            className="object-contain p-6 transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-[#f9f9f9]">
@@ -98,7 +97,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
       <div className="flex flex-col flex-1 p-3.5 gap-2">
         {/* Marka */}
         {product.brand ? (
-          <p className="text-[11px] font-bold text-[#00179e] uppercase tracking-wider truncate">
+          <p className="text-[11px] font-bold text-[#999999] uppercase tracking-wider truncate">
             {product.brand.name}
           </p>
         ) : (
@@ -108,7 +107,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
         {/* Ürün Adı */}
         <Link
           href={`/katalog/${product.slug}`}
-          className="text-[13px] font-semibold text-[#333333] leading-snug line-clamp-2 hover:text-[#00179e] transition-colors min-h-[40px]"
+          className="text-[13px] font-semibold text-[#1e1e1e] leading-snug line-clamp-2 hover:text-[#2189ff] transition-colors min-h-[40px]"
         >
           {product.name}
         </Link>
@@ -135,8 +134,8 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
           target="_blank"
           rel="noopener noreferrer"
           className={cn(
-            "mt-auto flex items-center justify-center gap-2 h-9 px-4 text-[12px] font-bold uppercase tracking-wider transition-all duration-150",
-            "bg-[#00179e] text-white hover:bg-[#001489]",
+            "mt-auto flex items-center justify-center gap-2 h-9 px-4 text-[12px] font-bold capitalize tracking-wider transition-all duration-300 rounded-lg",
+            "bg-[#2189ff] text-white hover:bg-[#1e1e1e]",
             "w-full"
           )}
         >
@@ -159,7 +158,7 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
     : null
 
   return (
-    <article className="group flex items-start gap-4 p-4 bg-white hover:bg-[#f9f9f9] transition-colors border-b border-[#f0f0f0] last:border-0">
+    <article className="group flex items-start gap-4 p-4 bg-[#f3f3f3] rounded-lg hover:shadow-md transition-all duration-300">
       {/* Görsel */}
       <Link
         href={`/katalog/${product.slug}`}
@@ -186,13 +185,13 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
       <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-3">
         <div className="flex-1 min-w-0 space-y-1.5">
           {product.brand && (
-            <p className="text-[11px] font-bold text-[#00179e] uppercase tracking-wider">
+            <p className="text-[11px] font-bold text-[#999999] uppercase tracking-wider">
               {product.brand.name}
             </p>
           )}
           <Link
             href={`/katalog/${product.slug}`}
-            className="block text-[14px] font-semibold text-[#333333] hover:text-[#00179e] transition-colors leading-snug line-clamp-2"
+            className="block text-[14px] font-semibold text-[#1e1e1e] hover:text-[#2189ff] transition-colors leading-snug line-clamp-2"
           >
             {product.name}
           </Link>
@@ -217,7 +216,7 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
             href={`https://wa.me/905529895959?text=${encodeURIComponent(`Merhaba, ${product.name} ürünü hakkında bilgi almak istiyorum.`)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 h-9 px-4 bg-[#00179e] text-[12px] font-bold text-white uppercase tracking-wider hover:bg-[#001489] transition-colors whitespace-nowrap"
+            className="inline-flex items-center gap-1.5 h-9 px-4 bg-[#2189ff] text-[12px] font-bold text-white capitalize tracking-wider hover:bg-[#1e1e1e] transition-all duration-300 whitespace-nowrap rounded-lg"
           >
             <MessageCircle className="h-3.5 w-3.5" aria-hidden />
             Teklif İste
@@ -234,8 +233,8 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
 
 export function PublicProductCardSkeleton() {
   return (
-    <div className="bg-white border border-[#eeeeee] flex flex-col animate-pulse">
-      <Skeleton className="aspect-square w-full" />
+    <div className="bg-[#f3f3f3] rounded-2xl flex flex-col animate-pulse">
+      <Skeleton className="aspect-square w-full rounded-t-2xl" />
       <div className="p-3.5 space-y-2.5">
         <Skeleton className="h-3 w-16" />
         <Skeleton className="h-4 w-full" />
@@ -251,7 +250,7 @@ export function PublicProductCardSkeleton() {
 
 export function PublicProductListItemSkeleton() {
   return (
-    <div className="flex items-start gap-4 p-4 animate-pulse border-b border-[#f0f0f0]">
+    <div className="flex items-start gap-4 p-4 animate-pulse bg-[#f3f3f3] rounded-lg">
       <Skeleton className="w-24 h-24 shrink-0" />
       <div className="flex-1 space-y-2">
         <Skeleton className="h-3 w-16" />

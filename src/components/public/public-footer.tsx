@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Cpu, Phone, Mail, MapPin, Shield, Award, Users } from "lucide-react"
+import { Cpu, Phone, Mail, MapPin } from "lucide-react"
 
 /* ------------------------------------------------------------------ */
 /*  Link data                                                           */
@@ -21,22 +21,38 @@ const corporateLinks = [
   { href: "/kullanim", label: "Kullanım Koşulları" },
 ]
 
+const quickLinks = [
+  { href: "/hakkimizda", label: "Hakkımızda" },
+  { href: "/iletisim", label: "İletişim" },
+  { href: "/sss", label: "Sıkça Sorulan Sorular" },
+]
+
+const socialLinks = [
+  { href: "#", icon: Mail, label: "Email" },
+  { href: "#", icon: Phone, label: "Phone" },
+]
+
 /* ------------------------------------------------------------------ */
-/*  Trust Badge                                                         */
+/*  Social Icon                                                         */
 /* ------------------------------------------------------------------ */
 
-function TrustBadge({
-  icon,
+function SocialIcon({
+  href,
+  icon: Icon,
   label,
 }: {
-  icon: React.ReactNode
+  href: string
+  icon: React.ComponentType<{ className?: string }>
   label: string
 }) {
   return (
-    <div className="flex items-center gap-1.5 h-8 px-3 border border-[#eeeeee] rounded bg-white">
-      {icon}
-      <span className="text-[11px] font-semibold text-[#555555]">{label}</span>
-    </div>
+    <a
+      href={href}
+      className="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-[#2189ff] transition-colors group"
+      aria-label={label}
+    >
+      <Icon className="h-4 w-4 text-white group-hover:text-white" aria-hidden />
+    </a>
   )
 }
 
@@ -46,71 +62,46 @@ function TrustBadge({
 
 export function PublicFooter() {
   return (
-    <footer className="bg-white border-t border-[#eeeeee] mt-auto" role="contentinfo">
-      {/* İletişim CTA Banner */}
-      <div className="bg-[#00179e]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-4 text-white text-center sm:text-left">
-              <div className="hidden sm:flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/10">
-                <Users className="h-6 w-6 text-white" aria-hidden />
-              </div>
-              <div>
-                <p className="font-bold text-[16px]">Bize Ulaşın</p>
-                <p className="text-[13px] text-white/70 mt-0.5">
-                  5.000+ ürün, en iyi fiyatlar ve hızlı teslimat ile yanınızdayız.
-                </p>
-              </div>
-            </div>
-            <Link
-              href="/iletisim"
-              className="inline-flex items-center gap-2 h-11 px-7 bg-white text-[#00179e] text-[13px] font-bold uppercase tracking-wider hover:bg-white/90 transition-colors shrink-0 whitespace-nowrap"
-            >
-              İletişime Geç
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* 4 Sütun */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <footer className="bg-[#1e1e1e] text-[#f3f3f3] mt-auto" role="contentinfo">
+      {/* Footer Top - 4 Columns */}
+      <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
 
-          {/* Sütun 1 — Hakkımızda + İletişim */}
+          {/* Column 1 — Logo + Contact Info */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded bg-[#00179e] flex items-center justify-center">
+            <div className="flex items-center gap-2.5 mb-5">
+              <div className="w-10 h-10 rounded-lg bg-[#2189ff] flex items-center justify-center">
                 <Cpu className="w-5 h-5 text-white" aria-hidden />
               </div>
-              <span className="font-extrabold text-[15px] text-[#333333] tracking-tight">
+              <span className="font-bold text-[16px] text-white tracking-tight">
                 Next AI Teknoloji
               </span>
             </div>
-            <p className="text-[13px] text-[#767676] leading-relaxed mb-5">
+            <p className="text-[13px] text-[#999999] leading-relaxed mb-5">
               Teknoloji ürünlerinde güvenilir çözüm ortağınız. 5.000+ ürün,
               150+ marka ve rekabetçi fiyatlarla yanınızdayız.
             </p>
-            <ul className="space-y-2.5">
-              <li className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 text-[#00179e] shrink-0 mt-0.5" aria-hidden />
-                <span className="text-[12px] text-[#767676]">
+            <ul className="space-y-3">
+              <li className="flex items-start gap-2.5">
+                <MapPin className="h-4 w-4 text-[#2189ff] shrink-0 mt-0.5" aria-hidden />
+                <span className="text-[13px] text-[#999999] leading-relaxed">
                   Esentepe Mh. Sancad Cad. Real Tower Plaza K:2 D:14 Çorlu/Tekirdağ
                 </span>
               </li>
-              <li className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-[#00179e] shrink-0" aria-hidden />
+              <li className="flex items-center gap-2.5">
+                <Phone className="h-4 w-4 text-[#2189ff] shrink-0" aria-hidden />
                 <a
                   href="tel:+905529895959"
-                  className="text-[13px] text-[#767676] hover:text-[#00179e] transition-colors"
+                  className="text-[13px] text-[#999999] hover:text-white transition-colors"
                 >
                   0 552 989 5959
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-[#00179e] shrink-0" aria-hidden />
+              <li className="flex items-center gap-2.5">
+                <Mail className="h-4 w-4 text-[#2189ff] shrink-0" aria-hidden />
                 <a
                   href="mailto:info@next-ai.com.tr"
-                  className="text-[13px] text-[#767676] hover:text-[#00179e] transition-colors"
+                  className="text-[13px] text-[#999999] hover:text-white transition-colors"
                 >
                   info@next-ai.com.tr
                 </a>
@@ -118,19 +109,37 @@ export function PublicFooter() {
             </ul>
           </div>
 
-          {/* Sütun 2 — Kategoriler */}
+          {/* Column 2 — Hızlı Menü */}
           <div>
-            <h3 className="font-bold text-[13px] text-[#333333] uppercase tracking-wider mb-4 pb-2 border-b border-[#eeeeee]">
-              Ürün Kategorileri
+            <h3 className="font-bold text-[14px] text-white uppercase tracking-wider mb-5">
+              Hızlı Menü
+            </h3>
+            <ul className="space-y-2.5">
+              {quickLinks.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-[13px] text-[#999999] hover:text-white transition-colors"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3 — Kategoriler */}
+          <div>
+            <h3 className="font-bold text-[14px] text-white uppercase tracking-wider mb-5">
+              Kategoriler
             </h3>
             <ul className="space-y-2.5">
               {categoryLinks.map(({ href, label }) => (
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-[13px] text-[#767676] hover:text-[#00179e] transition-colors flex items-center gap-1.5 group"
+                    className="text-[13px] text-[#999999] hover:text-white transition-colors"
                   >
-                    <span className="w-1 h-1 rounded-full bg-[#00179e]/30 group-hover:bg-[#00179e] transition-colors shrink-0" />
                     {label}
                   </Link>
                 </li>
@@ -138,89 +147,50 @@ export function PublicFooter() {
             </ul>
           </div>
 
-          {/* Sütun 3 — Kurumsal */}
+          {/* Column 4 — Kurumsal */}
           <div>
-            <h3 className="font-bold text-[13px] text-[#333333] uppercase tracking-wider mb-4 pb-2 border-b border-[#eeeeee]">
+            <h3 className="font-bold text-[14px] text-white uppercase tracking-wider mb-5">
               Kurumsal
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="space-y-2.5 mb-6">
               {corporateLinks.map(({ href, label }) => (
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-[13px] text-[#767676] hover:text-[#00179e] transition-colors flex items-center gap-1.5 group"
+                    className="text-[13px] text-[#999999] hover:text-white transition-colors"
                   >
-                    <span className="w-1 h-1 rounded-full bg-[#00179e]/30 group-hover:bg-[#00179e] transition-colors shrink-0" />
                     {label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
 
-          {/* Sütun 4 — İletişim + Sosyal */}
-          <div>
-            <h3 className="font-bold text-[13px] text-[#333333] uppercase tracking-wider mb-4 pb-2 border-b border-[#eeeeee]">
-              Bize Ulaşın
-            </h3>
-            <div className="space-y-3">
-              <a
-                href="tel:+905529895959"
-                className="flex items-center gap-2.5 p-3 bg-[#f9f9f9] border border-[#eeeeee] hover:border-[#00179e] hover:bg-white transition-all group"
-              >
-                <div className="w-8 h-8 rounded-full bg-[#00179e]/10 flex items-center justify-center shrink-0">
-                  <Phone className="h-3.5 w-3.5 text-[#00179e]" aria-hidden />
-                </div>
-                <div>
-                  <p className="text-[10px] text-[#767676] uppercase tracking-wider">Telefon</p>
-                  <p className="text-[13px] font-semibold text-[#333333] group-hover:text-[#00179e] transition-colors">
-                    0 552 989 5959
-                  </p>
-                </div>
-              </a>
-              <a
-                href="mailto:info@next-ai.com.tr"
-                className="flex items-center gap-2.5 p-3 bg-[#f9f9f9] border border-[#eeeeee] hover:border-[#00179e] hover:bg-white transition-all group"
-              >
-                <div className="w-8 h-8 rounded-full bg-[#00179e]/10 flex items-center justify-center shrink-0">
-                  <Mail className="h-3.5 w-3.5 text-[#00179e]" aria-hidden />
-                </div>
-                <div>
-                  <p className="text-[10px] text-[#767676] uppercase tracking-wider">E-Posta</p>
-                  <p className="text-[13px] font-semibold text-[#333333] group-hover:text-[#00179e] transition-colors">
-                    info@next-ai.com.tr
-                  </p>
-                </div>
-              </a>
+            {/* Social Media Icons */}
+            <div className="flex items-center gap-2">
+              {socialLinks.map(({ href, icon, label }) => (
+                <SocialIcon key={label} href={href} icon={icon} label={label} />
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Alt Footer */}
-      <div className="border-t border-[#eeeeee] bg-[#fafafa]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Footer Bottom - Copyright + Payment */}
+      <div className="border-t border-white/10 bg-[#121212]">
+        <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-4">
-            <p className="text-[12px] text-[#767676]">
+            <p className="text-[13px] text-[#999999]">
               &copy; {new Date().getFullYear()} Next AI Teknoloji. Tüm hakları saklıdır.
             </p>
-            <div className="flex items-center gap-2 flex-wrap justify-center">
-              <TrustBadge
-                icon={
-                  <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-green-600" fill="currentColor" aria-hidden>
-                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
-                  </svg>
-                }
-                label="SSL Güvenli"
-              />
-              <TrustBadge
-                icon={<Shield className="h-3.5 w-3.5 text-[#00179e]" aria-hidden />}
-                label="Güvenli Alışveriş"
-              />
-              <TrustBadge
-                icon={<Award className="h-3.5 w-3.5 text-amber-500" aria-hidden />}
-                label="Güvenilir Satıcı"
-              />
+
+            {/* Payment Method Icons */}
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center px-3 py-1.5 bg-white rounded">
+                <span className="text-[10px] font-bold text-[#1a1f71]">VISA</span>
+              </div>
+              <div className="flex items-center justify-center px-3 py-1.5 bg-white rounded">
+                <span className="text-[10px] font-bold text-[#eb001b]">MasterCard</span>
+              </div>
             </div>
           </div>
         </div>

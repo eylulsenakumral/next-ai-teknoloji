@@ -120,7 +120,7 @@ function CartButton() {
       className="relative flex items-center gap-2.5 group"
       aria-label={itemCount > 0 ? `Sepet, ${itemCount} ürün` : "Sepet"}
     >
-      <div className="relative flex h-11 w-11 items-center justify-center rounded-full bg-[#00179e] text-white transition-all group-hover:bg-[#0284c7]">
+      <div className="relative flex h-11 w-11 items-center justify-center rounded-full bg-[#2189ff] text-white transition-all group-hover:bg-[#1e1e1e]">
         <ShoppingCart className="h-5 w-5" aria-hidden />
         {itemCount > 0 && (
           <span
@@ -203,7 +203,7 @@ function CategoryDropdown() {
       <button
         type="button"
         onClick={() => setOpen((p) => !p)}
-        className="flex items-center gap-2 h-10 px-4 rounded bg-[#00179e] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#0284c7] transition-colors"
+        className="flex items-center gap-2 h-10 px-4 rounded bg-[#2189ff] text-white text-[12px] font-bold capitalize tracking-wider hover:bg-[#1e1e1e] transition-colors"
         aria-expanded={open}
         aria-haspopup="true"
       >
@@ -247,8 +247,8 @@ function CategoryDropdown() {
                   className={cn(
                     "w-full flex items-center justify-between px-4 py-2.5 text-[13px] transition-colors text-left",
                     activeParentId === cat.id
-                      ? "bg-[#f0f4ff] text-[#00179e] font-semibold"
-                      : "text-[#333333] hover:bg-[#f5f5f5]"
+                      ? "bg-[#f0f4ff] text-[#2189ff] font-semibold"
+                      : "text-[#1e1e1e] hover:bg-[#f3f3f3]"
                   )}
                   role="menuitem"
                 >
@@ -277,7 +277,7 @@ function CategoryDropdown() {
                     setOpen(false)
                     setActiveParentId(null)
                   }}
-                  className="inline-block text-[15px] font-bold text-[#00179e] mb-4 hover:underline"
+                  className="inline-block text-[15px] font-bold text-[#2189ff] mb-4 hover:underline"
                 >
                   {activeParent.name}
                   {activeParent.productCount > 0 && (
@@ -295,7 +295,7 @@ function CategoryDropdown() {
                           setOpen(false)
                           setActiveParentId(null)
                         }}
-                        className="inline-flex items-baseline gap-1.5 text-[13px] font-semibold text-[#333333] hover:text-[#00179e] transition-colors py-1.5"
+                        className="inline-flex items-baseline gap-1.5 text-[13px] font-semibold text-[#1e1e1e] hover:text-[#2189ff] transition-colors py-1.5"
                       >
                         {sub.name}
                         {sub.productCount > 0 && (
@@ -314,7 +314,7 @@ function CategoryDropdown() {
                                   setOpen(false)
                                   setActiveParentId(null)
                                 }}
-                                className="inline-flex items-baseline gap-1 text-[12px] text-[#767676] hover:text-[#00179e] transition-colors py-1"
+                                className="inline-flex items-baseline gap-1 text-[12px] text-[#767676] hover:text-[#2189ff] transition-colors py-1"
                               >
                                 {child.name}
                                 {child.productCount > 0 && (
@@ -339,7 +339,7 @@ function CategoryDropdown() {
                     setOpen(false)
                     setActiveParentId(null)
                   }}
-                  className="text-[14px] font-semibold text-[#00179e] hover:underline"
+                  className="text-[14px] font-semibold text-[#2189ff] hover:underline"
                 >
                   {activeParent.name} kategorisine git
                   {activeParent.productCount > 0 && (
@@ -406,7 +406,7 @@ function MobileCategoryAccordion({
             <Link
               href={`/urunler?kategori=${cat.slug}`}
               onClick={onNavigate}
-              className="flex-1 px-3 py-2 text-[13px] font-semibold text-[#333333] hover:text-[#00179e] transition-colors"
+              className="flex-1 px-3 py-2 text-[13px] font-semibold text-[#1e1e1e] hover:text-[#2189ff] transition-colors"
             >
               {cat.name}
               {cat.productCount > 0 && (
@@ -419,7 +419,7 @@ function MobileCategoryAccordion({
               <button
                 type="button"
                 onClick={() => toggle(cat.id)}
-                className="p-2 text-[#767676] hover:text-[#00179e] transition-colors"
+                className="p-2 text-[#767676] hover:text-[#2189ff] transition-colors"
                 aria-expanded={expandedIds.has(cat.id)}
                 aria-label={`${cat.name} alt kategorilerini ${expandedIds.has(cat.id) ? "kapat" : "ac"}`}
               >
@@ -441,7 +441,7 @@ function MobileCategoryAccordion({
                     <Link
                       href={`/urunler?kategori=${sub.slug}`}
                       onClick={onNavigate}
-                      className="flex-1 px-3 py-1.5 text-[12px] text-[#555555] hover:text-[#00179e] transition-colors"
+                      className="flex-1 px-3 py-1.5 text-[12px] text-[#555555] hover:text-[#2189ff] transition-colors"
                     >
                       {sub.name}
                       {sub.productCount > 0 && (
@@ -454,7 +454,7 @@ function MobileCategoryAccordion({
                       <button
                         type="button"
                         onClick={() => toggle(sub.id)}
-                        className="p-2 text-[#767676] hover:text-[#00179e] transition-colors"
+                        className="p-2 text-[#767676] hover:text-[#2189ff] transition-colors"
                         aria-expanded={expandedIds.has(sub.id)}
                         aria-label={`${sub.name} alt kategorilerini ${expandedIds.has(sub.id) ? "kapat" : "ac"}`}
                       >
@@ -475,7 +475,7 @@ function MobileCategoryAccordion({
                           key={child.id}
                           href={`/urunler?kategori=${child.slug}`}
                           onClick={onNavigate}
-                          className="block px-3 py-1 text-[11px] text-[#767676] hover:text-[#00179e] transition-colors"
+                          className="block px-3 py-1 text-[11px] text-[#767676] hover:text-[#2189ff] transition-colors"
                         >
                           {child.name}
                           {child.productCount > 0 && (
@@ -535,9 +535,9 @@ function MobileDrawer({
         aria-hidden
       />
       <div className="fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-2xl flex flex-col">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#eeeeee] bg-[#444444]">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#eeeeee] bg-[#1e1e1e]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded bg-[#00179e] flex items-center justify-center">
+            <div className="w-8 h-8 rounded bg-[#2189ff] flex items-center justify-center">
               <Cpu className="w-4 h-4 text-white" />
             </div>
             <div>
@@ -566,8 +566,8 @@ function MobileDrawer({
               className={cn(
                 "flex items-center gap-3 px-3 py-2.5 text-[13px] font-semibold transition-colors",
                 pathname === href
-                  ? "bg-[#00179e] text-white"
-                  : "text-[#333333] hover:bg-[#f5f5f5] hover:text-[#00179e]"
+                  ? "bg-[#2189ff] text-white"
+                  : "text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#2189ff]"
               )}
               aria-current={pathname === href ? "page" : undefined}
             >
@@ -623,8 +623,8 @@ export function DealerHeader() {
   return (
     <>
       {/* KATMAN 1 -- Top Bar */}
-      <div className="bg-[#00179e] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#2189ff] text-white">
+        <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-8 text-[11px] uppercase tracking-wider">
             <span className="text-white hidden sm:block">
               Ücretsiz kargo --{" "}
@@ -660,7 +660,7 @@ export function DealerHeader() {
 
       {/* KATMAN 2 -- Ana Header */}
       <div className="bg-white border-b border-[#eeeeee] hidden md:block">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-6 h-[90px]">
             {/* Logo */}
             <Link
@@ -668,11 +668,11 @@ export function DealerHeader() {
               className="flex items-center gap-2.5 shrink-0"
               aria-label="Next AI Teknoloji ana sayfa"
             >
-              <div className="w-11 h-11 rounded bg-[#00179e] flex items-center justify-center">
+              <div className="w-11 h-11 rounded bg-[#2189ff] flex items-center justify-center">
                 <Cpu className="w-6 h-6 text-white" />
               </div>
               <div className="flex flex-col leading-none">
-                <span className="font-extrabold text-[18px] text-[#333333] tracking-tight">
+                <span className="font-extrabold text-[18px] text-[#1e1e1e] tracking-tight">
                   Next AI Teknoloji
                 </span>
                 <span className="text-[11px] text-[#767676] font-medium uppercase tracking-widest">
@@ -686,7 +686,7 @@ export function DealerHeader() {
               <span className="text-[11px] text-[#767676]">Yardıma mı ihtiyacınız var?</span>
               <a
                 href="tel:+905529895959"
-                className="text-[15px] font-bold text-[#333333] hover:text-[#00179e] transition-colors"
+                className="text-[15px] font-bold text-[#1e1e1e] hover:text-[#2189ff] transition-colors"
               >
                 0 552 989 5959
               </a>
@@ -704,7 +704,7 @@ export function DealerHeader() {
             <div className="flex items-center gap-4 shrink-0 ml-auto">
               <Link
                 href="/favoriler"
-                className="flex flex-col items-center gap-0.5 text-[#767676] hover:text-[#00179e] transition-colors"
+                className="flex flex-col items-center gap-0.5 text-[#767676] hover:text-[#2189ff] transition-colors"
                 aria-label="Favorilerim"
               >
                 <Heart className="h-5 w-5" />
@@ -724,22 +724,22 @@ export function DealerHeader() {
         )}
         aria-label="Ana navigasyon"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Mobil header */}
           <div className="flex items-center md:hidden h-14 gap-3">
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
-              className="flex h-9 w-9 items-center justify-center rounded text-[#333333] hover:text-[#00179e] hover:bg-[#f5f5f5] transition-colors"
+              className="flex h-9 w-9 items-center justify-center rounded text-[#1e1e1e] hover:text-[#2189ff] hover:bg-[#f3f3f3] transition-colors"
               aria-label="Menüyü aç"
             >
               <Menu className="h-5 w-5" />
             </button>
             <Link href="/" className="flex items-center gap-2 flex-1">
-              <div className="w-7 h-7 rounded bg-[#00179e] flex items-center justify-center">
+              <div className="w-7 h-7 rounded bg-[#2189ff] flex items-center justify-center">
                 <Cpu className="w-3.5 h-3.5 text-white" />
               </div>
-              <span className="font-extrabold text-[14px] text-[#333333] tracking-tight">
+              <span className="font-extrabold text-[14px] text-[#1e1e1e] tracking-tight">
                 Next AI Teknoloji
               </span>
             </Link>
@@ -758,10 +758,10 @@ export function DealerHeader() {
                   <Link
                     href={href}
                     className={cn(
-                      "inline-flex items-center h-[50px] px-4 text-[12px] font-bold uppercase tracking-wider transition-colors",
+                      "inline-flex items-center h-[50px] px-4 text-[12px] font-bold capitalize tracking-wider transition-colors",
                       pathname === href
-                        ? "text-[#00179e] border-b-2 border-[#00179e]"
-                        : "text-[#333333] hover:text-[#00179e] border-b-2 border-transparent"
+                        ? "text-[#2189ff] border-b-2 border-[#2189ff]"
+                        : "text-[#1e1e1e] hover:text-[#2189ff] border-b-2 border-transparent"
                     )}
                     aria-current={pathname === href ? "page" : undefined}
                   >
