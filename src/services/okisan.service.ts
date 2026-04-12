@@ -613,6 +613,14 @@ export async function syncOkisanProducts(): Promise<SyncResult> {
         where: { supplierId_externalId: { supplierId, externalId: extId } },
       })
 
+      // _supplierCategory: category alanındaki son pipe segmentinin son ">" parçası
+      const lastPipeSegment = categoryRaw
+        ? categoryRaw.split("|").pop()?.trim() ?? ""
+        : ""
+      const supplierCategory = lastPipeSegment
+        ? lastPipeSegment.split(">").pop()?.trim() || undefined
+        : undefined
+
       const supplierProductData = {
         productId: product.id,
         externalName: name,
@@ -623,7 +631,10 @@ export async function syncOkisanProducts(): Promise<SyncResult> {
         stockQuantity,
         isAvailable,
         lastScrapedAt: new Date(),
-        rawData: item as unknown as import("@prisma/client").Prisma.InputJsonValue,
+        rawData: {
+          ...(item as unknown as Record<string, unknown>),
+          ...(supplierCategory ? { _supplierCategory: supplierCategory } : {}),
+        } as import("@prisma/client").Prisma.InputJsonValue,
         matchMethod,
         matchConfidence,
       }

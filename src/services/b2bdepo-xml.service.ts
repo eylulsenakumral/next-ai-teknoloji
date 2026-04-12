@@ -452,6 +452,16 @@ async function processProduct(
   const matchMethod = item.ean ? ("BARCODE" as const) : ("SKU" as const)
   const matchConfidence = item.ean ? 100 : 80
 
+  // _supplierCategory: ustKategoriAdi > altKategoriAdi > enAltKategoriAdi
+  const supplierCategoryParts = [
+    item.ustKategoriAdi,
+    item.altKategoriAdi,
+    item.enAltKategoriAdi,
+  ].filter((p): p is string => Boolean(p))
+  const supplierCategory = supplierCategoryParts.length > 0
+    ? supplierCategoryParts.join(" > ")
+    : undefined
+
   const supplierProductData = {
     productId: product.id,
     externalName: item.urunAdi,
@@ -462,7 +472,10 @@ async function processProduct(
     stockQuantity: item.stok,
     isAvailable: item.stok > 0,
     lastScrapedAt: new Date(),
-    rawData: item as unknown as import("@prisma/client").Prisma.InputJsonValue,
+    rawData: {
+      ...(item as unknown as Record<string, unknown>),
+      ...(supplierCategory ? { _supplierCategory: supplierCategory } : {}),
+    } as import("@prisma/client").Prisma.InputJsonValue,
     matchMethod,
     matchConfidence,
   }
