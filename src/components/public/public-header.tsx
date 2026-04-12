@@ -16,6 +16,7 @@ import {
   Package,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { NavigationBar } from "./navigation-bar"
 
 /* ------------------------------------------------------------------ */
 /*  Mobile Drawer                                                       */
@@ -536,6 +537,9 @@ export function PublicHeader() {
           </div>
         </div>
       </header>
+
+      {/* Layer 3: Navigation Bar */}
+      <NavigationBar />
 
       {/* Mobile Drawer */}
       <MobileDrawer
