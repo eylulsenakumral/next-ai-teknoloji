@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronDown, ChevronRight, Search } from "lucide-react"
+import { ChevronDown, ChevronRight, Search, SlidersHorizontal } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { CategoryNode, BrandItem, SupplierItem, ProductFilters } from "@/types/catalog"
 
@@ -48,25 +48,32 @@ function CategoryItem({
   const isSelected = selectedId === category.id
 
   return (
-    <div>
+    <div className={cn(
+      "relative",
+      depth > 0 && "ml-2.5 before:absolute before:left-0 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#2189ff]/20 before:rounded-full"
+    )}>
       <div
         className={cn(
-          "flex items-center gap-0.5",
-          depthPad[depth] ?? depthPad[4]
+          "flex items-center gap-1.5 py-2.5 px-3 rounded-lg transition-all duration-150",
+          isSelected
+            ? "bg-[#2189ff]/10 text-[#2189ff]"
+            : "text-[#767676] hover:bg-[#2189ff]/5 hover:text-[#2189ff]"
         )}
       >
         {hasChildren ? (
           <button
             type="button"
             onClick={() => setExpanded((p) => !p)}
-            className="p-0.5 text-[#767676] hover:text-[#333333] shrink-0"
+            className="shrink-0 p-0.5 text-[#767676] hover:text-[#2189ff] transition-colors duration-200"
             aria-label={expanded ? "Daralt" : "Genişlet"}
           >
-            {expanded ? (
-              <ChevronDown className="h-3 w-3" aria-hidden />
-            ) : (
-              <ChevronRight className="h-3 w-3" aria-hidden />
-            )}
+            <ChevronRight
+              className={cn(
+                "h-3.5 w-3.5 transition-transform duration-200",
+                expanded && "rotate-90"
+              )}
+              aria-hidden
+            />
           </button>
         ) : (
           <span className="w-4 shrink-0" />
@@ -77,23 +84,30 @@ function CategoryItem({
           onClick={() => onSelect(isSelected ? "" : category.id)}
           title={category.name}
           className={cn(
-            "flex-1 flex items-center justify-between py-1 px-1.5 transition-colors text-left min-w-0",
+            "flex-1 flex items-center justify-between text-left min-w-0",
             depthFont[depth] ?? depthFont[4],
             isSelected
-              ? "text-[#00179e] font-semibold"
-              : "text-[#767676] hover:text-[#00179e]"
+              ? "font-semibold"
+              : ""
           )}
           aria-pressed={isSelected}
         >
           <span className="truncate">{category.name}</span>
-          <span className="text-[10px] text-[#767676] shrink-0 ml-1 tabular-nums">
-            ({category._count?.products ?? 0})
+          <span
+            className={cn(
+              "shrink-0 ml-2 tabular-nums rounded-full px-2 py-0.5 text-[11px] font-medium transition-colors duration-150",
+              isSelected
+                ? "bg-[#2189ff]/20 text-[#2189ff]"
+                : "bg-[#f3f3f3] text-[#767676]"
+            )}
+          >
+            {category._count?.products ?? 0}
           </span>
         </button>
       </div>
 
       {hasChildren && expanded && (
-        <div>
+        <div className="ml-2.5 mt-0.5 space-y-0.5">
           {category.children!.map((child) => (
             <CategoryItem
               key={child.id}
@@ -113,30 +127,46 @@ function FilterSection({
   title,
   defaultOpen = true,
   children,
+  showReset = false,
+  onReset,
 }: {
   title: string
   defaultOpen?: boolean
   children: React.ReactNode
+  showReset?: boolean
+  onReset?: () => void
 }) {
   const [open, setOpen] = useState(defaultOpen)
 
   return (
-    <div className="py-4 border-b border-[#eeeeee] last:border-0">
-      <button
-        type="button"
-        onClick={() => setOpen((p) => !p)}
-        className="flex w-full items-center justify-between text-[12px] font-bold text-[#333333] uppercase tracking-widest hover:text-[#00179e] transition-colors mb-3"
-        aria-expanded={open}
-      >
-        {title}
-        <ChevronDown
-          className={cn(
-            "h-3.5 w-3.5 text-[#767676] transition-transform duration-200",
-            !open && "-rotate-90"
-          )}
-          aria-hidden
-        />
-      </button>
+    <div className="py-4 border-b border-[#e9e9e9] last:border-0">
+      <div className="flex items-center justify-between mb-3">
+        <button
+          type="button"
+          onClick={() => setOpen((p) => !p)}
+          className="flex items-center gap-2 text-[12px] font-bold text-[#1e1e1e] uppercase tracking-widest hover:text-[#2189ff] transition-colors duration-150"
+          aria-expanded={open}
+        >
+          <SlidersHorizontal className="h-3.5 w-3.5 text-[#2189ff]" aria-hidden />
+          {title}
+          <ChevronDown
+            className={cn(
+              "h-3.5 w-3.5 text-[#767676] transition-transform duration-200",
+              !open && "-rotate-90"
+            )}
+            aria-hidden
+          />
+        </button>
+        {showReset && onReset && (
+          <button
+            type="button"
+            onClick={onReset}
+            className="text-[11px] font-semibold text-[#767676] hover:text-[#2189ff] transition-colors duration-150"
+          >
+            Tümü
+          </button>
+        )}
+      </div>
       {open && <div>{children}</div>}
     </div>
   )
@@ -161,8 +191,12 @@ export function ProductFilters({
     <aside aria-label="Ürün filtreleri" className="space-y-0">
       {/* Kategoriler */}
       {categories.length > 0 && (
-        <FilterSection title="Kategoriler">
-          <nav aria-label="Kategori filtresi" className="space-y-0">
+        <FilterSection
+          title="Kategoriler"
+          showReset={!!filters.categoryId}
+          onReset={() => onChange({ categoryId: "", page: 1 })}
+        >
+          <nav aria-label="Kategori filtresi" className="space-y-0.5 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
             {categories.map((cat) => (
               <CategoryItem
                 key={cat.id}
@@ -189,11 +223,11 @@ export function ProductFilters({
               placeholder="Marka ara..."
               value={brandSearch}
               onChange={(e) => setBrandSearch(e.target.value)}
-              className="w-full h-8 border border-[#eeeeee] bg-white pl-8 pr-3 text-[12px] text-[#333333] placeholder:text-[#767676] focus:outline-none focus:border-[#00179e] transition-colors"
+              className="w-full h-8 border border-[#e9e9e9] bg-white rounded-lg pl-8 pr-3 text-[12px] text-[#1e1e1e] placeholder:text-[#767676] focus:outline-none focus:border-[#2189ff] focus:ring-1 focus:ring-[#2189ff]/20 transition-all"
             />
           </div>
           <div
-            className="space-y-0 max-h-52 overflow-y-auto"
+            className="space-y-0 max-h-52 overflow-y-auto pr-2 custom-scrollbar"
             role="group"
             aria-label="Marka filtresi"
           >
@@ -202,7 +236,7 @@ export function ProductFilters({
               return (
                 <label
                   key={brand.id}
-                  className="flex items-center gap-2.5 py-1.5 cursor-pointer hover:text-[#00179e] transition-colors"
+                  className="flex items-center gap-2.5 py-2 px-2 cursor-pointer rounded-lg hover:bg-[#2189ff]/5 transition-colors duration-150"
                 >
                   <input
                     type="checkbox"
@@ -211,9 +245,9 @@ export function ProductFilters({
                       onChange({ brandId: checked ? "" : brand.id, page: 1 })
                     }
                     aria-label={`${brand.name} markasını filtrele`}
-                    className="h-3.5 w-3.5 border-[#eeeeee] text-[#00179e] focus:ring-[#00179e] focus:ring-offset-0 accent-[#00179e]"
+                    className="h-3.5 w-3.5 border-[#e9e9e9] text-[#2189ff] focus:ring-[#2189ff] focus:ring-offset-0 accent-[#2189ff] rounded"
                   />
-                  <span className="text-[13px] text-[#767676] flex-1 truncate hover:text-[#00179e]">
+                  <span className="text-[13px] text-[#767676] flex-1 truncate hover:text-[#2189ff] transition-colors duration-150">
                     {brand.name}
                   </span>
                   <span className="text-[11px] text-[#767676] tabular-nums">
@@ -244,10 +278,10 @@ export function ProductFilters({
               placeholder="0"
               value={filters.minPrice}
               onChange={(e) => onChange({ minPrice: e.target.value, page: 1 })}
-              className="w-full h-8 border border-[#eeeeee] px-2.5 text-[13px] text-[#333333] focus:outline-none focus:border-[#00179e] transition-colors"
+              className="w-full h-8 border border-[#e9e9e9] rounded-lg px-2.5 text-[13px] text-[#1e1e1e] focus:outline-none focus:border-[#2189ff] focus:ring-1 focus:ring-[#2189ff]/20 transition-all"
             />
           </div>
-          <span className="text-[#eeeeee] mt-4 text-lg">—</span>
+          <span className="text-[#e9e9e9] mt-4 text-lg">—</span>
           <div className="flex-1">
             <label
               htmlFor="max-price"
@@ -262,7 +296,7 @@ export function ProductFilters({
               placeholder="∞"
               value={filters.maxPrice}
               onChange={(e) => onChange({ maxPrice: e.target.value, page: 1 })}
-              className="w-full h-8 border border-[#eeeeee] px-2.5 text-[13px] text-[#333333] focus:outline-none focus:border-[#00179e] transition-colors"
+              className="w-full h-8 border border-[#e9e9e9] rounded-lg px-2.5 text-[13px] text-[#1e1e1e] focus:outline-none focus:border-[#2189ff] focus:ring-1 focus:ring-[#2189ff]/20 transition-all"
             />
           </div>
         </div>
