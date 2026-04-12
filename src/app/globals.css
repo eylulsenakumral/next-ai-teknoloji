@@ -7,9 +7,16 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-poppins), "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-outfit: var(--font-outfit), "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), "JetBrains Mono", ui-monospace, monospace;
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-poppins);
+  /* dt-elektrix breakpoints */
+  --breakpoint-xs: 576px;
+  --breakpoint-sm: 768px;
+  --breakpoint-md: 992px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-xl: 1541px;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -54,85 +61,219 @@
 }
 
 :root {
-  /* Next AI Teknoloji brand colors */
-  --brand-primary: oklch(0.29 0.08 243.8);       /* #1e3a5f koyu mavi */
-  --brand-primary-foreground: oklch(0.985 0 0);  /* beyaz */
-  --brand-accent: oklch(0.60 0.18 212.5);        /* #0ea5e9 turkuaz */
-  --brand-accent-foreground: oklch(0.985 0 0);   /* beyaz */
+  /* dt-elektrix brand colors */
+  --brand-primary: #2189ff;
+  --brand-primary-foreground: #ffffff;
+  --brand-accent: #2189ff;
+  --brand-accent-foreground: #ffffff;
 
   /* Light mode */
-  --background: oklch(0.975 0 0);               /* cok acik gri */
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);                          /* beyaz kartlar */
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.29 0.08 243.8);             /* brand primary */
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.60 0.18 212.5);             /* brand accent */
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.60 0.18 212.5);               /* accent rengi */
-  --chart-1: oklch(0.29 0.08 243.8);
-  --chart-2: oklch(0.60 0.18 212.5);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.29 0.08 243.8);            /* sidebar koyu mavi */
-  --sidebar-foreground: oklch(0.9 0 0);
-  --sidebar-primary: oklch(0.60 0.18 212.5);    /* accent */
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.35 0.08 243.8);     /* biraz daha acik mavi */
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.35 0.08 243.8);
-  --sidebar-ring: oklch(0.60 0.18 212.5);
+  --background: #ffffff;
+  --foreground: #1e1e1e;
+  --card: #f3f3f3;
+  --card-foreground: #1e1e1e;
+  --popover: #ffffff;
+  --popover-foreground: #1e1e1e;
+  --primary: #2189ff;
+  --primary-foreground: #ffffff;
+  --secondary: #f3f3f3;
+  --secondary-foreground: #1e1e1e;
+  --muted: #f3f3f3;
+  --muted-foreground: #767676;
+  --accent: #2189ff;
+  --accent-foreground: #ffffff;
+  --destructive: #D8000C;
+  --border: #e9e9e9;
+  --input: #f3f3f3;
+  --ring: #2189ff;
+  --chart-1: #2189ff;
+  --chart-2: #F58720;
+  --chart-3: #1e1e1e;
+  --chart-4: #108474;
+  --chart-5: #006FCF;
+  --radius: 0.5rem;
+  --sidebar: #1e1e1e;
+  --sidebar-foreground: #f3f3f3;
+  --sidebar-primary: #2189ff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #2a2a2a;
+  --sidebar-accent-foreground: #f3f3f3;
+  --sidebar-border: #333333;
+  --sidebar-ring: #2189ff;
+
+  /* =============================================
+     dt-elektrix Design System Variables
+     ============================================= */
+
+  /* Font Families */
+  --DTFontTypo_Heading: 'Poppins', sans-serif;
+  --font-style-header: normal;
+  --font-weight-header: 400;
+  --DTFontTypo_Body: 'Poppins', sans-serif;
+  --font-style-body: normal;
+  --font-weight-body: 400;
+  --font-weight-body--bold: 700;
+  --font-weight-body--bolder: 700;
+  --font-size-body: 16px;
+  --DTFontTypo_Custom: Outfit, sans-serif;
+  --font-style-additional: normal;
+  --font-weight-additional: 300;
+  --font-size-additional: 20px;
+
+  /* Font Sizes */
+  --DTFontSizeBase: 16px;
+  --DTFontSize_H1: 60px;
+  --DTFontSize_H2: 48px;
+  --DTFontSize_H3: 36px;
+  --DTFontSize_H4: 30px;
+  --DTFontSize_H5: 24px;
+  --DTFontSize_H6: 20px;
+  --DT_Heading_Line_Height: 1.2em;
+  --DT_Body_Line_Height: 1.5em;
+
+  /* Primary Colors */
+  --swiper-theme-color: #2189ff;
+  --DTPrimaryColor: #2189ff;
+  --DTSecondaryColor: #1e1e1e;
+  --DTTertiaryColor: #f3f3f3;
+  --DTBodyBGColor: #ffffff;
+  --DTOverlayColor: rgba(0, 0, 0, 0.5);
+
+  /* Text & Link Colors */
+  --DTLinkColor: #1e1e1e;
+  --DTLinkHoverColor: #2189ff;
+  --DTColor_Body: #1e1e1e;
+  --DTColor_Heading: #1e1e1e;
+  --DTColor_Border: #e9e9e9;
+
+  /* Status Colors */
+  --DT_Error_Color: #D8000C;
+  --DT_Success_Color: #4F8A10;
+  --DT_discount_color: #4F8A10;
+  --DT_Warning_Color: #9F6000;
+  --DT_Info_Color: #31708f;
+
+  /* Blog Section */
+  --DT_Blog_Border_Radius: 20px;
+  --DT_Blog_Gutter_Width: 30px;
+  --DT_Blog_BG_Color: rgba(0, 0, 0, 0);
+  --DT_Blog_Link_Color: #1e1e1e;
+  --DT_Blog_Link_Hover_Color: #2189ff;
+  --DT_Blog_Text_Color: #1e1e1e;
+  --DT_Blog_Icon_Color: #1e1e1e;
+  --DT_Blog_Button_BG_Color: rgba(0, 0, 0, 0);
+  --DT_Blog_Button_Text_Color: #1e1e1e;
+  --DT_Blog_Button_BG_Hover_Color: rgba(0, 0, 0, 0);
+  --DT_Blog_Button_Text_Hover_Color: #2189ff;
+  --DT_Blog_Link_Color_Overlay: #ffffff;
+  --DT_Blog_Link_Hover_Color_Overlay: #1e1e1e;
+  --DT_Blog_Text_Color_overlay: #ffffff;
+  --DT_Blog_Icon_Color_overlay: #ffffff;
+  --DT_Blog_Button_BG_Color_overlay: #2189ff;
+  --DT_Blog_Button_Text_Color_overlay: #ffffff;
+  --DT_Blog_Button_BG_Hover_Color_overlay: #1e1e1e;
+  --DT_Blog_Button_Text_Hover_Color_overlay: #ffffff;
+
+  /* Product Colors */
+  --DT_product_bg_color: #f3f3f3;
+  --DT_product_text_color: #1e1e1e;
+  --DT_product_title_color: #1e1e1e;
+  --DT_product_title_hover_color: #2189ff;
+  --DT_product_vendor_color: #bebebe;
+  --DT_product_detail_padding: 10px 0 0;
+
+  /* Border Radius */
+  --DTRadius: 20px;
+  --DT_Button_Border_Radius: 8px;
+
+  /* Form & Input Styles */
+  --DTInputPadding: 12px 20px 12px 20px;
+  --DTInputBackground: #f3f3f3;
+  --DTform_BG: #e9e9e9;
+
+  /* Button Styles */
+  --DTPadding_Btn: 9px 32px 9px 32px;
+  --DT_Button_BG_Color: #2189ff;
+  --DT_Button_Text_Color: #ffffff;
+  --DT_Button_BG_Hover_Color: #1e1e1e;
+  --DT_Button_border_Color: ;
+  --DT_Button_hover_border_Color: ;
+  --DT_Button_Text_Hover_Color: #ffffff;
+  --DT_Button_border_width: 0px;
+  --DT_Button_text_transform: capitalize;
+
+  /* Spacing & Layout */
+  --DTContainer: 1330px;
+  --DT_Lap_Container: 1100px;
+  --DT_Tab_Container: 960px;
+  --DT_Container_Spacing: 7%;
+  --DTGutter_Width: 30px;
+  --sidebar_width: 285px;
+
+  /* Transitions */
+  --DTBaseTransition: all 0.3s linear;
+
+  /* Box Shadows */
+  --DTboxShadowcolor: rgba(187, 187, 187, 0.5);
+  --DTboxShadowcolor_light: rgba(233, 233, 233, 0.5);
+  --DTboxShadow: 0 0 10px var(--DTboxShadowcolor);
+  --DTboxShadow_light: 0 0 10px var(--DTboxShadowcolor_light);
+
+  /* Gradients */
+  --DT_Gradient: linear-gradient(310deg, rgba(17, 189, 251, 1) 15%, rgba(33, 249, 150, 1) 85%);
+  --DT_Gradient_Hover: linear-gradient(228deg, rgba(21, 209, 252, 1) 14%, rgba(187, 48, 254, 1) 83%);
+
+  /* Quick Reference Aliases */
+  --primary-rgb: 33, 137, 255;
+  --dark: #1e1e1e;
+  --dark-rgb: 30, 30, 30;
+  --light: #f3f3f3;
+  --light-rgb: 243, 243, 243;
+  --border-rgb: 233, 233, 233;
+  --error: #D8000C;
+  --success: #4F8A10;
+  --warning: #9F6000;
+  --info: #31708f;
 }
 
 .dark {
-  /* Next AI Teknoloji dark mode */
-  --brand-primary: oklch(0.45 0.10 243.8);
-  --brand-primary-foreground: oklch(0.985 0 0);
-  --brand-accent: oklch(0.65 0.18 212.5);
-  --brand-accent-foreground: oklch(0.145 0 0);
+  /* dt-elektrix dark mode */
+  --brand-primary: #2189ff;
+  --brand-primary-foreground: #ffffff;
+  --brand-accent: #4da6ff;
+  --brand-accent-foreground: #1e1e1e;
 
-  --background: oklch(0.13 0.02 243.8);         /* cok koyu mavi-gri */
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.18 0.03 243.8);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.18 0.03 243.8);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.65 0.18 212.5);            /* accent rengi primary olur dark'ta */
-  --primary-foreground: oklch(0.145 0 0);
-  --secondary: oklch(0.22 0.03 243.8);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.22 0.03 243.8);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.65 0.18 212.5);
-  --accent-foreground: oklch(0.145 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.65 0.18 212.5);
-  --chart-1: oklch(0.45 0.10 243.8);
-  --chart-2: oklch(0.65 0.18 212.5);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.15 0.03 243.8);
-  --sidebar-foreground: oklch(0.9 0 0);
-  --sidebar-primary: oklch(0.65 0.18 212.5);
-  --sidebar-primary-foreground: oklch(0.145 0 0);
-  --sidebar-accent: oklch(0.22 0.03 243.8);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.65 0.18 212.5);
+  --background: #121212;
+  --foreground: #f3f3f3;
+  --card: #1e1e1e;
+  --card-foreground: #f3f3f3;
+  --popover: #1e1e1e;
+  --popover-foreground: #f3f3f3;
+  --primary: #2189ff;
+  --primary-foreground: #ffffff;
+  --secondary: #2a2a2a;
+  --secondary-foreground: #f3f3f3;
+  --muted: #2a2a2a;
+  --muted-foreground: #999999;
+  --accent: #4da6ff;
+  --accent-foreground: #1e1e1e;
+  --destructive: #ff4444;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #2189ff;
+  --chart-1: #2189ff;
+  --chart-2: #F58720;
+  --chart-3: #f3f3f3;
+  --chart-4: #4da6ff;
+  --chart-5: #108474;
+  --sidebar: #0a0a0a;
+  --sidebar-foreground: #f3f3f3;
+  --sidebar-primary: #2189ff;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1e1e1e;
+  --sidebar-accent-foreground: #f3f3f3;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #2189ff;
 }
 
 @layer base {
@@ -145,4 +286,77 @@
   html {
     @apply font-sans;
   }
+}
+
+/* dt-elektrix design system overrides */
+@layer base {
+  h1 { font-size: 60px; line-height: 1.2em; }
+  h2 { font-size: 48px; line-height: 1.2em; }
+  h3 { font-size: 36px; line-height: 1.2em; }
+  h4 { font-size: 30px; line-height: 1.2em; }
+  h5 { font-size: 24px; line-height: 1.2em; }
+  h6 { font-size: 20px; line-height: 1.2em; }
+  body { line-height: 1.5em; }
+}
+
+/* Hero Animations */
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -30px) scale(1.05);
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.95);
+  }
+  75% {
+    transform: translate(20px, 10px) scale(1.02);
+  }
+}
+
+@keyframes pulse-line {
+  0%, 100% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scaleX(1.1);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 20s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float 25s ease-in-out infinite reverse;
+}
+
+.animate-float-slow {
+  animation: float 18s ease-in-out infinite;
+}
+
+.animate-float-medium {
+  animation: float 15s ease-in-out infinite;
+}
+
+.animate-pulse-line {
+  animation: pulse-line 2s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out both;
 }
