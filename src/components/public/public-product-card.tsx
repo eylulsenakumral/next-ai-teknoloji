@@ -62,14 +62,14 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
   return (
     <article
       className={cn(
-        "group bg-[#f3f3f3] rounded-lg flex flex-col",
+        "group bg-[#f3f3f3] rounded-[20px] flex flex-col",
         "hover:shadow-lg transition-all duration-300"
       )}
     >
       {/* Ürün Görseli */}
       <Link
         href={`/katalog/${product.slug}`}
-        className="block relative aspect-square bg-white overflow-hidden rounded-t-lg"
+        className="block relative aspect-square bg-white overflow-hidden rounded-t-[20px]"
         tabIndex={-1}
         aria-hidden
       >
@@ -94,10 +94,10 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
       </Link>
 
       {/* Kart İçeriği */}
-      <div className="flex flex-col flex-1 p-3.5 gap-2">
+      <div className="flex flex-col flex-1 px-3.5 pt-[10px] pb-3.5 gap-2">
         {/* Marka */}
         {product.brand ? (
-          <p className="text-[11px] font-bold text-[#999999] uppercase tracking-wider truncate">
+          <p className="text-[11px] font-bold text-[var(--DT_product_vendor_color,#bebebe)] uppercase tracking-wider truncate">
             {product.brand.name}
           </p>
         ) : (
@@ -158,7 +158,7 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
     : null
 
   return (
-    <article className="group flex items-start gap-4 p-4 bg-[#f3f3f3] rounded-lg hover:shadow-md transition-all duration-300">
+    <article className="group flex items-start gap-4 p-4 bg-[#f3f3f3] rounded-[20px] hover:shadow-md transition-all duration-300">
       {/* Görsel */}
       <Link
         href={`/katalog/${product.slug}`}
@@ -185,7 +185,7 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
       <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center gap-3">
         <div className="flex-1 min-w-0 space-y-1.5">
           {product.brand && (
-            <p className="text-[11px] font-bold text-[#999999] uppercase tracking-wider">
+            <p className="text-[11px] font-bold text-[var(--DT_product_vendor_color,#bebebe)] uppercase tracking-wider">
               {product.brand.name}
             </p>
           )}
@@ -233,8 +233,8 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
 
 export function PublicProductCardSkeleton() {
   return (
-    <div className="bg-[#f3f3f3] rounded-lg flex flex-col animate-pulse">
-      <Skeleton className="aspect-square w-full rounded-t-lg" />
+    <div className="bg-[#f3f3f3] rounded-[20px] flex flex-col animate-pulse">
+      <Skeleton className="aspect-square w-full rounded-t-[20px]" />
       <div className="p-3.5 space-y-2.5">
         <Skeleton className="h-3 w-16" />
         <Skeleton className="h-4 w-full" />
@@ -250,7 +250,7 @@ export function PublicProductCardSkeleton() {
 
 export function PublicProductListItemSkeleton() {
   return (
-    <div className="flex items-start gap-4 p-4 animate-pulse bg-[#f3f3f3] rounded-lg">
+    <div className="flex items-start gap-4 p-4 animate-pulse bg-[#f3f3f3] rounded-[20px]">
       <Skeleton className="w-24 h-24 shrink-0" />
       <div className="flex-1 space-y-2">
         <Skeleton className="h-3 w-16" />

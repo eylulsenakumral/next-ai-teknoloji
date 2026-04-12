@@ -1,15 +1,14 @@
+export const dynamic = 'force-dynamic'
+
 import Link from "next/link"
 import {
-  ArrowRight,
   Package,
   Truck,
   Shield,
   HeadphonesIcon,
   RefreshCw,
   ChevronRight,
-  Tag,
   MessageCircle,
-  Phone,
   LogIn,
 } from "lucide-react"
 import { prisma } from "@/lib/db"
@@ -18,6 +17,9 @@ import { GridBannerSection } from "@/components/public/grid-banner-section"
 import { BrandLogoBar } from "@/components/public/brand-logo-bar"
 import { BlogSection } from "@/components/public/blog-section"
 import { NewsletterSection } from "@/components/public/newsletter-section"
+import { HeroBanner } from "@/components/public/hero-banner"
+import { CampaignSection } from "@/components/public/campaign-section"
+import type { CampaignProduct } from "@/components/public/campaign-section"
 
 // ─── Sabit Veriler ────────────────────────────────────────────────────────────
 
@@ -123,6 +125,133 @@ const sampleBlogPosts = [
   },
 ]
 
+const sampleFeaturedProducts: CampaignProduct[] = [
+  {
+    id: "cp1",
+    name: "HP EliteBook 840 G10 İş Laptopu",
+    slug: "hp-elitebook-840-g10",
+    images: ["https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&q=80"],
+    brand: { name: "HP", slug: "hp" },
+    category: { name: "Dizüstü Bilgisayar", slug: "dizustu-bilgisayar" },
+    stockStatus: true,
+    campaignDiscountPct: 15,
+    campaignLabel: null,
+  },
+  {
+    id: "cp2",
+    name: "Dell UltraSharp 27 4K USB-C Hub Monitör",
+    slug: "dell-ultrasharp-27-4k",
+    images: ["https://images.unsplash.com/photo-1593640408182-31c228fad549?w=400&q=80"],
+    brand: { name: "Dell", slug: "dell" },
+    category: { name: "Monitör", slug: "monitor" },
+    stockStatus: true,
+    campaignDiscountPct: 10,
+    campaignLabel: null,
+  },
+  {
+    id: "cp3",
+    name: "Cisco Catalyst 2960-X 24-Port PoE+ Switch",
+    slug: "cisco-catalyst-2960x-24p",
+    images: ["https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=80"],
+    brand: { name: "Cisco", slug: "cisco" },
+    category: { name: "Ağ Ekipmanı", slug: "ag-ekipmani" },
+    stockStatus: true,
+    campaignDiscountPct: 20,
+    campaignLabel: null,
+  },
+  {
+    id: "cp4",
+    name: "Lenovo ThinkPad X1 Carbon Gen 11",
+    slug: "lenovo-thinkpad-x1-carbon-gen11",
+    images: ["https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=400&q=80"],
+    brand: { name: "Lenovo", slug: "lenovo" },
+    category: { name: "Dizüstü Bilgisayar", slug: "dizustu-bilgisayar" },
+    stockStatus: true,
+    campaignDiscountPct: 12,
+    campaignLabel: null,
+  },
+]
+
+const sampleOutletProducts: CampaignProduct[] = [
+  {
+    id: "op1",
+    name: "Samsung 32\" Curved Gaming Monitör",
+    slug: "samsung-32-curved-gaming-monitor",
+    images: ["https://images.unsplash.com/photo-1547082299-de196ea013d6?w=400&q=80"],
+    brand: { name: "Samsung", slug: "samsung" },
+    category: { name: "Monitör", slug: "monitor" },
+    stockStatus: true,
+    campaignDiscountPct: null,
+    campaignLabel: "OUTLET",
+  },
+  {
+    id: "op2",
+    name: "HP LaserJet Pro M404dn Yazıcı",
+    slug: "hp-laserjet-pro-m404dn",
+    images: ["https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400&q=80"],
+    brand: { name: "HP", slug: "hp" },
+    category: { name: "Yazıcı", slug: "yazici" },
+    stockStatus: false,
+    campaignDiscountPct: 25,
+    campaignLabel: "OUTLET",
+  },
+  {
+    id: "op3",
+    name: "Logitech MX Keys S Klavye + MX Master 3S Set",
+    slug: "logitech-mx-keys-master-3s-set",
+    images: ["https://images.unsplash.com/photo-1541140532154-b024d705b90a?w=400&q=80"],
+    brand: { name: "Logitech", slug: "logitech" },
+    category: { name: "Klavye & Mouse", slug: "klavye-mouse" },
+    stockStatus: true,
+    campaignDiscountPct: 18,
+    campaignLabel: "OUTLET",
+  },
+  {
+    id: "op4",
+    name: "Ubiquiti UniFi AP WiFi 6 Long-Range",
+    slug: "ubiquiti-unifi-ap-wifi6-lr",
+    images: ["https://images.unsplash.com/photo-1606904825846-647eb07f5be2?w=400&q=80"],
+    brand: { name: "Ubiquiti", slug: "ubiquiti" },
+    category: { name: "Wi-Fi", slug: "wifi" },
+    stockStatus: true,
+    campaignDiscountPct: 30,
+    campaignLabel: "OUTLET",
+  },
+]
+
+const heroSlides = [
+  {
+    id: "hero-1",
+    subHeading: "Teknoloji Cozumleri",
+    title: "Teknoloji Dunyasina Hos Geldiniz",
+    description: "En yeni urunler, en uygun fiyatlar. Kurumsal ve bireysel ihtiyaclariniza ozel cozumler sunuyoruz.",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80",
+    buttonText: "Kesfet",
+    buttonLink: "/katalog",
+    textAlign: "left" as const,
+  },
+  {
+    id: "hero-2",
+    subHeading: "Kurumsal Cozumler",
+    title: "Isletmeniz Icin Ozel Teknoloji Paketleri",
+    description: "Profesyonel ekipman ve altyapi cozumleri ile isletmenizi bir ust seviyeye tasiyin.",
+    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1600&q=80",
+    buttonText: "Incele",
+    buttonLink: "/katalog",
+    textAlign: "right" as const,
+  },
+  {
+    id: "hero-3",
+    subHeading: "Guvenli Alisveris",
+    title: "7/24 Destek ve Hizli Teslimat",
+    description: "Guvenli odeme altyapisi, hizli kargo ve uzman teknik destek ile yaninizdayiz.",
+    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1600&q=80",
+    buttonText: "Kesfet",
+    buttonLink: "/katalog",
+    textAlign: "left" as const,
+  },
+]
+
 const features = [
   { icon: Truck, label: "Ücretsiz Kargo", desc: "Tüm siparişlerde ücretsiz" },
   { icon: Shield, label: "Güvenli Ödeme", desc: "256-bit SSL koruması" },
@@ -137,133 +266,6 @@ function startOf30DaysAgo(): Date {
   d.setDate(d.getDate() - 30)
   d.setHours(0, 0, 0, 0)
   return d
-}
-
-// ─── Hero Slider ──────────────────────────────────────────────────────────────
-
-interface HeroSliderProps {
-  productCount: number
-  brandCount: number
-}
-
-function HeroSlider({ productCount, brandCount }: HeroSliderProps) {
-  const stats = [
-    { n: `${productCount.toLocaleString("tr")}+`, l: "Ürün" },
-    { n: `${brandCount}+`, l: "Marka" },
-    { n: "7/24", l: "Destek" },
-    { n: "Aynı Gün", l: "Kargo" },
-    { n: "15 Gün", l: "İade" },
-  ]
-
-  return (
-    <section className="relative min-h-screen flex flex-col overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {/* Main gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a1628] via-[#0d2847] to-[#2189ff]" />
-
-        {/* Grid pattern overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.5) 1px, transparent 0)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-
-        {/* Animated gradient orbs */}
-        <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] rounded-full bg-[#2189ff]/30 blur-[150px] animate-float" />
-        <div className="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-[#2189ff]/40 blur-[140px] animate-float-reverse" />
-        <div className="absolute top-[40%] left-[20%] w-[300px] h-[300px] rounded-full bg-[#1471dd]/20 blur-[120px] animate-float-slow" style={{ animationDelay: "5s" }} />
-
-        {/* Additional accent orbs */}
-        <div className="absolute top-[20%] left-[60%] w-[200px] h-[200px] rounded-full bg-[#2189ff]/15 blur-[100px] animate-float-medium" style={{ animationDelay: "2s" }} />
-        <div className="absolute bottom-[30%] right-[20%] w-[250px] h-[250px] rounded-full bg-[#2189ff]/20 blur-[110px] animate-float-reverse" style={{ animationDelay: "8s" }} />
-      </div>
-
-      {/* Main Content */}
-      <div className="relative flex-1 flex items-center">
-        <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="max-w-3xl">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 text-white/80 text-[11px] font-bold uppercase tracking-[0.25em] mb-8 bg-white/5 px-5 py-2.5 rounded-full border border-white/10 backdrop-blur-sm">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#2189ff] animate-pulse" />
-              Teknoloji Bayi Portalı
-            </div>
-
-            {/* Headline */}
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
-              Türkiye&apos;nin En Büyük{" "}
-              <span className="relative inline-block">
-                <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-[#2189ff] to-[#60a5fa]">
-                  Teknoloji
-                </span>
-                <span className="absolute inset-0 bg-[#2189ff]/20 blur-xl -z-10" />
-              </span>
-              <br />
-              Bayisi
-            </h1>
-
-            {/* Accent line */}
-            <div className="relative w-24 h-1 mb-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#2189ff] to-[#2189ff] rounded-full" />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#2189ff] to-[#2189ff] rounded-full animate-pulse-line" />
-            </div>
-
-            {/* Subtitle */}
-            <p className="text-lg sm:text-xl text-white/70 mb-10 leading-relaxed max-w-2xl">
-              {productCount.toLocaleString("tr")}+ ürün, {brandCount}+ marka ile Türkiye&apos;nin en
-              kapsamlı teknoloji bayi portalı. Rekabetçi fiyatlar ve hızlı teslimat.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/katalog"
-                className="group inline-flex items-center justify-center gap-3 bg-[#2189ff] hover:bg-[#1471dd] text-white font-bold px-10 py-4.5 rounded-xl transition-all duration-300 text-base shadow-2xl shadow-[#2189ff]/40 hover:shadow-[#2189ff]/60 hover:-translate-y-0.5"
-              >
-                Kataloğu Keşfet
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-              </Link>
-              <Link
-                href="/basvuru"
-                className="group inline-flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 text-white font-bold px-10 py-4.5 rounded-xl transition-all duration-300 text-base border-2 border-white/20 hover:border-white/30 backdrop-blur-sm hover:-translate-y-0.5"
-              >
-                Bayi Başvurusu
-                <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Stats Bar at Bottom */}
-      <div className="relative border-t border-white/10 bg-gradient-to-b from-transparent to-[#0a1628]/50 backdrop-blur-sm">
-        <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-5 gap-4 sm:gap-8 py-8">
-            {stats.map(({ n, l }, index) => (
-              <div
-                key={l}
-                className="group flex flex-col items-center justify-center text-center animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="relative mb-2">
-                  <div className="absolute inset-0 bg-[#2189ff]/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <p className="relative text-3xl sm:text-4xl font-black text-white tracking-tight">
-                    {n}
-                  </p>
-                </div>
-                <p className="text-xs sm:text-sm font-semibold text-white/50 uppercase tracking-wider group-hover:text-white/70 transition-colors duration-300">
-                  {l}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
 }
 
 // ─── Feature Band ─────────────────────────────────────────────────────────────
@@ -604,15 +606,27 @@ export default async function PublicHomePage() {
 
   return (
     <div className="bg-white min-h-screen">
-      <HeroSlider productCount={productCount} brandCount={brandCount} />
+      <HeroBanner slides={heroSlides} />
       <FeatureBand />
       <div className="py-12">
         <CategorySection categories={categories} />
       </div>
+      <CampaignSection
+        title="Kampanyalı Ürünler"
+        subtitle="Sınırlı sürede özel fiyatlar"
+        products={sampleFeaturedProducts}
+        viewAllHref="/kampanya"
+      />
       <GridBannerSection columns={3} items={bannerItems3Col} />
       <div className="py-12">
         <NewProductsSection products={newProducts} />
       </div>
+      <CampaignSection
+        title="Outlet Fırsatları"
+        subtitle="İndirimli stok ürünler"
+        products={sampleOutletProducts}
+        viewAllHref="/kampanya"
+      />
       <GridBannerSection columns={2} items={bannerItems2Col} />
       <BlogSection posts={sampleBlogPosts} />
       <BrandLogoBar brands={sampleBrands} />

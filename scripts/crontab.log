@@ -32566,3 +32566,12 @@ Unique constraint failed on the fields: (`slug`)
   Süre          : 9.6s
 ─────────────────────────
 [Paz 12 Nis 2026 15:30:12 +03] Okisan sync tamamlandı.
+[Sync] Başlatılıyor...
+[BizimHesap] 191 ürün kategorisiz olduğu için atlandı.
+[Sync] Tamamlandı: {
+  "synced": 54,
+  "created": 0,
+  "updated": 54,
+  "errors": 0
+}
+[Paz 12 Nis 2026 20:15:04 +03] BizimHesap sync tamamlandı.

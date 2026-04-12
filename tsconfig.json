@@ -43,6 +43,12 @@
   "exclude": [
     "node_modules",
     "scripts",
-    "misafir"
+    "misafir",
+    "check-logos.ts",
+    "check_supplier_data.ts",
+    "check_supplier_data.mjs",
+    "prisma/seed.ts",
+    "prisma/seed-categories.ts",
+    "prisma/seed-cities.ts"
   ]
 }

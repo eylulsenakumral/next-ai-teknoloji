@@ -30,7 +30,7 @@ export function GridBannerSection({ items, columns = 3, className = "" }: GridBa
             <Link
               key={item.id}
               href={item.link ?? "#"}
-              className="relative h-64 rounded-2xl overflow-hidden group block"
+              className="relative h-64 rounded-[20px] overflow-hidden group block"
             >
               <img
                 src={item.image}

@@ -26,7 +26,7 @@ export function BlogSection({ posts, className = "" }: BlogSectionProps) {
           {posts.map((post) => (
             <article
               key={post.id}
-              className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
+              className="bg-white rounded-[20px] overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
             >
               <img
                 src={post.image}

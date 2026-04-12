@@ -35,13 +35,13 @@ export function NewsletterSection() {
               placeholder="E-posta adresiniz"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 px-6 py-3 rounded-lg bg-white text-[#1e1e1e] placeholder:text-[#1e1e1e]/40 focus:outline-none focus:ring-2 focus:ring-[#2189ff]"
+              className="flex-1 px-6 py-3 rounded-[20px] bg-[#f3f3f3] border border-[#e9e9e9] text-[#1e1e1e] placeholder:text-[#1e1e1e]/40 focus:outline-none focus:ring-2 focus:ring-[#2189ff]"
               required
             />
             <button
               type="submit"
               disabled={status === "loading"}
-              className="px-8 py-3 bg-[#2189ff] text-white rounded-lg font-semibold hover:bg-[#1471dd] transition-colors duration-200 disabled:opacity-50 whitespace-nowrap"
+              className="px-8 py-3 bg-[#2189ff] text-white rounded-[20px] font-semibold hover:bg-[#1e1e1e] transition-colors duration-200 disabled:opacity-50 whitespace-nowrap"
             >
               {status === "loading" ? "Kaydediliyor..." : "Abone Ol"}
             </button>
