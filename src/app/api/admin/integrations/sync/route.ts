@@ -11,6 +11,7 @@ import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 // Tedarikçi kodu → ilgili sync API yolu
 const SUPPLIER_SYNC_ROUTES: Record<string, string> = {
   B2BDEPO: "/api/b2bdepo/sync-products",
+  BIZIMHESAP: "/api/bizimhesap/sync-products",
   INDEXGRUP: "/api/indexgrup/sync",
   NETEX: "/api/netex/sync",
   OKISAN: "/api/okisan/sync",
