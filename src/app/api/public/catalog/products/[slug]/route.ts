@@ -14,6 +14,19 @@ const SUPPLIER_DEPO_MAP: Record<string, string> = {
   bizimhesap: "Çorlu Depo",
 }
 
+// Tedarikçi bazlı fiyat kar marjı (maliyet üzerine %)
+const SUPPLIER_MARKUP: Record<string, number> = {
+  B2BDEPO: 1.20,
+  ERGEN: 1.20,
+  NETEX: 1.15,
+  INDEXGRUP: 1.15,
+  OKISAN: 1.10,
+  BAYIKANALI: 1.15,
+  EDENGE: 1.15,
+  TESAN: 1.15,
+  BIZIMHESAP: 1.10,
+}
+
 // TCMB döviz kuru cache
 let cachedUsdTry = 0
 let cacheExpiry = 0
@@ -100,11 +113,13 @@ export async function GET(
 
     const totalStock = product.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
-    // Tedarikçi bazlı stok ve fiyat bilgisi
+    // Tedarikçi bazlı stok ve fiyat bilgisi (mark-up dahil)
     const suppliers = product.supplierProducts.map((sp) => {
       const supplierCode = sp.supplier?.code ?? ""
       const depoName = SUPPLIER_DEPO_MAP[supplierCode] || sp.supplier?.name || supplierCode
-      const price = sp.purchasePrice ? Number(sp.purchasePrice) : null
+      const basePrice = sp.purchasePrice ? Number(sp.purchasePrice) : null
+      const markup = SUPPLIER_MARKUP[supplierCode.toUpperCase()] ?? 1
+      const price = basePrice !== null ? basePrice * markup : null
       const currency = sp.currency || "TRY"
       const priceTry = price != null
         ? currency === "USD" ? price * usdTry
@@ -148,6 +163,7 @@ export async function GET(
                 stockQuantity: true,
                 purchasePrice: showPrice,
                 currency: true,
+                supplier: { select: { code: true } },
               },
             },
           },
@@ -184,8 +200,16 @@ export async function GET(
         suppliers,
         relatedProducts: relatedProducts.map((rp) => {
           const stock = rp.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
-          const prices = showPrice ? rp.supplierProducts.map((sp) => Number(sp.purchasePrice)).filter((p) => p > 0) : []
-          const rpLowest = showPrice && prices.length > 0 ? Math.min(...prices) : null
+          const prices = showPrice
+            ? rp.supplierProducts
+                .filter((sp) => sp.purchasePrice !== null)
+                .map((sp) => {
+                  const base = Number(sp.purchasePrice)
+                  const markup = SUPPLIER_MARKUP[sp.supplier?.code?.toUpperCase() ?? ""] ?? 1
+                  return base * markup
+                })
+            : []
+          const rpLowest = prices.length > 0 ? Math.min(...prices) : null
           const rpCurrency = rp.supplierProducts.find((sp) => sp.purchasePrice !== null)?.currency || "TRY"
           const rpPriceTry = rpLowest != null && rpCurrency === "USD" && usdTry > 0 ? rpLowest * usdTry : rpLowest
           return {
