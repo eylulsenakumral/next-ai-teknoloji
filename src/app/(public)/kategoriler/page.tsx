@@ -33,6 +33,7 @@ interface CategoryTree {
   name: string
   slug: string
   productCount: number
+  imageUrl: string | null
   children: CategoryChild[]
 }
 
@@ -42,6 +43,7 @@ type PrismaCategory = {
   slug: string
   parentId: string | null
   depth: number
+  imageUrl: string | null
   _count: { products: number; children: number }
   children?: PrismaCategory[]
 }
@@ -77,6 +79,7 @@ function mapCategory(cat: PrismaCategory): CategoryTree {
     name: cat.name,
     slug: cat.slug,
     productCount: cat._count.products + childrenProductCount,
+    imageUrl: cat.imageUrl,
     children,
   }
 }
@@ -141,56 +144,79 @@ export const metadata: Metadata = {
 /*  CategoryCard                                                       */
 /* ------------------------------------------------------------------ */
 
-function CategoryCard({ category }: { category: CategoryTree }) {
+const CATEGORY_GRADIENTS = [
+  "from-[#0040a4] to-[#1a6fe0]",
+  "from-[#1e3a5f] to-[#2d6da3]",
+  "from-[#0c2340] to-[#1a5276]",
+  "from-[#2c3e50] to-[#3498db]",
+  "from-[#1a3c5e] to-[#2980b9]",
+  "from-[#0d3b66] to-[#1d6fa5]",
+]
+
+function CategoryCard({ category, index }: { category: CategoryTree; index: number }) {
   const childCount = category.children.length
   const totalProducts =
     category.productCount +
     category.children.reduce((sum, child) => sum + child.productCount, 0)
+  const hasImage = !!category.imageUrl
+  const gradient = CATEGORY_GRADIENTS[index % CATEGORY_GRADIENTS.length]
 
   return (
     <Link
       href={`/kategoriler/${category.slug}`}
-      className="group relative flex flex-col bg-white border border-[#eeeeee] p-6 hover:border-[#2189ff]/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+      className="group relative flex flex-col justify-end rounded-2xl overflow-hidden h-56"
     >
-      {/* İkon */}
-      <div className="flex items-center justify-center w-14 h-14 mb-4 bg-[#2189ff]/5 text-[#2189ff] group-hover:bg-[#2189ff]/10 transition-colors">
-        {getCategoryIcon(category.slug)}
-      </div>
+      {/* Background */}
+      {hasImage ? (
+        <img
+          src={category.imageUrl!}
+          alt={category.name}
+          className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+        />
+      ) : (
+        <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
+      )}
 
-      {/* İsim */}
-      <h2 className="text-[15px] font-bold text-[#333333] mb-1.5 group-hover:text-[#2189ff] transition-colors">
-        {category.name}
-      </h2>
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-      {/* Alt kategori + ürün sayısı */}
-      <div className="flex items-center gap-3 text-[12px] text-[#767676] mb-4">
-        {childCount > 0 && (
-          <span>{childCount} alt kategori</span>
-        )}
-        <span>{totalProducts.toLocaleString("tr-TR")} ürün</span>
-      </div>
-
-      {/* Alt kategoriler önizleme */}
-      {category.children.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 mt-auto">
-          {category.children.slice(0, 4).map((child) => (
-            <span
-              key={child.id}
-              className="text-[11px] text-[#555555] bg-[#f5f5f5] px-2 py-0.5 group-hover:bg-[#2189ff]/5 group-hover:text-[#2189ff] transition-colors truncate max-w-[140px]"
-            >
-              {child.name}
-            </span>
-          ))}
-          {category.children.length > 4 && (
-            <span className="text-[11px] text-[#2189ff] font-semibold px-1 py-0.5">
-              +{category.children.length - 4}
-            </span>
-          )}
+      {/* Icon (only when no image) */}
+      {!hasImage && (
+        <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+          {getCategoryIcon(category.slug)}
         </div>
       )}
 
-      {/* Ok ikonu */}
-      <ArrowRight className="absolute top-6 right-6 h-4 w-4 text-[#cccccc] group-hover:text-[#2189ff] group-hover:translate-x-1 transition-all duration-200" aria-hidden />
+      {/* Arrow */}
+      <ArrowRight className="absolute top-4 right-4 h-4 w-4 text-white/50 group-hover:text-white group-hover:translate-x-1 transition-all duration-200" aria-hidden />
+
+      {/* Text */}
+      <div className="relative z-10 p-5">
+        <h2 className="text-white font-bold text-base leading-tight mb-1.5">
+          {category.name}
+        </h2>
+        <div className="flex items-center gap-3 text-white/70 text-xs">
+          {childCount > 0 && <span>{childCount} alt kategori</span>}
+          <span>{totalProducts.toLocaleString("tr-TR")} ürün</span>
+        </div>
+        {category.children.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-3">
+            {category.children.slice(0, 3).map((child) => (
+              <span
+                key={child.id}
+                className="text-[11px] text-white/80 bg-white/15 backdrop-blur-sm px-2 py-0.5 rounded-full truncate max-w-[120px]"
+              >
+                {child.name}
+              </span>
+            ))}
+            {category.children.length > 3 && (
+              <span className="text-[11px] text-white/60 font-semibold px-1 py-0.5">
+                +{category.children.length - 3}
+              </span>
+            )}
+          </div>
+        )}
+      </div>
     </Link>
   )
 }
@@ -206,14 +232,14 @@ export default async function KategorilerPage() {
     <div className="bg-[#f9f9f9] min-h-screen">
       {/* Breadcrumb */}
       <div className="bg-white border-b border-[#eeeeee]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <nav
             aria-label="Breadcrumb"
             className="flex items-center gap-1.5 text-[12px] text-[#767676]"
           >
             <Link
               href="/"
-              className="flex items-center gap-1 hover:text-[#2189ff] transition-colors"
+              className="flex items-center gap-1 hover:text-[#0040a4] transition-colors"
             >
               <Home className="h-3 w-3" aria-hidden />
               Ana Sayfa
@@ -225,8 +251,8 @@ export default async function KategorilerPage() {
       </div>
 
       {/* Hero */}
-      <div className="bg-gradient-to-r from-[#2189ff] to-[#4da6ff] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
+      <div className="bg-gradient-to-r from-[#0040a4] to-[#4da6ff] text-white">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
           <p className="text-[12px] font-bold uppercase tracking-widest text-white/60 mb-2">
             Kategoriler
           </p>
@@ -240,7 +266,7 @@ export default async function KategorilerPage() {
       </div>
 
       {/* Kategori Grid */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {categories.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center gap-4">
             <div className="w-20 h-20 flex items-center justify-center bg-[#f5f5f5]">
@@ -253,8 +279,8 @@ export default async function KategorilerPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {categories.map((cat) => (
-              <CategoryCard key={cat.id} category={cat} />
+            {categories.map((cat, i) => (
+              <CategoryCard key={cat.id} category={cat} index={i} />
             ))}
           </div>
         )}

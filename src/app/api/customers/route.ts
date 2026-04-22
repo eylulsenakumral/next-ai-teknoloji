@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
+import { hash } from "bcryptjs"
 
 // GET /api/customers — Admin: Müşteri listesi
 export async function GET(req: NextRequest) {
@@ -77,4 +78,55 @@ export async function GET(req: NextRequest) {
     data: customers,
     meta: { total, page, limit, totalPages: Math.ceil(total / limit) },
   })
+}
+
+// POST /api/customers — Hızlı müşteri oluştur (teklif formu için)
+export async function POST(req: NextRequest) {
+  const session = await getAdminSession()
+  const authError = requireAdminSession(session)
+  if (authError) return authError
+
+  let body: unknown
+  try {
+    body = await req.json()
+  } catch {
+    return NextResponse.json({ error: "Geçersiz istek." }, { status: 400 })
+  }
+
+  const { companyName, dealerCode, status } = body as {
+    companyName?: string
+    dealerCode?: string
+    status?: string
+  }
+
+  if (!companyName) {
+    return NextResponse.json({ error: "Firma adı gereklidir." }, { status: 400 })
+  }
+
+  const code = dealerCode || `BAYI-${Date.now().toString(36).toUpperCase()}`
+  const passwordHash = await hash(Math.random().toString(36).slice(2), 10)
+
+  try {
+    const customer = await prisma.customer.create({
+      data: {
+        companyName,
+        dealerCode: code,
+        passwordHash,
+        status: (status as "APPROVED") || "PENDING",
+        ...(status === "APPROVED" ? { approvedAt: new Date() } : {}),
+      },
+      select: {
+        id: true,
+        companyName: true,
+        dealerCode: true,
+        phone: true,
+        email: true,
+      },
+    })
+
+    return NextResponse.json({ data: customer }, { status: 201 })
+  } catch (err) {
+    console.error("[POST /api/customers]", err)
+    return NextResponse.json({ error: "Müşteri oluşturulamadı." }, { status: 500 })
+  }
 }

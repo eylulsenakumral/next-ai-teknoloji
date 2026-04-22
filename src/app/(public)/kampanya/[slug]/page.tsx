@@ -39,7 +39,9 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+  const baseUrl =
+    process.env.NEXT_PUBLIC_APP_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
   try {
     const res = await fetch(`${baseUrl}/api/public/campaigns/${slug}`, {
       next: { revalidate: 60 },
@@ -66,7 +68,7 @@ const TYPE_LABELS: Record<string, string> = {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  FEATURED: "bg-[#2189ff] text-white",
+  FEATURED: "bg-[#0040a4] text-white",
   OUTLET: "bg-[#a60811] text-white",
   BUNDLE: "bg-[#3b7300] text-white",
 }
@@ -90,7 +92,9 @@ export default async function KampanyaDetailPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
+  const baseUrl =
+    process.env.NEXT_PUBLIC_APP_URL ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
 
   let campaign: CampaignSet | null = null
   try {
@@ -118,12 +122,12 @@ export default async function KampanyaDetailPage({
     <div className="bg-white min-h-screen">
       {/* Page Header */}
       <div className="bg-[#f3f3f3] border-b border-[#e9e9e9]">
-        <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-[12px] text-[#767676] mb-4">
-            <Link href="/" className="hover:text-[#2189ff] transition-colors">Ana Sayfa</Link>
+            <Link href="/" className="hover:text-[#0040a4] transition-colors">Ana Sayfa</Link>
             <ChevronRight className="h-3 w-3" aria-hidden />
-            <Link href="/kampanya" className="hover:text-[#2189ff] transition-colors">Kampanyalar</Link>
+            <Link href="/kampanya" className="hover:text-[#0040a4] transition-colors">Kampanyalar</Link>
             <ChevronRight className="h-3 w-3" aria-hidden />
             <span className="text-[#1e1e1e] font-semibold truncate max-w-[200px]">{campaign.name}</span>
           </nav>
@@ -131,7 +135,7 @@ export default async function KampanyaDetailPage({
           <div className="flex flex-wrap items-start gap-4">
             <div className="flex-1 min-w-0">
               {/* Type badge */}
-              <span className={`inline-block text-[11px] font-bold px-2.5 py-1 rounded-md mb-3 ${TYPE_COLORS[campaign.type] ?? "bg-[#2189ff] text-white"}`}>
+              <span className={`inline-block text-[11px] font-bold px-2.5 py-1 rounded-md mb-3 ${TYPE_COLORS[campaign.type] ?? "bg-[#0040a4] text-white"}`}>
                 {TYPE_LABELS[campaign.type] ?? campaign.type}
               </span>
 
@@ -186,9 +190,9 @@ export default async function KampanyaDetailPage({
       </div>
 
       {/* Products Grid */}
-      <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {campaign.products.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-center gap-4 border-2 border-dashed border-gray-300 rounded-2xl bg-[#f3f3f3]/50">
+          <div className="flex flex-col items-center justify-center py-24 text-center gap-4 border-2 border-dashed border-gray-300 rounded-[20px] bg-[#f3f3f3]/50">
             <Tag className="h-12 w-12 text-gray-400" aria-hidden />
             <p className="text-base font-semibold text-gray-600">Bu kampanyada henüz ürün bulunmuyor.</p>
           </div>

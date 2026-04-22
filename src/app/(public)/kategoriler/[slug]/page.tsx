@@ -16,8 +16,10 @@ import {
   Shield,
   Server,
   Tag,
-  MessageCircle,
+  Lock,
 } from "lucide-react"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
 import {
   PublicProductCard,
   type PublicProduct,
@@ -90,7 +92,7 @@ const PRODUCTS_PER_PAGE = 20
 /* ------------------------------------------------------------------ */
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_APP_URL ??
+  process.env.NEXT_PUBLIC_APP_URL ||
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
 
 async function getCategory(slug: string): Promise<CategoryDetail | null> {
@@ -141,14 +143,14 @@ export async function generateMetadata({
 
   if (!category) {
     return {
-      title: "Kategori Bulunamadi",
-      description: "Aradiginiz kategori mevcut degil veya kaldirilmis.",
+      title: "Kategori Bulunamadı",
+      description: "Aradığınız kategori mevcut değil veya kaldırılmış.",
     }
   }
 
   const description =
     category.description?.slice(0, 155).replace(/\n/g, " ") ??
-    `${category.name} kategorisindeki urunleri inceleyin. ${category.productCount}+ urun Next AI Teknoloji'de.`
+    `${category.name} kategorisindeki ürünleri inceleyin. ${category.productCount}+ ürün Next AI Teknoloji'de.`
 
   return {
     title: category.name,
@@ -185,7 +187,7 @@ function CategoryBreadcrumb({
     >
       <Link
         href="/katalog"
-        className="flex items-center gap-1 hover:text-[#2189ff] transition-colors"
+        className="flex items-center gap-1 hover:text-[#0040a4] transition-colors"
       >
         <Home className="h-3 w-3" aria-hidden />
         Katalog
@@ -195,7 +197,7 @@ function CategoryBreadcrumb({
           <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
           <Link
             href={`/kategoriler/${item.slug}`}
-            className="hover:text-[#2189ff] transition-colors"
+            className="hover:text-[#0040a4] transition-colors"
           >
             {item.name}
           </Link>
@@ -217,20 +219,20 @@ function SubCategoryCard({ child }: { child: CategoryChild }) {
   return (
     <Link
       href={`/kategoriler/${child.slug}`}
-      className="group flex items-center gap-4 bg-white border border-[#eeeeee] p-4 hover:border-[#2189ff]/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+      className="group flex items-center gap-4 bg-white border border-[#eeeeee] p-4 hover:border-[#0040a4]/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
     >
       {/* Ikon */}
-      <div className="flex items-center justify-center w-11 h-11 shrink-0 bg-[#2189ff]/5 text-[#2189ff] group-hover:bg-[#2189ff]/10 transition-colors">
+      <div className="flex items-center justify-center w-11 h-11 shrink-0 bg-[#0040a4]/5 text-[#0040a4] group-hover:bg-[#0040a4]/10 transition-colors">
         {getCategoryIcon(child.slug)}
       </div>
 
       {/* Bilgi */}
       <div className="flex-1 min-w-0">
-        <p className="text-[14px] font-bold text-[#333333] group-hover:text-[#2189ff] transition-colors truncate">
+        <p className="text-[14px] font-bold text-[#333333] group-hover:text-[#0040a4] transition-colors truncate">
           {child.name}
         </p>
         <div className="flex items-center gap-2 mt-0.5 text-[12px] text-[#767676]">
-          <span>{child.productCount} urun</span>
+          <span>{child.productCount} ürün</span>
           {hasChildren && (
             <>
               <span className="text-[#dddddd]" aria-hidden>|</span>
@@ -240,7 +242,7 @@ function SubCategoryCard({ child }: { child: CategoryChild }) {
         </div>
       </div>
 
-      <ArrowRight className="h-4 w-4 text-[#cccccc] group-hover:text-[#2189ff] group-hover:translate-x-1 transition-all duration-200 shrink-0" aria-hidden />
+      <ArrowRight className="h-4 w-4 text-[#cccccc] group-hover:text-[#0040a4] group-hover:translate-x-1 transition-all duration-200 shrink-0" aria-hidden />
     </Link>
   )
 }
@@ -277,7 +279,7 @@ function Pagination({
         <Link
           href={`/kategoriler/${currentSlug}?page=${currentPage - 1}`}
           aria-label="Onceki sayfa"
-          className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] bg-white text-[#767676] hover:border-[#2189ff] hover:text-[#2189ff] transition-colors rounded"
+          className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] bg-white text-[#767676] hover:border-[#0040a4] hover:text-[#0040a4] transition-colors rounded"
         >
           <ChevronRight className="h-4 w-4 rotate-180" aria-hidden />
         </Link>
@@ -291,8 +293,8 @@ function Pagination({
           aria-current={pageNum === currentPage ? "page" : undefined}
           className={`inline-flex items-center justify-center h-9 w-9 text-[13px] font-semibold transition-colors rounded ${
             pageNum === currentPage
-              ? "bg-[#2189ff] text-white border border-[#2189ff]"
-              : "bg-white border border-[#eeeeee] text-[#333333] hover:border-[#2189ff] hover:text-[#2189ff]"
+              ? "bg-[#0040a4] text-white border border-[#0040a4]"
+              : "bg-white border border-[#eeeeee] text-[#333333] hover:border-[#0040a4] hover:text-[#0040a4]"
           }`}
         >
           {pageNum}
@@ -303,7 +305,7 @@ function Pagination({
         <Link
           href={`/kategoriler/${currentSlug}?page=${currentPage + 1}`}
           aria-label="Sonraki sayfa"
-          className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] bg-white text-[#767676] hover:border-[#2189ff] hover:text-[#2189ff] transition-colors rounded"
+          className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] bg-white text-[#767676] hover:border-[#0040a4] hover:text-[#0040a4] transition-colors rounded"
         >
           <ChevronRight className="h-4 w-4" aria-hidden />
         </Link>
@@ -327,6 +329,9 @@ export default async function CategoryDetailPage({
   const resolvedSearchParams = await searchParams
   const currentPage = Math.max(1, Number(resolvedSearchParams.page ?? "1"))
 
+  const session = await getServerSession(authOptions)
+  const isLoggedIn = !!session?.user
+
   const [category, productsData] = await Promise.all([
     getCategory(slug),
     getProducts(slug, currentPage),
@@ -340,14 +345,14 @@ export default async function CategoryDetailPage({
     <div className="bg-[#f9f9f9] min-h-screen pb-20 md:pb-0">
       {/* Breadcrumb band */}
       <div className="bg-white border-b border-[#eeeeee]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <CategoryBreadcrumb breadcrumb={category.breadcrumb} currentName={category.name} />
         </div>
       </div>
 
       {/* Kategori Hero */}
-      <div className="bg-gradient-to-r from-[#2189ff] to-[#4da6ff] text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+      <div className="bg-gradient-to-r from-[#0040a4] to-[#4da6ff] text-white">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
           <div className="flex items-start gap-5">
             {/* Kategori ikonu / gorsel */}
             <div className="hidden sm:flex items-center justify-center w-16 h-16 shrink-0 bg-white/10 text-white">
@@ -376,7 +381,7 @@ export default async function CategoryDetailPage({
               <div className="flex items-center gap-4 mt-3 text-[13px] text-white/60">
                 <span>
                   <span className="font-bold text-white">{meta.total.toLocaleString("tr-TR")}</span>{" "}
-                  urun
+                  ürün
                 </span>
                 {category.children.length > 0 && (
                   <span>
@@ -392,7 +397,7 @@ export default async function CategoryDetailPage({
 
       {/* Alt Kategoriler */}
       {category.children.length > 0 && (
-        <section aria-labelledby="subcategories-heading" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <section aria-labelledby="subcategories-heading" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-8">
           <div className="flex items-center gap-3 mb-4">
             <h2
               id="subcategories-heading"
@@ -411,19 +416,19 @@ export default async function CategoryDetailPage({
         </section>
       )}
 
-      {/* Urunler */}
-      <section aria-labelledby="products-heading" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Ürünler */}
+      <section aria-labelledby="products-heading" className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center gap-3 mb-4">
           <h2
             id="products-heading"
             className="text-[17px] font-bold text-[#333333] whitespace-nowrap"
           >
-            {category.name} Urunleri
+            {category.name} Ürünleri
           </h2>
           <div className="flex-1 h-px bg-[#eeeeee]" aria-hidden />
           {meta.total > 0 && (
             <span className="text-[12px] text-[#767676] whitespace-nowrap">
-              {meta.total.toLocaleString("tr-TR")} urun bulundu
+              {meta.total.toLocaleString("tr-TR")} ürün bulundu
             </span>
           )}
         </div>
@@ -434,27 +439,27 @@ export default async function CategoryDetailPage({
               <Package className="h-9 w-9 text-[#dddddd]" aria-hidden />
             </div>
             <div>
-              <p className="font-bold text-[16px] text-[#333333]">Bu kategoride urun bulunmuyor</p>
+              <p className="font-bold text-[16px] text-[#333333]">Bu kategoride ürün bulunmuyor</p>
               <p className="text-[#767676] text-[13px] mt-1 max-w-xs">
-                Bu kategoride henuz urun eklenmemis. Diger kategorilere goz atin.
+                Bu kategoride henuz ürün eklenmemis. Diger kategorilere goz atin.
               </p>
             </div>
             <div className="flex gap-3">
               <Link
                 href="/katalog"
-                className="inline-flex items-center gap-1.5 h-9 px-5 border border-[#eeeeee] text-[13px] text-[#333333] hover:border-[#2189ff] hover:text-[#2189ff] transition-colors"
+                className="inline-flex items-center gap-1.5 h-9 px-5 border border-[#eeeeee] text-[13px] text-[#333333] hover:border-[#0040a4] hover:text-[#0040a4] transition-colors"
               >
-                Kataloga Don
+                Kataloğa Dön
               </Link>
-              <a
-                href={`https://wa.me/905529895959?text=${encodeURIComponent(`Merhaba, ${category.name} kategorisinde aradigim urun hakkinda bilgi almak istiyorum.`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 h-9 px-5 bg-[#2189ff] text-[13px] font-bold text-white hover:bg-[#001489] transition-colors"
+              {!isLoggedIn && (
+              <Link
+                href="/login"
+                className="inline-flex items-center gap-1.5 h-9 px-5 border border-[#0040a4]/30 bg-[#0040a4]/5 text-[13px] font-bold text-[#0040a4] hover:bg-[#0040a4]/10 hover:underline transition-colors"
               >
-                <MessageCircle className="h-3.5 w-3.5" aria-hidden />
-                Teklif Iste
-              </a>
+                <Lock className="h-3.5 w-3.5" aria-hidden />
+                Özel Fiyatlar İçin Bayi Girişi Yapınız
+              </Link>
+              )}
             </div>
           </div>
         ) : (

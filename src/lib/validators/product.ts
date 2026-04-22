@@ -21,6 +21,7 @@ export const createProductSchema = z.object({
   images: z.array(z.string().url("Geçerli bir görsel URL girin")).default([]),
   manualPrice: z.number().nonnegative("Fiyat negatif olamaz").optional().nullable(),
   manualPriceCurrency: z.enum(["TRY", "USD", "EUR"]).optional().nullable(),
+  campaignDiscountPct: z.number().min(0).max(100).optional().nullable(),
   weight: z
     .number()
     .nonnegative("Ağırlık negatif olamaz")

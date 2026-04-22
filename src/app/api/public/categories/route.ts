@@ -12,6 +12,7 @@ interface CategoryTreeNode {
   parentId: string | null
   depth: number
   productCount: number
+  imageUrl: string | null
   children: CategoryTreeNode[]
 }
 
@@ -21,6 +22,7 @@ type PrismaCategory = {
   slug: string
   parentId: string | null
   depth: number
+  imageUrl: string | null
   _count: { products: number; children: number }
   children?: PrismaCategory[]
 }
@@ -36,6 +38,7 @@ function mapCategory(cat: PrismaCategory): CategoryTreeNode {
     parentId: cat.parentId,
     depth: cat.depth,
     productCount: cat._count.products + childrenProductCount,
+    imageUrl: cat.imageUrl,
     children,
   }
 }
@@ -107,6 +110,7 @@ export async function GET(req: NextRequest) {
           slug: true,
           parentId: true,
           depth: true,
+          imageUrl: true,
           _count: {
             select: {
               products: { where: { deletedAt: null, isActive: true } },
@@ -122,6 +126,7 @@ export async function GET(req: NextRequest) {
         parentId: cat.parentId,
         depth: cat.depth,
         productCount: cat._count.products,
+        imageUrl: cat.imageUrl,
       }))
 
       return NextResponse.json(

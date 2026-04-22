@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export default function ProductDetailLoading() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8 animate-in fade-in duration-300">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8 animate-in fade-in duration-300">
       {/* Breadcrumb */}
       <div className="flex items-center gap-2">
         <Skeleton className="h-4 w-16 rounded" />
@@ -31,7 +31,7 @@ export default function ProductDetailLoading() {
           <Skeleton className="h-6 w-28 rounded-full" />
           <Skeleton className="h-7 w-36 rounded-full" />
           {/* CTA */}
-          <Skeleton className="h-36 w-full rounded-2xl" />
+          <Skeleton className="h-36 w-full rounded-[20px]" />
           <Skeleton className="h-4 w-full rounded" />
           <Skeleton className="h-4 w-3/4 rounded" />
         </div>
@@ -40,7 +40,7 @@ export default function ProductDetailLoading() {
       {/* Specs */}
       <div className="space-y-4">
         <Skeleton className="h-7 w-40 rounded" />
-        <Skeleton className="h-48 w-full rounded-2xl" />
+        <Skeleton className="h-48 w-full rounded-[20px]" />
       </div>
     </div>
   )

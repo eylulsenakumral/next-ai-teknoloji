@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic'
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { prisma } from "@/lib/db"
+import { calculateBulkPrices } from "@/services/pricing.service"
 import {
   Breadcrumb,
   ProductImageGallery,
@@ -28,12 +29,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     select: { name: true, shortDescription: true, images: true, brand: { select: { name: true } } },
   })
 
-  if (!product) return { title: "Urun Bulunamadi" }
+  if (!product) return { title: "Ürün Bulunamadı" }
 
   const title = `${product.name} | Next AI Teknoloji`
   const description =
     product.shortDescription ??
-    `${product.name} - ${product.brand?.name ?? ""}. En iyi fiyat teklifi icin hemen bize ulasin.`
+    `${product.name} - ${product.brand?.name ?? ""}. En iyi fiyat teklifi için hemen bize ulaşın.`
 
   return {
     title,
@@ -68,6 +69,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
       unit: true,
       isNew: true,
       isFeatured: true,
+      manualPrice: true,
+      manualPriceCurrency: true,
+      campaignDiscountPct: true,
       viewCount: true,
       brand: { select: { name: true, slug: true } },
       category: {
@@ -86,6 +90,15 @@ export default async function ProductDetailPage({ params }: PageProps) {
   })
 
   if (!product) notFound()
+
+  // Calculate price
+  const priceMap = await calculateBulkPrices([product.id])
+  const pricing = priceMap.get(product.id)
+  const manualPrice = product.manualPrice ? Number(product.manualPrice) : null
+  const manualPriceCurrency = product.manualPriceCurrency ?? "USD"
+  const displayPrice = manualPrice ?? pricing?.salePriceExVat ?? null
+  const displayCurrency = manualPrice ? manualPriceCurrency : "USD"
+  const displayPriceIncVat = displayPrice ? displayPrice * 1.20 : null
 
   // Increment view count (fire and forget)
   prisma.product.update({
@@ -171,7 +184,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="bg-white min-h-screen">
-        <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <Breadcrumb items={breadcrumbItems} />
 
@@ -193,6 +206,10 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 description={product.description ?? product.shortDescription ?? null}
                 stockStatus={stockStatus}
                 specs={product.specs as Record<string, unknown> | null}
+                price={displayPrice}
+                priceCurrency={displayCurrency}
+                priceIncVat={displayPriceIncVat}
+                campaignDiscountPct={product.campaignDiscountPct ? Number(product.campaignDiscountPct) : null}
               />
 
               {/* Specs Table */}

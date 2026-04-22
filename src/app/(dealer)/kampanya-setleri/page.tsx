@@ -72,7 +72,7 @@ export default async function DealerKampanyaSetleriPage({
   return (
     <div className="bg-white min-h-screen">
       {/* Hero */}
-      <div className="bg-gradient-to-r from-[#2189ff] via-[#2189ff] to-[#2189ff] text-white">
+      <div className="bg-gradient-to-r from-[#0040a4] via-[#0040a4] to-[#0040a4] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
             <Layers className="h-6 w-6 text-orange-400" />
@@ -101,7 +101,7 @@ export default async function DealerKampanyaSetleriPage({
                 href={f.value ? `/kampanya-setleri?type=${f.value}` : "/kampanya-setleri"}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   active
-                    ? "bg-[#2189ff] text-white"
+                    ? "bg-[#0040a4] text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -167,11 +167,16 @@ export default async function DealerKampanyaSetleriPage({
                     )}
 
                     {/* Pricing row */}
-                    <div className="flex items-center gap-3 pt-1">
+                    <div className="flex flex-col gap-1 pt-1">
                       {s.price && (
-                        <span className="font-bold text-[#2189ff] text-[15px]">
-                          {formatCurrency(parseFloat(String(s.price)), "TRY")}
-                        </span>
+                        <>
+                          <span className="font-bold text-[#0040a4] text-[15px]">
+                            {formatCurrency(parseFloat(String(s.price)), "TRY")} <span className="text-[10px] text-gray-400 font-normal">+KDV</span>
+                          </span>
+                          <span className="text-[11px] text-gray-400">
+                            {formatCurrency(parseFloat(String(s.price)) * 1.2, "TRY")} <span className="text-[9px]">KDV dahil</span>
+                          </span>
+                        </>
                       )}
                       {s.discountPct && (
                         <span className="flex items-center gap-1 text-xs font-semibold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full">

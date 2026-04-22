@@ -20,7 +20,7 @@ interface BlogSectionProps {
 export function BlogSection({ posts, className = "" }: BlogSectionProps) {
   return (
     <section className={`py-16 bg-[#f3f3f3] ${className}`}>
-      <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-center text-3xl font-bold mb-12 text-[#1e1e1e]">Son Blog Yazıları</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[30px]">
           {posts.map((post) => (
@@ -45,7 +45,7 @@ export function BlogSection({ posts, className = "" }: BlogSectionProps) {
                 </p>
                 <Link
                   href={post.link}
-                  className="inline-block text-[#2189ff] font-semibold hover:text-[#1e1e1e] transition-colors duration-200 text-sm"
+                  className="inline-block text-[#0040a4] font-semibold hover:text-[#1e1e1e] transition-colors duration-200 text-sm"
                 >
                   Devamını Oku &rarr;
                 </Link>

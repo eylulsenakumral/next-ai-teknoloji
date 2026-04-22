@@ -57,6 +57,7 @@ interface CampaignSet {
   type: CampaignSetType
   discountPct: string | null
   price: string | null
+  currency: string | null
   isActive: boolean
   sortOrder: number
   validFrom: string | null
@@ -80,7 +81,7 @@ interface SetProduct {
     isActive: boolean
     brand: { id: string; name: string } | null
     category: { id: string; name: string } | null
-    supplierProducts: Array<{ purchasePrice: string | null; stockQuantity: number }>
+    supplierProducts: Array<{ purchasePrice: string | null; stockQuantity: number; currency: string }>
   }
 }
 
@@ -123,13 +124,14 @@ const TYPE_COLORS: Record<CampaignSetType, string> = {
   BUNDLE: "bg-purple-100 text-purple-800",
 }
 
-function formatPrice(val: string | null | undefined) {
+function formatPrice(val: string | null | undefined, currency: string = "TRY") {
   if (!val) return "—"
   const n = parseFloat(val)
   if (isNaN(n)) return "—"
-  return new Intl.NumberFormat("tr-TR", {
+  const locale = currency === "TRY" ? "tr-TR" : "en-US"
+  return new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: "TRY",
+    currency,
     minimumFractionDigits: 2,
   }).format(n)
 }
@@ -159,6 +161,7 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
     type: "BUNDLE" as CampaignSetType,
     discountPct: "",
     price: "",
+    currency: "TRY",
     validFrom: "",
     validUntil: "",
     minPurchaseAmount: "",
@@ -177,6 +180,7 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
           type: initial.type,
           discountPct: initial.discountPct ?? "",
           price: initial.price ?? "",
+          currency: initial.currency ?? "TRY",
           validFrom: initial.validFrom ? initial.validFrom.slice(0, 16) : "",
           validUntil: initial.validUntil ? initial.validUntil.slice(0, 16) : "",
           minPurchaseAmount: initial.minPurchaseAmount ?? "",
@@ -192,6 +196,7 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
           type: "BUNDLE",
           discountPct: "",
           price: "",
+          currency: "TRY",
           validFrom: "",
           validUntil: "",
           minPurchaseAmount: "",
@@ -214,6 +219,7 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
         type: form.type,
         discountPct: form.discountPct ? parseFloat(form.discountPct) : null,
         price: form.price ? parseFloat(form.price) : null,
+        currency: form.currency || "TRY",
         validFrom: form.validFrom ? new Date(form.validFrom).toISOString() : null,
         validUntil: form.validUntil ? new Date(form.validUntil).toISOString() : null,
         minPurchaseAmount: form.minPurchaseAmount
@@ -323,15 +329,27 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
             </div>
 
             <div className="space-y-1.5">
-              <Label>Set Fiyatı (₺)</Label>
-              <Input
-                type="number"
-                min={0}
-                step="0.01"
-                value={form.price}
-                onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))}
-                placeholder="0.00"
-              />
+              <Label>Set Fiyatı</Label>
+              <div className="flex gap-2">
+                <Input
+                  type="number"
+                  min={0}
+                  step="0.01"
+                  value={form.price}
+                  onChange={(e) => setForm((f) => ({ ...f, price: e.target.value }))}
+                  placeholder="0.00"
+                  className="flex-1"
+                />
+                <select
+                  value={form.currency}
+                  onChange={(e) => setForm((f) => ({ ...f, currency: e.target.value }))}
+                  className="h-9 rounded-md border border-input bg-background px-3 text-sm"
+                >
+                  <option value="TRY">TRY ₺</option>
+                  <option value="USD">USD $</option>
+                  <option value="EUR">EUR €</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -497,7 +515,7 @@ function AddProductModal({
       setSearching(true)
       try {
         const res = await fetch(
-          `/api/admin/products?search=${encodeURIComponent(query)}&limit=10`
+          `/api/products?search=${encodeURIComponent(query)}&limit=10`
         )
         if (res.ok) {
           const json = await res.json()
@@ -734,7 +752,7 @@ function SetDetailPanel({ setId, onClose }: SetDetailPanelProps) {
                   </TableCell>
                   <TableCell className="text-center text-sm">{item.quantity}</TableCell>
                   <TableCell className="text-sm">
-                    {formatPrice(sp?.purchasePrice)}
+                    {formatPrice(sp?.purchasePrice, sp?.currency ?? "USD")}
                   </TableCell>
                   <TableCell className="text-sm">
                     {sp?.stockQuantity != null ? sp.stockQuantity : "—"}
@@ -874,7 +892,7 @@ export default function KampanyaSetleriPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Layers className="h-5 w-5 text-[#2189ff]" />
+          <Layers className="h-5 w-5 text-[#0040a4]" />
           <h1 className="text-xl font-bold text-[#1a1a1a]">Kampanya Setleri</h1>
           {meta && (
             <Badge variant="outline" className="text-xs">
@@ -1013,7 +1031,7 @@ export default function KampanyaSetleriPage() {
                     <TableCell className="text-sm">
                       {s.discountPct ? `%${parseFloat(s.discountPct)}` : "—"}
                     </TableCell>
-                    <TableCell className="text-sm">{formatPrice(s.price)}</TableCell>
+                    <TableCell className="text-sm">{formatPrice(s.price, s.currency ?? "TRY")}</TableCell>
                     <TableCell className="text-xs text-muted-foreground">
                       {s.validFrom || s.validUntil
                         ? `${formatDate(s.validFrom)} – ${formatDate(s.validUntil)}`

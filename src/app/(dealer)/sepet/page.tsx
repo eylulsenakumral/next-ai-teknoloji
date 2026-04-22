@@ -60,8 +60,8 @@ function OrderSummary() {
     <aside className="lg:col-span-1">
       <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-6 space-y-5 sticky top-24">
         <div className="flex items-center gap-2 pb-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2189ff]/10">
-            <Package className="h-4 w-4 text-[#2189ff]" />
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0040a4]/10">
+            <Package className="h-4 w-4 text-[#0040a4]" />
           </div>
           <h2 className="font-semibold text-base text-[#333333]">Sipariş Özeti</h2>
         </div>
@@ -81,11 +81,11 @@ function OrderSummary() {
 
         <div className="flex justify-between items-center">
           <span className="font-semibold text-base text-[#333333]">Genel Toplam</span>
-          <span className="font-bold text-lg text-[#2189ff]">{formatCurrency(grandTotal)}</span>
+          <span className="font-bold text-lg text-[#0040a4]">{formatCurrency(grandTotal)}</span>
         </div>
 
         <Button
-          className="w-full rounded-xl bg-[#2189ff] text-white hover:bg-[#2189ff] transition-colors h-12 text-sm font-semibold"
+          className="w-full rounded-xl bg-[#0040a4] text-white hover:bg-[#0040a4] transition-colors h-12 text-sm font-semibold"
           size="lg"
           render={<Link href="/sepet/onay" />}
         >
@@ -105,8 +105,8 @@ export default function CartPage() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="flex flex-col items-center justify-center gap-8 py-16 text-center">
           <div className="relative">
-            <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-[#2189ff]/10">
-              <ShoppingCart className="h-12 w-12 text-[#2189ff]" aria-hidden />
+            <div className="flex h-24 w-24 items-center justify-center rounded-2xl bg-[#0040a4]/10">
+              <ShoppingCart className="h-12 w-12 text-[#0040a4]" aria-hidden />
             </div>
           </div>
           <div className="space-y-3">
@@ -117,7 +117,7 @@ export default function CartPage() {
           </div>
           <Button
             size="lg"
-            className="rounded-xl bg-[#2189ff] text-white hover:bg-[#2189ff] transition-colors h-12"
+            className="rounded-xl bg-[#0040a4] text-white hover:bg-[#0040a4] transition-colors h-12"
             render={<Link href="/urunler" />}
           >
             Ürünlere Göz At
@@ -187,10 +187,10 @@ export default function CartPage() {
                       )}
                     </div>
                     <div className="min-w-0">
-                      <p className="text-xs font-medium text-[#2189ff] uppercase tracking-wide mb-1">{item.brandName}</p>
+                      <p className="text-xs font-medium text-[#0040a4] uppercase tracking-wide mb-1">{item.brandName}</p>
                       <Link
                         href={`/urunler/${item.productSlug}`}
-                        className="text-sm font-semibold text-[#333333] leading-snug hover:text-[#2189ff] transition-colors line-clamp-2"
+                        className="text-sm font-semibold text-[#333333] leading-snug hover:text-[#0040a4] transition-colors line-clamp-2"
                       >
                         {item.productName}
                       </Link>
@@ -201,8 +201,14 @@ export default function CartPage() {
                   <div className="flex sm:block items-center justify-between sm:text-right">
                     <span className="text-xs text-[#767676] sm:hidden">Birim Fiyat</span>
                     <div className="text-sm font-medium w-28 text-right">
-                      <span className="text-[#333333]">{formatCurrency(item.unitPriceExVat)}</span>
-                      <p className="text-[11px] text-[#767676] font-normal">+ KDV</p>
+                      <div>
+                        <span className="text-[#333333]">{formatCurrency(item.unitPriceExVat)}</span>
+                        <span className="text-[10px] text-gray-400 font-normal ml-0.5">+KDV</span>
+                      </div>
+                      <p className="text-[11px] text-gray-400 font-normal">
+                        {formatCurrency(item.unitPriceExVat * (1 + item.vatRate / 100))}
+                        <span className="text-[9px]"> KDV dahil</span>
+                      </p>
                     </div>
                   </div>
 
@@ -241,7 +247,7 @@ export default function CartPage() {
             <Button
               variant="outline"
               size="sm"
-              className="rounded-lg border-[#e5e5e5] text-[#333333] hover:bg-[#f9fafb] hover:border-[#2189ff] hover:text-[#2189ff] h-10"
+              className="rounded-lg border-[#e5e5e5] text-[#333333] hover:bg-[#f9fafb] hover:border-[#0040a4] hover:text-[#0040a4] h-10"
               render={<Link href="/urunler" />}
             >
               Alışverişe Devam Et

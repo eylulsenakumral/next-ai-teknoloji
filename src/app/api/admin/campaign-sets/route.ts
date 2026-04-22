@@ -70,6 +70,7 @@ export async function GET(req: NextRequest) {
           type: true,
           discountPct: true,
           price: true,
+          currency: true,
           isActive: true,
           sortOrder: true,
           validFrom: true,
@@ -132,6 +133,7 @@ export async function POST(req: NextRequest) {
         type: data.type,
         discountPct: data.discountPct != null ? String(data.discountPct) : null,
         price: data.price != null ? String(data.price) : null,
+        currency: data.currency ?? "TRY",
         validFrom: data.validFrom ? new Date(data.validFrom) : null,
         validUntil: data.validUntil ? new Date(data.validUntil) : null,
         minPurchaseAmount:

@@ -4,47 +4,47 @@ import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Hakkimizda | Next AI Teknoloji",
+  title: "Hakkımızda | Next AI Teknoloji",
   description:
-    "Next AI Teknoloji hakkinda bilgi edinin. Turkiye'nin lider teknoloji bayi portali olarak misyonumuz, vizyonumuz ve ekibimiz.",
+    "Next AI Teknoloji hakkında bilgi edinin. Türkiye'nin lider teknoloji bayi portalı olarak misyonumuz, vizyonumuz ve ekibimiz.",
   openGraph: {
-    title: "Hakkimizda | Next AI Teknoloji",
-    description: "Turkiye'nin lider teknoloji bayi portali.",
+    title: "Hakkımızda | Next AI Teknoloji",
+    description: "Türkiye'nin lider teknoloji bayi portalı.",
   },
 }
 
 const teamMembers = [
   {
-    name: "Ahmet Yilmaz",
+    name: "Ahmet Yılmaz",
     title: "Kurucu & CEO",
-    bio: "15 yillik teknoloji sektoru deneyimi ile Next AI Teknoloji'yi kurdu.",
+    bio: "15 yıllık teknoloji sektörü deneyimi ile Next AI Teknoloji'yi kurdu.",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80",
   },
   {
     name: "Elif Demir",
     title: "CTO",
-    bio: "Yazilim muhendisligi ve sistem mimarisi alaninda uzman.",
+    bio: "Yazılım mühendisliği ve sistem mimarisi alanında uzman.",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=300&q=80",
   },
   {
     name: "Mehmet Kaya",
-    title: "Satis Direktoru",
-    bio: "B2B satis stratejileri ve bayi iliskileri yonetimi uzmani.",
+    title: "Satış Direktörü",
+    bio: "B2B satış stratejileri ve bayi ilişkileri yönetimi uzmanı.",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80",
   },
   {
     name: "Zeynep Arslan",
-    title: "Operasyon Muduru",
-    bio: "Tedarik zinciri ve lojistik sureclerinde 10 yillik deneyim.",
+    title: "Operasyon Müdürü",
+    bio: "Tedarik zinciri ve lojistik süreçlerinde 10 yıllık deneyim.",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80",
   },
 ]
 
 const stats = [
-  { value: "5.000+", label: "Musteri" },
-  { value: "10.000+", label: "Urun" },
-  { value: "50.000+", label: "Siparis" },
-  { value: "10+", label: "Yil Hizmet" },
+  { value: "5.000+", label: "Müşteri" },
+  { value: "10.000+", label: "Ürün" },
+  { value: "50.000+", label: "Sipariş" },
+  { value: "10+", label: "Yıl Hizmet" },
 ]
 
 export default function HakkindaPage() {
@@ -53,33 +53,33 @@ export default function HakkindaPage() {
       <div className="max-w-[1000px] mx-auto px-[var(--DTContainer_Spacing,40px)] py-16">
         {/* Header */}
         <h1 className="text-[var(--DTFontSize_H2,48px)] font-bold text-[#1e1e1e] mb-6">
-          Hakkimizda
+          Hakkımızda
         </h1>
 
         {/* Company Profile */}
         <section className="space-y-6 mb-16">
           <p className="text-[16px] leading-[1.5em] text-[#1e1e1e]">
-            Next AI Teknoloji, 2014 yilinda Istanbul&apos;da kurulmus olup Turkiye&apos;nin
-            oncu teknoloji bayi portallarindan biridir. Kuruldugumuz gundem bu yana,
-            isletmelerin teknoloji ihtiyaclarini en yuksek kalitede ve rekabetci
-            fiyatlarla karsilamayi hedefledik.
+            Next AI Teknoloji, 2014 yılında İstanbul&apos;da kurulmuş olup Türkiye&apos;nin
+            öncü teknoloji bayi portallarından biridir. Kurulduğumuz günden bu yana,
+            işletmelerin teknoloji ihtiyaçlarını en yüksek kalitede ve rekabetçi
+            fiyatlarla karşılamayı hedefledik.
           </p>
           <p className="text-[16px] leading-[1.5em] text-[#1e1e1e]">
-            <strong>Misyonumuz:</strong> Turkiye&apos;deki isletmelere en genis urun yelpazesi,
-            en iyi fiyatlar ve en hizli teslimat ile teknoloji cozumleri sunmak.
-            Bayilerimize guclu bir tedarik zinciri ve profesyonel destek saglayarak
-            is ortaklarimizin buyumesine katki saglamak. Misyon ve vizyon degerlerimiz
-            her kararimizda yol gostericidir.
+            <strong>Misyonumuz:</strong> Türkiye&apos;deki işletmelere en geniş ürün yelpazesi,
+            en iyi fiyatlar ve en hızlı teslimat ile teknoloji çözümleri sunmak.
+            Bayilerimize güçlü bir tedarik zinciri ve profesyonel destek sağlayarak
+            iş ortaklarımızın büyümesine katkı sağlamak. Misyon ve vizyon değerlerimiz
+            her kararımızda yol göstericidir.
           </p>
           <p className="text-[16px] leading-[1.5em] text-[#1e1e1e]">
-            <strong>Vizyonumuz:</strong> Turkiye&apos;nin en buyuk ve en guvenilir
-            teknoloji dagitim platformu olmak. Dijital donusum surecinde isletmelere
-            rehberlik ederek, teknolojiye erisimi demokratiklestirmek istiyoruz.
+            <strong>Vizyonumuz:</strong> Türkiye&apos;nin en büyük ve en güvenilir
+            teknoloji dağıtım platformu olmak. Dijital dönüşüm sürecinde işletmelere
+            rehberlik ederek, teknolojiye erişimi demokratikleştirmek istiyoruz.
           </p>
           <p className="text-[16px] leading-[1.5em] text-[#1e1e1e]">
-            10 yili askin sektorel deneyimimizle, HP, Dell, Lenovo, Cisco, Samsung
-            gibi dunya liderlerinin yetkili distributorlugunu yapiyoruz. 5.000&apos;den
-            fazla kurumsal musterimize hizmet vermekten gurur duyuyoruz.
+            10 yılı aşkın sektörel deneyimimizle, HP, Dell, Lenovo, Cisco, Samsung
+            gibi dünya liderlerinin yetkili distribütörlüğünü yapıyoruz. 5.000&apos;den
+            fazla kurumsal müşterimize hizmet vermekten gurur duyuyoruz.
           </p>
         </section>
 
@@ -92,7 +92,7 @@ export default function HakkindaPage() {
                 data-testid="stat-item"
                 className="bg-[#f3f3f3] rounded-[20px] p-6 text-center"
               >
-                <p className="text-3xl font-black text-[#2189ff] mb-1">{stat.value}</p>
+                <p className="text-3xl font-black text-[#0040a4] mb-1">{stat.value}</p>
                 <p className="text-[13px] font-semibold text-[#767676] uppercase tracking-wider">
                   {stat.label}
                 </p>
@@ -122,7 +122,7 @@ export default function HakkindaPage() {
                 </div>
                 <div className="p-4">
                   <p className="text-[14px] font-bold text-[#1e1e1e]">{member.name}</p>
-                  <p className="text-[12px] font-semibold text-[#2189ff] mb-2">
+                  <p className="text-[12px] font-semibold text-[#0040a4] mb-2">
                     {member.title}
                   </p>
                   <p className="text-[12px] text-[#767676] leading-relaxed">
@@ -137,16 +137,16 @@ export default function HakkindaPage() {
         {/* CTA */}
         <section className="text-center bg-[#f3f3f3] rounded-[20px] p-10">
           <h2 className="text-2xl font-bold text-[#1e1e1e] mb-4">
-            Bizimle Calisin
+            Bizimle Çalışın
           </h2>
           <p className="text-[16px] text-[#555555] mb-6 max-w-md mx-auto leading-relaxed">
-            Isletmeniz icin en uygun teknoloji cozumlerini birlikte bulalim.
+            İşletmeniz için en uygun teknoloji çözümlerini birlikte bulalım.
           </p>
           <Link
             href="/iletisim"
-            className="inline-flex items-center gap-2 h-12 px-8 bg-[#2189ff] text-white font-bold text-[14px] rounded-lg hover:bg-[#1e1e1e] transition-all duration-300"
+            className="inline-flex items-center gap-2 h-12 px-8 bg-[#0040a4] text-white font-bold text-[14px] rounded-lg hover:bg-[#1e1e1e] transition-all duration-300"
           >
-            Bize Ulasin
+            Bize Ulaşın
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </section>

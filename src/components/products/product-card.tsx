@@ -29,7 +29,7 @@ function ProductImage({ src, alt, className }: ProductImageProps) {
       src={src}
       alt={alt}
       className={cn(
-        "h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105",
+        "h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-110",
         className
       )}
       onError={() => setError(true)}
@@ -96,19 +96,27 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
   const showDropdowns = (brands && brands.length > 0) || (categories && categories.length > 0)
 
   return (
-    <article className="group relative flex flex-col bg-white cursor-pointer">
-      {/* Ürün Görseli */}
+    <article
+      className={cn(
+        "group relative flex flex-col bg-[#f3f3f3] rounded-[20px] overflow-hidden",
+        "hover:shadow-[0_8px_25px_rgba(187,187,187,0.5)] hover:-translate-y-1",
+        "transition-all duration-300 linear"
+      )}
+    >
+      {/* Product Image */}
       <Link
         href={`/urunler/${product.slug}`}
-        className="relative block overflow-hidden bg-white"
+        className="relative block overflow-hidden bg-white rounded-t-[20px]"
         style={{ aspectRatio: "1 / 1" }}
         tabIndex={-1}
         aria-hidden
       >
         <ProductImage src={mainImage} alt={product.name} />
 
-        {/* Hover overlay + aksiyon butonları */}
-        <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-all duration-300" />
+        {/* Hover overlay */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
+
+        {/* Hover action buttons */}
         <div className="absolute inset-0 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
           {product.stock.isAvailable && onAddToCart && (
             <button
@@ -118,7 +126,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
                 e.stopPropagation()
                 onAddToCart(product)
               }}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#333333] hover:bg-[#00179e] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1e1e1e] hover:bg-[#0040a4] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
               aria-label={`${product.name} sepete ekle`}
             >
               <ShoppingCart className="h-4 w-4" aria-hidden />
@@ -131,14 +139,14 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
               e.stopPropagation()
               window.location.href = `/urunler/${product.slug}`
             }}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#333333] hover:bg-[#00179e] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
-            aria-label={`${product.name} hızlı bak`}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1e1e1e] hover:bg-[#0040a4] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
+            aria-label={`${product.name} hizli bak`}
           >
             <Eye className="h-4 w-4" aria-hidden />
           </button>
           <button
             type="button"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#333333] hover:bg-[#00179e] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1e1e1e] hover:bg-[#0040a4] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
             aria-label={`${product.name} favorilere ekle`}
           >
             <Heart className="h-4 w-4" aria-hidden />
@@ -146,59 +154,61 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
         </div>
       </Link>
 
-      {/* Badge'ler — sol üst */}
+      {/* Badges - top left */}
       <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
         {product.isNew && (
-          <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold text-white bg-[#00179e]">
-            YENİ
+          <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-[10px] font-bold text-white bg-[#0040a4]">
+            YENI
           </span>
         )}
         {product.isOutlet && (
-          <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold text-white bg-[#c82333]">
+          <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-[10px] font-bold text-white bg-[#a60811]">
             OUTLET
           </span>
         )}
         {!product.stock.isAvailable && (
-          <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-bold text-white bg-[#767676]">
-            TÜKENDI
+          <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-[10px] font-bold text-white bg-[#767676]">
+            TUKENDI
           </span>
         )}
       </div>
 
-      {/* Kart içeriği — fiyat ÖNCE, isim SONRA */}
-      <div className="flex flex-col gap-1 pt-2.5 pb-3 px-1">
-        {/* Fiyat — ÖNCE */}
+      {/* Card content - price FIRST, name AFTER */}
+      <div className="flex flex-col gap-1 p-[10px]">
+        {/* Price - FIRST */}
         {product.pricing ? (
-          <div className="flex items-baseline gap-1.5">
-            <p className="text-[16px] font-bold text-[#333333] leading-tight">
-              {formatCurrency(product.pricing.salePriceIncVat, product.pricing.currency)}
-            </p>
-            {product.pricing.salePriceIncVat < product.pricing.salePriceIncVat * 1.1 && (
-              <p className="text-[12px] text-[#767676] line-through leading-tight">
-                {formatCurrency(product.pricing.salePriceIncVat * 1.15, product.pricing.currency)}
+          <div className="flex flex-col">
+            <div className="flex items-baseline gap-1.5">
+              <p className="text-[16px] font-bold text-[#3b7300] leading-tight">
+                {formatCurrency(product.pricing.salePriceExVat, product.pricing.currency)}
+                <span className="text-[10px] text-gray-400 font-normal ml-0.5">+KDV</span>
               </p>
-            )}
+            </div>
+            <p className="text-[11px] text-gray-400 leading-tight">
+              {formatCurrency(product.pricing.salePriceIncVat, product.pricing.currency)}
+              <span className="text-[9px]"> KDV dahil</span>
+            </p>
           </div>
         ) : (
-          <p className="text-[14px] text-[#767676]">—</p>
+          <p className="text-[14px] text-[#767676]">--</p>
         )}
 
-        {/* Ürün adı — SONRA */}
+        {/* Product name - AFTER */}
         <Link
           href={`/urunler/${product.slug}`}
-          className="text-[13px] text-[#767676] leading-snug line-clamp-2 hover:text-[#00179e] transition-colors min-h-[2.4rem]"
+          className="text-[13px] text-[#1e1e1e] leading-snug line-clamp-2 hover:text-[#0040a4] transition-colors min-h-[2.4rem] font-medium"
         >
           {product.name}
         </Link>
 
-        {/* Stok durumu — sadece kritik durumlarda */}
+        {/* Stock status - only critical cases */}
         {!product.stock.isAvailable ? (
-          <p className="text-[11px] text-[#c82333] font-medium">Stok Yok</p>
+          <p className="text-[11px] text-[#a60811] font-medium">Stok Yok</p>
         ) : product.stock.quantity < 5 ? (
           <p className="text-[11px] text-amber-600 font-medium">Son {product.stock.quantity} adet</p>
         ) : null}
 
-        {/* Inline marka/kategori dropdown'ları */}
+        {/* Inline brand/category dropdowns */}
         {showDropdowns && (
           <div className="flex flex-col gap-0.5 mt-1" onClick={(e) => e.stopPropagation()}>
             {brands && brands.length > 0 && (
@@ -208,13 +218,13 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
                 onChange={(e) => handleFieldChange("brandId", e.target.value)}
                 className={cn(
                   "w-full text-xs py-0.5 px-1 rounded border bg-transparent outline-none cursor-pointer",
-                  "border-transparent hover:border-gray-300 focus:border-[#00179e] transition-colors",
+                  "border-transparent hover:border-gray-300 focus:border-[#0040a4] transition-colors",
                   flash["brandId"] === "ok" && "border-green-500 text-green-700",
                   flash["brandId"] === "err" && "border-red-500 text-red-600",
                 )}
-                aria-label="Marka seç"
+                aria-label="Marka sec"
               >
-                <option value="">— Marka Seç —</option>
+                <option value="">-- Marka Sec --</option>
                 {brands.map((b) => (
                   <option key={b.id} value={b.id}>{b.name}</option>
                 ))}
@@ -227,16 +237,16 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
                 onChange={(e) => handleFieldChange("categoryId", e.target.value)}
                 className={cn(
                   "w-full text-xs py-0.5 px-1 rounded border bg-transparent outline-none cursor-pointer",
-                  "border-transparent hover:border-gray-300 focus:border-[#00179e] transition-colors text-[#767676]",
+                  "border-transparent hover:border-gray-300 focus:border-[#0040a4] transition-colors text-[#767676]",
                   flash["categoryId"] === "ok" && "border-green-500 text-green-700",
                   flash["categoryId"] === "err" && "border-red-500 text-red-600",
                 )}
-                aria-label="Kategori seç"
+                aria-label="Kategori sec"
               >
-                <option value="">— Kategori Seç —</option>
+                <option value="">-- Kategori Sec --</option>
                 {flatCategories.map((c) => (
                   <option key={c.id} value={c.id}>
-                    {c.depth > 0 ? `${"  ".repeat(c.depth)}↳ ` : ""}{c.name}
+                    {c.depth > 0 ? `${"  ".repeat(c.depth)}-- ` : ""}{c.name}
                   </option>
                 ))}
               </select>
@@ -250,12 +260,12 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
 
 export function ProductCardSkeleton() {
   return (
-    <div className="flex flex-col bg-white animate-pulse">
-      <div className="aspect-square bg-[#f5f5f5]" />
-      <div className="pt-2.5 pb-3 px-1 space-y-2">
-        <div className="h-4 w-24 bg-[#f5f5f5] rounded" />
-        <div className="h-3.5 w-full bg-[#f5f5f5] rounded" />
-        <div className="h-3.5 w-3/4 bg-[#f5f5f5] rounded" />
+    <div className="flex flex-col bg-[#f3f3f3] rounded-[20px] overflow-hidden animate-pulse">
+      <div className="aspect-square bg-[#f5f5f5] rounded-t-[20px]" />
+      <div className="p-[10px] space-y-2">
+        <div className="h-4 w-24 bg-[#e5e5e5] rounded" />
+        <div className="h-3.5 w-full bg-[#e5e5e5] rounded" />
+        <div className="h-3.5 w-3/4 bg-[#e5e5e5] rounded" />
       </div>
     </div>
   )

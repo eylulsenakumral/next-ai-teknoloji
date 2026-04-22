@@ -125,6 +125,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
   if (data.metadata !== undefined) updateData.metadata = data.metadata ?? Prisma.JsonNull
   if (data.manualPrice !== undefined) updateData.manualPrice = data.manualPrice ?? null
   if (data.manualPriceCurrency !== undefined) updateData.manualPriceCurrency = data.manualPriceCurrency ?? null
+  if (data.campaignDiscountPct !== undefined) updateData.campaignDiscountPct = data.campaignDiscountPct ?? null
   if (data.brandId !== undefined) updateData.brandId = data.brandId ?? null
   if (data.categoryId !== undefined) updateData.categoryId = data.categoryId ?? null
 

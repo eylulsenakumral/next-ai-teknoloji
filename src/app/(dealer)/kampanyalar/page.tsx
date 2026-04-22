@@ -4,6 +4,7 @@ import Link from "next/link"
 import { prisma } from "@/lib/db"
 import { Package, InboxIcon, ShoppingCart, Eye, Percent, Flame } from "lucide-react"
 import { formatCurrency } from "@/lib/utils/format"
+import { calculateBulkPrices } from "@/services/pricing.service"
 
 export default async function CampaignsPage() {
   // Kampanyalı ürünler = outlet, öne çıkan veya isFeatured olanlar
@@ -17,21 +18,28 @@ export default async function CampaignsPage() {
       ],
     },
     orderBy: { updatedAt: "desc" },
-    include: {
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      images: true,
+      isOutlet: true,
+      isFeatured: true,
+      manualPrice: true,
+      manualPriceCurrency: true,
+      campaignDiscountPct: true,
       brand: { select: { name: true, slug: true } },
-      supplierProducts: {
-        where: { isAvailable: true, deletedAt: null },
-        take: 1,
-        orderBy: { purchasePrice: "asc" },
-        select: { purchasePrice: true },
-      },
     },
   })
+
+  // Bulk fiyat hesaplama
+  const productIds = campaignProducts.map(p => p.id)
+  const priceMap = await calculateBulkPrices(productIds)
 
   return (
     <div className="bg-white">
       {/* Hero Banner */}
-      <div className="bg-gradient-to-r from-[#2189ff] via-[#2189ff] to-[#2189ff] text-white">
+      <div className="bg-gradient-to-r from-[#0040a4] via-[#0040a4] to-[#0040a4] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
             <Flame className="h-6 w-6 text-orange-400" />
@@ -64,7 +72,7 @@ export default async function CampaignsPage() {
             </div>
             <Link
               href="/urunler"
-              className="inline-flex items-center gap-2 bg-[#2189ff] text-white text-[13px] font-semibold px-6 py-2.5 hover:bg-[#1a6fd4] transition-colors"
+              className="inline-flex items-center gap-2 bg-[#0040a4] text-white text-[13px] font-semibold px-6 py-2.5 hover:bg-[#1a6fd4] transition-colors"
             >
               Tüm Ürünlere Göz At
             </Link>
@@ -79,8 +87,29 @@ export default async function CampaignsPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
               {campaignProducts.map((product) => {
-                const priceRaw = product.supplierProducts[0]?.purchasePrice
-                const price = priceRaw ? Number(priceRaw) : null
+                // Fiyat mantığı: manualPrice > pricing service
+                let displayPrice: number | null = null
+                let originalPrice: number | null = null
+                let discountPct: number | null = null
+
+                const manualPrice = product.manualPrice ? Number(product.manualPrice) : null
+                const pricing = priceMap.get(product.id)
+                const calculatedPrice = pricing?.salePriceExVat ?? null
+
+                if (manualPrice) {
+                  displayPrice = manualPrice
+                } else if (calculatedPrice) {
+                  displayPrice = calculatedPrice
+                }
+
+                // İndirim oranı
+                const campaignDiscount = product.campaignDiscountPct ? Number(product.campaignDiscountPct) : null
+
+                if (campaignDiscount && displayPrice) {
+                  originalPrice = displayPrice
+                  displayPrice = Math.round((displayPrice * (1 - campaignDiscount / 100)) * 100) / 100
+                  discountPct = campaignDiscount
+                }
 
                 return (
                   <Link
@@ -90,6 +119,11 @@ export default async function CampaignsPage() {
                   >
                     {/* Badge'ler */}
                     <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
+                      {discountPct !== null && (
+                        <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px] font-bold text-white bg-red-500">
+                          %{Math.round(discountPct)} İNDİRİM
+                        </span>
+                      )}
                       {product.isOutlet && (
                         <span className="inline-flex items-center gap-1 rounded px-2 py-0.5 text-[10px] font-bold text-white bg-[#c82333]">
                           <Percent className="h-3 w-3" /> OUTLET
@@ -108,10 +142,10 @@ export default async function CampaignsPage() {
                       {/* Hover overlay */}
                       <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                       <div className="absolute inset-0 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
-                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#333] hover:bg-[#2189ff] hover:text-white transition-colors">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#333] hover:bg-[#0040a4] hover:text-white transition-colors">
                           <ShoppingCart className="h-4 w-4" />
                         </span>
-                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#333] hover:bg-[#2189ff] hover:text-white transition-colors">
+                        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md text-[#333] hover:bg-[#0040a4] hover:text-white transition-colors">
                           <Eye className="h-4 w-4" />
                         </span>
                       </div>
@@ -121,22 +155,34 @@ export default async function CampaignsPage() {
                     <div className="p-4 flex flex-col gap-1.5">
                       {/* Marka */}
                       {product.brand && (
-                        <p className="text-[11px] font-semibold text-[#2189ff] uppercase tracking-wide">
+                        <p className="text-[11px] font-semibold text-[#0040a4] uppercase tracking-wide">
                           {product.brand.name}
                         </p>
                       )}
 
                       {/* Fiyat */}
-                      {price !== null ? (
-                        <p className="text-[18px] font-bold text-[#333333]">
-                          {formatCurrency(price)}
-                        </p>
+                      {displayPrice !== null ? (
+                        <div className="flex flex-col">
+                          {discountPct !== null && originalPrice !== null && (
+                            <div className="flex items-center gap-1.5 mb-0.5">
+                              <span className="text-[13px] text-[#999] line-through">
+                                {formatCurrency(originalPrice)}
+                              </span>
+                            </div>
+                          )}
+                          <p className="text-[18px] font-bold text-[#333333]">
+                            {formatCurrency(displayPrice)} <span className="text-[10px] text-gray-400 font-normal">+KDV</span>
+                          </p>
+                          <p className="text-[11px] text-gray-400">
+                            {formatCurrency(displayPrice * 1.2)} <span className="text-[9px]">KDV dahil</span>
+                          </p>
+                        </div>
                       ) : (
                         <p className="text-[13px] text-[#767676] italic">Fiyat bilgisi yok</p>
                       )}
 
                       {/* Ürün adı */}
-                      <p className="text-[13px] text-[#767676] leading-snug line-clamp-2 group-hover:text-[#2189ff] transition-colors">
+                      <p className="text-[13px] text-[#767676] leading-snug line-clamp-2 group-hover:text-[#0040a4] transition-colors">
                         {product.name}
                       </p>
                     </div>

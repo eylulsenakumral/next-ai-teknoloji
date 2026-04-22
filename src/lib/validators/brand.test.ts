@@ -41,9 +41,9 @@ describe("createBrandSchema", () => {
     expect(result.success).toBe(true)
   })
 
-  it("rejects invalid logoUrl", () => {
+  it("accepts any string for logoUrl (including relative paths)", () => {
     const result = createBrandSchema.safeParse({ ...validInput, logoUrl: "not-a-url" })
-    expect(result.success).toBe(false)
+    expect(result.success).toBe(true)
   })
 
   it("accepts empty string for logoUrl", () => {
@@ -90,9 +90,9 @@ describe("updateBrandSchema", () => {
     expect(result.success).toBe(true)
   })
 
-  it("still rejects invalid URL when provided", () => {
+  it("accepts any string for logoUrl in updates (including relative paths)", () => {
     const result = updateBrandSchema.safeParse({ logoUrl: "not-a-url" })
-    expect(result.success).toBe(false)
+    expect(result.success).toBe(true)
   })
 
   it("accepts a valid URL when provided", () => {

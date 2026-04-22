@@ -11,7 +11,6 @@ import {
   Package,
   FileText,
   CreditCard,
-  Cpu,
   X,
   Phone,
   User,
@@ -23,10 +22,12 @@ import {
   Loader2,
   Shield,
 } from "lucide-react"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 import { useCart } from "@/hooks/use-cart"
 import { CartDrawer } from "@/components/cart/cart-drawer"
 import { ProductSearch } from "@/components/products/product-search"
+
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -537,13 +538,7 @@ function MobileDrawer({
       <div className="fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-2xl flex flex-col">
         <div className="flex items-center justify-between px-5 py-4 border-b border-[var(--DTColor_Border)] bg-[var(--DTSecondaryColor)]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded bg-[var(--DTPrimaryColor)] flex items-center justify-center">
-              <Cpu className="w-4 h-4 text-white" />
-            </div>
-            <div>
-              <p className="font-extrabold text-[13px] text-white">Next AI Teknoloji</p>
-              <p className="text-[10px] text-white/60">Bayi Portalı</p>
-            </div>
+            <Image src="/logo.png" alt="Next AI Teknoloji" width={100} height={34} className="h-7 w-auto object-contain brightness-0 invert" />
           </div>
           <button
             type="button"
@@ -609,7 +604,7 @@ export function DealerHeader() {
   const { categories, isLoading: categoriesLoading } = useCategoryTree()
 
   const userName =
-    session?.user?.contactName ?? session?.user?.companyName ?? "Bayi"
+    session?.user?.companyName ?? "Bayi"
 
   return (
     <>
@@ -659,17 +654,7 @@ export function DealerHeader() {
               className="flex items-center gap-2.5 shrink-0"
               aria-label="Next AI Teknoloji ana sayfa"
             >
-              <div className="w-11 h-11 rounded bg-[var(--DTPrimaryColor)] flex items-center justify-center">
-                <Cpu className="w-6 h-6 text-white" />
-              </div>
-              <div className="flex flex-col leading-none">
-                <span className="font-extrabold text-[18px] text-[var(--DTSecondaryColor)] tracking-tight">
-                  Next AI Teknoloji
-                </span>
-                <span className="text-[11px] text-[#767676] font-medium uppercase tracking-widest">
-                  B2B Bayi Portalı
-                </span>
-              </div>
+              <Image src="/logo.png" alt="Next AI Teknoloji" width={240} height={80} className="h-20 w-auto object-contain" />
             </Link>
 
             {/* Yardim metni */}
@@ -725,12 +710,7 @@ export function DealerHeader() {
               <Menu className="h-5 w-5" />
             </button>
             <Link href="/" className="flex items-center gap-2 flex-1">
-              <div className="w-7 h-7 rounded bg-[var(--DTPrimaryColor)] flex items-center justify-center">
-                <Cpu className="w-3.5 h-3.5 text-white" />
-              </div>
-              <span className="font-extrabold text-[14px] text-[var(--DTSecondaryColor)] tracking-tight">
-                Next AI Teknoloji
-              </span>
+              <Image src="/logo.png" alt="Next AI Teknoloji" width={120} height={40} className="h-8 w-auto object-contain" />
             </Link>
             <CartButton />
           </div>
@@ -747,7 +727,7 @@ export function DealerHeader() {
                   <Link
                     href={href}
                     className={cn(
-                      "inline-flex items-center h-[50px] px-4 text-[12px] font-bold capitalize tracking-wider transition-colors",
+                      "inline-flex items-center h-[50px] px-4 text-[13px] font-medium tracking-wider transition-colors",
                       pathname === href
                         ? "text-[var(--DTPrimaryColor)] border-b-2 border-[var(--DTPrimaryColor)]"
                         : "text-[var(--DTSecondaryColor)] hover:text-[var(--DTPrimaryColor)] border-b-2 border-transparent"

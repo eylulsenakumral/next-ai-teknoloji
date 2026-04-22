@@ -11,7 +11,8 @@ export function NewsletterSection() {
     setStatus("loading")
 
     try {
-      // TODO: Replace with actual API endpoint
+      // TODO: Wire to real /api/newsletter/subscribe endpoint
+      // Currently stubbed for demo
       await new Promise<void>((resolve) => setTimeout(resolve, 1000))
       setStatus("success")
       setEmail("")
@@ -21,38 +22,44 @@ export function NewsletterSection() {
   }
 
   return (
-    <section className="py-16 bg-[#1e1e1e]">
-      <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-xl mx-auto">
-          <h2 className="text-4xl font-bold text-white mb-4">Bültenimize Abone Olun</h2>
-          <p className="text-white/60 mb-8 text-sm leading-relaxed">
-            Yeni ürünler ve özel teklifler hakkında güncel kalın
-          </p>
-
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2">
-            <input
-              type="email"
-              placeholder="E-posta adresiniz"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 px-6 py-3 rounded-[20px] bg-[#f3f3f3] border border-[#e9e9e9] text-[#1e1e1e] placeholder:text-[#1e1e1e]/40 focus:outline-none focus:ring-2 focus:ring-[#2189ff]"
-              required
-            />
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="px-8 py-3 bg-[#2189ff] text-white rounded-[20px] font-semibold hover:bg-[#1e1e1e] transition-colors duration-200 disabled:opacity-50 whitespace-nowrap"
-            >
-              {status === "loading" ? "Kaydediliyor..." : "Abone Ol"}
-            </button>
-          </form>
-
-          {status === "success" && (
-            <p className="text-emerald-400 mt-4 text-sm">Abone olduğunuz için teşekkürler!</p>
-          )}
-          {status === "error" && (
-            <p className="text-red-400 mt-4 text-sm">Bir hata oluştu. Lütfen tekrar deneyin.</p>
-          )}
+    <section className="py-16 bg-[#f3f3f3]">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-[#f3f3f3] rounded-lg p-12">
+          <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+              <h2 className="text-3xl font-bold text-[#1e1e1e] mb-2">Bültenimize Abone Olun</h2>
+              <p className="text-gray-600">Yeni ürünler ve özel teklifler hakkında güncel kalın</p>
+            </div>
+            <div className="flex flex-col gap-3 w-full md:w-auto">
+              <form onSubmit={handleSubmit} className="flex gap-2">
+                <label htmlFor="newsletter-email" className="sr-only">
+                  Email address
+                </label>
+                <input
+                  id="newsletter-email"
+                  type="email"
+                  placeholder="E-posta adresiniz"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="px-4 py-2 rounded-lg border border-gray-300 text-[#1e1e1e] placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0040a4]"
+                  required
+                />
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="bg-[#0040a4] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#1a6fd4] transition-colors duration-200 disabled:opacity-50 whitespace-nowrap"
+                >
+                  {status === "loading" ? "Kaydediliyor..." : "Abone Ol"}
+                </button>
+              </form>
+              {status === "success" && (
+                <p className="text-emerald-600 text-sm">Abone olduğunuz için teşekkürler!</p>
+              )}
+              {status === "error" && (
+                <p className="text-red-500 text-sm">Bir hata oluştu. Lütfen tekrar deneyin.</p>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </section>

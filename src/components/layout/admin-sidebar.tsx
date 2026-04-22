@@ -25,6 +25,7 @@ import {
   Megaphone,
   ArrowLeftRight,
   Layers,
+  FileText,
   X,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -45,6 +46,7 @@ const menuItems = [
   { href: "/admin/musteriler", label: "Müşteriler", icon: Users },
   { href: "/admin/basvurular", label: "Başvurular", icon: ClipboardList },
   { href: "/admin/siparisler", label: "Siparişler", icon: ShoppingBag },
+  { href: "/admin/teklifler", label: "Teklifler", icon: FileText },
   { href: "/admin/fiyatlandirma", label: "Fiyatlandırma", icon: DollarSign },
   { href: "/admin/whatsapp", label: "WhatsApp", icon: MessageCircle },
   { href: "/admin/entegrasyonlar", label: "Entegrasyonlar", icon: Plug },

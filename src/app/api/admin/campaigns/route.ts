@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
+import { calculateBulkPrices } from "@/services/pricing.service"
 import { z } from "zod"
 
 // ---------------------------------------------------------------------------
@@ -44,14 +45,29 @@ export async function GET(req: NextRequest) {
             orderBy: { purchasePrice: "asc" },
             take: 1,
           },
+          manualPrice: true,
+          manualPriceCurrency: true,
+          campaignDiscountPct: true,
         },
         orderBy: { updatedAt: "desc" },
       }),
       prisma.product.count({ where }),
     ])
 
+    // Hesaplanan satış fiyatlarını ekle (pricing service)
+    const priceMap = await calculateBulkPrices(products.map((p) => p.id))
+
+    const enriched = products.map((p) => {
+      const pricing = priceMap.get(p.id)
+      return {
+        ...p,
+        calculatedSalePrice: pricing?.salePriceExVat ?? null,
+        calculatedCurrency: pricing ? "USD" : null,
+      }
+    })
+
     return NextResponse.json({
-      data: products,
+      data: enriched,
       meta: {
         total,
         page,
@@ -168,5 +184,64 @@ export async function DELETE(req: NextRequest) {
   } catch (err) {
     console.error("[DELETE /api/admin/campaigns]", err)
     return NextResponse.json({ error: "Ürün kampanyadan çıkarılamadı." }, { status: 500 })
+  }
+}
+
+// ---------------------------------------------------------------------------
+// PATCH /api/admin/campaigns
+// Kampanyalı ürünün fiyat ve indirim bilgilerini güncelle
+// Body: { productId: string, manualPrice?: number | null, manualPriceCurrency?: string | null, campaignDiscountPct?: number | null }
+// ---------------------------------------------------------------------------
+const patchSchema = z.object({
+  productId: z.string().uuid(),
+  manualPrice: z.number().nonnegative().nullable().optional(),
+  manualPriceCurrency: z.enum(["TRY", "USD", "EUR"]).nullable().optional(),
+  campaignDiscountPct: z.number().min(0).max(100).nullable().optional(),
+})
+
+export async function PATCH(req: NextRequest) {
+  const session = await getAdminSession()
+  const authError = requireAdminSession(session)
+  if (authError) return authError
+
+  try {
+    const body = await req.json()
+    const parsed = patchSchema.safeParse(body)
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: "Geçersiz veri.", details: parsed.error.flatten() },
+        { status: 400 }
+      )
+    }
+
+    const { productId, manualPrice, manualPriceCurrency, campaignDiscountPct } = parsed.data
+
+    const updateData: Record<string, unknown> = {}
+    if (manualPrice !== undefined) updateData.manualPrice = manualPrice
+    if (manualPriceCurrency !== undefined) updateData.manualPriceCurrency = manualPriceCurrency
+    if (campaignDiscountPct !== undefined) updateData.campaignDiscountPct = campaignDiscountPct
+
+    if (Object.keys(updateData).length === 0) {
+      return NextResponse.json({ error: "Güncellenecek alan yok." }, { status: 400 })
+    }
+
+    const updated = await prisma.product.update({
+      where: { id: productId },
+      data: updateData,
+      select: {
+        id: true,
+        name: true,
+        manualPrice: true,
+        manualPriceCurrency: true,
+        campaignDiscountPct: true,
+        isFeatured: true,
+        isOutlet: true,
+      },
+    })
+
+    return NextResponse.json({ data: updated })
+  } catch (err) {
+    console.error("[PATCH /api/admin/campaigns]", err)
+    return NextResponse.json({ error: "Kampanya fiyatı güncellenemedi." }, { status: 500 })
   }
 }

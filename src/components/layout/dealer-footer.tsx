@@ -6,32 +6,32 @@ import Link from "next/link"
 
 const bayiLinks = [
   { href: "/hesabim", label: "Profilim" },
-  { href: "/siparisler", label: "Satis Yonetimi" },
+  { href: "/siparisler", label: "Satış Yönetimi" },
   { href: "/raporlar", label: "Raporlar" },
-  { href: "/depo", label: "Depo Yonetimi" },
-  { href: "/destek", label: "Musteri Destek" },
+  { href: "/depo", label: "Depo Yönetimi" },
+  { href: "/destek", label: "Müşteri Destek" },
 ]
 
 const infoLinks = [
-  { href: "/hakkimizda", label: "Hakkimizda" },
-  { href: "/iletisim", label: "Iletisim" },
+  { href: "/hakkimizda", label: "Hakkımızda" },
+  { href: "/iletisim", label: "İletişim" },
   { href: "/kampanyalar", label: "Kampanyalar" },
-  { href: "/gizlilik", label: "Gizlilik Politikasi" },
-  { href: "/kullanim", label: "Kullanim Kosullari" },
+  { href: "/gizlilik", label: "Gizlilik Politikası" },
+  { href: "/kullanim", label: "Kullanım Koşulları" },
 ]
 
 const shopLinks = [
-  { href: "/urunler", label: "Tum Urunler" },
+  { href: "/urunler", label: "Tüm Ürünler" },
   { href: "/markalar", label: "Markalar" },
-  { href: "/urunler?yeni=true", label: "Yeni Urunler" },
+  { href: "/urunler?yeni=true", label: "Yeni Ürünler" },
   { href: "/urunler?outlet=true", label: "Outlet" },
 ]
 
 const supportLinks = [
   { href: "/sss", label: "SSS" },
-  { href: "/iade", label: "Iade ve Degisim" },
+  { href: "/iade", label: "İade ve Değişim" },
   { href: "/kargo", label: "Kargo Takibi" },
-  { href: "/garanti", label: "Garanti Kosullari" },
+  { href: "/garanti", label: "Garanti Koşulları" },
 ]
 
 /* ------------------------------------------------------------------ */
@@ -211,7 +211,7 @@ function FooterColumn({
           <li key={href + label}>
             <Link
               href={href}
-              className="text-[14px] text-[#999999] hover:text-[#2189ff] transition-[var(--DTBaseTransition)]"
+              className="text-[14px] text-[#999999] hover:text-[#0040a4] transition-[var(--DTBaseTransition)]"
             >
               {label}
             </Link>
@@ -236,7 +236,7 @@ export function DealerFooter() {
       {/* 4 Column Grid */}
       <div className="max-w-[var(--DTContainer)] mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Hakkimizda + Contact */}
+          {/* Hakkımızda + Contact */}
           <div>
             <div className="flex items-center gap-2.5 mb-4">
               <div
@@ -266,12 +266,12 @@ export function DealerFooter() {
                 <div className="space-y-1">
                   <div>
                     <span className="text-[11px] font-semibold text-[#f3f3f3] uppercase tracking-wide">
-                      Satis Destek Hatti
+                      Satış Destek Hattı
                     </span>
                     <br />
                     <a
                       href="tel:+905529895959"
-                      className="text-[13px] text-[#999999] hover:text-[#2189ff] transition-[var(--DTBaseTransition)]"
+                      className="text-[13px] text-[#999999] hover:text-[#0040a4] transition-[var(--DTBaseTransition)]"
                     >
                       0 552 989 5959
                     </a>
@@ -283,7 +283,7 @@ export function DealerFooter() {
                     <br />
                     <a
                       href="tel:+905529915959"
-                      className="text-[13px] text-[#999999] hover:text-[#2189ff] transition-[var(--DTBaseTransition)]"
+                      className="text-[13px] text-[#999999] hover:text-[#0040a4] transition-[var(--DTBaseTransition)]"
                     >
                       0 552 991 5959
                     </a>
@@ -294,7 +294,7 @@ export function DealerFooter() {
                 <IconMail className="h-4 w-4 text-[var(--DTPrimaryColor)] shrink-0" />
                 <a
                   href="mailto:info@next-ai.com.tr"
-                  className="text-[13px] text-[#999999] hover:text-[#2189ff] transition-[var(--DTBaseTransition)]"
+                  className="text-[13px] text-[#999999] hover:text-[#0040a4] transition-[var(--DTBaseTransition)]"
                 >
                   info@next-ai.com.tr
                 </a>

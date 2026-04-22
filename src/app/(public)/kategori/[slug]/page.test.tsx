@@ -38,6 +38,15 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),
 }))
 
+vi.mock("@/hooks/use-auth", () => ({
+  useAuth: () => ({
+    user: null,
+    isLoading: false,
+    isDealer: false,
+    isAdmin: false,
+  }),
+}))
+
 // Import components after mocks
 import {
   CategoryBanner,

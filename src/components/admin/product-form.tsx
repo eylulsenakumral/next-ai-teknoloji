@@ -13,6 +13,7 @@ import { SpecsScraper } from "@/components/admin/specs-scraper"
 import { ImageManager } from "@/components/admin/image-manager"
 import { PriceDisplay, PriceHistoryDisplay } from "@/components/admin/price-display"
 import { cn } from "@/lib/utils"
+import { formatCurrency } from "@/lib/utils/format"
 import type { CreateProductInput } from "@/lib/validators/product"
 
 // ---------------------------------------------------------------------------
@@ -70,6 +71,7 @@ interface ProductFormData {
   // Tab 4 - Fiyatlandırma
   manualPrice: string
   manualPriceCurrency: "TRY" | "USD" | "EUR"
+  campaignDiscountPct: string
   // Tab 5
   isActive: boolean
   isFeatured: boolean
@@ -130,6 +132,7 @@ const defaultForm: ProductFormData = {
   dimensions: { length: "", width: "", height: "", unit: "cm" },
   manualPrice: "",
   manualPriceCurrency: "TRY",
+  campaignDiscountPct: "",
   isActive: true,
   isFeatured: false,
   isNew: false,
@@ -165,6 +168,7 @@ export function ProductForm({ productId, initialData, brands, categories }: Prod
           dimensions: initialData.dimensions ?? { length: "", width: "", height: "", unit: "cm" },
           manualPrice: initialData.manualPrice ? String(initialData.manualPrice) : "",
           manualPriceCurrency: (initialData.manualPriceCurrency as "TRY" | "USD" | "EUR") ?? "TRY",
+          campaignDiscountPct: initialData.campaignDiscountPct ? String(initialData.campaignDiscountPct) : "",
           isActive: initialData.isActive ?? true,
           isFeatured: initialData.isFeatured ?? false,
           isNew: initialData.isNew ?? false,
@@ -230,6 +234,7 @@ export function ProductForm({ productId, initialData, brands, categories }: Prod
           : null,
       manualPrice: form.manualPrice ? parseFloat(form.manualPrice) : null,
       manualPriceCurrency: form.manualPriceCurrency || null,
+      campaignDiscountPct: form.campaignDiscountPct ? parseFloat(form.campaignDiscountPct) : null,
       isActive: form.isActive,
       isFeatured: form.isFeatured,
       isNew: form.isNew,
@@ -683,6 +688,49 @@ export function ProductForm({ productId, initialData, brands, categories }: Prod
                 <div className="flex items-center gap-2 text-xs">
                   <span className="text-muted-foreground">Girilen fiyat:</span>
                   <span className="font-semibold text-foreground">
+                    {form.manualPriceCurrency === "TRY" && "₺"}
+                    {form.manualPriceCurrency === "USD" && "$"}
+                    {form.manualPriceCurrency === "EUR" && "€"}
+                    {parseFloat(form.manualPrice).toLocaleString("tr-TR", { minimumFractionDigits: 2 })}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Kampanya İndirim Oranı */}
+            <div className="rounded-lg border border-orange-200 bg-orange-50/30 p-4 space-y-4">
+              <h3 className="text-sm font-semibold flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-orange-500"></span>
+                Kampanya İndirim Oranı
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                Bu ürün kampanyalı olarak işaretlendiğinde, satış fiyatına uygulanacak indirim yüzdesi. Boş bırakılırsa indirimsiz gösterilir.
+              </p>
+
+              <FormField label="İndirim Yüzdesi (%)" error={errors.campaignDiscountPct?.[0]}>
+                <Input
+                  type="number"
+                  step="0.1"
+                  min="0"
+                  max="100"
+                  placeholder="Örn: 15"
+                  value={form.campaignDiscountPct}
+                  onChange={(e) => update("campaignDiscountPct", e.target.value)}
+                  disabled={loading}
+                  className="font-mono max-w-[200px]"
+                />
+              </FormField>
+
+              {form.campaignDiscountPct && form.manualPrice && (
+                <div className="flex items-center gap-2 text-xs">
+                  <span className="text-muted-foreground">İndirimli fiyat:</span>
+                  <span className="font-semibold text-green-600">
+                    {formatCurrency(
+                      parseFloat(form.manualPrice) * (1 - parseFloat(form.campaignDiscountPct) / 100),
+                      form.manualPriceCurrency
+                    )}
+                  </span>
+                  <span className="text-muted-foreground line-through">
                     {form.manualPriceCurrency === "TRY" && "₺"}
                     {form.manualPriceCurrency === "USD" && "$"}
                     {form.manualPriceCurrency === "EUR" && "€"}

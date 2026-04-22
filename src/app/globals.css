@@ -32,8 +32,11 @@
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -58,13 +61,44 @@
   --color-brand-primary-foreground: var(--brand-primary-foreground);
   --color-brand-accent: var(--brand-accent);
   --color-brand-accent-foreground: var(--brand-accent-foreground);
+
+  /* === dt-framework Integration === */
+  /* dt colors */
+  --color-dt-primary: var(--DTPrimaryColor);
+  --color-dt-secondary: var(--DTSecondaryColor);
+  --color-dt-tertiary: var(--DTTertiaryColor);
+  --color-dt-border: var(--DTColor_Border);
+  --color-dt-error: var(--DT_Error_Color);
+  --color-dt-success: var(--DT_Success_Color);
+  --color-dt-warning: var(--DT_Warning_Color);
+  --color-dt-info: var(--DT_Info_Color);
+
+  /* dt font sizes */
+  --font-size-dt-h1: var(--DTFontSize_H1);
+  --font-size-dt-h2: var(--DTFontSize_H2);
+  --font-size-dt-h3: var(--DTFontSize_H3);
+  --font-size-dt-h4: var(--DTFontSize_H4);
+  --font-size-dt-h5: var(--DTFontSize_H5);
+  --font-size-dt-h6: var(--DTFontSize_H6);
+
+  /* dt spacing & layout */
+  --spacing-gutter: var(--DTGutter_Width);
+  --width-container: var(--DTContainer);
+  --width-container-laptop: var(--DT_Lap_Container);
+  --width-container-tablet: var(--DT_Tab_Container);
+  --width-sidebar: var(--sidebar_width);
+
+  /* dt radius & transitions */
+  --radius-dt: var(--DTRadius);
+  --radius-dt-btn: var(--DT_Button_Border_Radius);
+  --ease-dt: var(--DTBaseTransition);
 }
 
 :root {
   /* dt-elektrix brand colors */
-  --brand-primary: #2189ff;
+  --brand-primary: #0040a4;
   --brand-primary-foreground: #ffffff;
-  --brand-accent: #2189ff;
+  --brand-accent: #0040a4;
   --brand-accent-foreground: #ffffff;
 
   /* Light mode */
@@ -74,19 +108,24 @@
   --card-foreground: #1e1e1e;
   --popover: #ffffff;
   --popover-foreground: #1e1e1e;
-  --primary: #2189ff;
+  --primary: #0040a4;
   --primary-foreground: #ffffff;
   --secondary: #f3f3f3;
   --secondary-foreground: #1e1e1e;
   --muted: #f3f3f3;
   --muted-foreground: #767676;
-  --accent: #2189ff;
+  --accent: #0040a4;
   --accent-foreground: #ffffff;
   --destructive: #D8000C;
+  --destructive-foreground: #ffffff;
   --border: #e9e9e9;
-  --input: #f3f3f3;
-  --ring: #2189ff;
-  --chart-1: #2189ff;
+  --input: transparent;
+  --input-background: #f3f3f3;
+  --switch-background: #cbced4;
+  --ring: #0040a4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: #0040a4;
   --chart-2: #F58720;
   --chart-3: #1e1e1e;
   --chart-4: #108474;
@@ -94,12 +133,12 @@
   --radius: 0.5rem;
   --sidebar: #1e1e1e;
   --sidebar-foreground: #f3f3f3;
-  --sidebar-primary: #2189ff;
+  --sidebar-primary: #0040a4;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #2a2a2a;
   --sidebar-accent-foreground: #f3f3f3;
   --sidebar-border: #333333;
-  --sidebar-ring: #2189ff;
+  --sidebar-ring: #0040a4;
 
   /* =============================================
      dt-elektrix Design System Variables
@@ -132,8 +171,8 @@
   --DT_Body_Line_Height: 1.5em;
 
   /* Primary Colors */
-  --swiper-theme-color: #2189ff;
-  --DTPrimaryColor: #2189ff;
+  --swiper-theme-color: #0040a4;
+  --DTPrimaryColor: #0040a4;
   --DTSecondaryColor: #1e1e1e;
   --DTTertiaryColor: #f3f3f3;
   --DTBodyBGColor: #ffffff;
@@ -141,7 +180,7 @@
 
   /* Text & Link Colors */
   --DTLinkColor: #1e1e1e;
-  --DTLinkHoverColor: #2189ff;
+  --DTLinkHoverColor: #0040a4;
   --DTColor_Body: #1e1e1e;
   --DTColor_Heading: #1e1e1e;
   --DTColor_Border: #e9e9e9;
@@ -158,18 +197,18 @@
   --DT_Blog_Gutter_Width: 30px;
   --DT_Blog_BG_Color: rgba(0, 0, 0, 0);
   --DT_Blog_Link_Color: #1e1e1e;
-  --DT_Blog_Link_Hover_Color: #2189ff;
+  --DT_Blog_Link_Hover_Color: #0040a4;
   --DT_Blog_Text_Color: #1e1e1e;
   --DT_Blog_Icon_Color: #1e1e1e;
   --DT_Blog_Button_BG_Color: rgba(0, 0, 0, 0);
   --DT_Blog_Button_Text_Color: #1e1e1e;
   --DT_Blog_Button_BG_Hover_Color: rgba(0, 0, 0, 0);
-  --DT_Blog_Button_Text_Hover_Color: #2189ff;
+  --DT_Blog_Button_Text_Hover_Color: #0040a4;
   --DT_Blog_Link_Color_Overlay: #ffffff;
   --DT_Blog_Link_Hover_Color_Overlay: #1e1e1e;
   --DT_Blog_Text_Color_overlay: #ffffff;
   --DT_Blog_Icon_Color_overlay: #ffffff;
-  --DT_Blog_Button_BG_Color_overlay: #2189ff;
+  --DT_Blog_Button_BG_Color_overlay: #0040a4;
   --DT_Blog_Button_Text_Color_overlay: #ffffff;
   --DT_Blog_Button_BG_Hover_Color_overlay: #1e1e1e;
   --DT_Blog_Button_Text_Hover_Color_overlay: #ffffff;
@@ -178,7 +217,7 @@
   --DT_product_bg_color: #f3f3f3;
   --DT_product_text_color: #1e1e1e;
   --DT_product_title_color: #1e1e1e;
-  --DT_product_title_hover_color: #2189ff;
+  --DT_product_title_hover_color: #0040a4;
   --DT_product_vendor_color: #bebebe;
   --DT_product_detail_padding: 10px 0 0;
 
@@ -193,7 +232,7 @@
 
   /* Button Styles */
   --DTPadding_Btn: 9px 32px 9px 32px;
-  --DT_Button_BG_Color: #2189ff;
+  --DT_Button_BG_Color: #0040a4;
   --DT_Button_Text_Color: #ffffff;
   --DT_Button_BG_Hover_Color: #1e1e1e;
   --DT_Button_border_Color: ;
@@ -207,6 +246,7 @@
   --DT_Lap_Container: 1100px;
   --DT_Tab_Container: 960px;
   --DT_Container_Spacing: 7%;
+  --DTContainer_Spacing: 40px;
   --DTGutter_Width: 30px;
   --sidebar_width: 285px;
 
@@ -244,7 +284,7 @@
 
 .dark {
   /* dt-elektrix dark mode */
-  --brand-primary: #2189ff;
+  --brand-primary: #0040a4;
   --brand-primary-foreground: #ffffff;
   --brand-accent: #4da6ff;
   --brand-accent-foreground: #1e1e1e;
@@ -255,7 +295,7 @@
   --card-foreground: #f3f3f3;
   --popover: #1e1e1e;
   --popover-foreground: #f3f3f3;
-  --primary: #2189ff;
+  --primary: #0040a4;
   --primary-foreground: #ffffff;
   --secondary: #2a2a2a;
   --secondary-foreground: #f3f3f3;
@@ -264,22 +304,27 @@
   --accent: #4da6ff;
   --accent-foreground: #1e1e1e;
   --destructive: #ff4444;
+  --destructive-foreground: #ffffff;
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.15);
-  --ring: #2189ff;
-  --chart-1: #2189ff;
+  --input-background: #2a2a2a;
+  --switch-background: #555555;
+  --ring: #0040a4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: #0040a4;
   --chart-2: #F58720;
   --chart-3: #f3f3f3;
   --chart-4: #4da6ff;
   --chart-5: #108474;
   --sidebar: #0a0a0a;
   --sidebar-foreground: #f3f3f3;
-  --sidebar-primary: #2189ff;
+  --sidebar-primary: #0040a4;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #1e1e1e;
   --sidebar-accent-foreground: #f3f3f3;
   --sidebar-border: rgba(255, 255, 255, 0.1);
-  --sidebar-ring: #2189ff;
+  --sidebar-ring: #0040a4;
 }
 
 @layer base {
@@ -296,12 +341,12 @@
 
 /* dt-elektrix design system overrides */
 @layer base {
-  h1 { font-size: 60px; line-height: 1.2em; }
-  h2 { font-size: 48px; line-height: 1.2em; }
-  h3 { font-size: 36px; line-height: 1.2em; }
-  h4 { font-size: 30px; line-height: 1.2em; }
-  h5 { font-size: 24px; line-height: 1.2em; }
-  h6 { font-size: 20px; line-height: 1.2em; }
+  h1 { @apply text-[60px] font-bold; line-height: 1.2em; }
+  h2 { @apply text-[48px] font-bold; line-height: 1.2em; }
+  h3 { @apply text-[36px] font-bold; line-height: 1.2em; }
+  h4 { @apply text-[30px] font-bold; line-height: 1.2em; }
+  h5 { @apply text-[24px] font-bold; line-height: 1.2em; }
+  h6 { @apply text-[20px] font-bold; line-height: 1.2em; }
   body { line-height: 1.5em; }
 }
 
@@ -343,6 +388,42 @@
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes badge-bounce {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes underline-slide {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 .animate-float {
   animation: float 20s ease-in-out infinite;
 }
@@ -365,6 +446,102 @@
 
 .animate-fade-in-up {
   animation: fade-in-up 0.6s ease-out both;
+}
+
+.animate-badge-bounce {
+  animation: badge-bounce 0.3s ease-out;
+}
+
+/* Staggered fade-in delays */
+.animate-delay-100 { animation-delay: 100ms; }
+.animate-delay-200 { animation-delay: 200ms; }
+.animate-delay-300 { animation-delay: 300ms; }
+.animate-delay-400 { animation-delay: 400ms; }
+.animate-delay-500 { animation-delay: 500ms; }
+.animate-delay-600 { animation-delay: 600ms; }
+.animate-delay-700 { animation-delay: 700ms; }
+.animate-delay-800 { animation-delay: 800ms; }
+
+/* Shimmer loading skeleton */
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    #f3f3f3 25%,
+    #e9e9e9 50%,
+    #f3f3f3 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Navigation underline animation */
+.nav-underline {
+  position: relative;
+}
+
+.nav-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #0040a4;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Gradient divider line */
+.gradient-divider {
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #0040a4 20%,
+    #1a6fe0 50%,
+    #0040a4 80%,
+    transparent 100%
+  );
+}
+
+/* Section accent bar */
+.section-accent {
+  position: relative;
+}
+
+.section-accent::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: linear-gradient(90deg, #0040a4, #1a6fe0);
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+
+/* Smooth image load transition */
+.img-fade-in {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.img-fade-in.loaded {
+  opacity: 1;
+}
+
+/* Mobile Drawer Slide-in */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 /* Custom Scrollbar for Filter Sections */
