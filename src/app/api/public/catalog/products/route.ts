@@ -3,6 +3,19 @@ import { prisma } from "@/lib/db"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 
+// Tedarikçi bazlı fiyat kar marjı (maliyet üzerine %)
+const SUPPLIER_MARKUP: Record<string, number> = {
+  B2BDEPO: 1.20,
+  ERGEN: 1.20,
+  NETEX: 1.15,
+  INDEXGRUP: 1.15,
+  OKISAN: 1.10,
+  BAYIKANALI: 1.15,
+  EDENGE: 1.15,
+  TESAN: 1.15,
+  BIZIMHESAP: 1.10,
+}
+
 // TCMB döviz kuru cache
 let cachedUsdTry = 0
 let cacheExpiry = 0
@@ -145,6 +158,7 @@ export async function GET(req: NextRequest) {
               stockQuantity: true,
               purchasePrice: showPrice,
               currency: true,
+              supplier: { select: { code: true } },
             },
           },
         },
@@ -162,14 +176,19 @@ export async function GET(req: NextRequest) {
     const data = products.map((p) => {
       const totalStock = p.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
-      // Get lowest price if authenticated or admin
+      // Get lowest price if authenticated or admin (with supplier markup)
       const lowestSupplier = showPrice
         ? p.supplierProducts
             .filter((sp) => sp.purchasePrice !== null)
-            .sort((a, b) => Number(a.purchasePrice) - Number(b.purchasePrice))[0]
+            .map((sp) => {
+              const base = Number(sp.purchasePrice)
+              const markup = SUPPLIER_MARKUP[sp.supplier?.code?.toUpperCase() ?? ""] ?? 1
+              return { ...sp, markedUpPrice: base * markup }
+            })
+            .sort((a, b) => a.markedUpPrice - b.markedUpPrice)[0]
         : null
 
-      const lowestPrice = lowestSupplier ? Number(lowestSupplier.purchasePrice) : null
+      const lowestPrice = lowestSupplier ? lowestSupplier.markedUpPrice : null
       const priceCurrency = lowestSupplier?.currency || "TRY"
       const priceTry = lowestPrice != null
         ? priceCurrency === "USD" ? lowestPrice * usdTry
