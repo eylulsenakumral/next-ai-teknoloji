@@ -44,26 +44,26 @@ export function HeroBanner({ slides, features }: HeroBannerProps) {
     {
       id: "hf-1",
       image:
-        "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&q=80",
-      title: "Özel Klavye Fiyatları",
-      description: "Premium klavyelerde sınırlı süre özel fırsatlar",
-      link: "/katalog?categorySlug=klavye-mouse",
+        "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=600&q=80",
+      title: "IP Kamera Çözümleri",
+      description: "Hikvision, Dahua ve daha fazlası profesyonel IP kameralar",
+      link: "/katalog?categorySlug=ip-kamera",
     },
     {
       id: "hf-2",
       image:
-        "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&q=80",
-      title: "Telefonlarda %25 İndirim",
-      description: "En yeni akıllı telefonlarda en iyi fırsatlar",
-      link: "/katalog?categorySlug=telefon",
+        "https://images.unsplash.com/photo-1562813733-b31f71025d54?w=600&q=80",
+      title: "NVR & Kayıt Sistemleri",
+      description: "4-64 kanal profesyonel kayıt cihazları ve HDD çözümleri",
+      link: "/katalog?categorySlug=nvr",
     },
     {
       id: "hf-3",
       image:
-        "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&q=80",
-      title: "En İyi Kalite Kameralar",
-      description: "Profesyonel kameralar en uygun fiyatlara",
-      link: "/katalog?categorySlug=kamera",
+        "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=600&q=80",
+      title: "Ağ & Switch Ürünleri",
+      description: "PoE switch, router ve ağ çözümlerinde en iyi fiyatlar",
+      link: "/katalog?categorySlug=switch",
     },
   ]
 
@@ -79,8 +79,8 @@ export function HeroBanner({ slides, features }: HeroBannerProps) {
             <div className="space-y-4">
               <div className="relative overflow-hidden rounded-lg aspect-[4/3]">
                 <Image
-                  src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=400&q=80"
-                  alt="VR Headset"
+                  src="https://images.unsplash.com/photo-1558002038-1055907df827?w=400&q=80"
+                  alt="Güvenlik Kamerası"
                   fill
                   sizes="(max-width: 1024px) 45vw, 25vw"
                   className="object-cover transition-transform duration-500 hover:scale-105"
@@ -89,8 +89,8 @@ export function HeroBanner({ slides, features }: HeroBannerProps) {
               </div>
               <div className="relative overflow-hidden rounded-lg aspect-[4/3]">
                 <Image
-                  src="https://images.unsplash.com/photo-1585792180666-f7347c490ee2?w=400&q=80"
-                  alt="Controller"
+                  src="https://images.unsplash.com/photo-1562813733-b31f71025d54?w=400&q=80"
+                  alt="NVR Kayıt Sistemi"
                   fill
                   sizes="(max-width: 1024px) 45vw, 25vw"
                   className="object-cover transition-transform duration-500 hover:scale-105"
@@ -100,8 +100,8 @@ export function HeroBanner({ slides, features }: HeroBannerProps) {
             <div className="space-y-4 mt-8">
               <div className="relative overflow-hidden rounded-lg aspect-[4/3]">
                 <Image
-                  src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80"
-                  alt="Laptop"
+                  src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&q=80"
+                  alt="PoE Switch"
                   fill
                   sizes="(max-width: 1024px) 45vw, 25vw"
                   className="object-cover transition-transform duration-500 hover:scale-105"
@@ -109,8 +109,8 @@ export function HeroBanner({ slides, features }: HeroBannerProps) {
               </div>
               <div className="relative overflow-hidden rounded-lg aspect-[4/3]">
                 <Image
-                  src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80"
-                  alt="Headphones"
+                  src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=400&q=80"
+                  alt="Güvenlik Sistemi"
                   fill
                   sizes="(max-width: 1024px) 45vw, 25vw"
                   className="object-cover transition-transform duration-500 hover:scale-105"
