@@ -3,7 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { signOut } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
 import {
   LayoutDashboard,
   Package,
@@ -102,6 +102,9 @@ export function AdminSidebar() {
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
+  const { data: session } = useSession()
+  const adminEmail = (session?.user as { email?: string })?.email ?? "admin"
+  const adminInitials = adminEmail.substring(0, 2).toUpperCase()
 
   const sidebarContent = (
     <>
@@ -159,7 +162,7 @@ export function AdminSidebar() {
         >
           <Avatar className="h-7 w-7 shrink-0">
             <AvatarFallback className="bg-[var(--DTPrimaryColor)] text-white text-xs font-semibold">
-              AD
+              {adminInitials}
             </AvatarFallback>
           </Avatar>
           {!collapsed && (
@@ -168,7 +171,7 @@ export function AdminSidebar() {
                 Admin
               </span>
               <span className="text-[10px] text-white/50 truncate">
-                admin@nextai.com.tr
+                {adminEmail}
               </span>
             </div>
           )}
