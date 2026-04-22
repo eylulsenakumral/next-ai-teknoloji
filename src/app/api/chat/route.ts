@@ -193,7 +193,7 @@ export async function POST(req: NextRequest) {
       model: CHAT_MODEL,
       messages,
       temperature: 0.2,
-      max_tokens: 768,
+      max_tokens: 2048,
       stream: true,
     });
 
