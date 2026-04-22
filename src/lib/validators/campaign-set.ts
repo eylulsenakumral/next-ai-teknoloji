@@ -31,6 +31,9 @@ export const createCampaignSetSchema = z.object({
     .nonnegative("Fiyat negatif olamaz")
     .optional()
     .nullable(),
+  currency: z
+    .enum(["TRY", "USD", "EUR"])
+    .default("TRY"),
   validFrom: z.string().datetime().optional().nullable(),
   validUntil: z.string().datetime().optional().nullable(),
   minPurchaseAmount: z

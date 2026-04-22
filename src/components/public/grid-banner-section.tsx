@@ -24,7 +24,7 @@ const gridColsMap: Record<2 | 3 | 5, string> = {
 export function GridBannerSection({ items, columns = 3, className = "" }: GridBannerSectionProps) {
   return (
     <section className={`py-12 px-4 ${className}`}>
-      <div className="max-w-[1330px] mx-auto">
+      <div className="max-w-[1400px] mx-auto">
         <div className={`grid gap-[30px] ${gridColsMap[columns]}`}>
           {items.map((item) => (
             <Link

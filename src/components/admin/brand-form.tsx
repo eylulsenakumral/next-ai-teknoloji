@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
+import { ImageUpload } from "@/components/admin/image-upload"
 import { generateSlug } from "@/lib/utils/slug"
 import type { CreateBrandInput } from "@/lib/validators/brand"
 
@@ -171,14 +172,14 @@ export function BrandForm({ open, onOpenChange, initialData, onSuccess }: BrandF
           </div>
 
           <div className="space-y-1.5">
-            <Label htmlFor="brand-logo">Logo URL</Label>
-            <Input
-              id="brand-logo"
-              type="url"
+            <ImageUpload
               value={form.logoUrl}
-              onChange={(e) => setForm((p) => ({ ...p, logoUrl: e.target.value }))}
-              placeholder="https://..."
-              aria-invalid={Boolean(errors.logoUrl)}
+              onChange={(url) => setForm((p) => ({ ...p, logoUrl: url }))}
+              label="Logo"
+              maxSize={2 * 1024 * 1024} // 2MB
+              accept="image/jpeg,image/png,image/webp,image/svg+xml"
+              folder="brands"
+              disabled={loading}
             />
             {errors.logoUrl && (
               <p className="text-xs text-destructive">{errors.logoUrl[0]}</p>

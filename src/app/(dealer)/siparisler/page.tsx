@@ -143,7 +143,7 @@ function Pagination({
         <button
           onClick={() => onPageChange(page - 1)}
           disabled={page <= 1 || isLoading}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#e0e0e0] bg-white text-[#767676] transition-colors hover:border-[#2189ff] hover:text-[#2189ff] disabled:opacity-40 disabled:pointer-events-none"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#e0e0e0] bg-white text-[#767676] transition-colors hover:border-[#0040a4] hover:text-[#0040a4] disabled:opacity-40 disabled:pointer-events-none"
           aria-label="Önceki sayfa"
         >
           <ChevronLeft className="h-4 w-4" aria-hidden />
@@ -164,8 +164,8 @@ function Pagination({
               disabled={isLoading}
               className={`inline-flex h-8 w-8 items-center justify-center rounded-lg text-sm font-medium transition-colors ${
                 p === page
-                  ? "bg-[#2189ff] text-white shadow-sm"
-                  : "border border-[#e0e0e0] bg-white text-[#767676] hover:border-[#2189ff] hover:text-[#2189ff]"
+                  ? "bg-[#0040a4] text-white shadow-sm"
+                  : "border border-[#e0e0e0] bg-white text-[#767676] hover:border-[#0040a4] hover:text-[#0040a4]"
               } disabled:opacity-40 disabled:pointer-events-none`}
               aria-label={`Sayfa ${p}`}
               aria-current={p === page ? "page" : undefined}
@@ -178,7 +178,7 @@ function Pagination({
         <button
           onClick={() => onPageChange(page + 1)}
           disabled={page >= totalPages || isLoading}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#e0e0e0] bg-white text-[#767676] transition-colors hover:border-[#2189ff] hover:text-[#2189ff] disabled:opacity-40 disabled:pointer-events-none"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#e0e0e0] bg-white text-[#767676] transition-colors hover:border-[#0040a4] hover:text-[#0040a4] disabled:opacity-40 disabled:pointer-events-none"
           aria-label="Sonraki sayfa"
         >
           <ChevronRight className="h-4 w-4" aria-hidden />
@@ -251,14 +251,14 @@ export default function OrdersPage() {
         </div>
         <div className="flex items-center gap-3">
           {meta && (
-            <span className="inline-flex items-center rounded-full bg-[#2189ff]/10 px-3 py-1 text-xs font-semibold text-[#2189ff]">
+            <span className="inline-flex items-center rounded-full bg-[#0040a4]/10 px-3 py-1 text-xs font-semibold text-[#0040a4]">
               {meta.total} sipariş
             </span>
           )}
           <button
             onClick={fetchOrders}
             disabled={isLoading}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-[#2189ff] px-3.5 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#1a6fd4] disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-[#0040a4] px-3.5 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#1a6fd4] disabled:opacity-50"
             aria-label="Siparişleri yenile"
           >
             <RefreshCw
@@ -286,8 +286,8 @@ export default function OrdersPage() {
               onClick={() => handleStatusChange(tab.value)}
               className={`shrink-0 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
                 isActive
-                  ? "bg-[#2189ff] text-white shadow-sm"
-                  : "border border-[#e0e0e0] bg-white text-[#767676] hover:border-[#2189ff] hover:text-[#2189ff]"
+                  ? "bg-[#0040a4] text-white shadow-sm"
+                  : "border border-[#e0e0e0] bg-white text-[#767676] hover:border-[#0040a4] hover:text-[#0040a4]"
               }`}
             >
               {tab.label}
@@ -314,9 +314,9 @@ export default function OrdersPage() {
         /* ---- Empty State ---- */
         <div className="rounded-2xl ring-1 ring-black/5 shadow-sm bg-white">
           <div className="flex flex-col items-center justify-center gap-5 py-20 text-center px-6">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#2189ff]/10">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0040a4]/10">
               <ShoppingBag
-                className="h-8 w-8 text-[#2189ff]"
+                className="h-8 w-8 text-[#0040a4]"
                 aria-hidden
               />
             </div>
@@ -332,7 +332,7 @@ export default function OrdersPage() {
             </div>
             <Button
               render={<Link href="/urunler" />}
-              className="mt-2 bg-[#2189ff] text-white hover:bg-[#1a6fd4]"
+              className="mt-2 bg-[#0040a4] text-white hover:bg-[#1a6fd4]"
             >
               Alışverişe Başla
             </Button>
@@ -399,7 +399,7 @@ export default function OrdersPage() {
                       <td className="px-5 py-3.5">
                         <Link
                           href={`/siparisler/${order.id}`}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[#767676] transition-colors hover:bg-[#2189ff]/10 hover:text-[#2189ff]"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[#767676] transition-colors hover:bg-[#0040a4]/10 hover:text-[#0040a4]"
                           aria-label={`${order.orderNumber} siparişini görüntüle`}
                         >
                           <Eye className="h-4 w-4" aria-hidden />

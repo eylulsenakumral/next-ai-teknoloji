@@ -102,13 +102,23 @@ function getTotalStock(supplierProducts: SupplierProductSummary[]): number {
   return supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 }
 
-function formatPrice(price: number | null): string {
+function formatPrice(price: number | null, currency: string = "USD"): string {
   if (price === null) return "—"
-  return new Intl.NumberFormat("tr-TR", {
+  const locale = currency === "TRY" ? "tr-TR" : "en-US"
+  return new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: "TRY",
+    currency,
     minimumFractionDigits: 2,
   }).format(price)
+}
+
+function getCheapestCurrency(supplierProducts: SupplierProductSummary[]): string {
+  const available = supplierProducts.filter((sp) => sp.isAvailable && sp.purchasePrice)
+  if (available.length === 0) return "USD"
+  const cheapest = available.reduce((min, sp) =>
+    parseFloat(sp.purchasePrice!) < parseFloat(min.purchasePrice!) ? sp : min
+  )
+  return cheapest.currency || "USD"
 }
 
 // ---------------------------------------------------------------------------
@@ -701,6 +711,7 @@ export default function UrunlerPage() {
                 )}
                 {!loading && products.map((product) => {
                   const lowestPrice = getLowestPrice(product.supplierProducts)
+                  const cheapestCurrency = getCheapestCurrency(product.supplierProducts)
                   const totalStock = getTotalStock(product.supplierProducts)
 
                   return (
@@ -816,7 +827,7 @@ export default function UrunlerPage() {
                         )}
                       </TableCell>
                       <TableCell className="hidden lg:table-cell text-right font-mono text-sm">
-                        {formatPrice(lowestPrice)}
+                        {formatPrice(lowestPrice, cheapestCurrency)}
                       </TableCell>
                       <TableCell className="hidden lg:table-cell text-right text-sm">
                         <span className={cn(totalStock === 0 && "text-destructive")}>
@@ -874,6 +885,7 @@ export default function UrunlerPage() {
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                   {products.map((product) => {
                     const lowestPrice = getLowestPrice(product.supplierProducts)
+                    const cheapestCurrency = getCheapestCurrency(product.supplierProducts)
                     const totalStock = getTotalStock(product.supplierProducts)
                     const isSelected = selectedIds.has(product.id)
 
@@ -953,7 +965,7 @@ export default function UrunlerPage() {
                             ))}
                           </select>
                           <div className="flex items-center justify-between gap-1">
-                            <span className="text-xs font-mono">{formatPrice(lowestPrice)}</span>
+                            <span className="text-xs font-mono">{formatPrice(lowestPrice, cheapestCurrency)}</span>
                             <span className={cn("text-xs", totalStock === 0 && "text-destructive")}>
                               {totalStock} adet
                             </span>

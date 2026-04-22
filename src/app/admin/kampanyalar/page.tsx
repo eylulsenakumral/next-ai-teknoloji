@@ -9,6 +9,7 @@ import {
   X,
   Info,
   Megaphone,
+  Pencil,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -24,6 +25,7 @@ import {
 } from "@/components/ui/table"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
+import { formatCurrency } from "@/lib/utils/format"
 
 // ---------------------------------------------------------------------------
 // Types
@@ -44,6 +46,11 @@ interface CampaignProduct {
     purchasePrice: string | null
     stockQuantity: number
   }>
+  manualPrice: string | null
+  manualPriceCurrency: string | null
+  campaignDiscountPct: string | null
+  calculatedSalePrice: number | null
+  calculatedCurrency: string | null
 }
 
 interface Meta {
@@ -60,19 +67,20 @@ interface SearchProduct {
   sku: string | null
   brand: { name: string } | null
   category: { name: string } | null
-  supplierProducts: Array<{ purchasePrice: string | null; stockQuantity: number }>
+  supplierProducts: Array<{ purchasePrice: string | null; stockQuantity: number; currency: string }>
 }
 
 // ---------------------------------------------------------------------------
 // Yardımcı
 // ---------------------------------------------------------------------------
-function formatPrice(price: string | null | undefined): string {
+function formatPrice(price: string | null | undefined, currency: string = "USD"): string {
   if (!price) return "—"
   const num = parseFloat(price)
   if (isNaN(num)) return "—"
-  return new Intl.NumberFormat("tr-TR", {
+  const locale = currency === "TRY" ? "tr-TR" : "en-US"
+  return new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: "TRY",
+    currency,
     minimumFractionDigits: 2,
   }).format(num)
 }
@@ -132,6 +140,13 @@ export default function KampanyalarPage() {
   const [addType, setAddType] = useState<CampaignType>("outlet")
   const [addLoading, setAddLoading] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
+
+  // Inline düzenleme state'leri
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [editPrice, setEditPrice] = useState("")
+  const [editCurrency, setEditCurrency] = useState("TRY")
+  const [editDiscount, setEditDiscount] = useState("")
+  const [saveLoading, setSaveLoading] = useState(false)
 
   const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -293,6 +308,49 @@ export default function KampanyalarPage() {
   }
 
   // ---------------------------------------------------------------------------
+  // Inline düzenleme fonksiyonları
+  // ---------------------------------------------------------------------------
+  function startEdit(product: CampaignProduct) {
+    setEditingId(product.id)
+    setEditPrice(product.manualPrice || "")
+    setEditCurrency(product.manualPriceCurrency ?? "TRY")
+    setEditDiscount(product.campaignDiscountPct || "")
+  }
+
+  async function handleSaveEdit(productId: string) {
+    setSaveLoading(true)
+    try {
+      const payload: Record<string, unknown> = {
+        productId,
+      }
+      if (editPrice) payload.manualPrice = parseFloat(editPrice) || null
+      else payload.manualPrice = null
+      payload.manualPriceCurrency = editCurrency || null
+      if (editDiscount) payload.campaignDiscountPct = parseFloat(editDiscount) || null
+      else payload.campaignDiscountPct = null
+
+      const res = await fetch("/api/admin/campaigns", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+      if (res.ok) {
+        setEditingId(null)
+        await fetchCampaignProducts()
+      } else {
+        const json = await res.json().catch(() => ({}))
+        console.error("Kaydetme hatası:", json)
+        alert("Kaydetme başarısız: " + (json.error ?? res.status))
+      }
+    } catch (err) {
+      console.error("Kaydetme hatası:", err)
+      alert("Kaydetme başarısız")
+    } finally {
+      setSaveLoading(false)
+    }
+  }
+
+  // ---------------------------------------------------------------------------
   // Render
   // ---------------------------------------------------------------------------
   return (
@@ -325,14 +383,14 @@ export default function KampanyalarPage() {
       </div>
 
       {/* Bölüm 2: Kampanyaya Ürün Ekle */}
-      <Card>
-        <CardHeader className="pb-3">
+      <div className="rounded-xl border border-border bg-card text-card-foreground shadow-sm">
+        <div className="flex flex-col space-y-1.5 p-6 pb-3">
           <h2 className="text-base font-semibold flex items-center gap-2">
             <Plus className="h-4 w-4 text-[var(--DTPrimaryColor)]" aria-hidden />
             Kampanyaya Ürün Ekle
           </h2>
-        </CardHeader>
-        <CardContent>
+        </div>
+        <div className="p-6 pt-0">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-end">
             {/* Ürün arama */}
             <div className="relative flex-1 min-w-0" ref={dropdownRef}>
@@ -380,6 +438,7 @@ export default function KampanyalarPage() {
                   )}
                   {searchResults.map((p) => {
                     const price = p.supplierProducts[0]?.purchasePrice ?? null
+                    const currency = p.supplierProducts[0]?.currency ?? "USD"
                     return (
                       <button
                         key={p.id}
@@ -398,7 +457,7 @@ export default function KampanyalarPage() {
                           </p>
                         </div>
                         <span className="text-xs font-mono text-gray-600 shrink-0 mt-0.5">
-                          {formatPrice(price)}
+                          {formatPrice(price, currency)}
                         </span>
                       </button>
                     )
@@ -469,8 +528,8 @@ export default function KampanyalarPage() {
               )}
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Bölüm 1: Aktif Kampanyalı Ürünler */}
       <Card>
@@ -531,7 +590,7 @@ export default function KampanyalarPage() {
                   Marka / Kategori
                 </TableHead>
                 <TableHead className="hidden lg:table-cell text-[#555] font-semibold text-xs text-right">
-                  Alış Fiyatı
+                  Satış Fiyatı
                 </TableHead>
                 <TableHead className="text-[#555] font-semibold text-xs">Kampanya Tipi</TableHead>
                 <TableHead className="text-[#555] font-semibold text-xs text-center">Durum</TableHead>
@@ -557,7 +616,26 @@ export default function KampanyalarPage() {
               )}
               {!loading &&
                 products.map((product) => {
-                  const price = product.supplierProducts[0]?.purchasePrice ?? null
+                  // Satış fiyatı: manualPrice varsa onu kullan
+                  let displayPrice: number | null = null
+                  let displayCurrency = "USD"
+                  let originalPrice: number | null = null
+                  let discountPct: number | null = null
+
+                  if (product.manualPrice) {
+                    displayPrice = Number(product.manualPrice)
+                    displayCurrency = product.manualPriceCurrency ?? "USD"
+                  }
+
+                  // Hesaplanan satış fiyatı (pricing service)
+                  const calcPrice = product.calculatedSalePrice
+                  const calcCurrency = product.calculatedCurrency ?? "USD"
+
+                  if (product.campaignDiscountPct && displayPrice) {
+                    originalPrice = displayPrice
+                    discountPct = Number(product.campaignDiscountPct)
+                    displayPrice = Math.round((displayPrice * (1 - discountPct / 100)) * 100) / 100
+                  }
                   const campaignType = getCampaignType(product)
 
                   return (
@@ -613,40 +691,150 @@ export default function KampanyalarPage() {
                         </div>
                       </TableCell>
 
-                      <TableCell className="hidden lg:table-cell text-right font-mono text-sm text-[#333]">
-                        {formatPrice(price)}
-                      </TableCell>
+                      {editingId === product.id ? (
+                        <>
+                          <TableCell className="hidden lg:table-cell">
+                            <div className="space-y-2">
+                              <div className="flex gap-1.5 items-center justify-end">
+                                <input
+                                  type="number"
+                                  step="0.01"
+                                  min="0"
+                                  value={editPrice}
+                                  onChange={(e) => setEditPrice(e.target.value)}
+                                  placeholder="Manuel fiyat"
+                                  className="w-28 rounded border border-[#ccc] px-2 py-1 text-xs font-mono"
+                                />
+                                <select
+                                  value={editCurrency}
+                                  onChange={(e) => setEditCurrency(e.target.value)}
+                                  className="rounded border border-[#ccc] px-1.5 py-1 text-xs"
+                                >
+                                  <option value="TRY">₺</option>
+                                  <option value="USD">$</option>
+                                  <option value="EUR">€</option>
+                                </select>
+                              </div>
+                              <div className="flex gap-1.5 items-center justify-end">
+                                <input
+                                  type="number"
+                                  step="0.1"
+                                  min="0"
+                                  max="100"
+                                  value={editDiscount}
+                                  onChange={(e) => setEditDiscount(e.target.value)}
+                                  placeholder="İndirim %"
+                                  className="w-28 rounded border border-[#ccc] px-2 py-1 text-xs font-mono"
+                                />
+                                <span className="text-xs text-gray-400">%</span>
+                              </div>
+                            </div>
+                          </TableCell>
 
-                      <TableCell>
-                        <CampaignBadge type={campaignType} />
-                      </TableCell>
+                          <TableCell colSpan={2}>
+                            <div className="flex items-center gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => handleSaveEdit(product.id)}
+                                disabled={saveLoading}
+                                className="inline-flex items-center gap-1 rounded-lg bg-[#0040a4] px-3 py-1 text-xs font-medium text-white hover:bg-[#1a6fd4] disabled:opacity-50 transition-colors"
+                              >
+                                {saveLoading ? "Kaydediliyor..." : "Kaydet"}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setEditingId(null)}
+                                className="inline-flex items-center gap-1 rounded-lg border border-[#ccc] px-3 py-1 text-xs font-medium text-[#555] hover:bg-gray-50 transition-colors"
+                              >
+                                İptal
+                              </button>
+                            </div>
+                          </TableCell>
+                        </>
+                      ) : (
+                        <>
+                          <TableCell className="hidden lg:table-cell text-right">
+                            <div className="space-y-0.5">
+                              {/* Hesaplanan satış fiyatı (KDV hariç + KDV dahil) */}
+                              {calcPrice !== null && (
+                                <div>
+                                  <p className="text-[11px] text-gray-400 font-mono">
+                                    {formatCurrency(calcPrice, calcCurrency)} <span className="text-[9px] text-gray-300">+KDV</span>
+                                  </p>
+                                  <p className="text-[10px] text-gray-300 font-mono">
+                                    {formatCurrency(calcPrice * 1.2, calcCurrency)} <span className="text-[9px]">KDV dahil</span>
+                                  </p>
+                                </div>
+                              )}
+                              {/* Manuel kampanya fiyatı */}
+                              {displayPrice !== null ? (
+                                <>
+                                  {discountPct !== null && originalPrice !== null && (
+                                    <div className="flex items-center gap-1 justify-end">
+                                      <span className="text-[10px] font-bold text-white bg-red-500 rounded px-1 py-0.5">
+                                        %{Math.round(discountPct)}
+                                      </span>
+                                      <span className="text-[11px] text-[#999] line-through font-mono">
+                                        {formatCurrency(originalPrice, displayCurrency)}
+                                      </span>
+                                    </div>
+                                  )}
+                                  <p className="text-sm font-bold text-[#333] font-mono">
+                                    {formatCurrency(displayPrice, displayCurrency)} <span className="text-[9px] text-gray-400">+KDV</span>
+                                  </p>
+                                  <p className="text-[10px] text-gray-400 font-mono">
+                                    {formatCurrency(displayPrice * 1.2, displayCurrency)} <span className="text-[9px] text-gray-300">KDV dahil</span>
+                                  </p>
+                                </>
+                              ) : (
+                                <span className="text-sm text-[#999]">Fiyat girilmedi</span>
+                              )}
+                            </div>
+                          </TableCell>
 
-                      <TableCell className="text-center">
-                        <Badge
-                          variant={product.isActive ? "default" : "outline"}
-                          className={cn(
-                            "text-xs",
-                            product.isActive
-                              ? "bg-[var(--DTPrimaryColor)] text-white hover:bg-[var(--DTSecondaryColor)]"
-                              : ""
-                          )}
-                        >
-                          {product.isActive ? "Aktif" : "Pasif"}
-                        </Badge>
-                      </TableCell>
+                          <TableCell>
+                            <CampaignBadge type={campaignType} />
+                          </TableCell>
 
-                      <TableCell className="text-right pr-4">
-                        <button
-                          type="button"
-                          onClick={() => handleRemove(product.id)}
-                          title="Kampanyadan Çıkar"
-                          aria-label={`${product.name} kampanyadan çıkar`}
-                          className="inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-white px-2.5 py-1 text-xs font-medium text-red-600 hover:bg-red-50 hover:border-red-300 transition-colors"
-                        >
-                          <Trash2 className="h-3 w-3" />
-                          Çıkar
-                        </button>
-                      </TableCell>
+                          <TableCell className="text-center">
+                            <Badge
+                              variant={product.isActive ? "default" : "outline"}
+                              className={cn(
+                                "text-xs",
+                                product.isActive
+                                  ? "bg-[var(--DTPrimaryColor)] text-white hover:bg-[var(--DTSecondaryColor)]"
+                                  : ""
+                              )}
+                            >
+                              {product.isActive ? "Aktif" : "Pasif"}
+                            </Badge>
+                          </TableCell>
+
+                          <TableCell className="text-right pr-4">
+                            <div className="flex items-center justify-end gap-1.5">
+                              <button
+                                type="button"
+                                onClick={() => startEdit(product)}
+                                title="Fiyat/İndirim Düzenle"
+                                className="inline-flex items-center gap-1 rounded-lg border border-[#0040a4]/30 bg-white px-2.5 py-1 text-xs font-medium text-[#0040a4] hover:bg-[#0040a4]/5 hover:border-[#0040a4]/50 transition-colors"
+                              >
+                                <Pencil className="h-3 w-3" />
+                                Düzenle
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => handleRemove(product.id)}
+                                title="Kampanyadan Çıkar"
+                                aria-label={`${product.name} kampanyadan çıkar`}
+                                className="inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-white px-2.5 py-1 text-xs font-medium text-red-600 hover:bg-red-50 hover:border-red-300 transition-colors"
+                              >
+                                <Trash2 className="h-3 w-3" />
+                                Çıkar
+                              </button>
+                            </div>
+                          </TableCell>
+                        </>
+                      )}
                     </TableRow>
                   )
                 })}

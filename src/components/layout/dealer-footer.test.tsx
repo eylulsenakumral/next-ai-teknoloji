@@ -138,7 +138,7 @@ describe("DealerFooter", () => {
     ).not.toBeInTheDocument()
   })
 
-  it("link hover uses primary color class #2189ff", () => {
+  it("link hover uses primary color class #0040a4", () => {
     render(<DealerFooter />)
     const footer = screen.getByRole("contentinfo")
     const linkEls = footer.querySelectorAll("a[class*='2189ff']")

@@ -341,7 +341,13 @@ export default function OrderDetailPage() {
                           </td>
                           <td className="py-3 text-center tabular-nums">{item.quantity}</td>
                           <td className="py-3 text-right tabular-nums">
-                            {formatCurrency(item.unitPrice)}
+                            <div className="flex flex-col items-end">
+                              <span>{formatCurrency(item.unitPrice)}</span>
+                              <span className="text-[10px] text-gray-400">
+                                {formatCurrency(item.unitPrice * (1 + item.vatRate / 100))}
+                                <span className="text-[9px]"> KDV dahil</span>
+                              </span>
+                            </div>
                           </td>
                           <td className="py-3 text-right font-medium tabular-nums">
                             {formatCurrency(item.lineTotal)}

@@ -10,6 +10,11 @@ import type { PublicProduct } from "@/components/public/public-product-card"
 export interface CampaignProduct extends PublicProduct {
   campaignDiscountPct?: number | null
   campaignLabel?: string | null
+  manualPrice?: number | null
+  manualPriceCurrency?: string | null
+  salePriceExVat?: number | null
+  salePriceIncVat?: number | null
+  currency?: string | null
 }
 
 export interface CampaignSectionProps {
@@ -32,7 +37,7 @@ export function CampaignSection({
   if (products.length === 0) return null
 
   return (
-    <section className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <section className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-14">
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
@@ -44,7 +49,7 @@ export function CampaignSection({
         {viewAllHref && (
           <Link
             href={viewAllHref}
-            className="text-sm font-semibold text-[#2189ff] hover:text-[#1471dd] transition-colors flex items-center gap-1 group"
+            className="text-sm font-semibold text-[#0040a4] hover:text-[#003080] transition-colors flex items-center gap-1 group"
           >
             Tümünü Gör
             <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />

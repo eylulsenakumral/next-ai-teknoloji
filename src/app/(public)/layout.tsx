@@ -1,15 +1,15 @@
 import type { Metadata } from "next"
-import { PublicHeader } from "@/components/public/public-header"
-import { PublicFooter } from "@/components/public/public-footer"
+import { ConditionalHeader, ConditionalFooter } from "@/components/layout/conditional-header"
 import { WhatsAppButton } from "@/components/whatsapp-button"
+import { ChatWidget } from "@/components/chat-widget"
 
 export const metadata: Metadata = {
   title: {
-    default: "Ürün Kataloğu",
+    default: "Next AI Teknoloji",
     template: "%s | Next AI Teknoloji",
   },
   description:
-    "Next AI Teknoloji ürün kataloğu. 5.000+ teknoloji ürününü inceleyin, en iyi fiyat tekliflerini hemen alın.",
+    "Next AI Teknoloji — Türkiye'nin teknoloji bayi portalı. 5.000+ ürün, toptan fiyat avantajları, hızlı teslimat.",
 }
 
 export default function PublicLayout({
@@ -19,10 +19,11 @@ export default function PublicLayout({
 }) {
   return (
     <div className="flex flex-col min-h-screen bg-[#f9f9f9]">
-      <PublicHeader />
+      <ConditionalHeader />
       <main className="flex-1 w-full">{children}</main>
-      <PublicFooter />
+      <ConditionalFooter />
       <WhatsAppButton />
+      <ChatWidget />
     </div>
   )
 }

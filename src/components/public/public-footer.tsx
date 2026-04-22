@@ -1,37 +1,34 @@
+import Image from "next/image"
 import Link from "next/link"
 
 /* ------------------------------------------------------------------ */
 /*  Link data                                                          */
 /* ------------------------------------------------------------------ */
 
-const quickLinks = [
-  { href: "/", label: "Anasayfa" },
-  { href: "/hakkimizda", label: "Hakkimizda" },
-  { href: "/iletisim", label: "Iletisim" },
+const knowUsLinks = [
+  { href: "/hakkimizda", label: "Hakkımızda" },
+  { href: "/kariyer", label: "Kariyer" },
+  { href: "/blog", label: "Blog" },
+  { href: "/iletisim", label: "İletişim" },
 ]
 
-const categoryLinks = [
-  { href: "/katalog?categorySlug=aydinlatma", label: "Aydinlatma" },
-  { href: "/katalog?categorySlug=kablolar", label: "Kablolar" },
-  { href: "/katalog?categorySlug=sigortalar", label: "Sigortalar" },
-  { href: "/katalog?categorySlug=prizler", label: "Prizler & Anahtarlar" },
-  { href: "/katalog?categorySlug=panolar", label: "Panolar" },
-]
-
-const corporateLinks = [
-  { href: "/kullanim", label: "Kullanim Kosullari" },
-  { href: "/gizlilik", label: "Gizlilik Politikasi" },
-  { href: "/cerez", label: "Cerez Politikasi" },
+const policyLinks = [
+  { href: "/gizlilik", label: "Gizlilik Politikası" },
+  { href: "/kullanim", label: "Kullanım Koşulları" },
+  { href: "/iade", label: "İade Politikası" },
+  { href: "/sss", label: "SSS" },
 ]
 
 const supportLinks = [
-  { href: "/sss", label: "SSS" },
-  { href: "/iade", label: "Iade ve Degisim" },
   { href: "/kargo", label: "Kargo Takibi" },
+  { href: "/favoriler", label: "Favoriler" },
+  { href: "/siparisler", label: "Siparişlerim" },
+  { href: "/katalog", label: "Tüm Ürünler" },
+  { href: "/kampanyalar", label: "Kampanyalar" },
 ]
 
 /* ------------------------------------------------------------------ */
-/*  Inline SVG Icons                                                    */
+/*  Inline SVG Icons                                                   */
 /* ------------------------------------------------------------------ */
 
 function IconMapPin({ className }: { className?: string }) {
@@ -90,6 +87,25 @@ function IconMail({ className }: { className?: string }) {
   )
 }
 
+function IconClock({ className }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <polyline points="12 6 12 12 16 14" />
+    </svg>
+  )
+}
+
 function IconZap({ className }: { className?: string }) {
   return (
     <svg
@@ -109,7 +125,7 @@ function IconZap({ className }: { className?: string }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Social Icon SVGs                                                    */
+/*  Social Icon SVGs                                                   */
 /* ------------------------------------------------------------------ */
 
 function IconFacebook() {
@@ -136,6 +152,14 @@ function IconInstagram() {
   )
 }
 
+function IconYouTube() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
+      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+    </svg>
+  )
+}
+
 function IconLinkedIn() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden="true">
@@ -148,6 +172,7 @@ const socialLinks = [
   { href: "#", icon: IconFacebook, label: "Facebook" },
   { href: "#", icon: IconTwitter, label: "Twitter" },
   { href: "#", icon: IconInstagram, label: "Instagram" },
+  { href: "#", icon: IconYouTube, label: "YouTube" },
   { href: "#", icon: IconLinkedIn, label: "LinkedIn" },
 ]
 
@@ -167,12 +192,10 @@ function SocialIcon({
   return (
     <a
       href={href}
-      className="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+      className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-[#1e1e1e] hover:bg-gradient-to-r hover:from-[#0040a4] hover:to-[#1a6fe0] hover:text-white hover:scale-110 transition-all duration-300"
       aria-label={label}
     >
-      <span className="text-white">
-        <Icon />
-      </span>
+      <Icon />
     </a>
   )
 }
@@ -189,14 +212,16 @@ function FooterColumn({
   links: { href: string; label: string }[]
 }) {
   return (
-    <div>
-      <h3 className="font-bold text-sm text-white mb-5">{title}</h3>
+    <div className="section-accent">
+      <h3 className="font-bold text-sm text-[#1e1e1e] mb-5 uppercase tracking-[0.1em]">
+        {title}
+      </h3>
       <ul className="space-y-2.5">
         {links.map(({ href, label }) => (
           <li key={href + label}>
             <Link
               href={href}
-              className="text-sm text-[#bebebe] hover:text-[#2189ff] transition-[var(--DTBaseTransition)]"
+              className="text-sm text-[#1e1e1e] hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
             >
               {label}
             </Link>
@@ -208,133 +233,120 @@ function FooterColumn({
 }
 
 /* ------------------------------------------------------------------ */
-/*  PublicFooter                                                        */
+/*  PublicFooter                                                       */
 /* ------------------------------------------------------------------ */
 
 export function PublicFooter() {
   return (
     <footer
-      className="bg-[#1e1e1e] text-white mt-auto"
-      style={{ borderRadius: "0px", padding: "0" }}
+      className="bg-white"
       role="contentinfo"
     >
-      {/* Top section: Logo + Contact */}
-      <div
-        className="max-w-[var(--DTContainer)] mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8"
-        style={{ padding: "var(--DTGutter_Width)" }}
-      >
-        <div className="flex flex-col gap-4 mb-10">
-          {/* Logo + Brand */}
-          <div className="flex items-center gap-3">
-            <div
-              data-testid="footer-logo"
-              className="w-10 h-10 rounded-[20px] bg-[var(--DTPrimaryColor)] flex items-center justify-center"
-            >
-              <IconZap className="w-5 h-5 text-white" />
+      {/* Gradient Divider */}
+      <div className="gradient-divider" />
+      {/* Main section: 4-column grid */}
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          {/* Column 1: Brand + Description + Social */}
+          <div className="flex flex-col gap-4">
+            {/* Logo + Brand */}
+            <div className="flex items-center gap-2">
+              <Image
+                src="/logo.png"
+                alt="Next AI Teknoloji"
+                width={240}
+                height={80}
+                className="h-20 w-auto object-contain"
+                data-testid="footer-logo"
+              />
             </div>
-            <span className="font-bold text-lg text-white tracking-tight">
-              Next AI Teknoloji
-            </span>
-          </div>
 
-          {/* Contact rows */}
-          <div className="space-y-2">
-            <div className="flex items-center gap-2.5">
-              <IconMapPin className="h-4 w-4 text-[var(--DTPrimaryColor)] shrink-0" />
-              <span className="text-sm text-[#bebebe]">
-                Esentepe Mh. Sancad Cad. Real Tower Plaza K:2 D:14
-                Corlu/Tekirdag
-              </span>
-            </div>
-            <div className="flex items-center gap-2.5">
-              <IconPhone className="h-4 w-4 text-[var(--DTPrimaryColor)] shrink-0" />
-              <a
-                href="tel:+905529895959"
-                className="text-sm text-[#bebebe] hover:text-[#2189ff] transition-[var(--DTBaseTransition)]"
-              >
-                0 552 989 5959
-              </a>
-            </div>
-            <div className="flex items-center gap-2.5">
-              <IconMail className="h-4 w-4 text-[var(--DTPrimaryColor)] shrink-0" />
-              <a
-                href="mailto:info@next-ai.com.tr"
-                className="text-sm text-[#bebebe] hover:text-[#2189ff] transition-[var(--DTBaseTransition)]"
-              >
-                info@next-ai.com.tr
-              </a>
-            </div>
-          </div>
-
-          {/* Social Icons */}
-          <div className="flex items-center gap-2 mt-1">
-            {socialLinks.map(({ href, icon, label }) => (
-              <SocialIcon key={label} href={href} icon={icon} label={label} />
-            ))}
-          </div>
-        </div>
-
-        {/* 4-column grid */}
-        <div className="border-t border-[#e9e9e9]/20 pt-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <FooterColumn title="Hizli Menu" links={quickLinks} />
-            <FooterColumn title="Kategoriler" links={categoryLinks} />
-            <FooterColumn title="Kurumsal" links={corporateLinks} />
-            <FooterColumn title="Destek" links={supportLinks} />
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom bar: Copyright + Payment */}
-      <div className="border-t border-[#e9e9e9]/20">
-        <div className="max-w-[var(--DTContainer)] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-4">
-            <p className="text-sm text-[#bebebe]">
-              &copy; {new Date().getFullYear()} Next AI Teknoloji. Tum haklari
-              saklidir.
+            {/* Description */}
+            <p className="text-sm text-gray-500 leading-relaxed">
+              Teknoloji ve yeniliğe dayalı çözümler sunan, müşteri memnuniyetini
+              önceliklendiren güvenilir teknoloji partneriniz.
             </p>
 
-            {/* Payment icons - 6 methods */}
-            <div
-              className="flex items-center gap-3"
-              data-testid="payment-icons"
-            >
-              {/* Kredi Karti (VISA) */}
-              <div className="flex items-center justify-center w-[42px] h-[26px] bg-white rounded-sm">
-                <span className="text-[9px] font-bold text-[#1a1f71]">
-                  VISA
+            {/* Social Icons */}
+            <div className="flex items-center gap-3 pt-2">
+              {socialLinks.map(({ href, icon, label }) => (
+                <SocialIcon key={label} href={href} icon={icon} label={label} />
+              ))}
+            </div>
+          </div>
+
+          {/* Column 2: Quick Links */}
+          <FooterColumn title="Bizi Tanıyın" links={knowUsLinks} />
+
+          {/* Column 3: Customer Service */}
+          <FooterColumn title="Müşteri Hizmetleri" links={supportLinks} />
+
+          {/* Column 4: Contact Info */}
+          <div className="section-accent">
+            <h3 className="font-bold text-sm text-[#1e1e1e] mb-5 uppercase tracking-[0.1em]">
+              İletişim Bilgileri
+            </h3>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-2">
+                <IconMapPin className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--DTPrimaryColor)]" />
+                <span className="text-sm text-gray-600">
+                  Esentepe Mh. Sancad Cad. Real Tower Plaza K:2 D:14
+                  Corlu/Tekirdag
                 </span>
-              </div>
-              {/* Debit (Mastercard) */}
-              <div className="flex items-center justify-center w-[42px] h-[26px] bg-white rounded-sm">
-                <span className="text-[8px] font-bold text-[#eb001b]">
-                  Mastercard
+              </li>
+              <li className="flex items-center gap-2">
+                <IconPhone className="w-5 h-5 flex-shrink-0 text-[var(--DTPrimaryColor)]" />
+                <a
+                  href="tel:+905529895959"
+                  className="text-sm text-gray-600 hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+                >
+                  0 552 989 5959
+                </a>
+              </li>
+              <li className="flex items-center gap-2">
+                <IconMail className="w-5 h-5 flex-shrink-0 text-[var(--DTPrimaryColor)]" />
+                <a
+                  href="mailto:info@next-ai.com.tr"
+                  className="text-sm text-gray-600 hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+                >
+                  info@next-ai.com.tr
+                </a>
+              </li>
+              <li className="flex items-start gap-2">
+                <IconClock className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--DTPrimaryColor)]" />
+                <span className="text-sm text-gray-600">
+                  Pzt - Cum: 09:00 - 18:00
                 </span>
-              </div>
-              {/* PayPal */}
-              <div className="flex items-center justify-center px-1.5 h-[26px] bg-white rounded-sm">
-                <span className="text-[8px] font-bold text-[#003087]">
-                  PayPal
-                </span>
-              </div>
-              {/* EFT / Havale */}
-              <div className="flex items-center justify-center px-1.5 h-[26px] bg-white rounded-sm">
-                <span className="text-[8px] font-bold text-[#1e1e1e]">
-                  EFT
-                </span>
-              </div>
-              {/* Kapida Odeme */}
-              <div className="flex items-center justify-center px-1.5 h-[26px] bg-white rounded-sm">
-                <span className="text-[7px] font-bold text-[#1e1e1e]">
-                  Kapida
-                </span>
-              </div>
-              {/* Google Pay */}
-              <div className="flex items-center justify-center px-1.5 h-[26px] bg-white rounded-sm">
-                <span className="text-[8px] font-bold text-[#4285f4]">
-                  Google Pay
-                </span>
-              </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar: Copyright + Legal */}
+        <div className="pt-8 border-t border-gray-200">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+            <p>
+              &copy; {new Date().getFullYear()} Next AI Teknoloji. Tüm hakları
+              saklıdır.
+            </p>
+            <div className="flex gap-6">
+              {policyLinks.map(({ href, label }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  className="hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+                >
+                  {label}
+                </Link>
+              ))}
+            </div>
+
+            {/* Payment icons */}
+            <div className="flex items-center gap-3" data-testid="payment-icons">
+              <Image src="/payment/visa.svg" alt="Visa" width={24} height={24} className="h-6" />
+              <Image src="/payment/mastercard.svg" alt="Mastercard" width={24} height={24} className="h-6" />
+              <Image src="/payment/amex.svg" alt="Amex" width={24} height={24} className="h-6" />
+              <Image src="/payment/paypal.svg" alt="PayPal" width={24} height={24} className="h-6" />
             </div>
           </div>
         </div>

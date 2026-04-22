@@ -65,10 +65,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
       {/* Thumbnails */}
       {images.length > 1 && (
         <div
-          className="grid gap-2"
-          style={{
-            gridTemplateColumns: `repeat(${Math.min(images.length, 6)}, minmax(0, 1fr))`,
-          }}
+          className="flex gap-2 justify-center"
           role="listbox"
           aria-label="Ürün görselleri"
         >
@@ -84,7 +81,7 @@ export function ProductGallery({ images, productName }: ProductGalleryProps) {
                 setIsZoomed(false)
               }}
               className={cn(
-                "relative aspect-square rounded-lg border-2 bg-muted overflow-hidden transition-all",
+                "relative w-16 h-16 rounded-lg border-2 bg-muted overflow-hidden transition-all shrink-0",
                 selectedIndex === index
                   ? "border-primary shadow-sm"
                   : "border-transparent hover:border-muted-foreground/30"

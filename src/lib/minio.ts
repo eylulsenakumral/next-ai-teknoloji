@@ -113,5 +113,6 @@ export function buildMinioUrl(objectKey: string, bucket?: string): string {
   const useSSL = process.env.MINIO_USE_SSL === "true"
   const scheme = useSSL ? "https" : "http"
   const bucketName = bucket ?? getDefaultBucket()
-  return `${scheme}://${endpoint}:${port}/${bucketName}/${objectKey}`
+  // Use /storage/ proxy path instead of direct MinIO URL for browser compatibility
+  return `/storage/${objectKey}`
 }

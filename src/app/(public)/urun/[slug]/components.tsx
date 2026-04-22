@@ -6,7 +6,7 @@ import { useState } from "react"
 import {
   ChevronRight,
   Heart,
-  MessageCircle,
+  Lock,
   CheckCircle2,
   XCircle,
   ImageOff,
@@ -14,6 +14,7 @@ import {
   HelpCircle,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useAuth } from "@/hooks/use-auth"
 
 /* ------------------------------------------------------------------ */
 /*  Breadcrumb                                                          */
@@ -42,7 +43,7 @@ export function Breadcrumb({ items }: { items: BreadcrumbItem[] }) {
               ) : (
                 <Link
                   href={item.href}
-                  className="text-[#767676] hover:text-[#2189ff] transition-colors truncate max-w-[200px]"
+                  className="text-[#767676] hover:text-[#0040a4] transition-colors truncate max-w-[200px]"
                 >
                   {item.label}
                 </Link>
@@ -73,7 +74,7 @@ export function ProductImageGallery({
       <div className="bg-[#f3f3f3] rounded-[20px] aspect-square flex items-center justify-center">
         <div data-testid="no-image-placeholder" className="flex flex-col items-center gap-3 text-gray-400">
           <ImageOff className="h-16 w-16" aria-hidden />
-          <p className="text-sm">Gorsel bulunamadi</p>
+          <p className="text-sm">Görsel bulunamadi</p>
         </div>
       </div>
     )
@@ -104,10 +105,10 @@ export function ProductImageGallery({
               className={cn(
                 "relative w-16 h-16 shrink-0 rounded-lg overflow-hidden border-2 transition-all",
                 i === activeIndex
-                  ? "border-[#2189ff] shadow-md"
+                  ? "border-[#0040a4] shadow-md"
                   : "border-transparent hover:border-gray-300"
               )}
-              aria-label={`Gorsel ${i + 1} - thumbnail`}
+              aria-label={`Görsel ${i + 1} - thumbnail`}
             >
               <Image
                 src={img}
@@ -125,8 +126,8 @@ export function ProductImageGallery({
         <div className="flex gap-2 p-4">
           <button
             type="button"
-            className="relative w-16 h-16 shrink-0 rounded-lg overflow-hidden border-2 border-[#2189ff]"
-            aria-label="Gorsel 1 - thumbnail"
+            className="relative w-16 h-16 shrink-0 rounded-lg overflow-hidden border-2 border-[#0040a4]"
+            aria-label="Görsel 1 - thumbnail"
           >
             <Image
               src={images[0]}
@@ -165,8 +166,47 @@ function StockBadge({ inStock }: { inStock: boolean }) {
       aria-label="Stok tukendi"
     >
       <XCircle className="h-3.5 w-3.5 shrink-0" aria-hidden />
-      Tukendi
+      Tükendi
     </span>
+  )
+}
+
+function DescriptionSection({ text }: { text: string }) {
+  const [expanded, setExpanded] = useState(false)
+  const MAX_LENGTH = 200
+  const needsTruncation = text.length > MAX_LENGTH
+
+  return (
+    <div className="pt-2">
+      <h2 className="text-sm font-bold text-[#1e1e1e] mb-2">Açıklama</h2>
+      <p className="text-[14px] text-[#555555] leading-relaxed">
+        {needsTruncation && !expanded ? (
+          <>
+            {text.slice(0, MAX_LENGTH).split(" ").slice(0, -1).join(" ")}...
+            <button
+              type="button"
+              onClick={() => setExpanded(true)}
+              className="ml-1 text-[#0040a4] font-medium hover:underline"
+            >
+              Devamını Oku
+            </button>
+          </>
+        ) : (
+          <>
+            {text}
+            {needsTruncation && (
+              <button
+                type="button"
+                onClick={() => setExpanded(false)}
+                className="ml-1 text-[#0040a4] font-medium hover:underline"
+              >
+                Daha Az Göster
+              </button>
+            )}
+          </>
+        )}
+      </p>
+    </div>
   )
 }
 
@@ -175,20 +215,38 @@ export function ProductDetails({
   brand,
   description,
   stockStatus,
+  price,
+  priceCurrency,
+  priceIncVat,
+  campaignDiscountPct,
 }: {
   name: string
   brand: { name: string; slug: string } | null
   description: string | null
   stockStatus: boolean
   specs?: Record<string, unknown> | null
+  price?: number | null
+  priceCurrency?: string
+  priceIncVat?: number | null
+  campaignDiscountPct?: number | null
 }) {
+  const { isAuthenticated, isAdmin } = useAuth()
+  const showPrice = (isAuthenticated || isAdmin) && price != null
+
+  const formatPrice = (val: number) =>
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: priceCurrency || "USD",
+      minimumFractionDigits: 2,
+    }).format(val)
+
   return (
     <div className="space-y-5">
       {/* Brand */}
       {brand && (
         <Link
           href={`/katalog?brandSlug=${brand.slug}`}
-          className="inline-block text-[12px] font-bold text-[#2189ff] uppercase tracking-wider hover:underline"
+          className="inline-block text-[12px] font-bold text-[#0040a4] uppercase tracking-wider hover:underline"
         >
           {brand.name}
         </Link>
@@ -202,33 +260,49 @@ export function ProductDetails({
       {/* Stock */}
       <StockBadge inStock={stockStatus} />
 
-      {/* Description */}
-      {description && (
-        <div className="pt-2">
-          <h2 className="text-sm font-bold text-[#1e1e1e] mb-2">Aciklama</h2>
-          <p className="text-[14px] text-[#555555] leading-relaxed">{description}</p>
+      {/* Price */}
+      {showPrice && (
+        <div className="bg-[#0040a4] rounded-xl px-5 py-4 text-white">
+          {campaignDiscountPct && campaignDiscountPct > 0 && (
+            <p className="text-[12px] font-bold text-white/80 mb-1">
+              %{Math.round(campaignDiscountPct)} özel indirim
+            </p>
+          )}
+          <div className="flex items-baseline gap-3">
+            <span className="text-2xl font-bold">{formatPrice(price)}<span className="text-[12px] font-normal text-white/70 ml-1">+KDV</span></span>
+          </div>
+          {priceIncVat != null && (
+            <span className="text-[12px] text-white/70 mt-1 block">
+              KDV Dahil: {formatPrice(priceIncVat)}
+            </span>
+          )}
         </div>
       )}
 
+      {/* Description */}
+      {description && (
+        <DescriptionSection text={description} />
+      )}
+
       {/* Action buttons */}
-      <div className="flex gap-3 pt-4">
-        <a
-          href={`https://wa.me/905529895959?text=${encodeURIComponent(`Merhaba, ${name} urunu hakkinda bilgi almak istiyorum.`)}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex-1 inline-flex items-center justify-center gap-2 h-12 px-6 bg-[#2189ff] text-white font-bold text-[13px] rounded-lg hover:bg-[#1e1e1e] transition-all duration-300"
-        >
-          <MessageCircle className="h-4 w-4 shrink-0" aria-hidden />
-          Teklif Iste
-        </a>
-        <button
-          type="button"
-          className="h-12 w-12 flex items-center justify-center border-2 border-gray-200 rounded-lg hover:border-red-400 hover:text-red-500 text-gray-400 transition-all"
-          aria-label="Favorilere ekle - wishlist"
-        >
-          <Heart className="h-5 w-5" />
-        </button>
-      </div>
+      {!showPrice && (
+        <div className="flex gap-3 pt-4">
+          <Link
+            href="/login"
+            className="flex-1 inline-flex items-center justify-center gap-2 h-12 px-6 border border-[#0040a4]/30 bg-[#0040a4]/5 text-[#0040a4] font-semibold text-[13px] rounded-lg hover:bg-[#0040a4]/10 hover:underline transition-all duration-300"
+          >
+            <Lock className="h-4 w-4 shrink-0" aria-hidden />
+            Özel Fiyatlar İçin Bayi Girişi Yapınız
+          </Link>
+          <button
+            type="button"
+            className="h-12 w-12 flex items-center justify-center border-2 border-gray-200 rounded-lg hover:border-red-400 hover:text-red-500 text-gray-400 transition-all"
+            aria-label="Favorilere ekle - wishlist"
+          >
+            <Heart className="h-5 w-5" />
+          </button>
+        </div>
+      )}
     </div>
   )
 }
@@ -251,7 +325,7 @@ export function ProductSpecsTable({
 
   return (
     <div className="mt-8">
-      <h2 className="text-lg font-bold text-[#1e1e1e] mb-4">Teknik Ozellikler</h2>
+      <h2 className="text-lg font-bold text-[#1e1e1e] mb-4">Teknik Özellikler</h2>
       <div className="border border-gray-200 rounded-xl overflow-hidden" role="table">
         {entries.map(([key, value], i) => (
           <div
@@ -293,7 +367,7 @@ export function RelatedProducts({ products }: { products: RelatedProduct[] }) {
 
   return (
     <section className="mt-12">
-      <h2 className="text-xl font-bold text-[#1e1e1e] mb-6">Ilgili Urunler</h2>
+      <h2 className="text-xl font-bold text-[#1e1e1e] mb-6">İlgili Ürünler</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
         {products.map((product) => {
           const imageUrl = product.images?.[0] ?? null
@@ -324,7 +398,7 @@ export function RelatedProducts({ products }: { products: RelatedProduct[] }) {
                     {product.brand.name}
                   </p>
                 )}
-                <p className="text-[12px] font-semibold text-[#1e1e1e] line-clamp-2 group-hover:text-[#2189ff] transition-colors">
+                <p className="text-[12px] font-semibold text-[#1e1e1e] line-clamp-2 group-hover:text-[#0040a4] transition-colors">
                   {product.name}
                 </p>
               </div>
@@ -343,7 +417,7 @@ export function RelatedProducts({ products }: { products: RelatedProduct[] }) {
 export function CustomerReviews() {
   return (
     <section className="mt-12">
-      <h2 className="text-xl font-bold text-[#1e1e1e] mb-6">Musteri Degerlendirmeleri</h2>
+      <h2 className="text-xl font-bold text-[#1e1e1e] mb-6">Müşteri Değerlendirmeleri</h2>
 
       {/* Star display */}
       <div className="flex items-center gap-1 mb-6">
@@ -362,7 +436,7 @@ export function CustomerReviews() {
       <div className="flex flex-col items-center justify-center py-12 border-2 border-dashed border-gray-200 rounded-xl text-center">
         <Star className="h-10 w-10 text-gray-300 mb-3" aria-hidden />
         <p className="text-sm text-[#767676]">
-          Henuz yorum yapilmamis. Ilk yorumu siz yapin!
+          Henüz yorum yapılmamış. İlk yorumu siz yapın!
         </p>
       </div>
     </section>
@@ -380,7 +454,7 @@ export function ProductQA() {
         <h2 className="text-xl font-bold text-[#1e1e1e]">Soru & Cevap</h2>
         <button
           type="button"
-          className="inline-flex items-center gap-2 h-9 px-4 bg-[#2189ff] text-white text-[12px] font-bold rounded-lg hover:bg-[#1e1e1e] transition-colors"
+          className="inline-flex items-center gap-2 h-9 px-4 bg-[#0040a4] text-white text-[12px] font-bold rounded-lg hover:bg-[#1e1e1e] transition-colors"
           aria-label="Soru Sor"
         >
           <HelpCircle className="h-4 w-4" aria-hidden />
@@ -392,7 +466,7 @@ export function ProductQA() {
       <div className="flex flex-col items-center justify-center py-12 border-2 border-dashed border-gray-200 rounded-xl text-center">
         <HelpCircle className="h-10 w-10 text-gray-300 mb-3" aria-hidden />
         <p className="text-sm text-[#767676]">
-          Henuz soru sorulmamis. Ilk soruyu siz sorun!
+          Henüz soru sorulmamış. İlk soruyu siz sorun!
         </p>
       </div>
     </section>

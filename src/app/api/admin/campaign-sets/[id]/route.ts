@@ -117,6 +117,8 @@ export async function PUT(
       updateData.discountPct = data.discountPct != null ? String(data.discountPct) : null
     if (data.price !== undefined)
       updateData.price = data.price != null ? String(data.price) : null
+    if (data.currency !== undefined)
+      updateData.currency = data.currency ?? "TRY"
     if (data.validFrom !== undefined)
       updateData.validFrom = data.validFrom ? new Date(data.validFrom) : null
     if (data.validUntil !== undefined)

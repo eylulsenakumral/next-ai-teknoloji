@@ -5,12 +5,13 @@ import Image from "next/image"
 import {
   Package,
   ImageOff,
-  MessageCircle,
+  Lock,
   CheckCircle2,
   XCircle,
   Loader2,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useAuth } from "@/hooks/use-auth"
 
 /* ------------------------------------------------------------------ */
 /*  Category Banner                                                     */
@@ -37,13 +38,13 @@ export function CategoryBanner({
       />
       <div className="absolute inset-0 bg-gradient-to-r from-[#0a1628]/80 to-[#0a1628]/40" />
       <div className="absolute inset-0 flex items-center">
-        <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
             {title}
           </h1>
           {productCount !== undefined && (
             <p className="text-sm text-white/70">
-              {productCount} urun bulundu
+              {productCount} ürün bulundu
             </p>
           )}
         </div>
@@ -74,7 +75,7 @@ export function FilterSidebar({
       {/* Price Range */}
       <div>
         <h3 className="text-[12px] font-bold text-[#1e1e1e] uppercase tracking-wider mb-3">
-          Fiyat Araligi
+          Fiyat Aralığı
         </h3>
         <div className="flex gap-2">
           <div>
@@ -89,7 +90,7 @@ export function FilterSidebar({
               onChange={(e) =>
                 onPriceChange([Number(e.target.value), priceRange[1]])
               }
-              className="w-full h-9 border border-gray-200 rounded-lg px-3 text-[13px] text-[#1e1e1e] focus:outline-none focus:border-[#2189ff]"
+              className="w-full h-9 border border-gray-200 rounded-lg px-3 text-[13px] text-[#1e1e1e] focus:outline-none focus:border-[#0040a4]"
               placeholder="Min"
             />
           </div>
@@ -106,7 +107,7 @@ export function FilterSidebar({
               onChange={(e) =>
                 onPriceChange([priceRange[0], Number(e.target.value)])
               }
-              className="w-full h-9 border border-gray-200 rounded-lg px-3 text-[13px] text-[#1e1e1e] focus:outline-none focus:border-[#2189ff]"
+              className="w-full h-9 border border-gray-200 rounded-lg px-3 text-[13px] text-[#1e1e1e] focus:outline-none focus:border-[#0040a4]"
               placeholder="Max"
             />
           </div>
@@ -125,14 +126,14 @@ export function FilterSidebar({
               return (
                 <label
                   key={brand.id}
-                  className="flex items-center gap-2.5 py-1.5 px-2 cursor-pointer rounded-lg hover:bg-[#2189ff]/5 transition-colors"
+                  className="flex items-center gap-2.5 py-1.5 px-2 cursor-pointer rounded-lg hover:bg-[#0040a4]/5 transition-colors"
                 >
                   <input
                     type="checkbox"
                     checked={isChecked}
                     onChange={() => onBrandChange(brand.slug)}
                     aria-label={brand.name}
-                    className="h-3.5 w-3.5 accent-[#2189ff] rounded"
+                    className="h-3.5 w-3.5 accent-[#0040a4] rounded"
                   />
                   <span className="text-[13px] text-[#555555]">{brand.name}</span>
                 </label>
@@ -150,9 +151,9 @@ export function FilterSidebar({
 /* ------------------------------------------------------------------ */
 
 const SORT_OPTIONS = [
-  { value: "popular", label: "Populerlik" },
-  { value: "price-asc", label: "Fiyat: Dusukten Yuksege" },
-  { value: "price-desc", label: "Fiyat: Yuksekten Dusuge" },
+  { value: "popular", label: "Popülerlik" },
+  { value: "price-asc", label: "Fiyat: Düşükten Yükseğe" },
+  { value: "price-desc", label: "Fiyat: Yüksekten Düşüğe" },
   { value: "newest", label: "En Yeniler" },
 ]
 
@@ -167,7 +168,7 @@ export function SortDropdown({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="h-9 border border-gray-200 rounded-lg px-3 text-[13px] text-[#1e1e1e] focus:outline-none focus:border-[#2189ff] bg-white"
+      className="h-9 border border-gray-200 rounded-lg px-3 text-[13px] text-[#1e1e1e] focus:outline-none focus:border-[#0040a4] bg-white"
       aria-label="Siralama"
       role="combobox"
     >
@@ -205,8 +206,22 @@ function StockBadge({ inStock }: { inStock: boolean }) {
   return (
     <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-red-600 bg-red-50 border border-red-200 px-2 py-0.5 rounded-full">
       <XCircle className="h-3 w-3 shrink-0" aria-hidden />
-      Tukendi
+      Tükendi
     </span>
+  )
+}
+
+function CategoryProductLoginCTA() {
+  const { isAuthenticated, isAdmin } = useAuth()
+  if (isAuthenticated || isAdmin) return null
+  return (
+    <Link
+      href="/login"
+      className="flex items-center justify-center gap-1.5 h-8 w-full border border-[#0040a4]/30 bg-[#0040a4]/5 text-[#0040a4] text-[10px] font-semibold rounded-lg hover:bg-[#0040a4]/10 hover:underline transition-colors"
+    >
+      <Lock className="h-3 w-3" aria-hidden />
+      Özel Fiyatlar İçin Bayi Girişi Yapınız
+    </Link>
   )
 }
 
@@ -221,7 +236,7 @@ export function CategoryProductGrid({
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center gap-3 border-2 border-dashed border-gray-300 rounded-xl bg-[#f9f9f9]">
         <Package className="h-10 w-10 text-gray-400" aria-hidden />
-        <p className="text-sm text-gray-600">Urun bulunamadi.</p>
+        <p className="text-sm text-gray-600">Ürün bulunamadı.</p>
       </div>
     )
   }
@@ -230,7 +245,7 @@ export function CategoryProductGrid({
     <div>
       {totalCount !== undefined && (
         <p className="text-[13px] text-[#555555] mb-4">
-          <span className="font-bold text-[#1e1e1e]">{totalCount}</span> urun listeleniyor
+          <span className="font-bold text-[#1e1e1e]">{totalCount}</span> ürün listeleniyor
         </p>
       )}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -270,19 +285,11 @@ export function CategoryProductGrid({
                 )}
                 <Link
                   href={`/urun/${product.slug}`}
-                  className="block text-[12px] font-semibold text-[#1e1e1e] line-clamp-2 hover:text-[#2189ff] transition-colors leading-snug min-h-[36px]"
+                  className="block text-[12px] font-semibold text-[#1e1e1e] line-clamp-2 hover:text-[#0040a4] transition-colors leading-snug min-h-[36px]"
                 >
                   {product.name}
                 </Link>
-                <a
-                  href={`https://wa.me/905529895959?text=${encodeURIComponent(`Merhaba, ${product.name} urunu hakkinda bilgi almak istiyorum.`)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 h-8 w-full bg-[#2189ff] text-white text-[11px] font-bold rounded-lg hover:bg-[#1e1e1e] transition-colors"
-                >
-                  <MessageCircle className="h-3 w-3" aria-hidden />
-                  Teklif Iste
-                </a>
+                <CategoryProductLoginCTA />
               </div>
             </article>
           )
@@ -314,20 +321,20 @@ export function LoadMoreButton({
         className={cn(
           "inline-flex items-center gap-2 h-11 px-8 text-[13px] font-bold rounded-lg transition-all",
           hasMore && !isLoading
-            ? "bg-[#2189ff] text-white hover:bg-[#1e1e1e]"
+            ? "bg-[#0040a4] text-white hover:bg-[#1e1e1e]"
             : "bg-gray-100 text-gray-400 cursor-not-allowed"
         )}
-        aria-label={isLoading ? "Yukleniyor" : "Daha Fazla Goster"}
+        aria-label={isLoading ? "Yükleniyor" : "Daha Fazla Göster"}
       >
         {isLoading ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
-            Yukleniyor...
+            Yükleniyor...
           </>
         ) : hasMore ? (
-          "Daha Fazla Goster"
+          "Daha Fazla Göster"
         ) : (
-          "Tum urunler yuklendi"
+          "Tüm ürünler yüklendi"
         )}
       </button>
     </div>

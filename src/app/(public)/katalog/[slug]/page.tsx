@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation"
+import { cookies } from "next/headers"
 import type { Metadata } from "next"
 import Link from "next/link"
 import {
@@ -7,11 +8,13 @@ import {
   XCircle,
   Home,
   Tag,
-  MessageCircle,
-  Phone,
+  Lock,
 } from "lucide-react"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
 import { ProductGallery } from "@/components/products/product-gallery"
 import { PublicProductCard } from "@/components/public/public-product-card"
+import { AskAiButton } from "@/components/public/ask-ai-button"
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -35,6 +38,19 @@ interface PublicRelatedProduct {
   brand: PublicBrand | null
   category: PublicCategory | null
   stockStatus: boolean
+  stockCount: number
+  price: number | null
+  currency: string
+  priceTry: number | null
+  usdTryRate: number
+}
+
+interface SupplierStock {
+  depoName: string
+  stockQuantity: number
+  price: number | null
+  currency: string
+  priceTry: number | null
 }
 
 interface PublicProductDetail {
@@ -44,9 +60,21 @@ interface PublicProductDetail {
   images: string[]
   description: string | null
   specifications: Record<string, unknown> | null
+  sku: string | null
+  barcode: string | null
+  modelCode: string | null
+  weight: string | null
+  warrantyMonths: number | null
   brand: PublicBrand | null
   category: PublicCategory | null
+  categoryPath: PublicCategory[]
   stockStatus: boolean
+  stockCount: number
+  price: number | null
+  currency: string
+  priceTry: number | null
+  usdTryRate: number
+  suppliers: SupplierStock[]
   relatedProducts: PublicRelatedProduct[]
 }
 
@@ -60,10 +88,14 @@ interface ApiResponse {
 
 async function getProduct(slug: string): Promise<PublicProductDetail | null> {
   const baseUrl =
-    process.env.NEXT_PUBLIC_APP_URL ??
+    process.env.NEXT_PUBLIC_APP_URL ||
     (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
 
+  const cookieStore = await cookies()
+  const cookieHeader = cookieStore.toString()
+
   const res = await fetch(`${baseUrl}/api/public/catalog/products/${slug}`, {
+    headers: { cookie: cookieHeader },
     next: { revalidate: 300 },
   })
 
@@ -134,10 +166,10 @@ function parseSpecs(
 /* ------------------------------------------------------------------ */
 
 function ProductBreadcrumb({
-  category,
+  categoryPath,
   productName,
 }: {
-  category: PublicCategory | null
+  categoryPath: PublicCategory[]
   productName: string
 }) {
   return (
@@ -147,22 +179,22 @@ function ProductBreadcrumb({
     >
       <Link
         href="/katalog"
-        className="flex items-center gap-1 hover:text-[#2189ff] transition-colors"
+        className="flex items-center gap-1 hover:text-[#0040a4] transition-colors"
       >
         <Home className="h-3 w-3" aria-hidden />
         Katalog
       </Link>
-      {category && (
-        <>
+      {categoryPath.map((cat) => (
+        <span key={cat.slug} className="contents">
           <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
           <Link
-            href={`/katalog?categorySlug=${category.slug}`}
-            className="hover:text-[#2189ff] transition-colors"
+            href={`/katalog?categorySlug=${cat.slug}`}
+            className="hover:text-[#0040a4] transition-colors"
           >
-            {category.name}
+            {cat.name}
           </Link>
-        </>
-      )}
+        </span>
+      ))}
       <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
       <span className="text-[#333333] font-semibold truncate max-w-[200px] sm:max-w-none">
         {productName}
@@ -198,43 +230,29 @@ function StockBadge({ inStock }: { inStock: boolean }) {
 /* ------------------------------------------------------------------ */
 
 function QuoteCTA({ productName }: { productName: string }) {
-  const waText = encodeURIComponent(`Merhaba, ${productName} ürünü hakkında fiyat teklifi almak istiyorum.`)
   return (
-    <div className="border border-[#2189ff]/20 bg-gradient-to-br from-[#2189ff]/5 to-white p-5 space-y-4">
+    <div className="border border-[#0040a4]/20 bg-gradient-to-br from-[#0040a4]/5 to-white p-5 space-y-4">
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#2189ff]/10">
-          <MessageCircle className="h-5 w-5 text-[#2189ff]" aria-hidden />
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#0040a4]/10">
+          <Lock className="h-5 w-5 text-[#0040a4]" aria-hidden />
         </div>
         <div className="space-y-1">
           <p className="text-[14px] font-bold text-[#333333]">
-            Hemen Teklif Alın
+            Özel Fiyatlar İçin Bayi Girişi Yapınız
           </p>
           <p className="text-[12px] text-[#767676] leading-relaxed">
-            WhatsApp üzerinden hızlı fiyat teklifi alın. En kısa sürede dönüş yapalım.
+            Bayi girişi yaparak özel fiyatları görüntüleyebilir ve sipariş oluşturabilirsiniz.
           </p>
         </div>
       </div>
 
-      <a
-        href={`https://wa.me/905529895959?text=${waText}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex w-full items-center justify-center gap-2 h-11 bg-[#2189ff] px-5 text-[13px] font-bold text-white uppercase tracking-wider transition-colors hover:bg-[#001489] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2189ff] focus-visible:ring-offset-2"
+      <Link
+        href="/login"
+        className="flex w-full items-center justify-center gap-2 h-11 bg-[#0040a4] px-5 text-[13px] font-bold text-white uppercase tracking-wider transition-colors hover:bg-[#001489] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0040a4] focus-visible:ring-offset-2"
       >
-        <MessageCircle className="h-4 w-4" aria-hidden />
-        WhatsApp ile Teklif İste
-      </a>
-
-      <p className="text-center text-[12px] text-[#767676]">
-        Veya{" "}
-        <a
-          href="tel:+905529895959"
-          className="font-semibold text-[#2189ff] underline-offset-2 hover:underline"
-        >
-          0 552 989 5959
-        </a>
-        numarasından bizi arayın
-      </p>
+        <Lock className="h-4 w-4" aria-hidden />
+        Bayi Girişi Yap
+      </Link>
     </div>
   )
 }
@@ -276,25 +294,15 @@ function SpecsTable({ specs }: { specs: Array<{ key: string; value: string }> })
 /* ------------------------------------------------------------------ */
 
 function StickyMobileCTA({ productName }: { productName: string }) {
-  const waText = encodeURIComponent(`Merhaba, ${productName} ürünü hakkında fiyat teklifi almak istiyorum.`)
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-white border-t border-[#eeeeee] px-4 py-3 flex gap-3 shadow-lg">
-      <a
-        href={`https://wa.me/905529895959?text=${waText}`}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex-1 flex items-center justify-center gap-2 h-11 bg-[#2189ff] text-white text-[13px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
+    <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-white border-t border-[#eeeeee] px-4 py-3 shadow-lg">
+      <Link
+        href="/login"
+        className="flex items-center justify-center gap-2 h-11 w-full bg-[#0040a4] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
       >
-        <MessageCircle className="h-4 w-4" aria-hidden />
-        Teklif İste
-      </a>
-      <a
-        href="tel:+905529895959"
-        className="flex items-center justify-center gap-2 h-11 px-4 border border-[#2189ff] text-[#2189ff] text-[12px] font-semibold hover:bg-[#2189ff]/5 transition-colors whitespace-nowrap"
-      >
-        <Phone className="h-4 w-4" aria-hidden />
-        Ara
-      </a>
+        <Lock className="h-4 w-4" aria-hidden />
+        Özel Fiyatlar İçin Bayi Girişi Yapınız
+      </Link>
     </div>
   )
 }
@@ -313,6 +321,9 @@ export default async function PublicProductDetailPage({
 
   if (!product) notFound()
 
+  const session = await getServerSession(authOptions)
+  const isLoggedIn = !!session?.user
+
   const specs = parseSpecs(product.specifications)
 
   return (
@@ -320,12 +331,12 @@ export default async function PublicProductDetailPage({
       <div className="bg-[#f5f5f5] pb-20 md:pb-0">
         {/* Breadcrumb band */}
         <div className="bg-white border-b border-[#eeeeee]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <ProductBreadcrumb category={product.category} productName={product.name} />
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <ProductBreadcrumb categoryPath={product.categoryPath || []} productName={product.name} />
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
           {/* Main Grid: Gallery + Info */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10">
             {/* Galeri */}
@@ -346,7 +357,7 @@ export default async function PublicProductDetailPage({
                 {product.brand && (
                   <Link
                     href={`/katalog?brandSlug=${product.brand.slug}`}
-                    className="text-[12px] font-bold uppercase tracking-wider text-[#2189ff] hover:text-[#001489] transition-colors"
+                    className="text-[12px] font-bold uppercase tracking-wider text-[#0040a4] hover:text-[#001489] transition-colors"
                   >
                     {product.brand.name}
                   </Link>
@@ -368,18 +379,160 @@ export default async function PublicProductDetailPage({
               </h1>
 
               {/* Stok */}
-              <StockBadge inStock={product.stockStatus} />
+              <div className="flex items-center gap-3 flex-wrap">
+                <StockBadge inStock={product.stockStatus} />
+                {product.stockStatus && product.stockCount > 0 && (
+                  <span className="text-[12px] text-gray-500">
+                    {product.stockCount} adet stokta
+                  </span>
+                )}
+                <AskAiButton productName={product.name} />
+              </div>
+
+              {/* Ürün Bilgileri */}
+              {(product.sku || product.barcode || product.modelCode || product.brand || product.warrantyMonths) && (
+                <div className="border border-[#eeeeee] bg-white">
+                  <div className="px-4 py-2.5 border-b border-[#eeeeee] bg-[#fafafa]">
+                    <p className="text-[11px] font-bold text-[#767676] uppercase tracking-wider">
+                      Ürün Bilgileri
+                    </p>
+                  </div>
+                  <ul className="divide-y divide-[#f5f5f5]">
+                    {product.brand && (
+                      <li className="flex items-center gap-3 px-4 py-2">
+                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Marka</span>
+                        <span className="text-[12px] text-[#333333] font-semibold">{product.brand.name}</span>
+                      </li>
+                    )}
+                    {product.modelCode && (
+                      <li className="flex items-center gap-3 px-4 py-2">
+                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Model Kodu</span>
+                        <span className="text-[12px] text-[#333333] font-semibold">{product.modelCode}</span>
+                      </li>
+                    )}
+                    {product.sku && (
+                      <li className="flex items-center gap-3 px-4 py-2">
+                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">SKU</span>
+                        <span className="text-[12px] text-[#333333] font-semibold font-mono">{product.sku}</span>
+                      </li>
+                    )}
+                    {product.barcode && (
+                      <li className="flex items-center gap-3 px-4 py-2">
+                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Barkod</span>
+                        <span className="text-[12px] text-[#333333] font-semibold font-mono">{product.barcode}</span>
+                      </li>
+                    )}
+                    {product.warrantyMonths && (
+                      <li className="flex items-center gap-3 px-4 py-2">
+                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Garanti</span>
+                        <span className="text-[12px] text-[#333333] font-semibold">{product.warrantyMonths} ay</span>
+                      </li>
+                    )}
+                    {product.weight && (
+                      <li className="flex items-center gap-3 px-4 py-2">
+                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Ağırlık</span>
+                        <span className="text-[12px] text-[#333333] font-semibold">{product.weight} kg</span>
+                      </li>
+                    )}
+                  </ul>
+                </div>
+              )}
 
               {/* Kısa açıklama */}
               {product.description && (
-                <p className="text-[13px] leading-relaxed text-[#767676] border-l-2 border-[#2189ff]/20 pl-3 line-clamp-3">
-                  {product.description}
-                </p>
+                <div className="text-[13px] leading-relaxed text-[#767676] border-l-2 border-[#0040a4]/20 pl-3">
+                  <p className="line-clamp-3">{product.description}</p>
+                  <a
+                    href="#description-heading"
+                    className="inline-block mt-1 text-[#0040a4] font-semibold text-[12px] hover:underline"
+                  >
+                    Devamını Oku ↓
+                  </a>
+                </div>
               )}
 
-              {/* CTA — Desktop */}
+              {/* Fiyat / Depo / CTA — Desktop */}
               <div className="hidden md:block">
-                <QuoteCTA productName={product.name} />
+                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+                  {/* Fiyat veya Login CTA */}
+                  {isLoggedIn && product.price != null ? (
+                    <div className="p-5">
+                      <div className="flex items-end justify-between gap-4">
+                        <div>
+                          <p className="text-[11px] text-gray-400 uppercase tracking-wider mb-1">Bayi Fiyatı</p>
+                          <p className="text-[28px] font-bold text-[#0040a4] leading-none">
+                            {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
+                            <span className="text-[12px] font-medium text-gray-400 ml-1.5">+KDV</span>
+                          </p>
+                          <p className="text-[13px] text-gray-500 mt-1.5">
+                            {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price * 1.20)}
+                            <span className="text-[11px] text-gray-400 ml-1">KDV Dahil</span>
+                          </p>
+                        </div>
+                        {product.currency !== "TRY" && product.priceTry != null && product.usdTryRate > 0 && (
+                          <div className="text-right">
+                            <p className="text-[11px] text-gray-400 mb-1">TL Karşılığı</p>
+                            <p className="text-xl font-semibold text-gray-700 leading-none">
+                              {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry)}
+                              <span className="text-[11px] font-medium text-gray-400 ml-1">+KDV</span>
+                            </p>
+                            <p className="text-[12px] text-gray-500 mt-1">
+                              {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry * 1.20)}
+                              <span className="text-[10px] text-gray-400 ml-0.5">KDV Dahil</span>
+                            </p>
+                            <p className="text-[10px] text-gray-300 mt-1.5">TCMB: 1 USD = {product.usdTryRate.toFixed(2)} TL</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ) : !isLoggedIn ? (
+                    <div className="p-5">
+                      <div className="flex items-start gap-3">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0040a4]/10">
+                          <Lock className="h-5 w-5 text-[#0040a4]" aria-hidden />
+                        </div>
+                        <div className="flex-1 space-y-2">
+                          <p className="text-[14px] font-bold text-[#333333]">Özel Fiyatlar İçin Bayi Girişi</p>
+                          <p className="text-[12px] text-[#767676]">Bayi girişi yaparak fiyatları görüntüleyin.</p>
+                          <Link href="/login" className="inline-flex items-center justify-center gap-2 h-9 px-5 bg-[#0040a4] text-[12px] font-bold text-white rounded-xl hover:bg-[#003080] transition-colors">
+                            <Lock className="h-3.5 w-3.5" aria-hidden />
+                            Bayi Girişi Yap
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {/* Depo Stokları — her zaman görünür */}
+                  {product.suppliers && product.suppliers.length > 0 && (
+                    <div className="border-t border-gray-50 bg-gray-50/50 px-5 py-3">
+                      <p className="text-[10px] text-gray-400 uppercase tracking-wider font-semibold mb-2">Depo Stokları</p>
+                      <div className="space-y-1.5">
+                        {product.suppliers.map((s) => (
+                          <div key={s.depoName} className="flex items-center justify-between text-[12px]">
+                            <div className="flex items-center gap-2">
+                              <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                              <span className="text-gray-500">{s.depoName}</span>
+                            </div>
+                            <div className="flex items-center gap-4">
+                              {isLoggedIn && s.price !== null && (
+                                <span className="font-semibold text-[#333]">
+                                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: s.currency || "TRY", minimumFractionDigits: 2 }).format(s.price)}
+                                  {s.currency !== "TRY" && s.priceTry != null && (
+                                    <span className="text-gray-400 font-normal ml-1.5">
+                                      ≈ {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(s.priceTry)}
+                                    </span>
+                                  )}
+                                </span>
+                              )}
+                              <span className="text-emerald-600 font-medium w-16 text-right">{s.stockQuantity} adet</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Özellik özeti — ilk 5 spec */}
@@ -452,14 +605,14 @@ export default async function PublicProductDetailPage({
                       ? `/katalog?categorySlug=${product.category.slug}`
                       : "/katalog"
                   }
-                  className="text-[12px] font-semibold text-[#2189ff] hover:text-[#001489] transition-colors whitespace-nowrap"
+                  className="text-[12px] font-semibold text-[#0040a4] hover:text-[#001489] transition-colors whitespace-nowrap"
                 >
                   Tümünü Gör
                 </Link>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                {product.relatedProducts.map((rp) => (
+                {product.relatedProducts.filter((rp) => rp.stockCount > 0).map((rp) => (
                   <PublicProductCard key={rp.id} product={rp} />
                 ))}
               </div>
@@ -468,8 +621,28 @@ export default async function PublicProductDetailPage({
         </div>
       </div>
 
-      {/* Sticky CTA — mobile */}
-      <StickyMobileCTA productName={product.name} />
+      {/* Sticky Fiyat / CTA — mobile */}
+      {!isLoggedIn && <StickyMobileCTA productName={product.name} />}
+      {isLoggedIn && product.price != null && (
+        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-3 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-[18px] font-bold text-[#0040a4] leading-none">
+                {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
+                <span className="text-[10px] font-medium text-gray-400 ml-1">+KDV</span>
+              </p>
+              {product.currency !== "TRY" && product.priceTry != null && (
+                <p className="text-[11px] text-gray-500 mt-0.5">
+                  ≈ {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry)} +KDV
+                </p>
+              )}
+            </div>
+            <span className="text-[11px] text-emerald-600 font-medium bg-emerald-50 px-2.5 py-1 rounded-full">
+              {product.stockCount} adet
+            </span>
+          </div>
+        </div>
+      )}
     </>
   )
 }

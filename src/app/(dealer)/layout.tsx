@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
-import { DealerHeader } from "@/components/layout/dealer-header"
-import { DealerFooter } from "@/components/layout/dealer-footer"
+import { ConditionalHeader, ConditionalFooter } from "@/components/layout/conditional-header"
 import { WhatsAppButton } from "@/components/whatsapp-button"
+import { ChatWidget } from "@/components/chat-widget"
 
 export const metadata: Metadata = {
   title: {
@@ -16,13 +16,14 @@ export default function DealerLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
-      <DealerHeader />
+    <div className="flex flex-col min-h-screen bg-[#f9f9f9]">
+      <ConditionalHeader />
       <main className="flex-1 w-full">
         {children}
       </main>
-      <DealerFooter />
+      <ConditionalFooter />
       <WhatsAppButton />
+      <ChatWidget />
     </div>
   )
 }

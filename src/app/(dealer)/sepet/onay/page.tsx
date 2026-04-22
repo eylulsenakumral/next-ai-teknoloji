@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
@@ -74,8 +74,8 @@ function PaymentOption({
       className={cn(
         "flex w-full items-start gap-4 rounded-xl border-2 p-4 text-left transition-all",
         selected
-          ? "border-[#2189ff] bg-[#2189ff]/5 ring-1 ring-[#2189ff]/20"
-          : "border-[#e5e5e5] bg-white hover:border-[#2189ff]/50 hover:bg-[#f9fafb]"
+          ? "border-[#0040a4] bg-[#0040a4]/5 ring-1 ring-[#0040a4]/20"
+          : "border-[#e5e5e5] bg-white hover:border-[#0040a4]/50 hover:bg-[#f9fafb]"
       )}
       aria-pressed={selected}
     >
@@ -83,7 +83,7 @@ function PaymentOption({
         className={cn(
           "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-all",
           selected
-            ? "border-[#2189ff] bg-[#2189ff]"
+            ? "border-[#0040a4] bg-[#0040a4]"
             : "border-[#cccccc] bg-white"
         )}
         aria-hidden
@@ -92,16 +92,16 @@ function PaymentOption({
           <div className="h-2 w-2 rounded-full bg-white" />
         )}
       </div>
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#2189ff]/10">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0040a4]/10">
         <Icon className={cn(
           "h-5 w-5",
-          selected ? "text-[#2189ff]" : "text-[#767676]"
+          selected ? "text-[#0040a4]" : "text-[#767676]"
         )} />
       </div>
       <div className="flex-1">
         <p className={cn(
           "text-sm font-semibold",
-          selected ? "text-[#2189ff]" : "text-[#333333]"
+          selected ? "text-[#0040a4]" : "text-[#333333]"
         )}>{title}</p>
         <p className="mt-1 text-xs text-[#767676] leading-relaxed">{description}</p>
       </div>
@@ -130,15 +130,15 @@ function SuccessView({ orderNumber }: { orderNumber: string }) {
           <p className="text-[#767676] max-w-md mx-auto">
             Siparişiniz başarıyla oluşturuldu. En kısa sürede işleme alınacaktır.
           </p>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#2189ff]/10 border border-[#2189ff]/20">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0040a4]/10 border border-[#0040a4]/20">
             <span className="text-sm text-[#767676]">Sipariş Numarası:</span>
-            <span className="text-lg font-bold text-[#2189ff] font-mono">{orderNumber}</span>
+            <span className="text-lg font-bold text-[#0040a4] font-mono">{orderNumber}</span>
           </div>
         </div>
         <p className="max-w-lg text-sm text-[#767676] leading-relaxed">
           Siparişiniz onaylandığında ve kargo durumu güncellendiğinde sizi bilgilendireceğiz.
           Sipariş detaylarınızı {" "}
-          <Link href="/siparisler" className="text-[#2189ff] font-semibold hover:underline">
+          <Link href="/siparisler" className="text-[#0040a4] font-semibold hover:underline">
             Siparişlerim
           </Link>
           {" "} sayfasından takip edebilirsiniz.
@@ -146,7 +146,7 @@ function SuccessView({ orderNumber }: { orderNumber: string }) {
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
           <Button
             size="lg"
-            className="rounded-xl bg-[#2189ff] text-white hover:bg-[#2189ff] transition-colors h-12"
+            className="rounded-xl bg-[#0040a4] text-white hover:bg-[#0040a4] transition-colors h-12"
             render={<Link href="/siparisler" />}
           >
             Siparişlerime Git
@@ -154,7 +154,7 @@ function SuccessView({ orderNumber }: { orderNumber: string }) {
           <Button
             variant="outline"
             size="lg"
-            className="rounded-xl border-[#e5e5e5] text-[#333333] hover:bg-[#f9fafb] hover:border-[#2189ff] hover:text-[#2189ff] h-12"
+            className="rounded-xl border-[#e5e5e5] text-[#333333] hover:bg-[#f9fafb] hover:border-[#0040a4] hover:text-[#0040a4] h-12"
             render={<Link href="/urunler" />}
           >
             Alışverişe Devam Et
@@ -192,14 +192,24 @@ export default function CheckoutPage() {
   const [submitError, setSubmitError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orderNumber, setOrderNumber] = useState<string | null>(null)
+  const [isClient, setIsClient] = useState(false)
 
   const subtotal = getSubtotal()
   const vatTotal = getVatTotal()
   const grandTotal = getGrandTotal()
 
-  // Sepet boşsa yönlendir
-  if (items.length === 0 && !orderNumber) {
-    router.replace("/sepet")
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  // Sepet boşsa yönlendir (client-side only)
+  useEffect(() => {
+    if (isClient && items.length === 0 && !orderNumber) {
+      router.replace("/sepet")
+    }
+  }, [isClient, items.length, orderNumber, router])
+
+  if (!isClient || (items.length === 0 && !orderNumber)) {
     return null
   }
 
@@ -312,8 +322,8 @@ export default function CheckoutPage() {
             <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
               <div className="border-b border-[#f3f3f3] px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2189ff]/10">
-                    <MapPin className="h-4 w-4 text-[#2189ff]" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0040a4]/10">
+                    <MapPin className="h-4 w-4 text-[#0040a4]" />
                   </div>
                   <h2 className="text-base font-semibold text-[#333333]">Teslimat Adresi</h2>
                 </div>
@@ -330,7 +340,7 @@ export default function CheckoutPage() {
                     value={shippingForm.companyName}
                     onChange={(e) => updateField("companyName", e.target.value)}
                     placeholder="Firma adı veya ad soyad"
-                    className="rounded-lg border-[#e5e5e5] focus:border-[#2189ff] focus:ring-[#2189ff]/20"
+                    className="rounded-lg border-[#e5e5e5] focus:border-[#0040a4] focus:ring-[#0040a4]/20"
                     aria-invalid={!!errors.companyName}
                     aria-describedby={errors.companyName ? "companyName-error" : undefined}
                   />
@@ -352,7 +362,7 @@ export default function CheckoutPage() {
                     value={shippingForm.contactName}
                     onChange={(e) => updateField("contactName", e.target.value)}
                     placeholder="Yetkili ad soyad"
-                    className="rounded-lg border-[#e5e5e5] focus:border-[#2189ff] focus:ring-[#2189ff]/20"
+                    className="rounded-lg border-[#e5e5e5] focus:border-[#0040a4] focus:ring-[#0040a4]/20"
                     aria-invalid={!!errors.contactName}
                     aria-describedby={errors.contactName ? "contactName-error" : undefined}
                   />
@@ -375,7 +385,7 @@ export default function CheckoutPage() {
                     value={shippingForm.phone}
                     onChange={(e) => updateField("phone", e.target.value)}
                     placeholder="0(5XX) XXX XX XX"
-                    className="rounded-lg border-[#e5e5e5] focus:border-[#2189ff] focus:ring-[#2189ff]/20"
+                    className="rounded-lg border-[#e5e5e5] focus:border-[#0040a4] focus:ring-[#0040a4]/20"
                     aria-invalid={!!errors.phone}
                     aria-describedby={errors.phone ? "phone-error" : undefined}
                   />
@@ -398,7 +408,7 @@ export default function CheckoutPage() {
                     onChange={(e) => updateField("address", e.target.value)}
                     placeholder="Mahalle, sokak, bina, daire..."
                     rows={3}
-                    className="rounded-lg border-[#e5e5e5] focus:border-[#2189ff] focus:ring-[#2189ff]/20 resize-none"
+                    className="rounded-lg border-[#e5e5e5] focus:border-[#0040a4] focus:ring-[#0040a4]/20 resize-none"
                     aria-invalid={!!errors.address}
                     aria-describedby={errors.address ? "address-error" : undefined}
                   />
@@ -449,7 +459,7 @@ export default function CheckoutPage() {
                     onChange={(e) => updateField("postalCode", e.target.value)}
                     placeholder="34710"
                     maxLength={10}
-                    className="rounded-lg border-[#e5e5e5] focus:border-[#2189ff] focus:ring-[#2189ff]/20"
+                    className="rounded-lg border-[#e5e5e5] focus:border-[#0040a4] focus:ring-[#0040a4]/20"
                   />
                   <p className="text-xs text-[#767676]">İsteğe bağlı</p>
                 </div>
@@ -460,8 +470,8 @@ export default function CheckoutPage() {
             <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
               <div className="border-b border-[#f3f3f3] px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2189ff]/10">
-                    <CreditCard className="h-4 w-4 text-[#2189ff]" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0040a4]/10">
+                    <CreditCard className="h-4 w-4 text-[#0040a4]" />
                   </div>
                   <h2 className="text-base font-semibold text-[#333333]">Ödeme Yöntemi</h2>
                 </div>
@@ -491,8 +501,8 @@ export default function CheckoutPage() {
             <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
               <div className="border-b border-[#f3f3f3] px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2189ff]/10">
-                    <FileText className="h-4 w-4 text-[#2189ff]" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0040a4]/10">
+                    <FileText className="h-4 w-4 text-[#0040a4]" />
                   </div>
                   <h2 className="text-base font-semibold text-[#333333]">Sipariş Notu</h2>
                 </div>
@@ -506,7 +516,7 @@ export default function CheckoutPage() {
                   placeholder="Siparişinizle ilgili özel notunuz varsa buraya yazabilirsiniz..."
                   rows={3}
                   maxLength={2000}
-                  className="rounded-lg border-[#e5e5e5] focus:border-[#2189ff] focus:ring-[#2189ff]/20 resize-none"
+                  className="rounded-lg border-[#e5e5e5] focus:border-[#0040a4] focus:ring-[#0040a4]/20 resize-none"
                   aria-label="Sipariş notu"
                 />
                 <p className="mt-2 text-xs text-[#767676] text-right">
@@ -521,8 +531,8 @@ export default function CheckoutPage() {
             <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden sticky top-24">
               <div className="border-b border-[#f3f3f3] px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2189ff]/10">
-                    <Package className="h-4 w-4 text-[#2189ff]" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0040a4]/10">
+                    <Package className="h-4 w-4 text-[#0040a4]" />
                   </div>
                   <div>
                     <h2 className="text-base font-semibold text-[#333333]">Sipariş Özeti</h2>
@@ -569,7 +579,7 @@ export default function CheckoutPage() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full rounded-xl bg-[#2189ff] text-white hover:bg-[#2189ff] transition-colors h-12 text-sm font-semibold"
+                  className="w-full rounded-xl bg-[#0040a4] text-white hover:bg-[#0040a4] transition-colors h-12 text-sm font-semibold"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (

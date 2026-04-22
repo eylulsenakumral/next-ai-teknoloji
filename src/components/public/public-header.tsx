@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { useRouter } from "next/navigation"
 import {
   Cpu,
@@ -17,6 +18,8 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { NavigationBar } from "./navigation-bar"
+import { ExchangeRateDisplay } from "./exchange-rate-bar"
+import { useAuth } from "@/hooks/use-auth"
 
 /* ------------------------------------------------------------------ */
 /*  Mobile Drawer                                                       */
@@ -41,83 +44,99 @@ function MobileDrawer({
 
   return (
     <>
+      {/* Overlay */}
       <div
-        className="fixed inset-0 z-40 bg-black/50"
+        className="fixed inset-0 z-40 bg-black/50 transition-opacity duration-300"
         onClick={onClose}
         aria-hidden
       />
-      <div className="fixed inset-y-0 left-0 z-50 w-[400px] max-w-[85vw] bg-white shadow-2xl flex flex-col">
+      {/* Drawer panel */}
+      <div className="fixed inset-y-0 left-0 z-50 w-[320px] max-w-[85vw] bg-white shadow-2xl flex flex-col animate-[slideInLeft_0.3s_ease-out]">
         {/* Drawer header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#eeeeee] bg-[#2189ff]">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#e9e9e9] bg-[#0040a4]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded bg-white/20 flex items-center justify-center">
-              <Cpu className="w-4 h-4 text-white" aria-hidden />
-            </div>
+            <Image src="/logo.png" alt="Next AI Teknoloji" width={32} height={32} className="rounded-lg" />
             <div>
-              <p className="font-extrabold text-[13px] text-white">Next AI Teknoloji</p>
+              <p className="font-bold text-[14px] text-white">Next AI Teknoloji</p>
               <p className="text-[10px] text-white/60">Teknoloji Market</p>
             </div>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 rounded text-white/60 hover:text-white hover:bg-white/10 transition-colors"
-            aria-label="Menuyu kapat"
+            className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors"
+            aria-label="Menüyü kapat"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
-        {/* Menü */}
+        {/* Navigation Links */}
         <div className="flex-1 overflow-y-auto">
-          <div className="px-4 pt-4 pb-2">
-            <nav aria-label="Mobil navigasyon">
-              <Link
-                href="/katalog"
-                onClick={onClose}
-                className="flex items-center gap-3 px-3 py-2.5 text-[13px] font-semibold text-[#1e1e1e] hover:bg-[#f5f5f5] hover:text-[#2189ff] transition-colors rounded"
-              >
-                <Package className="h-4 w-4 text-[#2189ff]" aria-hidden />
-                Tum Urunler
-              </Link>
-            </nav>
-          </div>
+          <nav className="px-3 py-4" aria-label="Mobil navigasyon">
+            <Link
+              href="/"
+              onClick={onClose}
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+            >
+              Ana Sayfa
+            </Link>
+            <Link
+              href="/katalog"
+              onClick={onClose}
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+            >
+              <Package className="h-4 w-4 text-[#0040a4]" aria-hidden />
+              Tüm Ürünler
+            </Link>
+            <Link
+              href="/katalog"
+              onClick={onClose}
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+            >
+              Markalar
+            </Link>
+            <Link
+              href="/blog"
+              onClick={onClose}
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+            >
+              Blog
+            </Link>
+            <Link
+              href="/basvuru"
+              onClick={onClose}
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+            >
+              İletişim
+            </Link>
+          </nav>
 
-          <div className="border-t border-[#eeeeee] px-4 py-3">
-            <p className="text-[10px] font-bold text-[#767676] uppercase tracking-widest mb-2 px-2">
+          <div className="border-t border-[#e9e9e9] mx-4" />
+
+          <div className="px-3 py-3">
+            <p className="px-4 text-[11px] font-semibold text-[#767676] uppercase tracking-widest mb-1">
               Hesap
             </p>
             <nav aria-label="Mobil hesap navigasyonu">
               <Link
+                href="/login"
+                onClick={onClose}
+                className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+              >
+                <User className="h-4 w-4 text-[#0040a4]" aria-hidden />
+                Giriş Yap
+              </Link>
+              <Link
                 href="/basvuru"
                 onClick={onClose}
-                className="flex items-center gap-3 px-3 py-2.5 text-[13px] font-semibold text-[#1e1e1e] hover:bg-[#f5f5f5] hover:text-[#2189ff] transition-colors rounded"
+                className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
               >
-                <User className="h-4 w-4 text-[#2189ff]" aria-hidden />
-                Hesap Olustur
+                <LogIn className="h-4 w-4 text-[#0040a4]" aria-hidden />
+                Hesap Oluştur
               </Link>
             </nav>
           </div>
-        </div>
-
-        {/* CTA */}
-        <div className="px-5 py-4 border-t border-[#eeeeee] flex flex-col gap-2">
-          <Link
-            href="/login"
-            onClick={onClose}
-            className="flex items-center justify-center gap-2 h-10 px-4 bg-[#2189ff] text-white text-[13px] font-semibold hover:bg-[#1e1e1e] transition-colors"
-          >
-            <LogIn className="h-4 w-4" aria-hidden />
-            Giris Yap
-          </Link>
-          <Link
-            href="/basvuru"
-            onClick={onClose}
-            className="flex items-center justify-center gap-2 h-10 px-4 border border-[#eeeeee] text-[#1e1e1e] text-[13px] font-semibold hover:border-[#2189ff] hover:text-[#2189ff] transition-colors"
-          >
-            <User className="h-4 w-4" aria-hidden />
-            Hesap Olustur
-          </Link>
         </div>
       </div>
     </>
@@ -272,9 +291,9 @@ function HeaderSearchBar() {
       <form
         onSubmit={handleSubmit}
         role="search"
-        aria-label="Site genelinde urun ara"
+        aria-label="Site genelinde ürün ara"
       >
-        <div className="flex h-10 bg-[#f3f3f3] rounded-[20px] border border-[#e9e9e9] overflow-hidden focus-within:ring-2 focus-within:ring-[#2189ff] transition-all">
+        <div className="relative flex items-center">
           <input
             ref={inputRef}
             type="search"
@@ -285,8 +304,8 @@ function HeaderSearchBar() {
                 setIsOpen(true)
               }
             }}
-            placeholder="Aramak İstediğiniz Ürün, Marka, Model veya Kelimeyi Yazınız"
-            className="flex-1 py-[12px] px-[20px] text-[13px] text-[#1e1e1e] placeholder:text-[#767676] bg-transparent focus:outline-none"
+            placeholder="Ürün, marka, model ve açıklama giriniz"
+            className="w-full h-[46px] pl-5 pr-14 bg-[#f3f3f3] rounded-[20px] border border-transparent text-[14px] text-[#1e1e1e] placeholder:text-[#767676] focus:border-[#0040a4] focus:bg-white outline-none transition-all duration-300"
             aria-label="Arama"
             aria-expanded={isOpen}
             aria-controls="search-results"
@@ -294,7 +313,7 @@ function HeaderSearchBar() {
           />
           <button
             type="submit"
-            className="h-10 w-12 shrink-0 flex items-center justify-center text-[#767676] hover:text-[#2189ff] transition-colors"
+            className="absolute right-1 top-1/2 -translate-y-1/2 h-[38px] w-[38px] flex items-center justify-center bg-gradient-to-r from-[#0040a4] to-[#1a6fe0] text-white rounded-full hover:scale-105 hover:shadow-md transition-all duration-300"
             aria-label="Ara"
           >
             <Search className="h-4 w-4" aria-hidden />
@@ -311,13 +330,13 @@ function HeaderSearchBar() {
         >
           {isLoading ? (
             <div className="px-4 py-3 text-[13px] text-[#767676] flex items-center gap-2">
-              <div className="w-4 h-4 border-2 border-[#2189ff] border-t-transparent rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-[#0040a4] border-t-transparent rounded-full animate-spin" />
               <span>Aranıyor...</span>
             </div>
           ) : results.length > 0 ? (
             <>
               <ul className="py-1" role="presentation">
-                {results.map((product, index) => (
+                {results.map((product) => (
                   <li key={product.id} role="option">
                     <button
                       type="button"
@@ -350,8 +369,8 @@ function HeaderSearchBar() {
                           {product.price !== null && (
                             <>
                               <span className="text-[#e9e9e9]">•</span>
-                              <span className="text-[11px] text-[#2189ff] font-medium">
-                                {product.price.toLocaleString('tr-TR')} ₺
+                              <span className="text-[11px] text-[#0040a4] font-medium">
+                                {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                               </span>
                             </>
                           )}
@@ -367,7 +386,7 @@ function HeaderSearchBar() {
                 <Link
                   href={`/katalog?search=${encodeURIComponent(value.trim())}`}
                   onClick={() => setIsOpen(false)}
-                  className="block text-center text-[13px] font-semibold text-[#2189ff] hover:text-[#1e1e1e] transition-colors py-1"
+                  className="block text-center text-[13px] font-semibold text-[#0040a4] hover:text-[#1e1e1e] transition-colors py-1"
                 >
                   Tümünü Gör →
                 </Link>
@@ -392,6 +411,7 @@ function HeaderSearchBar() {
 /* ------------------------------------------------------------------ */
 
 export function PublicHeader() {
+  const { user, isAuthenticated, isDealer } = useAuth()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [isSticky, setIsSticky] = useState(false)
   const [cartCount] = useState(0) // TODO: Connect to actual cart state
@@ -408,16 +428,16 @@ export function PublicHeader() {
   return (
     <>
       {/* TOP BAR - Announcement/Info Bar */}
-      <div className="bg-[#1e1e1e] text-white">
-        <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-9 text-[12px]">
+      <div className="bg-[#0040a4] text-white border-b border-[#1a6fe0]">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-[36px] text-[12px]">
             <a
               href="tel:+905529895959"
               className="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors"
             >
               <Phone className="h-3.5 w-3.5" aria-hidden />
               <span className="hidden sm:inline">0 552 989 5959</span>
-              <span className="sm:hidden">0552 989 5959</span>
+              <span className="sm:hidden">Ara</span>
             </a>
             <div className="flex items-center gap-3 sm:gap-4">
               <Link
@@ -429,78 +449,83 @@ export function PublicHeader() {
               <span className="text-white/30 hidden sm:inline">|</span>
               <Link
                 href="/basvuru"
-                className="text-white/80 hover:text-white transition-colors font-medium"
+                className="text-white/80 hover:text-white transition-colors font-medium hidden sm:inline"
               >
                 Yardım
               </Link>
+              <span className="text-white/30 hidden sm:inline">|</span>
+              <ExchangeRateDisplay />
             </div>
           </div>
         </div>
       </div>
 
-      {/* MAIN HEADER - Sticky on scroll */}
+      {/* MAIN HEADER - Sticky on scroll with glass morphism */}
       <header
         className={cn(
-          "bg-white z-50 transition-all duration-300",
-          isSticky ? "sticky top-0 shadow-md" : ""
+          "z-50 transition-all duration-300 linear border-b",
+          isSticky
+            ? "sticky top-0 shadow-md bg-white/80 backdrop-blur-md border-[#e9e9e9]/50"
+            : "bg-white border-[#e9e9e9]"
         )}
         role="banner"
       >
-        <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-[72px]">
-            {/* Left: Logo */}
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-6 h-[72px]">
+            {/* Left: Mobile menu + Logo */}
             <div className="flex items-center gap-3">
               {/* Mobile menu button */}
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                className="lg:hidden flex h-10 w-10 items-center justify-center text-[#1e1e1e] hover:text-[#2189ff] hover:bg-[#f3f3f3] rounded-full transition-colors"
-                aria-label="Menuyu ac"
+                className="lg:hidden flex h-10 w-10 items-center justify-center text-[#1e1e1e] hover:text-[#0040a4] transition-colors"
+                aria-label="Menüyü aç"
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="h-6 w-6" />
               </button>
 
               {/* Logo */}
               <Link
-                href="/katalog"
-                className="flex items-center gap-2.5 shrink-0"
+                href="/"
+                className="flex items-center gap-2 shrink-0"
                 aria-label="Next AI Teknoloji ana sayfa"
               >
-                <div className="w-10 h-10 rounded bg-[#2189ff] flex items-center justify-center">
-                  <Cpu className="w-5 h-5 text-white" aria-hidden />
-                </div>
-                <div className="hidden sm:flex flex-col leading-none">
-                  <span className="font-extrabold text-[16px] text-[#1e1e1e] tracking-tight">
-                    Next AI Teknoloji
-                  </span>
-                  <span className="text-[10px] text-[#767676] font-medium uppercase tracking-widest">
-                    Teknoloji Market
-                  </span>
-                </div>
+                <Image src="/logo.png" alt="Next AI Teknoloji" width={240} height={80} className="h-20 w-auto object-contain" />
               </Link>
             </div>
 
             {/* Center: Search Bar - Desktop */}
-            <div className="hidden lg:block flex-1">
+            <div className="hidden lg:flex items-center flex-1">
               <HeaderSearchBar />
             </div>
 
             {/* Right: User Actions */}
-            <div className="flex items-center gap-1 sm:gap-2">
+            <div className="flex items-center gap-3">
               {/* User Account */}
-              <Link
-                href="/login"
-                className="hidden sm:flex items-center gap-2 h-10 px-4 text-[#1e1e1e] hover:text-[#2189ff] hover:bg-[#f3f3f3] rounded-full transition-colors font-semibold text-[13px]"
-                aria-label="Bayi Girişi"
-              >
-                <LogIn className="h-4 w-4" aria-hidden />
-                Bayi Girişi
-              </Link>
+              {isAuthenticated && user?.companyName ? (
+                <Link
+                  href="/hesabim"
+                  className="hidden lg:flex items-center gap-1.5 text-[#1e1e1e] hover:text-[#0040a4] transition-colors text-sm font-medium nav-underline"
+                  aria-label={user.companyName}
+                >
+                  <User className="h-5 w-5" />
+                  <span className="max-w-[160px] truncate">{user.companyName}</span>
+                </Link>
+              ) : (
+                <Link
+                  href="/login"
+                  className="hidden lg:flex items-center gap-1.5 text-[#1e1e1e] hover:text-[#0040a4] transition-colors text-sm font-medium nav-underline"
+                  aria-label="Bayi Girişi"
+                >
+                  <User className="h-5 w-5" />
+                  <span>Bayi Girişi</span>
+                </Link>
+              )}
 
               {/* Wishlist */}
               <Link
                 href="/katalog"
-                className="hidden sm:flex h-10 w-10 items-center justify-center text-[#1e1e1e] hover:text-[#2189ff] hover:bg-[#f3f3f3] rounded-full transition-colors"
+                className="hidden sm:flex items-center gap-1 text-[#1e1e1e] hover:text-[#0040a4] transition-colors relative nav-underline"
                 aria-label="Favorilerim"
               >
                 <Heart className="h-5 w-5" />
@@ -509,29 +534,33 @@ export function PublicHeader() {
               {/* Cart with badge */}
               <Link
                 href="/katalog"
-                className="flex h-10 w-10 items-center justify-center text-[#1e1e1e] hover:text-[#2189ff] hover:bg-[#f3f3f3] rounded-full transition-colors relative"
+                className="relative flex items-center gap-1 text-[#1e1e1e] hover:text-[#0040a4] transition-colors"
                 aria-label="Sepetim"
               >
                 <ShoppingCart className="h-5 w-5" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 h-5 w-5 bg-[#2189ff] text-white text-[11px] font-bold rounded-full flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 h-5 w-5 bg-gradient-to-r from-[#0040a4] to-[#1a6fe0] text-white text-[11px] font-medium rounded-full flex items-center justify-center animate-badge-bounce shadow-sm">
                     {cartCount > 9 ? '9+' : cartCount}
                   </span>
                 )}
               </Link>
 
               {/* Mobile search icon */}
-              <Link
-                href="/katalog"
-                className="lg:hidden flex h-10 w-10 items-center justify-center text-[#1e1e1e] hover:text-[#2189ff] hover:bg-[#f3f3f3] rounded-full transition-colors"
-                aria-label="Urun ara"
+              <button
+                type="button"
+                onClick={() => {
+                  const searchInput = document.querySelector<HTMLInputElement>('input[type="search"]')
+                  if (searchInput) searchInput.focus()
+                }}
+                className="lg:hidden flex h-10 w-10 items-center justify-center text-[#1e1e1e] hover:text-[#0040a4] transition-colors"
+                aria-label="Ürün ara"
               >
                 <Search className="h-5 w-5" />
-              </Link>
+              </button>
             </div>
           </div>
 
-          {/* Mobile Search Bar - Show below header on mobile */}
+          {/* Mobile Search Bar */}
           <div className="lg:hidden pb-4">
             <HeaderSearchBar />
           </div>

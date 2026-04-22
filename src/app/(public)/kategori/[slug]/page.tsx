@@ -199,7 +199,7 @@ export default function CategoryPage({
       />
 
       {/* Main Content */}
-      <div className="max-w-[1330px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex gap-6">
           {/* Sidebar - desktop */}
           <div className="hidden lg:block">

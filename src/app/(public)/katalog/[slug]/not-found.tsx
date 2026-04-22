@@ -3,8 +3,8 @@ import { PackageSearch, ChevronRight } from "lucide-react"
 
 export default function ProductNotFound() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <div className="flex flex-col items-center justify-center text-center gap-4 rounded-2xl border border-[#f0f0f0] bg-[#f9f9f9] p-12">
+    <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="flex flex-col items-center justify-center text-center gap-4 rounded-[20px] border border-[#f0f0f0] bg-[#f9f9f9] p-12">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#f0f0f0]">
           <PackageSearch className="h-8 w-8 text-[#767676]" aria-hidden />
         </div>
@@ -21,7 +21,7 @@ export default function ProductNotFound() {
 
         <Link
           href="/katalog"
-          className="mt-2 inline-flex items-center gap-1.5 rounded-xl bg-[#2189ff] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#2189ff]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2189ff] focus-visible:ring-offset-2"
+          className="mt-2 inline-flex items-center gap-1.5 rounded-xl bg-[#0040a4] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#0040a4]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0040a4] focus-visible:ring-offset-2"
         >
           Kataloğa Dön
           <ChevronRight className="h-4 w-4" aria-hidden />

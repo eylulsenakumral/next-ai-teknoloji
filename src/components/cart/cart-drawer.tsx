@@ -75,7 +75,12 @@ function CartItemRow({
           {item.productName}
         </Link>
         <p className="text-xs text-muted-foreground">
-          {formatCurrency(item.unitPriceExVat)} / adet (KDV hariç)
+          {formatCurrency(item.unitPriceExVat)}
+          <span className="text-[9px] ml-0.5">+KDV</span> / adet
+        </p>
+        <p className="text-[10px] text-gray-400">
+          {formatCurrency(item.unitPriceExVat * (1 + item.vatRate / 100))}
+          <span className="text-[9px]"> KDV dahil</span>
         </p>
 
         {/* Adet seçici + kaldır */}

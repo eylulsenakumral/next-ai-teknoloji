@@ -51,6 +51,15 @@ vi.mock("@/lib/db", () => ({
   },
 }))
 
+vi.mock("@/hooks/use-auth", () => ({
+  useAuth: () => ({
+    user: null,
+    isLoading: false,
+    isDealer: false,
+    isAdmin: false,
+  }),
+}))
+
 // Import components after mocks
 import {
   Breadcrumb,
@@ -182,11 +191,11 @@ describe("Product Detail Page", () => {
       expect(screen.getByText(/High performance laptop/i)).toBeInTheDocument()
     })
 
-    it("renders Teklif Iste button with WhatsApp link", () => {
+    it("renders Bayi Girisi link to /login", () => {
       render(<ProductDetails {...product} />)
-      const ctaButton = screen.getByRole("link", { name: /teklif/i })
+      const ctaButton = screen.getByRole("link", { name: /ozel fiyatlar.*bayi girisi/i })
       expect(ctaButton).toBeInTheDocument()
-      expect(ctaButton).toHaveAttribute("href", expect.stringContaining("wa.me"))
+      expect(ctaButton).toHaveAttribute("href", "/login")
     })
 
     it("renders Favorilere Ekle button", () => {

@@ -74,9 +74,10 @@ interface Summary {
 // ============================================================================
 // Helpers
 // ============================================================================
-function formatPrice(price: number | null, currency: string = "TRY"): string {
+function formatPrice(price: number | null, currency: string = "USD"): string {
   if (price === null) return "—"
-  return new Intl.NumberFormat("tr-TR", {
+  const locale = currency === "TRY" ? "tr-TR" : "en-US"
+  return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
     minimumFractionDigits: 2,

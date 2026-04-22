@@ -70,7 +70,7 @@ function EmptyState({ onClear }: { onClear: () => void }) {
       <button
         type="button"
         onClick={onClear}
-        className="inline-flex items-center gap-1.5 h-9 px-5 border border-[#eeeeee] text-[13px] text-[#333333] hover:border-[#2189ff] hover:text-[#2189ff] transition-colors"
+        className="inline-flex items-center gap-1.5 h-9 px-5 border border-[#eeeeee] text-[13px] text-[#333333] hover:border-[#0040a4] hover:text-[#0040a4] transition-colors"
       >
         Filtreleri Temizle
       </button>
@@ -265,7 +265,7 @@ export default function ProductsPage() {
           >
             <a
               href="/"
-              className="flex items-center gap-1 hover:text-[#2189ff] transition-colors"
+              className="flex items-center gap-1 hover:text-[#0040a4] transition-colors"
             >
               <Home className="h-3 w-3" />
               Anasayfa
@@ -275,7 +275,7 @@ export default function ProductsPage() {
             {filters.q && (
               <>
                 <ChevronRight className="h-3 w-3 text-[#eeeeee]" aria-hidden />
-                <span className="text-[#2189ff] font-semibold">&ldquo;{filters.q}&rdquo;</span>
+                <span className="text-[#0040a4] font-semibold">&ldquo;{filters.q}&rdquo;</span>
               </>
             )}
           </nav>
@@ -332,13 +332,13 @@ export default function ProductsPage() {
               <button
                 type="button"
                 onClick={() => setFilterDrawerOpen(true)}
-                className="lg:hidden inline-flex items-center gap-2 h-8 px-3 border border-[#eeeeee] text-[12px] font-semibold text-[#333333] hover:border-[#2189ff] hover:text-[#2189ff] transition-colors"
+                className="lg:hidden inline-flex items-center gap-2 h-8 px-3 border border-[#eeeeee] text-[12px] font-semibold text-[#333333] hover:border-[#0040a4] hover:text-[#0040a4] transition-colors"
                 aria-label="Filtreleri aç"
               >
                 <SlidersHorizontal className="h-3.5 w-3.5" aria-hidden />
                 Filtreler
                 {activeFilterCount > 0 && (
-                  <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#2189ff] text-white text-[10px] font-bold">
+                  <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#0040a4] text-white text-[10px] font-bold">
                     {activeFilterCount}
                   </span>
                 )}
@@ -394,7 +394,7 @@ export default function ProductsPage() {
                     className={cn(
                       "p-2 transition-colors",
                       viewMode === "grid"
-                        ? "bg-[#2189ff] text-white"
+                        ? "bg-[#0040a4] text-white"
                         : "text-[#767676] hover:bg-[#f5f5f5] hover:text-[#333333]"
                     )}
                     aria-label="Grid görünüm"
@@ -408,7 +408,7 @@ export default function ProductsPage() {
                     className={cn(
                       "p-2 transition-colors border-l border-[#eeeeee]",
                       viewMode === "list"
-                        ? "bg-[#2189ff] text-white"
+                        ? "bg-[#0040a4] text-white"
                         : "text-[#767676] hover:bg-[#f5f5f5] hover:text-[#333333]"
                     )}
                     aria-label="Liste görünüm"
@@ -486,7 +486,7 @@ export default function ProductsPage() {
                   onClick={() => updateURL({ page: filters.page - 1 })}
                   disabled={filters.page <= 1}
                   aria-label="Önceki sayfa"
-                  className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] text-[#767676] hover:border-[#2189ff] hover:text-[#2189ff] disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white"
+                  className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] text-[#767676] hover:border-[#0040a4] hover:text-[#0040a4] disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white"
                 >
                   <ChevronLeft className="h-4 w-4" aria-hidden />
                 </button>
@@ -513,8 +513,8 @@ export default function ProductsPage() {
                       className={cn(
                         "inline-flex items-center justify-center h-9 w-9 text-[13px] font-semibold transition-colors",
                         filters.page === pageNum
-                          ? "bg-[#2189ff] text-white border border-[#2189ff]"
-                          : "bg-white border border-[#eeeeee] text-[#333333] hover:border-[#2189ff] hover:text-[#2189ff]"
+                          ? "bg-[#0040a4] text-white border border-[#0040a4]"
+                          : "bg-white border border-[#eeeeee] text-[#333333] hover:border-[#0040a4] hover:text-[#0040a4]"
                       )}
                     >
                       {pageNum}
@@ -527,7 +527,7 @@ export default function ProductsPage() {
                   onClick={() => updateURL({ page: filters.page + 1 })}
                   disabled={filters.page >= totalPages}
                   aria-label="Sonraki sayfa"
-                  className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] text-[#767676] hover:border-[#2189ff] hover:text-[#2189ff] disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white"
+                  className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] text-[#767676] hover:border-[#0040a4] hover:text-[#0040a4] disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white"
                 >
                   <ChevronRight className="h-4 w-4" aria-hidden />
                 </button>

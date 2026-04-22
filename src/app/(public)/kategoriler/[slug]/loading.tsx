@@ -5,7 +5,7 @@ export default function CategoryDetailLoading() {
     <div className="bg-[#f9f9f9] min-h-screen">
       {/* Breadcrumb skeleton */}
       <div className="bg-white border-b border-[#eeeeee]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center gap-2">
             <Skeleton className="h-3 w-16" />
             <Skeleton className="h-3 w-3" />
@@ -17,8 +17,8 @@ export default function CategoryDetailLoading() {
       </div>
 
       {/* Hero skeleton */}
-      <div className="bg-gradient-to-r from-[#2189ff] to-[#4da6ff]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+      <div className="bg-gradient-to-r from-[#0040a4] to-[#4da6ff]">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
           <div className="flex items-start gap-5">
             <Skeleton className="hidden sm:block w-16 h-16 shrink-0 bg-white/20" />
             <div className="flex-1 space-y-3">
@@ -34,7 +34,7 @@ export default function CategoryDetailLoading() {
       </div>
 
       {/* Subcategories skeleton */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="flex items-center gap-3 mb-4">
           <Skeleton className="h-5 w-32" />
           <div className="flex-1 h-px bg-[#eeeeee]" />
@@ -53,7 +53,7 @@ export default function CategoryDetailLoading() {
       </div>
 
       {/* Products skeleton */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center gap-3 mb-4">
           <Skeleton className="h-5 w-40" />
           <div className="flex-1 h-px bg-[#eeeeee]" />

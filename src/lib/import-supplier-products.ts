@@ -188,6 +188,7 @@ export async function importProducts(params: {
             product.price != null ? new Prisma.Decimal(product.price) : null,
           vatRate:
             product.vatRate != null ? new Prisma.Decimal(product.vatRate) : null,
+          currency: "USD",
           stockQuantity: product.stock ?? 0,
           isAvailable: (product.stock ?? 0) > 0,
           rawData: enrichedRawData != null
@@ -233,7 +234,7 @@ export async function importProducts(params: {
                   supplierProductId: existing.id,
                   oldPrice: oldPriceDecimal,
                   newPrice: new Prisma.Decimal(newPriceNumber),
-                  currency: "TRY",
+                  currency: "USD",
                   priceChangePct: changePct != null ? new Prisma.Decimal(changePct) : null,
                 },
               })
@@ -252,6 +253,7 @@ export async function importProducts(params: {
                 product.price != null ? new Prisma.Decimal(product.price) : null,
               vatRate:
                 product.vatRate != null ? new Prisma.Decimal(product.vatRate) : null,
+              currency: "USD",
               stockQuantity: product.stock ?? 0,
               isAvailable: (product.stock ?? 0) > 0,
               rawData: enrichedRawData != null
