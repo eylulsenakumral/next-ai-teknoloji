@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
+import { unstable_cache } from "next/cache"
 
 // Tedarikçi bazlı fiyat kar marjı (maliyet üzerine %)
 const SUPPLIER_MARKUP: Record<string, number> = {
@@ -16,44 +17,67 @@ const SUPPLIER_MARKUP: Record<string, number> = {
   BIZIMHESAP: 1.10,
 }
 
-// TCMB döviz kuru cache
-let cachedUsdTry = 0
-let cacheExpiry = 0
+// TCMB döviz kuru cache - unstable_cache ile 1 saat
+const getCachedUsdTryRate = unstable_cache(
+  async (): Promise<number> => {
+    try {
+      const res = await fetch("https://www.tcmb.gov.tr/kurlar/today.xml", {
+        next: { revalidate: 3600 },
+      })
+      const xml = await res.text()
+      const match = xml.match(/CurrencyCode="USD"[\s\S]*?<ForexSelling>([\d.]+)<\/ForexSelling>/)
+      if (match) {
+        return parseFloat(match[1])
+      }
+    } catch {}
+    return 0
+  },
+  ["usd-try-rate"],
+  { revalidate: 3600 }
+)
 
-async function getUsdTryRate(): Promise<number> {
-  const now = Date.now()
-  if (cachedUsdTry && now < cacheExpiry) return cachedUsdTry
-  try {
-    const res = await fetch("https://www.tcmb.gov.tr/kurlar/today.xml")
-    const xml = await res.text()
-    const match = xml.match(/CurrencyCode="USD"[\s\S]*?<ForexSelling>([\d.]+)<\/ForexSelling>/)
-    if (match) {
-      cachedUsdTry = parseFloat(match[1])
-      cacheExpiry = now + 3600_000 // 1 saat cache
-      return cachedUsdTry
+// Kategori hiyerarşisi cache - 5 dakika
+const getCategoryDescendants = unstable_cache(
+  async (categorySlug: string) => {
+    const cat = await prisma.category.findFirst({
+      where: { slug: categorySlug, deletedAt: null, isActive: true },
+      select: { id: true },
+    })
+    if (!cat) return []
+
+    const allCats = await prisma.category.findMany({
+      where: { deletedAt: null, isActive: true },
+      select: { id: true, parentId: true },
+    })
+
+    const descendantIds = new Set<string>([cat.id])
+    function findDescendants(parentId: string) {
+      for (const c of allCats) {
+        if (c.parentId === parentId && !descendantIds.has(c.id)) {
+          descendantIds.add(c.id)
+          findDescendants(c.id)
+        }
+      }
     }
-  } catch {}
-  return 0
-}
+    findDescendants(cat.id)
+    return [...descendantIds]
+  },
+  ["category-descendants"],
+  { revalidate: 300 }
+)
 
-export async function GET(req: NextRequest) {
-  try {
-    const { searchParams } = new URL(req.url)
-    const session = await getServerSession(authOptions)
-    const isAuthenticated = !!session?.user
-    const isAdmin = ["admin", "super_admin"].includes((session?.user as { role?: string })?.role ?? "")
-    const showPrice = isAuthenticated || isAdmin
-
-    const brandSlug = searchParams.get("brandSlug") ?? ""
-    const categorySlug = searchParams.get("categorySlug") ?? ""
-    const search = searchParams.get("search") ?? ""
-    const sortBy = searchParams.get("sortBy") ?? "newest"
-    const inStockParam = searchParams.get("inStock")
-    const inStock = inStockParam === null ? true : inStockParam === "true"
-    const campaign = searchParams.get("campaign") === "true"
-    const page = Math.max(1, Number(searchParams.get("page") ?? "1"))
-    const limit = Math.min(100, Math.max(1, Number(searchParams.get("limit") ?? "20")))
-
+// Product listing cache - 60 saniye
+const getCachedProductListing = unstable_cache(
+  async (
+    brandSlug: string,
+    categorySlug: string,
+    search: string,
+    sortBy: string,
+    inStock: boolean,
+    campaign: boolean,
+    page: number,
+    limit: number
+  ) => {
     const orderBy =
       sortBy === "name-asc"
         ? { name: "asc" as const }
@@ -65,26 +89,8 @@ export async function GET(req: NextRequest) {
     // + product_categories junction table üzerinden çok kategorili ürünler
     let categoryFilter: Record<string, unknown> = {}
     if (categorySlug) {
-      const cat = await prisma.category.findFirst({
-        where: { slug: categorySlug, deletedAt: null, isActive: true },
-        select: { id: true },
-      })
-      if (cat) {
-        const allCats = await prisma.category.findMany({
-          where: { deletedAt: null, isActive: true },
-          select: { id: true, parentId: true },
-        })
-        const descendantIds = new Set<string>([cat.id])
-        function findDescendants(parentId: string) {
-          for (const c of allCats) {
-            if (c.parentId === parentId && !descendantIds.has(c.id)) {
-              descendantIds.add(c.id)
-              findDescendants(c.id)
-            }
-          }
-        }
-        findDescendants(cat.id)
-        const ids = [...descendantIds]
+      const ids = await getCategoryDescendants(categorySlug)
+      if (ids.length > 0) {
         // Junction table'dan ekstra ürün ID'lerini bul
         const junctionProducts = await prisma.$queryRaw<{ id: string }[]>`
           SELECT product_id as id FROM product_categories
@@ -156,7 +162,7 @@ export async function GET(req: NextRequest) {
             where: { deletedAt: null, isAvailable: true },
             select: {
               stockQuantity: true,
-              purchasePrice: showPrice,
+              purchasePrice: true,
               currency: true,
               supplier: { select: { code: true } },
             },
@@ -166,9 +172,44 @@ export async function GET(req: NextRequest) {
       prisma.product.count({ where }),
     ])
 
+    return { products, total }
+  },
+  ["product-listing"],
+  { revalidate: 60 }
+)
+
+export async function GET(req: NextRequest) {
+  try {
+    const { searchParams } = new URL(req.url)
+    const session = await getServerSession(authOptions)
+    const isAuthenticated = !!session?.user
+    const isAdmin = ["admin", "super_admin"].includes((session?.user as { role?: string })?.role ?? "")
+    const showPrice = isAuthenticated || isAdmin
+
+    const brandSlug = searchParams.get("brandSlug") ?? ""
+    const categorySlug = searchParams.get("categorySlug") ?? ""
+    const search = searchParams.get("search") ?? ""
+    const sortBy = searchParams.get("sortBy") ?? "newest"
+    const inStockParam = searchParams.get("inStock")
+    const inStock = inStockParam === null ? true : inStockParam === "true"
+    const campaign = searchParams.get("campaign") === "true"
+    const page = Math.max(1, Number(searchParams.get("page") ?? "1"))
+    const limit = Math.min(100, Math.max(1, Number(searchParams.get("limit") ?? "20")))
+
+    // Cache'den ürünleri çek
+    const { products, total } = await getCachedProductListing(
+      brandSlug,
+      categorySlug,
+      search,
+      sortBy,
+      inStock,
+      campaign,
+      page,
+      limit
+    )
+
     // Döviz kuru çek (sadece bayi/admin fiyat görecekse)
-    // Döviz kuru çek (sadece bayi/admin fiyat görecekse)
-    const usdTry = showPrice ? await getUsdTryRate() : 0
+    const usdTry = showPrice ? await getCachedUsdTryRate() : 0
     if (showPrice && !usdTry) {
       return NextResponse.json({ error: "Kur bilgisi alınamadı." }, { status: 503 })
     }
