@@ -155,9 +155,10 @@ export default function QuoteDetailPage({ params }: { params: Promise<{ id: stri
   async function handleGeneratePdf() {
     setActionLoading("pdf")
     try {
-      window.open(`/api/admin/quotes/${id}/pdf`, "_blank")
+      const { downloadPdfFromHtml } = await import("@/lib/generate-pdf")
+      await downloadPdfFromHtml(`/api/admin/quotes/${id}/pdf`, `${quote?.quoteNumber ?? "teklif"}.pdf`)
     } catch (err) {
-      alert(err instanceof Error ? err.message : "PDF açılamadı.")
+      alert(err instanceof Error ? err.message : "PDF oluşturulamadı.")
     } finally {
       setActionLoading(null)
     }

@@ -17,6 +17,7 @@ interface PublicProductCardProduct {
   stockStatus: boolean
   price?: number | null
   currency?: string
+  hidePrice?: boolean
 }
 
 interface PublicProductCardProps {
@@ -50,7 +51,7 @@ export function PublicProductCard({ product }: PublicProductCardProps) {
   const { isAuthenticated, isAdmin, isLoading: authLoading } = useAuth()
 
   // Show price for authenticated dealers and admin users
-  const showPrice = (isAuthenticated || isAdmin) && product.price !== null && product.price !== undefined
+  const showPrice = (isAuthenticated || isAdmin) && product.price !== null && product.price !== undefined && !product.hidePrice
 
   return (
     <article

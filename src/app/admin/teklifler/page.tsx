@@ -187,13 +187,13 @@ export default function AdminQuotesPage() {
     }
   }
 
-  async function handleDownloadPdf(_quoteNumber: string, id: string) {
+  async function handleDownloadPdf(quoteNumber: string, id: string) {
     setPdfLoading(id)
     try {
-      // HTML döner → yeni sekmede açılır → tarayıcı yazdır dialogu ile PDF kaydedilir
-      window.open(`/api/admin/quotes/${id}/pdf`, "_blank")
+      const { downloadPdfFromHtml } = await import("@/lib/generate-pdf")
+      await downloadPdfFromHtml(`/api/admin/quotes/${id}/pdf`, `${quoteNumber}.pdf`)
     } catch {
-      alert("PDF açılamadı.")
+      alert("PDF oluşturulamadı.")
     } finally {
       setPdfLoading(null)
     }

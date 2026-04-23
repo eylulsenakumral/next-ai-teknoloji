@@ -128,6 +128,7 @@ export async function GET(
 
       return {
         depoName,
+        supplierCode,
         stockQuantity: sp.stockQuantity,
         price,
         currency,
@@ -135,10 +136,12 @@ export async function GET(
       }
     })
 
-    // En düşük fiyatı bul
+    // En düşük fiyatı bul (Okisan ürünlerinde fiyat gizlenir)
     const lowestSupplier = showPrice
-      ? suppliers.filter((s) => s.price !== null).sort((a, b) => (a.priceTry ?? 0) - (b.priceTry ?? 0))[0]
+      ? suppliers.filter((s) => s.price !== null && s.supplierCode.toUpperCase() !== "OKISAN").sort((a, b) => (a.priceTry ?? 0) - (b.priceTry ?? 0))[0]
       : null
+
+    const isOkisanOnly = suppliers.length > 0 && suppliers.every((s) => s.supplierCode.toUpperCase() === "OKISAN")
 
     const relatedProducts = product.categoryId
       ? await prisma.product.findMany({
@@ -193,6 +196,7 @@ export async function GET(
         categoryPath,
         stockStatus: totalStock > 0,
         stockCount: totalStock,
+        hidePrice: isOkisanOnly,
         price: lowestSupplier?.price ?? null,
         currency: lowestSupplier?.currency ?? "TRY",
         priceTry: lowestSupplier?.priceTry ?? null,

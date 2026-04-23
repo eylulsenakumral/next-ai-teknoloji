@@ -39,6 +39,7 @@ interface PublicRelatedProduct {
   category: PublicCategory | null
   stockStatus: boolean
   stockCount: number
+  hidePrice?: boolean
   price: number | null
   currency: string
   priceTry: number | null
@@ -70,6 +71,7 @@ interface PublicProductDetail {
   categoryPath: PublicCategory[]
   stockStatus: boolean
   stockCount: number
+  hidePrice: boolean
   price: number | null
   currency: string
   priceTry: number | null
@@ -455,7 +457,19 @@ export default async function PublicProductDetailPage({
               <div className="hidden md:block">
                 <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                   {/* Fiyat veya Login CTA */}
-                  {isLoggedIn && product.price != null ? (
+                  {isLoggedIn && product.hidePrice ? (
+                    <div className="p-5">
+                      <div className="flex items-start gap-3">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#a60811]/10">
+                          <Lock className="h-5 w-5 text-[#a60811]" aria-hidden />
+                        </div>
+                        <div className="space-y-1">
+                          <p className="text-[14px] font-bold text-[#a60811]">Müşteri Temsilcinizden Özel Fiyat Alınız</p>
+                          <p className="text-[12px] text-[#767676]">Bu ürün için fiyat bilgisi müşteri temsilcinizden alınmaktadır.</p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : isLoggedIn && product.price != null ? (
                     <div className="p-5">
                       <div className="flex items-end justify-between gap-4">
                         <div>
@@ -485,7 +499,7 @@ export default async function PublicProductDetailPage({
                         )}
                       </div>
                     </div>
-                  ) : !isLoggedIn ? (
+                  ) : !isLoggedIn && !product.hidePrice ? (
                     <div className="p-5">
                       <div className="flex items-start gap-3">
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0040a4]/10">
@@ -515,7 +529,7 @@ export default async function PublicProductDetailPage({
                               <span className="text-gray-500">{s.depoName}</span>
                             </div>
                             <div className="flex items-center gap-4">
-                              {isLoggedIn && s.price !== null && (
+                              {isLoggedIn && !product.hidePrice && s.price !== null && (
                                 <span className="font-semibold text-[#333]">
                                   {new Intl.NumberFormat("tr-TR", { style: "currency", currency: s.currency || "TRY", minimumFractionDigits: 2 }).format(s.price)}
                                   {s.currency !== "TRY" && s.priceTry != null && (
@@ -622,8 +636,15 @@ export default async function PublicProductDetailPage({
       </div>
 
       {/* Sticky Fiyat / CTA — mobile */}
-      {!isLoggedIn && <StickyMobileCTA productName={product.name} />}
-      {isLoggedIn && product.price != null && (
+      {!isLoggedIn && !product.hidePrice && <StickyMobileCTA productName={product.name} />}
+      {isLoggedIn && product.hidePrice && (
+        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#a60811]/20 px-4 py-3 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
+          <p className="text-[13px] font-bold text-[#a60811] text-center">
+            Müşteri Temsilcinizden Özel Fiyat Alınız
+          </p>
+        </div>
+      )}
+      {isLoggedIn && !product.hidePrice && product.price != null && (
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-3 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
           <div className="flex items-center justify-between">
             <div>
