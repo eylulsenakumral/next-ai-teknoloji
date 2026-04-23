@@ -51,7 +51,8 @@ export async function GET(
 <style>
   @page { size: A4; margin: 0; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'DejaVu Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; color: #2c3e50; font-size: 13px; line-height: 1.5; }
+  body { font-family: 'DejaVu Sans', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; color: #2c3e50; font-size: 13px; line-height: 1.5; display: flex; flex-direction: column; min-height: 1123px; }
+  .content { flex: 1; }
 
   /* ---- Üst Başlık Çubuğu ---- */
   .top-bar {
