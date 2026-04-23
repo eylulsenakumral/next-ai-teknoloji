@@ -5,8 +5,8 @@ import { formatCurrency, formatDate } from "@/lib/utils/format"
 import { readFileSync, existsSync } from "fs"
 import { join } from "path"
 
-// POST /api/admin/quotes/[id]/pdf — PDF oluştur ve indir
-export async function POST(
+// GET /api/admin/quotes/[id]/pdf — HTML döndür (client-side jsPDF ile PDF'e çevrilir)
+export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
@@ -281,14 +281,8 @@ export async function POST(
 </body>
 </html>`
 
-    // Puppeteer yerine HTML döndür — client tarayıcıda PDF olarak yazdıracak
-    const printHtml = html.replace('</body>', `
-<script>
-  window.onload = function() { setTimeout(function() { window.print(); }, 500); };
-</script>
-</body>`)
-
-    return new NextResponse(printHtml, {
+    // Client-side jsPDF + html2canvas ile PDF oluşturuluyor — sadece HTML döndür
+    return new NextResponse(html, {
       headers: {
         "Content-Type": "text/html; charset=utf-8",
       },

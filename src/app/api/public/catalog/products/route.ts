@@ -177,18 +177,21 @@ export async function GET(req: NextRequest) {
       const totalStock = p.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
       // Get lowest price if authenticated or admin (with supplier markup)
+      // Okisan ürünleri için fiyat gizlenir
       const lowestSupplier = showPrice
         ? p.supplierProducts
             .filter((sp) => sp.purchasePrice !== null)
             .map((sp) => {
               const base = Number(sp.purchasePrice)
-              const markup = SUPPLIER_MARKUP[sp.supplier?.code?.toUpperCase() ?? ""] ?? 1
-              return { ...sp, markedUpPrice: base * markup }
+              const code = sp.supplier?.code?.toUpperCase() ?? ""
+              const markup = SUPPLIER_MARKUP[code] ?? 1
+              return { ...sp, markedUpPrice: base * markup, supplierCode: code }
             })
             .sort((a, b) => a.markedUpPrice - b.markedUpPrice)[0]
         : null
 
-      const lowestPrice = lowestSupplier ? lowestSupplier.markedUpPrice : null
+      const isOkisanOnly = lowestSupplier?.supplierCode === "OKISAN"
+      const lowestPrice = lowestSupplier && !isOkisanOnly ? lowestSupplier.markedUpPrice : null
       const priceCurrency = lowestSupplier?.currency || "TRY"
       const priceTry = lowestPrice != null
         ? priceCurrency === "USD" ? lowestPrice * usdTry
@@ -207,6 +210,7 @@ export async function GET(req: NextRequest) {
         category: p.category,
         stockStatus: totalStock > 0,
         stockCount: totalStock,
+        hidePrice: isOkisanOnly,
         price: lowestPrice,
         currency: priceCurrency,
         priceTry,

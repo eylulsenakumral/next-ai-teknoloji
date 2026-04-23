@@ -26,6 +26,7 @@ export interface PublicProduct {
   priceTry?: number | null
   usdTryRate?: number | null
   campaignDiscountPct?: string | number | null
+  hidePrice?: boolean
 }
 
 /* ------------------------------------------------------------------ */
@@ -160,7 +161,11 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
 
         {/* Price / Login CTA */}
         <div className="mt-auto pt-3">
-        {hideLoginCTA && product.price != null ? (
+        {hideLoginCTA && product.hidePrice ? (
+          <p className="text-[12px] font-semibold text-[#a60811] leading-snug">
+            Müşteri Temsilcinizden Özel Fiyat Alınız
+          </p>
+        ) : hideLoginCTA && product.price != null ? (
           <div className="flex items-start justify-between gap-2">
             <div className="flex flex-col">
               <span className="text-[15px] font-bold text-[#0040a4]">
@@ -260,7 +265,13 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
           )}
         </div>
 
-        {hideLoginCTA && product.price != null ? (
+        {hideLoginCTA && product.hidePrice ? (
+          <div className="shrink-0">
+            <p className="text-[12px] font-semibold text-[#a60811] leading-snug whitespace-nowrap">
+              Müşteri Temsilcinizden<br />Özel Fiyat Alınız
+            </p>
+          </div>
+        ) : hideLoginCTA && product.price != null ? (
           <div className="shrink-0 flex items-start gap-3">
             <div className="flex flex-col items-end">
               <span className="text-[15px] font-bold text-[#0040a4]">
