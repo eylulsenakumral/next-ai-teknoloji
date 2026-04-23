@@ -1,5 +1,5 @@
 // ============================================================================
-// WhatsApp AI Engine — NexaDepo Ürün Danışmanı
+// WhatsApp AI Engine — NexaDepo Ürün Danışmanı (Gelişmiş)
 // ============================================================================
 import OpenAI from "openai";
 import { prisma } from "@/lib/db";
@@ -39,7 +39,7 @@ async function getAIModel(): Promise<string> {
 }
 
 // ---------------------------------------------------------------------------
-// System Prompt — ÜRÜN DANIŞMANI
+// System Prompt — GELIŞMIŞ ÜRÜN DANIŞMANI
 // ---------------------------------------------------------------------------
 function buildSystemPrompt(context: ConversationContext): string {
   const isVerified = context.isVerified ?? false;
@@ -51,7 +51,7 @@ function buildSystemPrompt(context: ConversationContext): string {
     ? "→ BAYİ FİYATI göster (alış + kar marjı)"
     : "→ SON KULLANICI FİYATI göster (manualPrice). Fiyat gösterirken sonuna kısa bir not ekle: 'Bayi fiyatlarımız için DOĞRULA [bayi_kodu] yazabilirsiniz.'";
 
-  return [
+  const lines = [
     "Sen NexaDepo'nun Profesyonel Ürün Danışmanısın.",
     "",
     "👤 KİMLİK:",
@@ -61,8 +61,8 @@ function buildSystemPrompt(context: ConversationContext): string {
     "",
     "🎯 GÖREVİN:",
     "1. Müşterinin ihtiyacını anla",
-    "2. Doğru ürünü bul",
-    "3. Teknik sorular sor (performans, ekonomik, kullanım amacı)",
+    "2. Belirleyici sorular sor → gereksinim profili oluştur",
+    "3. Doğru ürünü bul (spec bazlı filtreleme)",
     "4. Ürünü detaylı sun",
     "",
     "❌ ÖNEMLİ KISITLAMALAR:",
@@ -78,22 +78,48 @@ function buildSystemPrompt(context: ConversationContext): string {
     "- Doğrulama konusunda ISRARCI OLMA. Müşteri sadece ürün soruyorsa normal cevap ver.",
     "- Sadece fiyat sorduğunda son kullanıcı fiyatını gösterip doğrulama notu ekle.",
     "",
-    "🔍 TEKNİK SORU SORMA ÖRNEKLERİ:",
-    "- Kameracı: \"IP mi, AHD mi, yoksa wifi mı tercih edersiniz?\"",
-    "- Kayıt cihazı: \"Kaç gün kayıt saklamak istiyorsunuz? 1 disk yeterli olur mu?\"",
-    "- Switch: \"Kaç kamera bağlayacaksınız? PoE gücü yeterli mi?\"",
+    "🏗️ CCTV/GÜVENLİK ALAN BİLGİSİ:",
+    "- Kamera tipleri: IP (network), AHD (analog HD), WiFi, Turbo HD",
+    "- Form faktörleri: Dome (tavan/monte), Bullet (duvar/cidde), PTZ/Speed Dome (hareketli), Turret (göz küresi)",
+    "- Çözünürlükler: 2MP (1080p), 4MP (1440p), 5MP, 8MP (4K)",
+    "- Temel özellikler: IR gece görüşü, Full Color / ColorVu (renkli gece), AI/SMD (akıllı algılama), AcuSense, WDR, PoE",
+    "- Kayıt cihazları: NVR (IP kameralar), DVR (AHD kameralar), XVR (ikisini de destekler)",
+    "- Kanal sayısı: 4, 8, 16, 32, 64 kanal seçenekleri",
+    "- Depolama: Süveylans HDD (WD Purple, Seagate SkyHawk), SSD cache",
+    "- Network: PoE switch (toplam watt'ı kamera sayısına göre eşleştir), managed vs unmanaged",
     "",
-    "📋 ÇALIŞMA AKISI:",
-    "1. Müşteri bir ürün sorduğunda → search_products ile ara",
-    "2. Ürün bulundu → check_product_details ile detayları al",
-    "3. Teknik soru sor → müşterinin niyetini anla",
-    "4. inquiry_price ile fiyat göster",
-    "5. Kullanıcı onaylarsa → create_order ile sipariş al",
+    "📋 VERİTABANI SPEC KEY'LERİ (Türkçe):",
+    "- Cozunurluk / Cikis → çözünürlük (2MP, 4MP, 8MP)",
+    "- Gece Gorusu / IR Mesafe → gece görüşü mesafesi ve tipi",
+    "- Tip / Cihaz Tipi → form faktörü (Dome, Bullet, PTZ)",
+    "- IP Sinifi → koruma sınıfı (IP67, IP67+IK10)",
+    "- Lens → odak uzaklığı (2.8mm, 4mm, 2.8-12mm)",
+    "- Kanal Sayisi → NVR/DVR kanal sayısı",
+    "- HDD Yuvasi / Max HDD → disk kapasitesi",
+    "- Port Sayisi / Toplam Port → switch port sayısı",
+    "- PoE Port / PoE Butcesi → PoE güç bütçesi",
+    "- Codec → video sıkıştırma (H.265+, H.264)",
+    "",
+    "🔄 BELİRLEYİCİ SORU AKIŞI (MUTLAKA UY):",
+    "1. Müşteri bir ürün tipi sorduğunda → search_by_specs ile teknik spec'lere göre ara",
+    "2. Sonuçlar geldiğinde, hemen ürün önerME → önce 1-2 belirleyici soru sor",
+    "3. update_requirements tool'u ile müşterinin verdiklerini ve sorulacak soruları kaydet",
+    "4. Müşteri cevap verdikten sonra → search_by_specs ile daraltılmış arama yap",
+    "5. 2-3 en uygun ürünü öner, kilit özellikleri vurgula",
+    "6. Fiyat/stok teklif et",
+    "",
+    "Soru kuralları:",
+    "- Her turn'da maksimum 2 soru sor",
+    "- Sorular seçenekli olsun (örn: \"IP mi AHD mi?\" değil \"Hangi teknolojiyi istersiniz: IP kamera mı AHD kamera mı?\")",
+    "- Müşteri yeterince detay belirtmişse soru sorma, direkt öner",
+    "- Daha önce sorulup cevaplanan şeyi tekrar sorma",
     "",
     "🛠️ TOOL'LAR:",
-    "- search_products: Ürün ara (isim, marka, kategori, barkod)",
+    "- search_products: Genel ürün arama (isim, marka, kategori, barkod)",
+    "- search_by_specs: Teknik spec'lere göre arama (Cozunurluk, Tip, Gece Gorusu vb.)",
+    "- update_requirements: Müşteri gereksinim profilini güncelle",
     "- get_categories: Kategorileri listele",
-    "- check_product_details: Ürünün tüm detaylarını getir (özellikler, teknik spesifikasyonlar)",
+    "- get_product_details: Ürünün tüm detaylarını getir",
     "- check_stock: Stok durumu sorgula",
     "- inquiry_price: Fiyat bilgisi ver",
     "- create_order: Sipariş oluştur",
@@ -101,25 +127,76 @@ function buildSystemPrompt(context: ConversationContext): string {
     "",
     `📌 MÜŞTERİ BİLGİSİ: ${customerInfo}`,
     "",
-    "⚡ KURAL: İlk olarak ürünü bul, sonra detay sor, sonra fiyat göster.",
-  ].join("\n");
+    "⚡ KURAL: Teknik spec belirten müşterilerde → önce update_requirements, sonra search_by_specs, sonra belirleyici sorular, sonra öneri.",
+  ];
+
+  // Inject requirement profile
+  if (context.requirementProfile) {
+    const rp = context.requirementProfile;
+    lines.push("", "📌 MEVCUT MÜŞTERİ İHTİYAÇLARI:");
+    if (rp.productType) lines.push(`- Ürün tipi: ${rp.productType}`);
+    if (rp.specs && Object.keys(rp.specs).length > 0) {
+      for (const [key, val] of Object.entries(rp.specs)) {
+        lines.push(`- ${key}: ${val}`);
+      }
+    }
+    if (rp.answeredQuestions && rp.answeredQuestions.length > 0) {
+      lines.push("", "✅ CEVAPLANAN SORULAR:");
+      rp.answeredQuestions.forEach((q) => lines.push(`- ${q.question} → ${q.answer}`));
+    }
+    if (rp.openQuestions && rp.openQuestions.length > 0) {
+      lines.push("", "⏳ HENÜZ SORULACAK SORULAR:");
+      rp.openQuestions.forEach((q) => lines.push(`- ${q}`));
+    }
+  }
+
+  return lines.join("\n");
 }
 
 // ---------------------------------------------------------------------------
-// Generate AI Response with tool-use loop
+// Generate AI Response with tool-use loop + conversation history
 // ---------------------------------------------------------------------------
 export async function generateAIResponse(params: {
   userMessage: string;
   context: ConversationContext;
   conversationId: string;
 }): Promise<AIResponse> {
-  const { userMessage, context } = params;
+  const { userMessage, context, conversationId } = params;
   const model = await getAIModel();
 
   const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
     { role: "system", content: buildSystemPrompt(context) },
-    { role: "user", content: userMessage },
   ];
+
+  // Load last 6 messages for multi-turn qualifying dialog
+  try {
+    const recentMessages = await prisma.whatsAppMessage.findMany({
+      where: {
+        conversationId,
+        direction: { in: ["INBOUND", "OUTBOUND"] },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 6,
+      select: { direction: true, content: true },
+    });
+
+    // Reverse to chronological order
+    const history = recentMessages.reverse();
+    for (const msg of history) {
+      const content = (msg.content ?? "").slice(0, 300); // Truncate long messages
+      if (!content) continue;
+      if (msg.direction === "INBOUND") {
+        messages.push({ role: "user", content });
+      } else {
+        messages.push({ role: "assistant", content });
+      }
+    }
+  } catch {
+    // History loading failed — continue without it
+  }
+
+  // Current message
+  messages.push({ role: "user", content: userMessage });
 
   const toolCalls: AIResponse["toolCalls"] = [];
   let totalTokens = 0;

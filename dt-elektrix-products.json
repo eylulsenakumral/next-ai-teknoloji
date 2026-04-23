@@ -1,0 +1,2038 @@
+{
+  "products": [
+    {
+      "id": 7077375410229,
+      "title": "Convection Microwave Oven",
+      "handle": "convection-microwave-oven",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:42:27-04:00",
+      "created_at": "2022-10-19T01:42:25-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Electrdo",
+      "product_type": "Oven",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41840556998709,
+          "title": "Silver / 47.5D x 51.7W x 31H cm / 28 litres",
+          "option1": "Silver",
+          "option2": "47.5D x 51.7W x 31H cm",
+          "option3": "28 litres",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": null,
+          "available": false,
+          "price": "29999.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077375410229,
+          "created_at": "2022-10-19T05:38:08-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32898973859893,
+          "created_at": "2022-10-19T05:40:08-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T05:40:08-04:00",
+          "product_id": 7077375410229,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro18_d6dea919-204d-4289-919c-c3d532336506.jpg?v=1666172408",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Silver"
+          ]
+        },
+        {
+          "name": "Product Dimensions",
+          "position": 2,
+          "values": [
+            "47.5D x 51.7W x 31H cm"
+          ]
+        },
+        {
+          "name": "Capacity",
+          "position": 3,
+          "values": [
+            "28 litres"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077375279157,
+      "title": "Inverter Triple Door Refrigerator",
+      "handle": "inverter-triple-door-refrigerator",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:42:16-04:00",
+      "created_at": "2022-10-19T01:42:15-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Electrdo",
+      "product_type": "Refrigerator",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41840552640565,
+          "title": "Silver / French Door / 579 litres",
+          "option1": "Silver",
+          "option2": "French Door",
+          "option3": "579 litres",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896959938613,
+            "product_id": 7077375279157,
+            "position": 1,
+            "created_at": "2022-10-19T01:42:15-04:00",
+            "updated_at": "2022-10-19T01:42:16-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro19.jpg?v=1666158136",
+            "variant_ids": [
+              41840552640565
+            ]
+          },
+          "available": true,
+          "price": "82990.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077375279157,
+          "created_at": "2022-10-19T05:36:19-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896959938613,
+          "created_at": "2022-10-19T01:42:15-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T01:42:16-04:00",
+          "product_id": 7077375279157,
+          "variant_ids": [
+            41840552640565
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro19.jpg?v=1666158136",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Silver"
+          ]
+        },
+        {
+          "name": "Configuration",
+          "position": 2,
+          "values": [
+            "French Door"
+          ]
+        },
+        {
+          "name": "Capacity",
+          "position": 3,
+          "values": [
+            "579 litres"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077375148085,
+      "title": "Convection Kitchen Gas Stove",
+      "handle": "convection-kitchen-gas-stove",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:42:05-04:00",
+      "created_at": "2022-10-19T01:42:04-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Electrdo",
+      "product_type": "Gas Stove",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41840585277493,
+          "title": "Silver / Steel / Sensor Cook",
+          "option1": "Silver",
+          "option2": "Steel",
+          "option3": "Sensor Cook",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32898979790901,
+            "product_id": 7077375148085,
+            "position": 1,
+            "created_at": "2022-10-19T05:40:28-04:00",
+            "updated_at": "2022-10-19T05:40:30-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro20.jpg?v=1666172430",
+            "variant_ids": [
+              41840585277493
+            ]
+          },
+          "available": true,
+          "price": "35990.00",
+          "grams": 0,
+          "compare_at_price": "50000.00",
+          "position": 1,
+          "product_id": 7077375148085,
+          "created_at": "2022-10-19T05:46:15-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32898979790901,
+          "created_at": "2022-10-19T05:40:28-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T05:40:30-04:00",
+          "product_id": 7077375148085,
+          "variant_ids": [
+            41840585277493
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro20.jpg?v=1666172430",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Silver"
+          ]
+        },
+        {
+          "name": "Material",
+          "position": 2,
+          "values": [
+            "Steel"
+          ]
+        },
+        {
+          "name": "Special Feature",
+          "position": 3,
+          "values": [
+            "Sensor Cook"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077375017013,
+      "title": "Smart Tablet with Google Assistant",
+      "handle": "smart-tablet-with-google-assistant",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:41:53-04:00",
+      "created_at": "2022-10-19T01:41:51-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Television-sky",
+      "product_type": "Mobile phone",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41840592781365,
+          "title": "Black / Android / \u200e1920 x 1200 pixels",
+          "option1": "Black",
+          "option2": "Android",
+          "option3": "\u200e1920 x 1200 pixels",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896958627893,
+            "product_id": 7077375017013,
+            "position": 1,
+            "created_at": "2022-10-19T01:41:52-04:00",
+            "updated_at": "2022-10-19T01:41:53-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro17.jpg?v=1666158113",
+            "variant_ids": [
+              41840592781365
+            ]
+          },
+          "available": true,
+          "price": "49570.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077375017013,
+          "created_at": "2022-10-19T05:47:59-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896958627893,
+          "created_at": "2022-10-19T01:41:52-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T01:41:53-04:00",
+          "product_id": 7077375017013,
+          "variant_ids": [
+            41840592781365
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro17.jpg?v=1666158113",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Black"
+          ]
+        },
+        {
+          "name": "OS\t\u200e",
+          "position": 2,
+          "values": [
+            "Android"
+          ]
+        },
+        {
+          "name": "Display resolution",
+          "position": 3,
+          "values": [
+            "\u200e1920 x 1200 pixels"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077374787637,
+      "title": "G21 Android Smartphone Dual SIM",
+      "handle": "g21-android-smartphone-dual-sim",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:41:43-04:00",
+      "created_at": "2022-10-19T01:41:42-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Mobile Veritas",
+      "product_type": "Mobile phone",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41839971369013,
+          "title": "Yellow / Android 11 64bits / 4G",
+          "option1": "Yellow",
+          "option2": "Android 11 64bits",
+          "option3": "4G",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896957579317,
+            "product_id": 7077374787637,
+            "position": 1,
+            "created_at": "2022-10-19T01:41:42-04:00",
+            "updated_at": "2022-10-19T01:41:43-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro16.jpg?v=1666158103",
+            "variant_ids": [
+              41839971369013
+            ]
+          },
+          "available": true,
+          "price": "25990.00",
+          "grams": 0,
+          "compare_at_price": "30000.00",
+          "position": 1,
+          "product_id": 7077374787637,
+          "created_at": "2022-10-19T02:37:55-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896957579317,
+          "created_at": "2022-10-19T01:41:42-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T01:41:43-04:00",
+          "product_id": 7077374787637,
+          "variant_ids": [
+            41839971369013
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro16.jpg?v=1666158103",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Yellow"
+          ]
+        },
+        {
+          "name": "OS",
+          "position": 2,
+          "values": [
+            "Android 11 64bits"
+          ]
+        },
+        {
+          "name": "Cellular Technology",
+          "position": 3,
+          "values": [
+            "4G"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077374558261,
+      "title": "Digital SLR Camera (Black)",
+      "handle": "digital-slr-camera-black",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:41:34-04:00",
+      "created_at": "2022-10-19T01:41:32-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Camera-Hybrid",
+      "product_type": "Camera",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41840545923125,
+          "title": "DSLR / Black / 5 x",
+          "option1": "DSLR",
+          "option2": "Black",
+          "option3": "5 x",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32897489698869,
+            "product_id": 7077374558261,
+            "position": 1,
+            "created_at": "2022-10-19T02:52:13-04:00",
+            "updated_at": "2022-10-19T02:52:18-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro15.jpg?v=1666162338",
+            "variant_ids": [
+              41840545923125
+            ]
+          },
+          "available": true,
+          "price": "239990.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077374558261,
+          "created_at": "2022-10-19T05:33:34-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        },
+        {
+          "id": 41840545955893,
+          "title": "DSLR / Blue / 5 x",
+          "option1": "DSLR",
+          "option2": "Blue",
+          "option3": "5 x",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32897489731637,
+            "product_id": 7077374558261,
+            "position": 2,
+            "created_at": "2022-10-19T02:52:13-04:00",
+            "updated_at": "2022-10-19T02:52:18-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro15.1.jpg?v=1666162338",
+            "variant_ids": [
+              41840545955893
+            ]
+          },
+          "available": true,
+          "price": "239990.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 2,
+          "product_id": 7077374558261,
+          "created_at": "2022-10-19T05:33:34-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32897489698869,
+          "created_at": "2022-10-19T02:52:13-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T02:52:18-04:00",
+          "product_id": 7077374558261,
+          "variant_ids": [
+            41840545923125
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro15.jpg?v=1666162338",
+          "width": 960,
+          "height": 910
+        },
+        {
+          "id": 32897489731637,
+          "created_at": "2022-10-19T02:52:13-04:00",
+          "position": 2,
+          "updated_at": "2022-10-19T02:52:18-04:00",
+          "product_id": 7077374558261,
+          "variant_ids": [
+            41840545955893
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro15.1.jpg?v=1666162338",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Form Factor",
+          "position": 1,
+          "values": [
+            "DSLR"
+          ]
+        },
+        {
+          "name": "Color",
+          "position": 2,
+          "values": [
+            "Black",
+            "Blue"
+          ]
+        },
+        {
+          "name": "Optical Zoom",
+          "position": 3,
+          "values": [
+            "5 x"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077374328885,
+      "title": "Inverter Split AC",
+      "handle": "inverter-split-ac",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:41:20-04:00",
+      "created_at": "2022-10-19T01:41:19-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Electrdo",
+      "product_type": "Air Conditioner",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41840537927733,
+          "title": "5 Kilowatts / 1.5 Tons / White",
+          "option1": "5 Kilowatts",
+          "option2": "1.5 Tons",
+          "option3": "White",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896954597429,
+            "product_id": 7077374328885,
+            "position": 1,
+            "created_at": "2022-10-19T01:41:19-04:00",
+            "updated_at": "2022-10-19T01:41:21-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro14.1.jpg?v=1666158081",
+            "variant_ids": [
+              41840537927733
+            ]
+          },
+          "available": true,
+          "price": "45900.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077374328885,
+          "created_at": "2022-10-19T05:28:48-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        },
+        {
+          "id": 41840537960501,
+          "title": "5 Kilowatts / 1.5 Tons / Black",
+          "option1": "5 Kilowatts",
+          "option2": "1.5 Tons",
+          "option3": "Black",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896954531893,
+            "product_id": 7077374328885,
+            "position": 2,
+            "created_at": "2022-10-19T01:41:19-04:00",
+            "updated_at": "2022-10-19T01:41:21-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro14.2.jpg?v=1666158081",
+            "variant_ids": [
+              41840537960501
+            ]
+          },
+          "available": true,
+          "price": "39999.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 2,
+          "product_id": 7077374328885,
+          "created_at": "2022-10-19T05:28:48-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        },
+        {
+          "id": 41840537993269,
+          "title": "5 Kilowatts / 1.5 Tons / Grey",
+          "option1": "5 Kilowatts",
+          "option2": "1.5 Tons",
+          "option3": "Grey",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896954695733,
+            "product_id": 7077374328885,
+            "position": 3,
+            "created_at": "2022-10-19T01:41:19-04:00",
+            "updated_at": "2022-10-19T01:41:21-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro14.jpg?v=1666158081",
+            "variant_ids": [
+              41840537993269
+            ]
+          },
+          "available": true,
+          "price": "34980.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 3,
+          "product_id": 7077374328885,
+          "created_at": "2022-10-19T05:28:48-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896954597429,
+          "created_at": "2022-10-19T01:41:19-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T01:41:21-04:00",
+          "product_id": 7077374328885,
+          "variant_ids": [
+            41840537927733
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro14.1.jpg?v=1666158081",
+          "width": 960,
+          "height": 910
+        },
+        {
+          "id": 32896954531893,
+          "created_at": "2022-10-19T01:41:19-04:00",
+          "position": 2,
+          "updated_at": "2022-10-19T01:41:21-04:00",
+          "product_id": 7077374328885,
+          "variant_ids": [
+            41840537960501
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro14.2.jpg?v=1666158081",
+          "width": 960,
+          "height": 910
+        },
+        {
+          "id": 32896954695733,
+          "created_at": "2022-10-19T01:41:19-04:00",
+          "position": 3,
+          "updated_at": "2022-10-19T01:41:21-04:00",
+          "product_id": 7077374328885,
+          "variant_ids": [
+            41840537993269
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro14.jpg?v=1666158081",
+          "width": 960,
+          "height": 910
+        },
+        {
+          "id": 36659241025589,
+          "created_at": "2022-11-03T00:19:03-04:00",
+          "position": 4,
+          "updated_at": "2022-11-03T00:19:03-04:00",
+          "product_id": 7077374328885,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/files/image-6.jpg?v=1667449143",
+          "width": 400,
+          "height": 408
+        },
+        {
+          "id": 36659241058357,
+          "created_at": "2022-11-03T00:19:17-04:00",
+          "position": 5,
+          "updated_at": "2022-11-03T00:19:17-04:00",
+          "product_id": 7077374328885,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/files/image-7.jpg?v=1667449157",
+          "width": 400,
+          "height": 408
+        },
+        {
+          "id": 36659241091125,
+          "created_at": "2022-11-03T00:19:42-04:00",
+          "position": 6,
+          "updated_at": "2022-11-03T00:19:42-04:00",
+          "product_id": 7077374328885,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/files/image-8.jpg?v=1667449182",
+          "width": 800,
+          "height": 656
+        },
+        {
+          "id": 36659241123893,
+          "created_at": "2022-11-03T00:19:59-04:00",
+          "position": 7,
+          "updated_at": "2022-11-03T00:19:59-04:00",
+          "product_id": 7077374328885,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/files/image-9.jpg?v=1667449199",
+          "width": 800,
+          "height": 592
+        },
+        {
+          "id": 36659241156661,
+          "created_at": "2022-11-03T00:17:35-04:00",
+          "position": 8,
+          "updated_at": "2022-11-03T00:17:35-04:00",
+          "product_id": 7077374328885,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/files/image-3.jpg?v=1667449055",
+          "width": 400,
+          "height": 400
+        },
+        {
+          "id": 36659241189429,
+          "created_at": "2022-11-03T00:18:48-04:00",
+          "position": 9,
+          "updated_at": "2022-11-03T00:18:48-04:00",
+          "product_id": 7077374328885,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/files/image-5.jpg?v=1667449128",
+          "width": 400,
+          "height": 408
+        },
+        {
+          "id": 36659241222197,
+          "created_at": "2022-11-03T00:17:50-04:00",
+          "position": 10,
+          "updated_at": "2022-11-03T00:17:50-04:00",
+          "product_id": 7077374328885,
+          "variant_ids": [],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/files/image-4.jpg?v=1667449070",
+          "width": 400,
+          "height": 400
+        }
+      ],
+      "options": [
+        {
+          "name": "Cooling Power",
+          "position": 1,
+          "values": [
+            "5 Kilowatts"
+          ]
+        },
+        {
+          "name": "Capacity",
+          "position": 2,
+          "values": [
+            "1.5 Tons"
+          ]
+        },
+        {
+          "name": "Color",
+          "position": 3,
+          "values": [
+            "White",
+            "Black",
+            "Grey"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077373935669,
+      "title": "Cozy Padded Earcups Headphones",
+      "handle": "cozy-padded-earcups-headphones",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:40:59-04:00",
+      "created_at": "2022-10-19T01:40:58-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Products-vibe",
+      "product_type": "Headphones",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41840241541173,
+          "title": "Blue / Wireless / On Ear",
+          "option1": "Blue",
+          "option2": "Wireless",
+          "option3": "On Ear",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896951975989,
+            "product_id": 7077373935669,
+            "position": 1,
+            "created_at": "2022-10-19T01:40:58-04:00",
+            "updated_at": "2022-10-19T02:51:25-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro13.jpg?v=1666162285",
+            "variant_ids": [
+              41840241541173
+            ]
+          },
+          "available": false,
+          "price": "2399.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077373935669,
+          "created_at": "2022-10-19T03:40:02-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        },
+        {
+          "id": 41840241573941,
+          "title": "Black / Wireless / On Ear",
+          "option1": "Black",
+          "option2": "Wireless",
+          "option3": "On Ear",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32897483276341,
+            "product_id": 7077373935669,
+            "position": 2,
+            "created_at": "2022-10-19T02:51:03-04:00",
+            "updated_at": "2022-10-19T02:51:25-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro13_1125fba1-d0b6-432e-9742-55f5a8574ab6.jpg?v=1666162285",
+            "variant_ids": [
+              41840241573941
+            ]
+          },
+          "available": false,
+          "price": "1544.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 2,
+          "product_id": 7077373935669,
+          "created_at": "2022-10-19T03:40:02-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896951975989,
+          "created_at": "2022-10-19T01:40:58-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T02:51:25-04:00",
+          "product_id": 7077373935669,
+          "variant_ids": [
+            41840241541173
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro13.jpg?v=1666162285",
+          "width": 960,
+          "height": 910
+        },
+        {
+          "id": 32897483276341,
+          "created_at": "2022-10-19T02:51:03-04:00",
+          "position": 2,
+          "updated_at": "2022-10-19T02:51:25-04:00",
+          "product_id": 7077373935669,
+          "variant_ids": [
+            41840241573941
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro13_1125fba1-d0b6-432e-9742-55f5a8574ab6.jpg?v=1666162285",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Blue",
+            "Black"
+          ]
+        },
+        {
+          "name": "Connectivity Type",
+          "position": 2,
+          "values": [
+            "Wireless"
+          ]
+        },
+        {
+          "name": "Form Factor",
+          "position": 3,
+          "values": [
+            "On Ear"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077373739061,
+      "title": "Wireless Gaming Controller Joystick",
+      "handle": "wireless-gaming-controller-joystick",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:40:45-04:00",
+      "created_at": "2022-10-19T01:40:44-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Mobile Veritas",
+      "product_type": "Joystick",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41840529145909,
+          "title": "Black / 240 g / 16.8 x 10.4 x 7 cm",
+          "option1": "Black",
+          "option2": "240 g",
+          "option3": "16.8 x 10.4 x 7 cm",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32897487241269,
+            "product_id": 7077373739061,
+            "position": 1,
+            "created_at": "2022-10-19T02:51:50-04:00",
+            "updated_at": "2022-10-19T02:51:54-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro12.jpg?v=1666162314",
+            "variant_ids": [
+              41840529145909
+            ]
+          },
+          "available": true,
+          "price": "850.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077373739061,
+          "created_at": "2022-10-19T05:26:08-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        },
+        {
+          "id": 41840529178677,
+          "title": "Blue / 240 g / 16.8 x 10.4 x 7 cm",
+          "option1": "Blue",
+          "option2": "240 g",
+          "option3": "16.8 x 10.4 x 7 cm",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32897486553141,
+            "product_id": 7077373739061,
+            "position": 2,
+            "created_at": "2022-10-19T02:51:38-04:00",
+            "updated_at": "2022-10-19T02:51:54-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro12.1_f36fa61d-a6a0-4346-b5a8-a5b0ed3b76fb.jpg?v=1666162314",
+            "variant_ids": [
+              41840529178677
+            ]
+          },
+          "available": true,
+          "price": "790.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 2,
+          "product_id": 7077373739061,
+          "created_at": "2022-10-19T05:26:08-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32897487241269,
+          "created_at": "2022-10-19T02:51:50-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T02:51:54-04:00",
+          "product_id": 7077373739061,
+          "variant_ids": [
+            41840529145909
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro12.jpg?v=1666162314",
+          "width": 960,
+          "height": 910
+        },
+        {
+          "id": 32897486553141,
+          "created_at": "2022-10-19T02:51:38-04:00",
+          "position": 2,
+          "updated_at": "2022-10-19T02:51:54-04:00",
+          "product_id": 7077373739061,
+          "variant_ids": [
+            41840529178677
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro12.1_f36fa61d-a6a0-4346-b5a8-a5b0ed3b76fb.jpg?v=1666162314",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Black",
+            "Blue"
+          ]
+        },
+        {
+          "name": "Item Weight",
+          "position": 2,
+          "values": [
+            "240 g"
+          ]
+        },
+        {
+          "name": "Package Dimensions",
+          "position": 3,
+          "values": [
+            "16.8 x 10.4 x 7 cm"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077373542453,
+      "title": "4K Ultra HD Smart LED Fire TV",
+      "handle": "4k-ultra-hd-smart-led-fire-tv",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:40:33-04:00",
+      "created_at": "2022-10-19T01:40:31-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Television-sky",
+      "product_type": "Television",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41839871524917,
+          "title": "43 Inches / LED / Black",
+          "option1": "43 Inches",
+          "option2": "LED",
+          "option3": "Black",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896950140981,
+            "product_id": 7077373542453,
+            "position": 1,
+            "created_at": "2022-10-19T01:40:31-04:00",
+            "updated_at": "2022-10-19T01:40:34-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro11.2.jpg?v=1666158034",
+            "variant_ids": [
+              41839871524917
+            ]
+          },
+          "available": true,
+          "price": "59999.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077373542453,
+          "created_at": "2022-10-19T02:22:50-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        },
+        {
+          "id": 41839871557685,
+          "title": "45 Inches / LED / Black",
+          "option1": "45 Inches",
+          "option2": "LED",
+          "option3": "Black",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896949944373,
+            "product_id": 7077373542453,
+            "position": 2,
+            "created_at": "2022-10-19T01:40:31-04:00",
+            "updated_at": "2022-10-19T01:40:33-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro11.1.jpg?v=1666158033",
+            "variant_ids": [
+              41839871557685
+            ]
+          },
+          "available": true,
+          "price": "54999.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 2,
+          "product_id": 7077373542453,
+          "created_at": "2022-10-19T02:22:50-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896950140981,
+          "created_at": "2022-10-19T01:40:31-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T01:40:34-04:00",
+          "product_id": 7077373542453,
+          "variant_ids": [
+            41839871524917
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro11.2.jpg?v=1666158034",
+          "width": 960,
+          "height": 910
+        },
+        {
+          "id": 32896949944373,
+          "created_at": "2022-10-19T01:40:31-04:00",
+          "position": 2,
+          "updated_at": "2022-10-19T01:40:33-04:00",
+          "product_id": 7077373542453,
+          "variant_ids": [
+            41839871557685
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro11.1.jpg?v=1666158033",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Screen Size",
+          "position": 1,
+          "values": [
+            "43 Inches",
+            "45 Inches"
+          ]
+        },
+        {
+          "name": "Display Technology",
+          "position": 2,
+          "values": [
+            "LED"
+          ]
+        },
+        {
+          "name": "Color",
+          "position": 3,
+          "values": [
+            "Black"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077373313077,
+      "title": "Action Camera-With Mounting Accessories",
+      "handle": "action-camera-with-mounting-accessories",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:40:14-04:00",
+      "created_at": "2022-10-19T01:40:13-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Camera-Hybrid",
+      "product_type": "Camera",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41840107454517,
+          "title": "Black / 2 Centimeter / Micro SD",
+          "option1": "Black",
+          "option2": "2 Centimeter",
+          "option3": "Micro SD",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896947912757,
+            "product_id": 7077373313077,
+            "position": 2,
+            "created_at": "2022-10-19T01:40:13-04:00",
+            "updated_at": "2022-10-19T01:40:15-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro10.1.jpg?v=1666158015",
+            "variant_ids": [
+              41840107454517
+            ]
+          },
+          "available": true,
+          "price": "2090.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077373313077,
+          "created_at": "2022-10-19T03:03:33-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        },
+        {
+          "id": 41840107487285,
+          "title": "Grey / 2 Centimeter / Micro SD",
+          "option1": "Grey",
+          "option2": "2 Centimeter",
+          "option3": "Micro SD",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896947945525,
+            "product_id": 7077373313077,
+            "position": 1,
+            "created_at": "2022-10-19T01:40:13-04:00",
+            "updated_at": "2022-10-19T01:40:15-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro10.jpg?v=1666158015",
+            "variant_ids": [
+              41840107487285
+            ]
+          },
+          "available": true,
+          "price": "2050.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 2,
+          "product_id": 7077373313077,
+          "created_at": "2022-10-19T03:03:33-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896947945525,
+          "created_at": "2022-10-19T01:40:13-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T01:40:15-04:00",
+          "product_id": 7077373313077,
+          "variant_ids": [
+            41840107487285
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro10.jpg?v=1666158015",
+          "width": 960,
+          "height": 910
+        },
+        {
+          "id": 32896947912757,
+          "created_at": "2022-10-19T01:40:13-04:00",
+          "position": 2,
+          "updated_at": "2022-10-19T01:40:15-04:00",
+          "product_id": 7077373313077,
+          "variant_ids": [
+            41840107454517
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro10.1.jpg?v=1666158015",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Black",
+            "Grey"
+          ]
+        },
+        {
+          "name": "Screen size",
+          "position": 2,
+          "values": [
+            "2 Centimeter"
+          ]
+        },
+        {
+          "name": "Flash Memory",
+          "position": 3,
+          "values": [
+            "Micro SD"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077373050933,
+      "title": "Wireless Earbud Bluetooth Headphone",
+      "handle": "wireless-earbud-bluetooth-headphone",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:40:00-04:00",
+      "created_at": "2022-10-19T01:39:59-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Products-vibe",
+      "product_type": "Headphones",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41839801565237,
+          "title": "White / In Ear / Wireless",
+          "option1": "White",
+          "option2": "In Ear",
+          "option3": "Wireless",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32897491468341,
+            "product_id": 7077373050933,
+            "position": 1,
+            "created_at": "2022-10-19T02:52:34-04:00",
+            "updated_at": "2022-10-19T02:52:35-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro09.jpg?v=1666162355",
+            "variant_ids": [
+              41839801565237
+            ]
+          },
+          "available": false,
+          "price": "1290.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077373050933,
+          "created_at": "2022-10-19T01:50:18-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32897491468341,
+          "created_at": "2022-10-19T02:52:34-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T02:52:35-04:00",
+          "product_id": 7077373050933,
+          "variant_ids": [
+            41839801565237
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro09.jpg?v=1666162355",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "White"
+          ]
+        },
+        {
+          "name": "Form Factor",
+          "position": 2,
+          "values": [
+            "In Ear"
+          ]
+        },
+        {
+          "name": "Connector Type",
+          "position": 3,
+          "values": [
+            "Wireless"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077372723253,
+      "title": "Isolated Black Desktop computer",
+      "handle": "isolated-black-desktop-computer",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:39:43-04:00",
+      "created_at": "2022-10-19T01:39:41-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Electrdo",
+      "product_type": "Desktop",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41840257105973,
+          "title": "Black / 310 mm / 357 x 200 x 438 mm",
+          "option1": "Black",
+          "option2": "310 mm",
+          "option3": "357 x 200 x 438 mm",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896943882293,
+            "product_id": 7077372723253,
+            "position": 1,
+            "created_at": "2022-10-19T01:39:42-04:00",
+            "updated_at": "2022-10-19T01:39:43-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro08.1.jpg?v=1666157983",
+            "variant_ids": [
+              41840257105973
+            ]
+          },
+          "available": true,
+          "price": "2897.00",
+          "grams": 0,
+          "compare_at_price": "4500.00",
+          "position": 1,
+          "product_id": 7077372723253,
+          "created_at": "2022-10-19T03:46:44-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        },
+        {
+          "id": 41840257138741,
+          "title": "Multi / 310 mm / 357 x 200 x 438 mm",
+          "option1": "Multi",
+          "option2": "310 mm",
+          "option3": "357 x 200 x 438 mm",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896943915061,
+            "product_id": 7077372723253,
+            "position": 2,
+            "created_at": "2022-10-19T01:39:42-04:00",
+            "updated_at": "2022-10-19T01:39:43-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro08.jpg?v=1666157983",
+            "variant_ids": [
+              41840257138741
+            ]
+          },
+          "available": true,
+          "price": "6799.00",
+          "grams": 0,
+          "compare_at_price": "7800.00",
+          "position": 2,
+          "product_id": 7077372723253,
+          "created_at": "2022-10-19T03:46:44-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896943882293,
+          "created_at": "2022-10-19T01:39:42-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T01:39:43-04:00",
+          "product_id": 7077372723253,
+          "variant_ids": [
+            41840257105973
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro08.1.jpg?v=1666157983",
+          "width": 960,
+          "height": 910
+        },
+        {
+          "id": 32896943915061,
+          "created_at": "2022-10-19T01:39:42-04:00",
+          "position": 2,
+          "updated_at": "2022-10-19T01:39:43-04:00",
+          "product_id": 7077372723253,
+          "variant_ids": [
+            41840257138741
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro08.jpg?v=1666157983",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Black",
+            "Multi"
+          ]
+        },
+        {
+          "name": "VGA Card Length",
+          "position": 2,
+          "values": [
+            "310 mm"
+          ]
+        },
+        {
+          "name": "Chassis Size",
+          "position": 3,
+          "values": [
+            "357 x 200 x 438 mm"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077372428341,
+      "title": "On Ear Bluetooth Headphones",
+      "handle": "on-ear-bluetooth-headphones",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:39:29-04:00",
+      "created_at": "2022-10-19T01:39:28-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Products-vibe",
+      "product_type": "Headphones",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41839803891765,
+          "title": "Orange / On Ear / Wireless",
+          "option1": "Orange",
+          "option2": "On Ear",
+          "option3": "Wireless",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896942374965,
+            "product_id": 7077372428341,
+            "position": 1,
+            "created_at": "2022-10-19T01:39:28-04:00",
+            "updated_at": "2022-10-19T01:39:30-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro07.jpg?v=1666157970",
+            "variant_ids": [
+              41839803891765
+            ]
+          },
+          "available": true,
+          "price": "1850.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077372428341,
+          "created_at": "2022-10-19T01:52:28-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896942374965,
+          "created_at": "2022-10-19T01:39:28-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T01:39:30-04:00",
+          "product_id": 7077372428341,
+          "variant_ids": [
+            41839803891765
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro07.jpg?v=1666157970",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Orange"
+          ]
+        },
+        {
+          "name": "Form Factor",
+          "position": 2,
+          "values": [
+            "On Ear"
+          ]
+        },
+        {
+          "name": "Connector Type",
+          "position": 3,
+          "values": [
+            "Wireless"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077372231733,
+      "title": "Ultra HD Android Smart LED TV X43",
+      "handle": "ultra-hd-android-smart-led-tv-x43",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:39:21-04:00",
+      "created_at": "2022-10-19T01:39:20-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Television-sky",
+      "product_type": "Television",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41839912878133,
+          "title": "47 Inches / LED / 4K",
+          "option1": "47 Inches",
+          "option2": "LED",
+          "option3": "4K",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896941391925,
+            "product_id": 7077372231733,
+            "position": 1,
+            "created_at": "2022-10-19T01:39:20-04:00",
+            "updated_at": "2022-10-19T01:39:22-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro05.jpg?v=1666157962",
+            "variant_ids": [
+              41839912878133
+            ]
+          },
+          "available": true,
+          "price": "25990.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077372231733,
+          "created_at": "2022-10-19T02:25:13-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        },
+        {
+          "id": 41839912910901,
+          "title": "52 Inches / LED / 4K",
+          "option1": "52 Inches",
+          "option2": "LED",
+          "option3": "4K",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896941228085,
+            "product_id": 7077372231733,
+            "position": 2,
+            "created_at": "2022-10-19T01:39:20-04:00",
+            "updated_at": "2022-10-19T01:39:22-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro05.1.jpg?v=1666157962",
+            "variant_ids": [
+              41839912910901
+            ]
+          },
+          "available": true,
+          "price": "34000.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 2,
+          "product_id": 7077372231733,
+          "created_at": "2022-10-19T02:25:13-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896941391925,
+          "created_at": "2022-10-19T01:39:20-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T01:39:22-04:00",
+          "product_id": 7077372231733,
+          "variant_ids": [
+            41839912878133
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro05.jpg?v=1666157962",
+          "width": 960,
+          "height": 910
+        },
+        {
+          "id": 32896941228085,
+          "created_at": "2022-10-19T01:39:20-04:00",
+          "position": 2,
+          "updated_at": "2022-10-19T01:39:22-04:00",
+          "product_id": 7077372231733,
+          "variant_ids": [
+            41839912910901
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro05.1.jpg?v=1666157962",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Screen Size",
+          "position": 1,
+          "values": [
+            "47 Inches",
+            "52 Inches"
+          ]
+        },
+        {
+          "name": "Display Technology",
+          "position": 2,
+          "values": [
+            "LED"
+          ]
+        },
+        {
+          "name": "Resolution",
+          "position": 3,
+          "values": [
+            "4K"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077372035125,
+      "title": "Automatic Front Loading Washing Machine",
+      "handle": "automatic-front-loading-washing-machine",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:39:09-04:00",
+      "created_at": "2022-10-19T01:39:08-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Electrdo",
+      "product_type": "Washing Machine",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41840260677685,
+          "title": "White / 65000 Grams / 7 Kilograms",
+          "option1": "White",
+          "option2": "65000 Grams",
+          "option3": "7 Kilograms",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896939491381,
+            "product_id": 7077372035125,
+            "position": 2,
+            "created_at": "2022-10-19T01:39:08-04:00",
+            "updated_at": "2022-10-19T03:48:55-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro04.1.jpg?v=1666165735",
+            "variant_ids": [
+              41840260677685
+            ]
+          },
+          "available": true,
+          "price": "27980.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077372035125,
+          "created_at": "2022-10-19T03:49:16-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        },
+        {
+          "id": 41840260710453,
+          "title": "Silver / 65000 Grams / 7 Kilograms",
+          "option1": "Silver",
+          "option2": "65000 Grams",
+          "option3": "7 Kilograms",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896939589685,
+            "product_id": 7077372035125,
+            "position": 1,
+            "created_at": "2022-10-19T01:39:08-04:00",
+            "updated_at": "2022-10-19T03:48:55-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro04.jpg?v=1666165735",
+            "variant_ids": [
+              41840260710453
+            ]
+          },
+          "available": true,
+          "price": "30990.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 2,
+          "product_id": 7077372035125,
+          "created_at": "2022-10-19T03:49:17-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896939589685,
+          "created_at": "2022-10-19T01:39:08-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T03:48:55-04:00",
+          "product_id": 7077372035125,
+          "variant_ids": [
+            41840260710453
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro04.jpg?v=1666165735",
+          "width": 960,
+          "height": 910
+        },
+        {
+          "id": 32896939491381,
+          "created_at": "2022-10-19T01:39:08-04:00",
+          "position": 2,
+          "updated_at": "2022-10-19T03:48:55-04:00",
+          "product_id": 7077372035125,
+          "variant_ids": [
+            41840260677685
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro04.1.jpg?v=1666165735",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "White",
+            "Silver"
+          ]
+        },
+        {
+          "name": "Item Weight",
+          "position": 2,
+          "values": [
+            "65000 Grams"
+          ]
+        },
+        {
+          "name": "Capacity",
+          "position": 3,
+          "values": [
+            "7 Kilograms"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077371871285,
+      "title": "FHD Laptop 11th Gen (39.62cm)",
+      "handle": "fhd-laptop-11th-gen-39-62cm",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:38:58-04:00",
+      "created_at": "2022-10-19T01:38:57-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Television-sky",
+      "product_type": "Laptop",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41839951314997,
+          "title": "14.1 Inches / 256 GB / 256 GB",
+          "option1": "14.1 Inches",
+          "option2": "256 GB",
+          "option3": "256 GB",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896938573877,
+            "product_id": 7077371871285,
+            "position": 1,
+            "created_at": "2022-10-19T01:38:57-04:00",
+            "updated_at": "2022-10-19T01:38:59-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro02.jpg?v=1666157939",
+            "variant_ids": [
+              41839951314997
+            ]
+          },
+          "available": true,
+          "price": "34590.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077371871285,
+          "created_at": "2022-10-19T02:30:55-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896938573877,
+          "created_at": "2022-10-19T01:38:57-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T01:38:59-04:00",
+          "product_id": 7077371871285,
+          "variant_ids": [
+            41839951314997
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro02.jpg?v=1666157939",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Screen Size",
+          "position": 1,
+          "values": [
+            "14.1 Inches"
+          ]
+        },
+        {
+          "name": "Hard Disk Size",
+          "position": 2,
+          "values": [
+            "256 GB"
+          ]
+        },
+        {
+          "name": "RAM Memory",
+          "position": 3,
+          "values": [
+            "256 GB"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 7077371707445,
+      "title": "Newly launched Bluetooth Calling Smartwatch",
+      "handle": "newly-launched-bluetooth-calling-smartwatch",
+      "body_html": "<div class=\"product-details\">\n<div class=\"custom-product-desc\">\n  <h6 class=\"product-desc-main-title\">PRODUCT CATEGORY</h6>\n<div class=\"collection-desc\">\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Device Type</p>\n    <h6 class=\"sub-product-desc-maintitle\">Electronic Smart Device</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Processor</p>\n    <h6 class=\"sub-product-desc-maintitle\">Advanced 9nm processor</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Connectivity</p>\n    <h6 class=\"sub-product-desc-maintitle\">Bluetooth 5.0</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Voice Assistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">Google | Siri</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Fast Charging</p>\n    <h6 class=\"sub-product-desc-maintitle\">Yes</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Water Resistant</p>\n    <h6 class=\"sub-product-desc-maintitle\">IPX5 water resistant</h6>\n  </div>\n</div>\n</div>\n<div class=\"custom-product-desc\">\n<h6 class=\"product-desc-main-title\">Other Information</h6>\n<div class=\"collection-desc\"> \n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Warranty</p>\n    <h6 class=\"sub-product-desc-maintitle\">2-years manufacturing Warranty</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer</p>\n    <h6 class=\"sub-product-desc-maintitle\">Shopify Theme Developer</h6>\n  </div>\n  <div class=\"sub-product-desc\"> \n    <p class=\"sub-product-desc-subtitle\">Manufacturer Address</p>\n    <h6 class=\"sub-product-desc-maintitle\">California, United States</h6>\n  </div>\n</div>\n</div>\n</div>",
+      "published_at": "2022-10-19T01:38:47-04:00",
+      "created_at": "2022-10-19T01:38:46-04:00",
+      "updated_at": "2026-04-15T15:48:50-04:00",
+      "vendor": "Products-vibe",
+      "product_type": "Watch",
+      "tags": [],
+      "variants": [
+        {
+          "id": 41839796977717,
+          "title": "Black / Smartphone / Ios",
+          "option1": "Black",
+          "option2": "Smartphone",
+          "option3": "Ios",
+          "sku": "",
+          "requires_shipping": true,
+          "taxable": true,
+          "featured_image": {
+            "id": 32896938049589,
+            "product_id": 7077371707445,
+            "position": 1,
+            "created_at": "2022-10-19T01:38:46-04:00",
+            "updated_at": "2022-10-19T01:38:47-04:00",
+            "alt": null,
+            "width": 960,
+            "height": 910,
+            "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro01.jpg?v=1666157927",
+            "variant_ids": [
+              41839796977717
+            ]
+          },
+          "available": true,
+          "price": "2999.00",
+          "grams": 0,
+          "compare_at_price": null,
+          "position": 1,
+          "product_id": 7077371707445,
+          "created_at": "2022-10-19T01:46:22-04:00",
+          "updated_at": "2026-04-15T15:48:50-04:00"
+        }
+      ],
+      "images": [
+        {
+          "id": 32896938049589,
+          "created_at": "2022-10-19T01:38:46-04:00",
+          "position": 1,
+          "updated_at": "2022-10-19T01:38:47-04:00",
+          "product_id": 7077371707445,
+          "variant_ids": [
+            41839796977717
+          ],
+          "src": "https://cdn.shopify.com/s/files/1/0598/6392/4789/products/Electro01.jpg?v=1666157927",
+          "width": 960,
+          "height": 910
+        }
+      ],
+      "options": [
+        {
+          "name": "Color",
+          "position": 1,
+          "values": [
+            "Black"
+          ]
+        },
+        {
+          "name": "Compatible Devices",
+          "position": 2,
+          "values": [
+            "Smartphone"
+          ]
+        },
+        {
+          "name": "Operating System",
+          "position": 3,
+          "values": [
+            "Ios"
+          ]
+        }
+      ]
+    }
+  ]
+}

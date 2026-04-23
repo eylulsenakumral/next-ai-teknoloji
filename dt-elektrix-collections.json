@@ -1,0 +1,104 @@
+{
+  "collections": [
+    {
+      "id": 278919381045,
+      "title": "Air Conditioners",
+      "handle": "air-conditioners",
+      "description": "",
+      "published_at": "2022-10-15T06:17:00-04:00",
+      "updated_at": "2024-03-21T08:04:30-04:00",
+      "image": null,
+      "products_count": 10
+    },
+    {
+      "id": 278919217205,
+      "title": "Computer Peripherals",
+      "handle": "computer-peripherals",
+      "description": "",
+      "published_at": "2022-10-15T06:15:35-04:00",
+      "updated_at": "2024-03-20T05:59:12-04:00",
+      "image": null,
+      "products_count": 11
+    },
+    {
+      "id": 278144417845,
+      "title": "Desktop",
+      "handle": "desktop",
+      "description": "",
+      "published_at": "2022-09-26T05:48:16-04:00",
+      "updated_at": "2022-11-03T05:25:00-04:00",
+      "image": null,
+      "products_count": 10
+    },
+    {
+      "id": 278919446581,
+      "title": "DSLR",
+      "handle": "dslr",
+      "description": "",
+      "published_at": "2022-10-15T06:17:31-04:00",
+      "updated_at": "2022-11-03T02:58:17-04:00",
+      "image": null,
+      "products_count": 10
+    },
+    {
+      "id": 278919479349,
+      "title": "Head Phone",
+      "handle": "head-phone",
+      "description": "",
+      "published_at": "2022-10-15T06:18:01-04:00",
+      "updated_at": "2022-11-03T03:20:45-04:00",
+      "image": null,
+      "products_count": 9
+    },
+    {
+      "id": 278919315509,
+      "title": "Home Theatre",
+      "handle": "home-theatre",
+      "description": "",
+      "published_at": "2022-10-15T06:16:09-04:00",
+      "updated_at": "2022-11-03T06:50:39-04:00",
+      "image": null,
+      "products_count": 10
+    },
+    {
+      "id": 278222012469,
+      "title": "Laptop",
+      "handle": "laptop",
+      "description": "",
+      "published_at": "2022-09-28T05:54:26-04:00",
+      "updated_at": "2022-11-03T06:50:39-04:00",
+      "image": null,
+      "products_count": 10
+    },
+    {
+      "id": 278919348277,
+      "title": "Monitor",
+      "handle": "monitor",
+      "description": "",
+      "published_at": "2022-10-15T06:16:33-04:00",
+      "updated_at": "2022-11-03T06:50:39-04:00",
+      "image": null,
+      "products_count": 10
+    },
+    {
+      "id": 278919413813,
+      "title": "Smart Watches",
+      "handle": "smart-watches",
+      "description": "",
+      "published_at": "2022-10-15T06:17:18-04:00",
+      "updated_at": "2022-11-03T03:21:24-04:00",
+      "image": null,
+      "products_count": 9
+    },
+    {
+      "id": 278919249973,
+      "title": "Television",
+      "handle": "television",
+      "description": "",
+      "published_at": "2022-10-15T06:15:50-04:00",
+      "updated_at": "2022-11-03T06:50:39-04:00",
+      "image": null,
+      "products_count": 12
+    }
+  ]
+}
