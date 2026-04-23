@@ -8,20 +8,26 @@ export async function searchProducts(
   limit: number = 5,
 ): Promise<string> {
   const normalized = query.trim().toLowerCase();
+  // Split into words for AND-based multi-word search
+  const words = normalized.split(/\s+/).filter(w => w.length > 1);
+
+  // Build OR conditions for each word (name, slug, barcode, sku, brand)
+  const wordConditions = words.map(word => ({
+    OR: [
+      { name: { contains: word, mode: "insensitive" as const } },
+      { slug: { contains: word, mode: "insensitive" as const } },
+      { barcode: { contains: word } },
+      { sku: { contains: word, mode: "insensitive" as const } },
+      { brand: { name: { contains: word, mode: "insensitive" as const } } },
+    ],
+  }));
 
   // Search by name, slug, barcode, SKU, or brand name
+  // Each word must match (AND), but can match any field (OR)
   const products = await prisma.product.findMany({
     where: {
       AND: [
-        {
-          OR: [
-            { name: { contains: normalized, mode: "insensitive" } },
-            { slug: { contains: normalized, mode: "insensitive" } },
-            { barcode: { contains: query.trim() } },
-            { sku: { contains: query.trim(), mode: "insensitive" } },
-            { brand: { name: { contains: normalized, mode: "insensitive" } } },
-          ],
-        },
+        ...wordConditions,
         { isActive: true },
         { deletedAt: null },
       ],

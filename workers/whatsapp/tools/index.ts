@@ -9,6 +9,8 @@ import { inquiryPrice } from "./price-inquiry";
 import { createOrder } from "./order-create";
 import { getCustomerInfo } from "./customer-info";
 import { getCategories } from "./categories";
+import { searchBySpecs } from "./specs-search";
+import { updateRequirements } from "./requirements";
 
 // ---------------------------------------------------------------------------
 // Tool Definitions (OpenAI function calling format)
@@ -157,6 +159,74 @@ export const toolDefinitions: ToolDefinition[] = [
       },
     },
   },
+  {
+    type: "function",
+    function: {
+      name: "search_by_specs",
+      description:
+        "Teknik ozelliklere gore urun ara. Cozunurluk, kamera tipi, form faktoru, gece gorusu gibi spec'lerle filtreleme yap. Musteri teknik spec belirttiginde (2MP, dome, IP kamera, Full Color, 4 kanal vb.) BU TOOLU kullan.",
+      parameters: {
+        type: "object",
+        properties: {
+          category: {
+            type: "string",
+            description: "Kategori filtresi (orn: 'IP Kamera', 'NVR', 'Switch')",
+          },
+          query: {
+            type: "string",
+            description: "Ek metin arama (isim/marka)",
+          },
+          specs: {
+            type: "object",
+            description:
+              "Spec filtreleri. Turkce anahtar kullan: Cozunurluk, Gece Gorusu, IR Mesafe, IP Sinifi, Lens, Kanal Sayisi, HDD Yuvasi, Port Sayisi, PoE Port, Codec, Tip, Renk",
+            properties: {},
+            additionalProperties: { type: "string" },
+          },
+          limit: {
+            type: "number",
+            description: "Max sonuc sayisi (varsayilan: 5)",
+          },
+        },
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "update_requirements",
+      description:
+        "Musteri ihtiyac profilini guncelle. Musterinin belirttigi ozellikleri ve henuz sorulmasi gereken sorulari kaydet. Her arama ve oneri oncesinde cagir.",
+      parameters: {
+        type: "object",
+        properties: {
+          productType: {
+            type: "string",
+            description: "Urun tipi (kamera, NVR, switch vb.)",
+          },
+          specs: {
+            type: "object",
+            description: "Biriken spec gereksinimleri",
+            properties: {},
+            additionalProperties: { type: "string" },
+          },
+          openQuestions: {
+            type: "array",
+            items: { type: "string" },
+            description: "Henuz sorulacak sorular",
+          },
+          answeredQuestion: {
+            type: "object",
+            properties: {
+              question: { type: "string" },
+              answer: { type: "string" },
+            },
+            description: "Musterinin cevapladigi soru",
+          },
+        },
+      },
+    },
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -201,6 +271,23 @@ export async function executeTool(
       );
     case "get_customer_info":
       return getCustomerInfo(context);
+    case "search_by_specs":
+      return searchBySpecs({
+        category: args.category as string | undefined,
+        query: args.query as string | undefined,
+        specs: args.specs as Record<string, string> | undefined,
+        limit: (args.limit as number) ?? 5,
+      });
+    case "update_requirements":
+      return updateRequirements(
+        {
+          productType: args.productType as string | undefined,
+          specs: args.specs as Record<string, string> | undefined,
+          openQuestions: args.openQuestions as string[] | undefined,
+          answeredQuestion: args.answeredQuestion as { question: string; answer: string } | undefined,
+        },
+        context,
+      );
     default:
       return `Bilinmeyen tool: ${name}`;
   }

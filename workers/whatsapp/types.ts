@@ -33,6 +33,13 @@ export interface AIResponse {
   }>;
 }
 
+export interface RequirementProfile {
+  productType?: string;                              // "kamera", "NVR", "switch" vb.
+  specs?: Record<string, string>;                    // biriken spec gereksinimleri
+  openQuestions?: string[];                          // henüz sorulacak sorular
+  answeredQuestions?: Array<{ question: string; answer: string }>;
+}
+
 export interface ConversationContext {
   customerId?: string;
   customerName?: string;
@@ -43,6 +50,7 @@ export interface ConversationContext {
   lastProducts?: Array<{ id: string; name: string }>;
   lastSearch?: string;
   pendingOrder?: PendingOrder;
+  requirementProfile?: RequirementProfile;
   messageCount: number;
 }
 
