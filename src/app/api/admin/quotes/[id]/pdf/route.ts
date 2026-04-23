@@ -148,13 +148,10 @@ export async function GET(
     align-items: center;
     font-size: 10px;
     color: #7f8c9b;
-    border-top: 1px solid #d5dce4;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    margin-top: 30px;
   }
   .footer .company-info { line-height: 1.6; }
+  .footer .iban { font-size: 11px; font-weight: 600; color: #2c3e50; margin-top: 4px; }
   .footer .disclaimer { text-align: right; font-style: italic; }
 </style>
 </head>
@@ -271,6 +268,7 @@ export async function GET(
       ${getSetting("company_address") ? `<br/>${getSetting("company_address")}` : ""}
       ${getSetting("company_phone") ? ` | ${getSetting("company_phone")}` : ""}${getSetting("company_email") ? ` | ${getSetting("company_email")}` : ""}
       ${getSetting("company_tax_office") || getSetting("company_tax_number") ? `<br/>${getSetting("company_tax_office") || ""} ${getSetting("company_tax_number") ? "— " + getSetting("company_tax_number") : ""}` : ""}
+      <div class="iban">IBAN: TR72 0006 2000 0450 0006 2885 83</div>
     </div>
     <div class="disclaimer">
       <div style="font-size:12px;font-weight:600;color:#021fa3;margin-bottom:3px;">Elektronik adına aradığınız herşey için nexadepo.com</div>
