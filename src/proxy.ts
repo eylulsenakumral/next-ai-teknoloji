@@ -28,7 +28,7 @@ const PUBLIC_PATHS = [
 
 // API routes that are public (no auth required)
 // Cron ve sync endpoint'leri kendi auth mekanizmalarını kullanır (Bearer token)
-const PUBLIC_API_PATHS = ["/api/auth", "/api/public", "/api/cron", "/api/chat", "/api/exchange-rate", "/api/indexgrup/sync", "/api/netex/sync", "/api/tesan/sync"]
+const PUBLIC_API_PATHS = ["/api/auth", "/api/public", "/api/cron", "/api/chat", "/api/exchange-rate", "/api/indexgrup/sync", "/api/netex/sync", "/api/tesan/sync", "/api/cleanup-ergen"]
 
 function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.some(
