@@ -187,20 +187,13 @@ export default function AdminQuotesPage() {
     }
   }
 
-  async function handleDownloadPdf(quoteNumber: string, id: string) {
+  async function handleDownloadPdf(_quoteNumber: string, id: string) {
     setPdfLoading(id)
     try {
-      const res = await fetch(`/api/admin/quotes/${id}/pdf`, { method: "POST" })
-      if (!res.ok) throw new Error("PDF oluşturulamadı")
-      const blob = await res.blob()
-      const url = URL.createObjectURL(blob)
-      const a = document.createElement("a")
-      a.href = url
-      a.download = `${quoteNumber}.pdf`
-      a.click()
-      URL.revokeObjectURL(url)
+      // HTML döner → yeni sekmede açılır → tarayıcı yazdır dialogu ile PDF kaydedilir
+      window.open(`/api/admin/quotes/${id}/pdf`, "_blank")
     } catch {
-      alert("PDF oluşturulamadı.")
+      alert("PDF açılamadı.")
     } finally {
       setPdfLoading(null)
     }

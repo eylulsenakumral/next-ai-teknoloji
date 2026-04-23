@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import { prisma } from "@/lib/db"
 import { formatCurrency, formatDate } from "@/lib/utils/format"
-import puppeteer from "puppeteer"
 import { readFileSync, existsSync } from "fs"
 import { join } from "path"
 
@@ -282,20 +281,16 @@ export async function POST(
 </body>
 </html>`
 
-    const browser = await puppeteer.launch({ headless: true, args: ["--no-sandbox", "--disable-setuid-sandbox"] })
-    const page = await browser.newPage()
-    await page.setContent(html, { waitUntil: "networkidle0" })
-    const pdf = await page.pdf({
-      format: "A4",
-      printBackground: true,
-      margin: { top: "0", bottom: "60px", left: "0", right: "0" },
-    })
-    await browser.close()
+    // Puppeteer yerine HTML döndür — client tarayıcıda PDF olarak yazdıracak
+    const printHtml = html.replace('</body>', `
+<script>
+  window.onload = function() { setTimeout(function() { window.print(); }, 500); };
+</script>
+</body>`)
 
-    return new NextResponse(pdf, {
+    return new NextResponse(printHtml, {
       headers: {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": `inline; filename="${quote.quoteNumber}.pdf"`,
+        "Content-Type": "text/html; charset=utf-8",
       },
     })
   } catch (err) {
