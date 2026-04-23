@@ -1,12 +1,12 @@
-import { NextResponse } from "next/server"
-import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
+import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 
-// GET /api/admin/cleanup-ergen — Ergen ürünlerini sil
-export async function GET() {
-  const session = await getAdminSession()
-  const authError = requireAdminSession(session)
-  if (authError) return authError
+// GET /api/admin/cleanup-ergen — Ergen ürünlerini sil (Bearer token ile)
+export async function GET(req: NextRequest) {
+  const auth = req.headers.get("authorization")
+  if (auth !== "Bearer cleanup-ergen-2024") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
 
   const ergen = await prisma.supplier.findFirst({ where: { code: { equals: "ergen", mode: "insensitive" } } })
   if (!ergen) return NextResponse.json({ error: "Ergen supplier bulunamadı" }, { status: 404 })
