@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { View, Text, ScrollView, ActivityIndicator, StyleSheet } from "react-native"
+import { View, Text, ScrollView, ActivityIndicator, StyleSheet, TouchableOpacity, Alert } from "react-native"
 import { useLocalSearchParams } from "expo-router"
 import { ordersApi } from "../../src/api/orders"
 import { COLORS } from "../../src/lib/constants"
@@ -87,12 +87,31 @@ export default function OrderDetailScreen() {
       )}
 
       {/* Tracking */}
-      {order.trackingNumber && (
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Kargo Takip</Text>
-          <Text style={styles.tracking}>{order.trackingNumber}</Text>
-        </View>
-      )}
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Kargo ve Fatura</Text>
+        <TouchableOpacity
+          style={styles.actionRow}
+          onPress={() => Alert.alert("Kargo Takip", order.trackingNumber ?? "Kargo takip numarası henüz eklenmemiş.")}
+        >
+          <Ionicons name="cube-outline" size={20} color={COLORS.primary} />
+          <View style={{ flex: 1 }}>
+            <Text style={styles.actionTitle}>Kargo takip</Text>
+            <Text style={styles.actionText}>{order.trackingNumber ?? "Hazırlanıyor"}</Text>
+          </View>
+          <Ionicons name="chevron-forward-outline" size={18} color={COLORS.textMuted} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.actionRow}
+          onPress={() => Alert.alert("Fatura", "Fatura görüntüleme bağlantısı hazır olduğunda burada açılacak.")}
+        >
+          <Ionicons name="receipt-outline" size={20} color={COLORS.primary} />
+          <View style={{ flex: 1 }}>
+            <Text style={styles.actionTitle}>Fatura görüntüle</Text>
+            <Text style={styles.actionText}>PDF / e-fatura</Text>
+          </View>
+          <Ionicons name="chevron-forward-outline" size={18} color={COLORS.textMuted} />
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   )
 }
@@ -122,5 +141,14 @@ const styles = StyleSheet.create({
   totalLabel: { fontSize: 16, fontWeight: "700", color: COLORS.text },
   totalAmount: { fontSize: 22, fontWeight: "800", color: COLORS.text, fontVariant: ["tabular-nums"] },
   address: { fontSize: 14, color: COLORS.text, lineHeight: 20 },
-  tracking: { fontSize: 15, color: COLORS.primary, fontWeight: "600" },
+  actionRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+  },
+  actionTitle: { fontSize: 14, color: COLORS.text, fontWeight: "800" },
+  actionText: { fontSize: 12, color: COLORS.textMuted, marginTop: 2 },
 })

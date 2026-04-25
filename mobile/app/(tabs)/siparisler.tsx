@@ -18,8 +18,8 @@ const STATUS_TABS: { key: string; label: string }[] = [
   { key: "", label: "Tümü" },
   { key: "PENDING", label: "Bekleyen" },
   { key: "CONFIRMED", label: "Onaylı" },
-  { key: "SHIPPED", label: "Kargoda" },
   { key: "DELIVERED", label: "Teslim" },
+  { key: "CANCELLED", label: "İptal" },
 ]
 
 export default function SiparislerScreen() {
