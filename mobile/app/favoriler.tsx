@@ -86,6 +86,10 @@ export default function FavorilerScreen() {
             <View style={styles.empty}>
               <Ionicons name="heart-outline" size={48} color={COLORS.textMuted} />
               <Text style={styles.emptyText}>Favori ürününüz yok</Text>
+              <TouchableOpacity style={styles.catalogBtn} onPress={() => router.push("/katalog")}>
+                <Ionicons name="grid-outline" size={18} color="#fff" />
+                <Text style={styles.catalogBtnText}>Kataloğa Git</Text>
+              </TouchableOpacity>
             </View>
           ) : null
         }
@@ -114,4 +118,15 @@ const styles = StyleSheet.create({
   stock: { fontSize: 12, color: COLORS.textMuted, marginTop: 4 },
   empty: { alignItems: "center", justifyContent: "center", paddingVertical: 64 },
   emptyText: { fontSize: 16, color: COLORS.textMuted, marginTop: 12 },
+  catalogBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginTop: 18,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 12,
+    backgroundColor: COLORS.primary,
+  },
+  catalogBtnText: { color: "#fff", fontSize: 15, fontWeight: "800" },
 })
