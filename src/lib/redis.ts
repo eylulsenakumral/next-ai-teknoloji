@@ -1,55 +1,38 @@
 /**
- * Redis client singleton.
+ * Redis client singleton — Upstash REST API only.
  *
- * The app works fine without Redis. If REDIS_URL is not set, or if the
- * connection fails, all cache operations are silently no-ops.
+ * Uses UPSTASH_REDIS_REST_URL + UPSTASH_REDIS_REST_TOKEN (HTTP-based).
+ * Falls back to no-op when not configured.
  */
 
-import Redis from "ioredis"
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type RedisClient = any
 
 declare global {
   // eslint-disable-next-line no-var
-  var __redis: Redis | null | undefined
+  var __redis: RedisClient | null | undefined
 }
 
-function createRedisClient(): Redis | null {
-  const url = process.env.REDIS_URL
-  if (!url) {
-    console.warn("[redis] REDIS_URL not set — cache disabled")
+function createRedisClient(): RedisClient | null {
+  const url = process.env.UPSTASH_REDIS_REST_URL
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN
+  if (!url || !token) {
+    console.warn("[redis] Upstash env not set — cache disabled")
     return null
   }
 
-  const client = new Redis(url, {
-    // Fail fast instead of retrying forever during cold-start
-    maxRetriesPerRequest: 2,
-    connectTimeout: 3000,
-    lazyConnect: true,
-    enableOfflineQueue: true,
-  })
-
-  client.on("connect", () => {
-    console.log("[redis] Connected")
-  })
-
-  client.on("error", (err) => {
-    // Only log once per error type to avoid log spam
-    console.error("[redis] Connection error:", err.message)
-  })
-
-  return client
+  // Dynamic require to avoid bundling issues during build
+  try {
+    const { Redis } = require("@upstash/redis")
+    console.log("[redis] Using Upstash REST API")
+    return new Redis({ url, token })
+  } catch {
+    console.warn("[redis] @upstash/redis not available — cache disabled")
+    return null
+  }
 }
 
-// Re-use the client across hot-reloads in development
-function getRedisClient(): Redis | null {
-  if (process.env.NODE_ENV === "production") {
-    // In production each worker has its own module scope
-    if (!global.__redis) {
-      global.__redis = createRedisClient()
-    }
-    return global.__redis
-  }
-
-  // Development: attach to global to survive HMR
+function getRedisClient(): RedisClient | null {
   if (!global.__redis) {
     global.__redis = createRedisClient()
   }
@@ -58,7 +41,7 @@ function getRedisClient(): Redis | null {
 
 export const redis = getRedisClient()
 
-/** Returns true when Redis is available and connected. */
+/** Returns true when Redis is available. */
 export function isRedisAvailable(): boolean {
-  return redis !== null && redis.status === "ready"
+  return redis !== null
 }

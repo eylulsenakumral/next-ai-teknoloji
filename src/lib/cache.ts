@@ -1,5 +1,5 @@
 /**
- * Generic cache helpers built on top of the Redis singleton.
+ * Generic cache helpers built on top of Upstash Redis.
  *
  * All functions degrade gracefully: if Redis is unavailable the
  * operation is skipped and the caller falls through to the DB.
@@ -50,14 +50,14 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
   if (!redis) return null
   try {
     const raw = await redis.get(key)
-    if (raw === null) {
+    if (raw === null || raw === undefined) {
       console.debug(`[cache] MISS ${key}`)
       return null
     }
     console.debug(`[cache] HIT  ${key}`)
-    return JSON.parse(raw) as T
+    // Upstash returns parsed JSON for objects, string for strings
+    return typeof raw === "string" ? (JSON.parse(raw) as T) : (raw as T)
   } catch (err) {
-    // Non-blocking: Redis transient errors should not break the app
     console.debug(`[cache] GET error for key "${key}":`, (err as Error).message)
     return null
   }
@@ -70,7 +70,7 @@ export async function cacheGet<T>(key: string): Promise<T | null> {
 export async function cacheSet(key: string, value: unknown, ttlSeconds: number): Promise<void> {
   if (!redis) return
   try {
-    await redis.set(key, JSON.stringify(value), "EX", ttlSeconds)
+    await redis.set(key, JSON.stringify(value), { ex: ttlSeconds })
     console.debug(`[cache] SET  ${key} (TTL ${ttlSeconds}s)`)
   } catch (err) {
     console.error(`[cache] SET error for key "${key}":`, (err as Error).message)
@@ -91,8 +91,8 @@ export async function cacheDel(...keys: string[]): Promise<void> {
 }
 
 /**
- * Delete all keys matching a glob pattern (uses SCAN, not KEYS, to be
- * production-safe on large keyspaces).
+ * Delete all keys matching a glob pattern.
+ * Uses Upstash SCAN-compatible command.
  */
 export async function cacheDelPattern(pattern: string): Promise<void> {
   if (!redis) return
@@ -100,7 +100,7 @@ export async function cacheDelPattern(pattern: string): Promise<void> {
     let cursor = "0"
     let totalDeleted = 0
     do {
-      const [nextCursor, keys] = await redis.scan(cursor, "MATCH", pattern, "COUNT", 100)
+      const [nextCursor, keys] = await redis.scan(cursor, { match: pattern, count: 100 })
       cursor = nextCursor
       if (keys.length > 0) {
         await redis.del(...keys)
@@ -115,13 +115,6 @@ export async function cacheDelPattern(pattern: string): Promise<void> {
 
 /**
  * Cache-aside helper: try cache first, on miss call loader and store result.
- *
- * @example
- * const brands = await withCache(
- *   CacheKey.brandList("all"),
- *   TTL.BRAND_LIST,
- *   () => prisma.brand.findMany(...)
- * )
  */
 export async function withCache<T>(
   key: string,
