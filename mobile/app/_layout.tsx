@@ -4,6 +4,7 @@ import { useRouter, useSegments } from "expo-router"
 import { useAuthStore } from "../src/stores/auth-store"
 import { ActivityIndicator, View, Text, TouchableOpacity, StyleSheet } from "react-native"
 import { COLORS } from "../src/lib/constants"
+import { Ionicons } from "@expo/vector-icons"
 
 
 class AppErrorBoundary extends React.Component<{ children: React.ReactNode }, { error: Error | null }> {
@@ -65,7 +66,22 @@ export default function RootLayout() {
       <Stack.Screen name="(tabs)" />
       <Stack.Screen
         name="urun/[slug]"
-        options={{ headerShown: true, title: "Ürün Detay", headerTintColor: COLORS.primary }}
+        options={{
+          headerShown: true,
+          title: "Ürün Detay",
+          headerTintColor: COLORS.primary,
+          headerBackVisible: false,
+          headerLeft: () => (
+            <TouchableOpacity
+              accessibilityRole="button"
+              accessibilityLabel="Geri"
+              style={styles.headerBackButton}
+              onPress={() => router.back()}
+            >
+              <Ionicons name="arrow-back" size={24} color={COLORS.primary} />
+            </TouchableOpacity>
+          ),
+        }}
       />
       <Stack.Screen
         name="siparis/[id]"
@@ -113,4 +129,5 @@ const styles = StyleSheet.create({
   errorText: { fontSize: 14, color: COLORS.textMuted, textAlign: "center", marginTop: 8, lineHeight: 20 },
   errorButton: { marginTop: 18, backgroundColor: COLORS.primary, paddingHorizontal: 20, paddingVertical: 12 },
   errorButtonText: { color: "#fff", fontWeight: "700" },
+  headerBackButton: { width: 40, height: 40, alignItems: "center", justifyContent: "center", marginLeft: -8 },
 })
