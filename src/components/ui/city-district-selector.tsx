@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import { Label } from "@/components/ui/label"
-import { Loader2, MapPin, ChevronDown } from "lucide-react"
+import { Loader2, ChevronDown } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface City {
@@ -74,8 +74,8 @@ export function CityDistrictSelector({
   }, [cityId, fetchDistricts])
 
   const selectClass = cn(
-    "w-full h-10 px-3 rounded-lg border border-[#e0e0e0] bg-white text-[#333333] text-sm",
-    "outline-none focus:border-[#00179e] focus:ring-2 focus:ring-[#00179e]/20 transition-all",
+    "w-full h-[46px] px-4 rounded-[20px] border border-transparent bg-[#f3f3f3] text-[14px] text-[#1e1e1e]",
+    "outline-none transition-all duration-300 focus:border-[#0040a4] focus:bg-white",
     "appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
   )
 
@@ -84,8 +84,7 @@ export function CityDistrictSelector({
       {/* İl */}
       <div className="space-y-1.5">
         {showLabels && (
-          <Label className="flex items-center gap-1.5 text-sm text-[#333333]">
-            <MapPin className="h-3.5 w-3.5 text-[#767676]" />
+          <Label className="text-[13px] font-semibold text-[#1e1e1e]">
             İl
           </Label>
         )}
@@ -130,8 +129,7 @@ export function CityDistrictSelector({
       {/* İlçe */}
       <div className="space-y-1.5">
         {showLabels && (
-          <Label className="flex items-center gap-1.5 text-sm text-[#333333]">
-            <MapPin className="h-3.5 w-3.5 text-[#767676]" />
+          <Label className="text-[13px] font-semibold text-[#1e1e1e]">
             İlçe
           </Label>
         )}

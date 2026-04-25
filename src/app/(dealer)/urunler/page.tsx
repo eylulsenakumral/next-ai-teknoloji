@@ -452,9 +452,7 @@ export default function ProductsPage() {
                       product={product}
                       brands={brands}
                       categories={categories}
-                      onAddToCart={() => {
-                        // useCart hook ile ekle
-                      }}
+                      onAddToCart={undefined}
                     />
                   </div>
                 ))}

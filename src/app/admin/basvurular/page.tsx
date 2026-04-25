@@ -132,7 +132,7 @@ export default function BasvurularPage() {
             {meta?.total ?? 0} başvuru
           </p>
         </div>
-        <Button variant="outline" size="sm" onClick={fetchApplications} disabled={loading}>
+        <Button variant="outline" size="sm" onClick={fetchApplications} disabled={!!loading}>
           <RefreshCw className={cn("w-4 h-4 mr-2", loading && "animate-spin")} />
           Yenile
         </Button>

@@ -15,6 +15,7 @@ import { authOptions } from "@/lib/auth"
 import { ProductGallery } from "@/components/products/product-gallery"
 import { PublicProductCard } from "@/components/public/public-product-card"
 import { AskAiButton } from "@/components/public/ask-ai-button"
+import { AddToCartButton } from "@/components/products/add-to-cart-button"
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -56,6 +57,7 @@ interface SupplierStock {
 
 interface PublicProductDetail {
   id: string
+  productCode: string | null
   name: string
   slug: string
   images: string[]
@@ -392,7 +394,7 @@ export default async function PublicProductDetailPage({
               </div>
 
               {/* Ürün Bilgileri */}
-              {(product.sku || product.barcode || product.modelCode || product.brand || product.warrantyMonths) && (
+              {(product.sku || product.barcode || product.modelCode || product.brand || product.warrantyMonths || product.productCode) && (
                 <div className="border border-[#eeeeee] bg-white">
                   <div className="px-4 py-2.5 border-b border-[#eeeeee] bg-[#fafafa]">
                     <p className="text-[11px] font-bold text-[#767676] uppercase tracking-wider">
@@ -400,6 +402,12 @@ export default async function PublicProductDetailPage({
                     </p>
                   </div>
                   <ul className="divide-y divide-[#f5f5f5]">
+                    {product.productCode && (
+                      <li className="flex items-center gap-3 px-4 py-2">
+                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Ürün Kodu</span>
+                        <span className="text-[12px] text-[#0040a4] font-bold font-mono bg-[#f0f4ff] px-2 py-0.5 rounded">{product.productCode}</span>
+                      </li>
+                    )}
                     {product.brand && (
                       <li className="flex items-center gap-3 px-4 py-2">
                         <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Marka</span>
@@ -528,22 +536,26 @@ export default async function PublicProductDetailPage({
                               <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
                               <span className="text-gray-500">{s.depoName}</span>
                             </div>
-                            <div className="flex items-center gap-4">
-                              {isLoggedIn && !product.hidePrice && s.price !== null && (
-                                <span className="font-semibold text-[#333]">
-                                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: s.currency || "TRY", minimumFractionDigits: 2 }).format(s.price)}
-                                  {s.currency !== "TRY" && s.priceTry != null && (
-                                    <span className="text-gray-400 font-normal ml-1.5">
-                                      ≈ {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(s.priceTry)}
-                                    </span>
-                                  )}
-                                </span>
-                              )}
-                              <span className="text-emerald-600 font-medium w-16 text-right">{s.stockQuantity} adet</span>
-                            </div>
+                            <span className="text-emerald-600 font-medium">{s.stockQuantity} adet</span>
                           </div>
                         ))}
                       </div>
+                    </div>
+                  )}
+                  {/* Sepete Ekle */}
+                  {isLoggedIn && !product.hidePrice && product.price != null && (
+                    <div className="border-t border-gray-100 px-5 py-4 flex justify-end">
+                      <AddToCartButton
+                        productId={product.id}
+                        productName={product.name}
+                        productSlug={product.slug}
+                        brandName={product.brand?.name ?? ""}
+                        imageUrl={product.images?.[0] ?? ""}
+                        unitPriceExVat={product.price ?? 0}
+                        vatRate={20}
+                        stockQuantity={product.stockCount}
+                        isAvailable={product.stockStatus}
+                      />
                     </div>
                   )}
                 </div>
@@ -646,9 +658,9 @@ export default async function PublicProductDetailPage({
       )}
       {isLoggedIn && !product.hidePrice && product.price != null && (
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-3 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-[18px] font-bold text-[#0040a4] leading-none">
+          <div className="flex items-center justify-between gap-3">
+            <div className="min-w-0">
+              <p className="text-[16px] font-bold text-[#0040a4] leading-none">
                 {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                 <span className="text-[10px] font-medium text-gray-400 ml-1">+KDV</span>
               </p>
@@ -658,9 +670,19 @@ export default async function PublicProductDetailPage({
                 </p>
               )}
             </div>
-            <span className="text-[11px] text-emerald-600 font-medium bg-emerald-50 px-2.5 py-1 rounded-full">
-              {product.stockCount} adet
-            </span>
+            <div className="shrink-0">
+              <AddToCartButton
+                productId={product.id}
+                productName={product.name}
+                productSlug={product.slug}
+                brandName={product.brand?.name ?? ""}
+                imageUrl={product.images[0] ?? ""}
+                unitPriceExVat={product.price ?? 0}
+                vatRate={20}
+                stockQuantity={product.stockCount}
+                isAvailable={product.stockStatus}
+              />
+            </div>
           </div>
         </div>
       )}

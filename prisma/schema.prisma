@@ -668,6 +668,7 @@ model CampaignSet {
   validUntil        DateTime?            @map("valid_until") @db.Timestamptz(6)
   minPurchaseAmount Decimal?             @map("min_purchase_amount") @db.Decimal(12, 2)
   maxUsageCount     Int?                 @map("max_usage_count")
+  stockQuantity     Int?                 @map("stock_quantity")
   isActive          Boolean              @default(true) @map("is_active")
   sortOrder         Int                  @default(0) @map("sort_order")
   metadata          Json?

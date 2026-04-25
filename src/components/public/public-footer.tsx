@@ -7,16 +7,12 @@ import Link from "next/link"
 
 const knowUsLinks = [
   { href: "/hakkimizda", label: "Hakkımızda" },
-  { href: "/kariyer", label: "Kariyer" },
-  { href: "/blog", label: "Blog" },
   { href: "/iletisim", label: "İletişim" },
 ]
 
 const policyLinks = [
-  { href: "/gizlilik", label: "Gizlilik Politikası" },
-  { href: "/kullanim", label: "Kullanım Koşulları" },
-  { href: "/iade", label: "İade Politikası" },
-  { href: "/sss", label: "SSS" },
+  { href: "/gizlilik-politikasi", label: "Gizlilik Politikası" },
+  { href: "/kullanim-sartlari", label: "Kullanım Koşulları" },
 ]
 
 const supportLinks = [
@@ -24,7 +20,7 @@ const supportLinks = [
   { href: "/favoriler", label: "Favoriler" },
   { href: "/siparisler", label: "Siparişlerim" },
   { href: "/katalog", label: "Tüm Ürünler" },
-  { href: "/kampanyalar", label: "Kampanyalar" },
+  { href: "/kampanya", label: "Kampanyalar" },
 ]
 
 /* ------------------------------------------------------------------ */
@@ -169,11 +165,11 @@ function IconLinkedIn() {
 }
 
 const socialLinks = [
-  { href: "#", icon: IconFacebook, label: "Facebook" },
-  { href: "#", icon: IconTwitter, label: "Twitter" },
-  { href: "#", icon: IconInstagram, label: "Instagram" },
-  { href: "#", icon: IconYouTube, label: "YouTube" },
-  { href: "#", icon: IconLinkedIn, label: "LinkedIn" },
+  { icon: IconFacebook, label: "Facebook" },
+  { icon: IconTwitter, label: "Twitter" },
+  { icon: IconInstagram, label: "Instagram" },
+  { icon: IconYouTube, label: "YouTube" },
+  { icon: IconLinkedIn, label: "LinkedIn" },
 ]
 
 /* ------------------------------------------------------------------ */
@@ -181,22 +177,19 @@ const socialLinks = [
 /* ------------------------------------------------------------------ */
 
 function SocialIcon({
-  href,
   icon: Icon,
   label,
 }: {
-  href: string
   icon: React.ComponentType
   label: string
 }) {
   return (
-    <a
-      href={href}
+    <span
       className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-[#1e1e1e] hover:bg-gradient-to-r hover:from-[#0040a4] hover:to-[#1a6fe0] hover:text-white hover:scale-110 transition-all duration-300"
       aria-label={label}
     >
       <Icon />
-    </a>
+    </span>
   )
 }
 
@@ -269,8 +262,8 @@ export function PublicFooter() {
 
             {/* Social Icons */}
             <div className="flex items-center gap-3 pt-2">
-              {socialLinks.map(({ href, icon, label }) => (
-                <SocialIcon key={label} href={href} icon={icon} label={label} />
+              {socialLinks.map(({ icon, label }) => (
+                <SocialIcon key={label} icon={icon} label={label} />
               ))}
             </div>
           </div>
@@ -289,7 +282,7 @@ export function PublicFooter() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
                 <IconMapPin className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--DTPrimaryColor)]" />
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-gray-600 break-words">
                   Esentepe Mh. Sancad Cad. Real Tower Plaza K:2 D:14
                   Corlu/Tekirdag
                 </span>
@@ -341,13 +334,10 @@ export function PublicFooter() {
               ))}
             </div>
 
-            {/* Payment icons */}
-            <div className="flex items-center gap-3" data-testid="payment-icons">
-              <Image src="/payment/visa.svg" alt="Visa" width={24} height={24} className="h-6" />
-              <Image src="/payment/mastercard.svg" alt="Mastercard" width={24} height={24} className="h-6" />
-              <Image src="/payment/amex.svg" alt="Amex" width={24} height={24} className="h-6" />
-              <Image src="/payment/paypal.svg" alt="PayPal" width={24} height={24} className="h-6" />
-            </div>
+            {/* Payment info */}
+            <span className="text-xs text-gray-400">
+              Güvenli Ödeme: NomuPay 3D Secure
+            </span>
           </div>
         </div>
       </div>

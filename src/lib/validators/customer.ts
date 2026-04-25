@@ -42,7 +42,7 @@ export const dealerApplicationSchema = z.object({
     .or(z.literal("")),
   taxCertificateUrl: z
     .string()
-    .url("Geçerli bir URL girin")
+    .max(15_000_000, "Dosya çok büyük")
     .optional()
     .or(z.literal("")),
   businessType: z

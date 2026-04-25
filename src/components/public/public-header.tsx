@@ -10,6 +10,7 @@ import {
   X,
   Phone,
   LogIn,
+  LogOut,
   Search,
   User,
   Heart,
@@ -19,7 +20,9 @@ import {
 import { cn } from "@/lib/utils"
 import { NavigationBar } from "./navigation-bar"
 import { ExchangeRateDisplay } from "./exchange-rate-bar"
+import { signOut } from "next-auth/react"
 import { useAuth } from "@/hooks/use-auth"
+import { useCart } from "@/hooks/use-cart"
 
 /* ------------------------------------------------------------------ */
 /*  Mobile Drawer                                                       */
@@ -28,9 +31,13 @@ import { useAuth } from "@/hooks/use-auth"
 function MobileDrawer({
   open,
   onClose,
+  isAuthenticated,
+  userName,
 }: {
   open: boolean
   onClose: () => void
+  isAuthenticated: boolean
+  userName?: string | null
 }) {
   useEffect(() => {
     if (open) document.body.style.overflow = "hidden"
@@ -119,22 +126,45 @@ function MobileDrawer({
               Hesap
             </p>
             <nav aria-label="Mobil hesap navigasyonu">
-              <Link
-                href="/login"
-                onClick={onClose}
-                className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
-              >
-                <User className="h-4 w-4 text-[#0040a4]" aria-hidden />
-                Giriş Yap
-              </Link>
-              <Link
-                href="/basvuru"
-                onClick={onClose}
-                className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
-              >
-                <LogIn className="h-4 w-4 text-[#0040a4]" aria-hidden />
-                Hesap Oluştur
-              </Link>
+              {isAuthenticated ? (
+                <>
+                  <Link
+                    href="/hesabim"
+                    onClick={onClose}
+                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+                  >
+                    <User className="h-4 w-4 text-[#0040a4]" aria-hidden />
+                    {userName || "Hesabım"}
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => signOut({ callbackUrl: "/login" })}
+                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-red-500 hover:bg-red-50 transition-colors rounded-lg w-full"
+                  >
+                    <LogOut className="h-4 w-4" aria-hidden />
+                    Çıkış Yap
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/login"
+                    onClick={onClose}
+                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+                  >
+                    <User className="h-4 w-4 text-[#0040a4]" aria-hidden />
+                    Giriş Yap
+                  </Link>
+                  <Link
+                    href="/basvuru"
+                    onClick={onClose}
+                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+                  >
+                    <LogIn className="h-4 w-4 text-[#0040a4]" aria-hidden />
+                    Hesap Oluştur
+                  </Link>
+                </>
+              )}
             </nav>
           </div>
         </div>
@@ -412,9 +442,11 @@ function HeaderSearchBar() {
 
 export function PublicHeader() {
   const { user, isAuthenticated, isDealer } = useAuth()
+  const { items } = useCart()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [isSticky, setIsSticky] = useState(false)
-  const [cartCount] = useState(0) // TODO: Connect to actual cart state
+
+  const cartCount = items.reduce((sum, item) => sum + item.quantity, 0)
 
   useEffect(() => {
     function onScroll() {
@@ -439,20 +471,40 @@ export function PublicHeader() {
               <span className="hidden sm:inline">0 552 989 5959</span>
               <span className="sm:hidden">Ara</span>
             </a>
-            <div className="flex items-center gap-3 sm:gap-4">
-              <Link
-                href="/basvuru"
-                className="text-white/80 hover:text-white transition-colors font-medium"
-              >
-                Bayimiz Olun
-              </Link>
-              <span className="text-white/30 hidden sm:inline">|</span>
-              <Link
-                href="/basvuru"
-                className="text-white/80 hover:text-white transition-colors font-medium hidden sm:inline"
-              >
-                Yardım
-              </Link>
+            <div className="flex items-center gap-3 sm:gap-4 shrink-0">
+              {isAuthenticated ? (
+                <>
+                  <div className="flex items-center gap-1.5 text-white/80 font-medium whitespace-nowrap">
+                    <User className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">Müşteri Temsilciniz: <strong className="text-white">Ahmet ÜSTÜN</strong></span>
+                  </div>
+                  <span className="text-white/30 hidden sm:inline">|</span>
+                  <button
+                    type="button"
+                    onClick={() => signOut({ callbackUrl: "/login" })}
+                    className="flex items-center gap-1.5 text-white/80 hover:text-white transition-colors font-medium whitespace-nowrap"
+                  >
+                    <LogOut className="h-3.5 w-3.5" />
+                    <span className="hidden sm:inline">Çıkış Yap</span>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    href="/basvuru"
+                    className="text-white/80 hover:text-white transition-colors font-medium whitespace-nowrap"
+                  >
+                    Bayimiz Olun
+                  </Link>
+                  <span className="text-white/30 hidden sm:inline">|</span>
+                  <Link
+                    href="/iletisim"
+                    className="text-white/80 hover:text-white transition-colors font-medium hidden sm:inline whitespace-nowrap"
+                  >
+                    Yardım
+                  </Link>
+                </>
+              )}
               <span className="text-white/30 hidden sm:inline">|</span>
               <ExchangeRateDisplay />
             </div>
@@ -490,7 +542,7 @@ export function PublicHeader() {
                 className="flex items-center gap-2 shrink-0"
                 aria-label="Next AI Teknoloji ana sayfa"
               >
-                <Image src="/logo.png" alt="Next AI Teknoloji" width={240} height={80} className="h-20 w-auto object-contain" />
+                <Image src="/logo.png" alt="Next AI Teknoloji" width={192} height={64} className="h-16 w-auto object-contain" />
               </Link>
             </div>
 
@@ -509,7 +561,7 @@ export function PublicHeader() {
                   aria-label={user.companyName}
                 >
                   <User className="h-5 w-5" />
-                  <span className="max-w-[160px] truncate">{user.companyName}</span>
+                  <span className="max-w-[240px] truncate">{user.companyName}</span>
                 </Link>
               ) : (
                 <Link
@@ -533,9 +585,9 @@ export function PublicHeader() {
 
               {/* Cart with badge */}
               <Link
-                href="/katalog"
+                href="/sepet"
                 className="relative flex items-center gap-1 text-[#1e1e1e] hover:text-[#0040a4] transition-colors"
-                aria-label="Sepetim"
+                aria-label={cartCount > 0 ? `Sepetim, ${cartCount} ürün` : "Sepetim"}
               >
                 <ShoppingCart className="h-5 w-5" />
                 {cartCount > 0 && (
@@ -574,6 +626,8 @@ export function PublicHeader() {
       <MobileDrawer
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
+        isAuthenticated={isAuthenticated}
+        userName={user?.companyName}
       />
     </>
   )

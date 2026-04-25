@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { signIn } from "next-auth/react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import {
@@ -13,9 +13,6 @@ import {
   Truck,
   ShieldCheck,
   Headphones,
-  Cpu,
-  Wifi,
-  Server,
 } from "lucide-react"
 
 type LoginMode = "dealer" | "admin"
@@ -27,15 +24,28 @@ function cn(...classes: (string | false | null | undefined)[]) {
   return classes.filter(Boolean).join(" ")
 }
 
+const NEXTAUTH_ERROR_MAP: Record<string, string> = {
+  CredentialsSignin: "Bayi kodu veya şifre hatalı.",
+  SessionRequired: "Bu sayfayı görüntülemek için giriş yapmalısınız.",
+  Default: "Giriş yapılırken bir hata oluştu. Lütfen tekrar deneyin.",
+}
+
 export default function LoginPage() {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get("callbackUrl") ?? "/"
+  const urlError = searchParams.get("error")
 
   const [mode, setMode] = useState<LoginMode>("dealer")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [rememberMe, setRememberMe] = useState(false)
+
+  // NextAuth redirect ile gelen hataları yakala
+  useEffect(() => {
+    if (urlError) {
+      setError(NEXTAUTH_ERROR_MAP[urlError] ?? NEXTAUTH_ERROR_MAP.Default)
+    }
+  }, [urlError])
 
   // Dealer form state
   const [dealerCode, setDealerCode] = useState("")
@@ -162,7 +172,7 @@ export default function LoginPage() {
               Bayilik Başvurusu
             </Link>
             <Link
-              href="tel:+908501234567"
+              href="tel:+905529895959"
               className="text-xs font-medium text-[#6b7280] transition-colors hover:text-[#0040a4]"
             >
               İletişim
@@ -195,7 +205,7 @@ export default function LoginPage() {
 
             {/* ---- BAYI FORMU ---- */}
             {mode === "dealer" && (
-              <form onSubmit={handleDealerSubmit} className="space-y-4" noValidate>
+              <form onSubmit={handleDealerSubmit} className="space-y-4">
                 {/* Bayi Kodu */}
                 <div className="flex flex-col gap-1.5">
                   <label
@@ -206,6 +216,7 @@ export default function LoginPage() {
                   </label>
                   <input
                     id="dealerCode"
+                    name="dealerCode"
                     type="text"
                     placeholder="Örn: BAY001"
                     value={dealerCode}
@@ -234,6 +245,7 @@ export default function LoginPage() {
                   <div className="relative">
                     <input
                       id="dealerPassword"
+                      name="dealerPassword"
                       type={showDealerPw ? "text" : "password"}
                       placeholder="Şifrenizi girin"
                       value={dealerPassword}
@@ -269,6 +281,7 @@ export default function LoginPage() {
                   <label className="flex cursor-pointer items-center gap-2 select-none">
                     <input
                       type="checkbox"
+                      name="remember"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
                       className="h-4 w-4 rounded border-[#ccd1db] accent-[#0040a4]"
@@ -322,7 +335,7 @@ export default function LoginPage() {
 
             {/* ---- ADMİN FORMU ---- */}
             {mode === "admin" && (
-              <form onSubmit={handleAdminSubmit} className="space-y-4" noValidate>
+              <form onSubmit={handleAdminSubmit} className="space-y-4">
                 {/* E-posta */}
                 <div className="flex flex-col gap-1.5">
                   <label

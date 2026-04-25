@@ -78,6 +78,7 @@ export async function GET(req: NextRequest) {
           imageUrl: true,
           createdAt: true,
           updatedAt: true,
+          stockQuantity: true,
           _count: { select: { products: true } },
         },
         orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
@@ -139,6 +140,7 @@ export async function POST(req: NextRequest) {
         minPurchaseAmount:
           data.minPurchaseAmount != null ? String(data.minPurchaseAmount) : null,
         maxUsageCount: data.maxUsageCount ?? null,
+        stockQuantity: data.stockQuantity ?? null,
         isActive: data.isActive,
         sortOrder: data.sortOrder,
         metadata:
@@ -162,7 +164,7 @@ export async function POST(req: NextRequest) {
   } catch (err) {
     console.error("[POST /api/admin/campaign-sets]", err)
     return NextResponse.json(
-      { error: "Kampanya seti oluşturulamadı." },
+      { error: "Kampanya seti oluşturulamadı.", details: err instanceof Error ? err.message : String(err) },
       { status: 500 }
     )
   }

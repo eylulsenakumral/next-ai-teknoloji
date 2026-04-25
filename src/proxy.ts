@@ -19,6 +19,7 @@ const PUBLIC_PATHS = [
   "/kullanim-sartlari",
   "/kampanyalar",
   "/kampanya-setleri",
+  "/sepet/odeme/sonuc",
   "/api/auth",
   "/_next",
   "/favicon.ico",
@@ -28,7 +29,7 @@ const PUBLIC_PATHS = [
 
 // API routes that are public (no auth required)
 // Cron ve sync endpoint'leri kendi auth mekanizmalarını kullanır (Bearer token)
-const PUBLIC_API_PATHS = ["/api/auth", "/api/public", "/api/cron", "/api/chat", "/api/exchange-rate", "/api/indexgrup/sync", "/api/netex/sync", "/api/tesan/sync"]
+const PUBLIC_API_PATHS = ["/api/auth", "/api/public", "/api/cron", "/api/chat", "/api/exchange-rate", "/api/indexgrup/sync", "/api/netex/sync", "/api/tesan/sync", "/api/payment"]
 
 function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.some(
@@ -72,7 +73,7 @@ export async function proxy(request: NextRequest) {
   }
 
   // /(dealer)/* routes — require APPROVED customer
-  if (pathname.startsWith("/dealer") || pathname.match(/^\/(siparis|urun|profil|hesap)/)) {
+  if (pathname.startsWith("/dealer") || pathname.match(/^\/(siparis|urun|profil|hesap|online-odeme|favoriler|sepet)/)) {
     if (!token) {
       const loginUrl = new URL("/login", request.url)
       loginUrl.searchParams.set("callbackUrl", request.url)

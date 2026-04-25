@@ -16,7 +16,7 @@ export const createCampaignSetSchema = z.object({
   description: z.string().optional().nullable(),
   imageUrl: z
     .string()
-    .url("Geçerli bir görsel URL girin")
+    .min(1, "Geçerli bir görsel URL girin")
     .optional()
     .nullable(),
   type: CampaignSetTypeEnum.default("BUNDLE"),
@@ -45,6 +45,12 @@ export const createCampaignSetSchema = z.object({
     .number()
     .int("Kullanım limiti tam sayı olmalı")
     .positive("Kullanım limiti 0'dan büyük olmalı")
+    .optional()
+    .nullable(),
+  stockQuantity: z
+    .number()
+    .int("Stok adedi tam sayı olmalı")
+    .nonnegative("Stok adedi negatif olamaz")
     .optional()
     .nullable(),
   isActive: z.boolean().default(true),

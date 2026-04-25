@@ -1,36 +1,83 @@
 export const dynamic = 'force-dynamic'
 
+import type { Metadata } from "next"
 import Link from "next/link"
 import { prisma } from "@/lib/db"
-import { Package, InboxIcon, ShoppingCart, Eye, Percent, Flame } from "lucide-react"
+
+export const metadata: Metadata = {
+  title: "Kampanyalar",
+}
+import Image from "next/image"
+import { Package, InboxIcon, ShoppingCart, Eye, Percent, Flame, Sparkles, ChevronRight } from "lucide-react"
 import { formatCurrency } from "@/lib/utils/format"
 import { calculateBulkPrices } from "@/services/pricing.service"
 
 export default async function CampaignsPage() {
   // Kampanyalı ürünler = outlet, öne çıkan veya isFeatured olanlar
-  const campaignProducts = await prisma.product.findMany({
-    where: {
-      deletedAt: null,
-      isActive: true,
-      OR: [
-        { isOutlet: true },
-        { isFeatured: true },
-      ],
-    },
-    orderBy: { updatedAt: "desc" },
-    select: {
-      id: true,
-      name: true,
-      slug: true,
-      images: true,
-      isOutlet: true,
-      isFeatured: true,
-      manualPrice: true,
-      manualPriceCurrency: true,
-      campaignDiscountPct: true,
-      brand: { select: { name: true, slug: true } },
-    },
-  })
+  const [campaignProducts, campaignSets] = await Promise.all([
+    prisma.product.findMany({
+      where: {
+        deletedAt: null,
+        isActive: true,
+        OR: [
+          { isOutlet: true },
+          { isFeatured: true },
+        ],
+      },
+      orderBy: { updatedAt: "desc" },
+      select: {
+        id: true,
+        name: true,
+        slug: true,
+        images: true,
+        isOutlet: true,
+        isFeatured: true,
+        manualPrice: true,
+        manualPriceCurrency: true,
+        campaignDiscountPct: true,
+        brand: { select: { name: true, slug: true } },
+        supplierProducts: {
+          where: { deletedAt: null, isAvailable: true },
+          select: { stockQuantity: true },
+        },
+      },
+    }),
+    prisma.campaignSet.findMany({
+      where: {
+        isActive: true,
+        deletedAt: null,
+        OR: [
+          { validFrom: null },
+          { validFrom: { lte: new Date() } },
+        ],
+        AND: [
+          {
+            OR: [
+              { validUntil: null },
+              { validUntil: { gte: new Date() } },
+            ],
+          },
+        ],
+      },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
+      include: {
+        products: {
+          include: {
+            product: {
+              select: {
+                id: true,
+                name: true,
+                slug: true,
+                images: true,
+                brand: { select: { name: true } },
+              },
+            },
+          },
+          orderBy: { sortOrder: "asc" },
+        },
+      },
+    }),
+  ])
 
   // Bulk fiyat hesaplama
   const productIds = campaignProducts.map(p => p.id)
@@ -87,6 +134,9 @@ export default async function CampaignsPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
               {campaignProducts.map((product) => {
+                // Stok hesapla
+                const totalStock = product.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
+
                 // Fiyat mantığı: manualPrice > pricing service
                 let displayPrice: number | null = null
                 let originalPrice: number | null = null
@@ -138,7 +188,17 @@ export default async function CampaignsPage() {
 
                     {/* Görsel */}
                     <div className="aspect-square bg-[#fafafa] flex items-center justify-center overflow-hidden relative">
-                      <Package className="h-16 w-16 text-[#e0e0e0]" aria-hidden />
+                      {product.images && product.images.length > 0 ? (
+                        <Image
+                          src={product.images[0]}
+                          alt={product.name}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                          className="object-contain p-4"
+                        />
+                      ) : (
+                        <Package className="h-16 w-16 text-[#e0e0e0]" aria-hidden />
+                      )}
                       {/* Hover overlay */}
                       <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
                       <div className="absolute inset-0 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-all duration-200">
@@ -181,6 +241,11 @@ export default async function CampaignsPage() {
                         <p className="text-[13px] text-[#767676] italic">Fiyat bilgisi yok</p>
                       )}
 
+                      {/* Stok */}
+                      <p className={`text-[11px] font-semibold ${totalStock > 0 ? 'text-emerald-600' : 'text-[#a60811]'}`}>
+                        {totalStock > 0 ? `Stok: ${totalStock} adet` : 'Stokta yok'}
+                      </p>
+
                       {/* Ürün adı */}
                       <p className="text-[13px] text-[#767676] leading-snug line-clamp-2 group-hover:text-[#0040a4] transition-colors">
                         {product.name}
@@ -193,6 +258,111 @@ export default async function CampaignsPage() {
           </>
         )}
       </div>
+
+      {/* Kampanyalı Setler */}
+      {campaignSets.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-t border-[#eeeeee]">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <span className="inline-flex items-center gap-1.5 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                  <Sparkles className="w-3 h-3" />
+                  SET
+                </span>
+                <p className="text-xs text-gray-500 uppercase tracking-widest font-medium">
+                  KAMPANYA
+                </p>
+              </div>
+              <h2 className="text-2xl font-bold text-[#1e1e1e]">Kampanyalı Setler</h2>
+              <p className="text-sm text-gray-500 mt-1">Özel fiyatlarla hazırlanmış ürün setleri</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {campaignSets.map((set) => (
+              <Link
+                key={set.id}
+                href={`/kampanya/${set.slug}`}
+                className="group bg-white rounded-xl border border-[#eeeeee] overflow-hidden hover:shadow-lg hover:border-[#0040a4]/30 transition-all duration-300 flex flex-col"
+              >
+                {/* Set Görseli */}
+                <div className="relative h-44 bg-gradient-to-br from-[#0040a4]/5 to-gray-50 flex items-center justify-center p-4">
+                  {set.imageUrl ? (
+                    <img src={set.imageUrl} alt={set.name} className="h-full w-full object-cover rounded-lg" />
+                  ) : (
+                    <Package className="h-14 w-14 text-gray-200" />
+                  )}
+                  {/* Badges */}
+                  <div className="absolute top-3 left-3 flex gap-2">
+                    <span className="inline-flex items-center gap-1.5 bg-[#0040a4] text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                      <Sparkles className="w-3 h-3" />
+                      {set.type === "BUNDLE" ? "PAKET" : set.type === "OUTLET" ? "OUTLET" : "SET"}
+                    </span>
+                    {set.discountPct && (
+                      <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
+                        %{set.discountPct}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Set Bilgisi */}
+                <div className="p-4 flex-1 flex flex-col">
+                  <h3 className="text-[15px] font-semibold text-[#1e1e1e] group-hover:text-[#0040a4] transition-colors line-clamp-2 min-h-[44px]">
+                    {set.name}
+                  </h3>
+                  {set.description && (
+                    <p className="text-xs text-gray-400 mt-1 line-clamp-2">{set.description}</p>
+                  )}
+
+                  {/* Paket İçeriği */}
+                  <div className="mt-3 flex-1">
+                    <p className="text-xs text-gray-400 uppercase tracking-wider mb-1.5">Paket İçeriği</p>
+                    <ul className="space-y-1">
+                      {set.products.slice(0, 4).map((p) => (
+                        <li key={p.product.id} className="flex items-center gap-1.5 text-xs text-gray-600">
+                          <span className="w-1 h-1 rounded-full bg-[#0040a4] shrink-0" />
+                          <span className="truncate flex-1">{p.product.name}</span>
+                        </li>
+                      ))}
+                      {set.products.length > 4 && (
+                        <li className="text-xs text-[#0040a4] font-semibold pl-2.5">
+                          +{set.products.length - 4} ürün daha
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+
+                  {/* Set Stok */}
+                  <div className="flex items-center gap-2 mt-2">
+                    <p className={`text-[12px] font-semibold ${set.stockQuantity != null && set.stockQuantity > 0 ? 'text-emerald-600' : 'text-[#a60811]'}`}>
+                      {set.stockQuantity != null ? (set.stockQuantity > 0 ? `Set Stok: ${set.stockQuantity} adet` : 'Stokta yok') : 'Stok bilgisi yok'}
+                    </p>
+                  </div>
+
+                  {/* Fiyat */}
+                  {set.price !== null && (
+                    <div className="mt-auto pt-3 border-t border-gray-100">
+                      <div className="flex items-center justify-between">
+                        <div className="flex flex-col">
+                          <span className="text-[15px] font-bold text-[#0040a4]">
+                            {formatCurrency(Number(set.price) * (set.discountPct ? (1 - Number(set.discountPct) / 100) : 1))}
+                            <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
+                          </span>
+                          <span className="text-[11px] text-gray-400">
+                            {formatCurrency(Number(set.price) * (set.discountPct ? (1 - Number(set.discountPct) / 100) : 1) * 1.2)} KDV Dahil
+                          </span>
+                        </div>
+                        <ChevronRight className="h-5 w-5 text-gray-300 group-hover:text-[#0040a4] transition-colors" />
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

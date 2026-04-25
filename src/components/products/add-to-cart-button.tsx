@@ -97,57 +97,52 @@ export function AddToCartButton({
   }
 
   return (
-    <div className={cn("flex flex-col gap-3", className)}>
+    <div className={cn("flex items-center gap-3 flex-wrap", className)}>
       {/* Miktar seçici */}
-      <div className="flex items-center gap-2">
-        <label
-          htmlFor={`qty-${productId}`}
-          className="text-sm font-medium text-muted-foreground shrink-0"
+      <div className="flex items-center rounded-lg border overflow-hidden shrink-0">
+        <button
+          type="button"
+          onClick={handleDecrement}
+          disabled={quantity <= minOrderQuantity}
+          className="h-9 w-9 flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          aria-label="Adeti azalt"
         >
-          Adet:
-        </label>
-        <div className="flex items-center rounded-lg border overflow-hidden">
-          <button
-            type="button"
-            onClick={handleDecrement}
-            disabled={quantity <= minOrderQuantity}
-            className="h-9 w-9 flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            aria-label="Adeti azalt"
-          >
-            <Minus className="h-3.5 w-3.5" aria-hidden />
-          </button>
-          <Input
-            id={`qty-${productId}`}
-            type="number"
-            min={minOrderQuantity}
-            max={stockQuantity}
-            value={quantity}
-            onChange={handleInputChange}
-            className="h-9 w-14 border-0 border-x rounded-none text-center text-sm font-medium focus-visible:ring-0"
-            aria-label="Ürün adedi"
-          />
-          <button
-            type="button"
-            onClick={handleIncrement}
-            disabled={quantity >= stockQuantity}
-            className="h-9 w-9 flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-            aria-label="Adeti artır"
-          >
-            <Plus className="h-3.5 w-3.5" aria-hidden />
-          </button>
-        </div>
-        {minOrderQuantity > 1 && (
-          <span className="text-xs text-muted-foreground">
-            Min. {minOrderQuantity} adet
-          </span>
-        )}
+          <Minus className="h-3.5 w-3.5" aria-hidden />
+        </button>
+        <Input
+          id={`qty-${productId}`}
+          type="number"
+          min={minOrderQuantity}
+          max={stockQuantity}
+          value={quantity}
+          onChange={handleInputChange}
+          className="h-9 w-14 border-0 border-x rounded-none text-center text-sm font-medium focus-visible:ring-0"
+          aria-label="Ürün adedi"
+        />
+        <button
+          type="button"
+          onClick={handleIncrement}
+          disabled={quantity >= stockQuantity}
+          className="h-9 w-9 flex items-center justify-center hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+          aria-label="Adeti artır"
+        >
+          <Plus className="h-3.5 w-3.5" aria-hidden />
+        </button>
       </div>
+      {minOrderQuantity > 1 && (
+        <span className="text-xs text-muted-foreground">
+          Min. {minOrderQuantity} adet
+        </span>
+      )}
 
       {/* Sepete Ekle butonu */}
       <Button
         size="lg"
         onClick={handleAdd}
-        className="w-full gap-2"
+        className={cn(
+          "gap-2 transition-all duration-200",
+          isAdded && "bg-emerald-600 hover:bg-emerald-700"
+        )}
         aria-label={`${productName} - ${quantity} adet sepete ekle`}
       >
         {isAdded ? (
@@ -168,9 +163,9 @@ export function AddToCartButton({
         <button
           type="button"
           onClick={openCart}
-          className="text-xs text-center text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2"
+          className="text-xs text-muted-foreground hover:text-foreground transition-colors underline underline-offset-2"
         >
-          Sepette {cartQuantity} adet var
+          Sepette {cartQuantity} adet
         </button>
       )}
     </div>

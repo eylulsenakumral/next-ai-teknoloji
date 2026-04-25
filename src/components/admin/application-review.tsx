@@ -145,7 +145,7 @@ export function ApplicationReview({ applicationId, open, onClose, onDone }: Prop
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Başvuru Detayı</DialogTitle>
         </DialogHeader>
@@ -264,16 +264,42 @@ export function ApplicationReview({ applicationId, open, onClose, onDone }: Prop
                 )}
                 {application.taxCertificateUrl && (
                   <div className="col-span-2">
-                    <dt className="text-slate-400">Vergi Levhası</dt>
+                    <dt className="text-slate-400 mb-1">Vergi Levhası</dt>
                     <dd>
-                      <a
-                        href={application.taxCertificateUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-blue-600 underline text-xs"
-                      >
-                        Görüntüle
-                      </a>
+                      {application.taxCertificateUrl.startsWith("data:") ? (
+                        <div className="space-y-2">
+                          {application.taxCertificateUrl.startsWith("data:image/") ? (
+                            <img
+                              src={application.taxCertificateUrl}
+                              alt="Vergi Levhası"
+                              className="max-w-xs max-h-48 rounded border object-contain"
+                            />
+                          ) : (
+                            <embed
+                              src={application.taxCertificateUrl}
+                              type="application/pdf"
+                              className="w-full h-48 rounded border"
+                            />
+                          )}
+                          <a
+                            href={application.taxCertificateUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-blue-600 underline text-xs inline-block"
+                          >
+                            Yeni sekmede aç
+                          </a>
+                        </div>
+                      ) : (
+                        <a
+                          href={application.taxCertificateUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-blue-600 underline text-xs"
+                        >
+                          Görüntüle
+                        </a>
+                      )}
                     </dd>
                   </div>
                 )}

@@ -411,7 +411,7 @@ function CampaignSetSection({ sets }: { sets: CampaignSetData[] }) {
                 KAMPANYA
               </span>
             </div>
-            <h2 className="text-2xl font-bold text-[#1e1e1e]">Kampanyalı Setler</h2>
+            <h2 className="text-2xl font-bold text-[#1e1e1e]">Fırsat Ürünleri</h2>
             <p className="text-sm text-gray-500 mt-1">Özel fiyatlarla hazırlanmış ürün setleri</p>
           </div>
           <Link

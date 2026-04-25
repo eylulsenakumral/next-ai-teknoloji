@@ -21,6 +21,7 @@ import {
   LayoutDashboard,
   Loader2,
   Shield,
+  Wallet,
 } from "lucide-react"
 import Image from "next/image"
 import { cn } from "@/lib/utils"
@@ -49,9 +50,10 @@ const navItems = [
   { href: "/", label: "ANA SAYFA", icon: LayoutDashboard },
   { href: "/urunler", label: "ÜRÜNLER", icon: Package },
   { href: "/markalar", label: "MARKALAR", icon: Grid2X2 },
-  { href: "/kampanyalar", label: "KAMPANYALI SETLER", icon: Heart },
+  { href: "/kampanyalar", label: "FIRSAT ÜRÜNLERİ", icon: Heart },
   { href: "/siparisler", label: "SİPARİŞLERİM", icon: FileText },
   { href: "/hesabim/cari", label: "CARİ HESAP", icon: CreditCard },
+  { href: "/online-odeme", label: "ONLINE ÖDEME", icon: Wallet },
   { href: "/garanti-takip", label: "GARANTİ TAKİP", icon: Shield },
   { href: "/hesabim", label: "HESABIM", icon: User },
 ]

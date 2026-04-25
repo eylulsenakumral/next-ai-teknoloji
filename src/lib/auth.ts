@@ -9,10 +9,10 @@ export const authOptions: NextAuthOptions = {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
 
-  // Don't use pages config, let middleware handle redirects
-  // pages: {
-  //   signIn: "/login",
-  // },
+  pages: {
+    signIn: "/login",
+    error: "/login",
+  },
 
   providers: [
     CredentialsProvider({

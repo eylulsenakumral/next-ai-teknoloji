@@ -74,10 +74,10 @@ const TYPE_COLORS: Record<string, string> = {
 // Helpers
 // ---------------------------------------------------------------------------
 
-function formatUSD(value: number): string {
-  return new Intl.NumberFormat("en-US", {
+function formatTL(value: number): string {
+  return new Intl.NumberFormat("tr-TR", {
     style: "currency",
-    currency: "USD",
+    currency: "TRY",
     minimumFractionDigits: 2,
   }).format(value)
 }
@@ -201,7 +201,7 @@ function TransactionRow({ tx }: { tx: Transaction }) {
           ) : (
             <TrendingUp className="h-3.5 w-3.5" />
           )}
-          {formatUSD(Math.abs(tx.amount))}
+          {formatTL(Math.abs(tx.amount))}
         </span>
       </td>
       <td className="px-4 py-3.5 text-right">
@@ -211,7 +211,7 @@ function TransactionRow({ tx }: { tx: Transaction }) {
             tx.balanceAfter < 0 ? "text-emerald-700" : "text-[#333333]"
           )}
         >
-          {formatUSD(tx.balanceAfter)}
+          {formatTL(tx.balanceAfter)}
         </span>
       </td>
     </tr>
@@ -394,7 +394,7 @@ export default function CariPage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <BalanceCard
           label="Güncel Bakiye"
-          value={formatUSD(Math.abs(currentBalance))}
+          value={formatTL(Math.abs(currentBalance))}
           subtitle={currentBalance < 0 ? "Alacaklısınız" : "Borcunuz var"}
           icon={Wallet}
           accentClass={
@@ -406,14 +406,14 @@ export default function CariPage() {
         />
         <BalanceCard
           label="Kredi Limiti"
-          value={formatUSD(creditLimit)}
+          value={formatTL(creditLimit)}
           icon={CreditCard}
           accentClass="bg-[#0040a4]/10 text-[#0040a4]"
           valueClass="text-[#0040a4]"
         />
         <BalanceCard
           label="Kullanılabilir Limit"
-          value={formatUSD(availableLimit)}
+          value={formatTL(availableLimit)}
           subtitle={availableLimit < 0 ? "Limit aşıldı" : undefined}
           icon={Banknote}
           accentClass={

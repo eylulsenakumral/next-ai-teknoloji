@@ -3,7 +3,7 @@ import { prisma } from "@/lib/db"
 import { Search } from "lucide-react"
 
 export const metadata = {
-  title: "Markalar | Next AI Teknoloji",
+  title: "Markalar",
   description: "Tüm markaları keşfedin",
 }
 

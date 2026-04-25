@@ -332,14 +332,13 @@ export default function AdminOrdersPage() {
                       <OrderStatusBadge status={order.status} />
                     </TableCell>
                     <TableCell>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        render={<Link href={`/admin/siparisler/${order.id}`} />}
+                      <Link
+                        href={`/admin/siparisler/${order.id}`}
+                        className="size-8 inline-flex items-center justify-center rounded-lg hover:bg-muted hover:text-foreground transition-colors"
                         aria-label={`${order.orderNumber} detayını gör`}
                       >
                         <Eye className="h-4 w-4" aria-hidden />
-                      </Button>
+                      </Link>
                     </TableCell>
                   </TableRow>
                 ))}

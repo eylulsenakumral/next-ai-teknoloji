@@ -3,6 +3,19 @@ import { prisma } from "@/lib/db"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 
+// Tedarikçi kodu → Ürün Kodu prefix eşlemesi
+const SUPPLIER_CODE_PREFIX: Record<string, string> = {
+  B2BDEPO: "B",
+  BAYIKANALI: "BK",
+  OKISAN: "O",
+  INDEXGRUP: "I",
+  NETEX: "N",
+  BIZIMHESAP: "BZ",
+  ERGEN: "E",
+  EDENGE: "ED",
+  TESAN: "T",
+}
+
 // Tedarikçi → Depo adı eşlemesi
 const SUPPLIER_DEPO_MAP: Record<string, string> = {
   b2bdepo: "Mersin Depo",
@@ -178,9 +191,17 @@ export async function GET(
       .update({ where: { id: product.id }, data: { viewCount: { increment: 1 } } })
       .catch(() => null)
 
+    // Ürün kaynak kodu oluştur (primary supplier'a göre)
+    const primarySupplierCode = suppliers.length > 0 ? suppliers[0].supplierCode.toUpperCase() : ""
+    const productCodePrefix = SUPPLIER_CODE_PREFIX[primarySupplierCode] ?? "X"
+    // Ürün ID'sinin son 5 karakterini al (uuid son kısmı)
+    const productShortId = product.id.replace(/-/g, "").slice(-5).toUpperCase()
+    const productCode = `${productCodePrefix}-${productShortId}`
+
     return NextResponse.json({
       data: {
         id: product.id,
+        productCode,
         name: product.name,
         slug: product.slug,
         images: product.images,

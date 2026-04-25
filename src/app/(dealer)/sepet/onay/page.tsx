@@ -46,7 +46,7 @@ interface ShippingFormData {
   districtId: number | null
 }
 
-type PaymentMethod = "BANK_TRANSFER" | "ON_ACCOUNT"
+type PaymentMethod = "BANK_TRANSFER" | "ON_ACCOUNT" | "CREDIT_CARD"
 
 // ---------------------------------------------------------------------------
 // Ödeme yöntemi kartı
@@ -113,7 +113,19 @@ function PaymentOption({
 // Başarı ekranı
 // ---------------------------------------------------------------------------
 
-function SuccessView({ orderNumber }: { orderNumber: string }) {
+function SuccessView({
+  orderNumber,
+  paymentMethod,
+  grandTotal,
+  usdTry,
+}: {
+  orderNumber: string
+  paymentMethod: PaymentMethod
+  grandTotal: number
+  usdTry: number
+}) {
+  const totalTL = grandTotal * usdTry
+
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex flex-col items-center justify-center gap-8 py-16 text-center">
@@ -135,6 +147,38 @@ function SuccessView({ orderNumber }: { orderNumber: string }) {
             <span className="text-lg font-bold text-[#0040a4] font-mono">{orderNumber}</span>
           </div>
         </div>
+
+        {/* Havale/EFT IBAN Bilgileri */}
+        {paymentMethod === "BANK_TRANSFER" && (
+          <div className="w-full max-w-md rounded-2xl bg-[#f0f6ff] border border-[#0040a4]/20 p-6 text-left space-y-4">
+            <div className="flex items-center gap-2">
+              <Building2 className="h-5 w-5 text-[#0040a4]" />
+              <span className="text-base font-semibold text-[#0040a4]">Havale / EFT Bilgileri</span>
+            </div>
+            <div className="space-y-3 text-sm">
+              <div className="flex flex-col gap-0.5">
+                <span className="text-xs text-[#767676]">Hesap Sahibi</span>
+                <span className="font-semibold text-[#333333]">Next AI Teknoloji Yazılım San ve Tic Ltd Şti</span>
+              </div>
+              <div className="flex flex-col gap-0.5">
+                <span className="text-xs text-[#767676]">IBAN</span>
+                <span className="font-mono font-semibold text-[#333333] tracking-wide">TR72 0006 2000 0450 0006 2885 83</span>
+              </div>
+              <div className="flex flex-col gap-0.5 pt-3 border-t border-[#0040a4]/10">
+                <span className="text-xs text-[#767676]">Ödenecek Tutar (TL Karşılığı)</span>
+                <span className="font-bold text-[#0040a4] text-lg">{formatCurrency(totalTL, "TRY")}</span>
+                <span className="text-[10px] text-[#767676]">({formatCurrency(grandTotal)} · 1 USD = {usdTry} TL)</span>
+              </div>
+            </div>
+            <div className="flex items-start gap-2 rounded-lg bg-amber-50 border border-amber-200 px-3 py-2">
+              <AlertCircle className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
+              <p className="text-xs text-amber-800 leading-relaxed">
+                Havale açıklamasına mutlaka <strong>sipariş numaranızı ({orderNumber})</strong> yazınız. Aksi halde ödemeniz eşleştirilemeyebilir.
+              </p>
+            </div>
+          </div>
+        )}
+
         <p className="max-w-lg text-sm text-[#767676] leading-relaxed">
           Siparişiniz onaylandığında ve kargo durumu güncellendiğinde sizi bilgilendireceğiz.
           Sipariş detaylarınızı {" "}
@@ -144,21 +188,18 @@ function SuccessView({ orderNumber }: { orderNumber: string }) {
           {" "} sayfasından takip edebilirsiniz.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
-          <Button
-            size="lg"
-            className="rounded-xl bg-[#0040a4] text-white hover:bg-[#0040a4] transition-colors h-12"
-            render={<Link href="/siparisler" />}
+          <Link
+            href="/siparisler"
+            className="rounded-xl bg-[#0040a4] text-white hover:bg-[#003080] transition-colors h-12 px-6 text-sm font-semibold inline-flex items-center justify-center gap-2"
           >
             Siparişlerime Git
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="rounded-xl border-[#e5e5e5] text-[#333333] hover:bg-[#f9fafb] hover:border-[#0040a4] hover:text-[#0040a4] h-12"
-            render={<Link href="/urunler" />}
+          </Link>
+          <Link
+            href="/urunler"
+            className="rounded-xl border border-[#e5e5e5] text-[#333333] hover:bg-[#f9fafb] hover:border-[#0040a4] hover:text-[#0040a4] h-12 px-6 text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors"
           >
             Alışverişe Devam Et
-          </Button>
+          </Link>
         </div>
       </div>
     </div>
@@ -193,6 +234,17 @@ export default function CheckoutPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [orderNumber, setOrderNumber] = useState<string | null>(null)
   const [isClient, setIsClient] = useState(false)
+  const [usdTry, setUsdTry] = useState<number>(Number(process.env.NEXT_PUBLIC_USD_TRY) || 38.5)
+
+  // TCMB'den güncel kur çek
+  useEffect(() => {
+    fetch("/api/exchange-rate")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.usd) setUsdTry(data.usd)
+      })
+      .catch(() => {})
+  }, [])
 
   const subtotal = getSubtotal()
   const vatTotal = getVatTotal()
@@ -200,6 +252,25 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     setIsClient(true)
+    // Bayi cari kartından adres bilgilerini çek
+    fetch("/api/account/profile")
+      .then((r) => r.json())
+      .then((json) => {
+        if (json.data) {
+          const d = json.data
+          setShippingForm((prev) => ({
+            ...prev,
+            companyName: d.companyName || prev.companyName,
+            contactName: d.contactName || prev.contactName,
+            phone: d.phone || d.whatsappPhone || "",
+            address: d.address || "",
+            city: d.city || "",
+            district: d.district || "",
+            postalCode: d.postalCode || "",
+          }))
+        }
+      })
+      .catch(() => {})
   }, [])
 
   // Sepet boşsa yönlendir (client-side only)
@@ -214,7 +285,7 @@ export default function CheckoutPage() {
   }
 
   if (orderNumber) {
-    return <SuccessView orderNumber={orderNumber} />
+    return <SuccessView orderNumber={orderNumber} paymentMethod={paymentMethod} grandTotal={grandTotal} usdTry={usdTry} />
   }
 
   function updateField(field: keyof ShippingFormData, value: string) {
@@ -250,6 +321,12 @@ export default function CheckoutPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!validate()) return
+
+    // Kredi kartı → ödeme sayfasına yönlendir
+    if (paymentMethod === "CREDIT_CARD") {
+      router.push("/sepet/odeme")
+      return
+    }
 
     setIsSubmitting(true)
     setSubmitError(null)
@@ -299,15 +376,13 @@ export default function CheckoutPage() {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* Page Header */}
       <div className="flex items-center gap-4">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-xl hover:bg-[#f9fafb] h-10 w-10 text-[#767676]"
-          render={<Link href="/sepet" />}
+        <Link
+          href="/sepet"
+          className="rounded-xl hover:bg-[#f9fafb] h-10 w-10 text-[#767676] inline-flex items-center justify-center transition-colors"
           aria-label="Sepete dön"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden />
-        </Button>
+        </Link>
         <div>
           <h1 className="text-2xl font-bold text-[#333333]">Sipariş Onayı</h1>
           <p className="text-sm text-[#767676]">Lütfen teslimat adresi ve ödeme bilgilerinizi kontrol edin</p>
@@ -487,6 +562,14 @@ export default function CheckoutPage() {
                   onSelect={setPaymentMethod}
                 />
                 <PaymentOption
+                  value="CREDIT_CARD"
+                  selected={paymentMethod === "CREDIT_CARD"}
+                  title="Kredi / Banka Kartı"
+                  description="Güvenli ödeme sayfasına yönlendirileceksiniz."
+                  icon={CreditCard}
+                  onSelect={setPaymentMethod}
+                />
+                <PaymentOption
                   value="ON_ACCOUNT"
                   selected={paymentMethod === "ON_ACCOUNT"}
                   title="Açık Hesap (Cari)"
@@ -494,6 +577,37 @@ export default function CheckoutPage() {
                   icon={Package}
                   onSelect={setPaymentMethod}
                 />
+
+                {/* IBAN Bilgileri */}
+                {paymentMethod === "BANK_TRANSFER" && (
+                  <div className="mt-4 rounded-xl bg-[#f0f6ff] border border-[#0040a4]/20 p-4 space-y-3">
+                    <div className="flex items-center gap-2">
+                      <Building2 className="h-4 w-4 text-[#0040a4]" />
+                      <span className="text-sm font-semibold text-[#0040a4]">Banka Hesap Bilgileri</span>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-xs text-[#767676]">Hesap Sahibi</span>
+                        <span className="font-semibold text-[#333333]">Next AI Teknoloji Yazılım San ve Tic Ltd Şti</span>
+                      </div>
+                      <div className="flex flex-col gap-0.5">
+                        <span className="text-xs text-[#767676]">IBAN</span>
+                        <span className="font-mono font-semibold text-[#333333] tracking-wide">TR72 0006 2000 0450 0006 2885 83</span>
+                      </div>
+                      <div className="flex flex-col gap-0.5 pt-2 border-t border-[#0040a4]/10">
+                        <span className="text-xs text-[#767676]">Ödenecek Tutar (TL Karşılığı)</span>
+                        <span className="font-bold text-[#0040a4] text-base">{formatCurrency(grandTotal * usdTry, "TRY")}</span>
+                        <span className="text-[10px] text-[#767676]">({formatCurrency(grandTotal)} · 1 USD = {usdTry} TL)</span>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2 rounded-lg bg-amber-50 border border-amber-200 px-3 py-2">
+                      <AlertCircle className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />
+                      <p className="text-xs text-amber-800 leading-relaxed">
+                        Havale açıklamasına mutlaka <strong>sipariş numaranızı</strong> yazınız. Aksi halde ödemeniz eşleştirilemeyebilir.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -564,6 +678,8 @@ export default function CheckoutPage() {
                   subtotal={subtotal}
                   vatTotal={vatTotal}
                   grandTotal={grandTotal}
+                  showTryEquivalent
+                  usdTry={usdTry}
                 />
 
                 {submitError && (
@@ -604,9 +720,14 @@ export default function CheckoutPage() {
                     <strong className="text-[#333333]">
                       {formatCurrency(grandTotal)}
                     </strong>{" "}
+                    <span className="text-[#0040a4] font-semibold">
+                      ({formatCurrency(grandTotal * usdTry, "TRY")} TL karşılığı)
+                    </span>{" "}
                     tutarında {paymentMethod === "ON_ACCOUNT"
                       ? "cari borç oluşacaktır"
-                      : "ödeme yapmanız gerekecektir"}
+                      : paymentMethod === "CREDIT_CARD"
+                        ? "kart ile ödeme yapılacaktır"
+                        : "ödeme yapmanız gerekecektir"}
                     .
                   </p>
                 </div>
