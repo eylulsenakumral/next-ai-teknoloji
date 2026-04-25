@@ -9,6 +9,9 @@ import {
   Alert,
   FlatList,
   Dimensions,
+  Image,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
 } from "react-native"
 import { useLocalSearchParams, useRouter } from "expo-router"
 import { productsApi } from "../../src/api/products"
@@ -34,6 +37,8 @@ export default function ProductDetailScreen() {
   const [quantity, setQuantity] = useState(1)
   const [isFav, setIsFav] = useState(false)
   const [adding, setAdding] = useState(false)
+  const [activeImageIndex, setActiveImageIndex] = useState(0)
+  const [descriptionExpanded, setDescriptionExpanded] = useState(false)
 
   useEffect(() => {
     if (!slug) return
@@ -82,6 +87,14 @@ export default function ProductDetailScreen() {
   const images = product.images?.map(imageUri).filter((uri): uri is string => Boolean(uri)) ?? []
   const pricing = product.pricing ?? { salePriceIncVat: 0, salePriceExVat: 0, vatRate: 0, currency: "TRY" }
   const stock = product.stock ?? { quantity: 0, isAvailable: false }
+  const cleanDescription = (product.description ?? product.shortDescription ?? "").replace(/<[^>]+>/g, "").trim()
+  const specs = product.specs ? Object.entries(product.specs).filter(([, value]) => value != null && String(value).trim() !== "") : []
+  const sku = product.sku || product.modelCode || product.barcode
+
+  const handleImageScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const nextIndex = Math.round(event.nativeEvent.contentOffset.x / width)
+    setActiveImageIndex(nextIndex)
+  }
 
   return (
     <View style={styles.container}>
@@ -99,6 +112,7 @@ export default function ProductDetailScreen() {
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={handleImageScroll}
             style={styles.imageList}
           />
         ) : (
@@ -106,11 +120,23 @@ export default function ProductDetailScreen() {
             <Ionicons name="image-outline" size={48} color={COLORS.textMuted} />
           </View>
         )}
+        {images.length > 1 ? (
+          <View style={styles.dotsRow}>
+            {images.map((_, index) => (
+              <View key={index} style={[styles.dot, activeImageIndex === index && styles.dotActive]} />
+            ))}
+          </View>
+        ) : null}
 
         {/* Info */}
         <View style={styles.info}>
           <Text style={styles.brand}>{product.brand?.name ?? "Marka"}</Text>
           <Text style={styles.name}>{product.name}</Text>
+          {sku ? (
+            <View style={styles.skuPill}>
+              <Text style={styles.skuText}>SKU: {sku}</Text>
+            </View>
+          ) : null}
 
           {/* Price */}
           <PriceDisplay
@@ -129,24 +155,61 @@ export default function ProductDetailScreen() {
             </Text>
           </View>
 
+          {/* Description */}
+          {cleanDescription ? (
+            <View style={styles.descriptionSection}>
+              <Text style={styles.sectionTitle}>Açıklama</Text>
+              <Text style={styles.description} numberOfLines={descriptionExpanded ? undefined : 4}>
+                {cleanDescription}
+              </Text>
+              {cleanDescription.length > 180 ? (
+                <TouchableOpacity onPress={() => setDescriptionExpanded((value) => !value)} style={styles.showMoreBtn}>
+                  <Text style={styles.showMoreText}>{descriptionExpanded ? "Daha az göster" : "Devamını oku"}</Text>
+                </TouchableOpacity>
+              ) : null}
+            </View>
+          ) : null}
+
           {/* Specs */}
-          {product.specs && Object.keys(product.specs).length > 0 && (
-            <View style={styles.specsSection}>
-              <Text style={styles.sectionTitle}>Teknik Özellikler</Text>
-              {Object.entries(product.specs).map(([key, value]) => (
+          <View style={styles.specsSection}>
+            <Text style={styles.sectionTitle}>Teknik Özellikler</Text>
+            {specs.length > 0 ? (
+              specs.map(([key, value]) => (
                 <View key={key} style={styles.specRow}>
                   <Text style={styles.specKey}>{key}</Text>
                   <Text style={styles.specValue}>{String(value)}</Text>
                 </View>
-              ))}
-            </View>
-          )}
+              ))
+            ) : (
+              <Text style={styles.emptyInfo}>Bu ürün için teknik özellik bilgisi henüz eklenmemiş.</Text>
+            )}
+          </View>
 
-          {/* Description */}
-          {product.description ? (
-            <View style={{ marginTop: 16 }}>
-              <Text style={styles.sectionTitle}>Açıklama</Text>
-              <Text style={styles.description}>{product.description.replace(/<[^>]+>/g, "")}</Text>
+          {related.length > 0 ? (
+            <View style={styles.relatedSection}>
+              <Text style={styles.sectionTitle}>İlgili Ürünler</Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.relatedList}>
+                {related.map((item) => {
+                  const relatedImage = imageUri(item.images?.[0])
+                  return (
+                    <TouchableOpacity
+                      key={item.id}
+                      style={styles.relatedCard}
+                      onPress={() => router.push(`/urun/${item.slug}`)}
+                    >
+                      {relatedImage ? (
+                        <Image source={{ uri: relatedImage }} style={styles.relatedImage} resizeMode="contain" />
+                      ) : (
+                        <View style={[styles.relatedImage, styles.relatedPlaceholder]}>
+                          <Ionicons name="image-outline" size={24} color={COLORS.textMuted} />
+                        </View>
+                      )}
+                      <Text style={styles.relatedBrand} numberOfLines={1}>{item.brand?.name}</Text>
+                      <Text style={styles.relatedName} numberOfLines={2}>{item.name}</Text>
+                    </TouchableOpacity>
+                  )
+                })}
+              </ScrollView>
             </View>
           ) : null}
         </View>
@@ -178,16 +241,37 @@ export default function ProductDetailScreen() {
   )
 }
 
-import { Image } from "react-native"
-
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.background },
   imageList: { width, height: 300, backgroundColor: COLORS.surface },
   image: { width, height: 300 },
   noImage: { alignItems: "center", justifyContent: "center" },
+  dotsRow: {
+    position: "absolute",
+    top: 276,
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 6,
+  },
+  dot: { width: 7, height: 7, borderRadius: 4, backgroundColor: "#cbd5e1" },
+  dotActive: { width: 18, backgroundColor: COLORS.primary },
   info: { padding: 16 },
   brand: { fontSize: 13, color: COLORS.primary, fontWeight: "600" },
   name: { fontSize: 20, fontWeight: "700", color: COLORS.text, marginTop: 4, lineHeight: 28 },
+  skuPill: {
+    alignSelf: "flex-start",
+    marginTop: 10,
+    marginBottom: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 8,
+    backgroundColor: COLORS.surface,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  skuText: { color: COLORS.textMuted, fontSize: 12, fontWeight: "700" },
   stockRow: { flexDirection: "row", alignItems: "center", marginTop: 12 },
   stockDot: { width: 10, height: 10, borderRadius: 5, marginRight: 8 },
   stockText: { fontSize: 14, color: COLORS.textMuted },
@@ -196,7 +280,25 @@ const styles = StyleSheet.create({
   specRow: { flexDirection: "row", justifyContent: "space-between", paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: COLORS.border },
   specKey: { fontSize: 14, color: COLORS.textMuted, flex: 1 },
   specValue: { fontSize: 14, color: COLORS.text, fontWeight: "500", flex: 1, textAlign: "right" },
+  descriptionSection: { marginTop: 18, backgroundColor: COLORS.surface, borderRadius: 12, padding: 16, borderWidth: 1, borderColor: COLORS.border },
   description: { fontSize: 14, color: COLORS.textMuted, lineHeight: 20 },
+  showMoreBtn: { alignSelf: "flex-start", marginTop: 10 },
+  showMoreText: { color: COLORS.primary, fontSize: 13, fontWeight: "800" },
+  emptyInfo: { color: COLORS.textMuted, fontSize: 13, lineHeight: 19 },
+  relatedSection: { marginTop: 20 },
+  relatedList: { gap: 10, paddingRight: 8 },
+  relatedCard: {
+    width: 150,
+    backgroundColor: COLORS.surface,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    padding: 10,
+  },
+  relatedImage: { width: "100%", height: 96, borderRadius: 8, backgroundColor: COLORS.background },
+  relatedPlaceholder: { alignItems: "center", justifyContent: "center" },
+  relatedBrand: { color: COLORS.primary, fontSize: 11, fontWeight: "700", marginTop: 8 },
+  relatedName: { color: COLORS.text, fontSize: 13, fontWeight: "600", lineHeight: 17, marginTop: 2 },
   bottomBar: {
     position: "absolute",
     bottom: 0,
