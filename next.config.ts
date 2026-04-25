@@ -13,9 +13,6 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["192.168.5.249", "nexadepo.com", "www.nexadepo.com"],
-  turbopack: {
-    root: "/home/tolgabrk/projects/next-ai-teknoloji",
-  },
   typescript: {
     ignoreBuildErrors: true,
   },
