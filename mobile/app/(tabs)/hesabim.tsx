@@ -54,8 +54,13 @@ export default function HesabimScreen() {
             {avatarLetter}
           </Text>
         </View>
+        <Text style={styles.contactName}>{user?.contactName}</Text>
         <Text style={styles.companyName}>{user?.companyName}</Text>
         <Text style={styles.dealerCode}>{user?.dealerCode}</Text>
+        <View style={styles.contactInfo}>
+          <InfoPill icon="mail-outline" value={user?.email} />
+          <InfoPill icon="call-outline" value={user?.phone ?? user?.phone2} />
+        </View>
         <View style={[styles.statusBadge, { backgroundColor: COLORS.success + "20" }]}>
           <Text style={[styles.statusText, { color: COLORS.success }]}>{user?.status}</Text>
         </View>
@@ -74,6 +79,8 @@ export default function HesabimScreen() {
       </View>
 
       <View style={styles.menuSection}>
+        <MenuItem icon="person-outline" label="Profili Düzenle" onPress={() => router.push("/profil-duzenle")} />
+        <MenuItem icon="key-outline" label="Şifre Değiştir" onPress={() => router.push("/sifre-degistir")} />
         <MenuItem icon="settings-outline" label="Bildirim Ayarları" onPress={() => router.push("/bildirim-ayarlari")} />
         <MenuItem icon="information-circle-outline" label="Hakkında" onPress={() => router.push("/hakkinda")} />
       </View>
@@ -83,6 +90,16 @@ export default function HesabimScreen() {
         <Text style={styles.logoutText}>Çıkış Yap</Text>
       </TouchableOpacity>
     </ScrollView>
+  )
+}
+
+function InfoPill({ icon, value }: { icon: string; value?: string | null }) {
+  if (!value) return null
+  return (
+    <View style={styles.infoPill}>
+      <Ionicons name={icon as any} size={14} color={COLORS.textMuted} />
+      <Text style={styles.infoPillText}>{value}</Text>
+    </View>
   )
 }
 
@@ -140,8 +157,20 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   avatarText: { fontSize: 28, fontWeight: "700", color: COLORS.primary },
+  contactName: { fontSize: 17, fontWeight: "800", color: COLORS.text, marginTop: 2 },
   companyName: { fontSize: 20, fontWeight: "700", color: COLORS.text },
   dealerCode: { fontSize: 14, color: COLORS.textMuted, marginTop: 4 },
+  contactInfo: { marginTop: 10, gap: 6, alignItems: "center" },
+  infoPill: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 9,
+    backgroundColor: COLORS.background,
+  },
+  infoPillText: { color: COLORS.textMuted, fontSize: 12, fontWeight: "600" },
   statusBadge: { paddingHorizontal: 12, paddingVertical: 4, borderRadius: 8, marginTop: 8 },
   statusText: { fontSize: 12, fontWeight: "600" },
   menuSection: {

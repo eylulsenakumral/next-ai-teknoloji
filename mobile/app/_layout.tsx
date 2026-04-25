@@ -115,6 +115,14 @@ export default function RootLayout() {
         name="hakkinda"
         options={{ headerShown: true, title: "Hakkında", headerTintColor: COLORS.primary }}
       />
+      <Stack.Screen
+        name="profil-duzenle"
+        options={{ headerShown: true, title: "Profili Düzenle", headerTintColor: COLORS.primary }}
+      />
+      <Stack.Screen
+        name="sifre-degistir"
+        options={{ headerShown: true, title: "Şifre Değiştir", headerTintColor: COLORS.primary }}
+      />
     </Stack>
     </AppErrorBoundary>
   )
