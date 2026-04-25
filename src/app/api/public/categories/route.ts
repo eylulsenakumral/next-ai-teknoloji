@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
+import { withCache, CacheKey, TTL } from "@/lib/cache"
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -29,7 +30,6 @@ type PrismaCategory = {
 
 function mapCategory(cat: PrismaCategory): CategoryTreeNode {
   const children = (cat.children ?? []).map(mapCategory)
-  // Alt kategorilerdeki ürünleri de dahil et
   const childrenProductCount = children.reduce((sum, c) => sum + c.productCount, 0)
   return {
     id: cat.id,
@@ -73,12 +73,8 @@ function buildPublicInclude(depth: number): any {
 
 /* ------------------------------------------------------------------ */
 /*  GET /api/public/categories                                         */
-/*  Query params:                                                      */
-/*    - flat=true    -> Flat list with parentId, depth                 */
-/*    - (default)    -> Nested tree (root categories with children)    */
 /* ------------------------------------------------------------------ */
 
-// Searchbox autocomplete'ten gizlenecek genel kategoriler
 const EXCLUDED_FROM_SEARCH = [
   "Tüm Ürünler",
   "Bilgisayar Bileşenleri",
@@ -95,67 +91,71 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url)
     const flat = searchParams.get("flat") === "true"
 
-    // Flat list - sidebar filtreler ve arama icin
+    // Flat list - sidebar filtreler ve arama icin (Redis cache)
     if (flat) {
-      const categories = await prisma.category.findMany({
-        where: {
-          deletedAt: null,
-          isActive: true,
-          name: { notIn: EXCLUDED_FROM_SEARCH },
-        },
-        orderBy: [{ depth: "asc" }, { sortOrder: "asc" }, { name: "asc" }],
-        select: {
-          id: true,
-          name: true,
-          slug: true,
-          parentId: true,
-          depth: true,
-          imageUrl: true,
-          _count: {
-            select: {
-              products: { where: { deletedAt: null, isActive: true } },
+      const flatData = await withCache(
+        CacheKey.categoryList("flat"),
+        TTL.CATEGORY_LIST,
+        async () => {
+          const categories = await prisma.category.findMany({
+            where: {
+              deletedAt: null,
+              isActive: true,
+              name: { notIn: EXCLUDED_FROM_SEARCH },
             },
-          },
-        },
-      })
+            orderBy: [{ depth: "asc" }, { sortOrder: "asc" }, { name: "asc" }],
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+              parentId: true,
+              depth: true,
+              imageUrl: true,
+              _count: {
+                select: {
+                  products: { where: { deletedAt: null, isActive: true } },
+                },
+              },
+            },
+          })
 
-      const flatData = categories.map((cat) => ({
-        id: cat.id,
-        name: cat.name,
-        slug: cat.slug,
-        parentId: cat.parentId,
-        depth: cat.depth,
-        productCount: cat._count.products,
-        imageUrl: cat.imageUrl,
-      }))
+          return categories.map((cat) => ({
+            id: cat.id,
+            name: cat.name,
+            slug: cat.slug,
+            parentId: cat.parentId,
+            depth: cat.depth,
+            productCount: cat._count.products,
+            imageUrl: cat.imageUrl,
+          }))
+        }
+      )
 
       return NextResponse.json(
         { data: flatData },
-        {
-          headers: {
-            "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
-          },
-        }
+        { headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" } }
       )
     }
 
-    // Tree yapisi (default) - 5 seviye nested
-    const categories = await prisma.category.findMany({
-      where: { deletedAt: null, isActive: true, parentId: null },
-      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
-      include: buildPublicInclude(4),
-    })
+    // Tree yapisi (default) - 5 seviye nested (Redis cache)
+    const tree = await withCache(
+      CacheKey.categoryTree(),
+      TTL.CATEGORY_TREE,
+      async () => {
+        const categories = await prisma.category.findMany({
+          where: { deletedAt: null, isActive: true, parentId: null },
+          orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+          include: buildPublicInclude(4),
+        })
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const tree: CategoryTreeNode[] = (categories as any[]).map(mapCategory)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return (categories as any[]).map(mapCategory)
+      }
+    )
 
     return NextResponse.json(
       { data: tree },
-      {
-        headers: {
-          "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300",
-        },
-      }
+      { headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=300" } }
     )
   } catch {
     return NextResponse.json(
