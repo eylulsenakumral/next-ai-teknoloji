@@ -83,6 +83,18 @@ export default function RootLayout() {
         name="favoriler"
         options={{ headerShown: true, title: "Favoriler", headerTintColor: COLORS.primary }}
       />
+      <Stack.Screen
+        name="kampanyalar"
+        options={{ headerShown: true, title: "Kampanyalar", headerTintColor: COLORS.primary }}
+      />
+      <Stack.Screen
+        name="bildirim-ayarlari"
+        options={{ headerShown: true, title: "Bildirim Ayarları", headerTintColor: COLORS.primary }}
+      />
+      <Stack.Screen
+        name="hakkinda"
+        options={{ headerShown: true, title: "Hakkında", headerTintColor: COLORS.primary }}
+      />
     </Stack>
     </AppErrorBoundary>
   )

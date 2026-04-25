@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Alert,
   StyleSheet,
+  Linking,
 } from "react-native"
 import { useRouter } from "expo-router"
 import { useAuthStore } from "../../src/stores/auth-store"
@@ -15,6 +16,19 @@ import { Ionicons } from "@expo/vector-icons"
 export default function HesabimScreen() {
   const router = useRouter()
   const { user, logout } = useAuthStore()
+
+  const openWhatsAppSupport = async () => {
+    const phone = (user?.whatsappPhone ?? user?.phone ?? "").replace(/\D/g, "")
+    const normalizedPhone = phone.startsWith("90") ? phone : phone ? `90${phone}` : "905551112233"
+    const message = encodeURIComponent("Merhaba, Next AI bayi uygulaması için destek almak istiyorum.")
+    const url = `https://wa.me/${normalizedPhone}?text=${message}`
+
+    try {
+      await Linking.openURL(url)
+    } catch {
+      Alert.alert("WhatsApp açılamadı", "Destek hattı şu anda açılamıyor. Lütfen daha sonra tekrar deneyin.")
+    }
+  }
 
   const handleLogout = () => {
     Alert.alert("Çıkış", "Hesabınızdan çıkış yapmak istediğinize emin misiniz?", [
@@ -50,17 +64,17 @@ export default function HesabimScreen() {
       <View style={styles.menuSection}>
         <MenuItem icon="wallet-outline" label="Cari Hesap" onPress={() => router.push("/cari")} />
         <MenuItem icon="heart-outline" label="Favoriler" onPress={() => router.push("/favoriler")} />
-        <MenuItem icon="pricetag-outline" label="Kampanyalar" onPress={() => {}} />
+        <MenuItem icon="pricetag-outline" label="Kampanyalar" onPress={() => router.push("/kampanyalar")} />
         <MenuItem
           icon="logo-whatsapp"
           label="WhatsApp Destek"
-          onPress={() => {}}
+          onPress={openWhatsAppSupport}
         />
       </View>
 
       <View style={styles.menuSection}>
-        <MenuItem icon="settings-outline" label="Bildirim Ayarları" onPress={() => {}} />
-        <MenuItem icon="information-circle-outline" label="Hakkında" onPress={() => {}} />
+        <MenuItem icon="settings-outline" label="Bildirim Ayarları" onPress={() => router.push("/bildirim-ayarlari")} />
+        <MenuItem icon="information-circle-outline" label="Hakkında" onPress={() => router.push("/hakkinda")} />
       </View>
 
       <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
