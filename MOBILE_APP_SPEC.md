@@ -1,6 +1,6 @@
 # Next AI Teknoloji — Native Mobil Uygulama Spesifikasyonu
 
-> **Proje:** tamirhanem.com B2B Bayi Platformu
+> **Proje:** NexaDepo B2B Bayi Platformu (nexadepo.com)
 > **Tarih:** 25 Nisan 2026
 > **Hedef:** Expo React Native (iOS + Android) native mobil uygulama
 
@@ -8,7 +8,7 @@
 
 ## 1. Genel Bakış
 
-tamirhanem.com, bilgisayar ve güvenlik ürünleri toptan satış B2B platformu. Bayiler (müşteriler) giriş yaparak ürünleri görür, fiyatları kontrol eder, sipariş verir ve hesap hareketlerini takip eder.
+NexaDepo (nexadepo.com), bilgisayar ve güvenlik ürünleri toptan satış B2B platformu. Bayiler (müşteriler) giriş yaparak ürünleri görür, fiyatları kontrol eder, sipariş verir ve hesap hareketlerini takip eder.
 
 **Mobil uygulama bayi (dealer) tarafı için.** Admin paneli web'de kalacak.
 
@@ -142,28 +142,42 @@ Tab Navigator (5 tab)
 
 ## 4. API Endpoint Referansı
 
-Mevcut web API'leri doğrudan mobil tarafından tüketilecek. Base URL: `https://next-ai-teknoloji.vercel.app` veya production domain.
+Mevcut web API'leri doğrudan mobil tarafından tüketilecek. Base URL: `https://nexadepo.com` (production).
 
-### 4.1 Auth (Public)
+### 4.1 Auth (NextAuth)
 
-| Method | Endpoint | Açıklama | Body/Params |
-|--------|----------|----------|-------------|
-| POST | `/api/auth/dealer-login` | Bayi girişi | `{ dealerCode, password }` |
-| POST | `/api/auth/admin-login` | Admin girişi (web only) | — |
-| POST | `/api/auth/forgot-password` | Şifre sıfırlama | `{ email }` |
+NextAuth credentials provider üzerinden çalışıyor. Endpoint: `/api/auth/[...nextauth]`
+
+| Method | Endpoint | Açıklama | Body |
+|--------|----------|----------|------|
+| POST | `/api/auth/callback/credentials` | Bayi girişi | `{ dealerCode, password }` (NextAuth flow) |
+| POST | `/api/auth/signout` | Çıkış | — |
+
+**Not:** Mobilde cookie-based auth kullanılacak. React Native fetch API cookies destekler.
 
 **Login Response:**
+NextAuth cookie-based JWT döner. Ayrı bir JSON body yoktur — session cookie `Set-Cookie` header'ı ile gelir. Login sonrası profil bilgisi için `GET /api/account/profile` çağrılmalı.
+
+```
+POST /api/auth/callback/credentials
+Content-Type: application/x-www-form-urlencoded
+
+dealerCode=BAY0001&password=xxx
+
+→ 302 redirect + Set-Cookie: next-auth.session-token=eyJ...
+```
+
+Profil bilgisi:
 ```json
+// GET /api/account/profile → { data: Customer }
 {
-  "token": "jwt-token-here",
-  "user": {
+  "data": {
     "id": "uuid",
     "dealerCode": "BAY0001",
     "companyName": "Firma Adı",
     "contactName": "Yetkili Adı",
     "email": "firma@email.com",
     "phone": "0532xxx",
-    "role": "dealer",
     "status": "APPROVED",
     "balance": 15000.50,
     "creditLimit": 50000,
@@ -188,78 +202,174 @@ Mevcut web API'leri doğrudan mobil tarafından tüketilecek. Base URL: `https:/
 | GET | `/api/public/brands` | Public markalar |
 | GET | `/api/public/campaigns` | Kampanyalar |
 
-**Query Params (Ürün Listesi):**
+**Query Params (Ürün Listesi - `/api/catalog/products`):**
 ```
-?page=1&limit=20
-&category=uuid
-&brand=uuid
-&search=notebook
-&sort=price_asc|price_desc|name_asc|newest
-&minPrice=1000
-&maxPrice=50000
-&inStock=true
-&isFeatured=true
-&isNew=true
+?page=1&limit=20           # max 100, default 20
+&search=notebook           # arama (name, sku, modelCode, barcode, description, brand name)
+&categorySlug=dizustu      # kategori slug (alt kategoriler dahil)
+&brandSlug=lenovo          # marka slug filtre
+&inStock=true              # stokta olanlar
+&campaign=true             # kampanyalı/featured/outlet ürünler
+&sortBy=newest|name-asc|name-desc  # varsayılan: newest
 ```
 
-**Ürün Detay Response:**
+**Public Endpoint (`/api/public/catalog/products`):**
+- Auth gerektirmez, Redis cache'li (60s)
+- `categorySlug` ve `brandSlug` parametreleri alır (ID yerine)
+- Stok miktarı gösterilmez
+- Bazı tedarikçilerde (Okisan) fiyat gizlenir
+
+**Ürün Detay Response (`GET /api/catalog/products/[slug]`):**
 ```json
 {
-  "id": "uuid",
-  "name": "Lenovo IdeaPad 5 Pro",
-  "slug": "lenovo-ideapad-5-pro",
-  "brand": { "id": "uuid", "name": "Lenovo", "logoUrl": "..." },
-  "category": { "id": "uuid", "name": "Dizüstü Bilgisayar", "slug": "..." },
-  "images": ["url1", "url2", "url3"],
-  "shortDescription": "...",
-  "description": "... (HTML)",
-  "specs": { "İşlemci": "Intel i7-13700H", "RAM": "16GB DDR5", ... },
-  "price": 42500,
-  "currency": "TRY",
-  "stockQuantity": 15,
-  "minOrderQuantity": 1,
-  "unit": "ADET",
-  "warrantyMonths": 24,
-  "isActive": true,
-  "isFeatured": false,
-  "isNew": true,
-  "campaignDiscountPct": 5
+  "product": {
+    "id": "uuid",
+    "name": "Lenovo IdeaPad 5 Pro",
+    "slug": "lenovo-ideapad-5-pro",
+    "barcode": "0123456789",
+    "sku": "LEN-IDEA5P",
+    "modelCode": "82SH",
+    "shortDescription": "...",
+    "description": "... (HTML)",
+    "specs": { "İşlemci": "Intel i7-13700H", "RAM": "16GB DDR5" },
+    "images": ["url1", "url2", "url3"],
+    "brand": {
+      "id": "uuid",
+      "name": "Lenovo",
+      "slug": "lenovo",
+      "logoUrl": "...",
+      "websiteUrl": "..."
+    },
+    "category": {
+      "id": "uuid",
+      "name": "Dizüstü Bilgisayar",
+      "slug": "dizustu",
+      "parentId": "uuid|null",
+      "parent": { "id": "uuid", "name": "...", "slug": "...", "parentId": "uuid|null" }
+    },
+    "pricing": {
+      "purchasePrice": 35000,
+      "salePriceExVat": 42000,
+      "salePriceIncVat": 50400,
+      "vatRate": 20,
+      "currency": "TRY"
+    },
+    "stock": {
+      "quantity": 15,
+      "isAvailable": true
+    },
+    "warrantyMonths": 24,
+    "minOrderQuantity": 1,
+    "unit": "ADET",
+    "isNew": true,
+    "isFeatured": false,
+    "isOutlet": false
+  },
+  "relatedProducts": [
+    {
+      "id": "uuid",
+      "name": "...",
+      "slug": "...",
+      "images": ["..."],
+      "brand": { "id": "uuid", "name": "...", "slug": "..." },
+      "pricing": { "salePriceExVat": 0, "salePriceIncVat": 0, "vatRate": 20 },
+      "stock": { "quantity": 0, "isAvailable": false }
+    }
+  ]
+}
+```
+
+**Ürün Listesi Response (`GET /api/catalog/products`):**
+```json
+{
+  "data": [
+    {
+      "id": "uuid",
+      "name": "Lenovo IdeaPad 5 Pro",
+      "slug": "lenovo-ideapad-5-pro",
+      "images": ["url1"],
+      "description": "...",
+      "specifications": { "İşlemci": "Intel i7-13700H" },
+      "brand": { "name": "Lenovo", "slug": "lenovo" },
+      "category": { "name": "Dizüstü Bilgisayar", "slug": "dizustu" },
+      "stockStatus": true,
+      "stockCount": 15,
+      "hidePrice": false,
+      "price": 50400,
+      "currency": "TRY",
+      "priceTry": 50400,
+      "usdTryRate": 38.5
+    }
+  ],
+  "meta": { "total": 150, "page": 1, "limit": 20, "totalPages": 8 }
 }
 ```
 
 ### 4.3 Sepet (Auth)
 
-| Method | Endpoint | Açıklama | Body |
-|--------|----------|----------|------|
+| Method | Endpoint | Açıklama | Body/Params |
+|--------|----------|----------|-------------|
 | GET | `/api/cart` | Sepeti getir | — |
 | POST | `/api/cart` | Sepete ekle | `{ productId, quantity }` |
 | PUT | `/api/cart` | Miktar güncelle | `{ itemId, quantity }` |
-| DELETE | `/api/cart` | Sepeti boşalt | — |
-| DELETE | `/api/cart/[itemId]` | Ürün çıkar | — |
+| DELETE | `/api/cart?itemId={id}` | Ürün çıkar | query param |
+| DELETE | `/api/cart` | Sepeti boşalt | Body/query yok |
+
+**Cart Response (GET):**
+```json
+{
+  "id": "uuid",
+  "userId": "uuid",
+  "items": [{
+    "id": "uuid",
+    "productId": "uuid",
+    "quantity": 2,
+    "priceSnapshot": 42500,
+    "product": {
+      "id": "uuid", "name": "...", "slug": "...",
+      "images": ["url"],
+      "brand": { "name": "Lenovo" },
+      "supplierProducts": [{ "stockQuantity": 15, "purchasePrice": 35000 }]
+    }
+  }]
+}
+```
+
+**Cart Mutation Response (POST/PUT/DELETE):**
+```json
+{ "success": true }
+```
 
 ### 4.4 Sipariş (Auth)
 
 | Method | Endpoint | Açıklama | Body |
 |--------|----------|----------|------|
-| GET | `/api/orders` | Sipariş listesi | query: `?page=1&status=PENDING` |
+| GET | `/api/orders` | Sipariş listesi | query: `?page=1&limit=20&status=PENDING` |
 | POST | `/api/orders` | Sipariş oluştur | Sipariş payload (aşağıda) |
 | GET | `/api/orders/[id]` | Sipariş detay | — |
+| DELETE | `/api/orders/[id]` | Sipariş iptal | — |
+
+**Order List Response:** `{ data: Order[], meta: { total, page, limit, totalPages } }`
+**Order Create Response:** `{ data: { id, orderNumber, status, totalAmount, currency, createdAt } }`
+**Order Cancel Response:** `{ data: { success: true } }`
 
 **Sipariş Oluşturma Payload:**
 ```json
 {
   "items": [
-    { "productId": "uuid", "quantity": 2, "unitPrice": 42500 }
+    { "productId": "uuid", "quantity": 2 }
   ],
   "shippingAddress": {
-    "name": "Firma Adı",
+    "companyName": "Firma Adı",
+    "contactName": "Yetkili Adı",
+    "phone": "0532xxx",
     "address": "Adres...",
     "city": "İstanbul",
     "district": "Kadıköy",
-    "phone": "0532xxx"
+    "postalCode": "34000",
+    "country": "TR"
   },
-  "billingAddress": { "..." },
-  "paymentMethod": "BANK_TRANSFER" | "CREDIT_CARD",
+  "paymentMethod": "BANK_TRANSFER" | "ON_ACCOUNT" | "CREDIT_CARD",
   "notes": "Acil teslimat"
 }
 ```
@@ -272,13 +382,37 @@ Mevcut web API'leri doğrudan mobil tarafından tüketilecek. Base URL: `https:/
 | PUT | `/api/account/profile` | Profil güncelle |
 | GET | `/api/account/transactions` | Cari hesap hareketleri |
 
+**Transaction Query Params:** `?page=1&limit=20&type=INVOICE|PAYMENT|REFUND|ADJUSTMENT|OPENING_BALANCE&dateFrom=2026-01-01&dateTo=2026-04-25`
+
 ### 4.6 Favoriler (Auth)
 
-| Method | Endpoint | Açıklama | Body |
-|--------|----------|----------|------|
+| Method | Endpoint | Açıklama | Body/Params |
+|--------|----------|----------|-------------|
 | GET | `/api/wishlist` | Favori listesi | — |
 | POST | `/api/wishlist` | Favori ekle | `{ productId }` |
-| DELETE | `/api/wishlist` | Favori çıkar | `{ productId }` |
+| DELETE | `/api/wishlist?productId={id}` | Favori çıkar | query param |
+
+**Wishlist Response (GET):**
+```json
+{
+  "id": "uuid",
+  "userId": "uuid",
+  "items": [{
+    "id": "uuid",
+    "productId": "uuid",
+    "addedAt": "2026-04-25T10:00:00Z",
+    "product": {
+      "id": "uuid", "name": "...", "slug": "...",
+      "images": ["url"],
+      "brand": { "name": "Lenovo" },
+      "category": { "name": "Dizüstü", "slug": "dizustu" },
+      "supplierProducts": [{ "stockQuantity": 15, "purchasePrice": 35000 }]
+    }
+  }]
+}
+```
+
+**Wishlist Mutation Response:** `{ success: true, alreadyExists?: boolean }`
 
 ### 4.7 Bayilik Başvurusu (Public)
 
@@ -321,112 +455,176 @@ Mevcut web API'leri doğrudan mobil tarafından tüketilecek. Base URL: `https:/
 | GET | `/api/locations/cities` | 81 il listesi |
 | GET | `/api/locations/districts?cityId=X` | İlçeler |
 
-### 4.10 Ödeme (Auth)
+### 4.10 Ödeme (Auth — NomuPay)
+
+2-adım ödeme akışı:
 
 | Method | Endpoint | Açıklama |
 |--------|----------|----------|
-| POST | `/api/payment/nomupay` | Ödeme başlat |
-| POST | `/api/payment/nomupay/callback` | Ödeme sonuç |
-| POST | `/api/payment/nomupay/bin` | BIN sorgulama |
+| POST | `/api/payment/nomupay` | Ödeme ticket oluştur → returnUrl döner |
+| POST | `/api/payment/nomupay/callback` | NomuPay async callback |
+| GET | `/api/payment/nomupay/callback` | Final callback (redirect) |
+| POST | `/api/payment/nomupay/bin` | BIN sorgulama (taksit) |
+
+**Flow:**
+```
+1. POST /api/payment/nomupay { amount, currency, orderId }
+   → { success: true, returnUrl: "https://pay.nomupay.com/...", orderId, maskedCCNo, mpay, ... }
+2. WebView'de returnUrl açılır, kart bilgileri girilir
+3. Callback ile sonuç alınır
+```
 
 ---
 
 ## 5. Veri Modelleri (Mobil İçin Gerekli)
 
-### 5.1 Customer (Bayi)
+### 5.1 Customer (Bayi) — `GET /api/account/profile`
+
+**Response wrapper:** `{ data: Customer }`
 
 ```typescript
 interface Customer {
   id: string
   dealerCode: string        // "BAY0001"
   companyName: string
-  tradeName?: string
-  contactName?: string
-  contactTitle?: string
-  phone?: string
-  phone2?: string
-  email?: string
-  taxOffice?: string
-  taxNumber?: string
-  address?: string
-  city?: string
-  district?: string
-  postalCode?: string
+  tradeName: string
+  contactName: string
+  contactTitle: string | null
+  phone: string | null
+  phone2: string | null
+  email: string
+  taxOffice: string | null
+  taxNumber: string | null
+  address: string | null
+  city: string | null
+  district: string | null
+  postalCode: string | null
+  whatsappPhone: string | null
+  status: CustomerStatus    // PENDING | APPROVED | REJECTED | SUSPENDED
   balance: number           // Mevcut bakiye
   creditLimit: number       // Kredi limiti
   discountRate: number      // İndirim oranı (%)
-  status: CustomerStatus    // PENDING | APPROVED | REJECTED | SUSPENDED
-  tags: string[]
-  lastLoginAt?: string
+  createdAt: string
+  approvedAt: string | null
+  lastLoginAt: string | null
 }
 ```
 
 ### 5.2 Product (Ürün)
 
+**Liste item** (`/api/catalog/products`): flat yapılır, nested `pricing`/`stock` yoktur. Liste için `ProductListItem`, detay için `ProductDetail` kullanılır.
+
 ```typescript
-interface Product {
+// Ürün listesi item — /api/catalog/products → data[]
+interface ProductListItem {
   id: string
   name: string
   slug: string
-  barcode?: string
-  sku?: string
-  modelCode?: string
-  shortDescription?: string
-  description?: string      // HTML
-  specs?: Record<string, string>  // { "İşlemci": "i7", "RAM": "16GB" }
-  images: string[]          // URL dizisi
-  brand?: { id: string; name: string; logoUrl?: string }
-  category?: { id: string; name: string; slug: string }
-  price: number
-  currency: string
-  stockQuantity: number
-  minOrderQuantity: number
-  unit: "ADET" | "KUTU" | "PAKET" | "KOLI" | "METRE" | "KILOGRAM"
-  warrantyMonths?: number
-  isActive: boolean
-  isFeatured: boolean
+  images: string[] | null
+  description: string | null
+  specifications: Record<string, any> | null
+  brand: { name: string; slug: string }
+  category: { name: string; slug: string }
+  stockStatus: boolean
+  stockCount: number
+  hidePrice: boolean
+  price: number | null         // Bayi fiyatı (markup uygulanmış)
+  currency: string             // "TRY" | "USD" | "EUR"
+  priceTry: number | null      // TRY karşılığı
+  usdTryRate: number           // Anlık USD kuru
+}
+
+// Ürün detay — /api/catalog/products/[slug] → product
+interface ProductDetail {
+  id: string
+  name: string
+  slug: string
+  barcode: string | null
+  sku: string | null
+  modelCode: string | null
+  shortDescription: string | null
+  description: string | null   // HTML
+  specs: Record<string, any> | null
+  images: string[] | null
+  brand: {
+    id: string
+    name: string
+    slug: string
+    logoUrl: string | null
+    websiteUrl: string | null
+  }
+  category: {
+    id: string
+    name: string
+    slug: string
+    parentId: string | null
+    parent?: {                   // Breadcrumb için 3 seviye
+      id: string; name: string; slug: string; parentId: string | null
+      parent?: { id: string; name: string; slug: string; parentId: string | null }
+    }
+  }
+  pricing: {
+    purchasePrice: number        // Alış fiyatı
+    salePriceExVat: number       // Satış fiyatı (KDV hariç)
+    salePriceIncVat: number      // Satış fiyatı (KDV dahil)
+    vatRate: number              // %20
+    currency: string
+  }
+  stock: {
+    quantity: number
+    isAvailable: boolean
+  }
+  warrantyMonths: number | null
+  minOrderQuantity: number | null
+  unit: string | null
   isNew: boolean
+  isFeatured: boolean
   isOutlet: boolean
-  campaignDiscountPct?: number
-  viewCount: number
 }
 ```
 
 ### 5.3 Order (Sipariş)
+
+**Liste wrapper:** `{ data: Order[], meta: PaginationMeta }`
+**Detay wrapper:** `{ data: Order }`
 
 ```typescript
 interface Order {
   id: string
   orderNumber: string       // "SIP-2026-0001"
   status: OrderStatus
-  subtotal: number
-  discountTotal: number
-  vatTotal: number
-  shippingTotal: number
-  grandTotal: number
+  totalAmount: number       // Toplam tutar (tek alan)
   currency: string
-  paymentMethod: "BANK_TRANSFER" | "CREDIT_CARD"
-  paymentStatus: "PENDING" | "PAID" | "FAILED" | "REFUNDED"
-  shippingAddress?: object
-  billingAddress?: object
-  notes?: string
-  shippingTrackingNumber?: string
-  shippingCarrier?: string
-  items: OrderItem[]
   createdAt: string
   updatedAt: string
+  customer: {
+    id: string
+    contactName: string
+  }
+  items: OrderItem[]
+  shippingAddress: {
+    address: string
+    city: string
+    district: string
+    postalCode: string
+  }
+  trackingNumber: string | null
+  estimatedDelivery: string | null
 }
 
 interface OrderItem {
   id: string
-  productName: string
-  productBarcode?: string
+  productId: string
   quantity: number
   unitPrice: number
-  discountAmount: number
-  vatRate: number
-  lineTotal: number
-  productId?: string        // Ürün detayına link için
+  totalPrice: number        // unitPrice * quantity
+}
+
+interface PaginationMeta {
+  total: number
+  page: number
+  limit: number
+  totalPages: number
 }
 ```
 
@@ -444,56 +642,78 @@ type OrderStatus =
 
 ### 5.5 Cart & CartItem
 
+**Response:** `{ id, userId, items: CartItem[] }` (wrapper yok, direkt obje)
+
 ```typescript
 interface Cart {
   id: string
+  userId: string
   items: CartItem[]
-  totalAmount: number
-  totalItems: number
 }
 
 interface CartItem {
   id: string
   productId: string
-  productName: string
-  productImage?: string
   quantity: number
-  unitPrice: number
-  lineTotal: number
-  stockQuantity: number     // Stok kontrolü için
+  priceSnapshot: number      // Sepete eklenirkenki fiyat anlık görüntüsü
+  product: {
+    id: string
+    name: string
+    slug: string
+    images: string[] | null
+    brand: { name: string }
+    supplierProducts: {
+      stockQuantity: number
+      purchasePrice: number
+    }[]
+  }
 }
 ```
 
 ### 5.6 AccountTransaction (Cari Hareket)
 
+**Response wrapper:** `{ data: AccountTransaction[], meta: TransactionMeta }`
+
 ```typescript
 interface AccountTransaction {
   id: string
-  type: "DEBIT" | "CREDIT"    // Borç / Alacak
+  type: "INVOICE" | "PAYMENT" | "REFUND" | "ADJUSTMENT" | "OPENING_BALANCE"
   amount: number
-  balanceAfter: number
-  currency: string
-  referenceType?: string      // "ORDER", "PAYMENT"
-  referenceId?: string
-  description?: string
+  balance: number             // İşlem sonrası bakiye
+  description: string | null
+  referenceNumber: string | null
   createdAt: string
+}
+
+interface TransactionMeta extends PaginationMeta {
+  currentBalance: number
+  creditLimit: number
 }
 ```
 
 ### 5.7 Category (Kategori)
 
+**Response:** `{ data: CategoryTreeNode[] }` (tree) veya `{ data: CategoryFlat[] }` (?flat=true)
+
 ```typescript
-interface Category {
+interface CategoryTreeNode {
   id: string
   name: string
   slug: string
-  description?: string
-  imageUrl?: string
-  parentId?: string
-  depth: number               // 0 = root, 1 = child, 2 = grandchild
-  sortOrder: number
-  isActive: boolean
-  children?: Category[]       // Recursive
+  depth: number               // 0 = root
+  productCount: number
+  imageUrl: string | null
+  children: CategoryTreeNode[]
+}
+
+interface CategoryFlat {
+  id: string
+  name: string
+  slug: string
+  parentId: string | null
+  depth: number
+  productCount: number
+  imageUrl: string | null
 }
 ```
 
@@ -542,10 +762,10 @@ interface DealerApplication {
 
 ```
 1. Kullanıcı bayi kodu + şifre girer
-2. POST /api/auth/dealer-login
-3. Başarılı → JWT token cookie'ye yazılır
-4. Token AsyncStorage'a kaydedilir (persist)
-5. Kullanıcı bilgileri Zustand store'a yazılır
+2. POST /api/auth/callback/credentials (NextAuth flow)
+3. Başarılı → Set-Cookie header ile JWT session token gelir
+4. Cookie AsyncStorage'a kaydedilir (persist)
+5. GET /api/account/profile ile kullanıcı bilgileri alınır → Zustand store'a yazılır
 6. Ana sayfaya yönlendirilir
 
 Hata durumları:
@@ -557,18 +777,17 @@ Hata durumları:
 ### 6.2 Token Yönetimi
 
 ```typescript
-// Token saklama
-AsyncStorage.setItem("auth_token", token)
-AsyncStorage.setItem("auth_user", JSON.stringify(user))
+// NextAuth session token saklama (Set-Cookie header'dan alınır)
+AsyncStorage.setItem("session_token", token)
 
-// Her API isteğinde
+// Her API isteğinde cookie olarak gönder
 headers: {
   Cookie: `next-auth.session-token=${token}`
 }
-// VEYA
-headers: {
-  Authorization: `Bearer ${token}`
-}
+
+// Alternatif: React Native fetch cookie jar kullanımı
+// iOS: otomatik cookie yönetimi
+// Android: @react-native-community/cookies ile yönetim
 
 // Token geçersizse → login ekranına yönlendir
 // 401 response → token'i sil, logout
@@ -884,29 +1103,23 @@ POST /api/devices/register
 Body: { pushToken: string, platform: "ios" | "android", userId: string }
 ```
 
-### 12.2 API Response Format Standardizasyonu
+### 12.2 Auth: Cookie-based
 
-Mevcut API'ler web'e özel cookie-based auth kullanıyor. Mobil için:
-
-- **Seçenek A:** Mevcut cookie-based auth kullan (React Native cookies destekler)
-- **Seçenek B:** Authorization header ile JWT bearer token ekle
-
-**Öneri:** Seçenek A (daha az değişiklik).
+Mevcut API'ler NextAuth cookie-based auth kullanıyor. React Native fetch API cookies destekler, bu yüzden ek değişiklik gerekmez. Login sonrası `Set-Cookie` header'ı otomatik saklanır.
 
 ### 12.3 CORS
 
-Mobil uygulamadan gelen istekler için CORS header'ları eklenebilir (gerekirse). Expo development'ta `localhost` kullanılacak.
+Mobil uygulamadan gelen istekler için CORS header'ları eklenebilir. `next.config.ts`'te `nexadepo.com` zaten allowlist'te.
 
 ### 12.4 Eklenmesi Gereken Endpoint'ler
 
-| Endpoint | Açıklama |
-|----------|----------|
-| `GET /api/dealer/quotes` | Bayi teklif listesi |
-| `GET /api/dealer/quotes/[id]` | Bayi teklif detay |
-| `GET /api/dealer/notifications` | Bayi bildirimleri |
-| `PATCH /api/dealer/notifications/[id]` | Bildirim okundu |
-| `POST /api/devices/register` | Push token kayıt |
-| `DELETE /api/cart/[itemId]` | Tek ürün silme |
+| Endpoint | Açıklama | Durum |
+|----------|----------|-------|
+| `GET /api/dealer/quotes` | Bayi teklif listesi | YENİ (sadece admin'de mevcut) |
+| `GET /api/dealer/quotes/[id]` | Bayi teklif detay | YENİ |
+| `GET /api/dealer/notifications` | Bayi bildirimleri | YENİ |
+| `PATCH /api/dealer/notifications/[id]` | Bildirim okundu | YENİ |
+| `POST /api/devices/register` | Push token kayıt | YENİ |
 
 ---
 
@@ -994,21 +1207,21 @@ Mobil uygulamadan gelen istekler için CORS header'ları eklenebilir (gerekirse)
 ## 18. App Store Bilgileri
 
 ### Android (Google Play)
-- **Package:** `com.tamirhanem.bayi`
+- **Package:** `com.nexadepo.bayi`
 - **Min SDK:** 24 (Android 7.0)
 - **Target SDK:** 35
 
 ### iOS (App Store)
-- **Bundle ID:** `com.tamirhanem.bayi`
+- **Bundle ID:** `com.nexadepo.bayi`
 - **Min iOS:** 15.0
 - **Target iOS:** 18.0
 
 ### Store Listing
-- **Uygulama Adı:** Tamirhanem Bayi
+- **Uygulama Adı:** NexaDepo Bayi
 - **Kategori:** İş / B2B
 - **Dil:** Türkçe
 - **Yaş:** 4+
 
 ---
 
-*Bu doküman projenin mevcut kod tabanından üretilmiştir. Tüm API endpoint'leri, veri modelleri ve iş mantığı web uygulamasından doğrudan alınmıştır.*
+*Bu doküman nexadepo.com production kod tabanından üretilmiştir. Tüm API endpoint'leri, veri modelleri ve iş mantığı web uygulamasından doğrudan alınmıştır.*
