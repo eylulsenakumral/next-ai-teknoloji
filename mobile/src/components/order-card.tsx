@@ -10,6 +10,8 @@ interface Props {
 }
 
 export function OrderCard({ order, onPress }: Props) {
+  const itemCount = order.itemCount ?? order.items.length
+
   return (
     <TouchableOpacity style={styles.card} onPress={() => onPress(order.id)} activeOpacity={0.7}>
       <View style={styles.rowBetween}>
@@ -24,7 +26,7 @@ export function OrderCard({ order, onPress }: Props) {
         <Text style={styles.date}>{formatDate(order.createdAt)}</Text>
         <Text style={styles.amount}>{formatPrice(order.totalAmount, order.currency)}</Text>
       </View>
-      <Text style={styles.items}>{order.items.length} ürün</Text>
+      <Text style={styles.items}>{itemCount} ürün</Text>
       {order.trackingNumber && (
         <Text style={styles.tracking}>Kargo: {order.trackingNumber}</Text>
       )}

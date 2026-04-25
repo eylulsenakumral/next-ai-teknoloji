@@ -193,6 +193,7 @@ export type OrderStatus =
   | "SHIPPED"
   | "DELIVERED"
   | "CANCELLED"
+  | "RETURNED"
 
 export interface OrderItem {
   id: string
@@ -212,12 +213,13 @@ export interface Order {
   updatedAt: string
   customer: { id: string; contactName: string }
   items: OrderItem[]
+  itemCount?: number
   shippingAddress: {
     address: string
     city: string
     district: string
     postalCode: string
-  }
+  } | null
   trackingNumber: string | null
   estimatedDelivery: string | null
 }
