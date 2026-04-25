@@ -24,7 +24,7 @@ import type { Brand, CategoryFlat, ProductListParams } from "../../src/types"
 export default function KatalogScreen() {
   const router = useRouter()
   const { categorySlug: initialCategorySlug } = useLocalSearchParams<{ categorySlug?: string }>()
-  const { products, meta, isLoading, params, fetch, reset } = useProductStore()
+  const { products, meta, isLoading, errorMessage, params, fetch, reset } = useProductStore()
   const [filterOpen, setFilterOpen] = useState(false)
   const [categories, setCategories] = useState<CategoryFlat[]>([])
   const [brands, setBrands] = useState<Brand[]>([])
@@ -155,12 +155,31 @@ export default function KatalogScreen() {
         onEndReachedThreshold={0.5}
         ListFooterComponent={isLoading ? <ActivityIndicator color={COLORS.primary} style={{ margin: 16 }} /> : null}
         ListEmptyComponent={
-          !isLoading ? (
+          isLoading ? (
+            <View style={styles.skeletonGrid}>
+              {Array.from({ length: 4 }).map((_, index) => (
+                <View key={index} style={styles.skeletonCard}>
+                  <View style={styles.skeletonImage} />
+                  <View style={styles.skeletonLine} />
+                  <View style={[styles.skeletonLine, { width: "70%" }]} />
+                </View>
+              ))}
+            </View>
+          ) : errorMessage ? (
+            <View style={styles.empty}>
+              <Ionicons name="cloud-offline-outline" size={48} color={COLORS.textMuted} />
+              <Text style={styles.emptyText}>Ürünler yüklenemedi</Text>
+              <Text style={styles.errorText}>{errorMessage}</Text>
+              <TouchableOpacity style={styles.retryButton} onPress={() => fetch({ page: 1 })}>
+                <Text style={styles.retryButtonText}>Tekrar Dene</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
             <View style={styles.empty}>
               <Ionicons name="search-outline" size={48} color={COLORS.textMuted} />
               <Text style={styles.emptyText}>Ürün bulunamadı</Text>
             </View>
-          ) : null
+          )
         }
         refreshing={isLoading && products.length === 0}
         onRefresh={() => fetch({ page: 1 })}
@@ -302,6 +321,20 @@ const styles = StyleSheet.create({
   grid: { paddingHorizontal: 12, paddingBottom: 24 },
   empty: { alignItems: "center", justifyContent: "center", paddingVertical: 64 },
   emptyText: { fontSize: 16, color: COLORS.textMuted, marginTop: 12 },
+  errorText: { color: COLORS.textMuted, fontSize: 13, textAlign: "center", lineHeight: 20, marginTop: 8 },
+  retryButton: { marginTop: 16, backgroundColor: COLORS.primary, paddingHorizontal: 18, paddingVertical: 12, borderRadius: 10 },
+  retryButtonText: { color: "#fff", fontWeight: "800" },
+  skeletonGrid: { flexDirection: "row", flexWrap: "wrap", gap: 8, paddingTop: 4 },
+  skeletonCard: {
+    width: "48%",
+    backgroundColor: COLORS.surface,
+    borderRadius: 12,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+  },
+  skeletonImage: { height: 118, borderRadius: 8, backgroundColor: "#e5e7eb" },
+  skeletonLine: { height: 12, borderRadius: 6, backgroundColor: "#e5e7eb", marginTop: 10 },
   modalBackdrop: { flex: 1, justifyContent: "flex-end", backgroundColor: "rgba(15, 23, 42, 0.35)" },
   sheet: {
     maxHeight: "86%",

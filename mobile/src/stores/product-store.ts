@@ -7,6 +7,7 @@ interface ProductState {
   products: ProductListItem[]
   meta: { total: number; totalPages: number; page: number } | null
   isLoading: boolean
+  errorMessage: string | null
   params: ProductListParams
 
   fetch: (params?: ProductListParams, append?: boolean) => Promise<void>
@@ -45,11 +46,12 @@ export const useProductStore = create<ProductState>((set, get) => ({
   products: [],
   meta: null,
   isLoading: false,
+  errorMessage: null,
   params: { page: 1, limit: 20, sortBy: "newest" },
 
   fetch: async (params, append = false) => {
     const merged = { ...get().params, ...params }
-    set({ isLoading: true, params: merged })
+    set({ isLoading: true, errorMessage: null, params: merged })
     try {
       const res = await productsApi.list(merged)
       set({
@@ -63,10 +65,18 @@ export const useProductStore = create<ProductState>((set, get) => ({
         },
         isLoading: false,
       })
-    } catch {
-      set({ isLoading: false })
+    } catch (err) {
+      const error = err as { data?: { message?: string; error?: string }; message?: string }
+      set({
+        isLoading: false,
+        errorMessage:
+          error?.data?.message ??
+          error?.data?.error ??
+          error?.message ??
+          "Ürünler yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin.",
+      })
     }
   },
 
-  reset: () => set({ products: [], meta: null, params: { page: 1, limit: 20, sortBy: "newest" } }),
+  reset: () => set({ products: [], meta: null, errorMessage: null, params: { page: 1, limit: 20, sortBy: "newest" } }),
 }))
