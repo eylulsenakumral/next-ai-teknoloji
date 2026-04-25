@@ -42,7 +42,7 @@ export default function HomeScreen() {
       {/* Search */}
       <TouchableOpacity
         style={styles.searchBar}
-        onPress={() => router.push("/(tabs)/katalog")}
+        onPress={() => router.push("/katalog")}
       >
         <Ionicons name="search-outline" size={20} color={COLORS.textMuted} />
         <Text style={styles.searchPlaceholder}>Ürün ara...</Text>
@@ -53,7 +53,7 @@ export default function HomeScreen() {
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Text style={styles.sectionTitle}>Yeni Gelenler</Text>
-            <TouchableOpacity onPress={() => router.push("/(tabs)/katalog")}>
+            <TouchableOpacity onPress={() => router.push("/katalog")}>
               <Text style={styles.seeAll}>Tümünü Gör</Text>
             </TouchableOpacity>
           </View>
@@ -81,7 +81,7 @@ export default function HomeScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Hızlı Erişim</Text>
           <View style={styles.quickActions}>
-            <QuickAction icon="document-text-outline" label="Siparişler" onPress={() => router.push("/(tabs)/siparisler")} />
+            <QuickAction icon="document-text-outline" label="Siparişler" onPress={() => router.push("/siparisler")} />
             <QuickAction icon="wallet-outline" label="Cari Hesap" onPress={() => router.push("/cari")} />
             <QuickAction icon="heart-outline" label="Favoriler" onPress={() => router.push("/favoriler")} />
             <QuickAction icon="call-outline" label="Destek" onPress={() => {}} />

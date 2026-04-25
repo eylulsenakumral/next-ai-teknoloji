@@ -50,7 +50,7 @@ export default function OdemeScreen() {
       Alert.alert(
         "Sipariş Oluşturuldu",
         `Sipariş No: ${res.data.orderNumber}`,
-        [{ text: "Tamam", onPress: () => router.replace("/(tabs)/siparisler") }]
+        [{ text: "Tamam", onPress: () => router.replace("/siparisler") }]
       )
     } catch (err: any) {
       Alert.alert("Hata", err?.data?.message ?? "Sipariş oluşturulamadı")
