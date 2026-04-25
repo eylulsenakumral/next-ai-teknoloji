@@ -1,9 +1,8 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { ChevronRight, Tag, Calendar } from "lucide-react"
-import { CampaignProductCard } from "@/components/public/campaign-product-card"
-import type { PublicProduct } from "@/components/public/public-product-card"
+import { ChevronRight, Tag, Calendar, Package } from "lucide-react"
+import { AddSetToCartButton } from "./add-set-to-cart-button"
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                               */
@@ -13,7 +12,16 @@ interface CampaignSetProduct {
   id: string
   label: string | null
   sortOrder: number
-  product: PublicProduct
+  product: {
+    id: string
+    name: string
+    slug: string
+    images: string[]
+    description: string | null
+    stockStatus: boolean
+    brand: { name: string; slug: string } | null
+    category: { name: string; slug: string } | null
+  }
 }
 
 interface CampaignSet {
@@ -24,6 +32,9 @@ interface CampaignSet {
   imageUrl: string | null
   type: "OUTLET" | "FEATURED" | "BUNDLE"
   discountPct: string | null
+  price: string | null
+  currency: string | null
+  stockQuantity: number | null
   validFrom: string | null
   validUntil: string | null
   products: CampaignSetProduct[]
@@ -189,7 +200,7 @@ export default async function KampanyaDetailPage({
         </div>
       </div>
 
-      {/* Products Grid */}
+      {/* Products Grid + Add to Cart */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {campaign.products.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-24 text-center gap-4 border-2 border-dashed border-gray-300 rounded-[20px] bg-[#f3f3f3]/50">
@@ -197,18 +208,90 @@ export default async function KampanyaDetailPage({
             <p className="text-base font-semibold text-gray-600">Bu kampanyada henüz ürün bulunmuyor.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[30px]">
-            {campaign.products.map((cp) => (
-              <CampaignProductCard
-                key={cp.id}
-                product={cp.product}
-                campaign={{
-                  discountPct: discountPct,
-                  label: cp.label,
-                }}
+          <>
+            {/* Set Info Bar */}
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8 p-4 bg-[#f3f3f3] rounded-xl border border-[#e9e9e9]">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <Package className="h-5 w-5 text-[#0040a4]" />
+                  <span className="text-sm font-semibold text-[#1e1e1e]">
+                    {campaign.products.length} ürün
+                  </span>
+                </div>
+                {campaign.stockQuantity != null && (
+                  <span className={`text-xs font-semibold px-2.5 py-1 rounded ${campaign.stockQuantity > 0 ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'}`}>
+                    {campaign.stockQuantity > 0 ? `Stok: ${campaign.stockQuantity} adet` : 'Stokta yok'}
+                  </span>
+                )}
+              </div>
+              <AddSetToCartButton
+                setId={campaign.id}
+                setName={campaign.name}
+                products={campaign.products.map((cp) => ({
+                  id: cp.product.id,
+                  name: cp.product.name,
+                  slug: cp.product.slug,
+                  images: cp.product.images,
+                  brand: cp.product.brand,
+                  stockStatus: cp.product.stockStatus,
+                  quantity: cp.quantity,
+                }))}
+                setPrice={campaign.price}
+                discountPct={discountPct}
+                currency={campaign.currency ?? "TRY"}
+                stockQuantity={campaign.stockQuantity}
               />
-            ))}
-          </div>
+            </div>
+
+            {/* Product Cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[30px]">
+              {campaign.products.map((cp) => (
+                <Link
+                  key={cp.id}
+                  href={`/katalog/${cp.product.slug}`}
+                  className="group bg-[#f3f3f3] rounded-[20px] overflow-hidden hover:shadow-[0_8px_25px_rgba(187,187,187,0.5)] hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                >
+                  <div className="relative aspect-square bg-white overflow-hidden rounded-t-[20px]">
+                    {cp.product.images?.[0] ? (
+                      <Image
+                        src={cp.product.images[0]}
+                        alt={cp.product.name}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                        className="object-contain p-6 transition-transform duration-500 group-hover:scale-110"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center bg-[#f9f9f9]">
+                        <Package className="h-14 w-14 text-[#e0e0e0]" />
+                      </div>
+                    )}
+                    {!cp.product.stockStatus && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-t-[20px]">
+                        <div className="w-20 h-20 bg-[#a60811] rounded-full flex items-center justify-center">
+                          <span className="text-white font-bold text-center text-sm">Stok<br />Yok</span>
+                        </div>
+                      </div>
+                    )}
+                    {cp.quantity > 1 && (
+                      <span className="absolute top-3 right-3 bg-[#0040a4] text-white text-xs font-bold px-2 py-1 rounded-lg">
+                        x{cp.quantity}
+                      </span>
+                    )}
+                  </div>
+                  <div className="p-3 flex flex-col gap-1 flex-1">
+                    {cp.product.brand && (
+                      <p className="text-[11px] font-bold text-[#bebebe] uppercase tracking-wider truncate">
+                        {cp.product.brand.name}
+                      </p>
+                    )}
+                    <p className="text-[13px] font-semibold text-[#1e1e1e] leading-snug line-clamp-2 group-hover:text-[#0040a4] transition-colors">
+                      {cp.product.name}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </>
         )}
       </div>
     </div>

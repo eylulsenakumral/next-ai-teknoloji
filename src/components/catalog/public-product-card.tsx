@@ -2,9 +2,11 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Package, Lock, Heart, Eye } from "lucide-react"
+import { Package, Lock, Heart, Eye, ShoppingCart, Check, Minus, Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/hooks/use-auth"
+import { useCart } from "@/hooks/use-cart"
+import { toast } from "@/components/ui/toaster"
 import { formatCurrency } from "@/lib/utils/format"
 
 interface PublicProductCardProduct {
@@ -49,9 +51,33 @@ export function PublicProductCard({ product }: PublicProductCardProps) {
   const mainImage = product.images[0]
   const href = `/katalog/${product.slug}`
   const { isAuthenticated, isAdmin, isLoading: authLoading } = useAuth()
+  const { addItem, items, openCart } = useCart()
+
+  const [qty, setQty] = useState(1)
+  const [justAdded, setJustAdded] = useState(false)
+  const cartItem = items.find((i) => i.productId === product.id)
+  const cartQty = cartItem?.quantity ?? 0
 
   // Show price for authenticated dealers and admin users
   const showPrice = (isAuthenticated || isAdmin) && product.price !== null && product.price !== undefined && !product.hidePrice
+
+  function handleAddToCart() {
+    addItem({
+      productId: product.id,
+      productName: product.name,
+      productSlug: product.slug,
+      brandName: product.brand?.name ?? "",
+      imageUrl: product.images[0] ?? "",
+      unitPriceExVat: product.price ?? 0,
+      vatRate: 20,
+      minOrderQuantity: 1,
+      stockQuantity: 999,
+      quantity: qty,
+    })
+    toast({ title: "Sepete eklendi", description: `${product.name} (${qty} adet) sepetinize eklendi.` })
+    setJustAdded(true)
+    setTimeout(() => setJustAdded(false), 2000)
+  }
 
   return (
     <article
@@ -154,6 +180,28 @@ export function PublicProductCard({ product }: PublicProductCardProps) {
               </Link>
             )}
           </div>
+        )}
+
+        {/* Sepete Ekle */}
+        {!authLoading && showPrice && product.stockStatus ? (
+          <div className="flex items-center gap-2 mt-2 pt-2 border-t border-[#eeeeee]">
+            <div className="flex items-center rounded-lg border border-[#eeeeee] overflow-hidden shrink-0">
+              <button type="button" onClick={() => setQty((p) => Math.max(1, p - 1))} disabled={qty <= 1} className="h-7 w-7 flex items-center justify-center hover:bg-[#f5f5f5] disabled:opacity-30 transition-colors" aria-label="Azalt"><Minus className="h-3 w-3" aria-hidden /></button>
+              <span className="h-7 w-8 flex items-center justify-center text-[12px] font-medium border-x border-[#eeeeee]">{qty}</span>
+              <button type="button" onClick={() => setQty((p) => p + 1)} className="h-7 w-7 flex items-center justify-center hover:bg-[#f5f5f5] transition-colors" aria-label="Artır"><Plus className="h-3 w-3" aria-hidden /></button>
+            </div>
+            <button type="button" onClick={handleAddToCart} className={cn("flex-1 h-7 flex items-center justify-center gap-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200", justAdded ? "bg-[#3b7300] text-white" : "bg-[#0040a4] text-white hover:bg-[#003080]")} aria-label={`${product.name} sepete ekle`}>
+              {justAdded ? <><Check className="h-3 w-3" aria-hidden /> Eklendi</> : <><ShoppingCart className="h-3 w-3" aria-hidden /> Sepete Ekle</>}
+            </button>
+          </div>
+        ) : !authLoading && (isAuthenticated || isAdmin) && !product.stockStatus ? (
+          <div className="mt-2 pt-2 border-t border-[#eeeeee]">
+            <button type="button" disabled className="w-full h-7 flex items-center justify-center rounded-lg text-[11px] font-semibold bg-[#e5e5e5] text-[#999] cursor-not-allowed">Stokta Yok</button>
+          </div>
+        ) : null}
+
+        {cartQty > 0 && (
+          <button type="button" onClick={() => openCart()} className="text-[10px] text-center text-[#0040a4] hover:underline mt-1">Sepette {cartQty} adet</button>
         )}
       </div>
     </article>

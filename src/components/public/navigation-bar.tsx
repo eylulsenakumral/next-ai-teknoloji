@@ -74,9 +74,10 @@ const DEALER_NAV_LINKS = [
   { label: "ANA SAYFA", href: "/" },
   { label: "ÜRÜNLER", href: "/katalog" },
   { label: "MARKALAR", href: "/markalar" },
-  { label: "KAMPANYALI SETLER", href: "/kampanyalar" },
+  { label: "FIRSAT ÜRÜNLERİ", href: "/kampanyalar" },
   { label: "SİPARİŞLERİM", href: "/siparisler" },
   { label: "CARİ HESAP", href: "/hesabim/cari" },
+  { label: "ONLINE ÖDEME", href: "/online-odeme" },
   { label: "GARANTİ TAKİP", href: "/garanti-takip" },
   { label: "HESABIM", href: "/hesabim" },
 ]

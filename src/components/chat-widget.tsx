@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { MessageSquare, X, Send, Loader2, Bot, User } from "lucide-react";
+import { MessageSquare, X, Send, Loader2, Bot, User, Maximize2, Minimize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface Message {
@@ -13,11 +13,12 @@ interface Message {
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
+  const [fullscreen, setFullscreen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
       content:
-        "Merhaba! 👋 NexaDepo Ürün Danışmanınız burada.\n\nGüvenlik kamera sistemleri, kayıt cihazları, network ürünleri ve daha fazlası hakkında size yardımcı olabilirim.\n\nNasıl yardımcı olabilirim?",
+        "Merhaba! 👋 NexaDepo Ürün Danışmanınız burada.\n\nBilgisayar, güvenlik sistemleri, network, depolama, yazıcı ve ofis ürünleri hakkında size yardımcı olabilirim.\n\nNasıl yardımcı olabilirim?",
     },
   ]);
   const [input, setInput] = useState("");
@@ -127,7 +128,12 @@ export function ChatWidget() {
     <>
       {/* Chat Panel */}
       {open && (
-        <div className="fixed bottom-24 right-6 z-50 flex h-[520px] w-[380px] flex-col overflow-hidden rounded-2xl border bg-white shadow-2xl animate-in slide-in-from-bottom-4 fade-in duration-300">
+        <div className={cn(
+          "fixed z-50 flex flex-col overflow-hidden border bg-white shadow-2xl animate-in slide-in-from-bottom-4 fade-in duration-300",
+          fullscreen
+            ? "inset-0 h-full w-full rounded-none"
+            : "bottom-[7.5rem] right-6 h-[520px] w-[380px] rounded-2xl"
+        )}>
           {/* Header */}
           <div className="flex items-center justify-between bg-blue-600 px-4 py-3 text-white">
             <div className="flex items-center gap-3">
@@ -139,12 +145,21 @@ export function ChatWidget() {
                 <p className="text-xs text-blue-100">AI Ürün Danışmanı</p>
               </div>
             </div>
-            <button
-              onClick={() => setOpen(false)}
-              className="rounded-lg p-1.5 hover:bg-white/20 transition-colors"
-            >
-              <X className="h-5 w-5" />
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => setFullscreen(!fullscreen)}
+                className="rounded-lg p-1.5 hover:bg-white/20 transition-colors"
+                aria-label={fullscreen ? "Küçült" : "Tam ekran"}
+              >
+                {fullscreen ? <Minimize2 className="h-5 w-5" /> : <Maximize2 className="h-5 w-5" />}
+              </button>
+              <button
+                onClick={() => { setOpen(false); setFullscreen(false); }}
+                className="rounded-lg p-1.5 hover:bg-white/20 transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
           </div>
 
           {/* Messages */}
@@ -226,14 +241,20 @@ export function ChatWidget() {
       <button
         onClick={() => setOpen(!open)}
         className={cn(
-          "fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg transition-all hover:shadow-xl active:scale-95",
+          "fixed bottom-24 right-6 z-50 flex w-[200px] items-center gap-2 rounded-full pl-4 pr-5 py-3 text-white shadow-lg transition-all hover:shadow-xl active:scale-95 hover:scale-105",
           open
             ? "bg-gray-600 hover:bg-gray-700"
-            : "bg-blue-600 hover:bg-blue-700 hover:scale-105",
+            : "bg-blue-600 hover:bg-blue-700",
         )}
         aria-label={open ? "Sohbeti kapat" : "Sohbet"}
       >
-        {open ? <X className="h-6 w-6" /> : <MessageSquare className="h-6 w-6" />}
+        {open ? <X className="h-6 w-6 shrink-0" /> : <MessageSquare className="h-6 w-6 shrink-0" />}
+        {!open && (
+          <div className="flex flex-col items-start">
+            <span className="text-[11px] font-semibold leading-tight opacity-90">NexaDepo</span>
+            <span className="text-[12px] font-bold leading-tight">Ürün Danışmanı</span>
+          </div>
+        )}
       </button>
     </>
   );

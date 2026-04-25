@@ -10,16 +10,18 @@ import {
   Truck,
   AlertTriangle,
   Loader2,
+  CreditCard,
+  FileText,
+  XCircle,
+  CheckCircle2,
+  Clock,
+  Copy,
+  Check,
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { Skeleton } from "@/components/ui/skeleton"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { useExchangeRate } from "@/hooks/use-exchange-rate"
+import { formatCurrency, formatDate } from "@/lib/utils/format"
+import { OrderStatusBadge } from "@/components/orders/order-status-badge"
 import {
   Dialog,
   DialogContent,
@@ -28,11 +30,6 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog"
 import { Textarea } from "@/components/ui/textarea"
-import { Label } from "@/components/ui/label"
-import { OrderStatusBadge } from "@/components/orders/order-status-badge"
-import { OrderStatusTimeline } from "@/components/orders/order-status-timeline"
-import { OrderSummary } from "@/components/orders/order-summary"
-import { formatCurrency, formatDate } from "@/lib/utils/format"
 
 // ---------------------------------------------------------------------------
 // Tipler
@@ -88,8 +85,129 @@ interface OrderDetail {
 
 const PAYMENT_METHOD_LABELS: Record<string, string> = {
   BANK_TRANSFER: "Havale / EFT",
-  ON_ACCOUNT: "Açık Hesap (Cari)",
-  CREDIT_CARD: "Kredi Kartı",
+  ON_ACCOUNT: "Acik Hesap (Cari)",
+  CREDIT_CARD: "Kredi Karti",
+}
+
+const PAYMENT_ICONS: Record<string, string> = {
+  BANK_TRANSFER: "🏦",
+  ON_ACCOUNT: "📋",
+  CREDIT_CARD: "💳",
+}
+
+// ---------------------------------------------------------------------------
+// Sipariş Durumu Zaman Çizelgesi
+// ---------------------------------------------------------------------------
+
+const NORMAL_FLOW = ["PENDING", "CONFIRMED", "PREPARING", "SHIPPED", "DELIVERED"] as const
+const STATUS_LABELS: Record<string, string> = {
+  PENDING: "Sipariş Alındı",
+  CONFIRMED: "Onaylandı",
+  PREPARING: "Hazırlanıyor",
+  SHIPPED: "Kargoya Verildi",
+  DELIVERED: "Teslim Edildi",
+  CANCELLED: "İptal Edildi",
+  RETURNED: "İade Edildi",
+}
+
+function StatusTimeline({
+  currentStatus,
+  createdAt,
+  shippedAt,
+  deliveredAt,
+  cancelledAt,
+}: {
+  currentStatus: string
+  createdAt: string
+  shippedAt?: string | null
+  deliveredAt?: string | null
+  cancelledAt?: string | null
+}) {
+  const isCancelled = currentStatus === "CANCELLED" || currentStatus === "RETURNED"
+
+  if (isCancelled) {
+    return (
+      <div className="relative">
+        <div className="flex items-start gap-3 relative" style={{ minHeight: 44 }}>
+          <div className="absolute left-[13px] top-[28px] bottom-0 w-0.5 bg-[#e5e5e5]" />
+          <div className="relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-[#0040a4] bg-[#0040a4]">
+            <div className="h-2.5 w-2.5 rounded-full bg-white" />
+          </div>
+          <div className="pt-0.5">
+            <p className="text-sm font-medium text-[#333] leading-snug">Sipariş Alındı</p>
+            <p className="text-xs text-[#999] mt-0.5">{formatDate(createdAt)}</p>
+          </div>
+        </div>
+        <div className="flex items-start gap-3 relative" style={{ minHeight: 28 }}>
+          <div className="relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-red-400 bg-red-100">
+            <XCircle className="h-3.5 w-3.5 text-red-600" />
+          </div>
+          <div className="pt-0.5">
+            <p className="text-sm font-medium text-red-600 leading-snug">
+              {currentStatus === "RETURNED" ? "İade Edildi" : "İptal Edildi"}
+            </p>
+            {cancelledAt && <p className="text-xs text-[#999] mt-0.5">{formatDate(cancelledAt)}</p>}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  const currentIndex = NORMAL_FLOW.indexOf(currentStatus as typeof NORMAL_FLOW[number])
+  const steps = NORMAL_FLOW.map((s, idx) => ({
+    status: s,
+    label: STATUS_LABELS[s] ?? s,
+    date: idx === 0 ? createdAt : s === "SHIPPED" ? shippedAt : s === "DELIVERED" ? deliveredAt : null,
+  }))
+
+  return (
+    <div className="relative">
+      {steps.map((step, idx) => {
+        const isDone = idx <= currentIndex
+        const isCurrent = idx === currentIndex
+        const isLast = idx === steps.length - 1
+        return (
+          <div key={step.status} className="flex items-start gap-3 relative" style={{ minHeight: isLast ? 28 : 44 }}>
+            {/* Dikey çizgi - step'in arkasında */}
+            {!isLast && (
+              <div
+                className="absolute left-[13px] top-[28px] bottom-0 w-0.5"
+                style={{ backgroundColor: idx < currentIndex ? "#0040a4" : "#e5e5e5" }}
+              />
+            )}
+            {/* Daire */}
+            <div
+              className={`relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 ${
+                isDone
+                  ? "border-[#0040a4] bg-[#0040a4]"
+                  : "border-[#e5e5e5] bg-white"
+              }`}
+            >
+              <div className={`h-2.5 w-2.5 rounded-full ${isDone ? "bg-white" : "bg-[#ccc]"}`} />
+            </div>
+            {/* Metin */}
+            <div className="pt-0.5">
+              <p
+                className={`text-sm leading-snug ${
+                  isCurrent ? "font-semibold text-[#0040a4]" : isDone ? "font-medium text-[#333]" : "text-[#999]"
+                }`}
+              >
+                {step.label}
+              </p>
+              {step.date ? (
+                <p className="text-xs text-[#999] mt-0.5">{formatDate(step.date)}</p>
+              ) : isCurrent ? (
+                <p className="flex items-center gap-1 text-xs text-[#767676] mt-0.5">
+                  <Clock className="h-3 w-3" />
+                  <span>İşlemde</span>
+                </p>
+              ) : null}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
 }
 
 // ---------------------------------------------------------------------------
@@ -121,53 +239,45 @@ function CancelModal({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="rounded-2xl">
         <DialogHeader>
-          <DialogTitle>Siparişi İptal Et</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-[#333]">Siparişi İptal Et</DialogTitle>
+          <DialogDescription className="text-[#767676]">
             Bu işlem geri alınamaz. Cari hesabınıza yapılan borç kaydı da iptal edilecektir.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4 mt-2">
           <div className="space-y-1.5">
-            <Label htmlFor="cancel-reason">İptal Sebebi</Label>
+            <label htmlFor="cancel-reason" className="text-sm font-medium text-[#333]">
+              İptal Sebebi
+            </label>
             <Textarea
               id="cancel-reason"
               value={reason}
-              onChange={(e) => {
-                setReason(e.target.value)
-                setErr("")
-              }}
+              onChange={(e) => { setReason(e.target.value); setErr("") }}
               placeholder="İptal sebebinizi yazın..."
               rows={3}
-              aria-invalid={!!err}
-              aria-describedby={err ? "cancel-reason-error" : undefined}
+              className="rounded-xl border-[#e5e5e5] focus:border-[#0040a4]"
             />
-            {err && (
-              <p id="cancel-reason-error" className="text-xs text-destructive">
-                {err}
-              </p>
-            )}
+            {err && <p className="text-xs text-red-600">{err}</p>}
           </div>
           <div className="flex gap-3 justify-end">
-            <Button
+            <button
               type="button"
-              variant="outline"
               onClick={() => onOpenChange(false)}
               disabled={isLoading}
+              className="h-10 px-4 rounded-xl border border-[#e5e5e5] text-sm font-medium text-[#333] hover:bg-[#f9fafb] transition-colors"
             >
               Vazgeç
-            </Button>
-            <Button type="submit" variant="destructive" disabled={isLoading}>
-              {isLoading ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" aria-hidden />
-                  İptal ediliyor...
-                </>
-              ) : (
-                "Siparişi İptal Et"
-              )}
-            </Button>
+            </button>
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="h-10 px-4 rounded-xl bg-red-600 text-sm font-semibold text-white hover:bg-red-700 transition-colors disabled:opacity-60 flex items-center gap-2"
+            >
+              {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
+              Siparişi İptal Et
+            </button>
           </div>
         </form>
       </DialogContent>
@@ -182,6 +292,7 @@ function CancelModal({
 export default function OrderDetailPage() {
   const { id } = useParams<{ id: string }>()
   const router = useRouter()
+  const { usd } = useExchangeRate()
 
   const [order, setOrder] = useState<OrderDetail | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -189,6 +300,7 @@ export default function OrderDetailPage() {
   const [cancelOpen, setCancelOpen] = useState(false)
   const [isCancelling, setIsCancelling] = useState(false)
   const [cancelError, setCancelError] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     async function load() {
@@ -220,8 +332,6 @@ export default function OrderDetailPage() {
       const json = await res.json()
       if (!res.ok) throw new Error(json.error ?? "İptal edilemedi.")
       setCancelOpen(false)
-      router.refresh()
-      // Siparişi yeniden yükle
       const res2 = await fetch(`/api/orders/${id}`)
       const json2 = await res2.json()
       if (res2.ok) setOrder(json2.data)
@@ -232,19 +342,27 @@ export default function OrderDetailPage() {
     }
   }
 
+  function copyOrderNumber() {
+    if (order) {
+      navigator.clipboard.writeText(order.orderNumber)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
+
   if (isLoading) {
     return (
-      <div className="space-y-6">
-        <Skeleton className="h-8 w-48" />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 rounded-lg bg-[#f3f3f3] animate-pulse" />
+          <div className="space-y-2">
+            <div className="h-5 w-32 bg-[#f3f3f3] rounded animate-pulse" />
+            <div className="h-3 w-48 bg-[#f3f3f3] rounded animate-pulse" />
+          </div>
+        </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-4">
-            <Skeleton className="h-48" />
-            <Skeleton className="h-64" />
-          </div>
-          <div className="space-y-4">
-            <Skeleton className="h-48" />
-            <Skeleton className="h-32" />
-          </div>
+          <div className="lg:col-span-2 h-64 rounded-2xl bg-[#f3f3f3] animate-pulse" />
+          <div className="h-48 rounded-2xl bg-[#f3f3f3] animate-pulse" />
         </div>
       </div>
     )
@@ -252,254 +370,291 @@ export default function OrderDetailPage() {
 
   if (error || !order) {
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-20 text-center">
-        <AlertTriangle className="h-10 w-10 text-destructive" aria-hidden />
-        <p className="font-semibold">{error ?? "Sipariş bulunamadı."}</p>
-        <Button variant="outline" render={<Link href="/siparisler" />}>
+      <div className="max-w-lg mx-auto px-4 py-16 text-center">
+        <div className="flex justify-center mb-4">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
+            <AlertTriangle className="h-8 w-8 text-red-600" />
+          </div>
+        </div>
+        <h1 className="text-xl font-bold text-[#333] mb-2">Sipariş Bulunamadı</h1>
+        <p className="text-[#767676] mb-6">{error ?? "Aradığınız sipariş mevcut değil."}</p>
+        <Link
+          href="/siparisler"
+          className="inline-flex h-11 items-center justify-center rounded-xl bg-[#0040a4] px-6 text-sm font-semibold text-white hover:bg-[#003080] transition-colors"
+        >
           Siparişlerime Dön
-        </Button>
+        </Link>
       </div>
     )
   }
 
   const shippingAddr = order.shippingAddress
+  const grandTotalTRY = usd ? order.grandTotal * usd : 0
 
   return (
-    <>
-      <div className="space-y-6">
-        {/* Başlık */}
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <Button
-              variant="ghost"
-              size="icon"
-              render={<Link href="/siparisler" />}
-              aria-label="Siparişlere dön"
-            >
-              <ArrowLeft className="h-4 w-4" aria-hidden />
-            </Button>
-            <div>
-              <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-xl font-bold font-mono">{order.orderNumber}</h1>
-                <OrderStatusBadge status={order.status} />
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      {/* Header */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-2">
+        <div className="flex items-center gap-3">
+          <Link
+            href="/siparisler"
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#e5e5e5] text-[#767676] hover:text-[#0040a4] hover:border-[#0040a4] transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+          </Link>
+          <div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h1 className="text-xl font-bold text-[#333] font-mono tracking-tight">
+                {order.orderNumber}
+              </h1>
+              <button
+                onClick={copyOrderNumber}
+                className="text-[#999] hover:text-[#0040a4] transition-colors"
+                title="Kopyala"
+              >
+                {copied ? <Check className="h-3.5 w-3.5 text-green-600" /> : <Copy className="h-3.5 w-3.5" />}
+              </button>
+              <OrderStatusBadge status={order.status} />
+            </div>
+            <p className="text-sm text-[#767676]">{formatDate(order.createdAt)}</p>
+          </div>
+        </div>
+
+        {order.status === "PENDING" && (
+          <button
+            onClick={() => setCancelOpen(true)}
+            className="h-10 px-4 rounded-xl border border-red-200 text-sm font-medium text-red-600 hover:bg-red-50 transition-colors flex items-center gap-1.5"
+          >
+            <XCircle className="h-4 w-4" />
+            Siparişi İptal Et
+          </button>
+        )}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Sol: Kalemler + Kargo + Notlar */}
+        <div className="lg:col-span-2 space-y-5">
+          {/* Sipariş Kalemleri */}
+          <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
+            <div className="p-5 pb-3 flex items-center gap-2">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#0040a4]/10">
+                <Package className="h-3.5 w-3.5 text-[#0040a4]" />
               </div>
-              <p className="text-sm text-muted-foreground">
-                {formatDate(order.createdAt)}
-              </p>
+              <h2 className="text-sm font-semibold text-[#333]">Sipariş Kalemleri</h2>
+              <span className="ml-auto text-xs text-[#999]">{order.items.length} ürün</span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-y border-[#e5e5e5] bg-[#fafafa]">
+                    <th className="text-left py-2.5 px-5 text-xs font-medium text-[#767676] uppercase tracking-wide">Ürün</th>
+                    <th className="text-center py-2.5 px-3 text-xs font-medium text-[#767676] uppercase tracking-wide w-16">Adet</th>
+                    <th className="text-right py-2.5 px-3 text-xs font-medium text-[#767676] uppercase tracking-wide w-28">Birim</th>
+                    <th className="text-right py-2.5 px-5 text-xs font-medium text-[#767676] uppercase tracking-wide w-28">Toplam</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#e5e5e5]">
+                  {order.items.map((item) => (
+                    <tr key={item.id} className="hover:bg-[#f9fafb] transition-colors">
+                      <td className="py-3 px-5">
+                        <p className="font-medium text-[#333] leading-snug">{item.productName}</p>
+                        {item.productBarcode && (
+                          <p className="text-xs text-[#999] mt-0.5">Barkod: {item.productBarcode}</p>
+                        )}
+                        <p className="text-xs text-[#999] mt-0.5">KDV: %{item.vatRate}</p>
+                      </td>
+                      <td className="py-3 px-3 text-center tabular-nums text-[#333]">{item.quantity}</td>
+                      <td className="py-3 px-3 text-right tabular-nums">
+                        <span className="text-[#333]">{formatCurrency(item.unitPrice)}</span>
+                        <br />
+                        <span className="text-[10px] text-[#999]">
+                          {formatCurrency(item.unitPrice * (1 + item.vatRate / 100))} KDV dahil
+                        </span>
+                      </td>
+                      <td className="py-3 px-5 text-right font-semibold text-[#333] tabular-nums">
+                        {formatCurrency(item.lineTotal)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Tablo altı toplam */}
+            <div className="border-t border-[#e5e5e5] bg-[#fafafa] px-5 py-3 flex items-center justify-between">
+              <span className="text-sm text-[#767676]">Toplam ({order.items.reduce((s, i) => s + i.quantity, 0)} adet)</span>
+              <span className="font-bold text-[#0040a4] text-lg tabular-nums">{formatCurrency(order.grandTotal)}</span>
             </div>
           </div>
 
-          {/* İptal butonu */}
-          {order.status === "PENDING" && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="text-destructive border-destructive/30 hover:bg-destructive/10"
-              onClick={() => setCancelOpen(true)}
-            >
-              <AlertTriangle className="h-4 w-4 mr-1.5" aria-hidden />
-              Siparişi İptal Et
-            </Button>
+          {/* Kargo Bilgileri */}
+          {(order.shippingTrackingNumber || order.shippingCarrier) && (
+            <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#0040a4]/10">
+                  <Truck className="h-3.5 w-3.5 text-[#0040a4]" />
+                </div>
+                <h2 className="text-sm font-semibold text-[#333]">Kargo Bilgileri</h2>
+              </div>
+              <div className="space-y-2 text-sm">
+                {order.shippingCarrier && (
+                  <div className="flex justify-between">
+                    <span className="text-[#767676]">Kargo Firması</span>
+                    <span className="font-medium text-[#333]">{order.shippingCarrier}</span>
+                  </div>
+                )}
+                {order.shippingTrackingNumber && (
+                  <div className="flex justify-between">
+                    <span className="text-[#767676]">Takip No</span>
+                    <span className="font-mono font-medium text-[#0040a4]">{order.shippingTrackingNumber}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* İptal sebebi */}
+          {order.cancelledReason && (
+            <div className="rounded-2xl bg-red-50 border border-red-200 p-5">
+              <div className="flex items-center gap-2 mb-2">
+                <XCircle className="h-4 w-4 text-red-600" />
+                <p className="text-sm font-semibold text-red-700">İptal Sebebi</p>
+              </div>
+              <p className="text-sm text-red-600">{order.cancelledReason}</p>
+            </div>
+          )}
+
+          {/* Sipariş notu */}
+          {order.notes && (
+            <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#f3f3f3]">
+                  <FileText className="h-3.5 w-3.5 text-[#767676]" />
+                </div>
+                <p className="text-sm font-semibold text-[#333]">Sipariş Notu</p>
+              </div>
+              <p className="text-sm text-[#767676]">{order.notes}</p>
+            </div>
           )}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Sol: Kalemler + Kargo */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Sipariş Kalemleri */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-2 text-base">
-                  <Package className="h-4 w-4" aria-hidden />
-                  Sipariş Kalemleri
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm" aria-label="Sipariş kalemleri">
-                    <thead>
-                      <tr className="border-b text-xs text-muted-foreground uppercase tracking-wide">
-                        <th className="text-left pb-2 font-medium">Ürün</th>
-                        <th className="text-center pb-2 font-medium w-16">Adet</th>
-                        <th className="text-right pb-2 font-medium w-28">Birim Fiyat</th>
-                        <th className="text-right pb-2 font-medium w-28">Toplam</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y">
-                      {order.items.map((item) => (
-                        <tr key={item.id} className="py-2">
-                          <td className="py-3 pr-4">
-                            <p className="font-medium leading-snug">{item.productName}</p>
-                            {item.productBarcode && (
-                              <p className="text-xs text-muted-foreground mt-0.5">
-                                Barkod: {item.productBarcode}
-                              </p>
-                            )}
-                            <p className="text-xs text-muted-foreground">
-                              KDV: %{item.vatRate}
-                            </p>
-                          </td>
-                          <td className="py-3 text-center tabular-nums">{item.quantity}</td>
-                          <td className="py-3 text-right tabular-nums">
-                            <div className="flex flex-col items-end">
-                              <span>{formatCurrency(item.unitPrice)}</span>
-                              <span className="text-[10px] text-gray-400">
-                                {formatCurrency(item.unitPrice * (1 + item.vatRate / 100))}
-                                <span className="text-[9px]"> KDV dahil</span>
-                              </span>
-                            </div>
-                          </td>
-                          <td className="py-3 text-right font-medium tabular-nums">
-                            {formatCurrency(item.lineTotal)}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Kargo Bilgileri */}
-            {(order.shippingTrackingNumber || order.shippingCarrier) && (
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <Truck className="h-4 w-4" aria-hidden />
-                    Kargo Bilgileri
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm space-y-2">
-                  {order.shippingCarrier && (
-                    <div className="flex gap-2">
-                      <span className="text-muted-foreground w-28">Kargo Firması:</span>
-                      <span className="font-medium">{order.shippingCarrier}</span>
-                    </div>
-                  )}
-                  {order.shippingTrackingNumber && (
-                    <div className="flex gap-2">
-                      <span className="text-muted-foreground w-28">Takip No:</span>
-                      <span className="font-mono font-medium">
-                        {order.shippingTrackingNumber}
-                      </span>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            )}
-
-            {/* İptal sebebi */}
-            {order.cancelledReason && (
-              <Card className="border-destructive/30">
-                <CardContent className="pt-4">
-                  <p className="text-sm font-medium text-destructive">İptal Sebebi</p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    {order.cancelledReason}
-                  </p>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Sipariş notu */}
-            {order.notes && (
-              <Card>
-                <CardContent className="pt-4">
-                  <p className="text-sm font-medium">Sipariş Notu</p>
-                  <p className="text-sm text-muted-foreground mt-1">{order.notes}</p>
-                </CardContent>
-              </Card>
-            )}
+        {/* Sağ: Durum + Ödeme + Adres + Fiyat */}
+        <div className="space-y-5">
+          {/* Sipariş Durumu */}
+          <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
+            <h2 className="text-sm font-semibold text-[#333] mb-4">Sipariş Durumu</h2>
+            <StatusTimeline
+              currentStatus={order.status}
+              createdAt={order.createdAt}
+              shippedAt={order.shippedAt}
+              deliveredAt={order.deliveredAt}
+              cancelledAt={order.cancelledAt}
+            />
           </div>
 
-          {/* Sağ: Durum + Adres + Fiyat */}
-          <div className="space-y-4">
-            {/* Durum zaman çizelgesi */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base">Sipariş Durumu</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <OrderStatusTimeline
-                  currentStatus={order.status}
-                  createdAt={order.createdAt}
-                  shippedAt={order.shippedAt}
-                  deliveredAt={order.deliveredAt}
-                  cancelledAt={order.cancelledAt}
-                />
-              </CardContent>
-            </Card>
+          {/* Ödeme Bilgileri */}
+          <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#0040a4]/10">
+                <CreditCard className="h-3.5 w-3.5 text-[#0040a4]" />
+              </div>
+              <h2 className="text-sm font-semibold text-[#333]">Ödeme Bilgileri</h2>
+            </div>
+            <div className="space-y-2.5 text-sm">
+              <div className="flex justify-between">
+                <span className="text-[#767676]">Ödeme Yöntemi</span>
+                <span className="font-medium text-[#333]">
+                  {PAYMENT_ICONS[order.paymentMethod]}{" "}
+                  {PAYMENT_METHOD_LABELS[order.paymentMethod] ?? order.paymentMethod}
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-[#767676]">Ödeme Durumu</span>
+                <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full ${
+                  order.paymentStatus === "PAID"
+                    ? "bg-green-100 text-green-700"
+                    : "bg-yellow-100 text-yellow-700"
+                }`}>
+                  {order.paymentStatus === "PAID" ? (
+                    <><CheckCircle2 className="h-3 w-3" /> Ödendi</>
+                  ) : (
+                    <><Clock className="h-3 w-3" /> Bekliyor</>
+                  )}
+                </span>
+              </div>
+            </div>
+          </div>
 
-            {/* Teslimat Adresi */}
-            {shippingAddr && (
-              <Card>
-                <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center gap-2 text-base">
-                    <MapPin className="h-4 w-4" aria-hidden />
-                    Teslimat Adresi
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm space-y-1">
-                  {shippingAddr.companyName && (
-                    <p className="font-medium">{shippingAddr.companyName}</p>
-                  )}
-                  {shippingAddr.contactName && (
-                    <p className="text-muted-foreground">{shippingAddr.contactName}</p>
-                  )}
-                  {shippingAddr.phone && (
-                    <p className="text-muted-foreground">{shippingAddr.phone}</p>
-                  )}
-                  {shippingAddr.address && (
-                    <p className="text-muted-foreground">{shippingAddr.address}</p>
-                  )}
-                  <p className="text-muted-foreground">
-                    {[shippingAddr.district, shippingAddr.city, shippingAddr.postalCode]
-                      .filter(Boolean)
-                      .join(", ")}
-                  </p>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Fiyat Özeti */}
-            <Card>
-              <CardHeader className="pb-3">
-                <CardTitle className="text-base">Fiyat Özeti</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <OrderSummary
-                  subtotal={order.subtotal}
-                  vatTotal={order.vatTotal}
-                  discountTotal={order.discountTotal}
-                  shippingTotal={order.shippingTotal}
-                  grandTotal={order.grandTotal}
-                />
-                <Separator />
-                <div className="text-sm space-y-1">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Ödeme Yöntemi</span>
-                    <span>{PAYMENT_METHOD_LABELS[order.paymentMethod] ?? order.paymentMethod}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Ödeme Durumu</span>
-                    <span>
-                      {order.paymentStatus === "PAID"
-                        ? "Ödendi"
-                        : order.paymentStatus === "PARTIAL"
-                          ? "Kısmi Ödendi"
-                          : "Bekliyor"}
-                    </span>
-                  </div>
+          {/* Teslimat Adresi */}
+          {shippingAddr && (
+            <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#0040a4]/10">
+                  <MapPin className="h-3.5 w-3.5 text-[#0040a4]" />
                 </div>
-              </CardContent>
-            </Card>
+                <h2 className="text-sm font-semibold text-[#333]">Teslimat Adresi</h2>
+              </div>
+              <div className="text-sm space-y-1">
+                {shippingAddr.companyName && <p className="font-semibold text-[#333]">{shippingAddr.companyName}</p>}
+                {shippingAddr.contactName && <p className="text-[#767676]">{shippingAddr.contactName}</p>}
+                {shippingAddr.phone && <p className="text-[#767676]">{shippingAddr.phone}</p>}
+                {shippingAddr.address && <p className="text-[#767676]">{shippingAddr.address}</p>}
+                <p className="text-[#767676]">
+                  {[shippingAddr.district, shippingAddr.city, shippingAddr.postalCode].filter(Boolean).join(", ")}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Fiyat Özeti */}
+          <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5 space-y-3">
+            <h2 className="text-sm font-semibold text-[#333]">Fiyat Özeti</h2>
+            <div className="space-y-1.5 text-sm">
+              <div className="flex justify-between">
+                <span className="text-[#767676]">Ara Toplam (KDV hariç)</span>
+                <span className="text-[#333] tabular-nums">{formatCurrency(order.subtotal)}</span>
+              </div>
+              {order.discountTotal > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-[#767676]">İskonto</span>
+                  <span className="text-green-600 tabular-nums">-{formatCurrency(order.discountTotal)}</span>
+                </div>
+              )}
+              <div className="flex justify-between">
+                <span className="text-[#767676]">KDV</span>
+                <span className="text-[#333] tabular-nums">{formatCurrency(order.vatTotal)}</span>
+              </div>
+              {order.shippingTotal > 0 && (
+                <div className="flex justify-between">
+                  <span className="text-[#767676]">Kargo</span>
+                  <span className="text-[#333] tabular-nums">{formatCurrency(order.shippingTotal)}</span>
+                </div>
+              )}
+            </div>
+
+            <Separator className="bg-[#e5e5e5]" />
+
+            <div className="flex justify-between items-center">
+              <span className="font-semibold text-[#333]">Genel Toplam</span>
+              <span className="font-bold text-lg text-[#0040a4] tabular-nums">{formatCurrency(order.grandTotal)}</span>
+            </div>
+
+            {usd > 0 && (
+              <div className="rounded-xl bg-[#f0f5ff] border border-[#c5d9f8] p-3 space-y-1">
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-[#0040a4] font-medium">TL Karşılığı</span>
+                  <span className="font-bold text-[#0040a4] tabular-nums">{formatCurrency(grandTotalTRY, "TRY")}</span>
+                </div>
+                <p className="text-[11px] text-[#767676]">1 USD = {usd.toFixed(2)} TL (TCMB günlük kur)</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       {cancelError && (
-        <p role="alert" className="mt-2 text-sm text-destructive">
-          {cancelError}
-        </p>
+        <div className="rounded-xl bg-red-50 border border-red-200 p-4 text-sm text-red-700">{cancelError}</div>
       )}
 
       <CancelModal
@@ -508,6 +663,6 @@ export default function OrderDetailPage() {
         onConfirm={handleCancel}
         isLoading={isCancelling}
       />
-    </>
+    </div>
   )
 }

@@ -2,11 +2,12 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Package, ShoppingCart } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Package, ShoppingCart, Check, Minus, Plus } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { cn } from "@/lib/utils"
 import { formatCurrency } from "@/lib/utils/format"
+import { useCart } from "@/hooks/use-cart"
+import { toast } from "@/components/ui/toaster"
 import type { CatalogProduct, BrandItem, CategoryNode } from "@/types/catalog"
 
 function ProductImage({ src, alt }: { src?: string; alt: string }) {
@@ -91,9 +92,36 @@ interface ProductListItemProps {
 
 export function ProductListItem({ product, onAddToCart, brands, categories }: ProductListItemProps) {
   const mainImage = product.images[0]
+  const { addItem, items, openCart } = useCart()
 
   const [updating, setUpdating] = useState(false)
   const [flash, setFlash] = useState<Record<string, "ok" | "err">>({})
+  const [qty, setQty] = useState(product.minOrderQuantity || 1)
+  const [justAdded, setJustAdded] = useState(false)
+
+  const cartItem = items.find((i) => i.productId === product.id)
+  const cartQty = cartItem?.quantity ?? 0
+
+  function handleAddToCart() {
+    if (!product.stock.isAvailable || !product.pricing) return
+
+    addItem({
+      productId: product.id,
+      productName: product.name,
+      productSlug: product.slug,
+      brandName: product.brand?.name ?? "",
+      imageUrl: product.images[0] ?? "",
+      unitPriceExVat: product.pricing.salePriceExVat,
+      vatRate: product.pricing.vatRate,
+      minOrderQuantity: product.minOrderQuantity || 1,
+      stockQuantity: product.stock.quantity,
+      quantity: qty,
+    })
+
+    toast({ title: "Sepete eklendi", description: `${product.name} (${qty} adet) sepetinize eklendi.` })
+    setJustAdded(true)
+    setTimeout(() => setJustAdded(false), 2000)
+  }
 
   const flatCategories = categories ? flattenCategories(categories) : []
 
@@ -243,16 +271,65 @@ export function ProductListItem({ product, onAddToCart, brands, categories }: Pr
           <span className="text-xs text-slate-400">Fiyat yok</span>
         )}
 
-        {product.stock.isAvailable && onAddToCart && (
-          <Button
-            size="sm"
-            className="gap-1.5 bg-[#1e3a5f] hover:bg-[#00179e] text-white"
-            onClick={() => onAddToCart(product)}
-            aria-label={`${product.name} sepete ekle`}
+        {product.stock.isAvailable && product.pricing ? (
+          <div className="flex items-center gap-2">
+            <div className="flex items-center rounded-lg border border-slate-200 overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setQty((prev) => Math.max(product.minOrderQuantity || 1, prev - 1))}
+                disabled={qty <= (product.minOrderQuantity || 1)}
+                className="h-7 w-7 flex items-center justify-center hover:bg-slate-50 disabled:opacity-30 transition-colors"
+                aria-label="Azalt"
+              >
+                <Minus className="h-3 w-3" aria-hidden />
+              </button>
+              <span className="h-7 w-8 flex items-center justify-center text-[12px] font-medium border-x border-slate-200">
+                {qty}
+              </span>
+              <button
+                type="button"
+                onClick={() => setQty((prev) => Math.min(prev + 1, product.stock.quantity))}
+                disabled={qty >= product.stock.quantity}
+                className="h-7 w-7 flex items-center justify-center hover:bg-slate-50 disabled:opacity-30 transition-colors"
+                aria-label="Artır"
+              >
+                <Plus className="h-3 w-3" aria-hidden />
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              className={cn(
+                "h-7 px-3 flex items-center justify-center gap-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200",
+                justAdded ? "bg-[#3b7300] text-white" : "bg-[#1e3a5f] hover:bg-[#00179e] text-white"
+              )}
+              aria-label={`${product.name} sepete ekle`}
+            >
+              {justAdded ? (
+                <><Check className="h-3 w-3" aria-hidden /> Eklendi</>
+              ) : (
+                <><ShoppingCart className="h-3 w-3" aria-hidden /> Sepete Ekle</>
+              )}
+            </button>
+          </div>
+        ) : !product.stock.isAvailable ? (
+          <button
+            type="button"
+            disabled
+            className="h-7 px-3 flex items-center justify-center rounded-lg text-[11px] font-semibold bg-slate-100 text-slate-400 cursor-not-allowed"
           >
-            <ShoppingCart className="h-3.5 w-3.5" aria-hidden />
-            <span className="hidden sm:inline">Sepete Ekle</span>
-          </Button>
+            Stokta Yok
+          </button>
+        ) : null}
+
+        {cartQty > 0 && (
+          <button
+            type="button"
+            onClick={() => openCart()}
+            className="text-[10px] text-[#1e3a5f] hover:underline"
+          >
+            Sepette {cartQty} adet
+          </button>
         )}
       </div>
     </article>

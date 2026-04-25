@@ -24,7 +24,7 @@ const shippingAddressSchema = z.object({
 // ---------------------------------------------------------------------------
 
 const orderItemInputSchema = z.object({
-  productId: z.string().uuid("Geçersiz ürün ID"),
+  productId: z.string().min(1, "Ürün ID gerekli"),
   quantity: z
     .number()
     .int("Adet tam sayı olmalı")
@@ -37,9 +37,9 @@ export const createOrderSchema = z.object({
     .array(orderItemInputSchema)
     .min(1, "En az 1 ürün eklemelisiniz")
     .max(200, "Sipariş en fazla 200 kalem içerebilir"),
-  shippingAddress: shippingAddressSchema,
+  shippingAddress: shippingAddressSchema.optional(),
   notes: z.string().max(2000, "Not en fazla 2000 karakter olabilir").optional().or(z.literal("")),
-  paymentMethod: z.enum(["BANK_TRANSFER", "ON_ACCOUNT"], {
+  paymentMethod: z.enum(["BANK_TRANSFER", "ON_ACCOUNT", "CREDIT_CARD"], {
     error: "Geçerli bir ödeme yöntemi seçin",
   }),
 })

@@ -1,11 +1,13 @@
 "use client"
 
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Minus, Plus, Trash2, ShoppingCart, ShoppingBag, Package, ArrowRight } from "lucide-react"
+import { Minus, Plus, Trash2, ShoppingCart, ShoppingBag, Package, ArrowRight, CreditCard, Truck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { useCart } from "@/hooks/use-cart"
+import { useExchangeRate } from "@/hooks/use-exchange-rate"
 import { formatCurrency } from "@/lib/utils/format"
 import type { CartItem } from "@/hooks/use-cart"
 
@@ -52,9 +54,12 @@ function QuantityControl({ item }: { item: CartItem }) {
 
 function OrderSummary() {
   const { getSubtotal, getVatTotal, getGrandTotal } = useCart()
+  const { usd } = useExchangeRate()
+  const [paymentMethod, setPaymentMethod] = useState<"transfer" | "credit-card">("transfer")
   const subtotal = getSubtotal()
   const vatTotal = getVatTotal()
   const grandTotal = getGrandTotal()
+  const grandTotalTRY = usd ? grandTotal * usd : 0
 
   return (
     <aside className="lg:col-span-1">
@@ -84,14 +89,94 @@ function OrderSummary() {
           <span className="font-bold text-lg text-[#0040a4]">{formatCurrency(grandTotal)}</span>
         </div>
 
-        <Button
-          className="w-full rounded-xl bg-[#0040a4] text-white hover:bg-[#0040a4] transition-colors h-12 text-sm font-semibold"
-          size="lg"
-          render={<Link href="/sepet/onay" />}
+        {usd > 0 && (
+          <div className="rounded-xl bg-[#f0f5ff] border border-[#c5d9f8] p-4 space-y-1.5">
+            <div className="flex justify-between items-center text-sm">
+              <span className="text-[#0040a4] font-medium">TL Karsiligi</span>
+              <span className="font-bold text-[#0040a4]">{formatCurrency(grandTotalTRY, "TRY")}</span>
+            </div>
+            <p className="text-[11px] text-[#767676]">
+              1 USD = {usd.toFixed(2)} TL (TCMB gunluk kur)
+            </p>
+          </div>
+        )}
+
+        {/* Ödeme Yöntemi Seçimi */}
+        <div className="space-y-3">
+          <p className="text-xs font-semibold text-[#767676] uppercase tracking-wider">Ödeme Yöntemi</p>
+
+          {/* Havale / EFT */}
+          <button
+            type="button"
+            onClick={() => setPaymentMethod("transfer")}
+            className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left ${
+              paymentMethod === "transfer"
+                ? "border-[#0040a4] bg-[#0040a4]/5"
+                : "border-[#e5e5e5] hover:border-[#ccc] bg-white"
+            }`}
+          >
+            <div className={`flex h-10 w-10 items-center justify-center rounded-lg shrink-0 ${
+              paymentMethod === "transfer" ? "bg-[#0040a4]/10" : "bg-[#f3f3f3]"
+            }`}>
+              <Truck className={`h-5 w-5 ${paymentMethod === "transfer" ? "text-[#0040a4]" : "text-[#767676]"}`} aria-hidden />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className={`text-sm font-semibold ${paymentMethod === "transfer" ? "text-[#0040a4]" : "text-[#333333]"}`}>
+                Havale / EFT
+              </p>
+              <p className="text-[11px] text-[#767676] mt-0.5">
+                Banka havalesi ile ödeme
+              </p>
+            </div>
+            <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+              paymentMethod === "transfer" ? "border-[#0040a4]" : "border-[#ccc]"
+            }`}>
+              {paymentMethod === "transfer" && (
+                <div className="h-2.5 w-2.5 rounded-full bg-[#0040a4]" />
+              )}
+            </div>
+          </button>
+
+          {/* Kredi Kartı */}
+          <button
+            type="button"
+            onClick={() => setPaymentMethod("credit-card")}
+            className={`w-full flex items-center gap-3 p-3 rounded-xl border-2 transition-all text-left ${
+              paymentMethod === "credit-card"
+                ? "border-[#0040a4] bg-[#0040a4]/5"
+                : "border-[#e5e5e5] hover:border-[#ccc] bg-white"
+            }`}
+          >
+            <div className={`flex h-10 w-10 items-center justify-center rounded-lg shrink-0 ${
+              paymentMethod === "credit-card" ? "bg-[#0040a4]/10" : "bg-[#f3f3f3]"
+            }`}>
+              <CreditCard className={`h-5 w-5 ${paymentMethod === "credit-card" ? "text-[#0040a4]" : "text-[#767676]"}`} aria-hidden />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className={`text-sm font-semibold ${paymentMethod === "credit-card" ? "text-[#0040a4]" : "text-[#333333]"}`}>
+                Kredi Kartı
+              </p>
+              <p className="text-[11px] text-[#767676] mt-0.5">
+                Taksitli veya tek çekim
+              </p>
+            </div>
+            <div className={`h-5 w-5 rounded-full border-2 flex items-center justify-center shrink-0 ${
+              paymentMethod === "credit-card" ? "border-[#0040a4]" : "border-[#ccc]"
+            }`}>
+              {paymentMethod === "credit-card" && (
+                <div className="h-2.5 w-2.5 rounded-full bg-[#0040a4]" />
+              )}
+            </div>
+          </button>
+        </div>
+
+        <Link
+          href={paymentMethod === "credit-card" ? "/sepet/odeme" : "/sepet/onay"}
+          className="w-full rounded-xl bg-[#0040a4] text-white hover:bg-[#003080] transition-colors h-12 text-sm font-semibold inline-flex items-center justify-center gap-2"
         >
-          Siparişi Tamamla
-          <ArrowRight className="h-4 w-4 ml-2" aria-hidden />
-        </Button>
+          {paymentMethod === "credit-card" ? "Kredi Kartı ile Öde" : "Siparişi Tamamla"}
+          <ArrowRight className="h-4 w-4" aria-hidden />
+        </Link>
       </div>
     </aside>
   )
@@ -115,14 +200,13 @@ export default function CartPage() {
               Henüz sepetinize ürün eklemediniz. Ürünlerimizi inceleyerek alışverişe başlayabilirsiniz.
             </p>
           </div>
-          <Button
-            size="lg"
-            className="rounded-xl bg-[#0040a4] text-white hover:bg-[#0040a4] transition-colors h-12"
-            render={<Link href="/urunler" />}
+          <Link
+            href="/urunler"
+            className="rounded-xl bg-[#0040a4] text-white hover:bg-[#003080] transition-colors h-12 px-6 text-sm font-semibold inline-flex items-center justify-center gap-2"
           >
             Ürünlere Göz At
-            <ArrowRight className="h-4 w-4 ml-2" aria-hidden />
-          </Button>
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
         </div>
       </div>
     )
@@ -244,15 +328,13 @@ export default function CartPage() {
 
           {/* Continue Shopping */}
           <div className="pt-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="rounded-lg border-[#e5e5e5] text-[#333333] hover:bg-[#f9fafb] hover:border-[#0040a4] hover:text-[#0040a4] h-10"
-              render={<Link href="/urunler" />}
+            <Link
+              href="/urunler"
+              className="rounded-lg border border-[#e5e5e5] text-[#333333] hover:bg-[#f9fafb] hover:border-[#0040a4] hover:text-[#0040a4] h-10 px-4 text-sm font-medium inline-flex items-center justify-center gap-2 transition-colors"
             >
               Alışverişe Devam Et
-              <ArrowRight className="h-4 w-4 ml-2" aria-hidden />
-            </Button>
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
           </div>
         </div>
 

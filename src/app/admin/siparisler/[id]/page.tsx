@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { useParams } from "next/navigation"
 import Link from "next/link"
 import {
@@ -245,9 +245,12 @@ export default function AdminOrderDetailPage() {
       <div className="flex flex-col items-center justify-center gap-4 py-20 text-center">
         <AlertTriangle className="h-10 w-10 text-destructive" aria-hidden />
         <p className="font-semibold">{error ?? "Sipariş bulunamadı."}</p>
-        <Button variant="outline" render={<Link href="/admin/siparisler" />}>
+        <Link
+          href="/admin/siparisler"
+          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border bg-background hover:bg-muted hover:text-foreground h-8 px-2.5 text-sm font-medium transition-colors"
+        >
           Siparişlere Dön
-        </Button>
+        </Link>
       </div>
     )
   }
@@ -262,14 +265,13 @@ export default function AdminOrderDetailPage() {
     <div className="space-y-6">
       {/* Başlık */}
       <div className="flex items-center gap-3">
-        <Button
-          variant="ghost"
-          size="icon"
-          render={<Link href="/admin/siparisler" />}
+        <Link
+          href="/admin/siparisler"
+          className="size-8 inline-flex items-center justify-center rounded-lg hover:bg-muted hover:text-foreground transition-colors"
           aria-label="Siparişlere dön"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden />
-        </Button>
+        </Link>
         <div>
           <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-xl font-bold font-mono">{order.orderNumber}</h1>
@@ -303,8 +305,8 @@ export default function AdminOrderDetailPage() {
                   </thead>
                   <tbody className="divide-y">
                     {order.items.map((item) => (
-                      <>
-                        <tr key={item.id}>
+                      <React.Fragment key={item.id}>
+                        <tr>
                           <td className="py-3 pr-4">
                             <p className="font-medium leading-snug">
                               {item.productName}
@@ -332,7 +334,7 @@ export default function AdminOrderDetailPage() {
                           </td>
                         </tr>
                         <ProfitRow item={item} />
-                      </>
+                      </React.Fragment>
                     ))}
                   </tbody>
                 </table>
@@ -516,14 +518,12 @@ export default function AdminOrderDetailPage() {
               {order.customer.taxNumber && (
                 <p className="text-muted-foreground">VKN: {order.customer.taxNumber}</p>
               )}
-              <Button
-                variant="outline"
-                size="sm"
-                className="mt-2 w-full"
-                render={<Link href={`/admin/musteriler/${order.customer.id}`} />}
+              <Link
+                href={`/admin/musteriler/${order.customer.id}`}
+                className="mt-2 w-full inline-flex items-center justify-center gap-1 rounded-lg border border-border bg-background hover:bg-muted hover:text-foreground h-7 px-2.5 text-[0.8rem] font-medium transition-colors"
               >
                 Bayi Profiline Git
-              </Button>
+              </Link>
             </CardContent>
           </Card>
 

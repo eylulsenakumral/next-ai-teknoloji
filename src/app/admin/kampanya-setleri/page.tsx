@@ -13,6 +13,9 @@ import {
   ChevronRight,
   Package,
   Minus,
+  Sparkles,
+  Loader2,
+  Upload,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -89,6 +92,7 @@ interface CampaignSetDetail extends CampaignSet {
   description: string | null
   minPurchaseAmount: string | null
   maxUsageCount: number | null
+  stockQuantity: number | null
   metadata: Record<string, unknown> | null
   products: SetProduct[]
 }
@@ -151,9 +155,18 @@ interface SetFormModalProps {
   onSaved: () => void
 }
 
+interface SelectedProduct {
+  id: string
+  name: string
+  quantity: number
+  brand: string | null
+}
+
 function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
   const isEdit = !!initial
   const [saving, setSaving] = useState(false)
+  const [generatingImage, setGeneratingImage] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [form, setForm] = useState({
     name: "",
     description: "",
@@ -166,9 +179,39 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
     validUntil: "",
     minPurchaseAmount: "",
     maxUsageCount: "",
+    stockQuantity: "",
     isActive: true,
     sortOrder: "0",
   })
+
+  // Ürün seçimi state
+  const [selectedProducts, setSelectedProducts] = useState<SelectedProduct[]>([])
+  const [productQuery, setProductQuery] = useState("")
+  const [searchResults, setSearchResults] = useState<ProductSearchResult[]>([])
+  const [searching, setSearching] = useState(false)
+
+  // Ürün arama
+  useEffect(() => {
+    if (!productQuery.trim()) {
+      setSearchResults([])
+      return
+    }
+    const timer = setTimeout(async () => {
+      setSearching(true)
+      try {
+        const res = await fetch(
+          `/api/products?search=${encodeURIComponent(productQuery)}&limit=10`
+        )
+        if (res.ok) {
+          const json = await res.json()
+          setSearchResults(json.data ?? [])
+        }
+      } finally {
+        setSearching(false)
+      }
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [productQuery])
 
   useEffect(() => {
     if (open) {
@@ -185,9 +228,18 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
           validUntil: initial.validUntil ? initial.validUntil.slice(0, 16) : "",
           minPurchaseAmount: initial.minPurchaseAmount ?? "",
           maxUsageCount: initial.maxUsageCount != null ? String(initial.maxUsageCount) : "",
+          stockQuantity: initial.stockQuantity != null ? String(initial.stockQuantity) : "",
           isActive: initial.isActive,
           sortOrder: String(initial.sortOrder),
         })
+        setSelectedProducts(
+          initial.products.map((p) => ({
+            id: p.product.id,
+            name: p.product.name,
+            quantity: p.quantity,
+            brand: p.product.brand?.name ?? null,
+          }))
+        )
       } else {
         setForm({
           name: "",
@@ -201,12 +253,34 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
           validUntil: "",
           minPurchaseAmount: "",
           maxUsageCount: "",
+          stockQuantity: "",
           isActive: true,
           sortOrder: "0",
         })
+        setSelectedProducts([])
       }
+      setProductQuery("")
+      setSearchResults([])
     }
   }, [open, initial])
+
+  function addProduct(p: ProductSearchResult) {
+    if (selectedProducts.some((sp) => sp.id === p.id)) return
+    setSelectedProducts((prev) => [
+      ...prev,
+      { id: p.id, name: p.name, quantity: 1, brand: p.brand?.name ?? null },
+    ])
+  }
+
+  function removeProduct(productId: string) {
+    setSelectedProducts((prev) => prev.filter((p) => p.id !== productId))
+  }
+
+  function updateQuantity(productId: string, quantity: number) {
+    setSelectedProducts((prev) =>
+      prev.map((p) => (p.id === productId ? { ...p, quantity: Math.max(1, quantity) } : p))
+    )
+  }
 
   async function handleSubmit() {
     if (!form.name.trim()) return
@@ -226,6 +300,7 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
           ? parseFloat(form.minPurchaseAmount)
           : null,
         maxUsageCount: form.maxUsageCount ? parseInt(form.maxUsageCount) : null,
+        stockQuantity: form.stockQuantity ? parseInt(form.stockQuantity) : null,
         isActive: form.isActive,
         sortOrder: parseInt(form.sortOrder) || 0,
       }
@@ -241,13 +316,62 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
         body: JSON.stringify(body),
       })
 
-      if (res.ok) {
-        onSaved()
-        onClose()
-      } else {
+      if (!res.ok) {
         const json = await res.json()
-        alert(json.error ?? "Kayıt başarısız.")
+        alert(json.error + (json.details ? `\n\n${json.details}` : ""))
+        return
       }
+
+      const json = await res.json()
+      const setId = isEdit ? initial!.id : json.data.id
+
+      // Ürünleri senkronize et
+      if (isEdit && initial) {
+        // Mevcut ürünleri çıkar
+        const existingIds = new Set(initial.products.map((p) => p.product.id))
+        const newIds = new Set(selectedProducts.map((p) => p.id))
+
+        // Silinenler
+        for (const old of initial.products) {
+          if (!newIds.has(old.product.id)) {
+            await fetch(`/api/admin/campaign-sets/${setId}/products`, {
+              method: "DELETE",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ productId: old.product.id }),
+            })
+          }
+        }
+
+        // Eklenenler
+        for (const sp of selectedProducts) {
+          if (!existingIds.has(sp.id)) {
+            await fetch(`/api/admin/campaign-sets/${setId}/products`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ productId: sp.id, quantity: sp.quantity }),
+            })
+          } else {
+            // Miktar güncellensebileceğinden PATCH at
+            await fetch(`/api/admin/campaign-sets/${setId}/products`, {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ productId: sp.id, quantity: sp.quantity }),
+            })
+          }
+        }
+      } else {
+        // Yeni set — tüm ürünleri ekle
+        for (const sp of selectedProducts) {
+          await fetch(`/api/admin/campaign-sets/${setId}/products`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ productId: sp.id, quantity: sp.quantity }),
+          })
+        }
+      }
+
+      onSaved()
+      onClose()
     } finally {
       setSaving(false)
     }
@@ -255,7 +379,7 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+      <DialogContent className="!max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>
             {isEdit ? "Kampanya Setini Düzenle" : "Yeni Kampanya Seti"}
@@ -280,6 +404,107 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
               rows={2}
               placeholder="Kısa açıklama..."
             />
+          </div>
+
+          {/* Ürün Seçimi */}
+          <div className="space-y-2">
+            <Label className="text-sm font-semibold">Set Ürünleri</Label>
+
+            {/* Seçili ürünler listesi */}
+            {selectedProducts.length > 0 && (
+              <div className="space-y-1.5 border rounded-md p-2 bg-gray-50">
+                {selectedProducts.map((sp) => (
+                  <div key={sp.id} className="flex items-center gap-2 text-sm">
+                    <span className="flex-1 truncate">
+                      {sp.brand && <span className="text-muted-foreground mr-1">{sp.brand} ·</span>}
+                      {sp.name}
+                    </span>
+                    <div className="flex items-center gap-1">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        className="h-6 w-6"
+                        onClick={() => updateQuantity(sp.id, sp.quantity - 1)}
+                      >−</Button>
+                      <Input
+                        type="number"
+                        min={1}
+                        value={sp.quantity}
+                        onChange={(e) => updateQuantity(sp.id, parseInt(e.target.value) || 1)}
+                        className="h-6 w-14 text-center text-xs px-1"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="icon"
+                        className="h-6 w-6"
+                        onClick={() => updateQuantity(sp.id, sp.quantity + 1)}
+                      >+</Button>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="h-6 w-6 text-destructive hover:text-destructive"
+                      onClick={() => removeProduct(sp.id)}
+                    >
+                      <X className="h-3 w-3" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Ürün arama */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                className="pl-9"
+                placeholder="Ürün ara (ad, barkod, SKU)..."
+                value={productQuery}
+                onChange={(e) => setProductQuery(e.target.value)}
+              />
+            </div>
+
+            {searching && (
+              <p className="text-xs text-muted-foreground text-center py-1">Aranıyor...</p>
+            )}
+
+            {!searching && searchResults.length > 0 && (
+              <div className="space-y-1 max-h-40 overflow-y-auto border rounded-md">
+                {searchResults.map((p) => {
+                  const alreadyAdded = selectedProducts.some((sp) => sp.id === p.id)
+                  return (
+                    <div
+                      key={p.id}
+                      className="flex items-center justify-between gap-2 px-3 py-1.5 text-sm hover:bg-muted/40 cursor-pointer"
+                      onClick={() => !alreadyAdded && addProduct(p)}
+                    >
+                      <div className="min-w-0">
+                        <span className="truncate">{p.name}</span>
+                        <span className="text-muted-foreground ml-1 text-xs">
+                          {p.brand?.name ?? ""} {p.category?.name ? `· ${p.category.name}` : ""}
+                        </span>
+                      </div>
+                      <span className="text-xs text-muted-foreground shrink-0">
+                        {alreadyAdded ? "Eklendi" : "+ Ekle"}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+
+            {!searching && productQuery.trim() && searchResults.length === 0 && (
+              <p className="text-xs text-muted-foreground text-center py-1">Sonuç bulunamadı.</p>
+            )}
+
+            {selectedProducts.length === 0 && !productQuery.trim() && (
+              <p className="text-xs text-muted-foreground text-center py-2">
+                Sete eklemek istediğiniz ürünleri arayarak seçin.
+              </p>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-3">
@@ -375,7 +600,7 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-3 gap-3">
             <div className="space-y-1.5">
               <Label>Min. Satın Alma (₺)</Label>
               <Input
@@ -402,15 +627,117 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
                 placeholder="Sınırsız"
               />
             </div>
+
+            <div className="space-y-1.5">
+              <Label>Stok Adedi</Label>
+              <Input
+                type="number"
+                min={0}
+                value={form.stockQuantity}
+                onChange={(e) =>
+                  setForm((f) => ({ ...f, stockQuantity: e.target.value }))
+                }
+                placeholder="Sınırsız"
+              />
+            </div>
           </div>
 
           <div className="space-y-1.5">
-            <Label>Görsel URL</Label>
-            <Input
-              value={form.imageUrl}
-              onChange={(e) => setForm((f) => ({ ...f, imageUrl: e.target.value }))}
-              placeholder="https://..."
-            />
+            <Label>Görsel</Label>
+            <div className="flex gap-2">
+              <Input
+                value={form.imageUrl}
+                onChange={(e) => setForm((f) => ({ ...f, imageUrl: e.target.value }))}
+                placeholder="https://... veya dosya yükleyin"
+                className="flex-1"
+              />
+              <input
+                type="file"
+                accept="image/*"
+                className="hidden"
+                id="set-image-upload"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0]
+                  if (!file) return
+                  setUploading(true)
+                  try {
+                    const fd = new FormData()
+                    fd.append("file", file)
+                    const res = await fetch("/api/admin/upload?folder=misc", {
+                      method: "POST",
+                      body: fd,
+                    })
+                    const data = await res.json()
+                    if (data.url) {
+                      setForm((f) => ({ ...f, imageUrl: data.url }))
+                    } else {
+                      alert(data.error || "Dosya yüklenemedi.")
+                    }
+                  } catch {
+                    alert("Dosya yükleme hatası.")
+                  } finally {
+                    setUploading(false)
+                    e.target.value = ""
+                  }
+                }}
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={uploading}
+                onClick={() => document.getElementById("set-image-upload")?.click()}
+                className="shrink-0 gap-1.5"
+              >
+                {uploading ? (
+                  <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Yükleniyor...</>
+                ) : (
+                  <><Upload className="h-3.5 w-3.5" /> Dosya</>
+                )}
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                disabled={generatingImage || !form.name.trim()}
+                onClick={async () => {
+                  setGeneratingImage(true)
+                  try {
+                    const products = selectedProducts.map((p) => ({
+                      name: p.name,
+                      quantity: p.quantity,
+                    }))
+                    const res = await fetch("/api/admin/campaign-sets/generate-image", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ name: form.name, products }),
+                    })
+                    const data = await res.json()
+                    if (data.imageUrl) {
+                      setForm((f) => ({ ...f, imageUrl: data.imageUrl }))
+                    } else {
+                      alert(data.error || "Görsel oluşturulamadı.")
+                    }
+                  } catch {
+                    alert("Görsel oluşturma hatası.")
+                  } finally {
+                    setGeneratingImage(false)
+                  }
+                }}
+                className="shrink-0 gap-1.5"
+              >
+                {generatingImage ? (
+                  <><Loader2 className="h-3.5 w-3.5 animate-spin" /> Oluşturuluyor...</>
+                ) : (
+                  <><Sparkles className="h-3.5 w-3.5" /> AI ile Oluştur</>
+                )}
+              </Button>
+            </div>
+            {form.imageUrl && (
+              <div className="mt-1.5 w-full h-32 rounded-md border bg-muted/30 flex items-center justify-center overflow-hidden">
+                <img src={form.imageUrl} alt="Önizleme" className="max-h-full max-w-full object-contain" />
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-3">

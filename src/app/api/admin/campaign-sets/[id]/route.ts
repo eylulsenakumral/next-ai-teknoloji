@@ -127,6 +127,7 @@ export async function PUT(
       updateData.minPurchaseAmount =
         data.minPurchaseAmount != null ? String(data.minPurchaseAmount) : null
     if (data.maxUsageCount !== undefined) updateData.maxUsageCount = data.maxUsageCount
+    if (data.stockQuantity !== undefined) updateData.stockQuantity = data.stockQuantity
     if (data.isActive !== undefined) updateData.isActive = data.isActive
     if (data.sortOrder !== undefined) updateData.sortOrder = data.sortOrder
     if (data.metadata !== undefined)

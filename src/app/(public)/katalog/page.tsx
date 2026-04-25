@@ -558,6 +558,12 @@ function CatalogFilters({
       {/* Stok filtresi */}
       <div>
         <label className="flex items-center gap-2.5 cursor-pointer py-1">
+          <input
+            type="checkbox"
+            checked={filters.inStock}
+            onChange={(e) => onChange({ inStock: e.target.checked, page: 1 })}
+            className="sr-only"
+          />
           <div className={cn(
             "w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all",
             filters.inStock
@@ -572,12 +578,6 @@ function CatalogFilters({
           </div>
           <span className="text-sm text-[#555]">Sadece stokta olanlar</span>
         </label>
-        <input
-          type="checkbox"
-          checked={filters.inStock}
-          onChange={(e) => onChange({ inStock: e.target.checked, page: 1 })}
-          className="sr-only"
-        />
       </div>
 
       {categories.length > 0 && (

@@ -1,11 +1,14 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { Lock, ImageOff, Heart, Eye } from "lucide-react"
+import { Lock, ImageOff, Heart, Eye, ShoppingCart, Check, Minus, Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useAuth } from "@/hooks/use-auth"
+import { useCart } from "@/hooks/use-cart"
+import { toast } from "@/components/ui/toaster"
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                               */
@@ -39,6 +42,30 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
   const secondImage = product.images?.[1] ?? null
   const { isAuthenticated, isAdmin } = useAuth()
   const hideLoginCTA = isAuthenticated || isAdmin
+  const { addItem, items, openCart } = useCart()
+
+  const [qty, setQty] = useState(1)
+  const [justAdded, setJustAdded] = useState(false)
+  const cartItem = items.find((i) => i.productId === product.id)
+  const cartQty = cartItem?.quantity ?? 0
+
+  function handleAddToCart() {
+    addItem({
+      productId: product.id,
+      productName: product.name,
+      productSlug: product.slug,
+      brandName: product.brand?.name ?? "",
+      imageUrl: product.images[0] ?? "",
+      unitPriceExVat: product.price ?? 0,
+      vatRate: 20,
+      minOrderQuantity: 1,
+      stockQuantity: 999,
+      quantity: qty,
+    })
+    toast({ title: "Sepete eklendi", description: `${product.name} (${qty} adet) sepetinize eklendi.` })
+    setJustAdded(true)
+    setTimeout(() => setJustAdded(false), 2000)
+  }
 
   return (
     <article
@@ -197,6 +224,51 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
             Bayi Fiyatı İçin Giriş Yapın
           </Link>
         ) : null}
+
+        {/* Sepete Ekle - sadece login + fiyat varsa + stok varsa */}
+        {hideLoginCTA && product.price != null && !product.hidePrice && product.stockStatus ? (
+          <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-100">
+            <div className="flex items-center rounded-lg border border-gray-200 overflow-hidden shrink-0">
+              <button
+                type="button"
+                onClick={() => setQty((p) => Math.max(1, p - 1))}
+                disabled={qty <= 1}
+                className="h-7 w-7 flex items-center justify-center hover:bg-gray-50 disabled:opacity-30 transition-colors"
+                aria-label="Azalt"
+              >
+                <Minus className="h-3 w-3" aria-hidden />
+              </button>
+              <span className="h-7 w-8 flex items-center justify-center text-[12px] font-medium border-x border-gray-200">{qty}</span>
+              <button
+                type="button"
+                onClick={() => setQty((p) => p + 1)}
+                className="h-7 w-7 flex items-center justify-center hover:bg-gray-50 transition-colors"
+                aria-label="Artır"
+              >
+                <Plus className="h-3 w-3" aria-hidden />
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              className={cn(
+                "flex-1 h-7 flex items-center justify-center gap-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200",
+                justAdded ? "bg-[#3b7300] text-white" : "bg-[#0040a4] text-white hover:bg-[#003080]"
+              )}
+              aria-label={`${product.name} sepete ekle`}
+            >
+              {justAdded ? <><Check className="h-3 w-3" aria-hidden /> Eklendi</> : <><ShoppingCart className="h-3 w-3" aria-hidden /> Sepete Ekle</>}
+            </button>
+          </div>
+        ) : hideLoginCTA && !product.stockStatus ? (
+          <div className="mt-3 pt-3 border-t border-gray-100">
+            <button type="button" disabled className="w-full h-7 flex items-center justify-center rounded-lg text-[11px] font-semibold bg-gray-100 text-gray-400 cursor-not-allowed">Stokta Yok</button>
+          </div>
+        ) : null}
+
+        {cartQty > 0 && (
+          <button type="button" onClick={() => openCart()} className="text-[10px] text-center text-[#0040a4] hover:underline mt-1">Sepette {cartQty} adet</button>
+        )}
         </div>
       </div>
     </article>
@@ -303,6 +375,32 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
               <Lock className="h-3.5 w-3.5" aria-hidden />
               Bayi Fiyatı İçin Giriş Yapın
             </Link>
+          </div>
+        ) : null}
+
+        {/* Sepete Ekle - list view */}
+        {hideLoginCTA && product.price != null && !product.hidePrice && product.stockStatus ? (
+          <div className="shrink-0 flex items-center gap-2">
+            <div className="flex items-center rounded-lg border border-gray-200 overflow-hidden">
+              <button type="button" onClick={() => setQty((p) => Math.max(1, p - 1))} disabled={qty <= 1} className="h-8 w-8 flex items-center justify-center hover:bg-gray-50 disabled:opacity-30 transition-colors" aria-label="Azalt"><Minus className="h-3 w-3" aria-hidden /></button>
+              <span className="h-8 w-9 flex items-center justify-center text-[12px] font-medium border-x border-gray-200">{qty}</span>
+              <button type="button" onClick={() => setQty((p) => p + 1)} className="h-8 w-8 flex items-center justify-center hover:bg-gray-50 transition-colors" aria-label="Artır"><Plus className="h-3 w-3" aria-hidden /></button>
+            </div>
+            <button
+              type="button"
+              onClick={handleAddToCart}
+              className={cn(
+                "h-8 px-4 flex items-center justify-center gap-1.5 rounded-lg text-[12px] font-semibold transition-all duration-200",
+                justAdded ? "bg-[#3b7300] text-white" : "bg-[#0040a4] text-white hover:bg-[#003080]"
+              )}
+              aria-label={`${product.name} sepete ekle`}
+            >
+              {justAdded ? <><Check className="h-3.5 w-3.5" aria-hidden /> Eklendi</> : <><ShoppingCart className="h-3.5 w-3.5" aria-hidden /> Sepete Ekle</>}
+            </button>
+          </div>
+        ) : hideLoginCTA && !product.stockStatus ? (
+          <div className="shrink-0">
+            <button type="button" disabled className="h-8 px-4 flex items-center justify-center rounded-lg text-[12px] font-semibold bg-gray-100 text-gray-400 cursor-not-allowed">Stokta Yok</button>
           </div>
         ) : null}
       </div>

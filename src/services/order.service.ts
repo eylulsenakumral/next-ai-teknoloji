@@ -4,6 +4,41 @@ import type { CreateOrderInput, ShippingAddressInput } from "@/lib/validators/or
 import type { OrderStatus } from "@prisma/client"
 
 // ---------------------------------------------------------------------------
+// TCMB Döviz Kuru
+// ---------------------------------------------------------------------------
+
+let cachedRate: { usdTry: number; lastUpdated: number } | null = null
+const RATE_CACHE_MS = 60 * 60 * 1000 // 1 saat
+
+async function getUsdTryRate(): Promise<number> {
+  const now = Date.now()
+  if (cachedRate && now - cachedRate.lastUpdated < RATE_CACHE_MS) {
+    return cachedRate.usdTry
+  }
+
+  try {
+    const res = await fetch("https://www.tcmb.gov.tr/kurlar/today.xml", {
+      next: { revalidate: 3600 },
+    })
+    const xml = await res.text()
+    const match = xml.match(
+      /CurrencyCode="USD"[\s\S]*?<ForexSelling>([\d.,]+)<\/ForexSelling>/
+    )
+    if (match) {
+      const rate = parseFloat(match[1].replace(",", "."))
+      cachedRate = { usdTry: rate, lastUpdated: now }
+      return rate
+    }
+  } catch (err) {
+    console.error("[TCMB] Kur çekilemedi:", err)
+  }
+
+  // Fallback
+  if (cachedRate) return cachedRate.usdTry
+  return 38 // Son çare sabit kur
+}
+
+// ---------------------------------------------------------------------------
 // Tipler
 // ---------------------------------------------------------------------------
 
@@ -12,6 +47,7 @@ export interface OrderListItem {
   orderNumber: string
   status: string
   grandTotal: number
+  currency: string
   paymentMethod: string
   paymentStatus: string
   createdAt: string
@@ -129,16 +165,42 @@ export async function createOrder(
     throw new Error("Hesabınız sipariş vermeye uygun durumda değil.")
   }
 
-  // 2. Ürün fiyatlarını hesapla
-  const productIds = input.items.map((i) => i.productId)
-  const priceMap = await calculateBulkPrices(productIds)
+  // 2. Normal ürün + set ürünlerini ayır
+  const setItems = input.items.filter((i) => i.productId.startsWith("set-"))
+  const normalItems = input.items.filter((i) => !i.productId.startsWith("set-"))
 
-  // 3. Tüm ürünlerin fiyatını doğrula
-  for (const item of input.items) {
+  // 3. Normal ürün fiyatlarını hesapla
+  const normalProductIds = normalItems.map((i) => i.productId)
+  const priceMap = await calculateBulkPrices(normalProductIds)
+
+  for (const item of normalItems) {
     if (!priceMap.has(item.productId)) {
       throw new Error(
         `Ürün fiyatı hesaplanamadı (ID: ${item.productId}). Stokta olmayabilir.`
       )
+    }
+  }
+
+  // Set ürünlerini DB'den çek
+  const setIds = setItems.map((i) => i.productId.replace("set-", ""))
+  let setMap = new Map<string, { name: string; price: number }>()
+  if (setIds.length > 0) {
+    const sets = await prisma.campaignSet.findMany({
+      where: { id: { in: setIds }, deletedAt: null },
+      select: { id: true, name: true, price: true, discountPct: true },
+    })
+    for (const s of sets) {
+      const basePrice = Number(s.price ?? 0)
+      const discount = s.discountPct ? Number(s.discountPct) : 0
+      const finalPrice = discount > 0 ? basePrice * (1 - discount / 100) : basePrice
+      setMap.set(s.id, { name: `[Set] ${s.name}`, price: finalPrice })
+    }
+  }
+
+  for (const item of setItems) {
+    const setId = item.productId.replace("set-", "")
+    if (!setMap.has(setId)) {
+      throw new Error(`Kampanya seti bulunamadı (ID: ${setId}).`)
     }
   }
 
@@ -147,24 +209,38 @@ export async function createOrder(
   let vatTotal = 0
 
   const orderItemsData = input.items.map((item) => {
-    const price = priceMap.get(item.productId)!
-    const unitPrice = price.salePriceExVat
-    const vatRate = price.vatRate
-    const purchasePrice = price.purchasePrice
+    let unitPrice: number
+    let vatRate: number
+    let purchasePrice: number | null = null
+    let marginPct: number | null = null
+    let productName = ""
+
+    if (item.productId.startsWith("set-")) {
+      // Set ürünü
+      const setData = setMap.get(item.productId.replace("set-", ""))!
+      unitPrice = setData.price
+      vatRate = 20 // default KDV
+      productName = setData.name
+    } else {
+      // Normal ürün
+      const price = priceMap.get(item.productId)!
+      unitPrice = price.salePriceExVat
+      vatRate = price.vatRate
+      purchasePrice = price.purchasePrice
+      marginPct = price.marginPct
+    }
 
     const lineSubtotal = round2(unitPrice * item.quantity)
     const lineVat = round2(lineSubtotal * (vatRate / 100))
     const lineTotal = round2(lineSubtotal + lineVat)
 
-    const marginPct = price.marginPct
-
     subtotal += lineSubtotal
     vatTotal += lineVat
 
     return {
-      productId: item.productId,
+      productId: item.productId.startsWith("set-") ? null : item.productId,
       supplierProductId: null as string | null,
-      productName: "",       // geçici, aşağıda doldurulacak
+      productName,
       productBarcode: null as string | null,
       quantity: item.quantity,
       unitPrice,
@@ -178,19 +254,23 @@ export async function createOrder(
     }
   })
 
-  // 5. Ürün isimlerini ve barkodlarını al
-  const products = await prisma.product.findMany({
-    where: { id: { in: productIds } },
-    select: { id: true, name: true, barcode: true },
-  })
+  // 5. Normal ürün isimlerini ve barkodlarını al
+  if (normalProductIds.length > 0) {
+    const products = await prisma.product.findMany({
+      where: { id: { in: normalProductIds } },
+      select: { id: true, name: true, barcode: true },
+    })
 
-  const productMap = new Map(products.map((p) => [p.id, p]))
+    const productMap = new Map(products.map((p) => [p.id, p]))
 
-  for (const item of orderItemsData) {
-    const prod = productMap.get(item.productId!)
-    if (prod) {
-      item.productName = prod.name
-      item.productBarcode = prod.barcode ?? null
+    for (const item of orderItemsData) {
+      if (!item.productId.startsWith("set-")) {
+        const prod = productMap.get(item.productId!)
+        if (prod) {
+          item.productName = prod.name
+          item.productBarcode = prod.barcode ?? null
+        }
+      }
     }
   }
 
@@ -199,8 +279,11 @@ export async function createOrder(
   const grandTotal = round2(subtotal + vatTotal)
 
   // 6. Açık hesap kontrolü
+  const usdTryRate = await getUsdTryRate()
+  const grandTotalTL = round2(grandTotal * usdTryRate)
+
   if (input.paymentMethod === "ON_ACCOUNT") {
-    const newBalance = Number(customer.balance) + grandTotal
+    const newBalance = Number(customer.balance) + grandTotalTL
     const creditLimit = Number(customer.creditLimit)
     if (creditLimit > 0 && newBalance > creditLimit) {
       throw new Error(
@@ -224,9 +307,9 @@ export async function createOrder(
         shippingTotal: 0,
         grandTotal,
         currency: "TRY",
-        shippingAddress: input.shippingAddress as object,
+        shippingAddress: (input.shippingAddress as object) ?? undefined,
         notes: input.notes ?? null,
-        paymentMethod: input.paymentMethod as "BANK_TRANSFER" | "ON_ACCOUNT",
+        paymentMethod: input.paymentMethod as "BANK_TRANSFER" | "ON_ACCOUNT" | "CREDIT_CARD",
         paymentStatus: "PENDING",
         orderItems: {
           create: orderItemsData,
@@ -234,19 +317,19 @@ export async function createOrder(
       },
     })
 
-    // AccountTransaction: INVOICE (borç = pozitif)
-    const balanceAfter = round2(Number(customer.balance) + grandTotal)
+    // AccountTransaction: INVOICE (borç = pozitif, TL cinsinden)
+    const balanceAfter = round2(Number(customer.balance) + grandTotalTL)
 
     await tx.accountTransaction.create({
       data: {
         customerId,
         type: "INVOICE",
-        amount: grandTotal,
+        amount: grandTotalTL,
         balanceAfter,
         currency: "TRY",
         referenceType: "ORDER",
         referenceId: order.id,
-        description: `Sipariş faturası - ${orderNumber}`,
+        description: `Sipariş faturası - ${orderNumber} (${grandTotal} USD × ${usdTryRate})`,
       },
     })
 
@@ -272,7 +355,7 @@ export async function getOrdersByCustomer(
   page = 1,
   limit = 20,
   status?: string
-): Promise<{ data: OrderListItem[]; meta: PaginationMeta }> {
+): Promise<{ data: OrderListItem[]; meta: PaginationMeta; usdTryRate: number }> {
   const validStatuses = [
     "PENDING", "CONFIRMED", "PREPARING", "SHIPPED",
     "DELIVERED", "CANCELLED", "RETURNED",
@@ -297,6 +380,7 @@ export async function getOrdersByCustomer(
         orderNumber: true,
         status: true,
         grandTotal: true,
+        currency: true,
         paymentMethod: true,
         paymentStatus: true,
         createdAt: true,
@@ -306,12 +390,15 @@ export async function getOrdersByCustomer(
     prisma.order.count({ where }),
   ])
 
+  const usdTryRate = await getUsdTryRate()
+
   return {
     data: orders.map((o) => ({
       id: o.id,
       orderNumber: o.orderNumber,
       status: o.status,
       grandTotal: Number(o.grandTotal),
+      currency: o.currency,
       paymentMethod: o.paymentMethod,
       paymentStatus: o.paymentStatus,
       createdAt: o.createdAt.toISOString(),
@@ -323,6 +410,7 @@ export async function getOrdersByCustomer(
       limit,
       totalPages: Math.ceil(total / limit),
     },
+    usdTryRate,
   }
 }
 
@@ -411,6 +499,7 @@ export async function getAllOrders(options: {
       orderNumber: o.orderNumber,
       status: o.status,
       grandTotal: Number(o.grandTotal),
+      currency: o.currency,
       paymentMethod: o.paymentMethod,
       paymentStatus: o.paymentStatus,
       createdAt: o.createdAt.toISOString(),
@@ -589,6 +678,10 @@ export async function cancelOrder(
 
   const grandTotal = Number(order.grandTotal)
 
+  // TL karşılığını hesapla
+  const usdTryRate = await getUsdTryRate()
+  const grandTotalTL = round2(grandTotal * usdTryRate)
+
   return await prisma.$transaction(async (tx) => {
     // Siparişi iptal et
     await tx.order.update({
@@ -600,25 +693,25 @@ export async function cancelOrder(
       },
     })
 
-    // Cari iade hareketi (REFUND - negatif tutar)
+    // Cari iade hareketi (REFUND - negatif tutar, TL cinsinden)
     const customer = await tx.customer.findUnique({
       where: { id: customerId },
       select: { balance: true },
     })
 
     if (customer) {
-      const balanceAfter = round2(Number(customer.balance) - grandTotal)
+      const balanceAfter = round2(Number(customer.balance) - grandTotalTL)
 
       await tx.accountTransaction.create({
         data: {
           customerId,
           type: "REFUND",
-          amount: -grandTotal,
+          amount: -grandTotalTL,
           balanceAfter,
           currency: "TRY",
           referenceType: "ORDER",
           referenceId: orderId,
-          description: `Sipariş iadesi - ${order.orderNumber}`,
+          description: `Sipariş iadesi - ${order.orderNumber} (${grandTotal} USD × ${usdTryRate})`,
           notes: reason,
         },
       })

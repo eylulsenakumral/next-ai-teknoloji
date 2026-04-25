@@ -26,7 +26,7 @@ export function ExchangeRateDisplay() {
 
   if (loading) {
     return (
-      <span className="animate-pulse text-white/60 text-[11px]">
+      <span className="hidden sm:inline animate-pulse text-white/60 text-[11px]">
         Kurlar yükleniyor...
       </span>
     )

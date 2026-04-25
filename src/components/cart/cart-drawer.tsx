@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Minus, Plus, Trash2, ShoppingCart } from "lucide-react"
+import { Minus, Plus, Trash2, ShoppingCart, CreditCard, Truck } from "lucide-react"
 import {
   Sheet,
   SheetContent,
@@ -14,6 +14,7 @@ import { Separator } from "@/components/ui/separator"
 import { useCart } from "@/hooks/use-cart"
 import { formatCurrency } from "@/lib/utils/format"
 import { cn } from "@/lib/utils"
+import { useState } from "react"
 
 function CartItemRow({
   item,
@@ -130,6 +131,7 @@ function CartItemRow({
 export function CartDrawer() {
   const { items, isOpen, closeCart, getSubtotal, getVatTotal, getGrandTotal } =
     useCart()
+  const [paymentMethod, setPaymentMethod] = useState<"transfer" | "credit-card">("transfer")
 
   const subtotal = getSubtotal()
   const vatTotal = getVatTotal()
@@ -161,9 +163,13 @@ export function CartDrawer() {
                 Ürünleri inceleyerek sepetinize ekleyebilirsiniz.
               </p>
             </div>
-            <Button render={<Link href="/urunler" onClick={closeCart} />}>
+            <Link
+              href="/urunler"
+              onClick={closeCart}
+              className="inline-flex items-center justify-center gap-1.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/80 h-8 px-2.5 text-sm font-medium transition-colors"
+            >
               Ürünlere Göz At
-            </Button>
+            </Link>
           </div>
         ) : (
           <>
@@ -192,6 +198,35 @@ export function CartDrawer() {
                 </div>
               </div>
 
+              {/* Ödeme Yöntemi */}
+              <div className="space-y-2 pt-1">
+                <p className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider">Ödeme Yöntemi</p>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod("transfer")}
+                    className={cn(
+                      "flex flex-col items-center gap-1 p-2.5 rounded-lg border-2 transition-all text-center",
+                      paymentMethod === "transfer" ? "border-[#0040a4] bg-[#0040a4]/5" : "border-[#e5e5e5] hover:border-[#ccc]"
+                    )}
+                  >
+                    <Truck className={cn("h-4 w-4", paymentMethod === "transfer" ? "text-[#0040a4]" : "text-muted-foreground")} aria-hidden />
+                    <span className={cn("text-[11px] font-semibold", paymentMethod === "transfer" ? "text-[#0040a4]" : "text-[#333]")}>Havale / EFT</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setPaymentMethod("credit-card")}
+                    className={cn(
+                      "flex flex-col items-center gap-1 p-2.5 rounded-lg border-2 transition-all text-center",
+                      paymentMethod === "credit-card" ? "border-[#0040a4] bg-[#0040a4]/5" : "border-[#e5e5e5] hover:border-[#ccc]"
+                    )}
+                  >
+                    <CreditCard className={cn("h-4 w-4", paymentMethod === "credit-card" ? "text-[#0040a4]" : "text-muted-foreground")} aria-hidden />
+                    <span className={cn("text-[11px] font-semibold", paymentMethod === "credit-card" ? "text-[#0040a4]" : "text-[#333]")}>Kredi Kartı</span>
+                  </button>
+                </div>
+              </div>
+
               <div className="flex flex-col gap-2 pt-1">
                 <Link
                   href="/sepet"
@@ -201,11 +236,11 @@ export function CartDrawer() {
                   Sepeti Görüntüle
                 </Link>
                 <Link
-                  href="/sepet/onay"
+                  href={paymentMethod === "credit-card" ? "/sepet/odeme" : "/sepet/onay"}
                   onClick={closeCart}
-                  className="inline-flex h-10 items-center justify-center rounded-lg bg-[#00179e] px-4 text-sm font-medium text-white transition-colors hover:bg-[#001380]"
+                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-[#00179e] px-4 text-sm font-medium text-white transition-colors hover:bg-[#001380]"
                 >
-                  Siparişi Tamamla
+                  {paymentMethod === "credit-card" ? "Kredi Kartı ile Öde" : "Siparişi Tamamla"}
                 </Link>
               </div>
             </div>
