@@ -16,6 +16,7 @@ import { Ionicons } from "@expo/vector-icons"
 export default function HesabimScreen() {
   const router = useRouter()
   const { user, logout } = useAuthStore()
+  const avatarLetter = getAvatarLetter(user?.contactName, user?.companyName)
 
   const openWhatsAppSupport = async () => {
     const phone = (user?.whatsappPhone ?? user?.phone ?? "").replace(/\D/g, "")
@@ -50,7 +51,7 @@ export default function HesabimScreen() {
       <View style={styles.profileCard}>
         <View style={styles.avatar}>
           <Text style={styles.avatarText}>
-            {(user?.companyName ?? "?")[0].toUpperCase()}
+            {avatarLetter}
           </Text>
         </View>
         <Text style={styles.companyName}>{user?.companyName}</Text>
@@ -83,6 +84,14 @@ export default function HesabimScreen() {
       </TouchableOpacity>
     </ScrollView>
   )
+}
+
+function getAvatarLetter(...values: Array<string | null | undefined>): string {
+  for (const value of values) {
+    const letter = value?.trim().match(/[A-Za-zÇĞİÖŞÜçğıöşü]/)?.[0]
+    if (letter) return letter.toLocaleUpperCase("tr-TR")
+  }
+  return "?"
 }
 
 function MenuItem({ icon, label, onPress }: { icon: string; label: string; onPress: () => void }) {
