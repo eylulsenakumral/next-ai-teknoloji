@@ -92,6 +92,10 @@ export default function RootLayout() {
         options={{ headerShown: true, title: "Ödeme", headerTintColor: COLORS.primary }}
       />
       <Stack.Screen
+        name="siparis-onay"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
         name="cari"
         options={{ headerShown: true, title: "Cari Hesap", headerTintColor: COLORS.primary }}
       />

@@ -8,7 +8,7 @@ import {
   Alert,
   StyleSheet,
 } from "react-native"
-import { useRouter } from "expo-router"
+import { useLocalSearchParams, useRouter } from "expo-router"
 import { useCartStore } from "../../src/stores/cart-store"
 import { useAuthStore } from "../../src/stores/auth-store"
 import { ordersApi } from "../../src/api/orders"
@@ -18,11 +18,12 @@ import { Ionicons } from "@expo/vector-icons"
 
 export default function OdemeScreen() {
   const router = useRouter()
+  const { notes: initialNotes, couponCode } = useLocalSearchParams<{ notes?: string; couponCode?: string }>()
   const cart = useCartStore((s) => s.cart)
   const user = useAuthStore((s) => s.user)
   const clearCart = useCartStore((s) => s.clearCart)
   const [paymentMethod, setPaymentMethod] = useState<"BANK_TRANSFER" | "ON_ACCOUNT">("BANK_TRANSFER")
-  const [notes, setNotes] = useState("")
+  const [notes, setNotes] = useState(initialNotes ?? "")
   const [loading, setLoading] = useState(false)
 
   const total = cart?.items.reduce((sum, i) => sum + i.priceSnapshot * i.quantity, 0) ?? 0
@@ -31,6 +32,8 @@ export default function OdemeScreen() {
     if (!cart || cart.items.length === 0 || !user) return
     setLoading(true)
     try {
+      const couponNote = couponCode ? `Kupon/indirim kodu: ${couponCode}` : ""
+      const fullNotes = [notes, couponNote].filter(Boolean).join("\n")
       const res = await ordersApi.create({
         items: cart.items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
         shippingAddress: {
@@ -44,14 +47,13 @@ export default function OdemeScreen() {
           country: "TR",
         },
         paymentMethod,
-        notes: notes || undefined,
+        notes: fullNotes || undefined,
       })
       await clearCart()
-      Alert.alert(
-        "Sipariş Oluşturuldu",
-        `Sipariş No: ${res.data.orderNumber}`,
-        [{ text: "Tamam", onPress: () => router.replace("/siparisler") }]
-      )
+      router.replace({
+        pathname: "/siparis-onay",
+        params: { orderNumber: res.data.orderNumber, orderId: res.data.id, total: String(res.data.totalAmount) },
+      })
     } catch (err: any) {
       Alert.alert("Hata", err?.data?.message ?? "Sipariş oluşturulamadı")
     } finally {
@@ -97,6 +99,7 @@ export default function OdemeScreen() {
       {/* Notes */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Sipariş Notu</Text>
+        {couponCode ? <Text style={styles.couponInfo}>Kupon kodu: {couponCode}</Text> : null}
         <TextInput
           style={styles.notesInput}
           placeholder="Not ekleyin (isteğe bağlı)"
@@ -141,6 +144,7 @@ const styles = StyleSheet.create({
   methodBtnActive: { borderColor: COLORS.primary, backgroundColor: COLORS.primary + "08" },
   methodText: { fontSize: 15, color: COLORS.textMuted },
   methodTextActive: { color: COLORS.primary, fontWeight: "600" },
+  couponInfo: { color: COLORS.primary, fontSize: 13, fontWeight: "700", marginBottom: 8 },
   notesInput: {
     backgroundColor: COLORS.background,
     borderRadius: 12,
