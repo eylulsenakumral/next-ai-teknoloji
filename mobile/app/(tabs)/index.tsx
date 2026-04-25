@@ -26,7 +26,7 @@ export default function HomeScreen() {
   useEffect(() => {
     fetchProducts({ limit: 12, sortBy: "newest", inStock: false })
     categoriesApi.flat()
-      .then((res) => setCategories(res.data.filter((category) => category.productCount > 0).slice(0, 8)))
+      .then((res) => setCategories(res.data.filter((category) => category.productCount === undefined || category.productCount > 0).slice(0, 8)))
       .catch(() => setCategories([]))
   }, [])
 
