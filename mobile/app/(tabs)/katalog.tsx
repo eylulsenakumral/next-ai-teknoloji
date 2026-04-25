@@ -12,6 +12,7 @@ import {
   Switch,
 } from "react-native"
 import { useRouter } from "expo-router"
+import { useLocalSearchParams } from "expo-router"
 import { useProductStore } from "../../src/stores/product-store"
 import { ProductCard } from "../../src/components/product-card"
 import { COLORS } from "../../src/lib/constants"
@@ -22,6 +23,7 @@ import type { Brand, CategoryFlat, ProductListParams } from "../../src/types"
 
 export default function KatalogScreen() {
   const router = useRouter()
+  const { categorySlug: initialCategorySlug } = useLocalSearchParams<{ categorySlug?: string }>()
   const { products, meta, isLoading, params, fetch, reset } = useProductStore()
   const [filterOpen, setFilterOpen] = useState(false)
   const [categories, setCategories] = useState<CategoryFlat[]>([])
@@ -34,7 +36,8 @@ export default function KatalogScreen() {
 
   useEffect(() => {
     reset()
-    fetch({ page: 1, inStock: false })
+    setSelectedCategory(initialCategorySlug)
+    fetch({ page: 1, inStock: false, categorySlug: initialCategorySlug })
     Promise.all([categoriesApi.flat(), brandsApi.list()])
       .then(([categoryRes, brandRes]) => {
         setCategories(categoryRes.data.filter((category) => category.productCount > 0).slice(0, 40))
