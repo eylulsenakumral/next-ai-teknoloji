@@ -75,6 +75,8 @@ const getCachedProductListing = unstable_cache(
     sortBy: string,
     inStock: boolean,
     campaign: boolean,
+    minPrice: number | null,
+    maxPrice: number | null,
     page: number,
     limit: number
   ) => {
@@ -127,9 +129,29 @@ const getCachedProductListing = unstable_cache(
       })
     }
 
-    if (brandSlug) andConditions.push({ brand: { slug: brandSlug } })
+    const brandSlugs = brandSlug
+      .split(",")
+      .map((slug) => slug.trim())
+      .filter(Boolean)
+    if (brandSlugs.length === 1) andConditions.push({ brand: { slug: brandSlugs[0] } })
+    if (brandSlugs.length > 1) andConditions.push({ brand: { slug: { in: brandSlugs } } })
 
     if (Object.keys(categoryFilter).length > 0) andConditions.push(categoryFilter)
+
+    if (minPrice != null || maxPrice != null) {
+      andConditions.push({
+        supplierProducts: {
+          some: {
+            deletedAt: null,
+            isAvailable: true,
+            purchasePrice: {
+              ...(minPrice != null ? { gte: minPrice } : {}),
+              ...(maxPrice != null ? { lte: maxPrice } : {}),
+            },
+          },
+        },
+      })
+    }
 
     if (inStock) {
       andConditions.push({
@@ -193,6 +215,10 @@ export async function GET(req: NextRequest) {
     const inStockParam = searchParams.get("inStock")
     const inStock = inStockParam === null ? true : inStockParam === "true"
     const campaign = searchParams.get("campaign") === "true"
+    const minPriceParam = Number(searchParams.get("minPrice"))
+    const maxPriceParam = Number(searchParams.get("maxPrice"))
+    const minPrice = Number.isFinite(minPriceParam) && minPriceParam > 0 ? minPriceParam : null
+    const maxPrice = Number.isFinite(maxPriceParam) && maxPriceParam > 0 ? maxPriceParam : null
     const page = Math.max(1, Number(searchParams.get("page") ?? "1"))
     const limit = Math.min(100, Math.max(1, Number(searchParams.get("limit") ?? "20")))
 
@@ -204,6 +230,8 @@ export async function GET(req: NextRequest) {
       sortBy,
       inStock,
       campaign,
+      minPrice,
+      maxPrice,
       page,
       limit
     )

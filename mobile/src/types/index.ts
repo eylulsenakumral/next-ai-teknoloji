@@ -147,6 +147,9 @@ export interface ProductListParams {
   search?: string
   categorySlug?: string
   brandSlug?: string
+  brandSlugs?: string[]
+  minPrice?: number
+  maxPrice?: number
   inStock?: boolean
   campaign?: boolean
   sortBy?: "newest" | "name-asc" | "name-desc"
@@ -366,6 +369,10 @@ export interface Brand {
   slug: string
   logoUrl: string | null
   productCount?: number
+}
+
+export interface BrandListResponse {
+  data: Brand[]
 }
 
 // ---------------------------------------------------------------------------
