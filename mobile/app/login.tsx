@@ -33,7 +33,7 @@ export default function LoginScreen() {
     setLoading(true)
     try {
       await login(dealerCode.toUpperCase().trim(), password)
-      router.replace("/(tabs)/index")
+      router.replace("/")
     } catch (err: any) {
       const msg = err?.data?.message ?? err?.message ?? "Giriş başarısız"
       Alert.alert("Giriş Hatası", msg)

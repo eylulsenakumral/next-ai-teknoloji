@@ -31,7 +31,7 @@ export default function SepetScreen() {
         <View style={styles.empty}>
           <Ionicons name="cart-outline" size={64} color={COLORS.textMuted} />
           <Text style={styles.emptyText}>Sepetiniz boş</Text>
-          <TouchableOpacity style={styles.shopBtn} onPress={() => router.push("/(tabs)/katalog")}>
+          <TouchableOpacity style={styles.shopBtn} onPress={() => router.push("/katalog")}>
             <Text style={styles.shopBtnText}>Alışverişe Başla</Text>
           </TouchableOpacity>
         </View>
