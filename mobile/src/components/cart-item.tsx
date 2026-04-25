@@ -17,6 +17,7 @@ export function CartItemRow({ item, onUpdateQuantity, onRemove }: Props) {
   const stock = toNumber(item.product?.supplierProducts?.[0]?.stockQuantity)
   const quantity = toNumber(item.quantity, 1)
   const price = toNumber(item.priceSnapshot)
+  const brandName = item.product?.brand?.name?.trim()
 
   return (
     <View style={styles.card}>
@@ -29,7 +30,7 @@ export function CartItemRow({ item, onUpdateQuantity, onRemove }: Props) {
           </View>
         )}
         <View style={styles.info}>
-          <Text style={styles.brand}>{item.product?.brand?.name ?? "Marka"}</Text>
+          {!!brandName && <Text style={styles.brand}>{brandName}</Text>}
           <Text style={styles.name} numberOfLines={2}>{item.product?.name ?? "Ürün"}</Text>
           <Text style={styles.price}>{formatPrice(price)}</Text>
           {stock < quantity && (
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
   },
   row: { flexDirection: "row", alignItems: "center" },
-  image: { width: 60, height: 60, borderRadius: 8 },
+  image: { width: 160, height: 160, borderRadius: 8 },
   placeholder: {
     backgroundColor: "#f0f0f0",
     alignItems: "center",
