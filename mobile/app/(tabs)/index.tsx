@@ -14,14 +14,20 @@ import { ExchangeRateBar } from "../../src/components/exchange-rate-bar"
 import { useProductStore } from "../../src/stores/product-store"
 import { ProductCard } from "../../src/components/product-card"
 import { COLORS } from "../../src/lib/constants"
+import { categoriesApi } from "../../src/api/categories"
+import type { CategoryFlat } from "../../src/types"
 
 export default function HomeScreen() {
   const user = useAuthStore((s) => s.user)
   const router = useRouter()
   const { products, fetch: fetchProducts, isLoading } = useProductStore()
+  const [categories, setCategories] = useState<CategoryFlat[]>([])
 
   useEffect(() => {
-    fetchProducts({ limit: 10, sortBy: "newest" })
+    fetchProducts({ limit: 12, sortBy: "newest", inStock: false })
+    categoriesApi.flat()
+      .then((res) => setCategories(res.data.filter((category) => category.productCount > 0).slice(0, 8)))
+      .catch(() => setCategories([]))
   }, [])
 
   return (
@@ -34,9 +40,17 @@ export default function HomeScreen() {
           <Text style={styles.greeting}>Merhaba, {user?.contactName?.split(" ")[0] ?? "Bayi"}</Text>
           <Text style={styles.company}>{user?.companyName}</Text>
         </View>
-        <TouchableOpacity onPress={() => router.push("/favoriler")}>
-          <Ionicons name="heart-outline" size={24} color={COLORS.primary} />
-        </TouchableOpacity>
+        <View style={styles.headerActions}>
+          <TouchableOpacity style={styles.headerIconBtn} onPress={() => router.push("/bildirim-ayarlari")}>
+            <Ionicons name="notifications-outline" size={24} color={COLORS.primary} />
+            <View style={styles.unreadBadge}>
+              <Text style={styles.unreadBadgeText}>3</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.headerIconBtn} onPress={() => router.push("/favoriler")}>
+            <Ionicons name="heart-outline" size={24} color={COLORS.primary} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Search */}
@@ -49,6 +63,43 @@ export default function HomeScreen() {
       </TouchableOpacity>
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
+        {/* Campaigns */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.bannerList}
+        >
+          <TouchableOpacity style={[styles.banner, styles.bannerPrimary]} onPress={() => router.push("/kampanyalar")}>
+            <Text style={styles.bannerTitle}>Bayi kampanyaları</Text>
+            <Text style={styles.bannerText}>Seçili ürünlerde özel toptan fiyatlar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.banner, styles.bannerSecondary]} onPress={() => router.push("/katalog")}>
+            <Text style={styles.bannerTitle}>Yeni stoklar</Text>
+            <Text style={styles.bannerText}>Depoya yeni giren ürünleri inceleyin</Text>
+          </TouchableOpacity>
+        </ScrollView>
+
+        {/* Category shortcuts */}
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>Kategoriler</Text>
+            <TouchableOpacity onPress={() => router.push("/katalog")}>
+              <Text style={styles.seeAll}>Katalog</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categoryList}>
+            {categories.map((category) => (
+              <TouchableOpacity
+                key={category.id}
+                style={styles.categoryChip}
+                onPress={() => router.push({ pathname: "/katalog", params: { categorySlug: category.slug } })}
+              >
+                <Text style={styles.categoryText} numberOfLines={1}>{category.name}</Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
+        </View>
+
         {/* New Products */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
@@ -149,6 +200,21 @@ const styles = StyleSheet.create({
   },
   greeting: { fontSize: 18, fontWeight: "700", color: COLORS.text },
   company: { fontSize: 13, color: COLORS.textMuted, marginTop: 2 },
+  headerActions: { flexDirection: "row", alignItems: "center", gap: 8 },
+  headerIconBtn: { width: 38, height: 38, alignItems: "center", justifyContent: "center" },
+  unreadBadge: {
+    position: "absolute",
+    top: 4,
+    right: 3,
+    minWidth: 17,
+    height: 17,
+    borderRadius: 9,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.danger,
+    paddingHorizontal: 4,
+  },
+  unreadBadgeText: { color: "#fff", fontSize: 10, fontWeight: "900" },
   searchBar: {
     flexDirection: "row",
     alignItems: "center",
@@ -163,10 +229,27 @@ const styles = StyleSheet.create({
   },
   searchPlaceholder: { marginLeft: 10, fontSize: 15, color: COLORS.textMuted },
   scroll: { paddingBottom: 24 },
+  bannerList: { gap: 10, paddingHorizontal: 16, paddingTop: 14 },
+  banner: { width: 286, minHeight: 108, borderRadius: 14, padding: 16, justifyContent: "center" },
+  bannerPrimary: { backgroundColor: "#0f766e" },
+  bannerSecondary: { backgroundColor: "#334155" },
+  bannerTitle: { color: "#fff", fontSize: 18, fontWeight: "900" },
+  bannerText: { color: "#ffffffcc", fontSize: 13, lineHeight: 19, marginTop: 6 },
   section: { marginTop: 16, paddingHorizontal: 16 },
   sectionHeader: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 12 },
   sectionTitle: { fontSize: 18, fontWeight: "700", color: COLORS.text },
   seeAll: { fontSize: 14, color: COLORS.primary, fontWeight: "600" },
+  categoryList: { gap: 8, paddingRight: 12 },
+  categoryChip: {
+    maxWidth: 150,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    backgroundColor: COLORS.surface,
+  },
+  categoryText: { color: COLORS.text, fontSize: 13, fontWeight: "700" },
   quickActions: { flexDirection: "row", gap: 8, marginTop: 8 },
   balanceCard: {
     backgroundColor: COLORS.primary,
