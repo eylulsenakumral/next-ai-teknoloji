@@ -40,7 +40,7 @@ export default function KatalogScreen() {
     fetch({ page: 1, inStock: false, categorySlug: initialCategorySlug })
     Promise.all([categoriesApi.flat(), brandsApi.list()])
       .then(([categoryRes, brandRes]) => {
-        setCategories(categoryRes.data.filter((category) => category.productCount > 0).slice(0, 40))
+        setCategories(categoryRes.data.filter((category) => category.productCount === undefined || category.productCount > 0).slice(0, 40))
         setBrands(brandRes.data.slice(0, 60))
       })
       .catch(() => {
