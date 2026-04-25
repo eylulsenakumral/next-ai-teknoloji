@@ -26,17 +26,29 @@ export default function SiparislerScreen() {
   const router = useRouter()
   const [orders, setOrders] = useState<Order[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [activeTab, setActiveTab] = useState("")
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)
 
   const fetchOrders = useCallback(async (p: number, status: string, append = false) => {
     setIsLoading(true)
+    setErrorMessage(null)
     try {
       const res = await ordersApi.list({ page: p, limit: 20, status: status || undefined })
       setOrders(append ? (prev) => [...prev, ...res.data] : res.data)
       setHasMore(p < res.meta.totalPages)
-    } catch {
+    } catch (err: any) {
+      const message =
+        err?.data?.message ??
+        err?.data?.error ??
+        err?.message ??
+        "Siparişler yüklenemedi. Bağlantınızı kontrol edip tekrar deneyin."
+      setErrorMessage(message)
+      if (!append) {
+        setOrders([])
+        setHasMore(false)
+      }
     } finally {
       setIsLoading(false)
     }
@@ -48,10 +60,15 @@ export default function SiparislerScreen() {
   }, [activeTab])
 
   const loadMore = () => {
-    if (isLoading || !hasMore) return
+    if (isLoading || !hasMore || errorMessage) return
     const next = page + 1
     setPage(next)
     fetchOrders(next, activeTab, true)
+  }
+
+  const retry = () => {
+    setPage(1)
+    fetchOrders(1, activeTab)
   }
 
   return (
@@ -86,7 +103,16 @@ export default function SiparislerScreen() {
         onEndReachedThreshold={0.5}
         ListFooterComponent={isLoading ? <ActivityIndicator color={COLORS.primary} style={{ margin: 16 }} /> : null}
         ListEmptyComponent={
-          !isLoading ? (
+          errorMessage ? (
+            <View style={styles.empty}>
+              <Ionicons name="cloud-offline-outline" size={48} color={COLORS.textMuted} />
+              <Text style={styles.emptyText}>Siparişler yüklenemedi</Text>
+              <Text style={styles.errorText}>{errorMessage}</Text>
+              <TouchableOpacity style={styles.retryButton} onPress={retry} activeOpacity={0.85}>
+                <Text style={styles.retryButtonText}>Tekrar Dene</Text>
+              </TouchableOpacity>
+            </View>
+          ) : !isLoading ? (
             <View style={styles.empty}>
               <Ionicons name="document-text-outline" size={48} color={COLORS.textMuted} />
               <Text style={styles.emptyText}>Sipariş bulunamadı</Text>
@@ -94,7 +120,7 @@ export default function SiparislerScreen() {
           ) : null
         }
         refreshing={isLoading && orders.length === 0}
-        onRefresh={() => fetchOrders(1, activeTab)}
+        onRefresh={retry}
       />
     </View>
   )
@@ -116,4 +142,7 @@ const styles = StyleSheet.create({
   tabTextActive: { color: "#fff" },
   empty: { alignItems: "center", justifyContent: "center", paddingVertical: 64 },
   emptyText: { fontSize: 16, color: COLORS.textMuted, marginTop: 12 },
+  errorText: { fontSize: 13, color: COLORS.textMuted, textAlign: "center", marginTop: 8, lineHeight: 20 },
+  retryButton: { marginTop: 16, backgroundColor: COLORS.primary, paddingHorizontal: 18, paddingVertical: 12 },
+  retryButtonText: { color: "#fff", fontWeight: "700" },
 })
