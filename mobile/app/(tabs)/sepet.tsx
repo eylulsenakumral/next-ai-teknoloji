@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   Alert,
+  TextInput,
 } from "react-native"
 import { useRouter } from "expo-router"
 import { useCartStore } from "../../src/stores/cart-store"
@@ -18,6 +19,8 @@ import { Ionicons } from "@expo/vector-icons"
 export default function SepetScreen() {
   const router = useRouter()
   const { cart, isLoading, fetch, updateItem, removeItem } = useCartStore()
+  const [orderNote, setOrderNote] = useState("")
+  const [couponCode, setCouponCode] = useState("")
 
   useEffect(() => { fetch() }, [])
 
@@ -29,9 +32,13 @@ export default function SepetScreen() {
         <ActivityIndicator color={COLORS.primary} style={{ marginTop: 40 }} />
       ) : !cart || cart.items.length === 0 ? (
         <View style={styles.empty}>
-          <Ionicons name="cart-outline" size={64} color={COLORS.textMuted} />
+          <View style={styles.emptyIcon}>
+            <Ionicons name="cart-outline" size={58} color={COLORS.primary} />
+          </View>
           <Text style={styles.emptyText}>Sepetiniz boş</Text>
+          <Text style={styles.emptyDescription}>Bayi alışverişine katalogdan ürün ekleyerek başlayın.</Text>
           <TouchableOpacity style={styles.shopBtn} onPress={() => router.push("/katalog")}>
+            <Ionicons name="storefront-outline" size={19} color="#fff" />
             <Text style={styles.shopBtnText}>Alışverişe Başla</Text>
           </TouchableOpacity>
         </View>
@@ -52,10 +59,38 @@ export default function SepetScreen() {
                 }}
               />
             )}
-            contentContainerStyle={{ padding: 16 }}
+            contentContainerStyle={{ padding: 16, paddingBottom: 8 }}
             refreshing={isLoading}
             onRefresh={fetch}
           />
+
+          <View style={styles.checkoutOptions}>
+            <Text style={styles.optionTitle}>Sipariş Notu</Text>
+            <TextInput
+              style={styles.noteInput}
+              placeholder="Teslimat, ürün veya fiyat notu ekleyin"
+              placeholderTextColor="#667085"
+              value={orderNote}
+              onChangeText={setOrderNote}
+              multiline
+              numberOfLines={3}
+              textAlignVertical="top"
+            />
+            <Text style={styles.optionTitle}>Kupon / İndirim Kodu</Text>
+            <View style={styles.couponRow}>
+              <TextInput
+                style={styles.couponInput}
+                placeholder="Kod girin"
+                placeholderTextColor="#667085"
+                value={couponCode}
+                onChangeText={setCouponCode}
+                autoCapitalize="characters"
+              />
+              <TouchableOpacity style={styles.couponBtn} onPress={() => Alert.alert("Bilgi", "Kupon kodu sipariş notuna eklenecek.")}>
+                <Text style={styles.couponBtnText}>Uygula</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
           {/* Bottom summary */}
           <View style={styles.bottomBar}>
@@ -65,7 +100,7 @@ export default function SepetScreen() {
             </View>
             <TouchableOpacity
               style={styles.checkoutBtn}
-              onPress={() => router.push("/odeme")}
+              onPress={() => router.push({ pathname: "/odeme", params: { notes: orderNote, couponCode } })}
             >
               <Text style={styles.checkoutBtnText}>Ödemeye Geç</Text>
               <Ionicons name="arrow-forward" size={20} color="#fff" />
@@ -80,8 +115,20 @@ export default function SepetScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: COLORS.background },
   empty: { flex: 1, alignItems: "center", justifyContent: "center", padding: 32 },
-  emptyText: { fontSize: 18, color: COLORS.textMuted, marginTop: 16 },
+  emptyIcon: {
+    width: 112,
+    height: 112,
+    borderRadius: 56,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: COLORS.primary + "12",
+  },
+  emptyText: { fontSize: 20, color: COLORS.text, marginTop: 18, fontWeight: "800" },
+  emptyDescription: { fontSize: 14, color: COLORS.textMuted, marginTop: 8, textAlign: "center", lineHeight: 20 },
   shopBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
     marginTop: 20,
     paddingHorizontal: 24,
     paddingVertical: 14,
@@ -89,6 +136,36 @@ const styles = StyleSheet.create({
     borderRadius: 12,
   },
   shopBtnText: { color: "#fff", fontSize: 16, fontWeight: "700" },
+  checkoutOptions: { backgroundColor: COLORS.surface, padding: 16, borderTopWidth: 1, borderTopColor: COLORS.border },
+  optionTitle: { fontSize: 14, fontWeight: "800", color: COLORS.text, marginBottom: 8 },
+  noteInput: {
+    minHeight: 86,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    backgroundColor: COLORS.background,
+    padding: 12,
+    color: COLORS.text,
+    marginBottom: 14,
+  },
+  couponRow: { flexDirection: "row", gap: 8 },
+  couponInput: {
+    flex: 1,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    backgroundColor: COLORS.background,
+    paddingHorizontal: 12,
+    color: COLORS.text,
+  },
+  couponBtn: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    backgroundColor: COLORS.text,
+  },
+  couponBtnText: { color: "#fff", fontWeight: "800" },
   bottomBar: {
     flexDirection: "row",
     justifyContent: "space-between",
