@@ -21,6 +21,9 @@
     "storage:migrate:dry": "tsx scripts/migrate-uploads-to-minio.ts --dry-run",
     "test:coverage": "vitest run --coverage"
   },
+  "engines": {
+    "node": ">=18 <=22"
+  },
   "prisma": {
     "seed": "node --experimental-strip-types prisma/seed.ts"
   },
