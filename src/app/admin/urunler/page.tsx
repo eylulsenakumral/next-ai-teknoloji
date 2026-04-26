@@ -16,8 +16,6 @@ import {
   Filter,
   ChevronDown,
   AlertCircle,
-  RotateCcw,
-  Check,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -58,8 +56,6 @@ interface Product {
   isNew: boolean
   isOutlet: boolean
   createdAt: string
-  manualStock: number | null
-  manualStockEnabled: boolean
   brand: { id: string; name: string; logoUrl: string | null } | null
   category: { id: string; name: string } | null
   supplierProducts: SupplierProductSummary[]
@@ -102,9 +98,8 @@ function getLowestPrice(supplierProducts: SupplierProductSummary[]): number | nu
   return Math.min(...available.map((sp) => parseFloat(sp.purchasePrice!)))
 }
 
-function getTotalStock(product: Pick<Product, "manualStockEnabled" | "manualStock" | "supplierProducts">): number {
-  if (product.manualStockEnabled && product.manualStock !== null) return product.manualStock
-  return product.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
+function getTotalStock(supplierProducts: SupplierProductSummary[]): number {
+  return supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 }
 
 function formatPrice(price: number | null, currency: string = "USD"): string {
@@ -165,48 +160,6 @@ export default function UrunlerPage() {
   // Inline update state
   const [updatingProductId, setUpdatingProductId] = useState<string | null>(null)
   const [updateFlash, setUpdateFlash] = useState<Record<string, "ok" | "err">>({})
-
-  // Manuel stok düzenleme state
-  const [editingStockId, setEditingStockId] = useState<string | null>(null)
-  const [stockInputValue, setStockInputValue] = useState<string>("")
-
-  async function saveManualStock(productId: string, value: string, enable: boolean) {
-    const parsed = parseInt(value, 10)
-    if (isNaN(parsed) || parsed < 0) return
-    setUpdatingProductId(productId)
-    try {
-      const res = await fetch(`/api/products/${productId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ manualStock: parsed, manualStockEnabled: enable }),
-      })
-      if (res.ok) {
-        setUpdateFlash((prev) => ({ ...prev, [productId + "stock"]: "ok" }))
-        setTimeout(() => setUpdateFlash((prev) => { const n = { ...prev }; delete n[productId + "stock"]; return n }), 1500)
-        fetchProducts()
-      } else {
-        setUpdateFlash((prev) => ({ ...prev, [productId + "stock"]: "err" }))
-        setTimeout(() => setUpdateFlash((prev) => { const n = { ...prev }; delete n[productId + "stock"]; return n }), 2000)
-      }
-    } finally {
-      setUpdatingProductId(null)
-      setEditingStockId(null)
-    }
-  }
-
-  async function clearManualStock(productId: string) {
-    setUpdatingProductId(productId)
-    try {
-      await fetch(`/api/products/${productId}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ manualStockEnabled: false, manualStock: null }),
-      })
-      fetchProducts()
-    } finally {
-      setUpdatingProductId(null)
-    }
-  }
 
   async function updateProductField(productId: string, data: { brandId?: string | null; categoryId?: string | null; isActive?: boolean }) {
     setUpdatingProductId(productId)
@@ -759,7 +712,7 @@ export default function UrunlerPage() {
                 {!loading && products.map((product) => {
                   const lowestPrice = getLowestPrice(product.supplierProducts)
                   const cheapestCurrency = getCheapestCurrency(product.supplierProducts)
-                  const totalStock = getTotalStock(product)
+                  const totalStock = getTotalStock(product.supplierProducts)
 
                   return (
                     <TableRow
@@ -877,65 +830,9 @@ export default function UrunlerPage() {
                         {formatPrice(lowestPrice, cheapestCurrency)}
                       </TableCell>
                       <TableCell className="hidden lg:table-cell text-right text-sm">
-                        {editingStockId === product.id ? (
-                          <div className="flex items-center justify-end gap-1">
-                            <input
-                              type="number"
-                              min={0}
-                              value={stockInputValue}
-                              onChange={(e) => setStockInputValue(e.target.value)}
-                              onKeyDown={(e) => {
-                                if (e.key === "Enter") saveManualStock(product.id, stockInputValue, true)
-                                if (e.key === "Escape") setEditingStockId(null)
-                              }}
-                              autoFocus
-                              className="w-20 text-xs text-right border border-ring rounded px-1 py-0.5 outline-none bg-background"
-                            />
-                            <button
-                              onClick={() => saveManualStock(product.id, stockInputValue, true)}
-                              className="text-green-600 hover:text-green-700"
-                              title="Kaydet"
-                            >
-                              <Check className="h-3.5 w-3.5" />
-                            </button>
-                            <button
-                              onClick={() => setEditingStockId(null)}
-                              className="text-muted-foreground hover:text-foreground"
-                              title="İptal"
-                            >
-                              <XSquare className="h-3.5 w-3.5" />
-                            </button>
-                          </div>
-                        ) : (
-                          <div className="flex items-center justify-end gap-1 group/stock">
-                            {product.manualStockEnabled && (
-                              <button
-                                onClick={() => clearManualStock(product.id)}
-                                title="Entegrasyona dön"
-                                className="opacity-0 group-hover/stock:opacity-100 text-muted-foreground hover:text-destructive transition-opacity"
-                              >
-                                <RotateCcw className="h-3 w-3" />
-                              </button>
-                            )}
-                            <button
-                              onClick={() => {
-                                setEditingStockId(product.id)
-                                setStockInputValue(String(product.manualStockEnabled ? (product.manualStock ?? totalStock) : totalStock))
-                              }}
-                              className={cn(
-                                "hover:underline cursor-pointer transition-colors",
-                                totalStock === 0 && "text-destructive",
-                                product.manualStockEnabled && "font-semibold text-blue-600",
-                                updateFlash[product.id + "stock"] === "ok" && "text-green-600",
-                                updateFlash[product.id + "stock"] === "err" && "text-destructive",
-                              )}
-                              title={product.manualStockEnabled ? "Manuel stok (düzenle)" : "Düzenle"}
-                            >
-                              {totalStock.toLocaleString("tr-TR")}
-                              {product.manualStockEnabled && <span className="ml-0.5 text-[10px] text-blue-500">M</span>}
-                            </button>
-                          </div>
-                        )}
+                        <span className={cn(totalStock === 0 && "text-destructive")}>
+                          {totalStock.toLocaleString("tr-TR")}
+                        </span>
                       </TableCell>
                       <TableCell className="text-center">
                         <select
@@ -989,7 +886,7 @@ export default function UrunlerPage() {
                   {products.map((product) => {
                     const lowestPrice = getLowestPrice(product.supplierProducts)
                     const cheapestCurrency = getCheapestCurrency(product.supplierProducts)
-                    const totalStock = getTotalStock(product)
+                    const totalStock = getTotalStock(product.supplierProducts)
                     const isSelected = selectedIds.has(product.id)
 
                     return (
@@ -1069,20 +966,9 @@ export default function UrunlerPage() {
                           </select>
                           <div className="flex items-center justify-between gap-1">
                             <span className="text-xs font-mono">{formatPrice(lowestPrice, cheapestCurrency)}</span>
-                            <button
-                              onClick={() => {
-                                setEditingStockId(product.id)
-                                setStockInputValue(String(product.manualStockEnabled ? (product.manualStock ?? totalStock) : totalStock))
-                              }}
-                              className={cn(
-                                "text-xs hover:underline cursor-pointer",
-                                totalStock === 0 && "text-destructive",
-                                product.manualStockEnabled && "font-semibold text-blue-600",
-                              )}
-                              title={product.manualStockEnabled ? "Manuel stok (düzenle)" : "Stok düzenle"}
-                            >
-                              {totalStock} adet{product.manualStockEnabled && <span className="ml-0.5 text-[10px] text-blue-500">M</span>}
-                            </button>
+                            <span className={cn("text-xs", totalStock === 0 && "text-destructive")}>
+                              {totalStock} adet
+                            </span>
                           </div>
                           <div className="flex items-center justify-between">
                             <select
