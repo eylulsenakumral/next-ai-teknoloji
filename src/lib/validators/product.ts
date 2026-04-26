@@ -49,6 +49,8 @@ export const createProductSchema = z.object({
   minOrderQuantity: z.number().int().positive("Minimum sipariş adedi 1 veya üzeri olmalı").default(1),
   unit: UnitEnum.default("ADET"),
   metadata: z.record(z.string(), z.unknown()).optional().nullable(),
+  manualStock: z.number().int().nonnegative().optional().nullable(),
+  manualStockEnabled: z.boolean().optional(),
 })
 
 // ---------------------------------------------------------------------------

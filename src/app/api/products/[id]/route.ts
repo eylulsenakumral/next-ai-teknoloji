@@ -126,6 +126,8 @@ export async function PUT(req: NextRequest, { params }: Params) {
   if (data.manualPrice !== undefined) updateData.manualPrice = data.manualPrice ?? null
   if (data.manualPriceCurrency !== undefined) updateData.manualPriceCurrency = data.manualPriceCurrency ?? null
   if (data.campaignDiscountPct !== undefined) updateData.campaignDiscountPct = data.campaignDiscountPct ?? null
+  if (data.manualStock !== undefined) updateData.manualStock = data.manualStock ?? null
+  if (data.manualStockEnabled !== undefined) updateData.manualStockEnabled = data.manualStockEnabled
   if (data.brandId !== undefined) updateData.brandId = data.brandId ?? null
   if (data.categoryId !== undefined) updateData.categoryId = data.categoryId ?? null
 
