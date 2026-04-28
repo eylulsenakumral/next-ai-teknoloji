@@ -68,6 +68,8 @@ export interface ProductListItem {
   price: number | null
   currency: string
   priceTry: number | null
+  originalPrice?: number | null
+  originalPriceTry?: number | null
   usdTryRate: number
 }
 
@@ -113,6 +115,8 @@ export interface ProductDetail {
     salePriceIncVat: number
     vatRate: number
     currency: string
+    campaignDiscountPct?: number | null
+    originalPrice?: number | null
   }
   stock: {
     quantity: number
@@ -124,6 +128,7 @@ export interface ProductDetail {
   isNew: boolean
   isFeatured: boolean
   isOutlet: boolean
+  suppliers?: { depoName: string; stockQuantity: number }[]
 }
 
 export interface RelatedProduct {
@@ -217,6 +222,7 @@ export interface Order {
   customer: { id: string; contactName: string }
   items: OrderItem[]
   itemCount?: number
+  previewItems?: string[]
   shippingAddress: {
     address: string
     city: string

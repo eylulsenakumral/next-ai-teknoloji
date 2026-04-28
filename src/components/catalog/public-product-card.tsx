@@ -20,6 +20,7 @@ interface PublicProductCardProduct {
   price?: number | null
   currency?: string
   hidePrice?: boolean
+  originalPrice?: number | null
 }
 
 interface PublicProductCardProps {
@@ -167,9 +168,16 @@ export function PublicProductCard({ product }: PublicProductCardProps) {
         {!authLoading && (
           <div className="mt-1">
             {showPrice && product.price !== null && product.price !== undefined ? (
-              <p className="text-[16px] font-bold text-[#3b7300] leading-tight">
-                {formatCurrency(product.price, product.currency || "TRY")}
-              </p>
+              <div>
+                {product.originalPrice != null && product.originalPrice > product.price && (
+                  <span className="text-[12px] text-[#999] line-through block">
+                    {formatCurrency(product.originalPrice, product.currency || "TRY")}
+                  </span>
+                )}
+                <p className="text-[16px] font-bold text-[#3b7300] leading-tight">
+                  {formatCurrency(product.price, product.currency || "TRY")}
+                </p>
+              </div>
             ) : (
               <Link
                 href="/login"

@@ -277,6 +277,14 @@ export async function GET(req: NextRequest) {
           : lowestPrice
         : null
 
+      const manualPrice = (p as { manualPrice?: unknown }).manualPrice
+      const originalPrice = showPrice && manualPrice != null && lowestSupplier && !isOkisanOnly
+        ? lowestSupplier.markedUpPrice
+        : null
+      const originalPriceTry = originalPrice != null
+        ? (lowestSupplier!.currency === "USD" ? originalPrice * usdTry : originalPrice)
+        : null
+
       return {
         id: p.id,
         name: p.name,
@@ -292,6 +300,8 @@ export async function GET(req: NextRequest) {
         price: lowestPrice,
         currency: priceCurrency,
         priceTry,
+        originalPrice,
+        originalPriceTry,
         usdTryRate: usdTry,
       }
     })

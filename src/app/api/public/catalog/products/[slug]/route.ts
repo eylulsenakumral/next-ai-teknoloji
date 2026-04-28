@@ -232,6 +232,12 @@ export async function GET(
               ? Number(product.manualPrice) * usdTry
               : Number(product.manualPrice))
           : lowestSupplier?.priceTry ?? null,
+        originalPrice: product.manualPrice != null && showPrice && lowestSupplier?.price != null
+          ? lowestSupplier.price
+          : null,
+        originalPriceTry: product.manualPrice != null && showPrice && lowestSupplier?.priceTry != null
+          ? lowestSupplier.priceTry
+          : null,
         usdTryRate: usdTry,
         suppliers,
         relatedProducts: relatedProducts.map((rp) => {

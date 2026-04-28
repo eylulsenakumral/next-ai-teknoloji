@@ -146,11 +146,15 @@ export async function GET(req: NextRequest) {
     // Fırsat/outlet ürünlerde manualPrice direkt satış fiyatıdır
     if (product.manualPrice != null) {
       const manualPriceNum = Number(product.manualPrice)
+      const originalPriceNum = sp?.purchasePrice
+        ? Math.round(Number(sp.purchasePrice) * (1 + Number(sp.supplier?.marginRate ?? 30) / 100) * 100) / 100
+        : null
       pricing = {
         salePriceExVat: manualPriceNum,
         salePriceIncVat: manualPriceNum,
         vatRate: 0,
         currency: product.manualPriceCurrency ?? "USD",
+        originalPrice: originalPriceNum,
       }
     } else if (sp?.purchasePrice) {
       const purchasePrice = Number(sp.purchasePrice)

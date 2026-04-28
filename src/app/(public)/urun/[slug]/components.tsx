@@ -219,6 +219,7 @@ export function ProductDetails({
   priceCurrency,
   priceIncVat,
   campaignDiscountPct,
+  originalPrice,
 }: {
   name: string
   brand: { name: string; slug: string } | null
@@ -229,6 +230,7 @@ export function ProductDetails({
   priceCurrency?: string
   priceIncVat?: number | null
   campaignDiscountPct?: number | null
+  originalPrice?: number | null
 }) {
   const { isAuthenticated, isAdmin } = useAuth()
   const showPrice = (isAuthenticated || isAdmin) && price != null
@@ -267,6 +269,11 @@ export function ProductDetails({
             <p className="text-[12px] font-bold text-white/80 mb-1">
               %{Math.round(campaignDiscountPct)} özel indirim
             </p>
+          )}
+          {originalPrice != null && originalPrice > price && (
+            <span className="text-sm text-white/50 line-through block mb-1">
+              {formatPrice(originalPrice)} {priceCurrency}
+            </span>
           )}
           <div className="flex items-baseline gap-3">
             <span className="text-2xl font-bold">{formatPrice(price)}<span className="text-[12px] font-normal text-white/70 ml-1">+KDV</span></span>
