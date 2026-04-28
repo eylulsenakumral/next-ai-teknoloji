@@ -143,10 +143,18 @@ export async function GET(req: NextRequest) {
     const sp = product.supplierProducts[0]
     let pricing = null
 
-    if (sp?.purchasePrice) {
+    // Fırsat/outlet ürünlerde manualPrice direkt satış fiyatıdır
+    if (product.manualPrice != null) {
+      const manualPriceNum = Number(product.manualPrice)
+      pricing = {
+        salePriceExVat: manualPriceNum,
+        salePriceIncVat: manualPriceNum,
+        vatRate: 0,
+        currency: product.manualPriceCurrency ?? "USD",
+      }
+    } else if (sp?.purchasePrice) {
       const purchasePrice = Number(sp.purchasePrice)
       const vatRate = Number(sp.vatRate ?? 20)
-      // Tedarikçi bazlı kar marjı (varsayılan %30)
       const multiplier = 1 + Number(sp.supplier?.marginRate ?? 30) / 100
       const salePriceExVat = purchasePrice * multiplier
       const salePriceIncVat = salePriceExVat * (1 + vatRate / 100)
