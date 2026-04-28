@@ -82,8 +82,13 @@ export default async function ProductDetailPage({ params }: PageProps) {
         },
       },
       supplierProducts: {
-        where: { supplier: { isActive: true, deletedAt: null } },
-        select: { stockQuantity: true },
+        where: { deletedAt: null, isAvailable: true, purchasePrice: { not: null } },
+        select: {
+          stockQuantity: true,
+          purchasePrice: true,
+          supplier: { select: { marginRate: true } },
+        },
+        orderBy: { purchasePrice: "asc" },
         take: 1,
       },
     },
@@ -99,8 +104,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const displayPrice = manualPrice ?? pricing?.salePriceExVat ?? null
   const displayCurrency = manualPrice ? manualPriceCurrency : "USD"
   const displayPriceIncVat = displayPrice ? displayPrice * 1.20 : null
-  const displayOriginalPrice = manualPrice != null && pricing?.salePriceExVat != null
-    ? pricing.salePriceExVat
+  const sp = product.supplierProducts[0]
+  const displayOriginalPrice = manualPrice != null && sp?.purchasePrice != null
+    ? Math.round(Number(sp.purchasePrice) * (1 + Number(sp.supplier?.marginRate ?? 30) / 100) * 100) / 100
     : null
 
   // Increment view count (fire and forget)
