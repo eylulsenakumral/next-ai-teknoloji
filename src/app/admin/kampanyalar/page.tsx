@@ -755,18 +755,6 @@ export default function KampanyalarPage() {
                         <>
                           <TableCell className="hidden lg:table-cell text-right">
                             <div className="space-y-0.5">
-                              {/* Hesaplanan satış fiyatı (KDV hariç + KDV dahil) */}
-                              {calcPrice !== null && (
-                                <div>
-                                  <p className="text-[11px] text-gray-400 font-mono">
-                                    {formatCurrency(calcPrice, calcCurrency)} <span className="text-[9px] text-gray-300">+KDV</span>
-                                  </p>
-                                  <p className="text-[10px] text-gray-300 font-mono">
-                                    {formatCurrency(calcPrice * 1.2, calcCurrency)} <span className="text-[9px]">KDV dahil</span>
-                                  </p>
-                                </div>
-                              )}
-                              {/* Manuel kampanya fiyatı */}
                               {displayPrice !== null ? (
                                 <>
                                   {discountPct !== null && originalPrice !== null && (
@@ -780,12 +768,16 @@ export default function KampanyalarPage() {
                                     </div>
                                   )}
                                   <p className="text-sm font-bold text-[#333] font-mono">
-                                    {formatCurrency(displayPrice, displayCurrency)} <span className="text-[9px] text-gray-400">+KDV</span>
-                                  </p>
-                                  <p className="text-[10px] text-gray-400 font-mono">
-                                    {formatCurrency(displayPrice * 1.2, displayCurrency)} <span className="text-[9px] text-gray-300">KDV dahil</span>
+                                    {formatCurrency(displayPrice, displayCurrency)}
                                   </p>
                                 </>
+                              ) : calcPrice !== null ? (
+                                <div>
+                                  <p className="text-sm font-mono text-[#333]">
+                                    {formatCurrency(calcPrice, calcCurrency)}
+                                  </p>
+                                  <p className="text-[10px] text-gray-400">hesaplanan fiyat</p>
+                                </div>
                               ) : (
                                 <span className="text-sm text-[#999]">Fiyat girilmedi</span>
                               )}
