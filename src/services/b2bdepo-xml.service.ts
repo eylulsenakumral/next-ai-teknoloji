@@ -557,18 +557,19 @@ export async function syncPriceStock(): Promise<SyncPriceStockResult> {
       }
     }
 
-    // Her urunu isle
+    // Batch update hazirla
+    const now = new Date()
+    const updateOps: ReturnType<typeof prisma.supplierProduct.update>[] = []
+    const priceHistoryOps: ReturnType<typeof prisma.priceHistory.create>[] = []
+
     for (const item of xmlResult.items) {
-      try {
-        const prev = existingMap.get(item.urunKodu)
-        if (!prev) {
-          // Bilmedigimiz urun, atla (syncProducts ile gelecek)
-          continue
-        }
+      const prev = existingMap.get(item.urunKodu)
+      if (!prev) continue
 
-        const currency = "USD"
+      const currency = "USD"
 
-        await prisma.supplierProduct.update({
+      updateOps.push(
+        prisma.supplierProduct.update({
           where: { id: prev.id },
           data: {
             purchasePrice: item.ozelFiyat,
@@ -576,21 +577,19 @@ export async function syncPriceStock(): Promise<SyncPriceStockResult> {
             currency,
             stockQuantity: item.stok,
             isAvailable: item.stok > 0,
-            lastScrapedAt: new Date(),
+            lastScrapedAt: now,
           },
         })
+      )
 
-        // Fiyat degisikligi kontrolu
-        if (
-          prev.purchasePrice !== null &&
-          item.ozelFiyat !== prev.purchasePrice
-        ) {
-          const pct =
-            prev.purchasePrice !== 0
-              ? Number((((item.ozelFiyat - prev.purchasePrice) / prev.purchasePrice) * 100).toFixed(2))
-              : null
+      if (prev.purchasePrice !== null && item.ozelFiyat !== prev.purchasePrice) {
+        const pct =
+          prev.purchasePrice !== 0
+            ? Number((((item.ozelFiyat - prev.purchasePrice) / prev.purchasePrice) * 100).toFixed(2))
+            : null
 
-          await prisma.priceHistory.create({
+        priceHistoryOps.push(
+          prisma.priceHistory.create({
             data: {
               supplierProductId: prev.id,
               oldPrice: prev.purchasePrice,
@@ -599,13 +598,33 @@ export async function syncPriceStock(): Promise<SyncPriceStockResult> {
               priceChangePct: pct,
             },
           })
-          result.priceChanges++
-        }
+        )
+        result.priceChanges++
+      }
 
-        result.updated++
-        result.synced++
+      result.updated++
+      result.synced++
+    }
+
+    // Paralel batch execute (50'lik gruplar)
+    const CONCURRENCY = 50
+    for (let i = 0; i < updateOps.length; i += CONCURRENCY) {
+      const chunk = updateOps.slice(i, i + CONCURRENCY)
+      const results = await Promise.allSettled(chunk)
+      for (const r of results) {
+        if (r.status === "rejected") {
+          result.errors++
+          result.updated--
+          result.synced--
+        }
+      }
+    }
+    // Price history — seri, hata tolere
+    for (const op of priceHistoryOps) {
+      try {
+        await op
       } catch {
-        result.errors++
+        // devam et
       }
     }
 

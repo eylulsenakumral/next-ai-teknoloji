@@ -352,6 +352,38 @@ async function syncTesan(supplierId: string): Promise<{
   }
 }
 
+async function syncReser(_supplierId: string): Promise<{
+  total: number
+  created: number
+  updated: number
+  errors: number
+}> {
+  const { syncReserProducts } = await import("@/services/reser.service")
+  const result = await syncReserProducts()
+  return {
+    total: result.synced,
+    created: result.created,
+    updated: result.updated,
+    errors: result.errors,
+  }
+}
+
+async function syncB2BDepo(_supplierId: string): Promise<{
+  total: number
+  created: number
+  updated: number
+  errors: number
+}> {
+  const { syncProducts } = await import("@/services/b2bdepo-xml.service")
+  const result = await syncProducts()
+  return {
+    total: result.synced,
+    created: result.created,
+    updated: result.updated,
+    errors: result.errors,
+  }
+}
+
 // Supplier code → sync fonksiyonu eşlemesi
 const SYNC_RUNNERS: Record<
   string,
@@ -360,6 +392,8 @@ const SYNC_RUNNERS: Record<
   INDEXGRUP: syncIndexGrup,
   NETEX: syncNetex,
   TESAN: syncTesan,
+  reser: syncReser,
+  b2bdepo: syncB2BDepo,
 }
 
 // ============================================================================
