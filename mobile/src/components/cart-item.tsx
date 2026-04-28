@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
   },
   row: { flexDirection: "row", alignItems: "center" },
-  image: { width: 160, height: 160, borderRadius: 8 },
+  image: { width: 80, height: 80, borderRadius: 8 },
   placeholder: {
     backgroundColor: "#f0f0f0",
     alignItems: "center",

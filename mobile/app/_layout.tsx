@@ -3,8 +3,13 @@ import React, { useEffect } from "react"
 import { useRouter, useSegments } from "expo-router"
 import { useAuthStore } from "../src/stores/auth-store"
 import { ActivityIndicator, View, Text, TouchableOpacity, StyleSheet } from "react-native"
+import { SafeAreaProvider } from "react-native-safe-area-context"
+import { StatusBar } from "expo-status-bar"
 import { COLORS } from "../src/lib/constants"
 import { Ionicons } from "@expo/vector-icons"
+import { registerForPushNotifications, savePushToken } from "../src/lib/notifications"
+import Constants, { ExecutionEnvironment } from "expo-constants"
+import ChatWidget from "../src/components/chat-widget"
 
 
 class AppErrorBoundary extends React.Component<{ children: React.ReactNode }, { error: Error | null }> {
@@ -49,6 +54,16 @@ export default function RootLayout() {
     } else if (isAuthenticated && inAuthGroup) {
       router.replace("/")
     }
+
+    if (isAuthenticated && Constants.executionEnvironment !== ExecutionEnvironment.StoreClient) {
+      registerForPushNotifications()
+        .then((token) => {
+          if (token) return savePushToken(token)
+        })
+        .catch(() => {
+          // Push token kaydı kritik değil, sessizce geç
+        })
+    }
   }, [isAuthenticated, isLoading, segments])
 
   if (isLoading) {
@@ -60,6 +75,8 @@ export default function RootLayout() {
   }
 
   return (
+    <SafeAreaProvider>
+    <StatusBar style="dark" />
     <AppErrorBoundary>
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="login" />
@@ -69,7 +86,9 @@ export default function RootLayout() {
         options={{
           headerShown: true,
           title: "Ürün Detay",
-          headerTintColor: COLORS.primary,
+          headerStyle: { backgroundColor: "#0040a4" },
+          headerTintColor: "#ffffff",
+          headerTitleStyle: { color: "#ffffff" },
           headerBackVisible: false,
           headerLeft: () => (
             <TouchableOpacity
@@ -78,7 +97,7 @@ export default function RootLayout() {
               style={styles.headerBackButton}
               onPress={() => router.back()}
             >
-              <Ionicons name="arrow-back" size={24} color={COLORS.primary} />
+              <Ionicons name="arrow-back" size={24} color="#ffffff" />
             </TouchableOpacity>
           ),
         }}
@@ -124,7 +143,9 @@ export default function RootLayout() {
         options={{ headerShown: true, title: "Şifre Değiştir", headerTintColor: COLORS.primary }}
       />
     </Stack>
+    {isAuthenticated && <ChatWidget />}
     </AppErrorBoundary>
+    </SafeAreaProvider>
   )
 }
 
