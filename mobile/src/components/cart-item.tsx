@@ -8,11 +8,12 @@ import { Ionicons } from "@expo/vector-icons"
 
 interface Props {
   item: CartItem
+  usdTryRate?: number
   onUpdateQuantity: (itemId: string, quantity: number) => void
   onRemove: (itemId: string) => void
 }
 
-export function CartItemRow({ item, onUpdateQuantity, onRemove }: Props) {
+export function CartItemRow({ item, usdTryRate, onUpdateQuantity, onRemove }: Props) {
   const image = imageUri(item.product?.images?.[0])
   const stock = toNumber(item.product?.supplierProducts?.[0]?.stockQuantity)
   const quantity = toNumber(item.quantity, 1)
@@ -33,6 +34,9 @@ export function CartItemRow({ item, onUpdateQuantity, onRemove }: Props) {
           {!!brandName && <Text style={styles.brand}>{brandName}</Text>}
           <Text style={styles.name} numberOfLines={2}>{item.product?.name ?? "Ürün"}</Text>
           <Text style={styles.price}>{formatPrice(price, item.priceCurrency || "TRY")}</Text>
+          {item.priceCurrency === "USD" && usdTryRate && usdTryRate > 0 && (
+            <Text style={styles.priceTry}>≈ {formatPrice(price * usdTryRate, "TRY")}</Text>
+          )}
           {stock < quantity && (
             <Text style={styles.stockWarning}>Stokta {stock} adet var</Text>
           )}
@@ -55,7 +59,12 @@ export function CartItemRow({ item, onUpdateQuantity, onRemove }: Props) {
         >
           <Text style={styles.qtyBtnText}>+</Text>
         </TouchableOpacity>
-        <Text style={styles.lineTotal}>{formatPrice(price * quantity, item.priceCurrency || "TRY")}</Text>
+        <Text style={styles.lineTotal}>{formatPrice(
+          item.priceCurrency === "USD" && usdTryRate
+            ? price * quantity * usdTryRate
+            : price * quantity,
+          "TRY"
+        )}</Text>
       </View>
     </View>
   )
@@ -87,6 +96,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontVariant: ["tabular-nums"],
   },
+  priceTry: { fontSize: 11, color: COLORS.textMuted, marginTop: 1 },
   stockWarning: { fontSize: 11, color: COLORS.danger, marginTop: 2 },
   quantityRow: {
     flexDirection: "row",

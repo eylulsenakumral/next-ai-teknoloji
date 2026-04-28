@@ -16,16 +16,27 @@ import { COLORS } from "../../src/lib/constants"
 import { formatPrice, toNumber } from "../../src/lib/format"
 import { Ionicons } from "@expo/vector-icons"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { exchangeApi } from "../../src/api/exchange"
+import type { ExchangeRate } from "../../src/types"
 
 export default function SepetScreen() {
   const router = useRouter()
   const { cart, isLoading, fetch, updateItem, removeItem } = useCartStore()
   const [orderNote, setOrderNote] = useState("")
+  const [exchangeRate, setExchangeRate] = useState<ExchangeRate | null>(null)
   const insets = useSafeAreaInsets()
 
   useEffect(() => { fetch() }, [])
+  useEffect(() => { exchangeApi.get().then(setExchangeRate).catch(() => {}) }, [])
 
-  const total = cart?.items.reduce((sum, i) => sum + toNumber(i.priceSnapshot) * toNumber(i.quantity, 1), 0) ?? 0
+  const totalTRY = cart?.items.reduce((sum, i) => {
+    const price = toNumber(i.priceSnapshot)
+    const qty = toNumber(i.quantity, 1)
+    const priceTRY = i.priceCurrency === "USD" && exchangeRate?.usd
+      ? price * exchangeRate.usd
+      : price
+    return sum + priceTRY * qty
+  }, 0) ?? 0
 
   return (
     <View style={styles.container}>
@@ -55,6 +66,7 @@ export default function SepetScreen() {
             renderItem={({ item }) => (
               <CartItemRow
                 item={item}
+                usdTryRate={exchangeRate?.usd}
                 onUpdateQuantity={updateItem}
                 onRemove={(id) => {
                   Alert.alert("Kaldır", "Bu ürünü sepetten kaldırmak istediğinize emin misiniz?", [
@@ -87,7 +99,7 @@ export default function SepetScreen() {
           <View style={styles.bottomBar}>
             <View>
               <Text style={styles.totalLabel}>Toplam</Text>
-              <Text style={styles.totalAmount}>{formatPrice(total)}</Text>
+              <Text style={styles.totalAmount}>{formatPrice(totalTRY, "TRY")}</Text>
             </View>
             <TouchableOpacity
               style={styles.checkoutBtn}
