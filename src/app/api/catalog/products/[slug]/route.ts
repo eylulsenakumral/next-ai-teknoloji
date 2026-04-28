@@ -4,6 +4,19 @@ import { prisma } from "@/lib/db"
 import { getDealerSession, requireDealerSession } from "@/lib/dealer-auth"
 import { calculateProductPrice } from "@/lib/pricing"
 
+const SUPPLIER_DEPO_MAP: Record<string, string> = {
+  b2bdepo: "Mersin Depo",
+  okisan: "Perpa Depo",
+  indexgrup: "Kadıköy Depo",
+  netex: "Kadıköy Depo",
+  ergen: "Ergen Depo",
+  tesan: "Tesan Depo",
+  bizimhesap: "Çorlu Depo",
+  reser: "Reser Depo",
+  bayikanali: "Bayi Kanalı",
+  edenge: "Edenge Depo",
+}
+
 export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
@@ -48,13 +61,13 @@ export async function GET(
       supplierProducts: {
         where: { deletedAt: null, isAvailable: true },
         orderBy: { purchasePrice: "asc" },
-        take: 1,
         select: {
           purchasePrice: true,
           vatRate: true,
           stockQuantity: true,
           isAvailable: true,
           currency: true,
+          supplier: { select: { name: true, code: true, marginRate: true } },
         },
       },
     },
@@ -96,6 +109,7 @@ export async function GET(
               purchasePrice: true,
               vatRate: true,
               stockQuantity: true,
+              supplier: { select: { marginRate: true } },
             },
             orderBy: { purchasePrice: "asc" },
             take: 1,
@@ -110,7 +124,8 @@ export async function GET(
     if (sp?.purchasePrice) {
       const purchasePrice = Number(sp.purchasePrice)
       const vatRate = Number(sp.vatRate ?? 20)
-      const salePriceExVat = purchasePrice * 1.3
+      const multiplier = 1 + Number(sp.supplier?.marginRate ?? 30) / 100
+      const salePriceExVat = purchasePrice * multiplier
       const salePriceIncVat = salePriceExVat * (1 + vatRate / 100)
       relPricing = {
         salePriceExVat: Math.round(salePriceExVat * 100) / 100,
@@ -166,6 +181,15 @@ export async function GET(
         quantity: totalStock,
         isAvailable: totalStock > 0,
       },
+      suppliers: product.supplierProducts
+        .filter((sp) => sp.stockQuantity > 0)
+        .map((sp) => {
+          const code = (sp.supplier?.code ?? "").toLowerCase()
+          return {
+            depoName: SUPPLIER_DEPO_MAP[code] ?? sp.supplier?.name ?? code,
+            stockQuantity: sp.stockQuantity,
+          }
+        }),
     },
     relatedProducts: relatedWithPricing,
   })
