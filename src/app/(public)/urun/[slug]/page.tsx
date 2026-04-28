@@ -99,6 +99,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const displayPrice = manualPrice ?? pricing?.salePriceExVat ?? null
   const displayCurrency = manualPrice ? manualPriceCurrency : "USD"
   const displayPriceIncVat = displayPrice ? displayPrice * 1.20 : null
+  const displayOriginalPrice = manualPrice != null && pricing?.salePriceExVat != null
+    ? pricing.salePriceExVat
+    : null
 
   // Increment view count (fire and forget)
   prisma.product.update({
@@ -210,6 +213,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 priceCurrency={displayCurrency}
                 priceIncVat={displayPriceIncVat}
                 campaignDiscountPct={product.campaignDiscountPct ? Number(product.campaignDiscountPct) : null}
+                originalPrice={displayOriginalPrice}
               />
 
               {/* Specs Table */}

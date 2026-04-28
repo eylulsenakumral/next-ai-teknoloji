@@ -11,14 +11,17 @@ import { Ionicons } from "@expo/vector-icons"
 interface Props {
   product: ProductListItem
   onPress: (slug: string) => void
+  cardStyle?: object
 }
 
-export function ProductCard({ product, onPress }: Props) {
+export function ProductCard({ product, onPress, cardStyle }: Props) {
   const [adding, setAdding] = useState(false)
   const fetchCart = useCartStore((s) => s.fetch)
   const image = imageUri(product.images?.[0])
-  const price = product.priceTry ?? product.price
-  const brandName = product.brand?.name ?? "Marka"
+  const price = product.price
+  const currency = product.currency || "USD"
+  const priceTry = product.priceTry
+  const brandName = product.brand?.name
   const stockCount = toNumber(product.stockCount)
   const hasStock = Boolean(product.stockStatus) || stockCount > 0
 
@@ -37,7 +40,7 @@ export function ProductCard({ product, onPress }: Props) {
 
   return (
     <TouchableOpacity
-      style={styles.card}
+      style={[styles.card, cardStyle]}
       onPress={() => product.slug && onPress(product.slug)}
       activeOpacity={0.7}
     >
@@ -48,11 +51,22 @@ export function ProductCard({ product, onPress }: Props) {
           <Text style={styles.placeholderText}>Görsel yok</Text>
         </View>
       )}
-      <Text style={styles.brand}>{brandName}</Text>
-      <Text style={styles.name} numberOfLines={2}>{product.name ?? "Ürün"}</Text>
-      <View style={styles.row}>
+      {brandName ? <Text style={styles.brand}>{brandName}</Text> : null}
+      <Text style={styles.name} numberOfLines={3}>{product.name ?? "Ürün"}</Text>
+      <View style={styles.priceBlock}>
         {price != null && !product.hidePrice ? (
-          <Text style={styles.price}>{formatPrice(price)}</Text>
+          <>
+            {product.originalPrice != null && product.originalPrice > price && (
+              <Text style={styles.originalPrice}>{formatPrice(product.originalPrice, currency)}</Text>
+            )}
+            <Text style={styles.price}>
+              {formatPrice(price, currency)}
+              <Text style={styles.vat}> +KDV</Text>
+            </Text>
+            {priceTry != null && currency !== "TRY" && (
+              <Text style={styles.priceTry}>{formatPrice(priceTry, "TRY")} KDV Dahil</Text>
+            )}
+          </>
         ) : (
           <Text style={styles.hiddenPrice}>Fiyat için giriş yapın</Text>
         )}
@@ -81,36 +95,54 @@ export function ProductCard({ product, onPress }: Props) {
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    backgroundColor: COLORS.surface,
-    borderRadius: 12,
+    backgroundColor: "#ffffff",
+    borderRadius: 16,
     padding: 12,
-    margin: 4,
+    marginBottom: 4,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: "#f0f0f0",
     maxWidth: "50%",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 3,
   },
-  image: { width: "100%", height: 120, borderRadius: 8 },
+  image: { width: "100%", height: 120, borderRadius: 10 },
   imagePlaceholder: {
     width: "100%",
     height: 120,
-    borderRadius: 8,
-    backgroundColor: "#f0f0f0",
+    borderRadius: 10,
+    backgroundColor: "#f5f5f5",
     alignItems: "center",
     justifyContent: "center",
   },
   placeholderText: { color: COLORS.textMuted, fontSize: 12 },
-  brand: { fontSize: 11, color: COLORS.primary, fontWeight: "600", marginTop: 8 },
-  name: { fontSize: 13, color: COLORS.text, fontWeight: "500", marginTop: 2, lineHeight: 18 },
+  brand: { fontSize: 11, color: COLORS.primary, fontWeight: "700", marginTop: 8 },
+  name: { fontSize: 13, color: "#1a1a1a", fontWeight: "600", marginTop: 2, lineHeight: 18 },
   row: { flexDirection: "row", alignItems: "center" },
+  priceBlock: { marginTop: 4 },
   price: {
     fontSize: 15,
-    fontWeight: "700",
-    color: COLORS.text,
-    marginTop: 4,
+    fontWeight: "800",
+    color: COLORS.primary,
     fontVariant: ["tabular-nums"],
   },
-  hiddenPrice: { fontSize: 12, color: COLORS.textMuted, marginTop: 4 },
-  stockDot: { width: 8, height: 8, borderRadius: 4, marginRight: 6 },
+  vat: { fontSize: 10, fontWeight: "400", color: COLORS.textMuted },
+  priceTry: {
+    fontSize: 11,
+    color: COLORS.textMuted,
+    marginTop: 1,
+    fontVariant: ["tabular-nums"],
+  },
+  originalPrice: {
+    fontSize: 11,
+    color: "#999",
+    textDecorationLine: "line-through",
+    marginBottom: 1,
+  },
+  hiddenPrice: { fontSize: 11, color: COLORS.textMuted, marginTop: 4 },
+  stockDot: { width: 7, height: 7, borderRadius: 4, marginRight: 5 },
   stockText: { fontSize: 11, color: COLORS.textMuted },
   addBtn: {
     flexDirection: "row",
@@ -118,10 +150,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 5,
     marginTop: 10,
-    paddingVertical: 9,
-    borderRadius: 10,
+    paddingVertical: 10,
+    borderRadius: 12,
     backgroundColor: COLORS.primary,
+    shadowColor: COLORS.primary,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.25,
+    shadowRadius: 6,
+    elevation: 3,
   },
-  addBtnDisabled: { opacity: 0.55 },
+  addBtnDisabled: { opacity: 0.50, shadowOpacity: 0 },
   addBtnText: { color: "#fff", fontSize: 12, fontWeight: "800" },
 })
