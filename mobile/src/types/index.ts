@@ -177,6 +177,7 @@ export interface CartItem {
   productId: string
   quantity: number
   priceSnapshot: number
+  priceCurrency?: string
   product: CartItemProduct
 }
 
@@ -240,18 +241,14 @@ export interface OrderListResponse {
 
 export interface OrderCreateResponse {
   data: {
-    id: string
+    orderId: string
     orderNumber: string
-    status: string
-    totalAmount: number
-    currency: string
-    createdAt: string
   }
 }
 
 export interface OrderCreatePayload {
   items: { productId: string; quantity: number }[]
-  shippingAddress: {
+  shippingAddress?: {
     companyName: string
     contactName: string
     phone: string
@@ -386,13 +383,14 @@ export interface BrandListResponse {
 // ---------------------------------------------------------------------------
 export interface NomuPayTicketResponse {
   success: boolean
-  returnUrl: string
+  paymentUrl: string
   statusCode: string
   resultCode: string
   resultMessage: string
   orderId: string
   maskedCCNo: string
   mpay: string
+  error?: string
 }
 
 // ---------------------------------------------------------------------------

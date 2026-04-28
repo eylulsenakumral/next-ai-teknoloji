@@ -71,9 +71,10 @@ export async function POST(req: NextRequest) {
       select: {
         id: true,
         manualPrice: true,
+        manualPriceCurrency: true,
         supplierProducts: {
           where: { supplier: { isActive: true, deletedAt: null } },
-          select: { purchasePrice: true, stockQuantity: true },
+          select: { purchasePrice: true, stockQuantity: true, currency: true },
           orderBy: { purchasePrice: "asc" },
           take: 1,
         },
@@ -88,6 +89,11 @@ export async function POST(req: NextRequest) {
       product.manualPrice?.toNumber() ??
       product.supplierProducts[0]?.purchasePrice?.toNumber() ??
       0
+
+    const currency =
+      product.manualPrice != null
+        ? (product.manualPriceCurrency ?? "USD")
+        : (product.supplierProducts[0]?.currency ?? "TRY")
 
     // Upsert cart
     const cart = await prisma.cart.upsert({
@@ -113,6 +119,7 @@ export async function POST(req: NextRequest) {
           productId,
           quantity,
           priceSnapshot: price,
+          priceCurrency: currency,
         },
       })
     }

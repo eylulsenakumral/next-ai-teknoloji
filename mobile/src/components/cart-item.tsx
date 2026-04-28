@@ -32,7 +32,7 @@ export function CartItemRow({ item, onUpdateQuantity, onRemove }: Props) {
         <View style={styles.info}>
           {!!brandName && <Text style={styles.brand}>{brandName}</Text>}
           <Text style={styles.name} numberOfLines={2}>{item.product?.name ?? "Ürün"}</Text>
-          <Text style={styles.price}>{formatPrice(price)}</Text>
+          <Text style={styles.price}>{formatPrice(price, item.priceCurrency || "TRY")}</Text>
           {stock < quantity && (
             <Text style={styles.stockWarning}>Stokta {stock} adet var</Text>
           )}
@@ -55,7 +55,7 @@ export function CartItemRow({ item, onUpdateQuantity, onRemove }: Props) {
         >
           <Text style={styles.qtyBtnText}>+</Text>
         </TouchableOpacity>
-        <Text style={styles.lineTotal}>{formatPrice(price * quantity)}</Text>
+        <Text style={styles.lineTotal}>{formatPrice(price * quantity, item.priceCurrency || "TRY")}</Text>
       </View>
     </View>
   )
