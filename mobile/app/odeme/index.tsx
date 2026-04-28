@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import {
   View,
   Text,
@@ -13,12 +13,19 @@ import { useLocalSearchParams, useRouter } from "expo-router"
 import { useCartStore } from "../../src/stores/cart-store"
 import { useAuthStore } from "../../src/stores/auth-store"
 import { ordersApi } from "../../src/api/orders"
-import { api } from "../../src/api/client"
+import { paymentApi } from "../../src/api/payment"
+import { exchangeApi } from "../../src/api/exchange"
+import type { ExchangeRate } from "../../src/types"
 import { COLORS } from "../../src/lib/constants"
 import { formatPrice } from "../../src/lib/format"
 import { Ionicons } from "@expo/vector-icons"
 
 type PaymentMethod = "BANK_TRANSFER" | "ON_ACCOUNT" | "CREDIT_CARD"
+
+function getErrorMessage(err: unknown, fallback: string): string {
+  const error = err as { data?: { error?: string; message?: string; resultMessage?: string }; message?: string }
+  return error?.data?.error ?? error?.data?.message ?? error?.data?.resultMessage ?? error?.message ?? fallback
+}
 
 export default function OdemeScreen() {
   const router = useRouter()
@@ -29,8 +36,18 @@ export default function OdemeScreen() {
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("BANK_TRANSFER")
   const [notes, setNotes] = useState(initialNotes ?? "")
   const [loading, setLoading] = useState(false)
+  const [exchangeRate, setExchangeRate] = useState<ExchangeRate | null>(null)
 
-  const total = cart?.items.reduce((sum, i) => sum + i.priceSnapshot * i.quantity, 0) ?? 0
+  useEffect(() => { exchangeApi.get().then(setExchangeRate).catch(() => {}) }, [])
+
+  const totalTRY = cart?.items.reduce((sum, i) => {
+    const price = Number(i.priceSnapshot)
+    const qty = Number(i.quantity)
+    const priceTRY = i.priceCurrency === "USD" && exchangeRate?.usd
+      ? price * exchangeRate.usd
+      : price
+    return sum + priceTRY * qty
+  }, 0) ?? 0
 
   const handleOrder = async () => {
     if (!cart || cart.items.length === 0 || !user) return
@@ -64,10 +81,10 @@ export default function OdemeScreen() {
       if (paymentMethod === "CREDIT_CARD") {
         let paymentUrl: string | undefined
         try {
-          const payRes = await api.post<{ paymentUrl: string }>("/api/payment/nomupay/mobile", { orderId: res.data.orderId })
+          const payRes = await paymentApi.createNomuPayMobileTicket(res.data.orderId)
           paymentUrl = payRes.paymentUrl
-        } catch {
-          Alert.alert("Hata", "Ödeme linki alınamadı, lütfen tekrar deneyin")
+        } catch (err) {
+          Alert.alert("Hata", getErrorMessage(err, "Ödeme linki alınamadı, lütfen tekrar deneyin"))
           return
         }
         if (!paymentUrl) {
@@ -78,7 +95,12 @@ export default function OdemeScreen() {
         await Linking.openURL(paymentUrl)
         router.replace({
           pathname: "/siparis-onay",
-          params: { orderNumber: res.data.orderNumber, orderId: res.data.orderId, total: "0" },
+          params: {
+            orderNumber: res.data.orderNumber,
+            orderId: res.data.orderId,
+            total: String(Math.round(totalTRY * 100) / 100),
+            paymentStatus: "pending",
+          },
         })
         return
       }
@@ -86,10 +108,10 @@ export default function OdemeScreen() {
       await clearCart()
       router.replace({
         pathname: "/siparis-onay",
-        params: { orderNumber: res.data.orderNumber, orderId: res.data.orderId, total: "0" },
+        params: { orderNumber: res.data.orderNumber, orderId: res.data.orderId, total: String(Math.round(totalTRY * 100) / 100) },
       })
-    } catch (err: any) {
-      Alert.alert("Hata", err?.data?.error ?? err?.data?.message ?? "Sipariş oluşturulamadı")
+    } catch (err) {
+      Alert.alert("Hata", getErrorMessage(err, "Sipariş oluşturulamadı"))
     } finally {
       setLoading(false)
     }
@@ -103,7 +125,7 @@ export default function OdemeScreen() {
         <Text style={styles.itemCount}>{cart?.items.length ?? 0} ürün</Text>
         <View style={styles.totalRow}>
           <Text style={styles.totalLabel}>Toplam</Text>
-          <Text style={styles.totalAmount}>{formatPrice(total)}</Text>
+          <Text style={styles.totalAmount}>{formatPrice(totalTRY, "TRY")}</Text>
         </View>
       </View>
 
