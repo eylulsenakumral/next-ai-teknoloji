@@ -148,11 +148,20 @@ async function _calculateProductPrice(productId: string): Promise<PriceCalculati
 
   const totalStock = available.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
-  const { marginPct, source } = await getApplicableMargin(
-    productId,
-    product.categoryId,
-    product.brandId
-  )
+  // Supplier margin önce gelir; yoksa ProfitMargin tablosuna düş
+  const supplierMarginRate = cheapest.supplier?.marginRate != null
+    ? Number(cheapest.supplier.marginRate)
+    : null
+  let marginPct: number
+  let source: string
+  if (supplierMarginRate !== null) {
+    marginPct = supplierMarginRate
+    source = "supplier"
+  } else {
+    const applicable = await getApplicableMargin(productId, product.categoryId, product.brandId)
+    marginPct = applicable.marginPct
+    source = applicable.source
+  }
 
   const { saleExVat, saleIncVat, profit } = simulatePrice(
     purchasePrice,
