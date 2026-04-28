@@ -166,6 +166,8 @@ const getCachedProductListing = unstable_cache(
           images: true,
           description: true,
           specs: true,
+          manualPrice: true,
+          manualPriceCurrency: true,
           brand: { select: { name: true, slug: true } },
           category: { select: { name: true, slug: true } },
           supplierProducts: {
@@ -260,11 +262,18 @@ export async function GET(req: NextRequest) {
         : null
 
       const isOkisanOnly = lowestSupplier?.supplierCode === "OKISAN"
-      const lowestPrice = lowestSupplier && !isOkisanOnly ? lowestSupplier.markedUpPrice : null
-      const priceCurrency = lowestSupplier?.currency || "TRY"
+      let lowestPrice = lowestSupplier && !isOkisanOnly ? lowestSupplier.markedUpPrice : null
+      let priceCurrency = lowestSupplier?.currency || "TRY"
+
+      // Fırsat/outlet ürünlerde manualPrice direkt satış fiyatıdır
+      if (showPrice && (p as { manualPrice?: unknown }).manualPrice != null) {
+        lowestPrice = Number((p as { manualPrice: unknown }).manualPrice)
+        priceCurrency = (p as { manualPriceCurrency?: string }).manualPriceCurrency ?? "USD"
+      }
+
       const priceTry = lowestPrice != null
         ? priceCurrency === "USD" ? lowestPrice * usdTry
-          : priceCurrency === "EUR" ? lowestPrice * (usdTry / 1.0) // simplification
+          : priceCurrency === "EUR" ? lowestPrice * (usdTry / 1.0)
           : lowestPrice
         : null
 
