@@ -92,6 +92,8 @@ model Product {
   manualPrice         Decimal?          @map("manual_price") @db.Decimal(12, 2)
   manualPriceCurrency String?           @map("manual_price_currency") @db.VarChar(3)
   campaignDiscountPct Decimal?          @map("campaign_discount_pct") @db.Decimal(5, 2)
+  manualStock         Int?              @map("manual_stock")
+  manualStockEnabled  Boolean           @default(false) @map("manual_stock_enabled")
   orderItems          OrderItem[]
   priceListItems      PriceListItem[]
   productTags         ProductTag[]
@@ -171,6 +173,7 @@ model Supplier {
   syncStatus          SupplierSyncStatus @default(IDLE) @map("sync_status")
   syncError           String?            @map("sync_error")
   syncIntervalMinutes Int                @default(360) @map("sync_interval_minutes")
+  marginRate          Decimal            @default(30) @map("margin_rate") @db.Decimal(5, 2)
   metadata            Json?
   createdAt           DateTime           @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt           DateTime           @updatedAt @map("updated_at") @db.Timestamptz(6)

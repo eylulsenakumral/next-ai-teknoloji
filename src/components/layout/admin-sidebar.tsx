@@ -27,6 +27,7 @@ import {
   ArrowLeftRight,
   Layers,
   FileText,
+  Percent,
   X,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -44,6 +45,7 @@ const menuItems = [
   { href: "/admin/kategori-eslesmesi", label: "Kategori Eşleşmesi", icon: ArrowLeftRight },
   { href: "/admin/markalar", label: "Markalar", icon: Bookmark },
   { href: "/admin/tedarikciler", label: "Tedarikçiler", icon: Truck },
+  { href: "/admin/kar-marji", label: "Kar Marjı", icon: Percent },
   { href: "/admin/musteriler", label: "Müşteriler", icon: Users },
   { href: "/admin/basvurular", label: "Başvurular", icon: ClipboardList },
   { href: "/admin/siparisler", label: "Siparişler", icon: ShoppingBag },
