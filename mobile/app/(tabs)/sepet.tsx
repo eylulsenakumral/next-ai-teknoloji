@@ -15,12 +15,13 @@ import { CartItemRow } from "../../src/components/cart-item"
 import { COLORS } from "../../src/lib/constants"
 import { formatPrice, toNumber } from "../../src/lib/format"
 import { Ionicons } from "@expo/vector-icons"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 export default function SepetScreen() {
   const router = useRouter()
   const { cart, isLoading, fetch, updateItem, removeItem } = useCartStore()
   const [orderNote, setOrderNote] = useState("")
-  const [couponCode, setCouponCode] = useState("")
+  const insets = useSafeAreaInsets()
 
   useEffect(() => { fetch() }, [])
 
@@ -28,6 +29,10 @@ export default function SepetScreen() {
 
   return (
     <View style={styles.container}>
+      <View style={{ height: insets.top, backgroundColor: "#0040a4" }} />
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Sepetim</Text>
+      </View>
       {isLoading && !cart ? (
         <ActivityIndicator color={COLORS.primary} style={{ marginTop: 40 }} />
       ) : !cart || cart.items.length === 0 ? (
@@ -76,20 +81,6 @@ export default function SepetScreen() {
               numberOfLines={3}
               textAlignVertical="top"
             />
-            <Text style={styles.optionTitle}>Kupon / İndirim Kodu</Text>
-            <View style={styles.couponRow}>
-              <TextInput
-                style={styles.couponInput}
-                placeholder="Kod girin"
-                placeholderTextColor="#667085"
-                value={couponCode}
-                onChangeText={setCouponCode}
-                autoCapitalize="characters"
-              />
-              <TouchableOpacity style={styles.couponBtn} onPress={() => Alert.alert("Bilgi", "Kupon kodu sipariş notuna eklenecek.")}>
-                <Text style={styles.couponBtnText}>Uygula</Text>
-              </TouchableOpacity>
-            </View>
           </View>
 
           {/* Bottom summary */}
@@ -100,7 +91,7 @@ export default function SepetScreen() {
             </View>
             <TouchableOpacity
               style={styles.checkoutBtn}
-              onPress={() => router.push({ pathname: "/odeme", params: { notes: orderNote, couponCode } })}
+              onPress={() => router.push({ pathname: "/odeme", params: { notes: orderNote } })}
             >
               <Text style={styles.checkoutBtnText}>Ödemeye Geç</Text>
               <Ionicons name="arrow-forward" size={20} color="#fff" />
@@ -148,24 +139,6 @@ const styles = StyleSheet.create({
     color: COLORS.text,
     marginBottom: 14,
   },
-  couponRow: { flexDirection: "row", gap: 8 },
-  couponInput: {
-    flex: 1,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: COLORS.border,
-    backgroundColor: COLORS.background,
-    paddingHorizontal: 12,
-    color: COLORS.text,
-  },
-  couponBtn: {
-    alignItems: "center",
-    justifyContent: "center",
-    paddingHorizontal: 16,
-    borderRadius: 12,
-    backgroundColor: COLORS.text,
-  },
-  couponBtnText: { color: "#fff", fontWeight: "800" },
   bottomBar: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -187,4 +160,17 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   checkoutBtnText: { color: "#fff", fontSize: 16, fontWeight: "700" },
+  header: {
+    backgroundColor: "#0040a4",
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: "800",
+    color: "#ffffff",
+  },
 })

@@ -7,14 +7,18 @@ import {
   ScrollView,
   Alert,
   StyleSheet,
+  Linking,
 } from "react-native"
 import { useLocalSearchParams, useRouter } from "expo-router"
 import { useCartStore } from "../../src/stores/cart-store"
 import { useAuthStore } from "../../src/stores/auth-store"
 import { ordersApi } from "../../src/api/orders"
+import { api } from "../../src/api/client"
 import { COLORS } from "../../src/lib/constants"
 import { formatPrice } from "../../src/lib/format"
 import { Ionicons } from "@expo/vector-icons"
+
+type PaymentMethod = "BANK_TRANSFER" | "ON_ACCOUNT" | "CREDIT_CARD"
 
 export default function OdemeScreen() {
   const router = useRouter()
@@ -22,7 +26,7 @@ export default function OdemeScreen() {
   const cart = useCartStore((s) => s.cart)
   const user = useAuthStore((s) => s.user)
   const clearCart = useCartStore((s) => s.clearCart)
-  const [paymentMethod, setPaymentMethod] = useState<"BANK_TRANSFER" | "ON_ACCOUNT">("BANK_TRANSFER")
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("BANK_TRANSFER")
   const [notes, setNotes] = useState(initialNotes ?? "")
   const [loading, setLoading] = useState(false)
 
@@ -34,28 +38,58 @@ export default function OdemeScreen() {
     try {
       const couponNote = couponCode ? `Kupon/indirim kodu: ${couponCode}` : ""
       const fullNotes = [notes, couponNote].filter(Boolean).join("\n")
+      const phone = user.phone ?? ""
+      const address = user.address ?? ""
+      const city = user.city ?? ""
+      const shippingAddress =
+        phone.length >= 10 && address.length >= 10 && city.length >= 2
+          ? {
+              companyName: user.companyName,
+              contactName: user.contactName,
+              phone,
+              address,
+              city,
+              district: user.district ?? "",
+              postalCode: user.postalCode ?? "",
+              country: "TR" as const,
+            }
+          : undefined
       const res = await ordersApi.create({
-        items: cart.items.map((i) => ({ productId: i.productId, quantity: i.quantity })),
-        shippingAddress: {
-          companyName: user.companyName,
-          contactName: user.contactName,
-          phone: user.phone ?? "",
-          address: user.address ?? "",
-          city: user.city ?? "",
-          district: user.district ?? "",
-          postalCode: user.postalCode ?? "",
-          country: "TR",
-        },
+        items: cart.items.map((i) => ({ productId: i.productId, quantity: Math.round(Number(i.quantity)) })),
+        shippingAddress,
         paymentMethod,
         notes: fullNotes || undefined,
       })
+
+      if (paymentMethod === "CREDIT_CARD") {
+        let paymentUrl: string | undefined
+        try {
+          const payRes = await api.post<{ paymentUrl: string }>("/api/payment/nomupay/mobile", { orderId: res.data.orderId })
+          paymentUrl = payRes.paymentUrl
+        } catch {
+          Alert.alert("Hata", "Ödeme linki alınamadı, lütfen tekrar deneyin")
+          return
+        }
+        if (!paymentUrl) {
+          Alert.alert("Hata", "Ödeme linki alınamadı, lütfen tekrar deneyin")
+          return
+        }
+        await clearCart()
+        await Linking.openURL(paymentUrl)
+        router.replace({
+          pathname: "/siparis-onay",
+          params: { orderNumber: res.data.orderNumber, orderId: res.data.orderId, total: "0" },
+        })
+        return
+      }
+
       await clearCart()
       router.replace({
         pathname: "/siparis-onay",
-        params: { orderNumber: res.data.orderNumber, orderId: res.data.id, total: String(res.data.totalAmount) },
+        params: { orderNumber: res.data.orderNumber, orderId: res.data.orderId, total: "0" },
       })
     } catch (err: any) {
-      Alert.alert("Hata", err?.data?.message ?? "Sipariş oluşturulamadı")
+      Alert.alert("Hata", err?.data?.error ?? err?.data?.message ?? "Sipariş oluşturulamadı")
     } finally {
       setLoading(false)
     }
@@ -81,18 +115,34 @@ export default function OdemeScreen() {
           onPress={() => setPaymentMethod("BANK_TRANSFER")}
         >
           <Ionicons name="business-outline" size={22} color={paymentMethod === "BANK_TRANSFER" ? COLORS.primary : COLORS.textMuted} />
-          <Text style={[styles.methodText, paymentMethod === "BANK_TRANSFER" && styles.methodTextActive]}>
-            Havale / EFT
-          </Text>
+          <View style={styles.methodContent}>
+            <Text style={[styles.methodText, paymentMethod === "BANK_TRANSFER" && styles.methodTextActive]}>
+              Havale / EFT
+            </Text>
+          </View>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.methodBtn, paymentMethod === "ON_ACCOUNT" && styles.methodBtnActive]}
           onPress={() => setPaymentMethod("ON_ACCOUNT")}
         >
           <Ionicons name="wallet-outline" size={22} color={paymentMethod === "ON_ACCOUNT" ? COLORS.primary : COLORS.textMuted} />
-          <Text style={[styles.methodText, paymentMethod === "ON_ACCOUNT" && styles.methodTextActive]}>
-            Açık Hesap
-          </Text>
+          <View style={styles.methodContent}>
+            <Text style={[styles.methodText, paymentMethod === "ON_ACCOUNT" && styles.methodTextActive]}>
+              Açık Hesap
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.methodBtn, paymentMethod === "CREDIT_CARD" && styles.methodBtnActive]}
+          onPress={() => setPaymentMethod("CREDIT_CARD")}
+        >
+          <Ionicons name="card-outline" size={22} color={paymentMethod === "CREDIT_CARD" ? COLORS.primary : COLORS.textMuted} />
+          <View style={styles.methodContent}>
+            <Text style={[styles.methodText, paymentMethod === "CREDIT_CARD" && styles.methodTextActive]}>
+              Kredi Kartı
+            </Text>
+            <Text style={styles.methodSubText}>Güvenli ödeme - NomuPay</Text>
+          </View>
         </TouchableOpacity>
       </View>
 
@@ -117,7 +167,15 @@ export default function OdemeScreen() {
         onPress={handleOrder}
         disabled={loading}
       >
-        <Text style={styles.submitText}>{loading ? "Gönderiliyor..." : "Sipariş Ver"}</Text>
+        <Text style={styles.submitText}>
+          {loading
+            ? paymentMethod === "CREDIT_CARD"
+              ? "İşleniyor..."
+              : "Gönderiliyor..."
+            : paymentMethod === "CREDIT_CARD"
+            ? "Ödemeye Devam Et →"
+            : "Sipariş Ver"}
+        </Text>
       </TouchableOpacity>
     </ScrollView>
   )
@@ -142,8 +200,10 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   methodBtnActive: { borderColor: COLORS.primary, backgroundColor: COLORS.primary + "08" },
+  methodContent: { flex: 1 },
   methodText: { fontSize: 15, color: COLORS.textMuted },
   methodTextActive: { color: COLORS.primary, fontWeight: "600" },
+  methodSubText: { fontSize: 12, color: COLORS.textMuted, marginTop: 2 },
   couponInfo: { color: COLORS.primary, fontSize: 13, fontWeight: "700", marginBottom: 8 },
   notesInput: {
     backgroundColor: COLORS.background,
