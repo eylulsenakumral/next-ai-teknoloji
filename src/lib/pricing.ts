@@ -82,6 +82,23 @@ export async function calculateProductPrice(
   brandId: string | null,
   categoryId: string | null
 ): Promise<PricingResult | null> {
+  // Fırsat/outlet ürünlerde manualPrice doğrudan satış fiyatıdır
+  const product = await prisma.product.findUnique({
+    where: { id: productId },
+    select: { manualPrice: true },
+  })
+
+  if (product?.manualPrice != null) {
+    const manualPriceNum = Number(product.manualPrice)
+    return {
+      purchasePrice: manualPriceNum,
+      vatRate: 0,
+      marginPct: 0,
+      salePriceExVat: manualPriceNum,
+      salePriceIncVat: manualPriceNum,
+    }
+  }
+
   // En iyi tedarikçi fiyatını al (en düşük alış fiyatı)
   const supplierProduct = await prisma.supplierProduct.findFirst({
     where: {

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import { calculateBulkPrices } from "@/services/pricing.service"
+import { invalidatePriceCache } from "@/lib/cache"
 import { z } from "zod"
 
 // ---------------------------------------------------------------------------
@@ -238,6 +239,9 @@ export async function PATCH(req: NextRequest) {
         isOutlet: true,
       },
     })
+
+    // Fiyat cache'ini temizle — bir sonraki istekte taze hesaplanır
+    invalidatePriceCache(productId)
 
     return NextResponse.json({ data: updated })
   } catch (err) {

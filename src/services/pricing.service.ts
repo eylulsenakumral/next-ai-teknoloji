@@ -10,7 +10,7 @@ export interface PriceCalculation {
   supplierId: string
   supplierName: string
   marginPct: number
-  marginSource: "product" | "category" | "brand" | "global"
+  marginSource: "product" | "category" | "brand" | "global" | "supplier" | "manual"
   salePriceExVat: number
   vatRate: number
   salePriceIncVat: number
@@ -133,6 +133,25 @@ async function _calculateProductPrice(productId: string): Promise<PriceCalculati
 
   if (!product) return null
 
+  // Fırsat/outlet ürünlerde manualPrice doğrudan satış fiyatıdır — marj uygulanmaz
+  if (product.manualPrice != null) {
+    const manualPriceNum = parseFloat(product.manualPrice.toString())
+    const totalStock = product.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
+    const sp = product.supplierProducts[0]
+    return {
+      purchasePrice: manualPriceNum,
+      supplierId: sp?.supplierId ?? "",
+      supplierName: sp?.supplier?.name ?? "",
+      marginPct: 0,
+      marginSource: "manual",
+      salePriceExVat: manualPriceNum,
+      vatRate: 0,
+      salePriceIncVat: manualPriceNum,
+      profitAmount: 0,
+      stockQuantity: totalStock,
+    }
+  }
+
   const available = product.supplierProducts.filter(
     (sp) => sp.purchasePrice !== null && sp.stockQuantity > 0
   )
@@ -233,6 +252,27 @@ export async function calculateBulkPrices(
   })
 
   for (const product of products) {
+    const totalStock = product.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
+
+    // Fırsat/outlet ürünlerde manualPrice doğrudan satış fiyatıdır
+    if ((product as { manualPrice?: unknown }).manualPrice != null) {
+      const manualPriceNum = parseFloat(String((product as { manualPrice: unknown }).manualPrice))
+      const sp = product.supplierProducts[0]
+      results.set(product.id, {
+        purchasePrice: manualPriceNum,
+        supplierId: sp?.supplierId ?? "",
+        supplierName: sp?.supplier?.name ?? "",
+        marginPct: 0,
+        marginSource: "manual",
+        salePriceExVat: manualPriceNum,
+        vatRate: 0,
+        salePriceIncVat: manualPriceNum,
+        profitAmount: 0,
+        stockQuantity: totalStock,
+      })
+      continue
+    }
+
     const available = product.supplierProducts.filter(
       (sp) => sp.purchasePrice !== null && sp.stockQuantity > 0
     )
@@ -243,7 +283,6 @@ export async function calculateBulkPrices(
     const vatRate = cheapest.vatRate
       ? parseFloat(cheapest.vatRate.toString())
       : DEFAULT_VAT_RATE
-    const totalStock = available.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
     // Resolve margin from pre-loaded margins
     const { marginPct, source } = resolveMarginFromList(
