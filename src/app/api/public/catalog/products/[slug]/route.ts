@@ -25,6 +25,7 @@ const SUPPLIER_DEPO_MAP: Record<string, string> = {
   ergen: "Ergen Depo",
   tesan: "Tesan Depo",
   bizimhesap: "Çorlu Depo",
+  reser: "Bursa Depo",
 }
 
 // Tedarikçi bazlı fiyat kar marjı (maliyet üzerine %)

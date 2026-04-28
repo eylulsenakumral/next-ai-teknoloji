@@ -12,7 +12,7 @@ const SUPPLIER_DEPO_MAP: Record<string, string> = {
   ergen: "Ergen Depo",
   tesan: "Tesan Depo",
   bizimhesap: "Çorlu Depo",
-  reser: "Reser Depo",
+  reser: "Bursa Depo",
   bayikanali: "Bayi Kanalı",
   edenge: "Edenge Depo",
 }
