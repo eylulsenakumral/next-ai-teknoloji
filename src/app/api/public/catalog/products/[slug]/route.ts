@@ -87,6 +87,8 @@ export async function GET(
         weight: true,
         warrantyMonths: true,
         categoryId: true,
+        manualPrice: true,
+        manualPriceCurrency: true,
         brand: { select: { name: true, slug: true } },
         category: { select: { name: true, slug: true, parentId: true } },
         supplierProducts: {
@@ -219,9 +221,17 @@ export async function GET(
         stockStatus: totalStock > 0,
         stockCount: totalStock,
         hidePrice: isOkisanOnly,
-        price: lowestSupplier?.price ?? null,
-        currency: lowestSupplier?.currency ?? "TRY",
-        priceTry: lowestSupplier?.priceTry ?? null,
+        price: product.manualPrice != null && showPrice
+          ? Number(product.manualPrice)
+          : lowestSupplier?.price ?? null,
+        currency: product.manualPrice != null && showPrice
+          ? (product.manualPriceCurrency ?? "USD")
+          : lowestSupplier?.currency ?? "TRY",
+        priceTry: product.manualPrice != null && showPrice
+          ? ((product.manualPriceCurrency ?? "USD") === "USD"
+              ? Number(product.manualPrice) * usdTry
+              : Number(product.manualPrice))
+          : lowestSupplier?.priceTry ?? null,
         usdTryRate: usdTry,
         suppliers,
         relatedProducts: relatedProducts.map((rp) => {
