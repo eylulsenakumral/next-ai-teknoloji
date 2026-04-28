@@ -1,21 +1,9 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { getServerSession } from "next-auth"
+import { decode } from "next-auth/jwt"
 import { authOptions } from "@/lib/auth"
 import { unstable_cache } from "next/cache"
-
-// Tedarikçi bazlı fiyat kar marjı (maliyet üzerine %)
-const SUPPLIER_MARKUP: Record<string, number> = {
-  B2BDEPO: 1.20,
-  ERGEN: 1.20,
-  NETEX: 1.15,
-  INDEXGRUP: 1.15,
-  OKISAN: 1.10,
-  BAYIKANALI: 1.15,
-  EDENGE: 1.15,
-  TESAN: 1.15,
-  BIZIMHESAP: 1.10,
-}
 
 // TCMB döviz kuru cache - unstable_cache ile 1 saat
 const getCachedUsdTryRate = unstable_cache(
@@ -186,7 +174,7 @@ const getCachedProductListing = unstable_cache(
               stockQuantity: true,
               purchasePrice: true,
               currency: true,
-              supplier: { select: { code: true } },
+              supplier: { select: { code: true, marginRate: true } },
             },
           },
         },
@@ -197,15 +185,27 @@ const getCachedProductListing = unstable_cache(
     return { products, total }
   },
   ["product-listing"],
-  { revalidate: 60 }
+  { revalidate: 60, tags: ["product-listing"] }
 )
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
-    const session = await getServerSession(authOptions)
-    const isAuthenticated = !!session?.user
-    const isAdmin = ["admin", "super_admin"].includes((session?.user as { role?: string })?.role ?? "")
+    let authSession = await getServerSession(authOptions)
+    if (!authSession?.user) {
+      const authHeader = req.headers.get("authorization")
+      const bearer = authHeader?.startsWith("Bearer ") ? authHeader.slice(7) : null
+      if (bearer && process.env.NEXTAUTH_SECRET) {
+        try {
+          const decoded = await decode({ secret: process.env.NEXTAUTH_SECRET, token: bearer })
+          if (decoded?.role === "dealer" && decoded?.status === "APPROVED") {
+            authSession = { user: decoded as any, expires: "" }
+          }
+        } catch {}
+      }
+    }
+    const isAuthenticated = !!authSession?.user
+    const isAdmin = ["admin", "super_admin"].includes((authSession?.user as { role?: string })?.role ?? "")
     const showPrice = isAuthenticated || isAdmin
 
     const brandSlug = searchParams.get("brandSlug") ?? ""
@@ -253,7 +253,7 @@ export async function GET(req: NextRequest) {
             .map((sp) => {
               const base = Number(sp.purchasePrice)
               const code = sp.supplier?.code?.toUpperCase() ?? ""
-              const markup = SUPPLIER_MARKUP[code] ?? 1
+              const markup = 1 + Number(sp.supplier?.marginRate ?? 30) / 100
               return { ...sp, markedUpPrice: base * markup, supplierCode: code }
             })
             .sort((a, b) => a.markedUpPrice - b.markedUpPrice)[0]

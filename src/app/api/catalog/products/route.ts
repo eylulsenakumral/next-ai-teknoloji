@@ -128,6 +128,7 @@ export async function GET(req: NextRequest) {
             stockQuantity: true,
             isAvailable: true,
             currency: true,
+            supplier: { select: { marginRate: true } },
           },
           orderBy: { purchasePrice: "asc" },
           take: 1,
@@ -145,8 +146,9 @@ export async function GET(req: NextRequest) {
     if (sp?.purchasePrice) {
       const purchasePrice = Number(sp.purchasePrice)
       const vatRate = Number(sp.vatRate ?? 20)
-      // Basit %30 margin (gerçek hesaplama async olduğu için list view'da basit yapıyoruz)
-      const salePriceExVat = purchasePrice * 1.3
+      // Tedarikçi bazlı kar marjı (varsayılan %30)
+      const multiplier = 1 + Number(sp.supplier?.marginRate ?? 30) / 100
+      const salePriceExVat = purchasePrice * multiplier
       const salePriceIncVat = salePriceExVat * (1 + vatRate / 100)
       pricing = {
         salePriceExVat: Math.round(salePriceExVat * 100) / 100,
