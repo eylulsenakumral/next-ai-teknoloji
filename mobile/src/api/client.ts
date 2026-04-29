@@ -19,6 +19,7 @@ async function getAuthHeaders(): Promise<HeadersInit> {
     Accept: "application/json",
   }
   if (token) {
+    headers["Authorization"] = `Bearer ${token}`
     headers["Cookie"] = `next-auth.session-token=${token}; __Secure-next-auth.session-token=${token}`
   }
   return headers
@@ -32,9 +33,10 @@ async function handleResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
     let data: unknown
     try {
-      data = await res.json()
+      const text = await res.text()
+      data = text ? JSON.parse(text) : {}
     } catch {
-      data = await res.text()
+      data = {}
     }
     throw new ApiError(res.status, data)
   }
