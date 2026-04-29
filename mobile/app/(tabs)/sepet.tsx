@@ -29,7 +29,7 @@ export default function SepetScreen() {
   useEffect(() => { fetch() }, [])
   useEffect(() => { exchangeApi.get().then(setExchangeRate).catch(() => {}) }, [])
 
-  const totalTRY = cart?.items.reduce((sum, i) => {
+  const subtotalTRY = cart?.items.reduce((sum, i) => {
     const price = toNumber(i.priceSnapshot)
     const qty = toNumber(i.quantity, 1)
     const priceTRY = i.priceCurrency === "USD" && exchangeRate?.usd
@@ -37,6 +37,8 @@ export default function SepetScreen() {
       : price
     return sum + priceTRY * qty
   }, 0) ?? 0
+  const vatTRY = Math.round(subtotalTRY * 0.20 * 100) / 100
+  const totalTRY = Math.round((subtotalTRY + vatTRY) * 100) / 100
 
   return (
     <View style={styles.container}>
@@ -98,8 +100,9 @@ export default function SepetScreen() {
           {/* Bottom summary */}
           <View style={styles.bottomBar}>
             <View>
-              <Text style={styles.totalLabel}>Toplam</Text>
-              <Text style={styles.totalAmount}>{formatPrice(totalTRY, "TRY")}</Text>
+              <Text style={styles.totalLabel}>KDV Hariç: {formatPrice(subtotalTRY, "TRY")}</Text>
+              <Text style={styles.totalLabel}>KDV (%20): {formatPrice(vatTRY, "TRY")}</Text>
+              <Text style={styles.totalAmount}>KDV Dahil: {formatPrice(totalTRY, "TRY")}</Text>
             </View>
             <TouchableOpacity
               style={styles.checkoutBtn}

@@ -40,7 +40,7 @@ export default function OdemeScreen() {
 
   useEffect(() => { exchangeApi.get().then(setExchangeRate).catch(() => {}) }, [])
 
-  const totalTRY = cart?.items.reduce((sum, i) => {
+  const subtotalTRY = cart?.items.reduce((sum, i) => {
     const price = Number(i.priceSnapshot)
     const qty = Number(i.quantity)
     const priceTRY = i.priceCurrency === "USD" && exchangeRate?.usd
@@ -48,6 +48,8 @@ export default function OdemeScreen() {
       : price
     return sum + priceTRY * qty
   }, 0) ?? 0
+  const vatTRY = Math.round(subtotalTRY * 0.20 * 100) / 100
+  const totalTRY = Math.round((subtotalTRY + vatTRY) * 100) / 100
 
   const handleOrder = async () => {
     if (!cart || cart.items.length === 0 || !user) return
@@ -124,7 +126,15 @@ export default function OdemeScreen() {
         <Text style={styles.sectionTitle}>Sipariş Özeti</Text>
         <Text style={styles.itemCount}>{cart?.items.length ?? 0} ürün</Text>
         <View style={styles.totalRow}>
-          <Text style={styles.totalLabel}>Toplam</Text>
+          <Text style={styles.totalLabel}>KDV Hariç</Text>
+          <Text style={styles.totalLabel}>{formatPrice(subtotalTRY, "TRY")}</Text>
+        </View>
+        <View style={styles.totalRow}>
+          <Text style={styles.totalLabel}>KDV (%20)</Text>
+          <Text style={styles.totalLabel}>{formatPrice(vatTRY, "TRY")}</Text>
+        </View>
+        <View style={[styles.totalRow, { marginTop: 8, borderTopWidth: 1, borderTopColor: "#eee", paddingTop: 8 }]}>
+          <Text style={styles.totalLabel}>KDV Dahil Toplam</Text>
           <Text style={styles.totalAmount}>{formatPrice(totalTRY, "TRY")}</Text>
         </View>
       </View>
