@@ -179,13 +179,17 @@ export async function DELETE(req: NextRequest) {
     const { searchParams } = new URL(req.url)
     const itemId = searchParams.get("itemId")
 
-    if (!itemId) {
-      return NextResponse.json({ error: "itemId required" }, { status: 400 })
-    }
-
     const cart = await prisma.cart.findUnique({
       where: { userId: session.user.id },
     })
+
+    if (!itemId) {
+      if (!cart) {
+        return NextResponse.json({ success: true })
+      }
+      await prisma.cartItem.deleteMany({ where: { cartId: cart.id } })
+      return NextResponse.json({ success: true })
+    }
 
     if (!cart) {
       return NextResponse.json({ error: "Cart not found" }, { status: 404 })
