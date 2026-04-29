@@ -92,10 +92,10 @@ export async function calculateProductPrice(
     const manualPriceNum = Number(product.manualPrice)
     return {
       purchasePrice: manualPriceNum,
-      vatRate: 0,
+      vatRate: 20,
       marginPct: 0,
       salePriceExVat: manualPriceNum,
-      salePriceIncVat: manualPriceNum,
+      salePriceIncVat: Math.round(manualPriceNum * 1.20 * 100) / 100,
     }
   }
 
