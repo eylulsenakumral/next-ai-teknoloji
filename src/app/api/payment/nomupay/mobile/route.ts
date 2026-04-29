@@ -1,11 +1,33 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
+import { decode } from "next-auth/jwt"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 
 const NOMUPAY_URL = process.env.NOMUPAY_API_URL || "https://test.nomupay.com.tr/SGate/Gate"
 const NOMUPAY_USER = process.env.NOMUPAY_API_USER || ""
 const NOMUPAY_PIN = process.env.NOMUPAY_API_PIN || ""
+
+function parseXmlResponse(xml: string) {
+  const itemVal = (key: string) => {
+    const match = xml.match(new RegExp(`<Item\\s+[^>]*Key=["']${key}["'][^>]*Value=["']([^"']*)["']`, "i"))
+    return match ? match[1].trim().replace(/&amp;/g, "&") : ""
+  }
+
+  return {
+    statusCode: itemVal("StatusCode"),
+    resultCode: itemVal("ResultCode"),
+    resultMessage: itemVal("ResultMessage"),
+    paymentUrl:
+      itemVal("RedirectUrl") ||
+      itemVal("RedirectURL") ||
+      itemVal("ReturnUrl") ||
+      itemVal("ReturnURL"),
+    orderId: itemVal("OrderId"),
+    maskedCCNo: itemVal("MaskedCCNo"),
+    mpay: itemVal("MPAY"),
+  }
+}
 
 async function getUsdTryRate(): Promise<number> {
   try {
@@ -20,8 +42,25 @@ async function getUsdTryRate(): Promise<number> {
 }
 
 export async function POST(request: NextRequest) {
+  let customerId: string | null = null
   const session = await getServerSession(authOptions)
-  if (!session?.user?.id) {
+
+  if (session?.user?.id) {
+    customerId = session.user.id
+  }
+
+  if (!customerId) {
+    const bearer = request.headers.get("authorization")?.replace("Bearer ", "") ?? null
+    if (bearer && process.env.NEXTAUTH_SECRET) {
+      try {
+        const decoded = await decode({ secret: process.env.NEXTAUTH_SECRET, token: bearer })
+        const id = (decoded?.sub ?? decoded?.id) as string | undefined
+        if (id) customerId = id
+      } catch {}
+    }
+  }
+
+  if (!customerId) {
     return NextResponse.json({ error: "Oturum açmanız gerekiyor." }, { status: 401 })
   }
 
@@ -38,7 +77,7 @@ export async function POST(request: NextRequest) {
   }
 
   const order = await prisma.order.findFirst({
-    where: { id: orderId, customerId: session.user.id, deletedAt: null },
+    where: { id: orderId, customerId, deletedAt: null },
     include: { customer: true },
   })
 
@@ -55,7 +94,7 @@ export async function POST(request: NextRequest) {
     const amountTRY = Math.round(Number(order.grandTotal) * usdTryRate * 100) / 100
     const priceKurus = Math.round(amountTRY * 100)
 
-    const mpay = `ODEME:${order.customerId}:${Date.now()}`
+    const mpay = order.orderNumber
     const appUrl = process.env.NEXT_PUBLIC_APP_URL || "https://nexadepo.com"
 
     const contactName = order.customer.contactName ?? ""
@@ -75,8 +114,8 @@ export async function POST(request: NextRequest) {
   <Price>${priceKurus}</Price>
   <CurrencyCode>TRY</CurrencyCode>
   <MPAY>${mpay}</MPAY>
-  <ErrorURL>${appUrl}/api/payment/nomupay/callback?status=error&mpay=${encodeURIComponent(mpay)}</ErrorURL>
-  <SuccessURL>${appUrl}/api/payment/nomupay/callback?status=success&mpay=${encodeURIComponent(mpay)}&amount=${amountTRY}&orderId=${order.id}</SuccessURL>
+  <ErrorURL>${appUrl}/api/payment/nomupay/callback?status=error&order=${encodeURIComponent(mpay)}</ErrorURL>
+  <SuccessURL>${appUrl}/api/payment/nomupay/callback?status=success&order=${encodeURIComponent(mpay)}</SuccessURL>
   <Description>Siparis ${order.orderNumber}</Description>
   <PaymentContent>NexaDepo - Siparis ${order.orderNumber}</PaymentContent>
   <CustomerInfo>
@@ -94,21 +133,20 @@ export async function POST(request: NextRequest) {
     })
 
     const responseText = await nomupayRes.text()
+    const parsed = parseXmlResponse(responseText)
 
-    const redirectMatch = responseText.match(/<Item\s+Key="RedirectUrl"\s+Value="([^"]+)"/i)
-      || responseText.match(/<Item\s+Key="ReturnUrl"\s+Value="([^"]+)"/i)
-    const statusMatch = responseText.match(/<Item\s+Key="StatusCode"\s+Value="([^"]+)"/i)
-    const msgMatch = responseText.match(/<Item\s+Key="ResultMessage"\s+Value="([^"]+)"/i)
-
-    const statusCode = statusMatch?.[1] ?? ""
-    const paymentUrl = redirectMatch?.[1] ?? ""
-
-    if (statusCode === "0" && paymentUrl) {
-      return NextResponse.json({ paymentUrl })
+    if (parsed.statusCode === "0" && parsed.paymentUrl) {
+      return NextResponse.json({
+        success: true,
+        ...parsed,
+      })
     }
 
-    const resultMessage = msgMatch?.[1] ?? "Ödeme başlatılamadı"
-    return NextResponse.json({ error: resultMessage }, { status: 400 })
+    return NextResponse.json({
+      success: false,
+      error: parsed.resultMessage || "Ödeme başlatılamadı",
+      ...parsed,
+    }, { status: 400 })
   } catch (err) {
     console.error("[NOMUPAY/MOBILE]", err)
     return NextResponse.json({ error: "Ödeme servisi ile bağlantı kurulamadı." }, { status: 500 })
