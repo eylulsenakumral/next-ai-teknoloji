@@ -93,7 +93,7 @@ export default function OdemeScreen() {
           Alert.alert("Hata", "Ödeme linki alınamadı, lütfen tekrar deneyin")
           return
         }
-        await clearCart()
+        try { await clearCart() } catch {}
         await Linking.openURL(paymentUrl)
         router.replace({
           pathname: "/siparis-onay",
@@ -107,7 +107,7 @@ export default function OdemeScreen() {
         return
       }
 
-      await clearCart()
+      try { await clearCart() } catch {}
       router.replace({
         pathname: "/siparis-onay",
         params: { orderNumber: res.data.orderNumber, orderId: res.data.orderId, total: String(Math.round(totalTRY * 100) / 100) },
