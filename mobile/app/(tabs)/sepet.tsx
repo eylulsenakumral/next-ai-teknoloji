@@ -99,10 +99,19 @@ export default function SepetScreen() {
 
           {/* Bottom summary */}
           <View style={styles.bottomBar}>
-            <View>
-              <Text style={styles.totalLabel}>KDV Hariç: {formatPrice(subtotalTRY, "TRY")}</Text>
-              <Text style={styles.totalLabel}>KDV (%20): {formatPrice(vatTRY, "TRY")}</Text>
-              <Text style={styles.totalAmount}>KDV Dahil: {formatPrice(totalTRY, "TRY")}</Text>
+            <View style={styles.priceSummary}>
+              <View style={styles.priceRow}>
+                <Text style={styles.priceRowLabel}>KDV Hariç</Text>
+                <Text style={styles.priceRowValue}>{formatPrice(subtotalTRY, "TRY")}</Text>
+              </View>
+              <View style={styles.priceRow}>
+                <Text style={styles.priceRowLabel}>KDV (%20)</Text>
+                <Text style={styles.priceRowValue}>{formatPrice(vatTRY, "TRY")}</Text>
+              </View>
+              <View style={[styles.priceRow, styles.priceRowTotal]}>
+                <Text style={styles.totalLabel}>KDV Dahil Toplam</Text>
+                <Text style={styles.totalAmount}>{formatPrice(totalTRY, "TRY")}</Text>
+              </View>
             </View>
             <TouchableOpacity
               style={styles.checkoutBtn}
@@ -155,21 +164,42 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   bottomBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
     backgroundColor: COLORS.surface,
     padding: 16,
     borderTopWidth: 1,
     borderTopColor: COLORS.border,
   },
-  totalLabel: { fontSize: 13, color: COLORS.textMuted },
-  totalAmount: { fontSize: 22, fontWeight: "800", color: COLORS.text, fontVariant: ["tabular-nums"] },
+  priceSummary: {
+    marginBottom: 12,
+  },
+  priceRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 4,
+  },
+  priceRowTotal: {
+    marginTop: 6,
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.border,
+  },
+  priceRowLabel: {
+    fontSize: 13,
+    color: COLORS.textMuted,
+  },
+  priceRowValue: {
+    fontSize: 13,
+    color: COLORS.textMuted,
+    fontVariant: ["tabular-nums"],
+  },
+  totalLabel: { fontSize: 14, fontWeight: "700", color: COLORS.text },
+  totalAmount: { fontSize: 20, fontWeight: "800", color: COLORS.text, fontVariant: ["tabular-nums"] },
   checkoutBtn: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     backgroundColor: COLORS.primary,
-    paddingHorizontal: 24,
     paddingVertical: 14,
     borderRadius: 12,
     gap: 8,
