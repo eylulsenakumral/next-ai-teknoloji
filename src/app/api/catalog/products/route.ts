@@ -151,8 +151,8 @@ export async function GET(req: NextRequest) {
         : null
       pricing = {
         salePriceExVat: manualPriceNum,
-        salePriceIncVat: manualPriceNum,
-        vatRate: 0,
+        salePriceIncVat: Math.round(manualPriceNum * 1.20 * 100) / 100,
+        vatRate: 20,
         currency: product.manualPriceCurrency ?? "USD",
         originalPrice: originalPriceNum,
       }

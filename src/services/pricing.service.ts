@@ -145,8 +145,8 @@ async function _calculateProductPrice(productId: string): Promise<PriceCalculati
       marginPct: 0,
       marginSource: "manual",
       salePriceExVat: manualPriceNum,
-      vatRate: 0,
-      salePriceIncVat: manualPriceNum,
+      vatRate: 20,
+      salePriceIncVat: Math.round(manualPriceNum * 1.20 * 100) / 100,
       profitAmount: 0,
       stockQuantity: totalStock,
     }
@@ -265,8 +265,8 @@ export async function calculateBulkPrices(
         marginPct: 0,
         marginSource: "manual",
         salePriceExVat: manualPriceNum,
-        vatRate: 0,
-        salePriceIncVat: manualPriceNum,
+        vatRate: 20,
+        salePriceIncVat: Math.round(manualPriceNum * 1.20 * 100) / 100,
         profitAmount: 0,
         stockQuantity: totalStock,
       })
