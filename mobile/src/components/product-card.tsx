@@ -63,9 +63,21 @@ export function ProductCard({ product, onPress, cardStyle }: Props) {
               {formatPrice(price, currency)}
               <Text style={styles.vat}> +KDV</Text>
             </Text>
-            {priceTry != null && currency !== "TRY" && (
-              <Text style={styles.priceTry}>{formatPrice(priceTry, "TRY")} KDV Dahil</Text>
-            )}
+            {(() => {
+              const tryExVat = currency !== "TRY" ? priceTry : price
+              const tryIncVat = tryExVat != null ? Math.round(tryExVat * 1.20 * 100) / 100 : null
+              if (tryExVat == null) return null
+              return (
+                <>
+                  {currency !== "TRY" && (
+                    <Text style={styles.priceTry}>≈ {formatPrice(tryExVat, "TRY")} KDV Hariç</Text>
+                  )}
+                  <Text style={styles.priceTry}>
+                    {currency !== "TRY" ? "≈ " : ""}{formatPrice(tryIncVat, "TRY")} KDV Dahil
+                  </Text>
+                </>
+              )
+            })()}
           </>
         ) : (
           <Text style={styles.hiddenPrice}>Fiyat için giriş yapın</Text>
