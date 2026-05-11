@@ -11,6 +11,7 @@ import { XMLParser } from "fast-xml-parser"
 const XML_URL = "https://okisan.com/xml/okisan-urunler.xml"
 const OKISAN_VAT_RATE = 20
 const OKISAN_CURRENCY = "USD"
+const CHUNK_SIZE = 100
 
 // ============================================================================
 // Okisan → DB Kategori Eşleştirme Tablosu
@@ -430,11 +431,38 @@ export async function syncOkisanProducts(): Promise<SyncResult> {
     return result
   }
 
-  console.log(`[Okisan] ${products.length} ürün işlenecek.`)
+  // ── Ön yükleme: Brand ve Kategori cache ─────────────────────────────────
+  const allBrands = await prisma.brand.findMany({
+    where: { deletedAt: null },
+    select: { id: true, name: true, slug: true },
+  })
+  const brandCacheByName = new Map<string, string>()
+  for (const b of allBrands) {
+    brandCacheByName.set(b.name.toLowerCase(), b.id)
+  }
 
-  for (let i = 0; i < products.length; i++) {
-    const item = products[i]
-    const index = i + 1
+  const allCategories = await prisma.category.findMany({
+    where: { deletedAt: null },
+    select: { id: true, slug: true, name: true },
+  })
+  const catCacheBySlug = new Map<string, string>()
+  const catCacheByName = new Map<string, string>()
+  for (const c of allCategories) {
+    catCacheBySlug.set(c.slug, c.id)
+    catCacheByName.set(c.name.toLowerCase(), c.id)
+  }
+
+  console.log(`[Okisan] ${products.length} ürün ${CHUNK_SIZE}'lik chunk'larla işlenecek.`)
+
+  const totalChunks = Math.ceil(products.length / CHUNK_SIZE)
+
+  for (let chunkIdx = 0; chunkIdx < totalChunks; chunkIdx++) {
+    const chunkStart = chunkIdx * CHUNK_SIZE
+    const chunk = products.slice(chunkStart, chunkStart + CHUNK_SIZE)
+
+    for (let i = 0; i < chunk.length; i++) {
+      const item = chunk[i]
+      const index = chunkStart + i + 1
 
     try {
       const externalId = String(item["@_id"] ?? item.id ?? "").trim()
@@ -475,19 +503,19 @@ export async function syncOkisanProducts(): Promise<SyncResult> {
       const isAvailable = stockStatus.toLowerCase() === "in stock"
       const images: string[] = featuredImage ? [featuredImage] : []
 
-      // 1. Brand eşleştir veya oluştur
+      // 1. Brand eşleştir veya oluştur (cache-first)
       let brandId: string | undefined
       if (brandName) {
-        let brand = await prisma.brand.findFirst({
-          where: { name: { equals: brandName, mode: "insensitive" }, deletedAt: null },
-        })
-        if (!brand) {
+        const cachedBrandId = brandCacheByName.get(brandName.toLowerCase())
+        if (cachedBrandId) {
+          brandId = cachedBrandId
+        } else {
           const brandSlug =
             brandName
               .toLowerCase()
               .replace(/[^a-z0-9]+/g, "-")
               .replace(/^-|-$/g, "") || `brand-${Date.now()}`
-          brand = await prisma.brand.findFirst({ where: { slug: brandSlug, deletedAt: null } })
+          let brand = await prisma.brand.findFirst({ where: { slug: brandSlug, deletedAt: null } })
           if (!brand) {
             try {
               brand = await prisma.brand.create({ data: { name: brandName, slug: brandSlug } })
@@ -497,53 +525,38 @@ export async function syncOkisanProducts(): Promise<SyncResult> {
               })
             }
           }
+          brandId = brand.id
+          brandCacheByName.set(brandName.toLowerCase(), brand.id)
         }
-        brandId = brand.id
       }
 
-      // 2. Category eşleştir (YENİ KATEGORİ AÇILMAZ)
-      // Tüm pipe segmentlerini en spesifikten genele dene:
-      // 2a. Her path → OKISAN_FULLPATH_MAP
-      // 2b. Her path son segment → OKISAN_SEGMENT_MAP
-      // 2c. Her path son segment → DB'de isimle ara (case-insensitive)
-      // 2d. Hiçbiri → "diger-urunler" fallback
+      // 2. Category eşleştir — cache-first, YENİ KATEGORİ AÇILMAZ
       const categoryPaths = parseCategoryPaths(categoryRaw)
       let categoryId: string | undefined
-      let cat = null
 
       for (const { categoryName, fullPath } of categoryPaths) {
         const fullKey = fullPath.toLowerCase().trim()
         const segKey = categoryName.toLowerCase().trim()
 
-        // FULLPATH_MAP ile dene
         const fullSlug = OKISAN_FULLPATH_MAP[fullKey]
         if (fullSlug) {
-          cat = await prisma.category.findFirst({ where: { slug: fullSlug, deletedAt: null } })
-          if (cat) break
+          const catId = catCacheBySlug.get(fullSlug)
+          if (catId) { categoryId = catId; break }
         }
 
-        // SEGMENT_MAP ile dene
         const segSlug = OKISAN_SEGMENT_MAP[segKey]
         if (segSlug) {
-          cat = await prisma.category.findFirst({ where: { slug: segSlug, deletedAt: null } })
-          if (cat) break
+          const catId = catCacheBySlug.get(segSlug)
+          if (catId) { categoryId = catId; break }
         }
 
-        // DB'de isimle ara
-        cat = await prisma.category.findFirst({
-          where: { name: { equals: categoryName, mode: "insensitive" }, deletedAt: null },
-        })
-        if (cat) break
+        const catId = catCacheByName.get(categoryName.toLowerCase())
+        if (catId) { categoryId = catId; break }
       }
 
-      // Hâlâ yoksa → "Diğer Ürünler" fallback
-      if (!cat) {
-        cat = await prisma.category.findFirst({
-          where: { slug: "diger-urunler", deletedAt: null },
-        })
+      if (!categoryId) {
+        categoryId = catCacheBySlug.get("diger-urunler")
       }
-
-      categoryId = cat?.id ?? undefined
 
       // 3. Ürünü SKU → metadata.okisan_id sırasıyla bul
       let product = null
@@ -662,9 +675,25 @@ export async function syncOkisanProducts(): Promise<SyncResult> {
         `[${index}/${products.length}] ${name} → ✗ ${err instanceof Error ? err.message : String(err)}`
       )
     }
-  }
+    } // end inner for (chunk items)
 
-  // Supplier lastSyncAt güncelle
+    // ── Chunk checkpoint: lastSyncAt güncelle ─────────────────────────────
+    await prisma.supplier.update({
+      where: { id: supplierId },
+      data: {
+        lastSyncAt: new Date(),
+        syncStatus: "RUNNING",
+      },
+    })
+
+    console.log(
+      `[Okisan] Chunk ${chunkIdx + 1}/${totalChunks} tamamlandı ` +
+        `(${chunkStart + chunk.length}/${products.length} ürün, ` +
+        `synced: ${result.synced}, errors: ${result.errors})`
+    )
+  } // end outer for (chunks)
+
+  // Supplier final durum güncelle
   await prisma.supplier.update({
     where: { id: supplierId },
     data: {
