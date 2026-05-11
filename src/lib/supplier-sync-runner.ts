@@ -384,6 +384,22 @@ async function syncB2BDepo(_supplierId: string): Promise<{
   }
 }
 
+async function syncOkisan(_supplierId: string): Promise<{
+  total: number
+  created: number
+  updated: number
+  errors: number
+}> {
+  const { syncOkisanProducts } = await import("@/services/okisan.service")
+  const result = await syncOkisanProducts()
+  return {
+    total: result.synced,
+    created: result.created,
+    updated: result.updated,
+    errors: result.errors,
+  }
+}
+
 // Supplier code → sync fonksiyonu eşlemesi
 const SYNC_RUNNERS: Record<
   string,
@@ -394,6 +410,7 @@ const SYNC_RUNNERS: Record<
   TESAN: syncTesan,
   reser: syncReser,
   b2bdepo: syncB2BDepo,
+  okisan: syncOkisan,
 }
 
 // ============================================================================
