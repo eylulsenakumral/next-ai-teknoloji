@@ -11,6 +11,8 @@ import { loadMappings } from "@/lib/category-mapping"
 // netex-xml-v2 exports the same interface shape under the name IndexGrupProduct
 import type { IndexGrupProduct as NetexProduct } from "@/workers/scraper/suppliers/netex-xml-v2"
 
+export const maxDuration = 300
+
 // ---------------------------------------------------------------------------
 // Transform Netex ürünü → SupplierProductInput
 // ---------------------------------------------------------------------------

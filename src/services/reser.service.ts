@@ -211,7 +211,7 @@ export async function syncReserProducts(): Promise<SyncResult> {
   let xmlText: string
   try {
     const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 60000)
+    const timeout = setTimeout(() => controller.abort(), 300_000)
     const res = await fetch(XML_URL, {
       signal: controller.signal,
       headers: { "User-Agent": "Mozilla/5.0 (compatible; NexaDepo/1.0)" },

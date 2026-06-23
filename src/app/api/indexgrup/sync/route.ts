@@ -10,6 +10,8 @@ import {
 import { loadMappings } from "@/lib/category-mapping"
 import type { IndexGrupProduct } from "@/workers/scraper/suppliers/indexgrup-xml-v2"
 
+export const maxDuration = 300
+
 // ---------------------------------------------------------------------------
 // Transform IndexGrup ürünü → SupplierProductInput
 // ---------------------------------------------------------------------------

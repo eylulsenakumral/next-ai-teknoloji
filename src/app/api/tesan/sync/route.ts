@@ -15,6 +15,8 @@ import {
   updateSupplierSyncStatus,
 } from "@/lib/import-supplier-products"
 
+export const maxDuration = 300
+
 // ---------------------------------------------------------------------------
 // Join helpers
 // ---------------------------------------------------------------------------

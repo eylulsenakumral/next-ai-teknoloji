@@ -2,6 +2,8 @@ import { NextResponse } from "next/server"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import { syncOkisanProducts } from "@/services/okisan.service"
 
+export const maxDuration = 300
+
 // ============================================================================
 // POST /api/okisan/sync
 // Okisan XML'den ürünleri çeker ve DB'ye senkronize eder

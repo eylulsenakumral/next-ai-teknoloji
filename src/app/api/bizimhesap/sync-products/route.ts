@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import { syncProducts, getBizimhesapToken } from "@/services/bizimhesap.service"
 
+export const maxDuration = 300
+
 // ============================================================================
 // POST /api/bizimhesap/sync-products
 // BizimHesap'tan ürünleri çeker ve DB'ye senkronize eder
