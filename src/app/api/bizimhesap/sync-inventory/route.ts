@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import { syncInventory, getBizimhesapToken } from "@/services/bizimhesap.service"
 
+export const maxDuration = 300
+
 // ============================================================================
 // POST /api/bizimhesap/sync-inventory
 // BizimHesap depo stoklarını çeker ve SupplierProduct tablosunu günceller

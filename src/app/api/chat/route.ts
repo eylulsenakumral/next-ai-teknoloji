@@ -12,7 +12,7 @@ const llm = new OpenAI({
   apiKey: process.env.WHATSAPP_AI_API_KEY,
 });
 
-const CHAT_MODEL = process.env.CHAT_AI_MODEL || "glm-4.5-air";
+const CHAT_MODEL = process.env.CHAT_AI_MODEL || process.env.WHATSAPP_AI_MODEL || "glm-5.2";
 
 // ---------------------------------------------------------------------------
 // Detect if message is product-related and extract search context

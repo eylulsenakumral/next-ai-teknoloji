@@ -10,7 +10,7 @@
 import { runScheduledSync } from "@/lib/supplier-sync-runner"
 
 export const dynamic = "force-dynamic"
-// Vercel function timeout — Pro plan 300s, default 60s
+// Long supplier syncs can take several minutes.
 export const maxDuration = 300
 
 export async function GET(request: Request) {

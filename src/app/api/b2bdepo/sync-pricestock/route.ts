@@ -2,6 +2,8 @@ import { NextResponse } from "next/server"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import { syncPriceStock } from "@/services/b2bdepo-xml.service"
 
+export const maxDuration = 300
+
 // ============================================================================
 // POST /api/b2bdepo/sync-pricestock
 // B2BDepo PriceStock XML'den hizli fiyat/stok guncelleme

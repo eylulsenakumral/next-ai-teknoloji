@@ -103,7 +103,7 @@ export class B2BDepoXmlFetcher {
 
   constructor(options?: { timeoutMs?: number }) {
     this.bayiKodu = getBayiKodu()
-    this.timeoutMs = options?.timeoutMs ?? 120_000 // 2 dakika default (XML buyuk olabilir)
+    this.timeoutMs = options?.timeoutMs ?? 600_000 // Buyuk XML cevaplari 5+ dakika surebiliyor
   }
 
   // --------------------------------------------------------------------------

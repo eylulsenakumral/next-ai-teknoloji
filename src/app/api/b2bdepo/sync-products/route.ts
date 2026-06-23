@@ -2,6 +2,8 @@ import { NextResponse } from "next/server"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import { syncProducts } from "@/services/b2bdepo-xml.service"
 
+export const maxDuration = 300
+
 // ============================================================================
 // POST /api/b2bdepo/sync-products
 // B2BDepo ProductList XML'den tam urun senkronizasyonu

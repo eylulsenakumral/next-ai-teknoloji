@@ -12,7 +12,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  allowedDevOrigins: ["192.168.5.249", "nexadepo.com", "www.nexadepo.com"],
+  allowedDevOrigins: ["192.168.4.250", "192.168.5.249", "nexadepo.com", "www.nexadepo.com"],
   typescript: {
     ignoreBuildErrors: true,
   },
