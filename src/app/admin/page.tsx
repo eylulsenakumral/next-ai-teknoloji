@@ -366,8 +366,9 @@ export default async function AdminDashboardPage() {
         orderItems: { select: { id: true } },
       },
     }),
-    // Son 3 başvuruyu + toplam sayıyı birlikte al
-    prisma.$transaction([
+    // Son 3 başvuruyu + toplam sayıyı birlikte al (parallel read — transaction gerekmez,
+    // Neon pooler'da $transaction başlatma zaman aşımına takılıyordu: P2028)
+    Promise.all([
       prisma.dealerApplication.findMany({
         where: { status: "PENDING" },
         take: 3,
