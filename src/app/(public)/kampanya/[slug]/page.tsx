@@ -141,7 +141,7 @@ export default async function KampanyaDetailPage({
             <ChevronRight className="h-3 w-3" aria-hidden />
             <Link href="/kampanya" className="hover:text-[#5086a8] transition-colors">Kampanyalar</Link>
             <ChevronRight className="h-3 w-3" aria-hidden />
-            <span className="text-[#453e71] font-semibold truncate max-w-[200px]">{campaign.name}</span>
+            <span className="text-[#1e3a5f] font-semibold truncate max-w-[200px]">{campaign.name}</span>
           </nav>
 
           <div className="flex flex-wrap items-start gap-4">
@@ -151,7 +151,7 @@ export default async function KampanyaDetailPage({
                 {TYPE_LABELS[campaign.type] ?? campaign.type}
               </span>
 
-              <h1 className="text-[28px] md:text-[36px] font-bold text-[#453e71] leading-tight mb-2">
+              <h1 className="text-[28px] md:text-[36px] font-bold text-[#1e3a5f] leading-tight mb-2">
                 {campaign.name}
               </h1>
 
@@ -215,7 +215,7 @@ export default async function KampanyaDetailPage({
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   <Package className="h-5 w-5 text-[#5086a8]" />
-                  <span className="text-sm font-semibold text-[#453e71]">
+                  <span className="text-sm font-semibold text-[#1e3a5f]">
                     {campaign.products.length} ürün
                   </span>
                 </div>
@@ -285,7 +285,7 @@ export default async function KampanyaDetailPage({
                         {cp.product.brand.name}
                       </p>
                     )}
-                    <p className="text-[13px] font-semibold text-[#453e71] leading-snug line-clamp-2 group-hover:text-[#5086a8] transition-colors">
+                    <p className="text-[13px] font-semibold text-[#1e3a5f] leading-snug line-clamp-2 group-hover:text-[#5086a8] transition-colors">
                       {cp.product.name}
                     </p>
                   </div>

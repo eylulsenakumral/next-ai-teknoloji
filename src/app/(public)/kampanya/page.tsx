@@ -116,7 +116,7 @@ function CampaignCard({ campaign }: { campaign: CampaignSet }) {
 
       {/* Content */}
       <div className="p-5">
-        <h3 className="text-base font-bold text-[#453e71] group-hover:text-[#5086a8] transition-colors leading-snug mb-2">
+        <h3 className="text-base font-bold text-[#1e3a5f] group-hover:text-[#5086a8] transition-colors leading-snug mb-2">
           {campaign.name}
         </h3>
         {campaign.description && (
@@ -176,9 +176,9 @@ export default async function KampanyaPage() {
           <nav className="flex items-center gap-2 text-[12px] text-[#64748b] mb-4">
             <Link href="/" className="hover:text-[#5086a8] transition-colors">Ana Sayfa</Link>
             <ChevronRight className="h-3 w-3" aria-hidden />
-            <span className="text-[#453e71] font-semibold">Kampanyalar</span>
+            <span className="text-[#1e3a5f] font-semibold">Kampanyalar</span>
           </nav>
-          <h1 className="text-[32px] font-bold text-[#453e71] leading-tight">
+          <h1 className="text-[32px] font-bold text-[#1e3a5f] leading-tight">
             Kampanyalar
           </h1>
           <p className="text-[15px] text-[#64748b] mt-2">
@@ -198,7 +198,7 @@ export default async function KampanyaPage() {
             </div>
             <Link
               href="/katalog"
-              className="inline-flex items-center gap-2 bg-[#5086a8] text-white font-bold px-6 py-2.5 rounded-lg hover:bg-[#453e71] transition-colors text-sm"
+              className="inline-flex items-center gap-2 bg-[#5086a8] text-white font-bold px-6 py-2.5 rounded-lg hover:bg-[#1e3a5f] transition-colors text-sm"
             >
               Kataloga Git
             </Link>

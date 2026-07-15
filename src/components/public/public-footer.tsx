@@ -185,7 +185,7 @@ function SocialIcon({
 }) {
   return (
     <span
-      className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-[#453e71] hover:bg-gradient-to-r hover:from-[#0040a4] hover:to-[#1a6fe0] hover:text-white hover:scale-110 transition-all duration-300"
+      className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-[#1e3a5f] hover:bg-gradient-to-r hover:from-[#0040a4] hover:to-[#1a6fe0] hover:text-white hover:scale-110 transition-all duration-300"
       aria-label={label}
     >
       <Icon />
@@ -206,7 +206,7 @@ function FooterColumn({
 }) {
   return (
     <div className="section-accent">
-      <h3 className="font-bold text-sm text-[#453e71] mb-5 uppercase tracking-[0.1em]">
+      <h3 className="font-bold text-sm text-[#1e3a5f] mb-5 uppercase tracking-[0.1em]">
         {title}
       </h3>
       <ul className="space-y-2.5">
@@ -214,7 +214,7 @@ function FooterColumn({
           <li key={href + label}>
             <Link
               href={href}
-              className="text-sm text-[#453e71] hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+              className="text-sm text-[#1e3a5f] hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
             >
               {label}
             </Link>
@@ -276,7 +276,7 @@ export function PublicFooter() {
 
           {/* Column 4: Contact Info */}
           <div className="section-accent">
-            <h3 className="font-bold text-sm text-[#453e71] mb-5 uppercase tracking-[0.1em]">
+            <h3 className="font-bold text-sm text-[#1e3a5f] mb-5 uppercase tracking-[0.1em]">
               İletişim Bilgileri
             </h3>
             <ul className="space-y-3">

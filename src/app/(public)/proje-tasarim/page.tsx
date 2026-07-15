@@ -299,9 +299,9 @@ export default function ProjectDesign() {
   const progress = done ? 100 : (currentStep / STEPS.length) * 100;
 
   return (
-    <div className="min-h-screen bg-[#453e71] text-white">
+    <div className="min-h-screen bg-[#1e3a5f] text-white">
       {/* Top bar */}
-      <div className="sticky top-0 z-10 border-b border-white/8 bg-[#453e71]/90 backdrop-blur-xl">
+      <div className="sticky top-0 z-10 border-b border-white/8 bg-[#1e3a5f]/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
           <button
             onClick={() => router.push("/")}

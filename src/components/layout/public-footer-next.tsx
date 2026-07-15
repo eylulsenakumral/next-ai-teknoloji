@@ -6,7 +6,7 @@ import Link from "next/link"
  */
 export function PublicFooterNext() {
   return (
-    <footer className="bg-[#453e71] px-6 py-10 text-white md:px-10 font-nx-sans">
+    <footer className="bg-[#1e3a5f] px-6 py-10 text-white md:px-10 font-nx-sans">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4">
         <Link href="/" className="tracking-[-.08em] text-2xl font-extrabold">
           NEXT<span className="text-[#5086a8]">AI</span>

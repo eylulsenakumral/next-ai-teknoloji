@@ -83,11 +83,11 @@ export function MegaMenuDropdown({ isOpen, onClose }: MegaMenuDropdownProps) {
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-[1200px] max-h-[80vh] flex flex-col overflow-hidden">
           {/* Header */}
           <div className="flex items-center justify-between px-8 py-5 border-b border-gray-100">
-            <h2 className="text-lg font-bold text-[#453e71]">Tüm Kategoriler</h2>
+            <h2 className="text-lg font-bold text-[#1e3a5f]">Tüm Kategoriler</h2>
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-lg text-gray-400 hover:text-[#453e71] hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-lg text-gray-400 hover:text-[#1e3a5f] hover:bg-gray-100 transition-colors"
               aria-label="Kapat"
             >
               <X className="h-5 w-5" />
@@ -114,7 +114,7 @@ export function MegaMenuDropdown({ isOpen, onClose }: MegaMenuDropdownProps) {
                     <button
                       type="button"
                       onClick={() => navigateTo(cat.slug)}
-                      className="inline-flex items-center gap-2 text-[13px] font-bold text-[#453e71] uppercase tracking-wide hover:text-[#0040a4] transition-colors"
+                      className="inline-flex items-center gap-2 text-[13px] font-bold text-[#1e3a5f] uppercase tracking-wide hover:text-[#0040a4] transition-colors"
                     >
                       {cat.name}
                       {cat.productCount ? (
