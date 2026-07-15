@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { signOut, useSession } from "next-auth/react"
@@ -21,6 +21,7 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   ShieldCheck,
   Cpu,
   Megaphone,
@@ -36,31 +37,95 @@ import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { cn } from "@/lib/utils"
 
-const menuItems = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { href: "/admin/urunler", label: "Ürünler", icon: Package },
-  { href: "/admin/kampanyalar", label: "Kampanyalar", icon: Megaphone },
-  { href: "/admin/kampanya-setleri", label: "Kampanya Setleri", icon: Layers },
-  { href: "/admin/kategoriler", label: "Kategoriler", icon: Tag },
-  { href: "/admin/kategori-eslesmesi", label: "Kategori Eşleşmesi", icon: ArrowLeftRight },
-  { href: "/admin/markalar", label: "Markalar", icon: Bookmark },
-  { href: "/admin/tedarikciler", label: "Tedarikçiler", icon: Truck },
-  { href: "/admin/kar-marji", label: "Kar Marjı", icon: Percent },
-  { href: "/admin/musteriler", label: "Müşteriler", icon: Users },
-  { href: "/admin/basvurular", label: "Başvurular", icon: ClipboardList },
-  { href: "/admin/siparisler", label: "Siparişler", icon: ShoppingBag },
-  { href: "/admin/teklifler", label: "Teklifler", icon: FileText },
-  { href: "/admin/doviz-kuru", label: "Döviz Kuru", icon: Coins },
-  { href: "/admin/fiyatlandirma", label: "Fiyatlandırma", icon: DollarSign },
-  { href: "/admin/whatsapp", label: "WhatsApp", icon: MessageCircle },
-  { href: "/admin/entegrasyonlar", label: "Entegrasyonlar", icon: Plug },
-  { href: "/admin/ayarlar", label: "Ayarlar", icon: Settings },
+// ----------------------------------------------------------------------------
+// Tip ve veri
+// ----------------------------------------------------------------------------
+
+interface MenuItem {
+  href: string
+  label: string
+  icon: React.ElementType
+  exact?: boolean
+}
+
+interface MenuGroup {
+  id: string
+  label: string
+  items: MenuItem[]
+}
+
+/** Tüm menü grupları — mantıksal kategorilere ayrılmış */
+const menuGroups: MenuGroup[] = [
+  {
+    id: "genel",
+    label: "Genel Bakış",
+    items: [{ href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true }],
+  },
+  {
+    id: "katalog",
+    label: "Katalog",
+    items: [
+      { href: "/admin/urunler", label: "Ürünler", icon: Package },
+      { href: "/admin/kategoriler", label: "Kategoriler", icon: Tag },
+      { href: "/admin/kategori-eslesmesi", label: "Kategori Eşleşmesi", icon: ArrowLeftRight },
+      { href: "/admin/markalar", label: "Markalar", icon: Bookmark },
+      { href: "/admin/tedarikciler", label: "Tedarikçiler", icon: Truck },
+    ],
+  },
+  {
+    id: "satis",
+    label: "Satış",
+    items: [
+      { href: "/admin/siparisler", label: "Siparişler", icon: ShoppingBag },
+      { href: "/admin/teklifler", label: "Teklifler", icon: FileText },
+      { href: "/admin/musteriler", label: "Müşteriler", icon: Users },
+      { href: "/admin/basvurular", label: "Başvurular", icon: ClipboardList },
+    ],
+  },
+  {
+    id: "pazarlama",
+    label: "Pazarlama",
+    items: [
+      { href: "/admin/kampanyalar", label: "Kampanyalar", icon: Megaphone },
+      { href: "/admin/kampanya-setleri", label: "Kampanya Setleri", icon: Layers },
+    ],
+  },
+  {
+    id: "fiyatlandirma",
+    label: "Fiyatlandırma",
+    items: [
+      { href: "/admin/kar-marji", label: "Kar Marjı", icon: Percent },
+      { href: "/admin/doviz-kuru", label: "Döviz Kuru", icon: Coins },
+      { href: "/admin/fiyatlandirma", label: "Fiyatlandırma", icon: DollarSign },
+    ],
+  },
+  {
+    id: "sistem",
+    label: "Sistem",
+    items: [
+      { href: "/admin/whatsapp", label: "WhatsApp", icon: MessageCircle },
+      { href: "/admin/entegrasyonlar", label: "Entegrasyonlar", icon: Plug },
+      { href: "/admin/ayarlar", label: "Ayarlar", icon: Settings },
+    ],
+  },
 ]
 
 function isActive(pathname: string, href: string, exact?: boolean) {
   if (exact) return pathname === href
   return pathname.startsWith(href)
 }
+
+/** Bir gruptaki herhangi bir item aktif mi? */
+function groupHasActive(
+  pathname: string,
+  items: MenuItem[]
+): boolean {
+  return items.some((it) => isActive(pathname, it.href, it.exact))
+}
+
+// ----------------------------------------------------------------------------
+// Item
+// ----------------------------------------------------------------------------
 
 interface SidebarItemProps {
   href: string
@@ -78,7 +143,7 @@ function SidebarItem({ href, label, icon: Icon, collapsed, active }: SidebarItem
       className={cn(
         "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium",
         "transition-all duration-300 linear",
-        collapsed ? "justify-center px-2" : "",
+        collapsed ? "justify-center px-2" : "pl-9", // grup başlığıyla hizala
         active
           ? "bg-[var(--DTPrimaryColor)] text-white"
           : "text-white/80 hover:bg-[rgba(33,137,255,0.1)] hover:text-white"
@@ -102,6 +167,85 @@ function SidebarItem({ href, label, icon: Icon, collapsed, active }: SidebarItem
   return link
 }
 
+// ----------------------------------------------------------------------------
+// Grup
+// ----------------------------------------------------------------------------
+
+interface MenuGroupProps {
+  group: MenuGroup
+  collapsed: boolean
+  pathname: string
+  forceOpen: boolean // aktif grup veya küçük ekran → zorla açık
+}
+
+function MenuGroupSection({ group, collapsed, pathname, forceOpen }: MenuGroupProps) {
+  const hasActive = groupHasActive(pathname, group.items)
+  // Default: tüm gruplar kapalı başlar.
+  // forceOpen (örn. "genel") ve aktif grup açık başlar.
+  const [open, setOpen] = useState<boolean>(hasActive || forceOpen)
+
+  // Aktif gruba düştüğünde otomatik aç (route değişimiyle)
+  if (hasActive && !open) {
+    setOpen(true)
+  }
+  const effectiveOpen = collapsed ? true : open
+
+  if (collapsed) {
+    // Daraltılmış mod: grup başlığı gösterme, item'ları düz liste gibi göster
+    return (
+      <div className="space-y-0.5">
+        {group.items.map((it) => (
+          <SidebarItem
+            key={it.href}
+            href={it.href}
+            label={it.label}
+            icon={it.icon}
+            exact={it.exact}
+            collapsed
+            active={isActive(pathname, it.href, it.exact)}
+          />
+        ))}
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-0.5">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={effectiveOpen}
+        className="w-full flex items-center justify-between gap-2 px-3 pt-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-white/40 hover:text-white/70 transition-colors"
+      >
+        <span>{group.label}</span>
+        <ChevronDown
+          className={cn(
+            "h-3 w-3 transition-transform duration-200",
+            effectiveOpen ? "rotate-180" : ""
+          )}
+          aria-hidden
+        />
+      </button>
+      {effectiveOpen &&
+        group.items.map((it) => (
+          <SidebarItem
+            key={it.href}
+            href={it.href}
+            label={it.label}
+            icon={it.icon}
+            exact={it.exact}
+            collapsed={false}
+            active={isActive(pathname, it.href, it.exact)}
+          />
+        ))}
+    </div>
+  )
+}
+
+// ----------------------------------------------------------------------------
+// Sidebar
+// ----------------------------------------------------------------------------
+
 export function AdminSidebar() {
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -109,6 +253,14 @@ export function AdminSidebar() {
   const { data: session } = useSession()
   const adminEmail = (session?.user as { email?: string })?.email ?? "admin"
   const adminInitials = adminEmail.substring(0, 2).toUpperCase()
+
+  // Tüm item'ları düz liste olarak tut (gelecekteki kullanımlar için)
+  const allItems = useMemo(
+    () => menuGroups.flatMap((g) => g.items),
+    []
+  )
+  // allItems referansını kullanmadan tut (lint için)
+  void allItems
 
   const sidebarContent = (
     <>
@@ -139,17 +291,15 @@ export function AdminSidebar() {
         </div>
       )}
 
-      {/* Nav */}
-      <nav className="flex-1 overflow-y-auto px-2 py-3 space-y-0.5">
-        {menuItems.map(({ href, label, icon, exact }) => (
-          <SidebarItem
-            key={href}
-            href={href}
-            label={label}
-            icon={icon}
-            exact={exact}
+      {/* Nav — kategori bazlı gruplar */}
+      <nav className="flex-1 overflow-y-auto px-2 py-2 space-y-0">
+        {menuGroups.map((group) => (
+          <MenuGroupSection
+            key={group.id}
+            group={group}
             collapsed={collapsed}
-            active={isActive(pathname, href, exact)}
+            pathname={pathname}
+            forceOpen={group.id === "genel"}
           />
         ))}
       </nav>

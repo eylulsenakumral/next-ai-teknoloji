@@ -12,6 +12,7 @@ vi.mock("next/navigation", () => ({
 // Mock next-auth/react
 vi.mock("next-auth/react", () => ({
   signOut: vi.fn(),
+  useSession: () => ({ data: { user: { email: "admin@test.com" } }, status: "authenticated" }),
 }))
 
 // Mock next/link
@@ -54,6 +55,8 @@ describe("AdminSidebar", () => {
   })
 
   it("renders the navigation with menu items", () => {
+    // Açık bir grupta birden fazla item görmek için ürünler path'ine git
+    mockPathname = "/admin/urunler"
     render(<AdminSidebar />)
     const aside = getDesktopSidebar()
     const nav = aside.querySelector("nav")
@@ -101,6 +104,8 @@ describe("AdminSidebar", () => {
   /* ── Hover item: rgba(33, 137, 255, 0.1) ── */
 
   it("inactive menu items have hover bg with primary color opacity", () => {
+    // Açık bir grup içinde inactive item görmek için ürünler path'ine git
+    mockPathname = "/admin/urunler"
     render(<AdminSidebar />)
     const aside = getDesktopSidebar()
     // Get an inactive link (not aria-current=page)
@@ -132,9 +137,12 @@ describe("AdminSidebar", () => {
   /* ── Transition: all 0.3s linear ── */
 
   it("menu links have transition class for smooth interactions", () => {
+    // Açık bir grup içinde inactive item görmek için ürünler path'ine git
+    mockPathname = "/admin/urunler"
     render(<AdminSidebar />)
     const aside = getDesktopSidebar()
     const inactiveLink = aside.querySelector("a:not([aria-current='page'])")
+    expect(inactiveLink).not.toBeNull()
     expect(inactiveLink!.className).toMatch(/transition/)
   })
 
