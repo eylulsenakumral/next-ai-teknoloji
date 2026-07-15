@@ -33,6 +33,21 @@ const nextConfig: NextConfig = {
     }
     return [];
   },
+  async redirects() {
+    return [
+      // Yeni menü URL'leri → mevcut route'lar
+      { source: "/bayi-giris", destination: "/login", permanent: true },
+      { source: "/bayimiz-olun", destination: "/basvuru", permanent: true },
+      { source: "/kataloglar", destination: "/katalog", permanent: true },
+      { source: "/bayi-portali", destination: "/login", permanent: true },
+      // Eski/silinmiş route'lar
+      { source: "/iletisim", destination: "/", permanent: true },
+      { source: "/kvkk", destination: "/gizlilik-politikasi", permanent: true },
+      { source: "/kategori/:slug*", destination: "/kategoriler/:slug*", permanent: true },
+      { source: "/urun/:slug*", destination: "/katalog/:slug*", permanent: true },
+      { source: "/hakkinda", destination: "/hakkimizda", permanent: true },
+    ]
+  },
   async rewrites() {
     return [
       {
