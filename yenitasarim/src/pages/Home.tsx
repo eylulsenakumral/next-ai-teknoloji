@@ -1,71 +1,45 @@
-import Link from "next/link"
-import { Hero } from "@/components/public/hero-next"
+import { useNavigate } from "react-router";
+import Hero from "../components/Hero";
 import {
-  IcnTarget,
-  IcnBriefcase,
-  IcnBox,
-  IcnTag,
-  IcnTool,
-  IcnFile,
-  IcnCamera,
-  IcnNetwork,
-  IcnAccessControl,
-  IcnSmartHome,
-} from "@/components/public/icons-next"
+  IcnZap, IcnTarget, IcnBriefcase,
+  IcnBox, IcnTag, IcnTool, IcnFile,
+  IcnCamera, IcnNetwork, IcnAccessControl, IcnSmartHome,
+} from "../components/Icons";
 import {
-  LogoDahua,
-  LogoHikvision,
-  LogoUNV,
-  LogoReolink,
-  LogoSeagate,
-  LogoAjax,
-  LogoRuijie,
-  LogoHoneywell,
-} from "@/components/public/brand-logos"
-
-export const metadata = {
-  title: "Next AI Teknoloji — Güvenlik & Network Sistemleri Bayi Platformu",
-  description:
-    "16+ global markanın yetkili tedarikçisi. CCTV, IP kamera, NVR, network altyapısı, geçiş kontrol ve akıllı bina çözümleri için proje bazlı teklif ve bayi avantajları.",
-  alternates: { canonical: "/" },
-}
+  LogoDahua, LogoHikvision, LogoUNV, LogoReolink,
+  LogoSeagate, LogoAjax, LogoRuijie, LogoHoneywell,
+} from "../components/BrandLogos";
 
 // ─── Brand Ecosystem ───────────────────────────────────────────────────────────
 const featuredBrands = [
-  { Logo: LogoDahua, cat: "Kamera Sistemleri", desc: "AI kamera, NVR ve analitik" },
-  { Logo: LogoHikvision, cat: "Kamera Sistemleri", desc: "Kurumsal güvenlik global lideri" },
-  { Logo: LogoUNV, cat: "Kamera Sistemleri", desc: "4K IP kamera sistemleri" },
-  { Logo: LogoReolink, cat: "Kamera Sistemleri", desc: "PoE & kablosuz kamera çözümleri" },
-]
+  { Logo: LogoDahua,     cat: "Kamera Sistemleri",           desc: "AI kamera, NVR ve analitik" },
+  { Logo: LogoHikvision, cat: "Kamera Sistemleri",           desc: "Kurumsal güvenlik global lideri" },
+  { Logo: LogoUNV,       cat: "Kamera Sistemleri",           desc: "4K IP kamera sistemleri" },
+  { Logo: LogoReolink,   cat: "Kamera Sistemleri",           desc: "PoE & kablosuz kamera çözümleri" },
+];
 
 const secondaryBrands = [
-  { Logo: LogoRuijie, cat: "Network Sistemleri" },
-  { Logo: LogoAjax, cat: "Akıllı Bina" },
-  { Logo: LogoSeagate, cat: "Veri Depolama" },
+  { Logo: LogoRuijie,    cat: "Network Sistemleri" },
+  { Logo: LogoAjax,      cat: "Akıllı Bina" },
+  { Logo: LogoSeagate,   cat: "Veri Depolama" },
   { Logo: LogoHoneywell, cat: "Yangın Algılama" },
-]
+];
 
 function BrandsSection() {
+  const navigate = useNavigate();
   return (
-    <section className="bg-white px-6 py-24 md:px-10 font-nx-sans">
+    <section className="bg-white px-6 py-24 md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#1477ff]">
-              02 · Kurumsal çözüm ortaklarımız
-            </p>
+            <p className="font-mono text-[10px] uppercase tracking-[.2em] text-[#1477ff]">02 · Kurumsal çözüm ortaklarımız</p>
             <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
-              16+ global markanın
-              <br />
-              yetkili tedarikçisi.
+              16+ global markanın<br />yetkili tedarikçisi.
             </h2>
           </div>
-          <Link
-            href="/markalar"
-            className="shrink-0 text-sm font-bold text-[#1477ff] hover:underline"
-          >
+          <button onClick={() => navigate("/markalar")} className="shrink-0 text-sm font-bold text-[#1477ff] hover:underline">
             Tüm markalar ve kategoriler →
-          </Link>
+          </button>
         </div>
 
         {/* featured brand grid */}
@@ -75,7 +49,7 @@ function BrandsSection() {
               key={i}
               className="group flex flex-col justify-between bg-white p-6 transition hover:bg-[#071426]"
             >
-              <span className="font-nx-mono text-[9px] uppercase tracking-[.15em] text-slate-400 group-hover:text-slate-600">
+              <span className="font-mono text-[9px] uppercase tracking-[.15em] text-slate-400 group-hover:text-slate-600">
                 {cat}
               </span>
               <div className="mt-6 flex h-12 items-center">
@@ -94,24 +68,24 @@ function BrandsSection() {
         {/* secondary brands */}
         <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
           {secondaryBrands.map(({ Logo, cat }, i) => (
-            <div
-              key={i}
-              className="group flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50 px-4 py-3 transition hover:border-slate-200 hover:bg-white"
-            >
+            <div key={i} className="group flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50 px-4 py-3 transition hover:border-slate-200 hover:bg-white">
               <Logo className="h-6 w-auto max-w-[80px] opacity-60 transition group-hover:opacity-90" />
-              <span className="font-nx-mono text-[8px] uppercase tracking-widest text-slate-400">
-                {cat}
-              </span>
+              <span className="font-mono text-[8px] uppercase tracking-widest text-slate-400">{cat}</span>
             </div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 // ─── Value Props ───────────────────────────────────────────────────────────────
 const valueProps = [
+  {
+    Icon: IcnZap,
+    title: "Hızlı tedarik",
+    desc: "Stoklu ürünlerde aynı gün kargo. Proje siparişlerinde öncelikli lojistik koordinasyonu.",
+  },
   {
     Icon: IcnTarget,
     title: "Teknik danışmanlık",
@@ -122,16 +96,11 @@ const valueProps = [
     title: "Bayi avantajları",
     desc: "Özel fiyatlandırma, kredi limiti ve proje bazlı ticari koşullar.",
   },
-  {
-    Icon: IcnBox,
-    title: "Hızlı tedarik",
-    desc: "Stoklu ürünlerde aynı gün kargo. Proje siparişlerinde öncelikli lojistik koordinasyonu.",
-  },
-]
+];
 
 function ValueSection() {
   return (
-    <section className="bg-[#f4f7fa] px-6 py-20 md:px-10 font-nx-sans">
+    <section className="bg-[#f4f7fa] px-6 py-20 md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-px bg-slate-200 rounded-2xl overflow-hidden sm:grid-cols-3">
           {valueProps.map((v) => (
@@ -146,7 +115,7 @@ function ValueSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 // ─── Solutions ─────────────────────────────────────────────────────────────────
@@ -183,26 +152,23 @@ const solutions = [
     tags: ["IoT", "KNX", "Entegre Panel"],
     dark: false,
   },
-]
+];
 
 function SolutionsSection() {
+  const navigate = useNavigate();
   return (
-    <section className="bg-white px-6 py-24 md:px-10 font-nx-sans">
+    <section className="bg-white px-6 py-24 md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#1477ff]">
-              03 · Çözüm alanları
-            </p>
+            <p className="font-mono text-[10px] uppercase tracking-[.2em] text-[#1477ff]">03 · Çözüm alanları</p>
             <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
-              Projenize özel
-              <br />
-              çözüm ekosistemi.
+              Projenize özel<br />çözüm ekosistemi.
             </h2>
           </div>
-          <Link href="/cozumler" className="shrink-0 text-sm font-bold text-[#1477ff] hover:underline">
+          <button onClick={() => navigate("/cozumler")} className="shrink-0 text-sm font-bold text-[#1477ff] hover:underline">
             Tüm çözümleri gör →
-          </Link>
+          </button>
         </div>
 
         <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -210,27 +176,15 @@ function SolutionsSection() {
             <div
               key={s.number}
               className={`group flex min-h-72 flex-col justify-between rounded-2xl p-7 transition ${
-                s.dark
-                  ? "bg-[#071426] text-white"
-                  : "bg-[#f4f7fa] hover:bg-[#071426] hover:text-white"
+                s.dark ? "bg-[#071426] text-white" : "bg-[#f4f7fa] hover:bg-[#071426] hover:text-white"
               }`}
             >
               <div>
-                <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-xl ${
-                    s.dark
-                      ? "bg-[#1477ff]/20 text-[#67abff]"
-                      : "bg-white text-[#1477ff] group-hover:bg-[#1477ff]/20 group-hover:text-[#67abff]"
-                  }`}
-                >
+                <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${s.dark ? "bg-[#1477ff]/20 text-[#67abff]" : "bg-white text-[#1477ff] group-hover:bg-[#1477ff]/20 group-hover:text-[#67abff]"}`}>
                   <s.Icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-6 text-xl font-bold tracking-tight">{s.title}</h3>
-                <p
-                  className={`mt-3 text-sm leading-6 ${
-                    s.dark ? "text-slate-400" : "text-slate-500 group-hover:text-slate-400"
-                  }`}
-                >
+                <p className={`mt-3 text-sm leading-6 ${s.dark ? "text-slate-400" : "text-slate-500 group-hover:text-slate-400"}`}>
                   {s.desc}
                 </p>
               </div>
@@ -238,10 +192,8 @@ function SolutionsSection() {
                 {s.tags.map((tag) => (
                   <span
                     key={tag}
-                    className={`rounded-full px-2.5 py-1 font-nx-mono text-[8px] font-bold uppercase tracking-[.1em] ${
-                      s.dark
-                        ? "bg-white/10 text-slate-400"
-                        : "bg-white text-slate-500 group-hover:bg-white/10 group-hover:text-slate-400"
+                    className={`rounded-full px-2.5 py-1 font-mono text-[8px] font-bold uppercase tracking-[.1em] ${
+                      s.dark ? "bg-white/10 text-slate-400" : "bg-white text-slate-500 group-hover:bg-white/10 group-hover:text-slate-400"
                     }`}
                   >
                     {tag}
@@ -253,72 +205,62 @@ function SolutionsSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 // ─── Project Design CTA ────────────────────────────────────────────────────────
 function ProjectDesignSection() {
+  const navigate = useNavigate();
   const steps = [
     { n: "01", label: "Proje türünü seçin", sub: "Konut, işyeri, fabrika, kampüs…" },
     { n: "02", label: "İhtiyaçları belirleyin", sub: "Alan, kamera sayısı, özellikler" },
     { n: "03", label: "Bütçe aralığını girin", sub: "Yaklaşık bile olsa yeterli" },
     { n: "04", label: "Öneri alın", sub: "Ekibimiz size özel hazırlar" },
-  ]
+  ];
 
   return (
-    <section className="bg-[#071426] px-6 py-24 text-white md:px-10 font-nx-sans">
+    <section className="bg-[#071426] px-6 py-24 text-white md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+          {/* left */}
           <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#67abff]">
-              04 · Proje tasarımı
-            </p>
+            <p className="font-mono text-[10px] uppercase tracking-[.2em] text-[#67abff]">04 · Proje tasarımı</p>
             <h2 className="mt-4 text-4xl font-bold leading-tight tracking-[-0.055em] md:text-5xl">
-              Kamera sistemini
-              <br />
-              <span className="text-[#80b7ff]">hiç bilmesek de</span>
-              <br />
+              Kamera sistemini<br />
+              <span className="text-[#80b7ff]">hiç bilmesek de</span><br />
               birlikte tasarlayalım.
             </h2>
             <p className="mt-6 max-w-md text-sm leading-7 text-slate-400">
-              Hangi kamerayı nereye koyacağınızı bilmeniz gerekmiyor. Birkaç soruya yanıt verin, teknik ekibimiz
-              sizin için en uygun sistemi hazırlasın.
+              Hangi kamerayı nereye koyacağınızı bilmeniz gerekmiyor. Birkaç soruya yanıt verin, teknik ekibimiz sizin için en uygun sistemi hazırlasın.
             </p>
-            <Link
-              href="/proje-tasarim"
-              className="mt-8 flex items-center gap-3 rounded-xl bg-[#1477ff] px-6 py-4 text-sm font-bold text-white shadow-lg shadow-[#1477ff]/25 transition hover:bg-[#2a85ff] w-fit"
+            <button
+              onClick={() => navigate("/proje-tasarim")}
+              className="mt-8 flex items-center gap-3 rounded-xl bg-[#1477ff] px-6 py-4 text-sm font-bold text-white shadow-lg shadow-[#1477ff]/25 transition hover:bg-[#2a85ff]"
             >
               Projenizi Tasarlayalım
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20 text-xs">
-                ↗
-              </span>
-            </Link>
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20 text-xs">↗</span>
+            </button>
           </div>
 
+          {/* right — step cards */}
           <div className="grid grid-cols-2 gap-3">
             {steps.map((s, i) => (
               <div
                 key={s.n}
                 className={`rounded-2xl p-6 ${i === 0 ? "bg-[#1477ff]" : "border border-white/10 bg-white/5"}`}
               >
-                <span
-                  className={`font-nx-mono text-[10px] font-bold tracking-[.18em] ${
-                    i === 0 ? "text-blue-200" : "text-slate-600"
-                  }`}
-                >
+                <span className={`font-mono text-[10px] font-bold tracking-[.18em] ${i === 0 ? "text-blue-200" : "text-slate-600"}`}>
                   {s.n}
                 </span>
                 <h4 className="mt-6 text-sm font-bold leading-snug">{s.label}</h4>
-                <p className={`mt-1.5 text-xs leading-5 ${i === 0 ? "text-blue-200" : "text-slate-500"}`}>
-                  {s.sub}
-                </p>
+                <p className={`mt-1.5 text-xs leading-5 ${i === 0 ? "text-blue-200" : "text-slate-500"}`}>{s.sub}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 // ─── Process / Partnership ─────────────────────────────────────────────────────
@@ -327,32 +269,30 @@ const process = [
   { n: "02", title: "Teknik tasarım", desc: "Ürün, marka ve sistem mimarisi önerileri." },
   { n: "03", title: "Ticari teklif", desc: "Bayi fiyatları ve proje koşullarıyla detaylı teklif." },
   { n: "04", title: "Tedarik & destek", desc: "Lojistik koordinasyon ve kurulum sonrası destek." },
-]
+];
 
 function PartnershipSection() {
+  const navigate = useNavigate();
   return (
-    <section className="bg-white px-6 py-24 md:px-10 font-nx-sans">
+    <section className="bg-white px-6 py-24 md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-16 lg:grid-cols-2 lg:items-start">
+          {/* left */}
           <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#1477ff]">
-              05 · İş ortaklığı
-            </p>
+            <p className="font-mono text-[10px] uppercase tracking-[.2em] text-[#1477ff]">05 · İş ortaklığı</p>
             <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
-              Tedarikçiden fazlası —
-              <br />
+              Tedarikçiden fazlası —<br />
               <span className="text-[#1477ff]">güçlü bir iş ortağı.</span>
             </h2>
             <p className="mt-6 max-w-md text-sm leading-7 text-slate-500">
-              CCTV bayileri ve sistem entegratörleri için özel ticari koşullar, kredi limiti, proje bazlı
-              fiyatlandırma ve teknik destek.
+              CCTV bayileri ve sistem entegratörleri için özel ticari koşullar, kredi limiti, proje bazlı fiyatlandırma ve teknik destek.
             </p>
             <div className="mt-8 grid grid-cols-2 gap-3">
               {(
                 [
-                  [IcnBox, "Stok görünürlüğü", "Gerçek zamanlı stok bilgisi"],
-                  [IcnTag, "Bayi fiyatları", "Rekabetçi toptan fiyatlar"],
-                  [IcnTool, "Teknik destek", "7/24 uzaktan yardım"],
+                  [IcnBox,  "Stok görünürlüğü",  "Gerçek zamanlı stok bilgisi"],
+                  [IcnTag,  "Bayi fiyatları",     "Rekabetçi toptan fiyatlar"],
+                  [IcnTool, "Teknik destek",      "7/24 uzaktan yardım"],
                   [IcnFile, "Proje danışmanlığı", "Saha analizi ve tasarım"],
                 ] as const
               ).map(([Icon, title, sub]) => (
@@ -366,30 +306,29 @@ function PartnershipSection() {
               ))}
             </div>
             <div className="mt-8 flex gap-3">
-              <Link
-                href="/bayimiz-olun"
+              <button
+                onClick={() => navigate("/bayimiz-olun")}
                 className="rounded-xl bg-[#071426] px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[#0d2040]"
               >
                 Bayimiz Olun
-              </Link>
-              <Link
-                href="/bayi-programi"
+              </button>
+              <button
+                onClick={() => navigate("/bayi-programi")}
                 className="rounded-xl border border-slate-200 px-5 py-3.5 text-sm font-bold text-[#071426] transition hover:bg-slate-50"
               >
                 Programı İncele →
-              </Link>
+              </button>
             </div>
           </div>
 
+          {/* right — process */}
           <div className="rounded-3xl bg-[#f4f7fa] p-8 md:p-10">
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#1477ff]">
-              Proje süreci
-            </p>
+            <p className="font-mono text-[10px] uppercase tracking-[.2em] text-[#1477ff]">Proje süreci</p>
             <div className="mt-8 space-y-0">
               {process.map((step, i) => (
                 <div key={step.n} className="flex gap-5">
                   <div className="flex flex-col items-center">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#071426] font-nx-mono text-[10px] font-bold text-white">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#071426] font-mono text-[10px] font-bold text-white">
                       {step.n}
                     </div>
                     {i < process.length - 1 && (
@@ -407,13 +346,13 @@ function PartnershipSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 // ─── Stats band ────────────────────────────────────────────────────────────────
 function StatsBand() {
   return (
-    <section className="border-y border-slate-100 bg-[#f4f7fa] px-6 py-14 md:px-10 font-nx-sans">
+    <section className="border-y border-slate-100 bg-[#f4f7fa] px-6 py-14 md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           {[
@@ -422,63 +361,60 @@ function StatsBand() {
             ["99.2%", "Sipariş tamamlama oranı"],
             ["4.8/5", "Bayi memnuniyet skoru"],
           ].map(([val, label]) => (
-            <div key={label}>
+            <div key={label as string}>
               <strong className="block text-3xl font-extrabold tracking-tight text-[#071426]">{val}</strong>
-              <span className="mt-1 block font-nx-mono text-[9px] uppercase tracking-[.14em] text-slate-400">
-                {label}
-              </span>
+              <span className="mt-1 block font-mono text-[9px] uppercase tracking-[.14em] text-slate-400">{label as string}</span>
             </div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 // ─── Final CTA ─────────────────────────────────────────────────────────────────
 function CtaSection() {
+  const navigate = useNavigate();
   return (
-    <section className="bg-[#1477ff] px-6 py-24 text-white md:px-10 font-nx-sans">
+    <section className="bg-[#1477ff] px-6 py-24 text-white md:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 md:grid-cols-2 md:items-end">
           <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-blue-200">
-              Bir sonraki adım
-            </p>
+            <p className="font-mono text-[10px] uppercase tracking-[.2em] text-blue-200">Bir sonraki adım</p>
             <h2 className="mt-4 text-4xl font-bold leading-tight tracking-[-0.055em] md:text-5xl lg:text-6xl">
-              Projenizi birlikte
-              <br />
-              planlayalım.
+              Projenizi birlikte<br />planlayalım.
             </h2>
             <p className="mt-5 max-w-md text-sm leading-7 text-blue-100">
-              Teknik ekibimiz 2–4 saat içinde size geri döner. Projenizi ücretsiz analiz eder, marka ve ürün
-              önerisi hazırlar.
+              Teknik ekibimiz 2–4 saat içinde size geri döner. Projenizi ücretsiz analiz eder, marka ve ürün önerisi hazırlar.
             </p>
           </div>
           <div className="flex flex-wrap gap-3 md:justify-end md:self-end">
-            <Link
-              href="/proje-tasarim"
+            <button
+              onClick={() => navigate("/proje-tasarim")}
               className="rounded-xl bg-white px-6 py-4 text-sm font-bold text-[#1477ff] transition hover:bg-blue-50"
             >
               Projenizi Tasarlayalım
-            </Link>
-            <Link
-              href="/teklif-iste"
+            </button>
+            <button
+              onClick={() => navigate("/teklif-iste")}
               className="rounded-xl border border-white/35 px-6 py-4 text-sm font-bold transition hover:bg-white/10"
             >
               Proje Teklifi İste
-            </Link>
+            </button>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
+// ─── Home ──────────────────────────────────────────────────────────────────────
 export default function Home() {
+  const navigate = useNavigate();
+
   return (
     <>
-      <Hero />
+      <Hero onQuote={() => navigate("/teklif-iste")} />
       <ValueSection />
       <BrandsSection />
       <SolutionsSection />
@@ -487,5 +423,5 @@ export default function Home() {
       <StatsBand />
       <CtaSection />
     </>
-  )
+  );
 }
