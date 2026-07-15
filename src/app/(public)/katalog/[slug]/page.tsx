@@ -179,11 +179,11 @@ function ProductBreadcrumb({
   return (
     <nav
       aria-label="Breadcrumb"
-      className="flex items-center gap-1.5 text-[12px] text-[#767676] flex-wrap"
+      className="flex items-center gap-1.5 text-[12px] text-[#64748b] flex-wrap"
     >
       <Link
         href="/katalog"
-        className="flex items-center gap-1 hover:text-[#1477ff] transition-colors"
+        className="flex items-center gap-1 hover:text-[#5086a8] transition-colors"
       >
         <Home className="h-3 w-3" aria-hidden />
         Katalog
@@ -193,7 +193,7 @@ function ProductBreadcrumb({
           <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
           <Link
             href={`/katalog?categorySlug=${cat.slug}`}
-            className="hover:text-[#1477ff] transition-colors"
+            className="hover:text-[#5086a8] transition-colors"
           >
             {cat.name}
           </Link>
@@ -235,16 +235,16 @@ function StockBadge({ inStock }: { inStock: boolean }) {
 
 function QuoteCTA({ productName }: { productName: string }) {
   return (
-    <div className="border border-[#1477ff]/20 bg-gradient-to-br from-[#1477ff]/5 to-white p-5 space-y-4">
+    <div className="border border-[#5086a8]/20 bg-gradient-to-br from-[#5086a8]/5 to-white p-5 space-y-4">
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#1477ff]/10">
-          <Lock className="h-5 w-5 text-[#1477ff]" aria-hidden />
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#5086a8]/10">
+          <Lock className="h-5 w-5 text-[#5086a8]" aria-hidden />
         </div>
         <div className="space-y-1">
           <p className="text-[14px] font-bold text-[#333333]">
             Özel Fiyatlar İçin Bayi Girişi Yapınız
           </p>
-          <p className="text-[12px] text-[#767676] leading-relaxed">
+          <p className="text-[12px] text-[#64748b] leading-relaxed">
             Bayi girişi yaparak özel fiyatları görüntüleyebilir ve sipariş oluşturabilirsiniz.
           </p>
         </div>
@@ -252,7 +252,7 @@ function QuoteCTA({ productName }: { productName: string }) {
 
       <Link
         href="/login"
-        className="flex w-full items-center justify-center gap-2 h-11 bg-[#1477ff] px-5 text-[13px] font-bold text-white uppercase tracking-wider transition-colors hover:bg-[#001489] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1477ff] focus-visible:ring-offset-2"
+        className="flex w-full items-center justify-center gap-2 h-11 bg-[#5086a8] px-5 text-[13px] font-bold text-white uppercase tracking-wider transition-colors hover:bg-[#001489] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5086a8] focus-visible:ring-offset-2"
       >
         <Lock className="h-4 w-4" aria-hidden />
         Bayi Girişi Yap
@@ -279,9 +279,9 @@ function SpecsTable({ specs }: { specs: Array<{ key: string; value: string }> })
           {specs.map(({ key, value }, index) => (
             <tr
               key={key}
-              className={index % 2 === 0 ? "bg-[#f9f9f9]" : "bg-white"}
+              className={index % 2 === 0 ? "bg-[#f4f7fa]" : "bg-white"}
             >
-              <td className="w-2/5 sm:w-1/3 border-r border-[#eeeeee] px-4 py-2.5 text-[12px] font-semibold text-[#767676] align-top">
+              <td className="w-2/5 sm:w-1/3 border-r border-[#eeeeee] px-4 py-2.5 text-[12px] font-semibold text-[#64748b] align-top">
                 {key}
               </td>
               <td className="px-4 py-2.5 text-[13px] text-[#333333]">{value}</td>
@@ -302,7 +302,7 @@ function StickyMobileCTA({ productName }: { productName: string }) {
     <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-white border-t border-[#eeeeee] px-4 py-3 shadow-lg">
       <Link
         href="/login"
-        className="flex items-center justify-center gap-2 h-11 w-full bg-[#1477ff] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
+        className="flex items-center justify-center gap-2 h-11 w-full bg-[#5086a8] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
       >
         <Lock className="h-4 w-4" aria-hidden />
         Özel Fiyatlar İçin Bayi Girişi Yapınız
@@ -361,7 +361,7 @@ export default async function PublicProductDetailPage({
                 {product.brand && (
                   <Link
                     href={`/katalog?brandSlug=${product.brand.slug}`}
-                    className="text-[12px] font-bold uppercase tracking-wider text-[#1477ff] hover:text-[#001489] transition-colors"
+                    className="text-[12px] font-bold uppercase tracking-wider text-[#5086a8] hover:text-[#001489] transition-colors"
                   >
                     {product.brand.name}
                   </Link>
@@ -369,7 +369,7 @@ export default async function PublicProductDetailPage({
                 {product.category && (
                   <Link
                     href={`/katalog?categorySlug=${product.category.slug}`}
-                    className="inline-flex items-center gap-1.5 bg-[#f0f0f0] px-2.5 py-1 text-[11px] font-medium text-[#767676] hover:bg-[#e8e8e8] transition-colors"
+                    className="inline-flex items-center gap-1.5 bg-[#f0f0f0] px-2.5 py-1 text-[11px] font-medium text-[#64748b] hover:bg-[#e8e8e8] transition-colors"
                   >
                     <Tag className="h-3 w-3" aria-hidden />
                     {product.category.name}
@@ -397,50 +397,50 @@ export default async function PublicProductDetailPage({
               {(product.sku || product.barcode || product.modelCode || product.brand || product.warrantyMonths || product.productCode) && (
                 <div className="border border-[#eeeeee] bg-white">
                   <div className="px-4 py-2.5 border-b border-[#eeeeee] bg-[#fafafa]">
-                    <p className="text-[11px] font-bold text-[#767676] uppercase tracking-wider">
+                    <p className="text-[11px] font-bold text-[#64748b] uppercase tracking-wider">
                       Ürün Bilgileri
                     </p>
                   </div>
                   <ul className="divide-y divide-[#f5f5f5]">
                     {product.productCode && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Ürün Kodu</span>
-                        <span className="text-[12px] text-[#1477ff] font-bold font-mono bg-[#f0f4ff] px-2 py-0.5 rounded">{product.productCode}</span>
+                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">Ürün Kodu</span>
+                        <span className="text-[12px] text-[#5086a8] font-bold font-mono bg-[#f0f4ff] px-2 py-0.5 rounded">{product.productCode}</span>
                       </li>
                     )}
                     {product.brand && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Marka</span>
+                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">Marka</span>
                         <span className="text-[12px] text-[#333333] font-semibold">{product.brand.name}</span>
                       </li>
                     )}
                     {product.modelCode && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Model Kodu</span>
+                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">Model Kodu</span>
                         <span className="text-[12px] text-[#333333] font-semibold">{product.modelCode}</span>
                       </li>
                     )}
                     {product.sku && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">SKU</span>
+                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">SKU</span>
                         <span className="text-[12px] text-[#333333] font-semibold font-mono">{product.sku}</span>
                       </li>
                     )}
                     {product.barcode && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Barkod</span>
+                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">Barkod</span>
                         <span className="text-[12px] text-[#333333] font-semibold font-mono">{product.barcode}</span>
                       </li>
                     )}
                     {product.warrantyMonths && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Garanti</span>
+                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">Garanti</span>
                         <span className="text-[12px] text-[#333333] font-semibold">{product.warrantyMonths} ay</span>
                       </li>
                     )}
                     {product.weight && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Ağırlık</span>
+                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">Ağırlık</span>
                         <span className="text-[12px] text-[#333333] font-semibold">{product.weight} kg</span>
                       </li>
                     )}
@@ -450,11 +450,11 @@ export default async function PublicProductDetailPage({
 
               {/* Kısa açıklama */}
               {product.description && (
-                <div className="text-[13px] leading-relaxed text-[#767676] border-l-2 border-[#1477ff]/20 pl-3">
+                <div className="text-[13px] leading-relaxed text-[#64748b] border-l-2 border-[#5086a8]/20 pl-3">
                   <p className="line-clamp-3">{product.description}</p>
                   <a
                     href="#description-heading"
-                    className="inline-block mt-1 text-[#1477ff] font-semibold text-[12px] hover:underline"
+                    className="inline-block mt-1 text-[#5086a8] font-semibold text-[12px] hover:underline"
                   >
                     Devamını Oku ↓
                   </a>
@@ -473,7 +473,7 @@ export default async function PublicProductDetailPage({
                         </div>
                         <div className="space-y-1">
                           <p className="text-[14px] font-bold text-[#a60811]">Müşteri Temsilcinizden Özel Fiyat Alınız</p>
-                          <p className="text-[12px] text-[#767676]">Bu ürün için fiyat bilgisi müşteri temsilcinizden alınmaktadır.</p>
+                          <p className="text-[12px] text-[#64748b]">Bu ürün için fiyat bilgisi müşteri temsilcinizden alınmaktadır.</p>
                         </div>
                       </div>
                     </div>
@@ -482,7 +482,7 @@ export default async function PublicProductDetailPage({
                       <div className="flex items-end justify-between gap-4">
                         <div>
                           <p className="text-[11px] text-gray-400 uppercase tracking-wider mb-1">Bayi Fiyatı</p>
-                          <p className="text-[28px] font-bold text-[#1477ff] leading-none">
+                          <p className="text-[28px] font-bold text-[#5086a8] leading-none">
                             {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                             <span className="text-[12px] font-medium text-gray-400 ml-1.5">+KDV</span>
                           </p>
@@ -510,13 +510,13 @@ export default async function PublicProductDetailPage({
                   ) : !isLoggedIn && !product.hidePrice ? (
                     <div className="p-5">
                       <div className="flex items-start gap-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#1477ff]/10">
-                          <Lock className="h-5 w-5 text-[#1477ff]" aria-hidden />
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#5086a8]/10">
+                          <Lock className="h-5 w-5 text-[#5086a8]" aria-hidden />
                         </div>
                         <div className="flex-1 space-y-2">
                           <p className="text-[14px] font-bold text-[#333333]">Özel Fiyatlar İçin Bayi Girişi</p>
-                          <p className="text-[12px] text-[#767676]">Bayi girişi yaparak fiyatları görüntüleyin.</p>
-                          <Link href="/login" className="inline-flex items-center justify-center gap-2 h-9 px-5 bg-[#1477ff] text-[12px] font-bold text-white rounded-xl hover:bg-[#003080] transition-colors">
+                          <p className="text-[12px] text-[#64748b]">Bayi girişi yaparak fiyatları görüntüleyin.</p>
+                          <Link href="/login" className="inline-flex items-center justify-center gap-2 h-9 px-5 bg-[#5086a8] text-[12px] font-bold text-white rounded-xl hover:bg-[#36305a] transition-colors">
                             <Lock className="h-3.5 w-3.5" aria-hidden />
                             Bayi Girişi Yap
                           </Link>
@@ -565,14 +565,14 @@ export default async function PublicProductDetailPage({
               {specs && specs.length > 0 && (
                 <div className="border border-[#eeeeee] bg-white">
                   <div className="px-4 py-2.5 border-b border-[#eeeeee] bg-[#fafafa]">
-                    <p className="text-[11px] font-bold text-[#767676] uppercase tracking-wider">
+                    <p className="text-[11px] font-bold text-[#64748b] uppercase tracking-wider">
                       Öne Çıkan Özellikler
                     </p>
                   </div>
                   <ul className="divide-y divide-[#f5f5f5]">
                     {specs.slice(0, 5).map(({ key, value }) => (
                       <li key={key} className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">
+                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">
                           {key}
                         </span>
                         <span className="text-[12px] text-[#333333] font-semibold flex-1 truncate">
@@ -631,7 +631,7 @@ export default async function PublicProductDetailPage({
                       ? `/katalog?categorySlug=${product.category.slug}`
                       : "/katalog"
                   }
-                  className="text-[12px] font-semibold text-[#1477ff] hover:text-[#001489] transition-colors whitespace-nowrap"
+                  className="text-[12px] font-semibold text-[#5086a8] hover:text-[#001489] transition-colors whitespace-nowrap"
                 >
                   Tümünü Gör
                 </Link>
@@ -660,7 +660,7 @@ export default async function PublicProductDetailPage({
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-3 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
-              <p className="text-[16px] font-bold text-[#1477ff] leading-none">
+              <p className="text-[16px] font-bold text-[#5086a8] leading-none">
                 {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                 <span className="text-[10px] font-medium text-gray-400 ml-1">+KDV</span>
               </p>

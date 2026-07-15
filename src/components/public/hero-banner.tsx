@@ -70,7 +70,7 @@ export function HeroBanner({ slides, features }: HeroBannerProps) {
   const displayFeatures = features ?? defaultFeatures
 
   return (
-    <section role="banner" className="bg-[#f3f3f3] pt-10 pb-12">
+    <section role="banner" className="bg-[#f4f7fa] pt-10 pb-12">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* -- Two-column Hero Grid -- */}
         <div className="grid lg:grid-cols-2 gap-8 items-center">
@@ -127,12 +127,12 @@ export function HeroBanner({ slides, features }: HeroBannerProps) {
             </p>
 
             {/* Main Title - gradient text */}
-            <h1 className="text-[40px] lg:text-[60px] font-bold leading-tight mb-4 bg-gradient-to-r from-[#1e1e1e] to-[#0040a4] bg-clip-text text-transparent">
+            <h1 className="text-[40px] lg:text-[60px] font-bold leading-tight mb-4 bg-gradient-to-r from-[#453e71] to-[#0040a4] bg-clip-text text-transparent">
               {slide?.title ?? "High Quality Laptops & Accessories"}
             </h1>
 
             {/* Description */}
-            <p className="text-[16px] text-[#767676] leading-relaxed mb-6 max-w-[540px]">
+            <p className="text-[16px] text-[#64748b] leading-relaxed mb-6 max-w-[540px]">
               {slide?.description ??
                 "En yeni ürünler, en uygun fiyatlar. Kurumsal ve bireysel ihtiyaçlarınıza özel çözümler sunuyoruz."}
             </p>
@@ -141,7 +141,7 @@ export function HeroBanner({ slides, features }: HeroBannerProps) {
             <div>
               <Link
                 href={slide?.buttonLink ?? "/katalog"}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#0040a4] to-[#1a6fe0] hover:from-[#1e1e1e] hover:to-[#1e1e1e] text-white font-bold py-[9px] px-[32px] rounded-lg transition-all duration-300 text-[16px] hover:scale-[1.02] hover:shadow-lg"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#0040a4] to-[#1a6fe0] hover:from-[#453e71] hover:to-[#453e71] text-white font-bold py-[9px] px-[32px] rounded-lg transition-all duration-300 text-[16px] hover:scale-[1.02] hover:shadow-lg"
               >
                 {slide?.buttonText ?? "Keşfet"}
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -171,10 +171,10 @@ export function HeroBanner({ slides, features }: HeroBannerProps) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
               <div className="p-6">
-                <h3 className="font-bold text-[#1e1e1e] mb-2 text-[16px] group-hover:text-[#0040a4] transition-colors duration-300">
+                <h3 className="font-bold text-[#453e71] mb-2 text-[16px] group-hover:text-[#0040a4] transition-colors duration-300">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-[#767676] leading-relaxed">
+                <p className="text-sm text-[#64748b] leading-relaxed">
                   {feature.description}
                 </p>
               </div>

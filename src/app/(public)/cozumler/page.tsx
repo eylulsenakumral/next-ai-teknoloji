@@ -99,14 +99,14 @@ export default function CozumlerPage() {
   return (
     <div className="font-nx-sans">
       {/* Hero */}
-      <section className="bg-[#071426] px-6 py-24 text-white md:px-10 md:py-32">
+      <section className="bg-[#453e71] px-6 py-24 text-white md:px-10 md:py-32">
         <div className="mx-auto max-w-7xl">
-          <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#67abff]">
+          <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#8aa8bc]">
             Çözüm alanları
           </p>
           <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.05] tracking-[-0.055em] md:text-6xl">
             Projenizin tüm teknoloji katmanları için
-            <span className="text-[#80b7ff]"> tek nokta çözümü.</span>
+            <span className="text-[#a8c4d4]"> tek nokta çözümü.</span>
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-7 text-slate-400">
             CCTV görüntülemeden ağ omurgasına, geçiş kontrolden akıllı bina otomasyonuna — tüm sistemleri
@@ -124,12 +124,12 @@ export default function CozumlerPage() {
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start">
               {/* Left — header */}
-              <div className={s.dark ? "rounded-3xl bg-[#071426] p-8 text-white md:p-10" : ""}>
+              <div className={s.dark ? "rounded-3xl bg-[#453e71] p-8 text-white md:p-10" : ""}>
                 <div className="flex items-center gap-4">
-                  <span className="font-nx-mono text-[10px] font-bold tracking-[.18em] text-[#1477ff]">
+                  <span className="font-nx-mono text-[10px] font-bold tracking-[.18em] text-[#5086a8]">
                     {s.number}
                   </span>
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1477ff]/10 text-[#1477ff]">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#5086a8]/10 text-[#5086a8]">
                     <s.Icon className="h-5 w-5" />
                   </div>
                 </div>
@@ -159,9 +159,9 @@ export default function CozumlerPage() {
                 {s.features.map((f) => (
                   <div
                     key={f}
-                    className="rounded-xl border border-slate-200 bg-white p-4 hover:border-[#1477ff]/30 hover:bg-[#1477ff]/5 transition"
+                    className="rounded-xl border border-slate-200 bg-white p-4 hover:border-[#5086a8]/30 hover:bg-[#5086a8]/5 transition"
                   >
-                    <p className="text-sm font-semibold text-[#071426]">{f}</p>
+                    <p className="text-sm font-semibold text-[#453e71]">{f}</p>
                   </div>
                 ))}
               </div>
@@ -171,12 +171,12 @@ export default function CozumlerPage() {
       ))}
 
       {/* Value props */}
-      <section className="bg-[#071426] px-6 py-20 text-white md:px-10">
+      <section className="bg-[#453e71] px-6 py-20 text-white md:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {valueProps.map((v) => (
               <div key={v.title}>
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1477ff]/15 text-[#67abff]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#5086a8]/15 text-[#8aa8bc]">
                   <v.Icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-5 text-lg font-bold">{v.title}</h3>
@@ -188,7 +188,7 @@ export default function CozumlerPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#1477ff] px-6 py-20 text-white md:px-10">
+      <section className="bg-[#5086a8] px-6 py-20 text-white md:px-10">
         <div className="mx-auto max-w-7xl text-center">
           <h2 className="text-3xl font-bold tracking-[-0.055em] md:text-5xl">
             Projenizi birlikte planlayalım.
@@ -200,7 +200,7 @@ export default function CozumlerPage() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               href="/proje-tasarim"
-              className="rounded-xl bg-white px-6 py-4 text-sm font-bold text-[#1477ff] transition hover:bg-blue-50"
+              className="rounded-xl bg-white px-6 py-4 text-sm font-bold text-[#5086a8] transition hover:bg-blue-50"
             >
               Projenizi Tasarlayalım
             </Link>

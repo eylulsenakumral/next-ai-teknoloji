@@ -60,7 +60,7 @@ function MobileDrawer({
       {/* Drawer panel */}
       <div className="fixed inset-y-0 left-0 z-50 w-[320px] max-w-[85vw] bg-white shadow-2xl flex flex-col animate-[slideInLeft_0.3s_ease-out]">
         {/* Drawer header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-[#e9e9e9] bg-[#0040a4]">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-[#e2e8f0] bg-[#0040a4]">
           <div className="flex items-center gap-2.5">
             <Image src="/logo.png" alt="Next AI Teknoloji" width={32} height={32} className="rounded-lg" />
             <div>
@@ -84,14 +84,14 @@ function MobileDrawer({
             <Link
               href="/"
               onClick={onClose}
-              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
             >
               Ana Sayfa
             </Link>
             <Link
               href="/katalog"
               onClick={onClose}
-              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
             >
               <Package className="h-4 w-4 text-[#0040a4]" aria-hidden />
               Tüm Ürünler
@@ -99,30 +99,30 @@ function MobileDrawer({
             <Link
               href="/katalog"
               onClick={onClose}
-              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
             >
               Markalar
             </Link>
             <Link
               href="/blog"
               onClick={onClose}
-              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
             >
               Blog
             </Link>
             <Link
               href="/basvuru"
               onClick={onClose}
-              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
             >
               İletişim
             </Link>
           </nav>
 
-          <div className="border-t border-[#e9e9e9] mx-4" />
+          <div className="border-t border-[#e2e8f0] mx-4" />
 
           <div className="px-3 py-3">
-            <p className="px-4 text-[11px] font-semibold text-[#767676] uppercase tracking-widest mb-1">
+            <p className="px-4 text-[11px] font-semibold text-[#64748b] uppercase tracking-widest mb-1">
               Hesap
             </p>
             <nav aria-label="Mobil hesap navigasyonu">
@@ -131,7 +131,7 @@ function MobileDrawer({
                   <Link
                     href="/hesabim"
                     onClick={onClose}
-                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
                   >
                     <User className="h-4 w-4 text-[#0040a4]" aria-hidden />
                     {userName || "Hesabım"}
@@ -150,7 +150,7 @@ function MobileDrawer({
                   <Link
                     href="/login"
                     onClick={onClose}
-                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
                   >
                     <User className="h-4 w-4 text-[#0040a4]" aria-hidden />
                     Giriş Yap
@@ -158,7 +158,7 @@ function MobileDrawer({
                   <Link
                     href="/basvuru"
                     onClick={onClose}
-                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e1e1e] hover:bg-[#f3f3f3] hover:text-[#0040a4] transition-colors rounded-lg"
+                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
                   >
                     <LogIn className="h-4 w-4 text-[#0040a4]" aria-hidden />
                     Hesap Oluştur
@@ -335,7 +335,7 @@ function HeaderSearchBar() {
               }
             }}
             placeholder="Ürün, marka, model ve açıklama giriniz"
-            className="w-full h-[46px] pl-5 pr-14 bg-[#f3f3f3] rounded-[20px] border border-transparent text-[14px] text-[#1e1e1e] placeholder:text-[#767676] focus:border-[#0040a4] focus:bg-white outline-none transition-all duration-300"
+            className="w-full h-[46px] pl-5 pr-14 bg-[#f4f7fa] rounded-[20px] border border-transparent text-[14px] text-[#453e71] placeholder:text-[#64748b] focus:border-[#0040a4] focus:bg-white outline-none transition-all duration-300"
             aria-label="Arama"
             aria-expanded={isOpen}
             aria-controls="search-results"
@@ -355,11 +355,11 @@ function HeaderSearchBar() {
       {isOpen && (
         <div
           id="search-results"
-          className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-lg border border-[#e9e9e9] max-h-[400px] overflow-y-auto z-50"
+          className="absolute top-full left-0 right-0 mt-1 bg-white rounded-xl shadow-lg border border-[#e2e8f0] max-h-[400px] overflow-y-auto z-50"
           role="listbox"
         >
           {isLoading ? (
-            <div className="px-4 py-3 text-[13px] text-[#767676] flex items-center gap-2">
+            <div className="px-4 py-3 text-[13px] text-[#64748b] flex items-center gap-2">
               <div className="w-4 h-4 border-2 border-[#0040a4] border-t-transparent rounded-full animate-spin" />
               <span>Aranıyor...</span>
             </div>
@@ -371,12 +371,12 @@ function HeaderSearchBar() {
                     <button
                       type="button"
                       onClick={() => handleResultClick(product)}
-                      className="w-full px-4 py-2.5 flex items-center gap-3 hover:bg-[#f3f3f3] transition-colors text-left"
+                      className="w-full px-4 py-2.5 flex items-center gap-3 hover:bg-[#f4f7fa] transition-colors text-left"
                       role="option"
                       aria-selected="false"
                     >
                       {/* Product Image */}
-                      <div className="w-10 h-10 shrink-0 rounded-lg bg-white border border-[#e9e9e9] flex items-center justify-center overflow-hidden">
+                      <div className="w-10 h-10 shrink-0 rounded-lg bg-white border border-[#e2e8f0] flex items-center justify-center overflow-hidden">
                         <img
                           src={getProductImage(product)}
                           alt={product.name}
@@ -387,18 +387,18 @@ function HeaderSearchBar() {
 
                       {/* Product Info */}
                       <div className="flex-1 min-w-0">
-                        <p className="text-[13px] font-semibold text-[#1e1e1e] truncate">
+                        <p className="text-[13px] font-semibold text-[#453e71] truncate">
                           {product.name}
                         </p>
                         <div className="flex items-center gap-2 mt-0.5">
                           {product.brand && (
-                            <span className="text-[11px] text-[#767676]">
+                            <span className="text-[11px] text-[#64748b]">
                               {product.brand.name}
                             </span>
                           )}
                           {product.price !== null && (
                             <>
-                              <span className="text-[#e9e9e9]">•</span>
+                              <span className="text-[#e2e8f0]">•</span>
                               <span className="text-[11px] text-[#0040a4] font-medium">
                                 {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                               </span>
@@ -412,11 +412,11 @@ function HeaderSearchBar() {
               </ul>
 
               {/* "Tümünü Gör" Link */}
-              <div className="border-t border-[#e9e9e9] px-4 py-2">
+              <div className="border-t border-[#e2e8f0] px-4 py-2">
                 <Link
                   href={`/katalog?search=${encodeURIComponent(value.trim())}`}
                   onClick={() => setIsOpen(false)}
-                  className="block text-center text-[13px] font-semibold text-[#0040a4] hover:text-[#1e1e1e] transition-colors py-1"
+                  className="block text-center text-[13px] font-semibold text-[#0040a4] hover:text-[#453e71] transition-colors py-1"
                 >
                   Tümünü Gör →
                 </Link>
@@ -424,7 +424,7 @@ function HeaderSearchBar() {
             </>
           ) : value.trim().length >= 2 ? (
             <div className="px-4 py-6 text-center">
-              <p className="text-[13px] text-[#767676]">Sonuç bulunamadı</p>
+              <p className="text-[13px] text-[#64748b]">Sonuç bulunamadı</p>
               <p className="text-[11px] text-[#a0a0a0] mt-1">
                 Farklı bir arama terimi deneyin
               </p>
@@ -517,8 +517,8 @@ export function PublicHeader() {
         className={cn(
           "z-50 transition-all duration-300 linear border-b",
           isSticky
-            ? "sticky top-0 shadow-md bg-white/80 backdrop-blur-md border-[#e9e9e9]/50"
-            : "bg-white border-[#e9e9e9]"
+            ? "sticky top-0 shadow-md bg-white/80 backdrop-blur-md border-[#e2e8f0]/50"
+            : "bg-white border-[#e2e8f0]"
         )}
         role="banner"
       >
@@ -530,7 +530,7 @@ export function PublicHeader() {
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                className="lg:hidden flex h-10 w-10 items-center justify-center text-[#1e1e1e] hover:text-[#0040a4] transition-colors"
+                className="lg:hidden flex h-10 w-10 items-center justify-center text-[#453e71] hover:text-[#0040a4] transition-colors"
                 aria-label="Menüyü aç"
               >
                 <Menu className="h-6 w-6" />
@@ -557,7 +557,7 @@ export function PublicHeader() {
               {isAuthenticated && user?.companyName ? (
                 <Link
                   href="/hesabim"
-                  className="hidden lg:flex items-center gap-1.5 text-[#1e1e1e] hover:text-[#0040a4] transition-colors text-sm font-medium nav-underline"
+                  className="hidden lg:flex items-center gap-1.5 text-[#453e71] hover:text-[#0040a4] transition-colors text-sm font-medium nav-underline"
                   aria-label={user.companyName}
                 >
                   <User className="h-5 w-5" />
@@ -566,7 +566,7 @@ export function PublicHeader() {
               ) : (
                 <Link
                   href="/login"
-                  className="hidden lg:flex items-center gap-1.5 text-[#1e1e1e] hover:text-[#0040a4] transition-colors text-sm font-medium nav-underline"
+                  className="hidden lg:flex items-center gap-1.5 text-[#453e71] hover:text-[#0040a4] transition-colors text-sm font-medium nav-underline"
                   aria-label="Bayi Girişi"
                 >
                   <User className="h-5 w-5" />
@@ -577,7 +577,7 @@ export function PublicHeader() {
               {/* Wishlist */}
               <Link
                 href="/katalog"
-                className="hidden sm:flex items-center gap-1 text-[#1e1e1e] hover:text-[#0040a4] transition-colors relative nav-underline"
+                className="hidden sm:flex items-center gap-1 text-[#453e71] hover:text-[#0040a4] transition-colors relative nav-underline"
                 aria-label="Favorilerim"
               >
                 <Heart className="h-5 w-5" />
@@ -586,7 +586,7 @@ export function PublicHeader() {
               {/* Cart with badge */}
               <Link
                 href="/sepet"
-                className="relative flex items-center gap-1 text-[#1e1e1e] hover:text-[#0040a4] transition-colors"
+                className="relative flex items-center gap-1 text-[#453e71] hover:text-[#0040a4] transition-colors"
                 aria-label={cartCount > 0 ? `Sepetim, ${cartCount} ürün` : "Sepetim"}
               >
                 <ShoppingCart className="h-5 w-5" />
@@ -604,7 +604,7 @@ export function PublicHeader() {
                   const searchInput = document.querySelector<HTMLInputElement>('input[type="search"]')
                   if (searchInput) searchInput.focus()
                 }}
-                className="lg:hidden flex h-10 w-10 items-center justify-center text-[#1e1e1e] hover:text-[#0040a4] transition-colors"
+                className="lg:hidden flex h-10 w-10 items-center justify-center text-[#453e71] hover:text-[#0040a4] transition-colors"
                 aria-label="Ürün ara"
               >
                 <Search className="h-5 w-5" />

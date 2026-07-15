@@ -43,7 +43,7 @@ const TYPE_LABELS: Record<string, string> = {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  FEATURED: "bg-[#1477ff] text-white",
+  FEATURED: "bg-[#5086a8] text-white",
   OUTLET: "bg-[#a60811] text-white",
   BUNDLE: "bg-[#3b7300] text-white",
 }
@@ -69,7 +69,7 @@ function CampaignCard({ campaign }: { campaign: CampaignSet }) {
   return (
     <Link
       href={`/kampanya/${campaign.slug}`}
-      className="group block bg-[#f3f3f3] rounded-[20px] overflow-hidden hover:shadow-xl hover:shadow-gray-400/20 hover:-translate-y-1 transition-all duration-300"
+      className="group block bg-[#f4f7fa] rounded-[20px] overflow-hidden hover:shadow-xl hover:shadow-gray-400/20 hover:-translate-y-1 transition-all duration-300"
     >
       {/* Banner image or grid preview */}
       <div className="relative aspect-[16/7] bg-white overflow-hidden">
@@ -84,7 +84,7 @@ function CampaignCard({ campaign }: { campaign: CampaignSet }) {
         ) : previewImages.length > 0 ? (
           <div className="grid grid-cols-4 h-full">
             {previewImages.slice(0, 4).map((img, i) => (
-              <div key={i} className="relative bg-[#f9f9f9] border-r border-white last:border-0">
+              <div key={i} className="relative bg-[#f4f7fa] border-r border-white last:border-0">
                 <Image
                   src={img}
                   alt=""
@@ -102,13 +102,13 @@ function CampaignCard({ campaign }: { campaign: CampaignSet }) {
         )}
 
         {/* Type badge */}
-        <span className={`absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 rounded-md ${TYPE_COLORS[campaign.type] ?? "bg-[#1477ff] text-white"}`}>
+        <span className={`absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 rounded-md ${TYPE_COLORS[campaign.type] ?? "bg-[#5086a8] text-white"}`}>
           {TYPE_LABELS[campaign.type] ?? campaign.type}
         </span>
 
         {/* Discount badge */}
         {discountPct ? (
-          <span className="absolute top-3 right-3 bg-white text-[#1477ff] text-[11px] font-bold px-2.5 py-1 rounded-md shadow-sm">
+          <span className="absolute top-3 right-3 bg-white text-[#5086a8] text-[11px] font-bold px-2.5 py-1 rounded-md shadow-sm">
             %{discountPct} İndirim
           </span>
         ) : null}
@@ -116,17 +116,17 @@ function CampaignCard({ campaign }: { campaign: CampaignSet }) {
 
       {/* Content */}
       <div className="p-5">
-        <h3 className="text-base font-bold text-[#1e1e1e] group-hover:text-[#1477ff] transition-colors leading-snug mb-2">
+        <h3 className="text-base font-bold text-[#453e71] group-hover:text-[#5086a8] transition-colors leading-snug mb-2">
           {campaign.name}
         </h3>
         {campaign.description && (
-          <p className="text-[13px] text-[#767676] line-clamp-2 leading-relaxed mb-3">
+          <p className="text-[13px] text-[#64748b] line-clamp-2 leading-relaxed mb-3">
             {campaign.description}
           </p>
         )}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="inline-flex items-center gap-1 text-[11px] text-[#767676]">
+            <span className="inline-flex items-center gap-1 text-[11px] text-[#64748b]">
               <Tag className="h-3 w-3" aria-hidden />
               {campaign.products.length} ürün
             </span>
@@ -136,7 +136,7 @@ function CampaignCard({ campaign }: { campaign: CampaignSet }) {
               </span>
             )}
           </div>
-          <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#1477ff] group-hover:translate-x-0.5 transition-transform">
+          <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#5086a8] group-hover:translate-x-0.5 transition-transform">
             İncele
             <ChevronRight className="h-3.5 w-3.5" aria-hidden />
           </span>
@@ -171,17 +171,17 @@ export default async function KampanyaPage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Page Header */}
-      <div className="bg-[#f3f3f3] border-b border-[#e9e9e9]">
+      <div className="bg-[#f4f7fa] border-b border-[#e2e8f0]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
-          <nav className="flex items-center gap-2 text-[12px] text-[#767676] mb-4">
-            <Link href="/" className="hover:text-[#1477ff] transition-colors">Ana Sayfa</Link>
+          <nav className="flex items-center gap-2 text-[12px] text-[#64748b] mb-4">
+            <Link href="/" className="hover:text-[#5086a8] transition-colors">Ana Sayfa</Link>
             <ChevronRight className="h-3 w-3" aria-hidden />
-            <span className="text-[#1e1e1e] font-semibold">Kampanyalar</span>
+            <span className="text-[#453e71] font-semibold">Kampanyalar</span>
           </nav>
-          <h1 className="text-[32px] font-bold text-[#1e1e1e] leading-tight">
+          <h1 className="text-[32px] font-bold text-[#453e71] leading-tight">
             Kampanyalar
           </h1>
-          <p className="text-[15px] text-[#767676] mt-2">
+          <p className="text-[15px] text-[#64748b] mt-2">
             Özel fırsatlar ve indirimli ürünleri keşfedin
           </p>
         </div>
@@ -190,7 +190,7 @@ export default async function KampanyaPage() {
       {/* Campaigns Grid */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {campaigns.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-center gap-4 border-2 border-dashed border-gray-300 rounded-[20px] bg-[#f3f3f3]/50">
+          <div className="flex flex-col items-center justify-center py-24 text-center gap-4 border-2 border-dashed border-gray-300 rounded-[20px] bg-[#f4f7fa]/50">
             <Tag className="h-12 w-12 text-gray-400" aria-hidden />
             <div>
               <p className="text-base font-semibold text-gray-600">Aktif kampanya bulunamadı.</p>
@@ -198,7 +198,7 @@ export default async function KampanyaPage() {
             </div>
             <Link
               href="/katalog"
-              className="inline-flex items-center gap-2 bg-[#1477ff] text-white font-bold px-6 py-2.5 rounded-lg hover:bg-[#1e1e1e] transition-colors text-sm"
+              className="inline-flex items-center gap-2 bg-[#5086a8] text-white font-bold px-6 py-2.5 rounded-lg hover:bg-[#453e71] transition-colors text-sm"
             >
               Kataloga Git
             </Link>

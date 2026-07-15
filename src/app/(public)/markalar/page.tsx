@@ -51,14 +51,14 @@ export default async function MarkalarPage() {
   return (
     <div className="font-nx-sans">
       {/* Hero */}
-      <section className="bg-[#071426] px-6 py-24 text-white md:px-10 md:py-32">
+      <section className="bg-[#453e71] px-6 py-24 text-white md:px-10 md:py-32">
         <div className="mx-auto max-w-7xl">
-          <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#67abff]">
+          <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#8aa8bc]">
             Tedarik ortaklarımız
           </p>
           <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.05] tracking-[-0.055em] md:text-6xl">
             27+ global markanın
-            <span className="block bg-gradient-to-r from-[#80b7ff] to-[#1477ff] bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-[#a8c4d4] to-[#5086a8] bg-clip-text text-transparent">
               yetkili tedarikçisi.
             </span>
           </h1>
@@ -73,7 +73,7 @@ export default async function MarkalarPage() {
       <section className="bg-white px-6 py-20 md:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-2xl">
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#1477ff]">
+            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#5086a8]">
               01 · Öne çıkan partnerler
             </p>
             <h2 className="mt-3 text-3xl font-bold tracking-[-0.055em] md:text-4xl">
@@ -85,13 +85,13 @@ export default async function MarkalarPage() {
             {FEATURED_BRANDS.map((b) => (
               <div
                 key={b.name}
-                className="group flex flex-col justify-between bg-white p-6 transition hover:bg-[#071426]"
+                className="group flex flex-col justify-between bg-white p-6 transition hover:bg-[#453e71]"
               >
                 <span className="font-nx-mono text-[9px] uppercase tracking-[.15em] text-slate-400 group-hover:text-slate-600">
                   {b.cat}
                 </span>
                 <div className="mt-6 flex h-12 items-center">
-                  <span className="text-2xl font-extrabold tracking-[-.04em] text-[#071426] group-hover:text-white">
+                  <span className="text-2xl font-extrabold tracking-[-.04em] text-[#453e71] group-hover:text-white">
                     {b.name}
                   </span>
                 </div>
@@ -99,7 +99,7 @@ export default async function MarkalarPage() {
                   <p className="text-xs text-slate-400 group-hover:text-slate-500">{b.desc}</p>
                   <Link
                     href={`/katalog?brandSlug=${b.name.toLowerCase()}`}
-                    className="mt-3 block text-xs font-bold text-[#1477ff] opacity-0 transition group-hover:opacity-100"
+                    className="mt-3 block text-xs font-bold text-[#5086a8] opacity-0 transition group-hover:opacity-100"
                   >
                     Ürünleri gör →
                   </Link>
@@ -114,7 +114,7 @@ export default async function MarkalarPage() {
       <section className="bg-[#f4f7fa] px-6 py-20 md:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-2xl">
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#1477ff]">
+            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#5086a8]">
               02 · Tüm markalar ({brands.length})
             </p>
             <h2 className="mt-3 text-3xl font-bold tracking-[-0.055em] md:text-4xl">
@@ -134,7 +134,7 @@ export default async function MarkalarPage() {
                 <Link
                   key={b.id}
                   href={`/urunler?brandSlug=${b.slug}`}
-                  className="group flex flex-col items-start gap-2 rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-[#1477ff]/30 hover:bg-[#1477ff]/5"
+                  className="group flex flex-col items-start gap-2 rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-[#5086a8]/30 hover:bg-[#5086a8]/5"
                 >
                   <div className="flex h-10 w-full items-center">
                     {b.logoUrl ? (
@@ -145,7 +145,7 @@ export default async function MarkalarPage() {
                         className="max-h-10 max-w-[120px] object-contain opacity-80 transition group-hover:opacity-100"
                       />
                     ) : (
-                      <span className="text-lg font-bold tracking-[-.04em] text-[#071426]">
+                      <span className="text-lg font-bold tracking-[-.04em] text-[#453e71]">
                         {b.name}
                       </span>
                     )}
@@ -153,7 +153,7 @@ export default async function MarkalarPage() {
                   <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-500">
                     {b.description ?? "Marka açıklaması"}
                   </p>
-                  <span className="mt-auto pt-3 text-xs font-bold text-[#1477ff]">
+                  <span className="mt-auto pt-3 text-xs font-bold text-[#5086a8]">
                     Ürünleri gör →
                   </span>
                 </Link>
@@ -164,7 +164,7 @@ export default async function MarkalarPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-[#1477ff] px-6 py-20 text-white md:px-10">
+      <section className="bg-[#5086a8] px-6 py-20 text-white md:px-10">
         <div className="mx-auto max-w-7xl text-center">
           <h2 className="text-3xl font-bold tracking-[-0.055em] md:text-5xl">
             Aradığınız markayı bulamadınız?
@@ -176,7 +176,7 @@ export default async function MarkalarPage() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               href="/teklif-iste"
-              className="rounded-xl bg-white px-6 py-4 text-sm font-bold text-[#1477ff] transition hover:bg-blue-50"
+              className="rounded-xl bg-white px-6 py-4 text-sm font-bold text-[#5086a8] transition hover:bg-blue-50"
             >
               Teklif İste
             </Link>

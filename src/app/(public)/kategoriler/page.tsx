@@ -145,7 +145,7 @@ export const metadata: Metadata = {
 /* ------------------------------------------------------------------ */
 
 const CATEGORY_GRADIENTS = [
-  "from-[#1477ff] to-[#1a6fe0]",
+  "from-[#5086a8] to-[#1a6fe0]",
   "from-[#1e3a5f] to-[#2d6da3]",
   "from-[#0c2340] to-[#1a5276]",
   "from-[#2c3e50] to-[#3498db]",
@@ -229,17 +229,17 @@ export default async function KategorilerPage() {
   const categories = await getCategories()
 
   return (
-    <div className="bg-[#f9f9f9] min-h-screen">
+    <div className="bg-[#f4f7fa] min-h-screen">
       {/* Breadcrumb */}
       <div className="bg-white border-b border-[#eeeeee]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-1.5 text-[12px] text-[#767676]"
+            className="flex items-center gap-1.5 text-[12px] text-[#64748b]"
           >
             <Link
               href="/"
-              className="flex items-center gap-1 hover:text-[#1477ff] transition-colors"
+              className="flex items-center gap-1 hover:text-[#5086a8] transition-colors"
             >
               <Home className="h-3 w-3" aria-hidden />
               Ana Sayfa
@@ -251,7 +251,7 @@ export default async function KategorilerPage() {
       </div>
 
       {/* Hero */}
-      <div className="bg-gradient-to-r from-[#1477ff] to-[#4da6ff] text-white">
+      <div className="bg-gradient-to-r from-[#5086a8] to-[#4da6ff] text-white">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
           <p className="text-[12px] font-bold uppercase tracking-widest text-white/60 mb-2">
             Kategoriler
@@ -273,7 +273,7 @@ export default async function KategorilerPage() {
               <Package className="h-9 w-9 text-[#dddddd]" aria-hidden />
             </div>
             <p className="font-bold text-[16px] text-[#333333]">Kategori bulunamadı</p>
-            <p className="text-[#767676] text-[13px] max-w-xs">
+            <p className="text-[#64748b] text-[13px] max-w-xs">
               Henüz kategori oluşturulmamış. Lütfen daha sonra tekrar deneyin.
             </p>
           </div>

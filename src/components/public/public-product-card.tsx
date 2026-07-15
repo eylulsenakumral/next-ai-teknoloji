@@ -148,7 +148,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
             <button
               type="button"
               onClick={() => router.push(`/katalog/${product.slug}`)}
-              className="w-full py-3 bg-[#0040a4] text-white font-semibold rounded-lg hover:bg-[#003080] transition-colors flex items-center justify-center gap-2"
+              className="w-full py-3 bg-[#0040a4] text-white font-semibold rounded-lg hover:bg-[#36305a] transition-colors flex items-center justify-center gap-2"
             >
               <Eye className="w-5 h-5" aria-hidden />
               Ürünü İncele
@@ -253,7 +253,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
               onClick={handleAddToCart}
               className={cn(
                 "flex-1 h-7 flex items-center justify-center gap-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200",
-                justAdded ? "bg-[#3b7300] text-white" : "bg-[#0040a4] text-white hover:bg-[#003080]"
+                justAdded ? "bg-[#3b7300] text-white" : "bg-[#0040a4] text-white hover:bg-[#36305a]"
               )}
               aria-label={`${product.name} sepete ekle`}
             >
@@ -350,7 +350,7 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
           )}
           <Link
             href={`/katalog/${product.slug}`}
-            className="block text-[15px] font-semibold text-[#1e1e1e] hover:text-[#0040a4] transition-colors leading-snug line-clamp-2"
+            className="block text-[15px] font-semibold text-[#453e71] hover:text-[#0040a4] transition-colors leading-snug line-clamp-2"
           >
             {product.name}
           </Link>
@@ -413,7 +413,7 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
               onClick={handleAddToCart}
               className={cn(
                 "h-8 px-4 flex items-center justify-center gap-1.5 rounded-lg text-[12px] font-semibold transition-all duration-200",
-                justAdded ? "bg-[#3b7300] text-white" : "bg-[#0040a4] text-white hover:bg-[#003080]"
+                justAdded ? "bg-[#3b7300] text-white" : "bg-[#0040a4] text-white hover:bg-[#36305a]"
               )}
               aria-label={`${product.name} sepete ekle`}
             >

@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export default function CategoryDetailLoading() {
   return (
-    <div className="bg-[#f9f9f9] min-h-screen">
+    <div className="bg-[#f4f7fa] min-h-screen">
       {/* Breadcrumb skeleton */}
       <div className="bg-white border-b border-[#eeeeee]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
@@ -17,7 +17,7 @@ export default function CategoryDetailLoading() {
       </div>
 
       {/* Hero skeleton */}
-      <div className="bg-gradient-to-r from-[#1477ff] to-[#4da6ff]">
+      <div className="bg-gradient-to-r from-[#5086a8] to-[#4da6ff]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
           <div className="flex items-start gap-5">
             <Skeleton className="hidden sm:block w-16 h-16 shrink-0 bg-white/20" />
