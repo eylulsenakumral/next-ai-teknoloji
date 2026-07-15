@@ -32,7 +32,7 @@ if (!Z_API_KEY) {
   )
 }
 const Z_API_URL = process.env.Z_AI_API_URL || 'https://api.z.ai/api/coding/paas/v4/chat/completions'
-const Z_MODEL = process.env.Z_AI_MODEL || 'glm-5-turbo'
+const Z_MODEL = process.env.Z_AI_MODEL || process.env.WHATSAPP_AI_MODEL || 'glm-5.2'
 
 async function getAllCategories(): Promise<Category[]> {
   const result = await pool.query<Category>(

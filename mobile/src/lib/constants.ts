@@ -23,3 +23,5 @@ export const STORAGE_KEYS = {
 } as const
 
 export const PAGE_SIZE = 20
+
+export const SUPPORT_WHATSAPP_PHONE = "905529895959"

@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db"
 import { updateProductSchema } from "@/lib/validators/product"
 import { generateSlug } from "@/lib/utils/slug"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
-import { withCache, invalidateProductCache, CacheKey, TTL } from "@/lib/cache"
+import { withCache, invalidateProductCache, invalidateNextCache, CacheKey, TTL } from "@/lib/cache"
 
 type Params = { params: Promise<{ id: string }> }
 
@@ -163,6 +163,7 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
   })
 
   await invalidateProductCache(id)
+  await invalidateNextCache(["product-listing"])
 
   return NextResponse.json({ success: true })
 }

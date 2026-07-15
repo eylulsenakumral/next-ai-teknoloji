@@ -23,9 +23,10 @@ export default function FavorilerScreen() {
   const [isLoading, setIsLoading] = useState(true)
 
   const fetch = () => {
+    setIsLoading(true)
     wishlistApi.get()
       .then((res) => setItems(res.items ?? []))
-      .catch(() => {})
+      .catch(() => Alert.alert('Hata', 'Favoriler yüklenemedi. Lütfen tekrar deneyin.'))
       .finally(() => setIsLoading(false))
   }
 
@@ -38,7 +39,11 @@ export default function FavorilerScreen() {
         text: "Kaldır",
         style: "destructive",
         onPress: () => {
-          wishlistApi.remove(productId).then(fetch)
+          setItems((prev) => prev.filter((i) => i.productId !== productId))
+          wishlistApi.remove(productId).catch(() => {
+              setItems(prev => prev) // zaten optimistic update geri alındı
+              Alert.alert('Hata', 'Ürün favorilerden kaldırılamadı.')
+            })
         },
       },
     ])

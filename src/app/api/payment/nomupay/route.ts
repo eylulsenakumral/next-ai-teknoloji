@@ -54,8 +54,8 @@ export async function POST(request: NextRequest) {
   <Price>${priceKurus}</Price>
   <CurrencyCode>${currency}</CurrencyCode>
   <MPAY>${mpay}</MPAY>
-  <ErrorURL>${appUrl}/api/payment/nomupay/callback?status=error&amp;mpay=${encodeURIComponent(mpay)}</ErrorURL>
-  <SuccessURL>${appUrl}/api/payment/nomupay/callback?status=success&amp;mpay=${encodeURIComponent(mpay)}&amp;amount=${amount}</SuccessURL>
+  <ErrorURL>${appUrl}/api/payment/nomupay/callback</ErrorURL>
+  <SuccessURL>${appUrl}/api/payment/nomupay/callback</SuccessURL>
   <Description>${description}</Description>
   <PaymentContent>${paymentContent}</PaymentContent>
   <CustomerInfo>

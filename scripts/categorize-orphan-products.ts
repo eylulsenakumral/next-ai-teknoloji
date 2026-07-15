@@ -6,7 +6,7 @@ import * as path from 'path'
 const DATABASE_URL = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/nextai'
 const Z_API_KEY = process.env.Z_AI_API_KEY
 const Z_API_URL = process.env.Z_AI_API_URL || 'https://api.z.ai/api/coding/paas/v4/chat/completions'
-const Z_MODEL = process.env.Z_AI_MODEL || 'glm-5-turbo'
+const Z_MODEL = process.env.Z_AI_MODEL || process.env.WHATSAPP_AI_MODEL || 'glm-5.2'
 
 if (!Z_API_KEY) {
   throw new Error('Z_AI_API_KEY environment variable is required. Set it in your .env file.')

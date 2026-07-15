@@ -3,6 +3,7 @@ import {
   View,
   Text,
   FlatList,
+  ScrollView,
   TouchableOpacity,
   ActivityIndicator,
   StyleSheet,
@@ -13,6 +14,7 @@ import { OrderCard } from "../../src/components/order-card"
 import { COLORS } from "../../src/lib/constants"
 import type { Order, OrderStatus } from "../../src/types"
 import { Ionicons } from "@expo/vector-icons"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 const STATUS_TABS: { key: string; label: string }[] = [
   { key: "", label: "Tümü" },
@@ -37,7 +39,7 @@ export default function SiparislerScreen() {
     try {
       const res = await ordersApi.list({ page: p, limit: 20, status: status || undefined })
       setOrders(append ? (prev) => [...prev, ...res.data] : res.data)
-      setHasMore(p < res.meta.totalPages)
+      setHasMore(p < (res.meta?.totalPages ?? 1))
     } catch (err: any) {
       const message =
         err?.data?.message ??
@@ -71,28 +73,37 @@ export default function SiparislerScreen() {
     fetchOrders(1, activeTab)
   }
 
+  const insets = useSafeAreaInsets()
+
   return (
     <View style={styles.container}>
+      <View style={{ height: insets.top, backgroundColor: "#0040a4" }} />
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Siparişlerim</Text>
+      </View>
       {/* Status tabs */}
-      <FlatList
-        horizontal
-        data={STATUS_TABS}
-        keyExtractor={(item) => item.key}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={[styles.tab, activeTab === item.key && styles.tabActive]}
-            onPress={() => setActiveTab(item.key)}
-          >
-            <Text style={[styles.tabText, activeTab === item.key && styles.tabTextActive]}>
-              {item.label}
-            </Text>
-          </TouchableOpacity>
-        )}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.tabsRow}
-      />
+      <View style={{ flexShrink: 0 }}>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={[styles.tabsRow, { alignItems: 'center' }]}
+        >
+          {STATUS_TABS.map((item) => (
+            <TouchableOpacity
+              key={item.key}
+              style={[styles.tab, activeTab === item.key && styles.tabActive]}
+              onPress={() => setActiveTab(item.key)}
+            >
+              <Text style={[styles.tabText, activeTab === item.key && styles.tabTextActive]}>
+                {item.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
 
       <FlatList
+        style={{ flex: 1 }}
         data={orders}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
@@ -143,6 +154,16 @@ const styles = StyleSheet.create({
   empty: { alignItems: "center", justifyContent: "center", paddingVertical: 64 },
   emptyText: { fontSize: 16, color: COLORS.textMuted, marginTop: 12 },
   errorText: { fontSize: 13, color: COLORS.textMuted, textAlign: "center", marginTop: 8, lineHeight: 20 },
-  retryButton: { marginTop: 16, backgroundColor: COLORS.primary, paddingHorizontal: 18, paddingVertical: 12 },
+  retryButton: { marginTop: 16, backgroundColor: COLORS.primary, paddingHorizontal: 18, paddingVertical: 12, borderRadius: 10 },
   retryButtonText: { color: "#fff", fontWeight: "700" },
+  header: {
+    backgroundColor: "#0040a4",
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: "800",
+    color: "#ffffff",
+  },
 })

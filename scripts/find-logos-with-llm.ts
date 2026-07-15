@@ -11,8 +11,13 @@ const pool = new pg.Pool({
 const adapter = new PrismaPg(pool)
 const prisma = new PrismaClient({ adapter })
 
-const ZAI_API = 'https://api.z.ai/api/coding/paas/v4/chat/completions'
-const ZAI_KEY = '042213d5518349509f67b0dcabb054d2.CrALf2SAl4jKXBgw'
+const ZAI_API = process.env.Z_AI_API_URL || 'https://api.z.ai/api/coding/paas/v4/chat/completions'
+const ZAI_KEY = process.env.Z_AI_API_KEY || process.env.WHATSAPP_AI_API_KEY
+const ZAI_MODEL = process.env.Z_AI_MODEL || process.env.WHATSAPP_AI_MODEL || 'glm-5.2'
+
+if (!ZAI_KEY) {
+  throw new Error('Z_AI_API_KEY or WHATSAPP_AI_API_KEY environment variable is required.')
+}
 
 async function findLogoWithLLM(brandName: string): Promise<string | null> {
   try {
@@ -23,7 +28,7 @@ async function findLogoWithLLM(brandName: string): Promise<string | null> {
         'Authorization': `Bearer ${ZAI_KEY}`,
       },
       body: JSON.stringify({
-        model: 'glm-5.1',
+        model: ZAI_MODEL,
         stream: false,
         messages: [
           {

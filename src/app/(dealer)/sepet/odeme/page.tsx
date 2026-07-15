@@ -41,7 +41,7 @@ export default function OdemePage() {
 
       const orderData = await orderRes.json()
       if (!orderRes.ok) {
-        throw new Error(orderData.error || "Siparis olusturulamadi")
+        throw new Error(orderData.error || "Sipariş oluşturulamadı")
       }
 
       const mpay = orderData.data.orderNumber
@@ -53,7 +53,7 @@ export default function OdemePage() {
         body: JSON.stringify({
           amount: grandTotalTRY || grandTotal,
           mpay,
-          description: `Next AI - ${items.length} urun siparis (${mpay})`,
+          description: `Next AI - ${items.length} ürün sipariş (${mpay})`,
           paymentContent: items.map((i) => i.productName).join(", ").slice(0, 200),
         }),
       })
@@ -66,12 +66,12 @@ export default function OdemePage() {
         window.location.href = data.returnUrl
       } else {
         setIsRedirecting(false)
-        setError(data.resultMessage || "Odeme baslatma basarisiz")
+        setError(data.resultMessage || "Ödeme başlatma başarısız")
         setDebugInfo(data)
       }
     } catch (err) {
       setIsRedirecting(false)
-      setError(err instanceof Error ? err.message : "Baglanti hatasi olustu.")
+      setError(err instanceof Error ? err.message : "Bağlantı hatası oluştu.")
       console.error("[ODEME] Error:", err)
     }
   }
@@ -84,13 +84,13 @@ export default function OdemePage() {
             <Package className="h-8 w-8 text-[#0040a4]" />
           </div>
         </div>
-        <h1 className="text-xl font-bold text-[#333] mb-2">Sepetiniz bos</h1>
-        <p className="text-[#767676] mb-6">Odeme yapabilmek icin sepetinize urun ekleyin.</p>
+        <h1 className="text-xl font-bold text-[#333] mb-2">Sepetiniz boş</h1>
+        <p className="text-[#767676] mb-6">Ödeme yapabilmek için sepetinize ürün ekleyin.</p>
         <Link
           href="/urunler"
           className="inline-flex h-11 items-center justify-center rounded-xl bg-[#0040a4] px-6 text-sm font-semibold text-white hover:bg-[#003080] transition-colors"
         >
-          Urunlere Goz At
+          Ürünlere Göz At
         </Link>
       </div>
     )
@@ -107,8 +107,8 @@ export default function OdemePage() {
           <ArrowLeft className="h-4 w-4" />
         </Link>
         <div>
-          <h1 className="text-xl font-bold text-[#333]">Kredi Karti ile Odeme</h1>
-          <p className="text-sm text-[#767676]">Guvenli odeme sayfasina yonlendirileceksiniz</p>
+          <h1 className="text-xl font-bold text-[#333]">Kredi Kartı ile Ödeme</h1>
+          <p className="text-sm text-[#767676]">Güvenli ödeme sayfasına yönlendirileceksiniz</p>
         </div>
       </div>
 
@@ -118,36 +118,36 @@ export default function OdemePage() {
           <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-6 space-y-5">
             <div className="flex items-center gap-2 mb-2">
               <CreditCard className="h-5 w-5 text-[#0040a4]" />
-              <h2 className="font-semibold text-[#333]">Odeme Bilgileri</h2>
+              <h2 className="font-semibold text-[#333]">Ödeme Bilgileri</h2>
             </div>
 
             <div className="rounded-xl bg-[#f0f5ff] border border-[#c5d9f8] p-5 space-y-3">
               <div className="flex items-start gap-3">
                 <Lock className="h-5 w-5 text-[#0040a4] shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-semibold text-[#333]">Guvenli Odeme</p>
+                  <p className="text-sm font-semibold text-[#333]">Güvenli Ödeme</p>
                   <p className="text-[13px] text-[#767676] mt-1">
-                    Kart bilgilerinizi girme islemi NomuPay&apos;in guvenli odeme sayfasinda gerceklesecektir.
-                    Kart bilgileriniz bizim sunucularimizdan gecmez, 256-bit SSL ile korunur.
+                    Kart bilgilerinizi girme işlemi NomuPay&apos;in güvenli ödeme sayfasında gerçekleşecektir.
+                    Kart bilgileriniz bizim sunucularımızdan geçmez, 256-bit SSL ile korunur.
                   </p>
                 </div>
               </div>
             </div>
 
             <div className="rounded-xl border border-[#e5e5e5] p-4 space-y-3">
-              <p className="text-sm font-medium text-[#333]">Odeme Adimlari</p>
+              <p className="text-sm font-medium text-[#333]">Ödeme Adımları</p>
               <ol className="space-y-2 text-[13px] text-[#767676]">
                 <li className="flex gap-2">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#0040a4] text-white text-[10px] font-bold shrink-0">1</span>
-                  <span>&quot;Odeme Sayfasina Git&quot; butonuna tiklayin</span>
+                  <span>&quot;Ödeme Sayfasına Git&quot; butonuna tıklayın</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#0040a4] text-white text-[10px] font-bold shrink-0">2</span>
-                  <span>NomuPay guvenli odeme sayfasinda kart bilgilerinizi girin</span>
+                  <span>NomuPay güvenli ödeme sayfasında kart bilgilerinizi girin</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#0040a4] text-white text-[10px] font-bold shrink-0">3</span>
-                  <span>3D Secure dogrulamasini tamamlayin</span>
+                  <span>3D Secure doğrulamasını tamamlayın</span>
                 </li>
               </ol>
             </div>
@@ -174,12 +174,12 @@ export default function OdemePage() {
               {isRedirecting ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Yonlendiriliyor...
+                  Yönlendiriliyor...
                 </>
               ) : (
                 <>
                   <ExternalLink className="h-4 w-4" />
-                  Odeme Sayfasina Git ({formatCurrency(grandTotalTRY || grandTotal, grandTotalTRY ? "TRY" : "USD")})
+                  Ödeme Sayfasına Git ({formatCurrency(grandTotalTRY || grandTotal, grandTotalTRY ? "TRY" : "USD")})
                 </>
               )}
             </button>
@@ -187,7 +187,7 @@ export default function OdemePage() {
             <div className="flex items-center justify-center gap-4 pt-1">
               <img src="/images/visa-logo.svg" alt="Visa" className="h-6 opacity-60" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
               <img src="/images/mastercard-logo.svg" alt="Mastercard" className="h-6 opacity-60" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
-              <span className="text-[11px] text-[#999]">Guvenli odeme altyapisi</span>
+              <span className="text-[11px] text-[#999]">Güvenli ödeme altyapısı</span>
             </div>
           </div>
         </div>
@@ -199,7 +199,7 @@ export default function OdemePage() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0040a4]/10">
                 <Package className="h-4 w-4 text-[#0040a4]" />
               </div>
-              <h2 className="font-semibold text-base text-[#333]">Siparis Ozeti</h2>
+              <h2 className="font-semibold text-base text-[#333]">Sipariş Özeti</h2>
             </div>
 
             <div className="space-y-2 max-h-48 overflow-y-auto">
@@ -236,11 +236,11 @@ export default function OdemePage() {
             {usd > 0 && (
               <div className="rounded-xl bg-[#f0f5ff] border border-[#c5d9f8] p-4 space-y-1.5">
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-[#0040a4] font-medium">TL Karsiligi (POS Tutarı)</span>
+                  <span className="text-[#0040a4] font-medium">TL Karşılığı (POS Tutarı)</span>
                   <span className="font-bold text-[#0040a4]">{formatCurrency(grandTotalTRY, "TRY")}</span>
                 </div>
                 <p className="text-[11px] text-[#767676]">
-                  1 USD = {usd.toFixed(2)} TL (TCMB gunluk kur)
+                  1 USD = {usd.toFixed(2)} TL (TCMB günlük kur)
                 </p>
               </div>
             )}

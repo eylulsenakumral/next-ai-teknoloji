@@ -24,7 +24,7 @@ export default function CariScreen() {
         setTransactions(res.data)
         setMeta(res.meta)
       })
-      .catch(() => {})
+      .catch(() => Alert.alert('Hata', 'İşlemler yüklenemedi. Lütfen tekrar deneyin.'))
       .finally(() => setIsLoading(false))
   }
 

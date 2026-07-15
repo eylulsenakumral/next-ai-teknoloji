@@ -1,12 +1,10 @@
 import { api } from "./client"
 import type { ProfileResponse, Customer } from "../types"
 import { setSessionToken, clearSession, setUserData, getSessionToken } from "../lib/storage"
+import { API_BASE_URL } from "../lib/constants"
 
-/**
- * Mobile login endpoint — bypasses NextAuth CSRF
- */
 export async function login(dealerCode: string, password: string): Promise<Customer> {
-  const res = await fetch("https://nexadepo.com/api/auth/mobile-login", {
+  const res = await fetch(`${API_BASE_URL}/api/auth/mobile-login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

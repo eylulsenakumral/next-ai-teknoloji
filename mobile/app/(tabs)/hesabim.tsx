@@ -10,17 +10,19 @@ import {
 } from "react-native"
 import { useRouter } from "expo-router"
 import { useAuthStore } from "../../src/stores/auth-store"
-import { COLORS } from "../../src/lib/constants"
+import { COLORS, SUPPORT_WHATSAPP_PHONE } from "../../src/lib/constants"
+import { getStatusLabel, formatPrice } from "../../src/lib/format"
 import { Ionicons } from "@expo/vector-icons"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 export default function HesabimScreen() {
   const router = useRouter()
   const { user, logout } = useAuthStore()
   const avatarLetter = getAvatarLetter(user?.contactName, user?.companyName)
+  const insets = useSafeAreaInsets()
 
   const openWhatsAppSupport = async () => {
-    const phone = (user?.whatsappPhone ?? user?.phone ?? "").replace(/\D/g, "")
-    const normalizedPhone = phone.startsWith("90") ? phone : phone ? `90${phone}` : "905551112233"
+    const normalizedPhone = SUPPORT_WHATSAPP_PHONE
     const message = encodeURIComponent("Merhaba, Next AI bayi uygulaması için destek almak istiyorum.")
     const url = `https://wa.me/${normalizedPhone}?text=${message}`
 
@@ -46,7 +48,9 @@ export default function HesabimScreen() {
   }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
+    <View style={styles.container}>
+    <View style={{ height: insets.top, backgroundColor: "#f9f9f9" }} />
+    <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 32 }}>
       {/* Profile card */}
       <View style={styles.profileCard}>
         <View style={styles.avatar}>
@@ -62,9 +66,28 @@ export default function HesabimScreen() {
           <InfoPill icon="call-outline" value={user?.phone ?? user?.phone2} />
         </View>
         <View style={[styles.statusBadge, { backgroundColor: COLORS.success + "20" }]}>
-          <Text style={[styles.statusText, { color: COLORS.success }]}>{user?.status}</Text>
+          <Text style={[styles.statusText, { color: COLORS.success }]}>{user?.status ? getStatusLabel(user.status) : ""}</Text>
         </View>
       </View>
+
+      {/* Balance card */}
+      {(user?.balance !== undefined || user?.creditLimit !== undefined) && (
+        <View style={styles.balanceCard}>
+          <View style={styles.balanceItem}>
+            <Text style={styles.balanceLabel}>Bakiye</Text>
+            <Text style={styles.balanceValue}>
+              {formatPrice(user?.balance ?? 0)}
+            </Text>
+          </View>
+          <View style={styles.balanceDivider} />
+          <View style={styles.balanceItem}>
+            <Text style={styles.balanceLabel}>Kredi Limiti</Text>
+            <Text style={styles.balanceValue}>
+              {formatPrice(user?.creditLimit ?? 0)}
+            </Text>
+          </View>
+        </View>
+      )}
 
       {/* Menu items */}
       <View style={styles.menuSection}>
@@ -90,6 +113,7 @@ export default function HesabimScreen() {
         <Text style={styles.logoutText}>Çıkış Yap</Text>
       </TouchableOpacity>
     </ScrollView>
+    </View>
   )
 }
 
@@ -128,38 +152,50 @@ const mStyles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: 14,
+    paddingVertical: 15,
     paddingHorizontal: 16,
-    backgroundColor: COLORS.surface,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+    backgroundColor: "#ffffff",
+    borderRadius: 14,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
   },
   left: { flexDirection: "row", alignItems: "center", gap: 14 },
-  label: { fontSize: 15, color: COLORS.text },
+  label: { fontSize: 15, color: "#1a1a1a", fontWeight: "500" },
 })
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: COLORS.background },
+  container: { flex: 1, backgroundColor: "#f9f9f9" },
   profileCard: {
-    backgroundColor: COLORS.surface,
+    backgroundColor: "#0040a4",
+    marginHorizontal: 16,
+    marginTop: 16,
+    borderRadius: 20,
     padding: 24,
     alignItems: "center",
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.border,
+    shadowColor: "#0040a4",
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.30,
+    shadowRadius: 12,
+    elevation: 8,
   },
   avatar: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    backgroundColor: COLORS.primary + "20",
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    backgroundColor: "rgba(255,255,255,0.2)",
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 12,
+    borderWidth: 2,
+    borderColor: "rgba(255,255,255,0.35)",
   },
-  avatarText: { fontSize: 28, fontWeight: "700", color: COLORS.primary },
-  contactName: { fontSize: 17, fontWeight: "800", color: COLORS.text, marginTop: 2 },
-  companyName: { fontSize: 20, fontWeight: "700", color: COLORS.text },
-  dealerCode: { fontSize: 14, color: COLORS.textMuted, marginTop: 4 },
+  avatarText: { fontSize: 30, fontWeight: "900", color: "#ffffff" },
+  contactName: { fontSize: 18, fontWeight: "800", color: "#ffffff", marginTop: 4 },
+  companyName: { fontSize: 16, fontWeight: "700", color: "rgba(255,255,255,0.85)" },
+  dealerCode: { fontSize: 13, color: "rgba(255,255,255,0.65)", marginTop: 4 },
   contactInfo: { marginTop: 10, gap: 6, alignItems: "center" },
   infoPill: {
     flexDirection: "row",
@@ -168,29 +204,41 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 9,
-    backgroundColor: COLORS.background,
+    backgroundColor: "rgba(255,255,255,0.15)",
   },
-  infoPillText: { color: COLORS.textMuted, fontSize: 12, fontWeight: "600" },
+  infoPillText: { color: "rgba(255,255,255,0.9)", fontSize: 12, fontWeight: "600" },
   statusBadge: { paddingHorizontal: 12, paddingVertical: 4, borderRadius: 8, marginTop: 8 },
   statusText: { fontSize: 12, fontWeight: "600" },
   menuSection: {
-    backgroundColor: COLORS.surface,
-    marginTop: 12,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderColor: COLORS.border,
+    marginTop: 8,
+    marginHorizontal: 16,
+    gap: 8,
+    paddingBottom: 4,
   },
   logoutBtn: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    backgroundColor: COLORS.surface,
-    marginTop: 12,
+    backgroundColor: "#fff5f5",
+    marginTop: 8,
+    marginHorizontal: 16,
     padding: 16,
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    borderRadius: 14,
+    borderWidth: 1,
     borderColor: COLORS.border,
   },
   logoutText: { fontSize: 15, color: COLORS.danger, fontWeight: "600" },
+  balanceCard: {
+    flexDirection: "row",
+    backgroundColor: COLORS.primary,
+    marginHorizontal: 16,
+    marginBottom: 12,
+    borderRadius: 12,
+    padding: 16,
+  },
+  balanceItem: { flex: 1, alignItems: "center" },
+  balanceLabel: { color: "rgba(255,255,255,0.7)", fontSize: 12, marginBottom: 4 },
+  balanceValue: { color: "#fff", fontSize: 16, fontWeight: "700" },
+  balanceDivider: { width: 1, backgroundColor: "rgba(255,255,255,0.3)", marginVertical: 4 },
 })

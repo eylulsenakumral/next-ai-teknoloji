@@ -27,6 +27,12 @@ export function OrderCard({ order, onPress }: Props) {
         <Text style={styles.amount}>{formatPrice(order.totalAmount, order.currency)}</Text>
       </View>
       <Text style={styles.items}>{itemCount} ürün</Text>
+      {order.previewItems && order.previewItems.length > 0 && (
+        <Text style={styles.previewItems} numberOfLines={1}>
+          {order.previewItems.join(", ")}
+          {itemCount > order.previewItems.length ? ` +${itemCount - order.previewItems.length} ürün` : ""}
+        </Text>
+      )}
       {order.trackingNumber && (
         <Text style={styles.tracking}>Kargo: {order.trackingNumber}</Text>
       )}
@@ -60,5 +66,6 @@ const styles = StyleSheet.create({
     fontVariant: ["tabular-nums"],
   },
   items: { fontSize: 13, color: COLORS.textMuted, marginTop: 4 },
+  previewItems: { fontSize: 12, color: "#6b7280", marginTop: 3 },
   tracking: { fontSize: 12, color: COLORS.primary, marginTop: 4 },
 })

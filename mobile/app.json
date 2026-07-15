@@ -26,7 +26,15 @@
       "edgeToEdgeEnabled": true
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/icon.png",
+          "color": "#0040a4",
+          "defaultChannel": "default"
+        }
+      ]
     ],
     "extra": {
       "apiBaseUrl": "https://nexadepo.com"

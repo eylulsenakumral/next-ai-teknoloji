@@ -45,8 +45,18 @@ export const useCartStore = create<CartState>((set, get) => ({
   },
 
   removeItem: async (itemId) => {
-    await cartApi.remove(itemId)
-    await get().fetch()
+    const prevCart = get().cart
+    if (prevCart) {
+      const updated = { ...prevCart, items: prevCart.items.filter((i) => i.id !== itemId) }
+      set({ cart: updated, itemCount: countItems(updated) })
+    }
+    try {
+      await cartApi.remove(itemId)
+    } catch {
+      if (prevCart) set({ cart: prevCart, itemCount: countItems(prevCart) })
+    } finally {
+      await get().fetch()
+    }
   },
 
   clearCart: async () => {
