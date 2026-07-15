@@ -12,6 +12,7 @@ interface CampaignSetProduct {
   id: string
   label: string | null
   sortOrder: number
+  quantity: number
   product: {
     id: string
     name: string

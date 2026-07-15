@@ -97,7 +97,7 @@ export default function WhatsAppAdminPage() {
   const [sendingPhone, setSendingPhone] = useState("");
   const [sendingMessage, setSendingMessage] = useState("");
   const [loading, setLoading] = useState(true);
-  const [pollInterval, setPollInterval] = useState<NodeJS.Timeout | null>(null);
+  const [pollInterval, setPollInterval] = useState<ReturnType<typeof setInterval> | null>(null);
 
   // Fetch connection status
   const fetchStatus = useCallback(async () => {

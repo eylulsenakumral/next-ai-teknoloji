@@ -17,8 +17,8 @@ import { redis } from "./redis"
 // TTL constants (seconds)
 // ---------------------------------------------------------------------------
 export const TTL = {
-  PRODUCT_LIST: 5 * 60,      // 5 minutes
-  PRODUCT_DETAIL: 5 * 60,    // 5 minutes
+  PRODUCT_LIST: 2 * 60,      // 2 minutes
+  PRODUCT_DETAIL: 2 * 60,    // 2 minutes
   CATEGORY_TREE: 30 * 60,    // 30 minutes
   CATEGORY_LIST: 30 * 60,    // 30 minutes
   BRAND_LIST: 30 * 60,       // 30 minutes
@@ -167,5 +167,17 @@ export async function invalidatePriceCache(productId?: string): Promise<void> {
     await cacheDel(CacheKey.price(productId))
   } else {
     await cacheDelPattern("nexadepo:price:*")
+  }
+}
+
+/** Next.js unstable_cache tag'larını invalidate et */
+export async function invalidateNextCache(tags: string[] = ["product-listing"]): Promise<void> {
+  try {
+    const { revalidateTag } = await import("next/cache")
+    for (const tag of tags) {
+      revalidateTag(tag, "default")
+    }
+  } catch {
+    // non-SSR context'te sessizce geç
   }
 }

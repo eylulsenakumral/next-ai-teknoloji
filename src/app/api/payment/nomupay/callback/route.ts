@@ -4,10 +4,15 @@ import { Prisma } from "@prisma/client"
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:4040"
 
+// 303 See Other redirect — forces browser to use GET (prevents 405 on POST→redirect)
+function seeOther(url: string) {
+  return NextResponse.redirect(url, { status: 303 })
+}
+
 // Step 3: NomuPay calls this URL with POST form-data after payment
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.formData()
+    const formData = await request.formData() as unknown as FormData
     const statusCode = formData.get("StatusCode") as string
     const orderId = formData.get("OrderId") as string
     const mpay = formData.get("MPAY") as string
@@ -78,7 +83,7 @@ export async function POST(request: NextRequest) {
             })
 
             // Sipariş ödemesini de cari hesaba işle
-            const paymentAmount = Number(order.totalAmount)
+            const paymentAmount = Number(order.grandTotal)
             const customer = await prisma.customer.findFirst({
               where: { id: order.customerId, deletedAt: null },
             })
@@ -112,8 +117,8 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      return NextResponse.redirect(
-        new URL(`/sepet/odeme/sonuc?status=success&order=${encodeURIComponent(mpay)}`, APP_URL)
+      return seeOther(
+        new URL(`/sepet/odeme/sonuc?status=success&order=${encodeURIComponent(mpay)}`, APP_URL).toString()
       )
     }
 
@@ -139,13 +144,13 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.redirect(
-      new URL(`/sepet/odeme/sonuc?status=error&msg=${encodeURIComponent(resultMessage || "Ödeme başarısız")}`, APP_URL)
+    return seeOther(
+      new URL(`/sepet/odeme/sonuc?status=error&msg=${encodeURIComponent(resultMessage || "Ödeme başarısız")}`, APP_URL).toString()
     )
   } catch (error) {
     console.error("Nomupay callback error:", error)
-    return NextResponse.redirect(
-      new URL("/sepet/odeme/sonuc?status=error&msg=İşlem+hata", APP_URL)
+    return seeOther(
+      new URL("/sepet/odeme/sonuc?status=error&msg=İşlem+hata", APP_URL).toString()
     )
   }
 }

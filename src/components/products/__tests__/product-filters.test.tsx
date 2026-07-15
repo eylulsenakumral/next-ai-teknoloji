@@ -11,13 +11,13 @@ const mockCategories: CategoryNode[] = [
     id: 'cat-1',
     name: 'Bilgisayarlar',
     slug: 'bilgisayarlar',
-    path: [],
+    depth: 0,
     children: [
       {
         id: 'cat-1-1',
         name: 'Laptop',
         slug: 'laptop',
-        path: [],
+        depth: 1,
         children: [],
         _count: { products: 15 },
       },
@@ -25,7 +25,7 @@ const mockCategories: CategoryNode[] = [
         id: 'cat-1-2',
         name: 'Masaustu',
         slug: 'masaustu',
-        path: [],
+        depth: 1,
         children: [],
         _count: { products: 8 },
       },
@@ -36,7 +36,7 @@ const mockCategories: CategoryNode[] = [
     id: 'cat-2',
     name: 'Cep Telefonlari',
     slug: 'cep-telefonlari',
-    path: [],
+    depth: 0,
     children: [],
     _count: { products: 45 },
   },
@@ -50,10 +50,14 @@ const mockBrands: BrandItem[] = [
 ]
 
 const mockFilters: ProductFiltersType = {
+  q: '',
   categoryId: '',
   brandId: '',
+  supplierId: '',
   minPrice: '',
   maxPrice: '',
+  inStock: undefined,
+  sortBy: 'newest',
   page: 1,
 }
 

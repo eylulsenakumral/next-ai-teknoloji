@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   const authError = requireAdminSession(session)
   if (authError) return authError
 
-  const formData = await req.formData()
+  const formData = await req.formData() as unknown as FormData
   const file = formData.get("file") as File | null
   if (!file) {
     return NextResponse.json({ error: "Dosya bulunamadi." }, { status: 400 })
@@ -183,7 +183,7 @@ export async function PUT(req: NextRequest) {
   const authError = requireAdminSession(session)
   if (authError) return authError
 
-  const formData = await req.formData()
+  const formData = await req.formData() as unknown as FormData
   const file = formData.get("file") as File | null
   if (!file) {
     return NextResponse.json({ error: "Dosya bulunamadi." }, { status: 400 })
