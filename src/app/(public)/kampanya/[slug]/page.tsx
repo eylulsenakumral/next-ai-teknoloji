@@ -80,7 +80,7 @@ const TYPE_LABELS: Record<string, string> = {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  FEATURED: "bg-[#0040a4] text-white",
+  FEATURED: "bg-[#1477ff] text-white",
   OUTLET: "bg-[#a60811] text-white",
   BUNDLE: "bg-[#3b7300] text-white",
 }
@@ -137,9 +137,9 @@ export default async function KampanyaDetailPage({
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-[12px] text-[#767676] mb-4">
-            <Link href="/" className="hover:text-[#0040a4] transition-colors">Ana Sayfa</Link>
+            <Link href="/" className="hover:text-[#1477ff] transition-colors">Ana Sayfa</Link>
             <ChevronRight className="h-3 w-3" aria-hidden />
-            <Link href="/kampanya" className="hover:text-[#0040a4] transition-colors">Kampanyalar</Link>
+            <Link href="/kampanya" className="hover:text-[#1477ff] transition-colors">Kampanyalar</Link>
             <ChevronRight className="h-3 w-3" aria-hidden />
             <span className="text-[#1e1e1e] font-semibold truncate max-w-[200px]">{campaign.name}</span>
           </nav>
@@ -147,7 +147,7 @@ export default async function KampanyaDetailPage({
           <div className="flex flex-wrap items-start gap-4">
             <div className="flex-1 min-w-0">
               {/* Type badge */}
-              <span className={`inline-block text-[11px] font-bold px-2.5 py-1 rounded-md mb-3 ${TYPE_COLORS[campaign.type] ?? "bg-[#0040a4] text-white"}`}>
+              <span className={`inline-block text-[11px] font-bold px-2.5 py-1 rounded-md mb-3 ${TYPE_COLORS[campaign.type] ?? "bg-[#1477ff] text-white"}`}>
                 {TYPE_LABELS[campaign.type] ?? campaign.type}
               </span>
 
@@ -214,7 +214,7 @@ export default async function KampanyaDetailPage({
             <div className="flex flex-wrap items-center justify-between gap-4 mb-8 p-4 bg-[#f3f3f3] rounded-xl border border-[#e9e9e9]">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
-                  <Package className="h-5 w-5 text-[#0040a4]" />
+                  <Package className="h-5 w-5 text-[#1477ff]" />
                   <span className="text-sm font-semibold text-[#1e1e1e]">
                     {campaign.products.length} ürün
                   </span>
@@ -274,7 +274,7 @@ export default async function KampanyaDetailPage({
                       </div>
                     )}
                     {cp.quantity > 1 && (
-                      <span className="absolute top-3 right-3 bg-[#0040a4] text-white text-xs font-bold px-2 py-1 rounded-lg">
+                      <span className="absolute top-3 right-3 bg-[#1477ff] text-white text-xs font-bold px-2 py-1 rounded-lg">
                         x{cp.quantity}
                       </span>
                     )}
@@ -285,7 +285,7 @@ export default async function KampanyaDetailPage({
                         {cp.product.brand.name}
                       </p>
                     )}
-                    <p className="text-[13px] font-semibold text-[#1e1e1e] leading-snug line-clamp-2 group-hover:text-[#0040a4] transition-colors">
+                    <p className="text-[13px] font-semibold text-[#1e1e1e] leading-snug line-clamp-2 group-hover:text-[#1477ff] transition-colors">
                       {cp.product.name}
                     </p>
                   </div>

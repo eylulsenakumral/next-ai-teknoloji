@@ -151,7 +151,7 @@ function QuoteForm() {
             name="companyName"
             type="text"
             required
-            className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#0040a4] focus:ring-1 focus:ring-[#0040a4]/20"
+            className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#1477ff] focus:ring-1 focus:ring-[#1477ff]/20"
             placeholder="Şirketinizin adını girin"
           />
         </div>
@@ -165,7 +165,7 @@ function QuoteForm() {
               name="contactName"
               type="text"
               required
-              className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#0040a4] focus:ring-1 focus:ring-[#0040a4]/20"
+              className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#1477ff] focus:ring-1 focus:ring-[#1477ff]/20"
               placeholder="Adınız"
             />
           </div>
@@ -177,7 +177,7 @@ function QuoteForm() {
               name="phone"
               type="tel"
               required
-              className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#0040a4] focus:ring-1 focus:ring-[#0040a4]/20"
+              className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#1477ff] focus:ring-1 focus:ring-[#1477ff]/20"
               placeholder="+90 5XX XXX XX XX"
             />
           </div>
@@ -191,7 +191,7 @@ function QuoteForm() {
             name="email"
             type="email"
             required
-            className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#0040a4] focus:ring-1 focus:ring-[#0040a4]/20"
+            className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#1477ff] focus:ring-1 focus:ring-[#1477ff]/20"
             placeholder="ornek@sirket.com"
           />
         </div>
@@ -202,7 +202,7 @@ function QuoteForm() {
           </label>
           <select
             name="sector"
-            className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#0040a4] focus:ring-1 focus:ring-[#0040a4]/20 bg-white"
+            className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#1477ff] focus:ring-1 focus:ring-[#1477ff]/20 bg-white"
           >
             <option value="">Seçiniz</option>
             <option value="imalat">İmalat</option>
@@ -221,7 +221,7 @@ function QuoteForm() {
             name="message"
             required
             rows={4}
-            className="w-full border border-[#eeeeee] px-4 py-3 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#0040a4] focus:ring-1 focus:ring-[#0040a4]/20 resize-none"
+            className="w-full border border-[#eeeeee] px-4 py-3 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#1477ff] focus:ring-1 focus:ring-[#1477ff]/20 resize-none"
             placeholder="Hangi ürünlere ihtiyacınız var? Tahmini sipariş miktarınız nedir?"
           />
         </div>
@@ -235,7 +235,7 @@ function QuoteForm() {
         <button
           type="submit"
           disabled={formStatus === "sending"}
-          className="w-full h-12 bg-[#0040a4] text-white font-bold text-[14px] hover:bg-[#1e1e1e] transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
+          className="w-full h-12 bg-[#1477ff] text-white font-bold text-[14px] hover:bg-[#1e1e1e] transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
         >
           <Send className="w-4 h-4" />
           {formStatus === "sending" ? "Gönderiliyor..." : "Teklif İste"}
@@ -249,7 +249,7 @@ export default function KurumsalPage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#0040a4] to-[#4da6ff] text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-[#1477ff] to-[#4da6ff] text-white py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
@@ -267,7 +267,7 @@ export default function KurumsalPage() {
             </p>
             <a
               href="#teklif"
-              className="inline-flex items-center gap-2 h-12 px-8 bg-white text-[#0040a4] font-bold text-[14px] hover:bg-white/90 transition-colors"
+              className="inline-flex items-center gap-2 h-12 px-8 bg-white text-[#1477ff] font-bold text-[14px] hover:bg-white/90 transition-colors"
             >
               Hemen Başvur
               <ArrowRight className="w-4 h-4" />
@@ -292,10 +292,10 @@ export default function KurumsalPage() {
             {benefits.map((benefit) => (
               <div
                 key={benefit.title}
-                className="bg-white border border-[#eeeeee] p-6 hover:border-[#0040a4]/40 hover:shadow-md transition-all duration-200"
+                className="bg-white border border-[#eeeeee] p-6 hover:border-[#1477ff]/40 hover:shadow-md transition-all duration-200"
               >
-                <div className="w-12 h-12 bg-[#0040a4]/10 flex items-center justify-center mb-4">
-                  <benefit.icon className="w-6 h-6 text-[#0040a4]" aria-hidden />
+                <div className="w-12 h-12 bg-[#1477ff]/10 flex items-center justify-center mb-4">
+                  <benefit.icon className="w-6 h-6 text-[#1477ff]" aria-hidden />
                 </div>
                 <h3 className="text-[16px] font-bold text-[#1e1e1e] mb-2">{benefit.title}</h3>
                 <p className="text-[14px] text-[#767676] leading-relaxed">{benefit.description}</p>
@@ -323,12 +323,12 @@ export default function KurumsalPage() {
                 key={pkg.name}
                 className={`bg-white p-8 ${
                   pkg.popular
-                    ? "border-2 border-[#0040a4] shadow-lg scale-105"
+                    ? "border-2 border-[#1477ff] shadow-lg scale-105"
                     : "border border-[#eeeeee]"
                 }`}
               >
                 {pkg.popular && (
-                  <div className="bg-[#0040a4] text-white text-[12px] font-bold px-3 py-1 inline-block mb-4 uppercase tracking-wider">
+                  <div className="bg-[#1477ff] text-white text-[12px] font-bold px-3 py-1 inline-block mb-4 uppercase tracking-wider">
                     En Popüler
                   </div>
                 )}
@@ -337,7 +337,7 @@ export default function KurumsalPage() {
 
                 <div className="mb-4">
                   <div className="text-[12px] text-[#767676] mb-1 uppercase tracking-wider">Minimum Sipariş</div>
-                  <div className="text-[28px] font-black text-[#0040a4]">{pkg.minOrder}</div>
+                  <div className="text-[28px] font-black text-[#1477ff]">{pkg.minOrder}</div>
                 </div>
 
                 <div className="mb-6">
@@ -348,7 +348,7 @@ export default function KurumsalPage() {
                 <ul className="space-y-3 mb-8">
                   {pkg.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-[#0040a4] flex-shrink-0 mt-0.5" />
+                      <Check className="w-4 h-4 text-[#1477ff] flex-shrink-0 mt-0.5" />
                       <span className="text-[13px] text-[#555555]">{feature}</span>
                     </li>
                   ))}
@@ -358,8 +358,8 @@ export default function KurumsalPage() {
                   href="#teklif"
                   className={`block w-full h-11 flex items-center justify-center font-bold text-[14px] transition-all duration-200 ${
                     pkg.popular
-                      ? "bg-[#0040a4] text-white hover:bg-[#1e1e1e]"
-                      : "border-2 border-[#0040a4] text-[#0040a4] hover:bg-[#0040a4]/5"
+                      ? "bg-[#1477ff] text-white hover:bg-[#1e1e1e]"
+                      : "border-2 border-[#1477ff] text-[#1477ff] hover:bg-[#1477ff]/5"
                   }`}
                 >
                   Başvur
@@ -389,8 +389,8 @@ export default function KurumsalPage() {
                   "Özel fiyat teklifi",
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-[#0040a4]/10 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-4 h-4 text-[#0040a4]" />
+                    <div className="w-8 h-8 bg-[#1477ff]/10 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-[#1477ff]" />
                     </div>
                     <span className="text-[15px] text-[#555555]">{item}</span>
                   </div>
@@ -401,7 +401,7 @@ export default function KurumsalPage() {
                 <p className="text-[13px] text-[#767676] mb-3">Veya doğrudan ulaşın:</p>
                 <Link
                   href="/iletisim"
-                  className="inline-flex items-center gap-2 text-[#0040a4] font-semibold text-[14px] hover:underline"
+                  className="inline-flex items-center gap-2 text-[#1477ff] font-semibold text-[14px] hover:underline"
                 >
                   İletişim sayfasına git
                   <ArrowRight className="w-4 h-4" />

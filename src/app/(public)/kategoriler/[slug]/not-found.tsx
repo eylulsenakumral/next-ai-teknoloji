@@ -5,7 +5,7 @@ export default function CategoryNotFound() {
   return (
     <div className="bg-[#f9f9f9] min-h-screen flex items-center justify-center">
       <div className="max-w-md mx-auto px-4 py-20 text-center">
-        <p className="text-[40px] font-extrabold text-[#0040a4] mb-2">404</p>
+        <p className="text-[40px] font-extrabold text-[#1477ff] mb-2">404</p>
         <h1 className="text-[22px] font-extrabold text-[#333333] mb-2">
           Kategori Bulunamadi
         </h1>
@@ -17,21 +17,21 @@ export default function CategoryNotFound() {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <Link
             href="/kategoriler"
-            className="inline-flex items-center gap-2 h-11 px-6 bg-[#0040a4] text-white text-[13px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
+            className="inline-flex items-center gap-2 h-11 px-6 bg-[#1477ff] text-white text-[13px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
           >
             <ArrowLeft className="h-4 w-4" aria-hidden />
             Kategoriler
           </Link>
           <Link
             href="/katalog"
-            className="inline-flex items-center gap-2 h-11 px-6 border border-[#eeeeee] text-[#333333] text-[13px] font-semibold hover:border-[#0040a4] hover:text-[#0040a4] transition-colors"
+            className="inline-flex items-center gap-2 h-11 px-6 border border-[#eeeeee] text-[#333333] text-[13px] font-semibold hover:border-[#1477ff] hover:text-[#1477ff] transition-colors"
           >
             <Search className="h-4 w-4" aria-hidden />
             Katalog
           </Link>
           <Link
             href="/katalog"
-            className="inline-flex items-center gap-2 h-11 px-6 border border-[#eeeeee] text-[#333333] text-[13px] font-semibold hover:border-[#0040a4] hover:text-[#0040a4] transition-colors"
+            className="inline-flex items-center gap-2 h-11 px-6 border border-[#eeeeee] text-[#333333] text-[13px] font-semibold hover:border-[#1477ff] hover:text-[#1477ff] transition-colors"
           >
             <Home className="h-4 w-4" aria-hidden />
             Ana Sayfa
