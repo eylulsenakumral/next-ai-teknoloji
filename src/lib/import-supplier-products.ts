@@ -108,7 +108,7 @@ async function upsertBrand(name: string): Promise<string | null> {
  * Ürünleri SupplierProduct tablosuna upsert et.
  *
  * - supplierId: upsertSupplier tarafından döndürülen UUID
- * - supplierCode: category-mapping lookup için ("indexgrup" | "netex")
+ * - supplierCode: category-mapping lookup için (örn. "b2bdepo")
  * - products: transform edilmiş ürün listesi
  * - categoryMappings: loadMappings() sonucu (opsiyonel — yoksa category eşleşmesi yapılmaz)
  */

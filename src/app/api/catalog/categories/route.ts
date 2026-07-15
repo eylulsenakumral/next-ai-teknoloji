@@ -1,11 +1,25 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
-import { getDealerSession, requireDealerSession } from "@/lib/dealer-auth"
+import { getServerSession } from "next-auth"
+import { decode } from "next-auth/jwt"
+import { authOptions } from "@/lib/auth"
 
 export async function GET(req: NextRequest) {
-  const session = await getDealerSession()
-  const authError = requireDealerSession(session)
-  if (authError) return authError
+  let session = await getServerSession(authOptions)
+  if (!session?.user) {
+    const bearer = req.headers.get("authorization")?.replace("Bearer ", "") ?? null
+    if (bearer && process.env.NEXTAUTH_SECRET) {
+      try {
+        const decoded = await decode({ secret: process.env.NEXTAUTH_SECRET, token: bearer })
+        if (decoded?.role === "dealer" && decoded?.status === "APPROVED") {
+          session = { user: decoded as any, expires: "" }
+        }
+      } catch {}
+    }
+  }
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized", message: "Bu işlem için giriş yapmanız gerekiyor." }, { status: 401 })
+  }
 
   const { searchParams } = new URL(req.url)
   const flat = searchParams.get("flat") === "true"

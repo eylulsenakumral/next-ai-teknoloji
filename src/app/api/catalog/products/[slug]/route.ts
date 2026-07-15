@@ -6,15 +6,7 @@ import { calculateProductPrice } from "@/lib/pricing"
 
 const SUPPLIER_DEPO_MAP: Record<string, string> = {
   b2bdepo: "Mersin Depo",
-  okisan: "Perpa Depo",
-  indexgrup: "Kadıköy Depo",
-  netex: "Kadıköy Depo",
-  ergen: "Ergen Depo",
-  tesan: "Tesan Depo",
   bizimhesap: "Çorlu Depo",
-  reser: "Bursa Depo",
-  bayikanali: "Bayi Kanalı",
-  edenge: "Edenge Depo",
 }
 
 export async function GET(

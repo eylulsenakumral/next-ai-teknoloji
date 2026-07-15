@@ -34,7 +34,13 @@ yarn-error.log*
 .env
 .env.local
 .env.*.local
+.env.preview
+.env.production
+.env.production.local
+.env.sync
 # .env.example is intentionally tracked in git
+*.bak.supplier-cleanup
+*.bak.*
 
 # vercel
 .vercel
