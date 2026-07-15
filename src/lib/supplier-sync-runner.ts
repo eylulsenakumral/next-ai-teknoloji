@@ -95,22 +95,6 @@ async function syncB2BDepo(_supplierId: string): Promise<{
   }
 }
 
-async function syncOkisan(_supplierId: string): Promise<{
-  total: number
-  created: number
-  updated: number
-  errors: number
-}> {
-  const { syncOkisanProducts } = await import("@/services/okisan.service")
-  const result = await syncOkisanProducts()
-  return {
-    total: result.synced,
-    created: result.created,
-    updated: result.updated,
-    errors: result.errors,
-  }
-}
-
 // Supplier code → sync fonksiyonu eşlemesi
 // Not: BizimHesap kendi API route'u üzerinden sync oluyor, bu runner'a dahil değil.
 const SYNC_RUNNERS: Record<
@@ -118,11 +102,7 @@ const SYNC_RUNNERS: Record<
   (supplierId: string) => Promise<{ total: number; created: number; updated: number; errors: number }>
 > = {
   b2bdepo: syncB2BDepo,
-<<<<<<< HEAD
-  okisan: syncOkisan,
-=======
   B2BDEPO: syncB2BDepo,
->>>>>>> 234d523 (refactor(integration): B2BDepo dışı XML/SOAP entegrasyonlarını kaldır)
 }
 
 // ============================================================================
