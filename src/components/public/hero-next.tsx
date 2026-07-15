@@ -19,14 +19,14 @@ function DashboardMockup() {
     { label: "GİRİŞ / A1", color: "#0d2a4a", accent: "#5086a8", status: "●" },
     { label: "OTOPARK / B2", color: "#0a1f38", accent: "#22c55e", status: "●" },
     { label: "DEPO / C3", color: "#0f2340", accent: "#5086a8", status: "●" },
-    { label: "DIŞ CEPHE / D4", color: "#2a2547", accent: "#f59e0b", status: "●" },
+    { label: "DIŞ CEPHE / D4", color: "#0f1f3a", accent: "#f59e0b", status: "●" },
   ]
 
   return (
     <div className="relative w-full max-w-[540px] select-none">
       <div className="absolute -inset-10 rounded-full bg-[#5086a8]/10 blur-3xl" />
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#2a2547] shadow-[0_32px_80px_rgba(0,0,0,.6)]">
-        <div className="flex items-center justify-between border-b border-white/8 bg-[#3a3560] px-4 py-3">
+      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#0f1f3a] shadow-[0_32px_80px_rgba(0,0,0,.6)]">
+        <div className="flex items-center justify-between border-b border-white/8 bg-[#15294a] px-4 py-3">
           <div className="flex items-center gap-2">
             <div className="flex gap-1.5">
               <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
@@ -73,7 +73,7 @@ function DashboardMockup() {
           ))}
         </div>
 
-        <div className="grid grid-cols-3 divide-x divide-white/8 border-t border-white/8 bg-[#3a3560]">
+        <div className="grid grid-cols-3 divide-x divide-white/8 border-t border-white/8 bg-[#15294a]">
           {[
             { label: "NVR DEPOLAMA", val: "68%", bar: true },
             { label: "BANT GENİŞLİĞİ", val: "24 Mbps", bar: false },
@@ -93,7 +93,7 @@ function DashboardMockup() {
       </div>
 
       {/* floating alert card */}
-      <div className="absolute -right-4 top-8 flex items-center gap-2.5 rounded-xl border border-white/10 bg-[#3a3560]/90 px-3.5 py-2.5 backdrop-blur-xl shadow-lg">
+      <div className="absolute -right-4 top-8 flex items-center gap-2.5 rounded-xl border border-white/10 bg-[#15294a]/90 px-3.5 py-2.5 backdrop-blur-xl shadow-lg">
         <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#ff8a1f]/15 text-[#ff8a1f]">
           <IcnZap className="h-3.5 w-3.5" />
         </span>
@@ -104,12 +104,12 @@ function DashboardMockup() {
       </div>
 
       {/* floating brand badge */}
-      <div className="absolute -left-4 bottom-12 flex items-center gap-2 rounded-xl border border-white/10 bg-[#3a3560]/90 px-3 py-2 backdrop-blur-xl shadow-lg">
+      <div className="absolute -left-4 bottom-12 flex items-center gap-2 rounded-xl border border-white/10 bg-[#15294a]/90 px-3 py-2 backdrop-blur-xl shadow-lg">
         <div className="flex -space-x-1">
           {["D", "H", "U"].map((l, i) => (
             <div
               key={l}
-              className="flex h-6 w-6 items-center justify-center rounded-full border border-[#453e71] bg-[#5086a8] font-nx-mono text-[9px] font-bold text-white"
+              className="flex h-6 w-6 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#5086a8] font-nx-mono text-[9px] font-bold text-white"
               style={{ zIndex: 3 - i }}
             >
               {l}
@@ -124,13 +124,13 @@ function DashboardMockup() {
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-[#453e71] px-6 pb-0 pt-32 text-white md:px-10 md:pt-40 font-nx-sans">
+    <section className="relative isolate overflow-hidden bg-[#1e3a5f] px-6 pb-0 pt-32 text-white md:px-10 md:pt-40 font-nx-sans">
       {/* bg gradients */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 60% 20%, #5086a818 0%, transparent 70%), linear-gradient(180deg,#453e71 60%,#2a2547)",
+            "radial-gradient(ellipse 80% 60% at 60% 20%, #5086a818 0%, transparent 70%), linear-gradient(180deg,#1e3a5f 60%,#0f1f3a)",
         }}
       />
       <div
@@ -191,7 +191,7 @@ export function Hero() {
         {/* stats strip */}
         <div className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/5 sm:grid-cols-4">
           {stats.map(([val, label]) => (
-            <div key={label} className="bg-[#453e71]/60 px-6 py-5 backdrop-blur">
+            <div key={label} className="bg-[#1e3a5f]/60 px-6 py-5 backdrop-blur">
               <strong className="block text-2xl font-extrabold tracking-tight text-white">{val}</strong>
               <span className="mt-1 block font-nx-mono text-[9px] uppercase tracking-[.14em] text-slate-500">
                 {label}

@@ -116,7 +116,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
         <div className="absolute top-3 right-3 flex flex-col gap-2 z-10 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
           <button
             type="button"
-            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[#453e71] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
+            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[#1e3a5f] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
             aria-label={`${product.name} favorilere ekle`}
           >
             <Heart className="h-4 w-4" aria-hidden />
@@ -124,7 +124,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
           <button
             type="button"
             onClick={() => router.push(`/katalog/${product.slug}`)}
-            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[#453e71] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
+            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[#1e3a5f] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
             aria-label={`${product.name} hızlı bak`}
           >
             <Eye className="h-4 w-4" aria-hidden />
@@ -146,7 +146,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
         {/* Product Name */}
         <Link
           href={`/katalog/${product.slug}`}
-          className="text-[13px] font-semibold text-[#453e71] leading-snug line-clamp-2 hover:text-[#0040a4] transition-colors min-h-[40px]"
+          className="text-[13px] font-semibold text-[#1e3a5f] leading-snug line-clamp-2 hover:text-[#0040a4] transition-colors min-h-[40px]"
         >
           {product.name}
         </Link>
@@ -172,7 +172,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
           {showPrice && ((product as any).manualPrice != null || (product as any).salePriceExVat != null) ? (
             <Link
               href={`/katalog/${product.slug}`}
-              className="flex flex-col items-center justify-center gap-0.5 py-2.5 px-4 rounded-lg w-full bg-[#0040a4] hover:bg-[#36305a] transition-all duration-300"
+              className="flex flex-col items-center justify-center gap-0.5 py-2.5 px-4 rounded-lg w-full bg-[#0040a4] hover:bg-[#15294a] transition-all duration-300"
             >
               {(() => {
                 const p = product as any
@@ -196,7 +196,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
           ) : showPrice ? (
             <Link
               href={`/katalog/${product.slug}`}
-              className="flex items-center justify-center gap-1.5 h-10 px-4 text-[11px] font-semibold rounded-lg w-full bg-[#0040a4] text-white hover:bg-[#36305a] transition-all duration-300"
+              className="flex items-center justify-center gap-1.5 h-10 px-4 text-[11px] font-semibold rounded-lg w-full bg-[#0040a4] text-white hover:bg-[#15294a] transition-all duration-300"
             >
               Fiyatı Gör
             </Link>

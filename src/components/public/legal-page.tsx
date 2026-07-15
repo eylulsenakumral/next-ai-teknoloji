@@ -22,7 +22,7 @@ export function LegalPage({ title, subtitle, lastUpdated, intro, sections }: Leg
   return (
     <div className="font-nx-sans">
       {/* Hero */}
-      <section className="bg-[#453e71] px-6 py-20 text-white md:px-10 md:py-24">
+      <section className="bg-[#1e3a5f] px-6 py-20 text-white md:px-10 md:py-24">
         <div className="mx-auto max-w-4xl">
           <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#8aa8bc]">
             {subtitle ?? "Yasal"}
@@ -52,7 +52,7 @@ export function LegalPage({ title, subtitle, lastUpdated, intro, sections }: Leg
                 id={s.id}
                 className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8"
               >
-                <h2 className="text-lg font-bold tracking-tight text-[#453e71]">{s.title}</h2>
+                <h2 className="text-lg font-bold tracking-tight text-[#1e3a5f]">{s.title}</h2>
                 <div className="mt-3 text-sm leading-7 text-slate-600">{s.body}</div>
               </section>
             ))}

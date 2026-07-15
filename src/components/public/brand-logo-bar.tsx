@@ -18,7 +18,7 @@ export function BrandLogoBar({ brands, className = "" }: BrandLogoBarProps) {
   return (
     <section className={`py-16 bg-white ${className}`}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center text-2xl font-bold mb-12 text-[#453e71]">Öne Çıkan Markalar</h2>
+        <h2 className="text-center text-2xl font-bold mb-12 text-[#1e3a5f]">Öne Çıkan Markalar</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8">
           {brands.map((brand) => (
             <Link
@@ -33,7 +33,7 @@ export function BrandLogoBar({ brands, className = "" }: BrandLogoBarProps) {
                   className="h-16 object-contain"
                 />
               ) : (
-                <span className="text-sm font-semibold text-[#453e71]">{brand.name}</span>
+                <span className="text-sm font-semibold text-[#1e3a5f]">{brand.name}</span>
               )}
             </Link>
           ))}

@@ -201,7 +201,7 @@ describe("HeroBanner", () => {
     render(<HeroBanner slides={defaultSlides} />)
     const title = screen.getByText("En İyi Ürünlerimizi Keşfedin")
     expect(title.className).toContain("bg-gradient-to-r")
-    expect(title.className).toContain("from-[#453e71]")
+    expect(title.className).toContain("from-[#1e3a5f]")
     expect(title.className).toContain("to-[#0040a4]")
     expect(title.className).toContain("bg-clip-text")
     expect(title.className).toContain("text-transparent")
@@ -263,8 +263,8 @@ describe("HeroBanner", () => {
   it("CTA button uses hover gradient to dark", () => {
     render(<HeroBanner slides={defaultSlides} />)
     const link = screen.getByText("Keşfet").closest("a")!
-    expect(link.className).toContain("hover:from-[#453e71]")
-    expect(link.className).toContain("hover:to-[#453e71]")
+    expect(link.className).toContain("hover:from-[#1e3a5f]")
+    expect(link.className).toContain("hover:to-[#1e3a5f]")
   })
 
   it("CTA button uses white text", () => {

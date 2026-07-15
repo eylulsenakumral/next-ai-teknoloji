@@ -84,14 +84,14 @@ function MobileDrawer({
             <Link
               href="/"
               onClick={onClose}
-              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e3a5f] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
             >
               Ana Sayfa
             </Link>
             <Link
               href="/katalog"
               onClick={onClose}
-              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e3a5f] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
             >
               <Package className="h-4 w-4 text-[#0040a4]" aria-hidden />
               Tüm Ürünler
@@ -99,21 +99,21 @@ function MobileDrawer({
             <Link
               href="/katalog"
               onClick={onClose}
-              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e3a5f] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
             >
               Markalar
             </Link>
             <Link
               href="/blog"
               onClick={onClose}
-              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e3a5f] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
             >
               Blog
             </Link>
             <Link
               href="/basvuru"
               onClick={onClose}
-              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
+              className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e3a5f] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
             >
               İletişim
             </Link>
@@ -131,7 +131,7 @@ function MobileDrawer({
                   <Link
                     href="/hesabim"
                     onClick={onClose}
-                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
+                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e3a5f] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
                   >
                     <User className="h-4 w-4 text-[#0040a4]" aria-hidden />
                     {userName || "Hesabım"}
@@ -150,7 +150,7 @@ function MobileDrawer({
                   <Link
                     href="/login"
                     onClick={onClose}
-                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
+                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e3a5f] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
                   >
                     <User className="h-4 w-4 text-[#0040a4]" aria-hidden />
                     Giriş Yap
@@ -158,7 +158,7 @@ function MobileDrawer({
                   <Link
                     href="/basvuru"
                     onClick={onClose}
-                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#453e71] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
+                    className="flex items-center gap-3 px-4 py-3 text-[14px] font-medium text-[#1e3a5f] hover:bg-[#f4f7fa] hover:text-[#0040a4] transition-colors rounded-lg"
                   >
                     <LogIn className="h-4 w-4 text-[#0040a4]" aria-hidden />
                     Hesap Oluştur
@@ -335,7 +335,7 @@ function HeaderSearchBar() {
               }
             }}
             placeholder="Ürün, marka, model ve açıklama giriniz"
-            className="w-full h-[46px] pl-5 pr-14 bg-[#f4f7fa] rounded-[20px] border border-transparent text-[14px] text-[#453e71] placeholder:text-[#64748b] focus:border-[#0040a4] focus:bg-white outline-none transition-all duration-300"
+            className="w-full h-[46px] pl-5 pr-14 bg-[#f4f7fa] rounded-[20px] border border-transparent text-[14px] text-[#1e3a5f] placeholder:text-[#64748b] focus:border-[#0040a4] focus:bg-white outline-none transition-all duration-300"
             aria-label="Arama"
             aria-expanded={isOpen}
             aria-controls="search-results"
@@ -387,7 +387,7 @@ function HeaderSearchBar() {
 
                       {/* Product Info */}
                       <div className="flex-1 min-w-0">
-                        <p className="text-[13px] font-semibold text-[#453e71] truncate">
+                        <p className="text-[13px] font-semibold text-[#1e3a5f] truncate">
                           {product.name}
                         </p>
                         <div className="flex items-center gap-2 mt-0.5">
@@ -416,7 +416,7 @@ function HeaderSearchBar() {
                 <Link
                   href={`/katalog?search=${encodeURIComponent(value.trim())}`}
                   onClick={() => setIsOpen(false)}
-                  className="block text-center text-[13px] font-semibold text-[#0040a4] hover:text-[#453e71] transition-colors py-1"
+                  className="block text-center text-[13px] font-semibold text-[#0040a4] hover:text-[#1e3a5f] transition-colors py-1"
                 >
                   Tümünü Gör →
                 </Link>
@@ -530,7 +530,7 @@ export function PublicHeader() {
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                className="lg:hidden flex h-10 w-10 items-center justify-center text-[#453e71] hover:text-[#0040a4] transition-colors"
+                className="lg:hidden flex h-10 w-10 items-center justify-center text-[#1e3a5f] hover:text-[#0040a4] transition-colors"
                 aria-label="Menüyü aç"
               >
                 <Menu className="h-6 w-6" />
@@ -557,7 +557,7 @@ export function PublicHeader() {
               {isAuthenticated && user?.companyName ? (
                 <Link
                   href="/hesabim"
-                  className="hidden lg:flex items-center gap-1.5 text-[#453e71] hover:text-[#0040a4] transition-colors text-sm font-medium nav-underline"
+                  className="hidden lg:flex items-center gap-1.5 text-[#1e3a5f] hover:text-[#0040a4] transition-colors text-sm font-medium nav-underline"
                   aria-label={user.companyName}
                 >
                   <User className="h-5 w-5" />
@@ -566,7 +566,7 @@ export function PublicHeader() {
               ) : (
                 <Link
                   href="/login"
-                  className="hidden lg:flex items-center gap-1.5 text-[#453e71] hover:text-[#0040a4] transition-colors text-sm font-medium nav-underline"
+                  className="hidden lg:flex items-center gap-1.5 text-[#1e3a5f] hover:text-[#0040a4] transition-colors text-sm font-medium nav-underline"
                   aria-label="Bayi Girişi"
                 >
                   <User className="h-5 w-5" />
@@ -577,7 +577,7 @@ export function PublicHeader() {
               {/* Wishlist */}
               <Link
                 href="/katalog"
-                className="hidden sm:flex items-center gap-1 text-[#453e71] hover:text-[#0040a4] transition-colors relative nav-underline"
+                className="hidden sm:flex items-center gap-1 text-[#1e3a5f] hover:text-[#0040a4] transition-colors relative nav-underline"
                 aria-label="Favorilerim"
               >
                 <Heart className="h-5 w-5" />
@@ -586,7 +586,7 @@ export function PublicHeader() {
               {/* Cart with badge */}
               <Link
                 href="/sepet"
-                className="relative flex items-center gap-1 text-[#453e71] hover:text-[#0040a4] transition-colors"
+                className="relative flex items-center gap-1 text-[#1e3a5f] hover:text-[#0040a4] transition-colors"
                 aria-label={cartCount > 0 ? `Sepetim, ${cartCount} ürün` : "Sepetim"}
               >
                 <ShoppingCart className="h-5 w-5" />
@@ -604,7 +604,7 @@ export function PublicHeader() {
                   const searchInput = document.querySelector<HTMLInputElement>('input[type="search"]')
                   if (searchInput) searchInput.focus()
                 }}
-                className="lg:hidden flex h-10 w-10 items-center justify-center text-[#453e71] hover:text-[#0040a4] transition-colors"
+                className="lg:hidden flex h-10 w-10 items-center justify-center text-[#1e3a5f] hover:text-[#0040a4] transition-colors"
                 aria-label="Ürün ara"
               >
                 <Search className="h-5 w-5" />

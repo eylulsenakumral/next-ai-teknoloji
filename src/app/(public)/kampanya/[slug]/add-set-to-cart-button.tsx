@@ -87,7 +87,7 @@ export function AddSetToCartButton({
           ? "bg-emerald-600 text-white"
           : isOutOfStock
             ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-            : "bg-[#5086a8] text-white hover:bg-[#36305a] active:scale-95"
+            : "bg-[#5086a8] text-white hover:bg-[#15294a] active:scale-95"
         }
       `}
     >
