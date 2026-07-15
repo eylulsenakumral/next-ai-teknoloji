@@ -15,7 +15,7 @@ export function PublicFooterNext() {
           B2B teknoloji tedarik ve proje platformu
         </span>
         <div className="flex flex-wrap items-center gap-4 text-[11px] font-semibold text-slate-400">
-          <Link href="/urunler" className="hover:text-white transition">
+          <Link href="/katalog" className="hover:text-white transition">
             Ürünler
           </Link>
           <Link href="/markalar" className="hover:text-white transition">

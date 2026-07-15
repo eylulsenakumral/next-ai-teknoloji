@@ -37,13 +37,13 @@ vi.mock("next/image", () => ({
 /* ------------------------------------------------------------------ */
 
 /* ── Hakkinda (About) Page ── */
+// /hakkinda silindi (duplicate of /hakkimizda). Test bloğu skip.
 
-describe("Hakkinda Page", () => {
+describe.skip("Hakkinda Page", () => {
   let HakkindaPage: () => React.JSX.Element
 
   beforeAll(async () => {
-    const mod = await import("./hakkinda/page")
-    HakkindaPage = mod.default
+    HakkindaPage = () => null as unknown as React.JSX.Element
   })
 
   it("renders page heading", () => {

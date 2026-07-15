@@ -33,7 +33,7 @@ export default function NotFound() {
             Ana Sayfaya Dön
           </Link>
           <Link
-            href="/urunler"
+            href="/katalog"
             className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg h-8 px-2.5 text-sm font-medium border border-border bg-background hover:bg-muted transition-all"
           >
             <ArrowLeft className="h-4 w-4" />

@@ -14,11 +14,10 @@ import { cn } from "@/lib/utils"
  */
 
 const NAV: ReadonlyArray<readonly [label: string, to: string]> = [
-  ["Ürünler", "/urunler"],
+  ["Ürünler", "/katalog"],
   ["Çözümler", "/cozumler"],
   ["Markalar", "/markalar"],
   ["Projenizi Tasarlayalım", "/proje-tasarim"],
-  ["Kataloglar", "/kataloglar"],
   ["Bayi Programı", "/bayi-programi"],
 ]
 
