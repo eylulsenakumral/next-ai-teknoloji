@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Poppins, Outfit, JetBrains_Mono } from "next/font/google"
+import { Poppins, Outfit, JetBrains_Mono, Manrope, DM_Mono } from "next/font/google"
 import "./globals.css"
 import { Providers } from "@/components/providers"
 
@@ -23,6 +23,21 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 })
 
+// Yeni (public) tasarım fontları — Manrope + DM Mono
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-manrope",
+  display: "swap",
+})
+
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-dm-mono",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
   title: {
     default: "Next AI Teknoloji",
@@ -40,7 +55,7 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${poppins.variable} ${outfit.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${poppins.variable} ${outfit.variable} ${jetbrainsMono.variable} ${manrope.variable} ${dmMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>

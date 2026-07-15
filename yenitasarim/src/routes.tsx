@@ -1,0 +1,14 @@
+import {createBrowserRouter} from 'react-router';
+import Layout from './pages/Layout';
+import Home from './pages/Home';
+import Products from './pages/Products';
+import Solutions from './pages/Solutions';
+import Brands from './pages/Brands';
+import Catalogs from './pages/Catalogs';
+import Dealer from './pages/Dealer';
+import Portal from './pages/Portal';
+import DealerLogin from './pages/DealerLogin';
+import DealerApply from './pages/DealerApply';
+import Quote from './pages/Quote';
+import ProjectDesign from './pages/ProjectDesign';
+export const router=createBrowserRouter([{path:'/',Component:Layout,children:[{index:true,Component:Home},{path:'urunler',Component:Products},{path:'cozumler',Component:Solutions},{path:'markalar',Component:Brands},{path:'kataloglar',Component:Catalogs},{path:'bayi-programi',Component:Dealer},{path:'bayi-portali',Component:Portal},{path:'bayi-giris',Component:DealerLogin},{path:'bayimiz-olun',Component:DealerApply},{path:'teklif-iste',Component:Quote},{path:'proje-tasarim',Component:ProjectDesign}]}]);

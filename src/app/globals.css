@@ -4,6 +4,27 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ============================================================================
+ * Yeni (public) tasarım design tokens — Figma Make
+ * Admin paneli kendi --DT* değişkenlerini kullanır, bu blok dokunmaz.
+ * ============================================================================ */
+@theme inline {
+  /* Public renk paleti (Figma) */
+  --color-nx-dark: #071426;
+  --color-nx-primary: #1477ff;
+  --color-nx-primary-hover: #2d8cff;
+  --color-nx-accent: #ff9b43;
+  --color-nx-accent-hover: #ffad64;
+  --color-nx-bg: #f4f7fa;
+  --color-nx-blue-soft: #67abff;
+  --color-nx-blue-lighter: #80b7ff;
+  --color-nx-blue-pale: #58a3ff;
+
+  /* Public fontlar */
+  --font-nx-sans: var(--font-manrope), "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-nx-mono: var(--font-dm-mono), "DM Mono", ui-monospace, monospace;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
