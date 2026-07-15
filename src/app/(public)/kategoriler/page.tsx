@@ -145,7 +145,7 @@ export const metadata: Metadata = {
 /* ------------------------------------------------------------------ */
 
 const CATEGORY_GRADIENTS = [
-  "from-[#0040a4] to-[#1a6fe0]",
+  "from-[#1477ff] to-[#1a6fe0]",
   "from-[#1e3a5f] to-[#2d6da3]",
   "from-[#0c2340] to-[#1a5276]",
   "from-[#2c3e50] to-[#3498db]",
@@ -239,7 +239,7 @@ export default async function KategorilerPage() {
           >
             <Link
               href="/"
-              className="flex items-center gap-1 hover:text-[#0040a4] transition-colors"
+              className="flex items-center gap-1 hover:text-[#1477ff] transition-colors"
             >
               <Home className="h-3 w-3" aria-hidden />
               Ana Sayfa
@@ -251,7 +251,7 @@ export default async function KategorilerPage() {
       </div>
 
       {/* Hero */}
-      <div className="bg-gradient-to-r from-[#0040a4] to-[#4da6ff] text-white">
+      <div className="bg-gradient-to-r from-[#1477ff] to-[#4da6ff] text-white">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
           <p className="text-[12px] font-bold uppercase tracking-widest text-white/60 mb-2">
             Kategoriler

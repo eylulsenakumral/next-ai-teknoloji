@@ -158,7 +158,7 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#1e1e1e] mb-4">
-            Her Teknoloji <span className="text-[#0040a4]">İhtiyacı</span>
+            Her Teknoloji <span className="text-[#1477ff]">İhtiyacı</span>
           </h1>
 
           <p className="text-lg text-[#767676] mb-8 leading-relaxed">
@@ -177,7 +177,7 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
               />
               <button
                 type="submit"
-                className="h-full px-8 bg-[#0040a4] hover:bg-[#003080] text-white font-semibold text-[13px] uppercase tracking-wider transition-colors rounded-r-[20px] flex items-center gap-2"
+                className="h-full px-8 bg-[#1477ff] hover:bg-[#003080] text-white font-semibold text-[13px] uppercase tracking-wider transition-colors rounded-r-[20px] flex items-center gap-2"
               >
                 <Search className="h-4 w-4" aria-hidden />
                 <span className="hidden sm:block">Ara</span>
@@ -231,7 +231,7 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
 /* ------------------------------------------------------------------ */
 
 const CATEGORY_GRADIENTS = [
-  "from-[#0040a4] to-[#1a6fe0]",
+  "from-[#1477ff] to-[#1a6fe0]",
   "from-[#1e3a5f] to-[#2d6da3]",
   "from-[#0c2340] to-[#1a5276]",
   "from-[#2c3e50] to-[#3498db]",
@@ -255,14 +255,14 @@ function CategoryGrid({
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <span className="inline-flex items-center gap-1.5 bg-[#0040a4] text-white px-3 py-1 rounded-full text-xs font-bold">
+            <span className="inline-flex items-center gap-1.5 bg-[#1477ff] text-white px-3 py-1 rounded-full text-xs font-bold">
               <Package className="w-3 h-3" />
               KATEGORİLER
             </span>
           </div>
           <Link
             href="/kategoriler"
-            className="text-sm font-semibold text-[#0040a4] hover:text-[#003080] transition-colors flex items-center gap-1 group"
+            className="text-sm font-semibold text-[#1477ff] hover:text-[#003080] transition-colors flex items-center gap-1 group"
           >
             Tümünü Gör
             <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
@@ -280,8 +280,8 @@ function CategoryGrid({
             <div className={cn(
               "absolute inset-0 transition-all duration-300",
               !activeSlug
-                ? "bg-gradient-to-br from-[#0040a4] to-[#1a6fe0] ring-2 ring-[#0040a4] ring-offset-2"
-                : "bg-gradient-to-br from-[#0040a4] to-[#1a6fe0]"
+                ? "bg-gradient-to-br from-[#1477ff] to-[#1a6fe0] ring-2 ring-[#1477ff] ring-offset-2"
+                : "bg-gradient-to-br from-[#1477ff] to-[#1a6fe0]"
             )} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
             <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
@@ -304,7 +304,7 @@ function CategoryGrid({
                 onClick={() => onSelect(cat.slug)}
                 className={cn(
                   "relative flex flex-col justify-end rounded-2xl overflow-hidden h-44 group transition-all duration-300",
-                  isActive && "ring-2 ring-[#0040a4] ring-offset-2"
+                  isActive && "ring-2 ring-[#1477ff] ring-offset-2"
                 )}
                 aria-pressed={isActive}
               >
@@ -357,7 +357,7 @@ function EmptyState({ onClear }: { onClear: () => void }) {
       <button
         type="button"
         onClick={onClear}
-        className="inline-flex items-center gap-2 h-11 px-6 bg-[#0040a4] text-white text-sm font-medium hover:bg-[#003080] transition-colors rounded-lg"
+        className="inline-flex items-center gap-2 h-11 px-6 bg-[#1477ff] text-white text-sm font-medium hover:bg-[#003080] transition-colors rounded-lg"
       >
         Filtreleri Temizle
       </button>
@@ -417,7 +417,7 @@ function MobileFilterSheet({
           <button
             type="button"
             onClick={onClose}
-            className="w-full h-12 bg-[#0040a4] text-white font-medium text-sm rounded-lg hover:bg-[#003080] transition-colors"
+            className="w-full h-12 bg-[#1477ff] text-white font-medium text-sm rounded-lg hover:bg-[#003080] transition-colors"
           >
             Filtreleri Uygula
           </button>
@@ -499,7 +499,7 @@ function CatalogFilters({
               "flex-1 text-left py-1.5 px-3 transition-all rounded-lg",
               isRoot ? "text-sm font-medium" : "text-[13px]",
               isActive
-                ? "bg-[#0040a4] text-white"
+                ? "bg-[#1477ff] text-white"
                 : isRoot
                   ? "text-[#555] hover:bg-[#f9f9f9]"
                   : "text-[#767676] hover:bg-[#f9f9f9] hover:text-[#555]"
@@ -515,7 +515,7 @@ function CatalogFilters({
               className={cn(
                 "p-1 rounded transition-all",
                 isExpanded
-                  ? "text-[#0040a4] bg-[#0040a4]/10"
+                  ? "text-[#1477ff] bg-[#1477ff]/10"
                   : "text-[#999] hover:bg-[#f3f3f3]"
               )}
               aria-label={isExpanded ? "Daralt" : "Genişlet"}
@@ -567,7 +567,7 @@ function CatalogFilters({
           <div className={cn(
             "w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all",
             filters.inStock
-              ? "bg-[#0040a4] border-[#0040a4]"
+              ? "bg-[#1477ff] border-[#1477ff]"
               : "border-[#e9e9e9]"
           )}>
             {filters.inStock && (
@@ -591,7 +591,7 @@ function CatalogFilters({
             className={cn(
               "w-full text-left py-2.5 px-3 text-sm font-medium transition-all rounded-lg",
               !filters.categorySlug
-                ? "bg-[#0040a4] text-white"
+                ? "bg-[#1477ff] text-white"
                 : "text-[#555] hover:bg-[#f9f9f9]"
             )}
             aria-pressed={!filters.categorySlug}
@@ -646,7 +646,7 @@ function CatalogFilters({
                   <div className={cn(
                     "w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all shrink-0",
                     isChecked
-                      ? "bg-[#0040a4] border-[#0040a4]"
+                      ? "bg-[#1477ff] border-[#1477ff]"
                       : "border-[#e9e9e9]"
                   )}>
                     {isChecked && (
@@ -905,14 +905,14 @@ export default function KatalogPage() {
         <div className="bg-white border-b border-[#eeeeee]">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <nav className="flex items-center gap-1.5 text-[12px] text-[#767676] flex-wrap">
-              <Link href="/katalog" className="hover:text-[#0040a4] transition-colors">Katalog</Link>
+              <Link href="/katalog" className="hover:text-[#1477ff] transition-colors">Katalog</Link>
               {selectedCatPath.map((cat, i) => (
                 <span key={cat.slug} className="contents">
                   <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
                   {i < selectedCatPath.length - 1 ? (
                     <Link
                       href={`/katalog?categorySlug=${cat.slug}`}
-                      className="hover:text-[#0040a4] transition-colors"
+                      className="hover:text-[#1477ff] transition-colors"
                     >
                       {cat.name}
                     </Link>
@@ -966,7 +966,7 @@ export default function KatalogPage() {
                   <SlidersHorizontal className="h-4 w-4" aria-hidden />
                   Filtreler
                   {activeFilterCount > 0 && (
-                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#0040a4] text-white text-xs font-semibold">
+                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#1477ff] text-white text-xs font-semibold">
                       {activeFilterCount}
                     </span>
                   )}
@@ -988,7 +988,7 @@ export default function KatalogPage() {
                       type="checkbox"
                       checked={filters.inStock}
                       onChange={(e) => updateURL({ inStock: e.target.checked, page: 1 })}
-                      className="w-4 h-4 rounded border-[#e9e9e9] text-[#0040a4] focus:ring-[#0040a4]/30"
+                      className="w-4 h-4 rounded border-[#e9e9e9] text-[#1477ff] focus:ring-[#1477ff]/30"
                     />
                     <span className="text-xs font-medium text-[#767676] whitespace-nowrap">Stoktakiler</span>
                   </label>
@@ -1026,7 +1026,7 @@ export default function KatalogPage() {
                       className={cn(
                         "p-2.5 rounded-lg transition-all",
                         viewMode === "grid"
-                          ? "bg-[#0040a4] text-white shadow-sm"
+                          ? "bg-[#1477ff] text-white shadow-sm"
                           : "text-[#767676] hover:text-[#1e1e1e]"
                       )}
                       aria-label="Grid görünüm"
@@ -1040,7 +1040,7 @@ export default function KatalogPage() {
                       className={cn(
                         "p-2.5 rounded-lg transition-all",
                         viewMode === "list"
-                          ? "bg-[#0040a4] text-white shadow-sm"
+                          ? "bg-[#1477ff] text-white shadow-sm"
                           : "text-[#767676] hover:text-[#1e1e1e]"
                       )}
                       aria-label="Liste görünüm"
@@ -1055,7 +1055,7 @@ export default function KatalogPage() {
 
             {isPending && (
               <div className="h-1 bg-[#f3f3f3] rounded-full overflow-hidden">
-                <div className="h-full bg-[#0040a4] animate-pulse" style={{ width: "40%" }} />
+                <div className="h-full bg-[#1477ff] animate-pulse" style={{ width: "40%" }} />
               </div>
             )}
 
@@ -1101,7 +1101,7 @@ export default function KatalogPage() {
                   onClick={() => updateURL({ page: filters.page - 1 })}
                   disabled={filters.page <= 1}
                   aria-label="Önceki sayfa"
-                  className="inline-flex items-center justify-center h-10 w-10 border border-[#e9e9e9] text-[#555] hover:border-[#0040a4] hover:text-[#0040a4] disabled:opacity-40 disabled:cursor-not-allowed transition-all rounded-lg bg-white"
+                  className="inline-flex items-center justify-center h-10 w-10 border border-[#e9e9e9] text-[#555] hover:border-[#1477ff] hover:text-[#1477ff] disabled:opacity-40 disabled:cursor-not-allowed transition-all rounded-lg bg-white"
                 >
                   <ChevronLeft className="h-4 w-4" aria-hidden />
                 </button>
@@ -1128,8 +1128,8 @@ export default function KatalogPage() {
                       className={cn(
                         "inline-flex items-center justify-center h-10 w-10 text-sm font-semibold transition-all rounded-lg",
                         filters.page === pageNum
-                          ? "bg-[#0040a4] text-white border border-[#0040a4]"
-                          : "bg-white border border-[#e9e9e9] text-[#555] hover:border-[#0040a4] hover:text-[#0040a4]"
+                          ? "bg-[#1477ff] text-white border border-[#1477ff]"
+                          : "bg-white border border-[#e9e9e9] text-[#555] hover:border-[#1477ff] hover:text-[#1477ff]"
                       )}
                     >
                       {pageNum}
@@ -1142,7 +1142,7 @@ export default function KatalogPage() {
                   onClick={() => updateURL({ page: filters.page + 1 })}
                   disabled={filters.page >= totalPages}
                   aria-label="Sonraki sayfa"
-                  className="inline-flex items-center justify-center h-10 w-10 border border-[#e9e9e9] text-[#555] hover:border-[#0040a4] hover:text-[#0040a4] disabled:opacity-40 disabled:cursor-not-allowed transition-all rounded-lg bg-white"
+                  className="inline-flex items-center justify-center h-10 w-10 border border-[#e9e9e9] text-[#555] hover:border-[#1477ff] hover:text-[#1477ff] disabled:opacity-40 disabled:cursor-not-allowed transition-all rounded-lg bg-white"
                 >
                   <ChevronRight className="h-4 w-4" aria-hidden />
                 </button>

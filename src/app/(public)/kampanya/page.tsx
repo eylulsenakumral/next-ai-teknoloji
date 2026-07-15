@@ -43,7 +43,7 @@ const TYPE_LABELS: Record<string, string> = {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  FEATURED: "bg-[#0040a4] text-white",
+  FEATURED: "bg-[#1477ff] text-white",
   OUTLET: "bg-[#a60811] text-white",
   BUNDLE: "bg-[#3b7300] text-white",
 }
@@ -102,13 +102,13 @@ function CampaignCard({ campaign }: { campaign: CampaignSet }) {
         )}
 
         {/* Type badge */}
-        <span className={`absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 rounded-md ${TYPE_COLORS[campaign.type] ?? "bg-[#0040a4] text-white"}`}>
+        <span className={`absolute top-3 left-3 text-[11px] font-bold px-2.5 py-1 rounded-md ${TYPE_COLORS[campaign.type] ?? "bg-[#1477ff] text-white"}`}>
           {TYPE_LABELS[campaign.type] ?? campaign.type}
         </span>
 
         {/* Discount badge */}
         {discountPct ? (
-          <span className="absolute top-3 right-3 bg-white text-[#0040a4] text-[11px] font-bold px-2.5 py-1 rounded-md shadow-sm">
+          <span className="absolute top-3 right-3 bg-white text-[#1477ff] text-[11px] font-bold px-2.5 py-1 rounded-md shadow-sm">
             %{discountPct} İndirim
           </span>
         ) : null}
@@ -116,7 +116,7 @@ function CampaignCard({ campaign }: { campaign: CampaignSet }) {
 
       {/* Content */}
       <div className="p-5">
-        <h3 className="text-base font-bold text-[#1e1e1e] group-hover:text-[#0040a4] transition-colors leading-snug mb-2">
+        <h3 className="text-base font-bold text-[#1e1e1e] group-hover:text-[#1477ff] transition-colors leading-snug mb-2">
           {campaign.name}
         </h3>
         {campaign.description && (
@@ -136,7 +136,7 @@ function CampaignCard({ campaign }: { campaign: CampaignSet }) {
               </span>
             )}
           </div>
-          <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#0040a4] group-hover:translate-x-0.5 transition-transform">
+          <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-[#1477ff] group-hover:translate-x-0.5 transition-transform">
             İncele
             <ChevronRight className="h-3.5 w-3.5" aria-hidden />
           </span>
@@ -174,7 +174,7 @@ export default async function KampanyaPage() {
       <div className="bg-[#f3f3f3] border-b border-[#e9e9e9]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <nav className="flex items-center gap-2 text-[12px] text-[#767676] mb-4">
-            <Link href="/" className="hover:text-[#0040a4] transition-colors">Ana Sayfa</Link>
+            <Link href="/" className="hover:text-[#1477ff] transition-colors">Ana Sayfa</Link>
             <ChevronRight className="h-3 w-3" aria-hidden />
             <span className="text-[#1e1e1e] font-semibold">Kampanyalar</span>
           </nav>
@@ -198,7 +198,7 @@ export default async function KampanyaPage() {
             </div>
             <Link
               href="/katalog"
-              className="inline-flex items-center gap-2 bg-[#0040a4] text-white font-bold px-6 py-2.5 rounded-lg hover:bg-[#1e1e1e] transition-colors text-sm"
+              className="inline-flex items-center gap-2 bg-[#1477ff] text-white font-bold px-6 py-2.5 rounded-lg hover:bg-[#1e1e1e] transition-colors text-sm"
             >
               Kataloga Git
             </Link>

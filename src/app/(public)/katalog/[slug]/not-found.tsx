@@ -21,7 +21,7 @@ export default function ProductNotFound() {
 
         <Link
           href="/katalog"
-          className="mt-2 inline-flex items-center gap-1.5 rounded-xl bg-[#0040a4] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#0040a4]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0040a4] focus-visible:ring-offset-2"
+          className="mt-2 inline-flex items-center gap-1.5 rounded-xl bg-[#1477ff] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1477ff]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1477ff] focus-visible:ring-offset-2"
         >
           Kataloğa Dön
           <ChevronRight className="h-4 w-4" aria-hidden />

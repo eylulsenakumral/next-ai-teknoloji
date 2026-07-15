@@ -183,7 +183,7 @@ function ProductBreadcrumb({
     >
       <Link
         href="/katalog"
-        className="flex items-center gap-1 hover:text-[#0040a4] transition-colors"
+        className="flex items-center gap-1 hover:text-[#1477ff] transition-colors"
       >
         <Home className="h-3 w-3" aria-hidden />
         Katalog
@@ -193,7 +193,7 @@ function ProductBreadcrumb({
           <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
           <Link
             href={`/katalog?categorySlug=${cat.slug}`}
-            className="hover:text-[#0040a4] transition-colors"
+            className="hover:text-[#1477ff] transition-colors"
           >
             {cat.name}
           </Link>
@@ -235,10 +235,10 @@ function StockBadge({ inStock }: { inStock: boolean }) {
 
 function QuoteCTA({ productName }: { productName: string }) {
   return (
-    <div className="border border-[#0040a4]/20 bg-gradient-to-br from-[#0040a4]/5 to-white p-5 space-y-4">
+    <div className="border border-[#1477ff]/20 bg-gradient-to-br from-[#1477ff]/5 to-white p-5 space-y-4">
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#0040a4]/10">
-          <Lock className="h-5 w-5 text-[#0040a4]" aria-hidden />
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#1477ff]/10">
+          <Lock className="h-5 w-5 text-[#1477ff]" aria-hidden />
         </div>
         <div className="space-y-1">
           <p className="text-[14px] font-bold text-[#333333]">
@@ -252,7 +252,7 @@ function QuoteCTA({ productName }: { productName: string }) {
 
       <Link
         href="/login"
-        className="flex w-full items-center justify-center gap-2 h-11 bg-[#0040a4] px-5 text-[13px] font-bold text-white uppercase tracking-wider transition-colors hover:bg-[#001489] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0040a4] focus-visible:ring-offset-2"
+        className="flex w-full items-center justify-center gap-2 h-11 bg-[#1477ff] px-5 text-[13px] font-bold text-white uppercase tracking-wider transition-colors hover:bg-[#001489] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1477ff] focus-visible:ring-offset-2"
       >
         <Lock className="h-4 w-4" aria-hidden />
         Bayi Girişi Yap
@@ -302,7 +302,7 @@ function StickyMobileCTA({ productName }: { productName: string }) {
     <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-white border-t border-[#eeeeee] px-4 py-3 shadow-lg">
       <Link
         href="/login"
-        className="flex items-center justify-center gap-2 h-11 w-full bg-[#0040a4] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
+        className="flex items-center justify-center gap-2 h-11 w-full bg-[#1477ff] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
       >
         <Lock className="h-4 w-4" aria-hidden />
         Özel Fiyatlar İçin Bayi Girişi Yapınız
@@ -361,7 +361,7 @@ export default async function PublicProductDetailPage({
                 {product.brand && (
                   <Link
                     href={`/katalog?brandSlug=${product.brand.slug}`}
-                    className="text-[12px] font-bold uppercase tracking-wider text-[#0040a4] hover:text-[#001489] transition-colors"
+                    className="text-[12px] font-bold uppercase tracking-wider text-[#1477ff] hover:text-[#001489] transition-colors"
                   >
                     {product.brand.name}
                   </Link>
@@ -405,7 +405,7 @@ export default async function PublicProductDetailPage({
                     {product.productCode && (
                       <li className="flex items-center gap-3 px-4 py-2">
                         <span className="text-[12px] text-[#767676] w-1/3 shrink-0 font-medium">Ürün Kodu</span>
-                        <span className="text-[12px] text-[#0040a4] font-bold font-mono bg-[#f0f4ff] px-2 py-0.5 rounded">{product.productCode}</span>
+                        <span className="text-[12px] text-[#1477ff] font-bold font-mono bg-[#f0f4ff] px-2 py-0.5 rounded">{product.productCode}</span>
                       </li>
                     )}
                     {product.brand && (
@@ -450,11 +450,11 @@ export default async function PublicProductDetailPage({
 
               {/* Kısa açıklama */}
               {product.description && (
-                <div className="text-[13px] leading-relaxed text-[#767676] border-l-2 border-[#0040a4]/20 pl-3">
+                <div className="text-[13px] leading-relaxed text-[#767676] border-l-2 border-[#1477ff]/20 pl-3">
                   <p className="line-clamp-3">{product.description}</p>
                   <a
                     href="#description-heading"
-                    className="inline-block mt-1 text-[#0040a4] font-semibold text-[12px] hover:underline"
+                    className="inline-block mt-1 text-[#1477ff] font-semibold text-[12px] hover:underline"
                   >
                     Devamını Oku ↓
                   </a>
@@ -482,7 +482,7 @@ export default async function PublicProductDetailPage({
                       <div className="flex items-end justify-between gap-4">
                         <div>
                           <p className="text-[11px] text-gray-400 uppercase tracking-wider mb-1">Bayi Fiyatı</p>
-                          <p className="text-[28px] font-bold text-[#0040a4] leading-none">
+                          <p className="text-[28px] font-bold text-[#1477ff] leading-none">
                             {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                             <span className="text-[12px] font-medium text-gray-400 ml-1.5">+KDV</span>
                           </p>
@@ -510,13 +510,13 @@ export default async function PublicProductDetailPage({
                   ) : !isLoggedIn && !product.hidePrice ? (
                     <div className="p-5">
                       <div className="flex items-start gap-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0040a4]/10">
-                          <Lock className="h-5 w-5 text-[#0040a4]" aria-hidden />
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#1477ff]/10">
+                          <Lock className="h-5 w-5 text-[#1477ff]" aria-hidden />
                         </div>
                         <div className="flex-1 space-y-2">
                           <p className="text-[14px] font-bold text-[#333333]">Özel Fiyatlar İçin Bayi Girişi</p>
                           <p className="text-[12px] text-[#767676]">Bayi girişi yaparak fiyatları görüntüleyin.</p>
-                          <Link href="/login" className="inline-flex items-center justify-center gap-2 h-9 px-5 bg-[#0040a4] text-[12px] font-bold text-white rounded-xl hover:bg-[#003080] transition-colors">
+                          <Link href="/login" className="inline-flex items-center justify-center gap-2 h-9 px-5 bg-[#1477ff] text-[12px] font-bold text-white rounded-xl hover:bg-[#003080] transition-colors">
                             <Lock className="h-3.5 w-3.5" aria-hidden />
                             Bayi Girişi Yap
                           </Link>
@@ -631,7 +631,7 @@ export default async function PublicProductDetailPage({
                       ? `/katalog?categorySlug=${product.category.slug}`
                       : "/katalog"
                   }
-                  className="text-[12px] font-semibold text-[#0040a4] hover:text-[#001489] transition-colors whitespace-nowrap"
+                  className="text-[12px] font-semibold text-[#1477ff] hover:text-[#001489] transition-colors whitespace-nowrap"
                 >
                   Tümünü Gör
                 </Link>
@@ -660,7 +660,7 @@ export default async function PublicProductDetailPage({
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-3 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
-              <p className="text-[16px] font-bold text-[#0040a4] leading-none">
+              <p className="text-[16px] font-bold text-[#1477ff] leading-none">
                 {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                 <span className="text-[10px] font-medium text-gray-400 ml-1">+KDV</span>
               </p>
