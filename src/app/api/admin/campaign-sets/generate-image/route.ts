@@ -87,6 +87,9 @@ export async function POST(req: NextRequest) {
       const buffer = Buffer.from(b64, "base64")
       const objectKey = `campaign-sets/${Date.now()}-${Math.random().toString(36).slice(2, 8)}.png`
       await ensureBucket()
+      if (!minio) {
+        return NextResponse.json({ error: "Minio yapılandırılmamış" }, { status: 500 })
+      }
       await minio.putObject("nextai-assets", objectKey, buffer, buffer.length, {
         "Content-Type": "image/png",
       })

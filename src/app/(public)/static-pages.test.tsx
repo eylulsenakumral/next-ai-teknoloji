@@ -88,13 +88,15 @@ describe("Hakkinda Page", () => {
 })
 
 /* ── Iletisim (Contact) Page ── */
+// Not: /iletisim sayfasi kaldirildi (AGENTS.md ACIL DURUM notu).
+// Bu describe bloğu referans modül olmadigi icin skip edildi.
 
-describe("Iletisim Page", () => {
+describe.skip("Iletisim Page", () => {
   let IletisimPage: () => React.JSX.Element
 
   beforeAll(async () => {
-    const mod = await import("./iletisim/page")
-    IletisimPage = mod.default
+    // Sayfa kaldirildi — import yine de kaldirildi, skip blok calismaz
+    IletisimPage = () => null as unknown as React.JSX.Element
   })
 
   it("renders page heading", () => {

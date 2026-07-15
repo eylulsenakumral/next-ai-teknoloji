@@ -43,7 +43,9 @@ describe.skip('Auth API', () => {
         expect(data).toHaveProperty('user')
         expect(data.user).toHaveProperty('email')
         expect(data.user).toHaveProperty('role')
-        expect(data).toHaveProperty('token' || 'sessionToken' || 'accessToken')
+        // Token, sessionToken veya accessToken'tan biri olmali
+        const hasToken = ['token', 'sessionToken', 'accessToken'].some((k) => k in data)
+        expect(hasToken).toBe(true)
       }
     })
 

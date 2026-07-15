@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
+import { Prisma } from "@prisma/client"
 
 const TCMB_URL = "https://www.tcmb.gov.tr/kurlar/today.xml"
 
@@ -37,7 +38,7 @@ async function getExchangeSettings() {
 
 async function saveRates(usd: number, eur: number, sessionUserId: string) {
   const now = new Date().toISOString()
-  const entries: Record<string, { value: unknown; group: string }> = {
+  const entries: Record<string, { value: Prisma.InputJsonValue; group: string }> = {
     exchange_usd: { value: usd, group: "EXCHANGE" },
     exchange_eur: { value: eur, group: "EXCHANGE" },
     exchange_last_updated: { value: now, group: "EXCHANGE" },
@@ -73,7 +74,7 @@ export async function PUT(req: NextRequest) {
   const body = await req.json()
   const { mode, usd, eur } = body as { mode?: string; usd?: number; eur?: number }
 
-  const updates: Record<string, { value: unknown; group: string }> = {}
+  const updates: Record<string, { value: Prisma.InputJsonValue; group: string }> = {}
 
   if (mode && (mode === "AUTO" || mode === "MANUAL")) {
     updates.exchange_mode = { value: mode, group: "EXCHANGE" }

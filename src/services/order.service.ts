@@ -52,6 +52,7 @@ export interface OrderListItem {
   paymentStatus: string
   createdAt: string
   itemCount: number
+  previewItems?: string[]
   customer?: {
     id: string
     companyName: string
@@ -264,7 +265,7 @@ export async function createOrder(
     const productMap = new Map(products.map((p) => [p.id, p]))
 
     for (const item of orderItemsData) {
-      if (!item.productId.startsWith("set-")) {
+      if (item.productId && !item.productId.startsWith("set-")) {
         const prod = productMap.get(item.productId!)
         if (prod) {
           item.productName = prod.name
@@ -385,6 +386,11 @@ export async function getOrdersByCustomer(
         paymentStatus: true,
         createdAt: true,
         _count: { select: { orderItems: true } },
+        orderItems: {
+          select: { productName: true },
+          take: 3,
+          orderBy: { id: "asc" },
+        },
       },
     }),
     prisma.order.count({ where }),
@@ -403,6 +409,7 @@ export async function getOrdersByCustomer(
       paymentStatus: o.paymentStatus,
       createdAt: o.createdAt.toISOString(),
       itemCount: o._count.orderItems,
+      previewItems: o.orderItems.map((i) => i.productName).filter(Boolean),
     })),
     meta: {
       total,
@@ -477,6 +484,7 @@ export async function getAllOrders(options: {
         orderNumber: true,
         status: true,
         grandTotal: true,
+        currency: true,
         paymentMethod: true,
         paymentStatus: true,
         createdAt: true,

@@ -125,7 +125,7 @@ describe("createOrderSchema", () => {
     })
     expect(result.success).toBe(true)
     if (result.success) {
-      expect(result.data.shippingAddress.country).toBe("TR")
+      expect(result.data.shippingAddress?.country).toBe("TR")
     }
   })
 

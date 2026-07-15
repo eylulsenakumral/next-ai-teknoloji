@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
   if (authError) return authError
 
   try {
-    const formData = await req.formData()
+    const formData = await req.formData() as unknown as FormData
     const file = formData.get("file") as File | null
 
     if (!file) {

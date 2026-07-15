@@ -283,6 +283,28 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
   const imageUrl = product.images?.[0] ?? null
   const { isAuthenticated, isAdmin } = useAuth()
   const hideLoginCTA = isAuthenticated || isAdmin
+  const { addItem } = useCart()
+
+  const [qty, setQty] = useState(1)
+  const [justAdded, setJustAdded] = useState(false)
+
+  function handleAddToCart() {
+    addItem({
+      productId: product.id,
+      productName: product.name,
+      productSlug: product.slug,
+      brandName: product.brand?.name ?? "",
+      imageUrl: product.images[0] ?? "",
+      unitPriceExVat: product.price ?? 0,
+      vatRate: 20,
+      minOrderQuantity: 1,
+      stockQuantity: 999,
+      quantity: qty,
+    })
+    toast({ title: "Sepete eklendi", description: `${product.name} (${qty} adet) sepetinize eklendi.` })
+    setJustAdded(true)
+    setTimeout(() => setJustAdded(false), 2000)
+  }
 
   return (
     <article

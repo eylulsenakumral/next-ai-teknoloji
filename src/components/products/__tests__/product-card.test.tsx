@@ -33,30 +33,24 @@ const mockProduct: CatalogProduct = {
   name: 'Test Ürün 123',
   slug: 'test-urun-123',
   sku: 'SKU123',
-  description: 'Test description',
   images: ['https://example.com/image.jpg'],
   brand: { id: 'brand-001', name: 'Test Brand', slug: 'test-brand' },
-  category: { id: 'cat-001', name: 'Test Category', slug: 'test-category', path: [] },
+  category: { id: 'cat-001', name: 'Test Category', slug: 'test-category' },
   pricing: {
-    id: 'price-001',
-    productId: 'prod-001',
-    listPriceExVat: 1000,
-    listPriceIncVat: 1180,
     salePriceExVat: 800,
     salePriceIncVat: 944,
+    vatRate: 18,
     currency: 'TRY',
-    margin: 20,
   },
   stock: {
     isAvailable: true,
     quantity: 10,
-    inStock: true,
   },
   isNew: false,
+  isFeatured: false,
   isOutlet: false,
-  specifications: {},
-  createdAt: '2024-01-01',
-  updatedAt: '2024-01-01',
+  minOrderQuantity: 1,
+  unit: 'ADET',
 }
 
 describe('ProductCard', () => {
@@ -226,8 +220,8 @@ describe('ProductCard', () => {
   describe('Brand and Category Dropdowns', () => {
     it('renders brand dropdown when brands provided', () => {
       const brands = [
-        { id: 'brand-1', name: 'Brand 1', slug: 'brand-1' },
-        { id: 'brand-2', name: 'Brand 2', slug: 'brand-2' },
+        { id: 'brand-1', name: 'Brand 1', slug: 'brand-1', productCount: 5 },
+        { id: 'brand-2', name: 'Brand 2', slug: 'brand-2', productCount: 3 },
       ]
       const { container } = render(
         <ProductCard product={mockProduct} brands={brands} />
@@ -238,8 +232,8 @@ describe('ProductCard', () => {
 
     it('renders category dropdown when categories provided', () => {
       const categories = [
-        { id: 'cat-1', name: 'Category 1', slug: 'cat-1', path: [] },
-        { id: 'cat-2', name: 'Category 2', slug: 'cat-2', path: [] },
+        { id: 'cat-1', name: 'Category 1', slug: 'cat-1', depth: 0, _count: { products: 5 } },
+        { id: 'cat-2', name: 'Category 2', slug: 'cat-2', depth: 0, _count: { products: 3 } },
       ]
       const { container } = render(
         <ProductCard product={mockProduct} categories={categories} />

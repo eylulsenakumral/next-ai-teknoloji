@@ -300,7 +300,7 @@ export default async function CampaignsPage() {
                     </span>
                     {set.discountPct && (
                       <span className="bg-red-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-sm">
-                        %{set.discountPct}
+                        %{Number(set.discountPct)}
                       </span>
                     )}
                   </div>

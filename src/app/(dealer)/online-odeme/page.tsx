@@ -47,7 +47,7 @@ export default function OnlineOdemePage() {
           mpay,
           description: description || "Online Ödeme",
           paymentContent: "Next AI Teknoloji - Online Ödeme",
-          customerName: session?.user?.name || "",
+          customerName: session?.user?.companyName || session?.user?.contactName || "",
           customerSurname: "",
           customerEmail: session?.user?.email || "",
         }),
