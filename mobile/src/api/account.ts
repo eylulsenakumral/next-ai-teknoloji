@@ -10,6 +10,10 @@ export const accountApi = {
     return api.put<ProfileResponse>("/api/account/profile", data)
   },
 
+  changePassword(data: { currentPassword: string; newPassword: string }) {
+    return api.put<{ success: boolean }>("/api/account/password", data)
+  },
+
   transactions(params?: {
     page?: number
     limit?: number

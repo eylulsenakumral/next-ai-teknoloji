@@ -72,3 +72,9 @@ data/backups/
 .qlaude/
 .omc/
 .claude/
+
+# APK binary'leri (75MB+) — asla commit'lenmemeli
+*.apk
+
+# Figma tasarımdan üretilen kod (referans)
+mobile/mobiltasarim/

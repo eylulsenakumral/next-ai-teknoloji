@@ -3,6 +3,10 @@ import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import { prisma } from "@/lib/db"
 import { Prisma } from "@prisma/client"
 
+function optionalProductId(productId?: string) {
+  return productId?.trim() || null
+}
+
 // GET /api/admin/quotes — Teklif listesi
 export async function GET(req: NextRequest) {
   const session = await getAdminSession()
@@ -129,7 +133,7 @@ export async function POST(req: NextRequest) {
         internalNotes,
         items: {
           create: items.map((item) => ({
-            productId: item.productId ?? null,
+            productId: optionalProductId(item.productId),
             productName: item.productName,
             quantity: item.quantity,
             unitPrice: new Prisma.Decimal(item.unitPrice).toFixed(4),
@@ -149,6 +153,19 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ data: quote }, { status: 201 })
   } catch (err) {
     console.error("[POST /api/admin/quotes]", err)
+    if (process.env.ERROR_WEBHOOK_URL) {
+      fetch(process.env.ERROR_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: err instanceof Error ? err.message : String(err),
+          stack: err instanceof Error ? err.stack : undefined,
+          source: "server",
+          url: "/api/admin/quotes",
+          timestamp: new Date().toISOString(),
+        }),
+      }).catch(() => {})
+    }
     return NextResponse.json({ error: "Teklif oluşturulamadı." }, { status: 500 })
   }
 }

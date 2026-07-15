@@ -51,7 +51,7 @@ export const useProductStore = create<ProductState>((set, get) => ({
 
   fetch: async (params, append = false) => {
     const merged = { ...get().params, ...params }
-    set({ isLoading: true, errorMessage: null, params: merged })
+    set({ isLoading: true, errorMessage: null, params: merged, ...(append ? {} : { products: [] }) })
     try {
       const res = await productsApi.list(merged)
       set({

@@ -145,7 +145,7 @@ export async function GET(req: NextRequest) {
         const categories = await prisma.category.findMany({
           where: { deletedAt: null, isActive: true, parentId: null },
           orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
-          include: buildPublicInclude(4),
+          include: buildPublicInclude(6),
         })
 
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

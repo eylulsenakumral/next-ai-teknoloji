@@ -13,6 +13,18 @@ export default function AdminError({
 }) {
   useEffect(() => {
     console.error("[Admin Error]", error)
+    fetch("/api/error-report", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: error.message,
+        stack: error.stack,
+        digest: error.digest,
+        source: "client",
+        url: window.location.href,
+        timestamp: new Date().toISOString(),
+      }),
+    }).catch(() => {})
   }, [error])
 
   return (

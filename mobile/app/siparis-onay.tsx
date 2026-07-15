@@ -4,18 +4,30 @@ import { useLocalSearchParams, useRouter } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
 import { COLORS } from "../src/lib/constants"
 import { formatPrice } from "../src/lib/format"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 export default function OrderConfirmationScreen() {
   const router = useRouter()
-  const { orderNumber, orderId, total } = useLocalSearchParams<{ orderNumber?: string; orderId?: string; total?: string }>()
+  const { orderNumber, orderId, total, paymentStatus } = useLocalSearchParams<{
+    orderNumber?: string
+    orderId?: string
+    total?: string
+    paymentStatus?: string
+  }>()
+  const insets = useSafeAreaInsets()
+  const isPaymentPending = paymentStatus === "pending"
 
   return (
-    <View style={styles.container}>
-      <View style={styles.iconWrap}>
-        <Ionicons name="checkmark" size={58} color="#fff" />
+    <View style={[styles.container, { paddingTop: insets.top }]}>
+      <View style={[styles.iconWrap, isPaymentPending && styles.pendingIconWrap]}>
+        <Ionicons name={isPaymentPending ? "card-outline" : "checkmark"} size={58} color="#fff" />
       </View>
-      <Text style={styles.title}>Siparişiniz alındı</Text>
-      <Text style={styles.description}>Ekibimiz siparişinizi kontrol edip en kısa sürede işleme alacak.</Text>
+      <Text style={styles.title}>{isPaymentPending ? "Ödeme başlatıldı" : "Siparişiniz alındı"}</Text>
+      <Text style={styles.description}>
+        {isPaymentPending
+          ? "NomuPay ödeme sayfası açıldı. Ödeme tamamlandığında siparişiniz otomatik olarak güncellenecek."
+          : "Ekibimiz siparişinizi kontrol edip en kısa sürede işleme alacak."}
+      </Text>
 
       <View style={styles.summary}>
         <View style={styles.summaryRow}>
@@ -51,6 +63,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: COLORS.success,
   },
+  pendingIconWrap: { backgroundColor: COLORS.primary },
   title: { marginTop: 22, fontSize: 24, fontWeight: "900", color: COLORS.text, textAlign: "center" },
   description: { marginTop: 10, fontSize: 15, color: COLORS.textMuted, textAlign: "center", lineHeight: 22 },
   summary: {

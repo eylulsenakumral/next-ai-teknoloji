@@ -15,7 +15,7 @@ export default function HakkindaScreen() {
         <View style={styles.logo}>
           <Text style={styles.logoText}>N</Text>
         </View>
-        <Text style={styles.title}>NextDepo Bayi</Text>
+        <Text style={styles.title}>NexaDepo Bayi</Text>
         <Text style={styles.subtitle}>Next AI Teknoloji B2B Bayi Portalı</Text>
       </View>
 

@@ -5,6 +5,7 @@ import type { OrderListResponse, Order, OrderCreatePayload, OrderCreateResponse,
 type RawOrder = Partial<Order> & {
   grandTotal?: unknown
   itemCount?: unknown
+  previewItems?: string[]
   shippingTrackingNumber?: string | null
   items?: RawOrderItem[]
 }
@@ -38,6 +39,7 @@ function normalizeOrder(order: RawOrder): Order {
     customer: order.customer ?? { id: "", contactName: "" },
     items,
     itemCount: toNumber(order.itemCount, items.length),
+    previewItems: Array.isArray((order as any).previewItems) ? (order as any).previewItems : [],
     shippingAddress: order.shippingAddress ?? null,
     trackingNumber: order.trackingNumber ?? order.shippingTrackingNumber ?? null,
     estimatedDelivery: order.estimatedDelivery ?? null,

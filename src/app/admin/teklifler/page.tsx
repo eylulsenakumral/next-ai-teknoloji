@@ -11,6 +11,8 @@ import {
   Download,
   MessageCircle,
   Eye,
+  Pencil,
+  Trash2,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -126,6 +128,27 @@ export default function AdminQuotesPage() {
   const [detailCache, setDetailCache] = useState<Record<string, Quote>>({})
   const [detailLoading, setDetailLoading] = useState(false)
   const [pdfLoading, setPdfLoading] = useState<string | null>(null)
+  const [deleteLoading, setDeleteLoading] = useState<string | null>(null)
+
+  async function handleDelete(id: string, e: React.MouseEvent) {
+    e.stopPropagation()
+    if (!confirm("Bu teklifi silmek istediğinize emin misiniz?")) return
+    setDeleteLoading(id)
+    try {
+      const res = await fetch(`/api/admin/quotes/${id}`, { method: "DELETE" })
+      if (!res.ok) {
+        const json = await res.json()
+        throw new Error(json.error ?? "Silinemedi")
+      }
+      setExpandedId(null)
+      setDetailCache((prev) => { const { [id]: _, ...rest } = prev; return rest })
+      fetchQuotes()
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Silinemedi.")
+    } finally {
+      setDeleteLoading(null)
+    }
+  }
 
   const fetchQuotes = useCallback(async () => {
     setIsLoading(true)
@@ -439,6 +462,14 @@ export default function AdminQuotesPage() {
                                       </div>
                                     </div>
                                     <div className="flex flex-wrap gap-2 items-end">
+                                      {(quote.status === "DRAFT" || quote.status === "SENT") && (
+                                        <Link href={`/admin/teklifler/${quote.id}/duzenle`} onClick={(e) => e.stopPropagation()}>
+                                          <Button variant="outline" size="sm">
+                                            <Pencil className="h-4 w-4 mr-1.5" />
+                                            Düzenle
+                                          </Button>
+                                        </Link>
+                                      )}
                                       <Button
                                         variant="outline"
                                         size="sm"
@@ -454,6 +485,18 @@ export default function AdminQuotesPage() {
                                           Detay
                                         </Button>
                                       </Link>
+                                      {quote.status !== "CONVERTED" && (
+                                        <Button
+                                          variant="outline"
+                                          size="sm"
+                                          className="text-destructive hover:bg-destructive/10"
+                                          onClick={(e) => handleDelete(quote.id, e)}
+                                          disabled={deleteLoading === quote.id}
+                                        >
+                                          <Trash2 className="h-4 w-4 mr-1.5" />
+                                          {deleteLoading === quote.id ? "Siliniyor..." : "Sil"}
+                                        </Button>
+                                      )}
                                     </div>
                                   </div>
                                 </>

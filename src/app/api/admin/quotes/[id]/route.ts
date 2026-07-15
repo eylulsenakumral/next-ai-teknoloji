@@ -3,6 +3,10 @@ import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import { prisma } from "@/lib/db"
 import type { QuoteStatus } from "@prisma/client"
 
+function optionalProductId(productId?: string) {
+  return productId?.trim() || null
+}
+
 // GET /api/admin/quotes/[id] — Teklif detay
 export async function GET(
   _req: NextRequest,
@@ -102,7 +106,7 @@ export async function PATCH(
         items: {
           deleteMany: {},
           create: data.items.map((item) => ({
-            productId: item.productId ?? null,
+            productId: optionalProductId(item.productId),
             productName: item.productName,
             quantity: item.quantity,
             unitPrice: item.unitPrice,

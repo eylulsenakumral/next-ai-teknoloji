@@ -12,6 +12,7 @@ import {
   Trash2,
   Download,
   MessageCircle,
+  Pencil,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -386,6 +387,14 @@ export default function QuoteDetailPage({ params }: { params: Promise<{ id: stri
       <Card>
         <CardContent className="pt-5">
           <div className="flex flex-wrap gap-3">
+            {canEdit && (
+              <Link href={`/admin/teklifler/${id}/duzenle`}>
+                <Button variant="outline">
+                  <Pencil className="h-4 w-4 mr-1.5" />
+                  Düzenle
+                </Button>
+              </Link>
+            )}
             {canSend && (
               <Button
                 onClick={() => updateStatus("SENT")}

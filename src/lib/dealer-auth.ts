@@ -1,11 +1,27 @@
 import { getServerSession } from "next-auth"
+import { decode } from "next-auth/jwt"
+import { headers } from "next/headers"
 import { NextResponse } from "next/server"
 import { authOptions } from "@/lib/auth"
 import type { Session } from "next-auth"
 
 export async function getDealerSession(): Promise<Session | null> {
   const session = await getServerSession(authOptions)
-  return session as Session | null
+  if (session?.user) return session as Session | null
+
+  // Bearer token fallback (mobil uygulama)
+  try {
+    const headersList = await headers()
+    const bearer = headersList.get("authorization")?.replace("Bearer ", "") ?? null
+    if (bearer && process.env.NEXTAUTH_SECRET) {
+      const decoded = await decode({ secret: process.env.NEXTAUTH_SECRET, token: bearer })
+      if (decoded?.role === "dealer" && decoded?.status === "APPROVED") {
+        return { user: decoded as any, expires: "" }
+      }
+    }
+  } catch {}
+
+  return null
 }
 
 export function requireDealerSession(
