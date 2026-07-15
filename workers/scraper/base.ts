@@ -71,9 +71,12 @@ function getPrisma(): PrismaClient {
     throw new Error("DATABASE_URL environment variable is required")
   }
 
+  const needsSsl =
+    connectionString.includes("sslmode=require") ||
+    connectionString.includes(".neon.tech")
   const pool = new Pool({
     connectionString,
-    ssl: false,
+    ssl: needsSsl ? { rejectUnauthorized: false } : false,
   })
 
   const adapter = new PrismaPg(pool)

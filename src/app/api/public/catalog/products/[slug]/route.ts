@@ -6,38 +6,18 @@ import { authOptions } from "@/lib/auth"
 // Tedarikçi kodu → Ürün Kodu prefix eşlemesi
 const SUPPLIER_CODE_PREFIX: Record<string, string> = {
   B2BDEPO: "B",
-  BAYIKANALI: "BK",
-  OKISAN: "O",
-  INDEXGRUP: "I",
-  NETEX: "N",
   BIZIMHESAP: "BZ",
-  ERGEN: "E",
-  EDENGE: "ED",
-  TESAN: "T",
 }
 
 // Tedarikçi → Depo adı eşlemesi
 const SUPPLIER_DEPO_MAP: Record<string, string> = {
   b2bdepo: "Mersin Depo",
-  okisan: "Perpa Depo",
-  indexgrup: "Kadıköy Depo",
-  netex: "Kadıköy Depo",
-  ergen: "Ergen Depo",
-  tesan: "Tesan Depo",
   bizimhesap: "Çorlu Depo",
-  reser: "Bursa Depo",
 }
 
 // Tedarikçi bazlı fiyat kar marjı (maliyet üzerine %)
 const SUPPLIER_MARKUP: Record<string, number> = {
   B2BDEPO: 1.20,
-  ERGEN: 1.20,
-  NETEX: 1.15,
-  INDEXGRUP: 1.15,
-  OKISAN: 1.10,
-  BAYIKANALI: 1.15,
-  EDENGE: 1.15,
-  TESAN: 1.15,
   BIZIMHESAP: 1.10,
 }
 

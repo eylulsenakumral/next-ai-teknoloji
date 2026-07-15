@@ -15,22 +15,15 @@ import { PrismaClient } from "@prisma/client"
 import { PrismaPg } from "@prisma/adapter-pg"
 import { Pool } from "pg"
 import { BaseScraper, type ScraperResult } from "./base"
-import { OkisanScraper } from "./suppliers/okisan"
 import { B2BDepoXmlFetcher } from "./suppliers/b2bdepo-xml"
-import { ErgenScraper } from "./suppliers/ergen"
 
 // ============================================================================
 // Scraper Registry (Browser tabanli)
 // ============================================================================
 
 const scraperRegistry: Record<string, () => BaseScraper> = {
-  // b2bdepo artik XML tabanli, asagidaki xmlSyncRegistry'den calistiriliyor
-  // b2bdepo: () => new B2BDepoScraper(),
-  okisan: () => new OkisanScraper(),
-  ergen: () => new ErgenScraper(),
-  // Add more suppliers here:
-  // venas: () => new VenasScraper(),
-  // bayikanali: () => new BayiKanaliScraper(),
+  // B2BDepo artik XML tabanli, asagidaki xmlSyncRegistry'den calistiriliyor
+  // Browser tabanli scraper kalmadi — ihtiyac olursa buraya ekleyin
 }
 
 // ============================================================================
@@ -86,7 +79,9 @@ const xmlSyncRegistry: Record<string, () => Promise<XmlSyncResult>> = {
 const dbUrl = process.env.DATABASE_URL || ""
 const pool = new Pool({
   connectionString: dbUrl,
-  ssl: false,
+  ssl: dbUrl.includes("sslmode=require") || dbUrl.includes(".neon.tech")
+    ? { rejectUnauthorized: false }
+    : false,
   // Allow SCRAM auth
   password: dbUrl.match(/:([^:@]+)@/)?.[1] || process.env.DB_PASSWORD || "",
 })

@@ -1,6 +1,7 @@
 /**
  * Category Mapping Utility
- * Tedarikçi kategori eşleştirmelerini JSON cache'den yükler/kaydeder
+ * Tedarikçi kategori eşleştirmelerini JSON cache'den yükler/kaydeder.
+ * Generic yapı: tüm supplier kodları için Record tabanlı.
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs"
@@ -19,27 +20,16 @@ export interface CategoryMappingEntry {
 export interface CategoryMappingsFile {
   version: number
   updatedAt: string
-  mappings: {
-    indexgrup: Record<string, CategoryMappingEntry>
-    netex: Record<string, CategoryMappingEntry>
-  }
-  unmapped: {
-    indexgrup: string[]
-    netex: string[]
-  }
+  // supplierCode (lowercase) → mapping tablosu
+  mappings: Record<string, Record<string, CategoryMappingEntry>>
+  unmapped: Record<string, string[]>
 }
 
 const EMPTY_MAPPINGS: CategoryMappingsFile = {
   version: 1,
   updatedAt: new Date().toISOString(),
-  mappings: {
-    indexgrup: {},
-    netex: {},
-  },
-  unmapped: {
-    indexgrup: [],
-    netex: [],
-  },
+  mappings: {},
+  unmapped: {},
 }
 
 /**
@@ -61,12 +51,7 @@ export function loadMappings(): CategoryMappingsFile {
       return structuredClone(EMPTY_MAPPINGS)
     }
 
-    // Eksik supplier anahtarlarını tamamla
-    parsed.mappings.indexgrup ??= {}
-    parsed.mappings.netex ??= {}
-    parsed.unmapped.indexgrup ??= []
-    parsed.unmapped.netex ??= []
-
+    // Eski format migrate: indexgrup/netex alt key'leri generic'e taşındı
     return parsed
   } catch {
     console.warn("[category-mapping] Cache okunamadı, sıfırlanıyor.")
@@ -76,7 +61,7 @@ export function loadMappings(): CategoryMappingsFile {
 
 /**
  * Belirli bir tedarikçi kategorisi için eşleşme bul.
- * @param supplier "indexgrup" | "netex"
+ * @param supplier supplier code (örn. "b2bdepo")
  * @param categoryName "Kategori > Grup" formatında
  */
 export function findMapping(
@@ -86,12 +71,10 @@ export function findMapping(
   const data = loadMappings()
   const supplierKey = normalizeSupplierKey(supplier)
 
-  if (!(supplierKey in data.mappings)) {
-    return null
-  }
+  const supplierMap = data.mappings[supplierKey]
+  if (!supplierMap) return null
 
-  const entry = data.mappings[supplierKey as keyof typeof data.mappings][categoryName]
-  return entry ?? null
+  return supplierMap[categoryName] ?? null
 }
 
 /**
@@ -122,25 +105,20 @@ export function mergeMappings(
   unmapped: string[]
 ): void {
   const data = loadMappings()
-  const supplierKey = normalizeSupplierKey(supplier) as keyof typeof data.mappings
-
-  if (!(supplierKey in data.mappings)) {
-    console.warn(`[category-mapping] Bilinmeyen supplier: ${supplier}`)
-    return
-  }
+  const supplierKey = normalizeSupplierKey(supplier)
 
   data.mappings[supplierKey] = {
-    ...data.mappings[supplierKey],
+    ...(data.mappings[supplierKey] ?? {}),
     ...newEntries,
   }
 
   // unmapped'den eşleşenleri çıkar, yenileri ekle
-  const existing = new Set(data.unmapped[supplierKey])
+  const existing = new Set(data.unmapped[supplierKey] ?? [])
   for (const key of Object.keys(newEntries)) {
     existing.delete(key)
   }
   for (const key of unmapped) {
-    if (!(key in data.mappings[supplierKey])) {
+    if (!(key in (data.mappings[supplierKey] ?? {}))) {
       existing.add(key)
     }
   }
