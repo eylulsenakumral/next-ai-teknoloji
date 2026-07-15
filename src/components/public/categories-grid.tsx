@@ -49,11 +49,11 @@ export function CategoriesGrid({
                 KATEGORİLER
               </span>
             </div>
-            <h2 className="text-2xl font-bold text-[#1e1e1e]">{title}</h2>
+            <h2 className="text-2xl font-bold text-[#453e71]">{title}</h2>
           </div>
           <Link
             href="/katalog"
-            className="text-sm font-semibold text-[#0040a4] hover:text-[#003080] transition-colors flex items-center gap-1 group"
+            className="text-sm font-semibold text-[#0040a4] hover:text-[#36305a] transition-colors flex items-center gap-1 group"
           >
             Tümünü Gör
             <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />

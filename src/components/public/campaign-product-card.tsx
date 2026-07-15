@@ -77,7 +77,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
   return (
     <article
       className={cn(
-        "group relative bg-[#f3f3f3] rounded-[20px] flex flex-col overflow-hidden",
+        "group relative bg-[#f4f7fa] rounded-[20px] flex flex-col overflow-hidden",
         "hover:shadow-[0_8px_25px_rgba(187,187,187,0.5)] hover:-translate-y-1",
         "transition-all duration-300 linear"
       )}
@@ -101,7 +101,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
             className="object-contain p-6 transition-transform duration-500 group-hover:scale-110"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-[#f9f9f9]">
+          <div className="absolute inset-0 flex items-center justify-center bg-[#f4f7fa]">
             <ImageOff className="h-14 w-14 text-[#e0e0e0]" aria-hidden />
           </div>
         )}
@@ -116,7 +116,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
         <div className="absolute top-3 right-3 flex flex-col gap-2 z-10 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
           <button
             type="button"
-            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[#1e1e1e] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
+            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[#453e71] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
             aria-label={`${product.name} favorilere ekle`}
           >
             <Heart className="h-4 w-4" aria-hidden />
@@ -124,7 +124,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
           <button
             type="button"
             onClick={() => router.push(`/katalog/${product.slug}`)}
-            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[#1e1e1e] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
+            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[#453e71] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
             aria-label={`${product.name} hızlı bak`}
           >
             <Eye className="h-4 w-4" aria-hidden />
@@ -146,7 +146,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
         {/* Product Name */}
         <Link
           href={`/katalog/${product.slug}`}
-          className="text-[13px] font-semibold text-[#1e1e1e] leading-snug line-clamp-2 hover:text-[#0040a4] transition-colors min-h-[40px]"
+          className="text-[13px] font-semibold text-[#453e71] leading-snug line-clamp-2 hover:text-[#0040a4] transition-colors min-h-[40px]"
         >
           {product.name}
         </Link>
@@ -154,7 +154,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
         {/* Category chip */}
         {product.category && (
           <div>
-            <span className="inline-flex items-center gap-1 text-[10px] text-[#767676] bg-[#eeeeee] px-2 py-0.5 rounded max-w-full truncate">
+            <span className="inline-flex items-center gap-1 text-[10px] text-[#64748b] bg-[#eeeeee] px-2 py-0.5 rounded max-w-full truncate">
               <Tag className="h-2.5 w-2.5 shrink-0" aria-hidden />
               {product.category.name}
             </span>
@@ -172,7 +172,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
           {showPrice && ((product as any).manualPrice != null || (product as any).salePriceExVat != null) ? (
             <Link
               href={`/katalog/${product.slug}`}
-              className="flex flex-col items-center justify-center gap-0.5 py-2.5 px-4 rounded-lg w-full bg-[#0040a4] hover:bg-[#003080] transition-all duration-300"
+              className="flex flex-col items-center justify-center gap-0.5 py-2.5 px-4 rounded-lg w-full bg-[#0040a4] hover:bg-[#36305a] transition-all duration-300"
             >
               {(() => {
                 const p = product as any
@@ -196,7 +196,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
           ) : showPrice ? (
             <Link
               href={`/katalog/${product.slug}`}
-              className="flex items-center justify-center gap-1.5 h-10 px-4 text-[11px] font-semibold rounded-lg w-full bg-[#0040a4] text-white hover:bg-[#003080] transition-all duration-300"
+              className="flex items-center justify-center gap-1.5 h-10 px-4 text-[11px] font-semibold rounded-lg w-full bg-[#0040a4] text-white hover:bg-[#36305a] transition-all duration-300"
             >
               Fiyatı Gör
             </Link>

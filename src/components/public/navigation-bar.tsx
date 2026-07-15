@@ -163,18 +163,18 @@ function CategoryDropdown() {
 
       {open && (
         <div
-          className="absolute top-full left-0 z-50 bg-white border border-[#e9e9e9] shadow-xl mt-0 flex"
+          className="absolute top-full left-0 z-50 bg-white border border-[#e2e8f0] shadow-xl mt-0 flex"
           style={{ minWidth: "680px" }}
           role="menu"
         >
           {/* Left panel: Parent categories */}
-          <div className="w-56 border-r border-[#e9e9e9] py-2 shrink-0">
+          <div className="w-56 border-r border-[#e2e8f0] py-2 shrink-0">
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="h-5 w-5 animate-spin text-[#767676]" />
+                <Loader2 className="h-5 w-5 animate-spin text-[#64748b]" />
               </div>
             ) : categories.length === 0 ? (
-              <p className="px-4 py-3 text-[13px] text-[#767676]">
+              <p className="px-4 py-3 text-[13px] text-[#64748b]">
                 Kategori bulunamadı
               </p>
             ) : (
@@ -191,7 +191,7 @@ function CategoryDropdown() {
                     "w-full flex items-center justify-between px-4 py-2.5 text-[13px] transition-colors text-left",
                     activeParentId === cat.id
                       ? "bg-[#f0f4ff] text-[#0040a4] font-semibold"
-                      : "text-[#1e1e1e] hover:bg-[#f3f3f3]"
+                      : "text-[#453e71] hover:bg-[#f4f7fa]"
                   )}
                   role="menuitem"
                 >
@@ -202,13 +202,13 @@ function CategoryDropdown() {
                   >
                     {cat.name}
                     {cat.productCount > 0 && (
-                      <span className="ml-1 text-[11px] font-normal text-[#767676]">
+                      <span className="ml-1 text-[11px] font-normal text-[#64748b]">
                         ({cat.productCount})
                       </span>
                     )}
                   </Link>
                   {cat.children && cat.children.length > 0 && (
-                    <ChevronRight className="h-3.5 w-3.5 shrink-0 text-[#999999]" aria-hidden />
+                    <ChevronRight className="h-3.5 w-3.5 shrink-0 text-[#94a3b8]" aria-hidden />
                   )}
                 </button>
               ))
@@ -229,7 +229,7 @@ function CategoryDropdown() {
                 >
                   {activeParent.name}
                   {activeParent.productCount > 0 && (
-                    <span className="ml-1.5 text-[11px] font-normal text-[#767676]">
+                    <span className="ml-1.5 text-[11px] font-normal text-[#64748b]">
                       ({activeParent.productCount})
                     </span>
                   )}
@@ -243,11 +243,11 @@ function CategoryDropdown() {
                           setOpen(false)
                           setActiveParentId(null)
                         }}
-                        className="inline-flex items-baseline gap-1.5 text-[13px] font-semibold text-[#1e1e1e] hover:text-[#0040a4] transition-colors py-1.5"
+                        className="inline-flex items-baseline gap-1.5 text-[13px] font-semibold text-[#453e71] hover:text-[#0040a4] transition-colors py-1.5"
                       >
                         {sub.name}
                         {sub.productCount > 0 && (
-                          <span className="text-[11px] font-normal text-[#999999]">
+                          <span className="text-[11px] font-normal text-[#94a3b8]">
                             ({sub.productCount})
                           </span>
                         )}
@@ -262,7 +262,7 @@ function CategoryDropdown() {
                                   setOpen(false)
                                   setActiveParentId(null)
                                 }}
-                                className="inline-flex items-baseline gap-1 text-[12px] text-[#767676] hover:text-[#0040a4] transition-colors py-1"
+                                className="inline-flex items-baseline gap-1 text-[12px] text-[#64748b] hover:text-[#0040a4] transition-colors py-1"
                               >
                                 {child.name}
                                 {child.productCount > 0 && (
@@ -281,7 +281,7 @@ function CategoryDropdown() {
               </>
             ) : activeParent ? (
               <div className="flex flex-col items-center justify-center h-full text-center">
-                <Package className="h-8 w-8 text-[#767676]/30 mb-2" aria-hidden />
+                <Package className="h-8 w-8 text-[#64748b]/30 mb-2" aria-hidden />
                 <Link
                   href={`/katalog?categorySlug=${encodeURIComponent(activeParent.slug)}`}
                   onClick={() => {
@@ -292,7 +292,7 @@ function CategoryDropdown() {
                 >
                   {activeParent.name} kategorisine git
                   {activeParent.productCount > 0 && (
-                    <span className="ml-1 text-[12px] font-normal text-[#767676]">
+                    <span className="ml-1 text-[12px] font-normal text-[#64748b]">
                       ({activeParent.productCount} ürün)
                     </span>
                   )}
@@ -317,7 +317,7 @@ export function NavigationBar() {
 
   return (
     <nav
-      className="w-full bg-white border-b border-[#e9e9e9]"
+      className="w-full bg-white border-b border-[#e2e8f0]"
       role="navigation"
       aria-label="Ana navigasyon"
     >
@@ -332,7 +332,7 @@ export function NavigationBar() {
               <li key={link.href + link.label}>
                 <Link
                   href={link.href}
-                  className="inline-flex items-center h-[50px] px-4 text-[13px] font-medium tracking-wider text-[#1e1e1e] hover:text-[#0040a4] transition-colors duration-300"
+                  className="inline-flex items-center h-[50px] px-4 text-[13px] font-medium tracking-wider text-[#453e71] hover:text-[#0040a4] transition-colors duration-300"
                 >
                   {link.label}
                 </Link>

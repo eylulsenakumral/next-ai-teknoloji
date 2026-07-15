@@ -32,7 +32,7 @@ export default function SifremiUnuttumPage() {
     <div className="flex min-h-screen">
       {/* SOL PANEL */}
       <div className="relative flex w-full flex-col bg-white md:w-1/2">
-        <div className="h-1 w-full bg-gradient-to-r from-[#1477ff] to-[#1477ff]" />
+        <div className="h-1 w-full bg-gradient-to-r from-[#5086a8] to-[#5086a8]" />
 
         {/* Header */}
         <header className="flex items-center justify-between px-8 py-5">
@@ -46,7 +46,7 @@ export default function SifremiUnuttumPage() {
 
           <Link
             href="/login"
-            className="flex items-center gap-1 text-xs font-medium text-[#6b7280] transition-colors hover:text-[#1477ff]"
+            className="flex items-center gap-1 text-xs font-medium text-[#6b7280] transition-colors hover:text-[#5086a8]"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             Giriş Sayfası
@@ -72,7 +72,7 @@ export default function SifremiUnuttumPage() {
                   href="/login"
                   className={cn(
                     "mt-6 inline-flex h-11 w-full items-center justify-center",
-                    "bg-[#1477ff] text-sm font-semibold uppercase tracking-wide text-white",
+                    "bg-[#5086a8] text-sm font-semibold uppercase tracking-wide text-white",
                     "transition-colors hover:bg-[#162d4a]"
                   )}
                 >
@@ -118,7 +118,7 @@ export default function SifremiUnuttumPage() {
                       className={cn(
                         "h-12 w-full border border-[#ccd1db] bg-white px-4 text-sm text-[#0e121a]",
                         "placeholder:text-[#9ca3af] outline-none",
-                        "transition-colors focus:border-[#1477ff] focus:ring-2 focus:ring-[#1477ff]/20",
+                        "transition-colors focus:border-[#5086a8] focus:ring-2 focus:ring-[#5086a8]/20",
                         "disabled:cursor-not-allowed disabled:bg-[#f9fafb] disabled:text-[#9ca3af]"
                       )}
                     />
@@ -145,7 +145,7 @@ export default function SifremiUnuttumPage() {
                       className={cn(
                         "h-12 w-full border border-[#ccd1db] bg-white px-4 text-sm text-[#0e121a] normal-case",
                         "placeholder:text-[#9ca3af] outline-none",
-                        "transition-colors focus:border-[#1477ff] focus:ring-2 focus:ring-[#1477ff]/20",
+                        "transition-colors focus:border-[#5086a8] focus:ring-2 focus:ring-[#5086a8]/20",
                         "disabled:cursor-not-allowed disabled:bg-[#f9fafb] disabled:text-[#9ca3af]"
                       )}
                     />
@@ -157,7 +157,7 @@ export default function SifremiUnuttumPage() {
                       disabled={isLoading}
                       className={cn(
                         "flex h-12 w-full items-center justify-center gap-2",
-                        "bg-[#1477ff] text-sm font-semibold uppercase tracking-wide text-white",
+                        "bg-[#5086a8] text-sm font-semibold uppercase tracking-wide text-white",
                         "transition-colors hover:bg-[#162d4a]",
                         "disabled:cursor-not-allowed disabled:opacity-60"
                       )}
@@ -177,7 +177,7 @@ export default function SifremiUnuttumPage() {
                 <p className="mt-4 text-center text-xs text-[#9ca3af]">
                   <Link
                     href="/login"
-                    className="text-[#1477ff] transition-colors hover:text-[#2a85ff]"
+                    className="text-[#5086a8] transition-colors hover:text-[#456680]"
                   >
                     Giriş sayfasına geri dön
                   </Link>
@@ -196,7 +196,7 @@ export default function SifremiUnuttumPage() {
       <aside
         className="relative hidden flex-col md:flex md:w-1/2"
         style={{
-          background: "linear-gradient(-45deg, #000d5e 0%, #1477ff 50%, #1477ff 100%)",
+          background: "linear-gradient(-45deg, #000d5e 0%, #5086a8 50%, #5086a8 100%)",
         }}
         aria-hidden="true"
       >

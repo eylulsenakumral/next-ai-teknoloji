@@ -44,7 +44,7 @@ const benefits = [
 const tiers = [
   {
     name: "Başlangıç",
-    color: "#071426",
+    color: "#453e71",
     target: "Yeni başlayan bayiler",
     discount: "5–10%",
     credit: "₺25.000",
@@ -52,7 +52,7 @@ const tiers = [
   },
   {
     name: "Profesyonel",
-    color: "#1477ff",
+    color: "#5086a8",
     target: "Aktif tedarik eden bayiler",
     discount: "12–18%",
     credit: "₺100.000",
@@ -67,7 +67,7 @@ const tiers = [
   },
   {
     name: "Kurumsal",
-    color: "#071426",
+    color: "#453e71",
     target: "Sistem entegratörleri",
     discount: "20%+ özel",
     credit: "Proje bazlı",
@@ -93,16 +93,16 @@ export default function BayiProgramiPage() {
   return (
     <div className="font-nx-sans">
       {/* Hero */}
-      <section className="bg-[#071426] px-6 py-24 text-white md:px-10 md:py-32">
+      <section className="bg-[#453e71] px-6 py-24 text-white md:px-10 md:py-32">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div>
-              <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#67abff]">
+              <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#8aa8bc]">
                 Bayi Programı
               </p>
               <h1 className="mt-4 text-4xl font-bold leading-[1.05] tracking-[-0.055em] md:text-6xl">
                 Tedarikçiden fazlası —
-                <span className="block bg-gradient-to-r from-[#80b7ff] to-[#1477ff] bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-[#a8c4d4] to-[#5086a8] bg-clip-text text-transparent">
                   güçlü bir iş ortağı.
                 </span>
               </h1>
@@ -113,7 +113,7 @@ export default function BayiProgramiPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/bayimiz-olun"
-                  className="rounded-xl bg-[#1477ff] px-6 py-4 text-sm font-bold text-white transition hover:bg-[#2a85ff]"
+                  className="rounded-xl bg-[#5086a8] px-6 py-4 text-sm font-bold text-white transition hover:bg-[#456680]"
                 >
                   Bayimiz Olun
                 </Link>
@@ -144,7 +144,7 @@ export default function BayiProgramiPage() {
       <section className="bg-[#f4f7fa] px-6 py-20 md:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-2xl">
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#1477ff]">
+            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#5086a8]">
               Bayi avantajları
             </p>
             <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
@@ -156,11 +156,11 @@ export default function BayiProgramiPage() {
 
           <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {benefits.map((b) => (
-              <div key={b.title} className="rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-[#1477ff]/30">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1477ff]/10 text-[#1477ff]">
+              <div key={b.title} className="rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-[#5086a8]/30">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#5086a8]/10 text-[#5086a8]">
                   <b.Icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-[#071426]">{b.title}</h3>
+                <h3 className="mt-5 text-lg font-bold text-[#453e71]">{b.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-500">{b.desc}</p>
               </div>
             ))}
@@ -172,7 +172,7 @@ export default function BayiProgramiPage() {
       <section className="bg-white px-6 py-20 md:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="text-center max-w-2xl mx-auto">
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#1477ff]">
+            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#5086a8]">
               Üyelik kademeleri
             </p>
             <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
@@ -186,12 +186,12 @@ export default function BayiProgramiPage() {
                 key={t.name}
                 className={`relative rounded-3xl p-8 transition ${
                   t.featured
-                    ? "bg-[#071426] text-white shadow-2xl lg:-translate-y-3"
-                    : "bg-[#f4f7fa] text-[#071426] hover:bg-[#071426] hover:text-white"
+                    ? "bg-[#453e71] text-white shadow-2xl lg:-translate-y-3"
+                    : "bg-[#f4f7fa] text-[#453e71] hover:bg-[#453e71] hover:text-white"
                 }`}
               >
                 {t.featured && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#1477ff] px-4 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-[#5086a8] px-4 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
                     En popüler
                   </span>
                 )}
@@ -214,7 +214,7 @@ export default function BayiProgramiPage() {
                 <ul className="mt-6 space-y-3">
                   {t.perks.map((p) => (
                     <li key={p} className="flex items-start gap-2 text-sm">
-                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[#1477ff]" />
+                      <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[#5086a8]" />
                       <span className="opacity-80">{p}</span>
                     </li>
                   ))}
@@ -224,9 +224,9 @@ export default function BayiProgramiPage() {
                   href="/bayimiz-olun"
                   className={`mt-8 block rounded-xl py-3 text-center text-sm font-bold transition ${
                     t.featured
-                      ? "bg-[#1477ff] text-white hover:bg-[#2a85ff]"
-                      : "bg-[#071426] text-white hover:bg-[#0d2040]"
-                  } ${!t.featured ? "[&]:hover:bg-[#1477ff]" : ""}`}
+                      ? "bg-[#5086a8] text-white hover:bg-[#456680]"
+                      : "bg-[#453e71] text-white hover:bg-[#36305a]"
+                  } ${!t.featured ? "[&]:hover:bg-[#5086a8]" : ""}`}
                 >
                   Başvur
                 </Link>
@@ -237,10 +237,10 @@ export default function BayiProgramiPage() {
       </section>
 
       {/* Process */}
-      <section className="bg-[#071426] px-6 py-20 text-white md:px-10">
+      <section className="bg-[#453e71] px-6 py-20 text-white md:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-2xl">
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#67abff]">
+            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#8aa8bc]">
               Başvuru süreci
             </p>
             <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
@@ -255,7 +255,7 @@ export default function BayiProgramiPage() {
               { n: "04", title: "Aktivasyon", desc: "Bayi portalı erişimi ve ilk sipariş" },
             ].map((s) => (
               <div key={s.n} className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                <span className="font-nx-mono text-[10px] font-bold tracking-[.18em] text-[#67abff]">{s.n}</span>
+                <span className="font-nx-mono text-[10px] font-bold tracking-[.18em] text-[#8aa8bc]">{s.n}</span>
                 <h3 className="mt-4 text-lg font-bold">{s.title}</h3>
                 <p className="mt-2 text-sm text-slate-400">{s.desc}</p>
               </div>

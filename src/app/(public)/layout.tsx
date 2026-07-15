@@ -33,7 +33,7 @@ export default function PublicLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col min-h-screen bg-[#f4f7fa] text-[#071426] font-nx-sans">
+    <div className="flex flex-col min-h-screen bg-[#f4f7fa] text-[#453e71] font-nx-sans">
       <PublicHeaderNext />
       <main className="flex-1 w-full">{children}</main>
       <PublicFooterNext />

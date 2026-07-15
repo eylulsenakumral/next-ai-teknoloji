@@ -16,17 +16,17 @@ const stats = [
 // Dashboard mockup — CSS/SVG tabanlı
 function DashboardMockup() {
   const feeds = [
-    { label: "GİRİŞ / A1", color: "#0d2a4a", accent: "#1477ff", status: "●" },
+    { label: "GİRİŞ / A1", color: "#0d2a4a", accent: "#5086a8", status: "●" },
     { label: "OTOPARK / B2", color: "#0a1f38", accent: "#22c55e", status: "●" },
-    { label: "DEPO / C3", color: "#0f2340", accent: "#1477ff", status: "●" },
-    { label: "DIŞ CEPHE / D4", color: "#091a30", accent: "#f59e0b", status: "●" },
+    { label: "DEPO / C3", color: "#0f2340", accent: "#5086a8", status: "●" },
+    { label: "DIŞ CEPHE / D4", color: "#2a2547", accent: "#f59e0b", status: "●" },
   ]
 
   return (
     <div className="relative w-full max-w-[540px] select-none">
-      <div className="absolute -inset-10 rounded-full bg-[#1477ff]/10 blur-3xl" />
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#080f1c] shadow-[0_32px_80px_rgba(0,0,0,.6)]">
-        <div className="flex items-center justify-between border-b border-white/8 bg-[#0b1421] px-4 py-3">
+      <div className="absolute -inset-10 rounded-full bg-[#5086a8]/10 blur-3xl" />
+      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#2a2547] shadow-[0_32px_80px_rgba(0,0,0,.6)]">
+        <div className="flex items-center justify-between border-b border-white/8 bg-[#3a3560] px-4 py-3">
           <div className="flex items-center gap-2">
             <div className="flex gap-1.5">
               <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
@@ -73,7 +73,7 @@ function DashboardMockup() {
           ))}
         </div>
 
-        <div className="grid grid-cols-3 divide-x divide-white/8 border-t border-white/8 bg-[#0b1421]">
+        <div className="grid grid-cols-3 divide-x divide-white/8 border-t border-white/8 bg-[#3a3560]">
           {[
             { label: "NVR DEPOLAMA", val: "68%", bar: true },
             { label: "BANT GENİŞLİĞİ", val: "24 Mbps", bar: false },
@@ -84,7 +84,7 @@ function DashboardMockup() {
               <p className="mt-0.5 font-nx-mono text-xs font-bold text-white">{item.val}</p>
               {item.bar && (
                 <div className="mt-1.5 h-0.5 w-full overflow-hidden rounded-full bg-white/10">
-                  <div className="h-full w-[68%] rounded-full bg-[#1477ff]" />
+                  <div className="h-full w-[68%] rounded-full bg-[#5086a8]" />
                 </div>
               )}
             </div>
@@ -93,7 +93,7 @@ function DashboardMockup() {
       </div>
 
       {/* floating alert card */}
-      <div className="absolute -right-4 top-8 flex items-center gap-2.5 rounded-xl border border-white/10 bg-[#0f1e35]/90 px-3.5 py-2.5 backdrop-blur-xl shadow-lg">
+      <div className="absolute -right-4 top-8 flex items-center gap-2.5 rounded-xl border border-white/10 bg-[#3a3560]/90 px-3.5 py-2.5 backdrop-blur-xl shadow-lg">
         <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#ff8a1f]/15 text-[#ff8a1f]">
           <IcnZap className="h-3.5 w-3.5" />
         </span>
@@ -104,12 +104,12 @@ function DashboardMockup() {
       </div>
 
       {/* floating brand badge */}
-      <div className="absolute -left-4 bottom-12 flex items-center gap-2 rounded-xl border border-white/10 bg-[#0f1e35]/90 px-3 py-2 backdrop-blur-xl shadow-lg">
+      <div className="absolute -left-4 bottom-12 flex items-center gap-2 rounded-xl border border-white/10 bg-[#3a3560]/90 px-3 py-2 backdrop-blur-xl shadow-lg">
         <div className="flex -space-x-1">
           {["D", "H", "U"].map((l, i) => (
             <div
               key={l}
-              className="flex h-6 w-6 items-center justify-center rounded-full border border-[#071426] bg-[#1477ff] font-nx-mono text-[9px] font-bold text-white"
+              className="flex h-6 w-6 items-center justify-center rounded-full border border-[#453e71] bg-[#5086a8] font-nx-mono text-[9px] font-bold text-white"
               style={{ zIndex: 3 - i }}
             >
               {l}
@@ -124,13 +124,13 @@ function DashboardMockup() {
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-[#071426] px-6 pb-0 pt-32 text-white md:px-10 md:pt-40 font-nx-sans">
+    <section className="relative isolate overflow-hidden bg-[#453e71] px-6 pb-0 pt-32 text-white md:px-10 md:pt-40 font-nx-sans">
       {/* bg gradients */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 60% 20%, #1477ff18 0%, transparent 70%), linear-gradient(180deg,#071426 60%,#050d1c)",
+            "radial-gradient(ellipse 80% 60% at 60% 20%, #5086a818 0%, transparent 70%), linear-gradient(180deg,#453e71 60%,#2a2547)",
         }}
       />
       <div
@@ -146,15 +146,15 @@ export function Hero() {
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           {/* left copy */}
           <div>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#1477ff]/30 bg-[#1477ff]/10 px-3.5 py-1.5">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#1477ff] animate-pulse" />
-              <span className="font-nx-mono text-[10px] font-semibold uppercase tracking-[.18em] text-[#67abff]">
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#5086a8]/30 bg-[#5086a8]/10 px-3.5 py-1.5">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#5086a8] animate-pulse" />
+              <span className="font-nx-mono text-[10px] font-semibold uppercase tracking-[.18em] text-[#8aa8bc]">
                 B2B Teknoloji Tedarik Platformu
               </span>
             </div>
             <h1 className="text-5xl font-bold leading-[.94] tracking-[-0.065em] sm:text-6xl lg:text-[4.25rem]">
               Güvenlik projelerinde{" "}
-              <span className="bg-gradient-to-r from-[#80b7ff] to-[#1477ff] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#a8c4d4] to-[#5086a8] bg-clip-text text-transparent">
                 global güç,
               </span>{" "}
               yerel uzmanlık.
@@ -166,7 +166,7 @@ export function Hero() {
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
                 href="/proje-tasarim"
-                className="group flex items-center gap-3 rounded-xl bg-[#1477ff] px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#1477ff]/25 transition hover:bg-[#2a85ff]"
+                className="group flex items-center gap-3 rounded-xl bg-[#5086a8] px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#5086a8]/25 transition hover:bg-[#456680]"
               >
                 Projenizi Tasarlayalım
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20 text-xs transition group-hover:bg-white/30">
@@ -191,7 +191,7 @@ export function Hero() {
         {/* stats strip */}
         <div className="mt-20 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/5 sm:grid-cols-4">
           {stats.map(([val, label]) => (
-            <div key={label} className="bg-[#071426]/60 px-6 py-5 backdrop-blur">
+            <div key={label} className="bg-[#453e71]/60 px-6 py-5 backdrop-blur">
               <strong className="block text-2xl font-extrabold tracking-tight text-white">{val}</strong>
               <span className="mt-1 block font-nx-mono text-[9px] uppercase tracking-[.14em] text-slate-500">
                 {label}

@@ -131,8 +131,8 @@ function QuoteForm() {
         <div className="w-16 h-16 bg-emerald-100 flex items-center justify-center mx-auto mb-4">
           <Check className="w-8 h-8 text-emerald-600" />
         </div>
-        <h3 className="text-[18px] font-bold text-[#1e1e1e] mb-2">Talebiniz Alındı!</h3>
-        <p className="text-[14px] text-[#767676]">
+        <h3 className="text-[18px] font-bold text-[#453e71] mb-2">Talebiniz Alındı!</h3>
+        <p className="text-[14px] text-[#64748b]">
           24 saat içinde size özel teklifimizi ileteceğiz.
         </p>
       </div>
@@ -141,68 +141,68 @@ function QuoteForm() {
 
   return (
     <div className="bg-white border border-[#eeeeee] p-8">
-      <h3 className="text-[20px] font-bold text-[#1e1e1e] mb-6">Teklif Formu</h3>
+      <h3 className="text-[20px] font-bold text-[#453e71] mb-6">Teklif Formu</h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-[13px] font-semibold text-[#1e1e1e] mb-1.5">
+          <label className="block text-[13px] font-semibold text-[#453e71] mb-1.5">
             Şirket Adı *
           </label>
           <input
             name="companyName"
             type="text"
             required
-            className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#1477ff] focus:ring-1 focus:ring-[#1477ff]/20"
+            className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#453e71] focus:outline-none focus:border-[#5086a8] focus:ring-1 focus:ring-[#5086a8]/20"
             placeholder="Şirketinizin adını girin"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-[13px] font-semibold text-[#1e1e1e] mb-1.5">
+            <label className="block text-[13px] font-semibold text-[#453e71] mb-1.5">
               Ad Soyad *
             </label>
             <input
               name="contactName"
               type="text"
               required
-              className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#1477ff] focus:ring-1 focus:ring-[#1477ff]/20"
+              className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#453e71] focus:outline-none focus:border-[#5086a8] focus:ring-1 focus:ring-[#5086a8]/20"
               placeholder="Adınız"
             />
           </div>
           <div>
-            <label className="block text-[13px] font-semibold text-[#1e1e1e] mb-1.5">
+            <label className="block text-[13px] font-semibold text-[#453e71] mb-1.5">
               Telefon *
             </label>
             <input
               name="phone"
               type="tel"
               required
-              className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#1477ff] focus:ring-1 focus:ring-[#1477ff]/20"
+              className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#453e71] focus:outline-none focus:border-[#5086a8] focus:ring-1 focus:ring-[#5086a8]/20"
               placeholder="+90 5XX XXX XX XX"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-[13px] font-semibold text-[#1e1e1e] mb-1.5">
+          <label className="block text-[13px] font-semibold text-[#453e71] mb-1.5">
             E-posta *
           </label>
           <input
             name="email"
             type="email"
             required
-            className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#1477ff] focus:ring-1 focus:ring-[#1477ff]/20"
+            className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#453e71] focus:outline-none focus:border-[#5086a8] focus:ring-1 focus:ring-[#5086a8]/20"
             placeholder="ornek@sirket.com"
           />
         </div>
 
         <div>
-          <label className="block text-[13px] font-semibold text-[#1e1e1e] mb-1.5">
+          <label className="block text-[13px] font-semibold text-[#453e71] mb-1.5">
             Sektör
           </label>
           <select
             name="sector"
-            className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#1477ff] focus:ring-1 focus:ring-[#1477ff]/20 bg-white"
+            className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#453e71] focus:outline-none focus:border-[#5086a8] focus:ring-1 focus:ring-[#5086a8]/20 bg-white"
           >
             <option value="">Seçiniz</option>
             <option value="imalat">İmalat</option>
@@ -214,14 +214,14 @@ function QuoteForm() {
         </div>
 
         <div>
-          <label className="block text-[13px] font-semibold text-[#1e1e1e] mb-1.5">
+          <label className="block text-[13px] font-semibold text-[#453e71] mb-1.5">
             İhtiyaçlarınız *
           </label>
           <textarea
             name="message"
             required
             rows={4}
-            className="w-full border border-[#eeeeee] px-4 py-3 text-[14px] text-[#1e1e1e] focus:outline-none focus:border-[#1477ff] focus:ring-1 focus:ring-[#1477ff]/20 resize-none"
+            className="w-full border border-[#eeeeee] px-4 py-3 text-[14px] text-[#453e71] focus:outline-none focus:border-[#5086a8] focus:ring-1 focus:ring-[#5086a8]/20 resize-none"
             placeholder="Hangi ürünlere ihtiyacınız var? Tahmini sipariş miktarınız nedir?"
           />
         </div>
@@ -235,7 +235,7 @@ function QuoteForm() {
         <button
           type="submit"
           disabled={formStatus === "sending"}
-          className="w-full h-12 bg-[#1477ff] text-white font-bold text-[14px] hover:bg-[#1e1e1e] transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
+          className="w-full h-12 bg-[#5086a8] text-white font-bold text-[14px] hover:bg-[#453e71] transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2"
         >
           <Send className="w-4 h-4" />
           {formStatus === "sending" ? "Gönderiliyor..." : "Teklif İste"}
@@ -249,7 +249,7 @@ export default function KurumsalPage() {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#1477ff] to-[#4da6ff] text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-[#5086a8] to-[#4da6ff] text-white py-20 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
@@ -267,7 +267,7 @@ export default function KurumsalPage() {
             </p>
             <a
               href="#teklif"
-              className="inline-flex items-center gap-2 h-12 px-8 bg-white text-[#1477ff] font-bold text-[14px] hover:bg-white/90 transition-colors"
+              className="inline-flex items-center gap-2 h-12 px-8 bg-white text-[#5086a8] font-bold text-[14px] hover:bg-white/90 transition-colors"
             >
               Hemen Başvur
               <ArrowRight className="w-4 h-4" />
@@ -280,10 +280,10 @@ export default function KurumsalPage() {
       <section className="py-20">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-[28px] sm:text-[34px] font-black text-[#1e1e1e] mb-4">
+            <h2 className="text-[28px] sm:text-[34px] font-black text-[#453e71] mb-4">
               Kurumsal Avantajlar
             </h2>
-            <p className="text-[15px] text-[#767676] max-w-2xl mx-auto">
+            <p className="text-[15px] text-[#64748b] max-w-2xl mx-auto">
               İşletmenizin ihtiyaçlarına özel tasarlanmış çözümler
             </p>
           </div>
@@ -292,13 +292,13 @@ export default function KurumsalPage() {
             {benefits.map((benefit) => (
               <div
                 key={benefit.title}
-                className="bg-white border border-[#eeeeee] p-6 hover:border-[#1477ff]/40 hover:shadow-md transition-all duration-200"
+                className="bg-white border border-[#eeeeee] p-6 hover:border-[#5086a8]/40 hover:shadow-md transition-all duration-200"
               >
-                <div className="w-12 h-12 bg-[#1477ff]/10 flex items-center justify-center mb-4">
-                  <benefit.icon className="w-6 h-6 text-[#1477ff]" aria-hidden />
+                <div className="w-12 h-12 bg-[#5086a8]/10 flex items-center justify-center mb-4">
+                  <benefit.icon className="w-6 h-6 text-[#5086a8]" aria-hidden />
                 </div>
-                <h3 className="text-[16px] font-bold text-[#1e1e1e] mb-2">{benefit.title}</h3>
-                <p className="text-[14px] text-[#767676] leading-relaxed">{benefit.description}</p>
+                <h3 className="text-[16px] font-bold text-[#453e71] mb-2">{benefit.title}</h3>
+                <p className="text-[14px] text-[#64748b] leading-relaxed">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -306,13 +306,13 @@ export default function KurumsalPage() {
       </section>
 
       {/* Packages */}
-      <section className="py-20 bg-[#f9f9f9]">
+      <section className="py-20 bg-[#f4f7fa]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-[28px] sm:text-[34px] font-black text-[#1e1e1e] mb-4">
+            <h2 className="text-[28px] sm:text-[34px] font-black text-[#453e71] mb-4">
               Kurumsal Paketler
             </h2>
-            <p className="text-[15px] text-[#767676] max-w-2xl mx-auto">
+            <p className="text-[15px] text-[#64748b] max-w-2xl mx-auto">
               İşletmenizin büyüklüğüne uygun paket seçenekleri
             </p>
           </div>
@@ -323,32 +323,32 @@ export default function KurumsalPage() {
                 key={pkg.name}
                 className={`bg-white p-8 ${
                   pkg.popular
-                    ? "border-2 border-[#1477ff] shadow-lg scale-105"
+                    ? "border-2 border-[#5086a8] shadow-lg scale-105"
                     : "border border-[#eeeeee]"
                 }`}
               >
                 {pkg.popular && (
-                  <div className="bg-[#1477ff] text-white text-[12px] font-bold px-3 py-1 inline-block mb-4 uppercase tracking-wider">
+                  <div className="bg-[#5086a8] text-white text-[12px] font-bold px-3 py-1 inline-block mb-4 uppercase tracking-wider">
                     En Popüler
                   </div>
                 )}
-                <h3 className="text-[22px] font-black text-[#1e1e1e] mb-2">{pkg.name}</h3>
-                <p className="text-[14px] text-[#767676] mb-6">{pkg.description}</p>
+                <h3 className="text-[22px] font-black text-[#453e71] mb-2">{pkg.name}</h3>
+                <p className="text-[14px] text-[#64748b] mb-6">{pkg.description}</p>
 
                 <div className="mb-4">
-                  <div className="text-[12px] text-[#767676] mb-1 uppercase tracking-wider">Minimum Sipariş</div>
-                  <div className="text-[28px] font-black text-[#1477ff]">{pkg.minOrder}</div>
+                  <div className="text-[12px] text-[#64748b] mb-1 uppercase tracking-wider">Minimum Sipariş</div>
+                  <div className="text-[28px] font-black text-[#5086a8]">{pkg.minOrder}</div>
                 </div>
 
                 <div className="mb-6">
-                  <div className="text-[12px] text-[#767676] mb-1 uppercase tracking-wider">İndirim Oranı</div>
-                  <div className="text-[22px] font-black text-[#1e1e1e]">{pkg.discount}</div>
+                  <div className="text-[12px] text-[#64748b] mb-1 uppercase tracking-wider">İndirim Oranı</div>
+                  <div className="text-[22px] font-black text-[#453e71]">{pkg.discount}</div>
                 </div>
 
                 <ul className="space-y-3 mb-8">
                   {pkg.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-[#1477ff] flex-shrink-0 mt-0.5" />
+                      <Check className="w-4 h-4 text-[#5086a8] flex-shrink-0 mt-0.5" />
                       <span className="text-[13px] text-[#555555]">{feature}</span>
                     </li>
                   ))}
@@ -358,8 +358,8 @@ export default function KurumsalPage() {
                   href="#teklif"
                   className={`block w-full h-11 flex items-center justify-center font-bold text-[14px] transition-all duration-200 ${
                     pkg.popular
-                      ? "bg-[#1477ff] text-white hover:bg-[#1e1e1e]"
-                      : "border-2 border-[#1477ff] text-[#1477ff] hover:bg-[#1477ff]/5"
+                      ? "bg-[#5086a8] text-white hover:bg-[#453e71]"
+                      : "border-2 border-[#5086a8] text-[#5086a8] hover:bg-[#5086a8]/5"
                   }`}
                 >
                   Başvur
@@ -375,10 +375,10 @@ export default function KurumsalPage() {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-[28px] sm:text-[34px] font-black text-[#1e1e1e] mb-6">
+              <h2 className="text-[28px] sm:text-[34px] font-black text-[#453e71] mb-6">
                 Hızlı Teklif Alın
               </h2>
-              <p className="text-[16px] text-[#767676] mb-8 leading-relaxed">
+              <p className="text-[16px] text-[#64748b] mb-8 leading-relaxed">
                 İhtiyaçlarınızı belirtin, size özel fiyat teklifimizi 24 saat içinde ilelim.
               </p>
 
@@ -389,8 +389,8 @@ export default function KurumsalPage() {
                   "Özel fiyat teklifi",
                 ].map((item) => (
                   <div key={item} className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-[#1477ff]/10 flex items-center justify-center flex-shrink-0">
-                      <Check className="w-4 h-4 text-[#1477ff]" />
+                    <div className="w-8 h-8 bg-[#5086a8]/10 flex items-center justify-center flex-shrink-0">
+                      <Check className="w-4 h-4 text-[#5086a8]" />
                     </div>
                     <span className="text-[15px] text-[#555555]">{item}</span>
                   </div>
@@ -398,10 +398,10 @@ export default function KurumsalPage() {
               </div>
 
               <div className="mt-8 pt-8 border-t border-[#eeeeee]">
-                <p className="text-[13px] text-[#767676] mb-3">Veya doğrudan ulaşın:</p>
+                <p className="text-[13px] text-[#64748b] mb-3">Veya doğrudan ulaşın:</p>
                 <Link
                   href="/iletisim"
-                  className="inline-flex items-center gap-2 text-[#1477ff] font-semibold text-[14px] hover:underline"
+                  className="inline-flex items-center gap-2 text-[#5086a8] font-semibold text-[14px] hover:underline"
                 >
                   İletişim sayfasına git
                   <ArrowRight className="w-4 h-4" />

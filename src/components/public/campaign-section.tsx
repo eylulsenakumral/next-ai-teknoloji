@@ -41,7 +41,7 @@ export function CampaignSection({
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-2xl font-bold text-[#1e1e1e] tracking-tight">{title}</h2>
+          <h2 className="text-2xl font-bold text-[#453e71] tracking-tight">{title}</h2>
           {subtitle && (
             <p className="text-sm text-gray-600 mt-1">{subtitle}</p>
           )}
@@ -49,7 +49,7 @@ export function CampaignSection({
         {viewAllHref && (
           <Link
             href={viewAllHref}
-            className="text-sm font-semibold text-[#0040a4] hover:text-[#003080] transition-colors flex items-center gap-1 group"
+            className="text-sm font-semibold text-[#0040a4] hover:text-[#36305a] transition-colors flex items-center gap-1 group"
           >
             Tümünü Gör
             <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />

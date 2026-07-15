@@ -7,18 +7,19 @@
 /* ============================================================================
  * Yeni (public) tasarım design tokens — Figma Make
  * Admin paneli kendi --DT* değişkenlerini kullanır, bu blok dokunmaz.
+ * Kurumsal renkler: Koyu mavi #453e71, Açık mavi #5086a8
  * ============================================================================ */
 @theme inline {
-  /* Public renk paleti (Figma) */
-  --color-nx-dark: #071426;
-  --color-nx-primary: #1477ff;
-  --color-nx-primary-hover: #2d8cff;
+  /* Public renk paleti (kurumsal) */
+  --color-nx-dark: #453e71;
+  --color-nx-primary: #5086a8;
+  --color-nx-primary-hover: #456680;
   --color-nx-accent: #ff9b43;
   --color-nx-accent-hover: #ffad64;
   --color-nx-bg: #f4f7fa;
-  --color-nx-blue-soft: #67abff;
-  --color-nx-blue-lighter: #80b7ff;
-  --color-nx-blue-pale: #58a3ff;
+  --color-nx-blue-soft: #8aa8bc;
+  --color-nx-blue-lighter: #a8c4d4;
+  --color-nx-blue-pale: #6b96b3;
 
   /* Public fontlar */
   --font-nx-sans: var(--font-manrope), "Manrope", ui-sans-serif, system-ui, sans-serif;
