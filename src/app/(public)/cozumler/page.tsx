@@ -99,7 +99,7 @@ export default function CozumlerPage() {
   return (
     <div className="font-nx-sans">
       {/* Hero */}
-      <section className="bg-[#1e3a5f] px-6 py-24 text-white md:px-10 md:py-32">
+      <section className="bg-[#0040a4] px-6 py-24 text-white md:px-10 md:py-32">
         <div className="mx-auto max-w-7xl">
           <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#8aa8bc]">
             Çözüm alanları
@@ -124,7 +124,7 @@ export default function CozumlerPage() {
           <div className="mx-auto max-w-7xl">
             <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start">
               {/* Left — header */}
-              <div className={s.dark ? "rounded-3xl bg-[#1e3a5f] p-8 text-white md:p-10" : ""}>
+              <div className={s.dark ? "rounded-3xl bg-[#0040a4] p-8 text-white md:p-10" : ""}>
                 <div className="flex items-center gap-4">
                   <span className="font-nx-mono text-[10px] font-bold tracking-[.18em] text-[#5086a8]">
                     {s.number}
@@ -161,7 +161,7 @@ export default function CozumlerPage() {
                     key={f}
                     className="rounded-xl border border-slate-200 bg-white p-4 hover:border-[#5086a8]/30 hover:bg-[#5086a8]/5 transition"
                   >
-                    <p className="text-sm font-semibold text-[#1e3a5f]">{f}</p>
+                    <p className="text-sm font-semibold text-[#0040a4]">{f}</p>
                   </div>
                 ))}
               </div>
@@ -171,7 +171,7 @@ export default function CozumlerPage() {
       ))}
 
       {/* Value props */}
-      <section className="bg-[#1e3a5f] px-6 py-20 text-white md:px-10">
+      <section className="bg-[#0040a4] px-6 py-20 text-white md:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {valueProps.map((v) => (

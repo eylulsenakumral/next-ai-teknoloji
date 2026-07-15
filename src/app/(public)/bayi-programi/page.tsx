@@ -44,7 +44,7 @@ const benefits = [
 const tiers = [
   {
     name: "Başlangıç",
-    color: "#1e3a5f",
+    color: "#0040a4",
     target: "Yeni başlayan bayiler",
     discount: "5–10%",
     credit: "₺25.000",
@@ -67,7 +67,7 @@ const tiers = [
   },
   {
     name: "Kurumsal",
-    color: "#1e3a5f",
+    color: "#0040a4",
     target: "Sistem entegratörleri",
     discount: "20%+ özel",
     credit: "Proje bazlı",
@@ -93,7 +93,7 @@ export default function BayiProgramiPage() {
   return (
     <div className="font-nx-sans">
       {/* Hero */}
-      <section className="bg-[#1e3a5f] px-6 py-24 text-white md:px-10 md:py-32">
+      <section className="bg-[#0040a4] px-6 py-24 text-white md:px-10 md:py-32">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div>
@@ -160,7 +160,7 @@ export default function BayiProgramiPage() {
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#5086a8]/10 text-[#5086a8]">
                   <b.Icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-[#1e3a5f]">{b.title}</h3>
+                <h3 className="mt-5 text-lg font-bold text-[#0040a4]">{b.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-500">{b.desc}</p>
               </div>
             ))}
@@ -186,8 +186,8 @@ export default function BayiProgramiPage() {
                 key={t.name}
                 className={`relative rounded-3xl p-8 transition ${
                   t.featured
-                    ? "bg-[#1e3a5f] text-white shadow-2xl lg:-translate-y-3"
-                    : "bg-[#f4f7fa] text-[#1e3a5f] hover:bg-[#1e3a5f] hover:text-white"
+                    ? "bg-[#0040a4] text-white shadow-2xl lg:-translate-y-3"
+                    : "bg-[#f4f7fa] text-[#0040a4] hover:bg-[#0040a4] hover:text-white"
                 }`}
               >
                 {t.featured && (
@@ -225,7 +225,7 @@ export default function BayiProgramiPage() {
                   className={`mt-8 block rounded-xl py-3 text-center text-sm font-bold transition ${
                     t.featured
                       ? "bg-[#5086a8] text-white hover:bg-[#456680]"
-                      : "bg-[#1e3a5f] text-white hover:bg-[#15294a]"
+                      : "bg-[#0040a4] text-white hover:bg-[#003080]"
                   } ${!t.featured ? "[&]:hover:bg-[#5086a8]" : ""}`}
                 >
                   Başvur
@@ -237,7 +237,7 @@ export default function BayiProgramiPage() {
       </section>
 
       {/* Process */}
-      <section className="bg-[#1e3a5f] px-6 py-20 text-white md:px-10">
+      <section className="bg-[#0040a4] px-6 py-20 text-white md:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-2xl">
             <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#8aa8bc]">

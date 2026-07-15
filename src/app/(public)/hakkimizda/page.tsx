@@ -50,7 +50,7 @@ export default function HakkimizdaPage() {
   return (
     <div className="font-nx-sans">
       {/* Hero */}
-      <section className="bg-[#1e3a5f] px-6 py-24 text-white md:px-10 md:py-32">
+      <section className="bg-[#0040a4] px-6 py-24 text-white md:px-10 md:py-32">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-end">
             <div>
@@ -129,10 +129,10 @@ export default function HakkimizdaPage() {
           <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v) => (
               <div key={v.title} className="rounded-2xl bg-white p-6 border border-slate-200">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1e3a5f] text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0040a4] text-white">
                   <v.Icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-[#1e3a5f]">{v.title}</h3>
+                <h3 className="mt-5 text-lg font-bold text-[#0040a4]">{v.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-500">{v.desc}</p>
               </div>
             ))}
@@ -154,8 +154,8 @@ export default function HakkimizdaPage() {
                 key={m.year}
                 className={`rounded-2xl p-6 ${
                   i === 0 || i === milestones.length - 1
-                    ? "bg-[#1e3a5f] text-white"
-                    : "bg-[#f4f7fa] text-[#1e3a5f]"
+                    ? "bg-[#0040a4] text-white"
+                    : "bg-[#f4f7fa] text-[#0040a4]"
                 }`}
               >
                 <span

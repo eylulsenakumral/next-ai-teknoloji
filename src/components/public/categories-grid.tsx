@@ -23,7 +23,7 @@ const colClasses: Record<3 | 4 | 6, string> = {
 
 const CATEGORY_GRADIENTS = [
   "from-[#0040a4] to-[#1a6fe0]",
-  "from-[#1e3a5f] to-[#2d6da3]",
+  "from-[#0040a4] to-[#2d6da3]",
   "from-[#0c2340] to-[#1a5276]",
   "from-[#2c3e50] to-[#3498db]",
   "from-[#1a3c5e] to-[#2980b9]",
@@ -49,11 +49,11 @@ export function CategoriesGrid({
                 KATEGORİLER
               </span>
             </div>
-            <h2 className="text-2xl font-bold text-[#1e3a5f]">{title}</h2>
+            <h2 className="text-2xl font-bold text-[#0040a4]">{title}</h2>
           </div>
           <Link
             href="/katalog"
-            className="text-sm font-semibold text-[#0040a4] hover:text-[#15294a] transition-colors flex items-center gap-1 group"
+            className="text-sm font-semibold text-[#0040a4] hover:text-[#003080] transition-colors flex items-center gap-1 group"
           >
             Tümünü Gör
             <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />

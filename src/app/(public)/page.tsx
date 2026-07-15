@@ -73,7 +73,7 @@ function BrandsSection() {
           {featuredBrands.map(({ Logo, cat, desc }, i) => (
             <div
               key={i}
-              className="group flex flex-col justify-between bg-white p-6 transition hover:bg-[#1e3a5f]"
+              className="group flex flex-col justify-between bg-white p-6 transition hover:bg-[#0040a4]"
             >
               <span className="font-nx-mono text-[9px] uppercase tracking-[.15em] text-slate-400 group-hover:text-slate-600">
                 {cat}
@@ -136,7 +136,7 @@ function ValueSection() {
         <div className="grid gap-px bg-slate-200 rounded-2xl overflow-hidden sm:grid-cols-3">
           {valueProps.map((v) => (
             <div key={v.title} className="bg-white p-8 md:p-10">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1e3a5f] text-white">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0040a4] text-white">
                 <v.Icon className="h-5 w-5" />
               </div>
               <h3 className="mt-8 text-xl font-bold tracking-tight">{v.title}</h3>
@@ -211,8 +211,8 @@ function SolutionsSection() {
               key={s.number}
               className={`group flex min-h-72 flex-col justify-between rounded-2xl p-7 transition ${
                 s.dark
-                  ? "bg-[#1e3a5f] text-white"
-                  : "bg-[#f4f7fa] hover:bg-[#1e3a5f] hover:text-white"
+                  ? "bg-[#0040a4] text-white"
+                  : "bg-[#f4f7fa] hover:bg-[#0040a4] hover:text-white"
               }`}
             >
               <div>
@@ -266,7 +266,7 @@ function ProjectDesignSection() {
   ]
 
   return (
-    <section className="bg-[#1e3a5f] px-6 py-24 text-white md:px-10 font-nx-sans">
+    <section className="bg-[#0040a4] px-6 py-24 text-white md:px-10 font-nx-sans">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <div>
@@ -360,7 +360,7 @@ function PartnershipSection() {
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#f4f7fa] text-[#5086a8]">
                     <Icon className="h-4 w-4" />
                   </div>
-                  <p className="mt-3 text-sm font-bold text-[#1e3a5f]">{title}</p>
+                  <p className="mt-3 text-sm font-bold text-[#0040a4]">{title}</p>
                   <p className="mt-0.5 text-xs text-slate-400">{sub}</p>
                 </div>
               ))}
@@ -368,13 +368,13 @@ function PartnershipSection() {
             <div className="mt-8 flex gap-3">
               <Link
                 href="/bayimiz-olun"
-                className="rounded-xl bg-[#1e3a5f] px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[#15294a]"
+                className="rounded-xl bg-[#0040a4] px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[#003080]"
               >
                 Bayimiz Olun
               </Link>
               <Link
                 href="/bayi-programi"
-                className="rounded-xl border border-slate-200 px-5 py-3.5 text-sm font-bold text-[#1e3a5f] transition hover:bg-slate-50"
+                className="rounded-xl border border-slate-200 px-5 py-3.5 text-sm font-bold text-[#0040a4] transition hover:bg-slate-50"
               >
                 Programı İncele →
               </Link>
@@ -389,7 +389,7 @@ function PartnershipSection() {
               {process.map((step, i) => (
                 <div key={step.n} className="flex gap-5">
                   <div className="flex flex-col items-center">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#1e3a5f] font-nx-mono text-[10px] font-bold text-white">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0040a4] font-nx-mono text-[10px] font-bold text-white">
                       {step.n}
                     </div>
                     {i < process.length - 1 && (
@@ -397,7 +397,7 @@ function PartnershipSection() {
                     )}
                   </div>
                   <div className="pb-8">
-                    <h4 className="font-bold text-[#1e3a5f]">{step.title}</h4>
+                    <h4 className="font-bold text-[#0040a4]">{step.title}</h4>
                     <p className="mt-1 text-sm leading-6 text-slate-500">{step.desc}</p>
                   </div>
                 </div>
@@ -423,7 +423,7 @@ function StatsBand() {
             ["4.8/5", "Bayi memnuniyet skoru"],
           ].map(([val, label]) => (
             <div key={label}>
-              <strong className="block text-3xl font-extrabold tracking-tight text-[#1e3a5f]">{val}</strong>
+              <strong className="block text-3xl font-extrabold tracking-tight text-[#0040a4]">{val}</strong>
               <span className="mt-1 block font-nx-mono text-[9px] uppercase tracking-[.14em] text-slate-400">
                 {label}
               </span>

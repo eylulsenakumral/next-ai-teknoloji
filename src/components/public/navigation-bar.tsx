@@ -191,7 +191,7 @@ function CategoryDropdown() {
                     "w-full flex items-center justify-between px-4 py-2.5 text-[13px] transition-colors text-left",
                     activeParentId === cat.id
                       ? "bg-[#f0f4ff] text-[#0040a4] font-semibold"
-                      : "text-[#1e3a5f] hover:bg-[#f4f7fa]"
+                      : "text-[#0040a4] hover:bg-[#f4f7fa]"
                   )}
                   role="menuitem"
                 >
@@ -243,7 +243,7 @@ function CategoryDropdown() {
                           setOpen(false)
                           setActiveParentId(null)
                         }}
-                        className="inline-flex items-baseline gap-1.5 text-[13px] font-semibold text-[#1e3a5f] hover:text-[#0040a4] transition-colors py-1.5"
+                        className="inline-flex items-baseline gap-1.5 text-[13px] font-semibold text-[#0040a4] hover:text-[#0040a4] transition-colors py-1.5"
                       >
                         {sub.name}
                         {sub.productCount > 0 && (
@@ -332,7 +332,7 @@ export function NavigationBar() {
               <li key={link.href + link.label}>
                 <Link
                   href={link.href}
-                  className="inline-flex items-center h-[50px] px-4 text-[13px] font-medium tracking-wider text-[#1e3a5f] hover:text-[#0040a4] transition-colors duration-300"
+                  className="inline-flex items-center h-[50px] px-4 text-[13px] font-medium tracking-wider text-[#0040a4] hover:text-[#0040a4] transition-colors duration-300"
                 >
                   {link.label}
                 </Link>

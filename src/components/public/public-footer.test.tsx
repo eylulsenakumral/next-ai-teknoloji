@@ -196,7 +196,7 @@ describe("PublicFooter", () => {
     expect(gridEl?.className).toContain("lg:grid-cols-4")
   })
 
-  it("link text uses #1e3a5f color class", () => {
+  it("link text uses #0040a4 color class", () => {
     render(<PublicFooter />)
     const footer = screen.getByRole("contentinfo")
     const linkEls = footer.querySelectorAll("a[class*='1e1e1e']")

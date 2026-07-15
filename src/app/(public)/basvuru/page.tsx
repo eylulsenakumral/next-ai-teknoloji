@@ -95,7 +95,7 @@ function FormInput({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-[13px] font-semibold text-[#1e3a5f]">
+      <label htmlFor={id} className="text-[13px] font-semibold text-[#0040a4]">
         {label}
         {required && <span className="text-[#a60811] ml-0.5">*</span>}
       </label>
@@ -103,7 +103,7 @@ function FormInput({
         id={id} name={name} type={type} placeholder={placeholder}
         value={value} onChange={onChange} onBlur={onBlur} maxLength={maxLength}
         className={cn(
-          "h-[46px] w-full px-4 bg-[#f4f7fa] rounded-[20px] border border-transparent text-[14px] text-[#1e3a5f]",
+          "h-[46px] w-full px-4 bg-[#f4f7fa] rounded-[20px] border border-transparent text-[14px] text-[#0040a4]",
           "placeholder:text-[#64748b] outline-none",
           "transition-all duration-300 focus:border-[#5086a8] focus:bg-white",
           error ? "!border-red-400" : ""
@@ -212,7 +212,7 @@ export default function BasvuruPage() {
                 <CheckCircle2 className="h-12 w-12 text-emerald-600" />
               </div>
             </div>
-            <h1 className="text-[36px] font-bold text-[#1e3a5f] mb-3">Başvurunuz Alındı</h1>
+            <h1 className="text-[36px] font-bold text-[#0040a4] mb-3">Başvurunuz Alındı</h1>
             <p className="text-[15px] text-[#64748b] leading-relaxed mb-4">
               Bayi başvurunuz başarıyla kayıt altına alındı. Ekibimiz en kısa sürede değerlendirip size dönüş yapacaktır.
             </p>
@@ -226,7 +226,7 @@ export default function BasvuruPage() {
             )}
 
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#e2e8f0] text-left space-y-4 mb-8">
-              <h3 className="font-bold text-[#1e3a5f]">Sonraki Adımlar</h3>
+              <h3 className="font-bold text-[#0040a4]">Sonraki Adımlar</h3>
               <ul className="space-y-3">
                 {[
                   "Online başvurunuz sonrasında, sizin için oluşturulacak 'Bayi Takip Numarası' ile süreci sistem üzerinden takip edebilirsiniz.",
@@ -249,7 +249,7 @@ export default function BasvuruPage() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link
                 href="/"
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#5086a8] text-white font-semibold hover:bg-[#15294a] transition-all duration-300 hover:scale-105 hover:shadow-lg gap-2"
+                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-[#5086a8] text-white font-semibold hover:bg-[#003080] transition-all duration-300 hover:scale-105 hover:shadow-lg gap-2"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Ana Sayfaya Dön
@@ -278,11 +278,11 @@ export default function BasvuruPage() {
           <nav className="flex items-center gap-2 text-[12px] text-[#64748b] mb-6">
             <Link href="/" className="hover:text-[#5086a8] transition-colors">Ana Sayfa</Link>
             <ChevronRight className="h-3 w-3" />
-            <span className="text-[#1e3a5f] font-semibold">Bayi Başvurusu</span>
+            <span className="text-[#0040a4] font-semibold">Bayi Başvurusu</span>
           </nav>
 
           <div className="max-w-2xl">
-            <h1 className="text-[28px] md:text-[36px] font-bold text-[#1e3a5f] leading-tight mb-2">
+            <h1 className="text-[28px] md:text-[36px] font-bold text-[#0040a4] leading-tight mb-2">
               Yeni Bayi Başvuru Süreci
             </h1>
             <p className="text-[15px] text-[#64748b] leading-relaxed">
@@ -298,19 +298,19 @@ export default function BasvuruPage() {
           <ul className="space-y-3 text-[13px] text-[#64748b] leading-relaxed">
             <li className="flex items-start gap-3">
               <span className="text-[#5086a8] font-bold shrink-0">•</span>
-              <span>Bayilik başvuru sürecinin başlaması için <strong className="text-[#1e3a5f]">Online Başvuru Formu</strong>&apos;nu eksiksiz doldurup, talep edilen belgelerin birer okunaklı taranmış suretini de eklemeniz gerekmektedir. <em>(Talep edilen belgeler eksik yüklendiği takdirde başvurunuz değerlendirmeye alınmayacaktır.)</em></span>
+              <span>Bayilik başvuru sürecinin başlaması için <strong className="text-[#0040a4]">Online Başvuru Formu</strong>&apos;nu eksiksiz doldurup, talep edilen belgelerin birer okunaklı taranmış suretini de eklemeniz gerekmektedir. <em>(Talep edilen belgeler eksik yüklendiği takdirde başvurunuz değerlendirmeye alınmayacaktır.)</em></span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-[#5086a8] font-bold shrink-0">•</span>
-              <span>Online başvurunuz sonrasında, sizin için oluşturulacak <strong className="text-[#1e3a5f]">&apos;Bayi Takip Numarası&apos;</strong> ile süreci sistem üzerinden takip edebilirsiniz.</span>
+              <span>Online başvurunuz sonrasında, sizin için oluşturulacak <strong className="text-[#0040a4]">&apos;Bayi Takip Numarası&apos;</strong> ile süreci sistem üzerinden takip edebilirsiniz.</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-[#5086a8] font-bold shrink-0">•</span>
-              <span>Online başvurunuzun onaylanmasının ardından, <strong className="text-[#1e3a5f]">&apos;Online Başvuru Formu&apos;</strong>nda belirttiğiniz e-posta adresinize <strong className="text-[#1e3a5f]">&apos;Next AI Teknoloji B2B Platformu E-Bayi Üyelik Sözleşmesi&apos;</strong> gönderilecektir.</span>
+              <span>Online başvurunuzun onaylanmasının ardından, <strong className="text-[#0040a4]">&apos;Online Başvuru Formu&apos;</strong>nda belirttiğiniz e-posta adresinize <strong className="text-[#0040a4]">&apos;Next AI Teknoloji B2B Platformu E-Bayi Üyelik Sözleşmesi&apos;</strong> gönderilecektir.</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="text-[#5086a8] font-bold shrink-0">•</span>
-              <span>Sözleşmeyi onaylamanızın ardından e-posta adresinize sözleşmenin bir örneği gönderilecektir. <strong className="text-[#1e3a5f]">&apos;Kullanıcı adı&apos;</strong> ve <strong className="text-[#1e3a5f]">&apos;şifre&apos;</strong>niz de belirttiğiniz aynı e-posta adresinize iletilecektir.</span>
+              <span>Sözleşmeyi onaylamanızın ardından e-posta adresinize sözleşmenin bir örneği gönderilecektir. <strong className="text-[#0040a4]">&apos;Kullanıcı adı&apos;</strong> ve <strong className="text-[#0040a4]">&apos;şifre&apos;</strong>niz de belirttiğiniz aynı e-posta adresinize iletilecektir.</span>
             </li>
           </ul>
           <p className="mt-4 text-[12px] text-[#5086a8] font-semibold">
@@ -329,7 +329,7 @@ export default function BasvuruPage() {
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#5086a8]/10">
                       <Building2 className="h-4 w-4 text-[#5086a8]" />
                     </div>
-                    <h2 className="text-[15px] font-bold text-[#1e3a5f]">Firma Bilgileri</h2>
+                    <h2 className="text-[15px] font-bold text-[#0040a4]">Firma Bilgileri</h2>
                   </div>
                   <p className="text-[12px] text-[#64748b] mt-1 ml-10">Şirketinize ait ticari bilgileri girin.</p>
                 </div>
@@ -348,7 +348,7 @@ export default function BasvuruPage() {
                     onChange={handleChange} onBlur={() => handleBlur("taxNumber")} error={err("taxNumber")}
                   />
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[13px] font-semibold text-[#1e3a5f]">
+                    <label className="text-[13px] font-semibold text-[#0040a4]">
                       Faaliyet Alanı <span className="text-[#a60811] ml-0.5">*</span>
                     </label>
                     <Select
@@ -359,7 +359,7 @@ export default function BasvuruPage() {
                       }}
                     >
                       <SelectTrigger className={cn(
-                        "h-[46px] w-full px-4 bg-[#f4f7fa] rounded-[20px] border border-transparent text-[14px] text-[#1e3a5f]",
+                        "h-[46px] w-full px-4 bg-[#f4f7fa] rounded-[20px] border border-transparent text-[14px] text-[#0040a4]",
                         "transition-all duration-300 focus:border-[#5086a8] focus:bg-white",
                         err("businessType") ? "!border-red-400" : ""
                       )}>
@@ -378,7 +378,7 @@ export default function BasvuruPage() {
                     )}
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label className="text-[13px] font-semibold text-[#1e3a5f]">Vergi Levhası</label>
+                    <label className="text-[13px] font-semibold text-[#0040a4]">Vergi Levhası</label>
                     <label className={cn(
                       "h-[46px] w-full flex items-center gap-3 px-4 bg-[#f4f7fa] rounded-[20px] border border-transparent",
                       "text-[14px] text-[#64748b] cursor-pointer",
@@ -419,7 +419,7 @@ export default function BasvuruPage() {
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#5086a8]/10">
                       <User className="h-4 w-4 text-[#5086a8]" />
                     </div>
-                    <h2 className="text-[15px] font-bold text-[#1e3a5f]">Yetkili Bilgileri</h2>
+                    <h2 className="text-[15px] font-bold text-[#0040a4]">Yetkili Bilgileri</h2>
                   </div>
                   <p className="text-[12px] text-[#64748b] mt-1 ml-10">Başvurudan sorumlu kişinin iletişim bilgileri.</p>
                 </div>
@@ -448,7 +448,7 @@ export default function BasvuruPage() {
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#5086a8]/10">
                       <MapPin className="h-4 w-4 text-[#5086a8]" />
                     </div>
-                    <h2 className="text-[15px] font-bold text-[#1e3a5f]">Adres Bilgileri</h2>
+                    <h2 className="text-[15px] font-bold text-[#0040a4]">Adres Bilgileri</h2>
                   </div>
                 </div>
                 <div className="p-6 grid gap-4">
@@ -463,11 +463,11 @@ export default function BasvuruPage() {
                     className="grid gap-4 sm:grid-cols-2"
                   />
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="address" className="text-[13px] font-semibold text-[#1e3a5f]">Açık Adres</label>
+                    <label htmlFor="address" className="text-[13px] font-semibold text-[#0040a4]">Açık Adres</label>
                     <textarea
                       id="address" name="address" placeholder="Mahalle, sokak, bina no..."
                       rows={3} value={form.address} onChange={handleChange}
-                      className="w-full px-4 py-3 bg-[#f4f7fa] rounded-[20px] border border-transparent text-[14px] text-[#1e3a5f] resize-none placeholder:text-[#64748b] outline-none transition-all duration-300 focus:border-[#5086a8] focus:bg-white"
+                      className="w-full px-4 py-3 bg-[#f4f7fa] rounded-[20px] border border-transparent text-[14px] text-[#0040a4] resize-none placeholder:text-[#64748b] outline-none transition-all duration-300 focus:border-[#5086a8] focus:bg-white"
                     />
                   </div>
                 </div>
@@ -480,16 +480,16 @@ export default function BasvuruPage() {
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#5086a8]/10">
                       <FileText className="h-4 w-4 text-[#5086a8]" />
                     </div>
-                    <h2 className="text-[15px] font-bold text-[#1e3a5f]">Ek Bilgiler</h2>
+                    <h2 className="text-[15px] font-bold text-[#0040a4]">Ek Bilgiler</h2>
                   </div>
                 </div>
                 <div className="p-6">
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="referenceInfo" className="text-[13px] font-semibold text-[#1e3a5f]">Referans Bilgisi</label>
+                    <label htmlFor="referenceInfo" className="text-[13px] font-semibold text-[#0040a4]">Referans Bilgisi</label>
                     <textarea
                       id="referenceInfo" name="referenceInfo" placeholder="Sizi bize kim yönlendirdi? (isteğe bağlı)"
                       rows={3} value={form.referenceInfo} onChange={handleChange}
-                      className="w-full px-4 py-3 bg-[#f4f7fa] rounded-[20px] border border-transparent text-[14px] text-[#1e3a5f] resize-none placeholder:text-[#64748b] outline-none transition-all duration-300 focus:border-[#5086a8] focus:bg-white"
+                      className="w-full px-4 py-3 bg-[#f4f7fa] rounded-[20px] border border-transparent text-[14px] text-[#0040a4] resize-none placeholder:text-[#64748b] outline-none transition-all duration-300 focus:border-[#5086a8] focus:bg-white"
                     />
                   </div>
                 </div>
@@ -527,7 +527,7 @@ export default function BasvuruPage() {
                         )}
                       />
                     </div>
-                    <label htmlFor="kvkkConsent" className="text-[14px] text-[#1e3a5f] leading-relaxed cursor-pointer select-none">
+                    <label htmlFor="kvkkConsent" className="text-[14px] text-[#0040a4] leading-relaxed cursor-pointer select-none">
                       <Link href="/kvkk" className="text-[#5086a8] font-bold hover:underline">KVKK Aydınlatma Metni</Link>'ni
                       okudum ve kişisel verilerimin işlenmesini onaylıyorum.
                       <span className="text-[#a60811] font-bold ml-0.5">*</span>
@@ -545,7 +545,7 @@ export default function BasvuruPage() {
                   className={cn(
                     "flex h-[52px] w-full items-center justify-center gap-2",
                     "bg-[#5086a8] text-white text-[14px] font-semibold rounded-full",
-                    "transition-all duration-300 hover:bg-[#15294a] hover:scale-[1.02] hover:shadow-lg",
+                    "transition-all duration-300 hover:bg-[#003080] hover:scale-[1.02] hover:shadow-lg",
                     "disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100 disabled:hover:shadow-none"
                   )}
                 >
@@ -573,13 +573,13 @@ export default function BasvuruPage() {
                   <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#5086a8]/10">
                     <FileCheck2 className="h-4 w-4 text-[#5086a8]" />
                   </div>
-                  <h2 className="text-[15px] font-bold text-[#1e3a5f]">Gerekli Belgeler</h2>
+                  <h2 className="text-[15px] font-bold text-[#0040a4]">Gerekli Belgeler</h2>
                 </div>
               </div>
               <div className="p-6 space-y-5">
                 {/* Şahıs Firmaları */}
                 <div>
-                  <h3 className="text-[13px] font-bold text-[#1e3a5f] mb-2">Şahıs Firmaları</h3>
+                  <h3 className="text-[13px] font-bold text-[#0040a4] mb-2">Şahıs Firmaları</h3>
                   <ul className="space-y-1.5">
                     {[
                       "İmza Sirküsü (Yetkili Kişiye ait)",
@@ -602,7 +602,7 @@ export default function BasvuruPage() {
 
                 {/* Şirketler */}
                 <div>
-                  <h3 className="text-[13px] font-bold text-[#1e3a5f] mb-2">Şirketler</h3>
+                  <h3 className="text-[13px] font-bold text-[#0040a4] mb-2">Şirketler</h3>
                   <ul className="space-y-1.5">
                     {[
                       "İmza Sirküsü (Yetkili Kişiye ait)",
