@@ -516,7 +516,7 @@ export default async function PublicProductDetailPage({
                         <div className="flex-1 space-y-2">
                           <p className="text-[14px] font-bold text-[#333333]">Özel Fiyatlar İçin Bayi Girişi</p>
                           <p className="text-[12px] text-[#64748b]">Bayi girişi yaparak fiyatları görüntüleyin.</p>
-                          <Link href="/login" className="inline-flex items-center justify-center gap-2 h-9 px-5 bg-[#5086a8] text-[12px] font-bold text-white rounded-xl hover:bg-[#15294a] transition-colors">
+                          <Link href="/login" className="inline-flex items-center justify-center gap-2 h-9 px-5 bg-[#5086a8] text-[12px] font-bold text-white rounded-xl hover:bg-[#003080] transition-colors">
                             <Lock className="h-3.5 w-3.5" aria-hidden />
                             Bayi Girişi Yap
                           </Link>

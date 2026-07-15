@@ -46,14 +46,14 @@ export function ProductCardHorizontal({ product }: { product: PublicProduct }) {
         <div className="absolute top-1 right-1 flex flex-col gap-1 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300">
           <button
             type="button"
-            className="w-7 h-7 bg-white rounded-full shadow flex items-center justify-center text-[#1e3a5f] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
+            className="w-7 h-7 bg-white rounded-full shadow flex items-center justify-center text-[#0040a4] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
             aria-label={`${product.name} favorilere ekle`}
           >
             <Heart className="h-3 w-3" aria-hidden />
           </button>
           <Link
             href={`/katalog/${product.slug}`}
-            className="w-7 h-7 bg-white rounded-full shadow flex items-center justify-center text-[#1e3a5f] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
+            className="w-7 h-7 bg-white rounded-full shadow flex items-center justify-center text-[#0040a4] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
             aria-label={`${product.name} detay`}
           >
             <Eye className="h-3 w-3" aria-hidden />
@@ -71,7 +71,7 @@ export function ProductCardHorizontal({ product }: { product: PublicProduct }) {
           )}
           <Link
             href={`/katalog/${product.slug}`}
-            className="block font-semibold text-[#1e3a5f] hover:text-[#0040a4] transition-colors leading-snug line-clamp-2 text-[13px] mt-0.5"
+            className="block font-semibold text-[#0040a4] hover:text-[#0040a4] transition-colors leading-snug line-clamp-2 text-[13px] mt-0.5"
           >
             {product.name}
           </Link>
@@ -85,7 +85,7 @@ export function ProductCardHorizontal({ product }: { product: PublicProduct }) {
           )}
           <Link
             href={`/katalog/${product.slug}`}
-            className="rounded-full bg-[#0040a4] text-white w-10 h-10 flex items-center justify-center hover:bg-[#1e3a5f] transition-colors flex-shrink-0 ml-auto"
+            className="rounded-full bg-[#0040a4] text-white w-10 h-10 flex items-center justify-center hover:bg-[#0040a4] transition-colors flex-shrink-0 ml-auto"
             aria-label={`${product.name} detayina git`}
           >
             <ArrowRight className="h-4 w-4" aria-hidden />

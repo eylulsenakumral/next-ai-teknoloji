@@ -7,11 +7,11 @@
 /* ============================================================================
  * Yeni (public) tasarım design tokens — Figma Make
  * Admin paneli kendi --DT* değişkenlerini kullanır, bu blok dokunmaz.
- * Kurumsal renkler: Koyu lacivert #1e3a5f, Açık mavi #5086a8
+ * Kurumsal renkler: Koyu mavi #0040a4, Açık mavi #5086a8
  * ============================================================================ */
 @theme inline {
   /* Public renk paleti (kurumsal) */
-  --color-nx-dark: #1e3a5f;
+  --color-nx-dark: #0040a4;
   --color-nx-primary: #5086a8;
   --color-nx-primary-hover: #456680;
   --color-nx-accent: #ff9b43;

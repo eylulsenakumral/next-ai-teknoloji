@@ -29,8 +29,8 @@ export function PublicHeaderNext() {
   const headerClass = cn(
     "sticky top-0 z-40 border-b px-5 py-4 backdrop-blur-xl md:px-10 font-nx-sans",
     home
-      ? "border-white/10 bg-[#1e3a5f]/90 text-white"
-      : "border-slate-200 bg-white/95 text-[#1e3a5f]"
+      ? "border-white/10 bg-[#0040a4]/90 text-white"
+      : "border-slate-200 bg-white/95 text-[#0040a4]"
   )
 
   return (
@@ -84,7 +84,7 @@ export function PublicHeaderNext() {
           </Link>
           <Link
             href="/teklif-iste"
-            className="rounded-lg bg-[#ff9b43] px-3 py-2 text-xs font-bold leading-5 text-[#1e3a5f] transition hover:bg-[#ffad64] md:px-4"
+            className="rounded-lg bg-[#ff9b43] px-3 py-2 text-xs font-bold leading-5 text-[#0040a4] transition hover:bg-[#ffad64] md:px-4"
           >
             Teklif İste
           </Link>
@@ -117,7 +117,7 @@ export function PublicHeaderNext() {
                     ? "bg-[#5086a8]/10 text-[#5086a8]"
                     : home
                       ? "text-white/80 hover:bg-white/5"
-                      : "text-[#1e3a5f]/80 hover:bg-slate-100"
+                      : "text-[#0040a4]/80 hover:bg-slate-100"
                 )}
               >
                 {label}

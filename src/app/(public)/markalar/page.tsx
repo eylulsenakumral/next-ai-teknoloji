@@ -51,7 +51,7 @@ export default async function MarkalarPage() {
   return (
     <div className="font-nx-sans">
       {/* Hero */}
-      <section className="bg-[#1e3a5f] px-6 py-24 text-white md:px-10 md:py-32">
+      <section className="bg-[#0040a4] px-6 py-24 text-white md:px-10 md:py-32">
         <div className="mx-auto max-w-7xl">
           <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#8aa8bc]">
             Tedarik ortaklarımız
@@ -85,13 +85,13 @@ export default async function MarkalarPage() {
             {FEATURED_BRANDS.map((b) => (
               <div
                 key={b.name}
-                className="group flex flex-col justify-between bg-white p-6 transition hover:bg-[#1e3a5f]"
+                className="group flex flex-col justify-between bg-white p-6 transition hover:bg-[#0040a4]"
               >
                 <span className="font-nx-mono text-[9px] uppercase tracking-[.15em] text-slate-400 group-hover:text-slate-600">
                   {b.cat}
                 </span>
                 <div className="mt-6 flex h-12 items-center">
-                  <span className="text-2xl font-extrabold tracking-[-.04em] text-[#1e3a5f] group-hover:text-white">
+                  <span className="text-2xl font-extrabold tracking-[-.04em] text-[#0040a4] group-hover:text-white">
                     {b.name}
                   </span>
                 </div>
@@ -145,7 +145,7 @@ export default async function MarkalarPage() {
                         className="max-h-10 max-w-[120px] object-contain opacity-80 transition group-hover:opacity-100"
                       />
                     ) : (
-                      <span className="text-lg font-bold tracking-[-.04em] text-[#1e3a5f]">
+                      <span className="text-lg font-bold tracking-[-.04em] text-[#0040a4]">
                         {b.name}
                       </span>
                     )}

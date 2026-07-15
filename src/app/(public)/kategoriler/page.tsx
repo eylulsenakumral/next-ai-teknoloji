@@ -146,7 +146,7 @@ export const metadata: Metadata = {
 
 const CATEGORY_GRADIENTS = [
   "from-[#5086a8] to-[#1a6fe0]",
-  "from-[#1e3a5f] to-[#2d6da3]",
+  "from-[#0040a4] to-[#2d6da3]",
   "from-[#0c2340] to-[#1a5276]",
   "from-[#2c3e50] to-[#3498db]",
   "from-[#1a3c5e] to-[#2980b9]",

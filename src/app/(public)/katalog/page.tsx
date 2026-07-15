@@ -157,7 +157,7 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#1e3a5f] mb-4">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#0040a4] mb-4">
             Her Teknoloji <span className="text-[#5086a8]">İhtiyacı</span>
           </h1>
 
@@ -172,12 +172,12 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Ürün, marka veya model ara..."
-                className="flex-1 px-6 text-[15px] text-[#1e3a5f] placeholder:text-[#999] focus:outline-none bg-transparent"
+                className="flex-1 px-6 text-[15px] text-[#0040a4] placeholder:text-[#999] focus:outline-none bg-transparent"
                 aria-label="Arama terimi"
               />
               <button
                 type="submit"
-                className="h-full px-8 bg-[#5086a8] hover:bg-[#15294a] text-white font-semibold text-[13px] uppercase tracking-wider transition-colors rounded-r-[20px] flex items-center gap-2"
+                className="h-full px-8 bg-[#5086a8] hover:bg-[#003080] text-white font-semibold text-[13px] uppercase tracking-wider transition-colors rounded-r-[20px] flex items-center gap-2"
               >
                 <Search className="h-4 w-4" aria-hidden />
                 <span className="hidden sm:block">Ara</span>
@@ -195,28 +195,28 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
         <div className="hidden lg:flex items-center gap-8 mt-12 pt-8 border-t border-[#e2e8f0]">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-[#f4f7fa] flex items-center justify-center">
-              <Shield className="h-5 w-5 text-[#1e3a5f]" aria-hidden />
+              <Shield className="h-5 w-5 text-[#0040a4]" aria-hidden />
             </div>
             <div>
-              <p className="text-sm font-semibold text-[#1e3a5f]">2 Yıl Garanti</p>
+              <p className="text-sm font-semibold text-[#0040a4]">2 Yıl Garanti</p>
               <p className="text-xs text-[#64748b]">Tüm ürünlerde</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-[#f4f7fa] flex items-center justify-center">
-              <Truck className="h-5 w-5 text-[#1e3a5f]" aria-hidden />
+              <Truck className="h-5 w-5 text-[#0040a4]" aria-hidden />
             </div>
             <div>
-              <p className="text-sm font-semibold text-[#1e3a5f]">Hızlı Teslimat</p>
+              <p className="text-sm font-semibold text-[#0040a4]">Hızlı Teslimat</p>
               <p className="text-xs text-[#64748b]">24-48 saat içinde</p>
             </div>
           </div>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-[#f4f7fa] flex items-center justify-center">
-              <Headphones className="h-5 w-5 text-[#1e3a5f]" aria-hidden />
+              <Headphones className="h-5 w-5 text-[#0040a4]" aria-hidden />
             </div>
             <div>
-              <p className="text-sm font-semibold text-[#1e3a5f]">7/24 Destek</p>
+              <p className="text-sm font-semibold text-[#0040a4]">7/24 Destek</p>
               <p className="text-xs text-[#64748b]">WhatsApp ile</p>
             </div>
           </div>
@@ -232,7 +232,7 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
 
 const CATEGORY_GRADIENTS = [
   "from-[#5086a8] to-[#1a6fe0]",
-  "from-[#1e3a5f] to-[#2d6da3]",
+  "from-[#0040a4] to-[#2d6da3]",
   "from-[#0c2340] to-[#1a5276]",
   "from-[#2c3e50] to-[#3498db]",
   "from-[#1a3c5e] to-[#2980b9]",
@@ -262,7 +262,7 @@ function CategoryGrid({
           </div>
           <Link
             href="/kategoriler"
-            className="text-sm font-semibold text-[#5086a8] hover:text-[#15294a] transition-colors flex items-center gap-1 group"
+            className="text-sm font-semibold text-[#5086a8] hover:text-[#003080] transition-colors flex items-center gap-1 group"
           >
             Tümünü Gör
             <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
@@ -349,7 +349,7 @@ function EmptyState({ onClear }: { onClear: () => void }) {
         <Package className="h-10 w-10 text-[#bebebe]" aria-hidden />
       </div>
       <div className="space-y-2">
-        <p className="font-semibold text-xl text-[#1e3a5f]">Ürün Bulunamadı</p>
+        <p className="font-semibold text-xl text-[#0040a4]">Ürün Bulunamadı</p>
         <p className="text-[#64748b] text-sm max-w-sm">
           Arama kriterlerinize uygun ürün bulunamadı. Filtreleri değiştirmeyi deneyin.
         </p>
@@ -357,7 +357,7 @@ function EmptyState({ onClear }: { onClear: () => void }) {
       <button
         type="button"
         onClick={onClear}
-        className="inline-flex items-center gap-2 h-11 px-6 bg-[#5086a8] text-white text-sm font-medium hover:bg-[#15294a] transition-colors rounded-lg"
+        className="inline-flex items-center gap-2 h-11 px-6 bg-[#5086a8] text-white text-sm font-medium hover:bg-[#003080] transition-colors rounded-lg"
       >
         Filtreleri Temizle
       </button>
@@ -391,7 +391,7 @@ function MobileFilterSheet({
   return (
     <>
       <div
-        className="fixed inset-0 z-40 bg-[#1e3a5f]/50 backdrop-blur-sm"
+        className="fixed inset-0 z-40 bg-[#0040a4]/50 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden
       />
@@ -402,11 +402,11 @@ function MobileFilterSheet({
         aria-label="Filtreler"
       >
         <div className="flex items-center justify-between px-6 py-5 border-b border-[#e2e8f0]">
-          <p className="font-semibold text-base text-[#1e3a5f]">Filtreler</p>
+          <p className="font-semibold text-base text-[#0040a4]">Filtreler</p>
           <button
             type="button"
             onClick={onClose}
-            className="p-2 text-[#999] hover:text-[#1e3a5f] hover:bg-[#f4f7fa] rounded-lg transition-colors"
+            className="p-2 text-[#999] hover:text-[#0040a4] hover:bg-[#f4f7fa] rounded-lg transition-colors"
             aria-label="Filtreleri kapat"
           >
             <X className="h-5 w-5" />
@@ -417,7 +417,7 @@ function MobileFilterSheet({
           <button
             type="button"
             onClick={onClose}
-            className="w-full h-12 bg-[#5086a8] text-white font-medium text-sm rounded-lg hover:bg-[#15294a] transition-colors"
+            className="w-full h-12 bg-[#5086a8] text-white font-medium text-sm rounded-lg hover:bg-[#003080] transition-colors"
           >
             Filtreleri Uygula
           </button>
@@ -548,7 +548,7 @@ function CatalogFilters({
           <button
             type="button"
             onClick={() => onChange({ categorySlug: "", brandSlug: "", search: "", page: 1 })}
-            className="text-xs font-medium text-[#64748b] hover:text-[#1e3a5f] transition-colors"
+            className="text-xs font-medium text-[#64748b] hover:text-[#0040a4] transition-colors"
           >
             Temizle
           </button>
@@ -666,7 +666,7 @@ function CatalogFilters({
             <button
               type="button"
               onClick={() => setShowAllBrands((v) => !v)}
-              className="flex items-center gap-1 text-xs font-medium text-[#64748b] hover:text-[#1e3a5f] transition-colors"
+              className="flex items-center gap-1 text-xs font-medium text-[#64748b] hover:text-[#0040a4] transition-colors"
             >
               {showAllBrands ? "Daha az" : `+${filteredBrands.length - 8} marka`}
               <ChevronDown className={cn("h-3 w-3 transition-transform", showAllBrands && "rotate-180")} />
@@ -722,7 +722,7 @@ function ActiveFilterTags({
           <Skeleton className="h-5 w-24 inline-block" />
         ) : (
           <>
-            <span className="font-semibold text-[#1e3a5f]">{total.toLocaleString("tr-TR")}</span> ürün
+            <span className="font-semibold text-[#0040a4]">{total.toLocaleString("tr-TR")}</span> ürün
           </>
         )}
       </span>
@@ -1027,7 +1027,7 @@ export default function KatalogPage() {
                         "p-2.5 rounded-lg transition-all",
                         viewMode === "grid"
                           ? "bg-[#5086a8] text-white shadow-sm"
-                          : "text-[#64748b] hover:text-[#1e3a5f]"
+                          : "text-[#64748b] hover:text-[#0040a4]"
                       )}
                       aria-label="Grid görünüm"
                       aria-pressed={viewMode === "grid"}
@@ -1041,7 +1041,7 @@ export default function KatalogPage() {
                         "p-2.5 rounded-lg transition-all",
                         viewMode === "list"
                           ? "bg-[#5086a8] text-white shadow-sm"
-                          : "text-[#64748b] hover:text-[#1e3a5f]"
+                          : "text-[#64748b] hover:text-[#0040a4]"
                       )}
                       aria-label="Liste görünüm"
                       aria-pressed={viewMode === "list"}
