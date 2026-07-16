@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
 import { prisma } from "./db"
+import { checkLoginRate, getClientIp } from "./rate-limit"
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -22,9 +23,26 @@ export const authOptions: NextAuthOptions = {
         dealerCode: { label: "Bayi Kodu", type: "text" },
         password: { label: "Şifre", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials?.dealerCode || !credentials?.password) {
           throw new Error("Bayi kodu ve şifre gereklidir.")
+        }
+
+        // Brute-force guard: 5 attempts / 15 min per IP + dealerCode.
+        // Applied before the DB lookup and bcrypt compare so attackers cannot
+        // use them as an oracle to enumerate accounts or burn CPU.
+        const ip = getClientIp(req)
+        const { success, remaining, resetAt } = await checkLoginRate(
+          `${ip}:${credentials.dealerCode.trim().toUpperCase()}`
+        )
+        if (!success) {
+          const waitMin = Math.max(
+            1,
+            Math.ceil((resetAt.getTime() - Date.now()) / 60000)
+          )
+          throw new Error(
+            `Çok fazla başarısız deneme. ${waitMin} dakika sonra tekrar deneyin (kalan deneme: ${remaining}).`
+          )
         }
 
         const customer = await prisma.customer.findFirst({

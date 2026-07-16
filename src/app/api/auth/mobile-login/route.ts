@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/db";
 import { encode } from "next-auth/jwt";
+import { checkLoginRate, getClientIp } from "@/lib/rate-limit";
 
 // Mobile-only login endpoint (bypasses NextAuth CSRF)
 export async function POST(req: NextRequest) {
@@ -13,6 +14,29 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         { error: "Bayi kodu ve şifre gereklidir" },
         { status: 400 }
+      );
+    }
+
+    // Brute-force guard before any DB/bcrypt work.
+    const ip = getClientIp(req);
+    const { success, remaining, resetAt } = await checkLoginRate(
+      `${ip}:${dealerCode.trim().toUpperCase()}`
+    );
+    if (!success) {
+      const waitMin = Math.max(
+        1,
+        Math.ceil((resetAt.getTime() - Date.now()) / 60000)
+      );
+      return NextResponse.json(
+        {
+          error: `Çok fazla başarısız deneme. ${waitMin} dakika sonra tekrar deneyin.`,
+          retryAfter: waitMin,
+          remaining,
+        },
+        {
+          status: 429,
+          headers: { "Retry-After": String(waitMin * 60) },
+        }
       );
     }
 

@@ -3,14 +3,14 @@ import { Prisma } from "@prisma/client"
 import { prisma } from "@/lib/db"
 import { updateProductSchema } from "@/lib/validators/product"
 import { generateSlug } from "@/lib/utils/slug"
-import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
+import { getAdminSession, requireReadPermission, requireWritePermission } from "@/lib/auth-helpers"
 import { withCache, invalidateProductCache, invalidateNextCache, CacheKey, TTL } from "@/lib/cache"
 
 type Params = { params: Promise<{ id: string }> }
 
 export async function GET(_req: NextRequest, { params }: Params) {
   const session = await getAdminSession()
-  const authError = requireAdminSession(session)
+  const authError = requireReadPermission(session)
   if (authError) return authError
 
   const { id } = await params
@@ -63,7 +63,7 @@ export async function GET(_req: NextRequest, { params }: Params) {
 
 export async function PUT(req: NextRequest, { params }: Params) {
   const session = await getAdminSession()
-  const authError = requireAdminSession(session)
+  const authError = requireWritePermission(session)
   if (authError) return authError
 
   const { id } = await params
@@ -147,7 +147,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
 
 export async function DELETE(_req: NextRequest, { params }: Params) {
   const session = await getAdminSession()
-  const authError = requireAdminSession(session)
+  const authError = requireWritePermission(session)
   if (authError) return authError
 
   const { id } = await params

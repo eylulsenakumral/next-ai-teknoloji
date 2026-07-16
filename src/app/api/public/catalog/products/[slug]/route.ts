@@ -15,11 +15,9 @@ const SUPPLIER_DEPO_MAP: Record<string, string> = {
   bizimhesap: "Çorlu Depo",
 }
 
-// Tedarikçi bazlı fiyat kar marjı (maliyet üzerine %)
-const SUPPLIER_MARKUP: Record<string, number> = {
-  B2BDEPO: 1.20,
-  BIZIMHESAP: 1.10,
-}
+// Varsayılan kar marjı — services/pricing.service DEFAULT_MARGIN_PCT ile aynı.
+// Hardcoded supplier markup kaldırıldı; margin artık DB'den supplier.marginRate üzerinden gelir.
+const DEFAULT_MARGIN_PCT = 30
 
 // TCMB döviz kuru cache
 let cachedUsdTry = 0
@@ -77,7 +75,7 @@ export async function GET(
             stockQuantity: true,
             purchasePrice: showPrice,
             currency: true,
-            supplier: { select: { name: true, code: true } },
+            supplier: { select: { name: true, code: true, marginRate: true } },
           },
         },
       },
@@ -114,7 +112,8 @@ export async function GET(
       const supplierCode = sp.supplier?.code ?? ""
       const depoName = SUPPLIER_DEPO_MAP[supplierCode] || sp.supplier?.name || supplierCode
       const basePrice = sp.purchasePrice ? Number(sp.purchasePrice) : null
-      const markup = SUPPLIER_MARKUP[supplierCode.toUpperCase()] ?? 1
+      const marginRate = sp.supplier?.marginRate ?? DEFAULT_MARGIN_PCT
+      const markup = 1 + Number(marginRate) / 100
       const price = basePrice !== null ? basePrice * markup : null
       const currency = sp.currency || "TRY"
       const priceTry = price != null
@@ -162,7 +161,7 @@ export async function GET(
                 stockQuantity: true,
                 purchasePrice: showPrice,
                 currency: true,
-                supplier: { select: { code: true } },
+                supplier: { select: { code: true, marginRate: true } },
               },
             },
           },
@@ -227,8 +226,8 @@ export async function GET(
                 .filter((sp) => sp.purchasePrice !== null)
                 .map((sp) => {
                   const base = Number(sp.purchasePrice)
-                  const markup = SUPPLIER_MARKUP[sp.supplier?.code?.toUpperCase() ?? ""] ?? 1
-                  return base * markup
+                  const marginRate = sp.supplier?.marginRate ?? DEFAULT_MARGIN_PCT
+                  return base * (1 + Number(marginRate) / 100)
                 })
             : []
           const rpLowest = prices.length > 0 ? Math.min(...prices) : null
