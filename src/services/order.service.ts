@@ -1,42 +1,11 @@
 import { prisma } from "@/lib/db"
 import { calculateBulkPrices } from "@/services/pricing.service"
 import type { CreateOrderInput, ShippingAddressInput } from "@/lib/validators/order"
-import type { OrderStatus } from "@prisma/client"
-
-// ---------------------------------------------------------------------------
-// TCMB Döviz Kuru
-// ---------------------------------------------------------------------------
-
-let cachedRate: { usdTry: number; lastUpdated: number } | null = null
-const RATE_CACHE_MS = 60 * 60 * 1000 // 1 saat
-
-export async function getUsdTryRate(): Promise<number> {
-  const now = Date.now()
-  if (cachedRate && now - cachedRate.lastUpdated < RATE_CACHE_MS) {
-    return cachedRate.usdTry
-  }
-
-  try {
-    const res = await fetch("https://www.tcmb.gov.tr/kurlar/today.xml", {
-      next: { revalidate: 3600 },
-    })
-    const xml = await res.text()
-    const match = xml.match(
-      /CurrencyCode="USD"[\s\S]*?<ForexSelling>([\d.,]+)<\/ForexSelling>/
-    )
-    if (match) {
-      const rate = parseFloat(match[1].replace(",", "."))
-      cachedRate = { usdTry: rate, lastUpdated: now }
-      return rate
-    }
-  } catch (err) {
-    console.error("[TCMB] Kur çekilemedi:", err)
-  }
-
-  // Fallback
-  if (cachedRate) return cachedRate.usdTry
-  return 38 // Son çare sabit kur
-}
+import type { OrderStatus, Prisma } from "@prisma/client"
+import { getUsdTryRate } from "@/lib/exchange-rate"
+// Backward-compat: eski importer'lar (ör. nomupay callback) hâlâ @/services/order.service
+// üzerinden alabilsin diye re-export. Tek kaynak: @/lib/exchange-rate.
+export { getUsdTryRate }
 
 // ---------------------------------------------------------------------------
 // Tipler
@@ -125,23 +94,27 @@ export interface PaginationMeta {
 }
 
 // ---------------------------------------------------------------------------
-// generateOrderNumber — NAT-XXXXXX formatı
+// generateOrderNumber — NAT-XXXXXXXXX formatı (9 hane)
 // ---------------------------------------------------------------------------
 
-export async function generateOrderNumber(): Promise<string> {
-  // En son sipariş numarasını al, kilitli okuma ile race condition önle
-  const result = await prisma.$queryRaw<Array<{ max_num: string | null }>>`
-    SELECT MAX(order_number) AS max_num FROM orders
+export async function generateOrderNumber(
+  tx: Prisma.TransactionClient
+): Promise<string> {
+  // MAX(order_number)'ı transaction içinde FOR UPDATE ile kilitleyerek oku.
+  // Bu, eşzamanlı iki siparişin aynı numarayı üretmesini (race) engeller.
+  const result = await tx.$queryRaw<Array<{ max_num: string | null }>>`
+    SELECT MAX(order_number) AS max_num FROM orders FOR UPDATE
   `
 
   const maxNum = result[0]?.max_num
   let nextSeq = 1
 
-  if (maxNum && /^NAT-\d{6}$/.test(maxNum)) {
+  // Eski 6 haneli ve yeni 9 haneli kayıtların ikisini de kabul et → seq devamı doğru kalsın.
+  if (maxNum && /^NAT-\d{6,9}$/.test(maxNum)) {
     nextSeq = parseInt(maxNum.replace("NAT-", ""), 10) + 1
   }
 
-  return `NAT-${String(nextSeq).padStart(6, "0")}`
+  return `NAT-${String(nextSeq).padStart(9, "0")}`
 }
 
 // ---------------------------------------------------------------------------
@@ -289,7 +262,7 @@ export async function createOrder(
   //    Bakiye ve kredi limiti tx İÇİNDE fresh okunur (eşzamanlı siparişte lost update fix — cancelOrder pattern).
   //    CREDIT_CARD / BANK_TRANSFER cari hesaba borç yazmaz; ödeme ayrı akışta (NomuPay callback vb.) işlenir.
   return await prisma.$transaction(async (tx) => {
-    const orderNumber = await generateOrderNumber()
+    const orderNumber = await generateOrderNumber(tx)
 
     const order = await tx.order.create({
       data: {

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
-import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
+import { getAdminSession, requireReadPermission, requireWritePermission } from "@/lib/auth-helpers"
 
 // ============================================================================
 // GET /api/admin/settings
@@ -8,7 +8,7 @@ import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 // ============================================================================
 export async function GET(req: NextRequest) {
   const session = await getAdminSession()
-  const authError = requireAdminSession(session)
+  const authError = requireReadPermission(session)
   if (authError) return authError
 
   const group = req.nextUrl.searchParams.get("group")
@@ -31,7 +31,7 @@ export async function GET(req: NextRequest) {
 // ============================================================================
 export async function PUT(req: NextRequest) {
   const session = await getAdminSession()
-  const authError = requireAdminSession(session)
+  const authError = requireWritePermission(session)
   if (authError) return authError
 
   const body = (await req.json()) as {
