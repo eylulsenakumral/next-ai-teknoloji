@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
 import { prisma } from "@/lib/db"
 import { getDealerSession, requireDealerSession } from "@/lib/dealer-auth"
-import { calculateProductPrice, calculateBulkPrices } from "@/services/pricing.service"
+import { calculateProductPrice } from "@/lib/pricing"
 
 const SUPPLIER_DEPO_MAP: Record<string, string> = {
   b2bdepo: "Mersin Depo",
@@ -69,8 +69,12 @@ export async function GET(
     return NextResponse.json({ error: "Ürün bulunamadı." }, { status: 404 })
   }
 
-  // Gerçek fiyat hesaplaması — tek kaynak services/pricing.service
-  const pricing = await calculateProductPrice(product.id)
+  // Gerçek fiyat hesaplaması
+  const pricing = await calculateProductPrice(
+    product.id,
+    product.brandId,
+    product.categoryId
+  )
 
   // Stok
   const totalStock = product.supplierProducts.reduce(
@@ -89,37 +93,49 @@ export async function GET(
         },
         take: 4,
         orderBy: { viewCount: "desc" },
-        select: {
-          id: true,
-          name: true,
-          slug: true,
-          images: true,
+        include: {
           brand: { select: { id: true, name: true, slug: true } },
+          supplierProducts: {
+            where: { deletedAt: null, isAvailable: true },
+            select: {
+              purchasePrice: true,
+              vatRate: true,
+              stockQuantity: true,
+              supplier: { select: { marginRate: true } },
+            },
+            orderBy: { purchasePrice: "asc" },
+            take: 1,
+          },
         },
       })
     : []
 
-  // Merkezi pricing ile hesapla — liste/detay/sipariş aynı fiyat
-  const relatedIds = relatedProducts.map((rp) => rp.id)
-  const relatedPriceMap =
-    relatedIds.length > 0 ? await calculateBulkPrices(relatedIds) : new Map()
-
   const relatedWithPricing = relatedProducts.map((rp) => {
-    const rpPricing = relatedPriceMap.get(rp.id)
-    const stock = rpPricing?.stockQuantity ?? 0
+    const sp = rp.supplierProducts[0]
+    let relPricing = null
+    if (sp?.purchasePrice) {
+      const purchasePrice = Number(sp.purchasePrice)
+      const vatRate = Number(sp.vatRate ?? 20)
+      const multiplier = 1 + Number(sp.supplier?.marginRate ?? 30) / 100
+      const salePriceExVat = purchasePrice * multiplier
+      const salePriceIncVat = salePriceExVat * (1 + vatRate / 100)
+      relPricing = {
+        salePriceExVat: Math.round(salePriceExVat * 100) / 100,
+        salePriceIncVat: Math.round(salePriceIncVat * 100) / 100,
+        vatRate,
+      }
+    }
+    const stock = rp.supplierProducts.reduce(
+      (sum, s) => sum + s.stockQuantity,
+      0
+    )
     return {
       id: rp.id,
       name: rp.name,
       slug: rp.slug,
       images: rp.images,
       brand: rp.brand,
-      pricing: rpPricing
-        ? {
-            salePriceExVat: rpPricing.salePriceExVat,
-            salePriceIncVat: rpPricing.salePriceIncVat,
-            vatRate: rpPricing.vatRate,
-          }
-        : null,
+      pricing: relPricing,
       stock: { quantity: stock, isAvailable: stock > 0 },
     }
   })
