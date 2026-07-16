@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
 import { prisma } from "@/lib/db"
 import { getDealerSession, requireDealerSession } from "@/lib/dealer-auth"
-import { calculateProductPrice } from "@/services/pricing.service"
+
 
 const SUPPLIER_DEPO_MAP: Record<string, string> = {
   b2bdepo: "Mersin Depo",
@@ -69,10 +69,33 @@ export async function GET(
     return NextResponse.json({ error: "Ürün bulunamadı." }, { status: 404 })
   }
 
-  // Gerçek fiyat hesaplaması — merkezi services (marginRate, outlet desteği)
-  const pricingRaw = await calculateProductPrice(product.id)
-  // purchasePrice (tedarik maliyeti) bayiye sızmasın — strip.
-  const { purchasePrice: _pp, marginPct: _mm, profitAmount: _pa, ...pricing } = pricingRaw ?? {}
+  // Fiyat hesapla (liste route ile aynı manuel hesap — services cache None sorununu atlar)
+  const sp = product.supplierProducts[0]
+  let pricing: {
+    salePriceExVat: number
+    salePriceIncVat: number
+    vatRate: number
+    currency: string
+  } | null = null
+  if (product.manualPrice != null) {
+    const m = Number(product.manualPrice)
+    pricing = {
+      salePriceExVat: m,
+      salePriceIncVat: Math.round(m * 1.2 * 100) / 100,
+      vatRate: 20,
+      currency: product.manualPriceCurrency ?? "USD",
+    }
+  } else if (sp?.purchasePrice) {
+    const pp = Number(sp.purchasePrice)
+    const vatRate = Number(sp.vatRate ?? 20)
+    const ex = pp * (1 + Number(sp.supplier?.marginRate ?? 30) / 100)
+    pricing = {
+      salePriceExVat: Math.round(ex * 100) / 100,
+      salePriceIncVat: Math.round(ex * (1 + vatRate / 100) * 100) / 100,
+      vatRate,
+      currency: sp.currency ?? "TRY",
+    }
+  }
 
   // Stok
   const totalStock = product.supplierProducts.reduce(
