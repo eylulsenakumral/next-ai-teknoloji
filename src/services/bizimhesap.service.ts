@@ -8,6 +8,7 @@
 import { prisma } from "@/lib/db"
 import { generateSlug } from "@/lib/utils/slug"
 import bcrypt from "bcryptjs"
+import { randomBytes } from "crypto"
 
 const BASE_URL = "https://bizimhesap.com/api/b2b"
 
@@ -806,7 +807,7 @@ export async function syncCustomers(token: string): Promise<SyncCustomersResult>
       } else {
         // Yeni müşteri oluştur
         const dealerCode = await generateDealerCode()
-        const randomPassword = Math.random().toString(36).slice(2, 10)
+        const randomPassword = randomBytes(6).toString("hex")
         const passwordHash = await bcrypt.hash(randomPassword, 10)
 
         const newCustomer = await prisma.customer.create({

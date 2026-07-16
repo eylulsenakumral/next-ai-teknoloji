@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import { hash } from "bcryptjs"
+import { randomBytes } from "crypto"
 
 // GET /api/customers — Admin: Müşteri listesi
 export async function GET(req: NextRequest) {
@@ -104,7 +105,7 @@ export async function POST(req: NextRequest) {
   }
 
   const code = dealerCode || `BAYI-${Date.now().toString(36).toUpperCase()}`
-  const passwordHash = await hash(Math.random().toString(36).slice(2), 10)
+  const passwordHash = await hash(randomBytes(12).toString("hex"), 10)
 
   try {
     const customer = await prisma.customer.create({
