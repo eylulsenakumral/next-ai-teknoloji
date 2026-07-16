@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
 import { prisma } from "@/lib/db"
 import { getDealerSession, requireDealerSession } from "@/lib/dealer-auth"
-import { calculateProductPrice } from "@/lib/pricing"
+import { calculateProductPrice } from "@/services/pricing.service"
 
 const SUPPLIER_DEPO_MAP: Record<string, string> = {
   b2bdepo: "Mersin Depo",
@@ -69,12 +69,10 @@ export async function GET(
     return NextResponse.json({ error: "Ürün bulunamadı." }, { status: 404 })
   }
 
-  // Gerçek fiyat hesaplaması
-  const pricing = await calculateProductPrice(
-    product.id,
-    product.brandId,
-    product.categoryId
-  )
+  // Gerçek fiyat hesaplaması — merkezi services (marginRate, outlet desteği)
+  const pricingRaw = await calculateProductPrice(product.id)
+  // purchasePrice (tedarik maliyeti) bayiye sızmasın — strip.
+  const { purchasePrice: _pp, profitMarginPct: _pm, ...pricing } = pricingRaw ?? {}
 
   // Stok
   const totalStock = product.supplierProducts.reduce(
