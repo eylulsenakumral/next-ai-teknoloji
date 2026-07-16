@@ -45,6 +45,8 @@
     "node_modules",
     "scripts",
     "misafir",
+    "mobile",
+    "yenitasarim",
     "check-logos.ts",
     "check_supplier_data.ts",
     "check_supplier_data.mjs",
