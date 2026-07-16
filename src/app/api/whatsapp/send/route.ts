@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { getConnectionStatus, sendTextMessage } from "@/lib/whatsapp/client";
+import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers";
 
 const SendSchema = z.object({
   phone: z.string().min(10, "Geçerli bir telefon numarası girin"),
@@ -13,6 +14,10 @@ const SendSchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  const session = await getAdminSession();
+  const denied = requireAdminSession(session);
+  if (denied) return denied;
+
   const status = getConnectionStatus();
   if (status !== "connected") {
     return NextResponse.json(

@@ -9,7 +9,7 @@ declare module "next-auth" {
       companyName: string
       contactName: string
       email?: string
-      role: "dealer" | "admin" | "super_admin"
+      role: "dealer" | "admin" | "super_admin" | "viewer"
       status: string
     }
   }
@@ -20,7 +20,7 @@ declare module "next-auth" {
     companyName: string
     contactName: string
     email?: string
-    role: "dealer" | "admin" | "super_admin"
+    role: "dealer" | "admin" | "super_admin" | "viewer"
     status: string
   }
 }
@@ -31,7 +31,7 @@ declare module "next-auth/jwt" {
     dealerCode?: string
     companyName: string
     contactName: string
-    role: "dealer" | "admin" | "super_admin"
+    role: "dealer" | "admin" | "super_admin" | "viewer"
     status: string
   }
 }

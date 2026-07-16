@@ -35,13 +35,14 @@ export async function POST(req: NextRequest) {
   }
 
   // 3 farklı header kombinasyonu dene
+  const BIZIMHESAP_KEY = process.env.BIZIMHESAP_API_KEY || ""
   const attempts: Record<string, string>[] = [
     // 1. Sadece token header (PHP paketi böyle kullanıyor)
     { token: apiKey },
     // 2. Key + Token (dökümantasyon böyle gösteriyor)
     { Key: apiKey, token: apiKey },
-    // 3. Key sabit + Token kullanıcı değeri
-    { Key: "BZMHB2B724018943908D0B82491F203F", token: apiKey },
+    // 3. Key (env) + Token kullanıcı değeri
+    { Key: BIZIMHESAP_KEY, token: apiKey },
   ]
 
   for (let i = 0; i < attempts.length; i++) {

@@ -46,5 +46,8 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  // API route'ları hariç: API'ler kendi auth helper'ları (requireDealerSession /
+  // requireAdminSession) ile korunur. Dahil edilirse mobil Bearer-token çağrıları
+  // (cookie'siz) /login'e redirect edilip mobil app kırılır.
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 }

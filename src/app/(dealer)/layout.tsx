@@ -8,6 +8,8 @@ export const metadata: Metadata = {
     default: "Bayi Portalı",
     template: "%s | Next AI Teknoloji",
   },
+  // KRİTİK: Bayi paneli PII (sipariş, cari, adres, bakiye) içerir — indexlenmemeli.
+  robots: { index: false, follow: false },
 }
 
 export default function DealerLayout({

@@ -1,6 +1,9 @@
 export const dynamic = 'force-dynamic'
 
 import Link from "next/link"
+import { redirect } from "next/navigation"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import { Layers, InboxIcon, Percent, Tag } from "lucide-react"
 import { formatCurrency } from "@/lib/utils/format"
@@ -30,6 +33,12 @@ export default async function DealerKampanyaSetleriPage({
 }: {
   searchParams: Promise<{ type?: string }>
 }) {
+  // KRİTİK: Bayi fiyatları içerir — giriş yapmamış/anonim kullanıcıya açmamak için auth zorunlu.
+  const session = await getServerSession(authOptions)
+  if (!session || session.user.role !== "dealer") {
+    redirect("/login")
+  }
+
   const { type } = await searchParams
   const now = new Date()
 
