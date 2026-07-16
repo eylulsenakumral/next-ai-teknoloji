@@ -26,7 +26,7 @@ import {
 export const metadata = {
   title: "Next AI Teknoloji — Güvenlik & Network Sistemleri Bayi Platformu",
   description:
-    "16+ global markanın yetkili tedarikçisi. CCTV, IP kamera, NVR, network altyapısı, geçiş kontrol ve akıllı bina çözümleri için proje bazlı teklif ve bayi avantajları.",
+    "27+ global markanın yetkili tedarikçisi. CCTV, IP kamera, NVR, network altyapısı, geçiş kontrol ve akıllı bina çözümleri için proje bazlı teklif ve bayi avantajları.",
   alternates: { canonical: "/" },
 }
 
@@ -44,7 +44,7 @@ const organizationJsonLd = {
   name: "Next AI Teknoloji",
   url: SITE_URL,
   description:
-    "16+ global markanın yetkili tedarikçisi. CCTV, IP kamera, NVR, network altyapısı, geçiş kontrol ve akıllı bina çözümleri için proje bazlı teklif ve bayi avantajları.",
+    "27+ global markanın yetkili tedarikçisi. CCTV, IP kamera, NVR, network altyapısı, geçiş kontrol ve akıllı bina çözümleri için proje bazlı teklif ve bayi avantajları.",
   logo: {
     "@type": "ImageObject",
     url: `${SITE_URL}/logo.png`,
@@ -91,7 +91,7 @@ function BrandsSection() {
               02 · Kurumsal çözüm ortaklarımız
             </p>
             <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
-              16+ global markanın
+              27+ global markanın
               <br />
               yetkili tedarikçisi.
             </h2>
