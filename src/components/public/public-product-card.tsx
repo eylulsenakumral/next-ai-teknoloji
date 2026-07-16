@@ -253,7 +253,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
               onClick={handleAddToCart}
               className={cn(
                 "flex-1 h-7 flex items-center justify-center gap-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200",
-                justAdded ? "bg-[#3b7300] text-white" : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+                justAdded ? "bg-[var(--color-price)] text-white" : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
               )}
               aria-label={`${product.name} sepete ekle`}
             >
@@ -413,7 +413,7 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
               onClick={handleAddToCart}
               className={cn(
                 "h-8 px-4 flex items-center justify-center gap-1.5 rounded-lg text-[12px] font-semibold transition-all duration-200",
-                justAdded ? "bg-[#3b7300] text-white" : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
+                justAdded ? "bg-[var(--color-price)] text-white" : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
               )}
               aria-label={`${product.name} sepete ekle`}
             >
