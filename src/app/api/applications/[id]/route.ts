@@ -24,12 +24,12 @@ async function generateDealerCode(): Promise<string> {
   return `NAT-${nextNum.toString().padStart(4, "0")}`
 }
 
-// Güvenli geçici şifre üretimi
+// Güvenli geçici şifre üretimi — kriptografik olarak güvenli (crypto.randomInt)
 function generateTempPassword(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789"
   let password = ""
   for (let i = 0; i < 10; i++) {
-    password += chars.charAt(Math.floor(Math.random() * chars.length))
+    password += chars.charAt(randomInt(0, chars.length))
   }
   return password
 }
