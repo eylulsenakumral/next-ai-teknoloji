@@ -85,7 +85,7 @@ describe("DealerHeader - dt-elektrix specs", () => {
 
   /* ── No hardcoded old colors ── */
 
-  it("does not contain hardcoded #00179e anywhere", () => {
+  it("does not contain hardcoded var(--color-primary) anywhere", () => {
     const { container } = render(<DealerHeader />)
     assertNoOldColors(container)
   })
@@ -117,13 +117,13 @@ describe("DealerHeader - dt-elektrix specs", () => {
     )
   })
 
-  /* ── Primary accent #0040a4 ── */
+  /* ── Primary accent var(--color-primary) ── */
 
-  it("uses primary accent color #0040a4 via CSS var or direct", () => {
+  it("uses primary accent color var(--color-primary) via CSS var or direct", () => {
     const { container } = render(<DealerHeader />)
     const classes = getAllClassNames(container)
     expect(classes).toMatch(
-      /bg-\[#0040a4\]|bg-\[var\(--DTPrimaryColor\)\]|text-\[#0040a4\]|text-\[var\(--DTPrimaryColor\)\]/
+      /bg-\[var(--color-primary)\]|bg-\[var\(--DTPrimaryColor\)\]|text-\[var(--color-primary)\]|text-\[var\(--DTPrimaryColor\)\]/
     )
   })
 

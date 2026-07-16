@@ -33,7 +33,7 @@ function ProductImage({ src, alt }: { src?: string; alt: string }) {
   if (!src || errored) {
     return (
       <div className="flex h-full w-full items-center justify-center bg-white">
-        <Package className="h-12 w-12 text-[#eeeeee]" aria-hidden />
+        <Package className="h-12 w-12 text-[var(--color-border)]" aria-hidden />
       </div>
     )
   }
@@ -83,7 +83,7 @@ export function PublicProductCard({ product }: PublicProductCardProps) {
   return (
     <article
       className={cn(
-        "group relative flex flex-col bg-[#f3f3f3] rounded-[20px] overflow-hidden",
+        "group relative flex flex-col bg-[var(--color-surface-muted)] rounded-[20px] overflow-hidden",
         "hover:shadow-[0_8px_25px_rgba(187,187,187,0.5)] hover:-translate-y-1",
         "transition-all duration-300 linear"
       )}
@@ -104,14 +104,14 @@ export function PublicProductCard({ product }: PublicProductCardProps) {
         <div className="absolute top-3 right-3 flex flex-col gap-2 z-10 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
           <button
             type="button"
-            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[#1e1e1e] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
+            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[var(--color-foreground)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200"
             aria-label={`${product.name} favorilere ekle`}
           >
             <Heart className="h-4 w-4" aria-hidden />
           </button>
           <button
             type="button"
-            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[#1e1e1e] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
+            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[var(--color-foreground)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200"
             aria-label={`${product.name} hızlı bak`}
             onClick={(e) => {
               e.preventDefault()
@@ -126,7 +126,7 @@ export function PublicProductCard({ product }: PublicProductCardProps) {
         {/* Stock Badge */}
         {!product.stockStatus && (
           <div className="absolute top-3 left-3 z-10">
-            <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-[11px] font-bold text-white bg-[#a60811]">
+            <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-[11px] font-bold text-white bg-[var(--color-error)]">
               Tükendi
             </span>
           </div>
@@ -135,7 +135,7 @@ export function PublicProductCard({ product }: PublicProductCardProps) {
         {/* Sold Out Overlay */}
         {!product.stockStatus && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-t-[20px]">
-            <div className="w-20 h-20 bg-[#a60811] rounded-full flex items-center justify-center">
+            <div className="w-20 h-20 bg-[var(--color-error)] rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-center text-sm">
                 Sold<br />Out
               </span>
@@ -157,8 +157,8 @@ export function PublicProductCard({ product }: PublicProductCardProps) {
         <Link
           href={href}
           className={cn(
-            "text-[13px] leading-snug line-clamp-2 hover:text-[#0040a4] transition-colors min-h-[2.4rem]",
-            product.stockStatus ? "font-semibold text-[#1e1e1e]" : "text-[#767676]"
+            "text-[13px] leading-snug line-clamp-2 hover:text-[var(--color-primary)] transition-colors min-h-[2.4rem]",
+            product.stockStatus ? "font-semibold text-[var(--color-foreground)]" : "text-[var(--color-text-muted)]"
           )}
         >
           {product.name}
@@ -181,7 +181,7 @@ export function PublicProductCard({ product }: PublicProductCardProps) {
             ) : (
               <Link
                 href="/login"
-                className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#0040a4]/30 bg-[#0040a4]/5 px-2 py-1 text-[11px] font-medium text-[#0040a4] hover:bg-[#0040a4]/10 transition-colors"
+                className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-[var(--color-primary)]/30 bg-[var(--color-primary)]/5 px-2 py-1 text-[11px] font-medium text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 transition-colors"
               >
                 <Lock className="h-3.5 w-3.5" aria-hidden />
                 Özel Fiyatlar İçin Bayi Girişi Yapınız
@@ -192,24 +192,24 @@ export function PublicProductCard({ product }: PublicProductCardProps) {
 
         {/* Sepete Ekle */}
         {!authLoading && showPrice && product.stockStatus ? (
-          <div className="flex items-center gap-2 mt-2 pt-2 border-t border-[#eeeeee]">
-            <div className="flex items-center rounded-lg border border-[#eeeeee] overflow-hidden shrink-0">
+          <div className="flex items-center gap-2 mt-2 pt-2 border-t border-[var(--color-border)]">
+            <div className="flex items-center rounded-lg border border-[var(--color-border)] overflow-hidden shrink-0">
               <button type="button" onClick={() => setQty((p) => Math.max(1, p - 1))} disabled={qty <= 1} className="h-7 w-7 flex items-center justify-center hover:bg-[#f5f5f5] disabled:opacity-30 transition-colors" aria-label="Azalt"><Minus className="h-3 w-3" aria-hidden /></button>
-              <span className="h-7 w-8 flex items-center justify-center text-[12px] font-medium border-x border-[#eeeeee]">{qty}</span>
+              <span className="h-7 w-8 flex items-center justify-center text-[12px] font-medium border-x border-[var(--color-border)]">{qty}</span>
               <button type="button" onClick={() => setQty((p) => p + 1)} className="h-7 w-7 flex items-center justify-center hover:bg-[#f5f5f5] transition-colors" aria-label="Artır"><Plus className="h-3 w-3" aria-hidden /></button>
             </div>
-            <button type="button" onClick={handleAddToCart} className={cn("flex-1 h-7 flex items-center justify-center gap-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200", justAdded ? "bg-[#3b7300] text-white" : "bg-[#0040a4] text-white hover:bg-[#003080]")} aria-label={`${product.name} sepete ekle`}>
+            <button type="button" onClick={handleAddToCart} className={cn("flex-1 h-7 flex items-center justify-center gap-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200", justAdded ? "bg-[#3b7300] text-white" : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]")} aria-label={`${product.name} sepete ekle`}>
               {justAdded ? <><Check className="h-3 w-3" aria-hidden /> Eklendi</> : <><ShoppingCart className="h-3 w-3" aria-hidden /> Sepete Ekle</>}
             </button>
           </div>
         ) : !authLoading && (isAuthenticated || isAdmin) && !product.stockStatus ? (
-          <div className="mt-2 pt-2 border-t border-[#eeeeee]">
+          <div className="mt-2 pt-2 border-t border-[var(--color-border)]">
             <button type="button" disabled className="w-full h-7 flex items-center justify-center rounded-lg text-[11px] font-semibold bg-[#e5e5e5] text-[#999] cursor-not-allowed">Stokta Yok</button>
           </div>
         ) : null}
 
         {cartQty > 0 && (
-          <button type="button" onClick={() => openCart()} className="text-[10px] text-center text-[#0040a4] hover:underline mt-1">Sepette {cartQty} adet</button>
+          <button type="button" onClick={() => openCart()} className="text-[10px] text-center text-[var(--color-primary)] hover:underline mt-1">Sepette {cartQty} adet</button>
         )}
       </div>
     </article>

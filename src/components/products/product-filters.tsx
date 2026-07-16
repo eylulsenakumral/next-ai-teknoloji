@@ -50,21 +50,21 @@ function CategoryItem({
   return (
     <div className={cn(
       "relative",
-      depth > 0 && "ml-2.5 before:absolute before:left-0 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#0040a4]/20 before:rounded-full"
+      depth > 0 && "ml-2.5 before:absolute before:left-0 before:top-2 before:bottom-2 before:w-0.5 before:bg-[var(--color-primary)]/20 before:rounded-full"
     )}>
       <div
         className={cn(
           "flex items-center gap-1.5 py-2.5 px-3 rounded-lg transition-all duration-150",
           isSelected
-            ? "bg-[#0040a4]/10 text-[#0040a4]"
-            : "text-[#767676] hover:bg-[#0040a4]/5 hover:text-[#0040a4]"
+            ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)]"
+            : "text-[var(--color-text-muted)] hover:bg-[var(--color-primary)]/5 hover:text-[var(--color-primary)]"
         )}
       >
         {hasChildren ? (
           <button
             type="button"
             onClick={() => setExpanded((p) => !p)}
-            className="shrink-0 p-0.5 text-[#767676] hover:text-[#0040a4] transition-colors duration-200"
+            className="shrink-0 p-0.5 text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors duration-200"
             aria-label={expanded ? "Daralt" : "Genişlet"}
           >
             <ChevronRight
@@ -97,8 +97,8 @@ function CategoryItem({
             className={cn(
               "shrink-0 ml-2 tabular-nums rounded-full px-2 py-0.5 text-[11px] font-medium transition-colors duration-150",
               isSelected
-                ? "bg-[#0040a4]/20 text-[#0040a4]"
-                : "bg-[#f3f3f3] text-[#767676]"
+                ? "bg-[var(--color-primary)]/20 text-[var(--color-primary)]"
+                : "bg-[var(--color-surface-muted)] text-[var(--color-text-muted)]"
             )}
           >
             {category._count?.products ?? 0}
@@ -144,14 +144,14 @@ function FilterSection({
         <button
           type="button"
           onClick={() => setOpen((p) => !p)}
-          className="flex items-center gap-2 text-[12px] font-bold text-[#1e1e1e] uppercase tracking-widest hover:text-[#0040a4] transition-colors duration-150"
+          className="flex items-center gap-2 text-[12px] font-bold text-[var(--color-foreground)] uppercase tracking-widest hover:text-[var(--color-primary)] transition-colors duration-150"
           aria-expanded={open}
         >
-          <SlidersHorizontal className="h-3.5 w-3.5 text-[#0040a4]" aria-hidden />
+          <SlidersHorizontal className="h-3.5 w-3.5 text-[var(--color-primary)]" aria-hidden />
           {title}
           <ChevronDown
             className={cn(
-              "h-3.5 w-3.5 text-[#767676] transition-transform duration-200",
+              "h-3.5 w-3.5 text-[var(--color-text-muted)] transition-transform duration-200",
               !open && "-rotate-90"
             )}
             aria-hidden
@@ -161,7 +161,7 @@ function FilterSection({
           <button
             type="button"
             onClick={onReset}
-            className="text-[11px] font-semibold text-[#767676] hover:text-[#0040a4] transition-colors duration-150"
+            className="text-[11px] font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors duration-150"
           >
             Tümü
           </button>
@@ -215,7 +215,7 @@ export function ProductFilters({
           {/* Marka arama */}
           <div className="relative mb-3">
             <Search
-              className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#767676] pointer-events-none"
+              className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[var(--color-text-muted)] pointer-events-none"
               aria-hidden
             />
             <input
@@ -223,7 +223,7 @@ export function ProductFilters({
               placeholder="Marka ara..."
               value={brandSearch}
               onChange={(e) => setBrandSearch(e.target.value)}
-              className="w-full h-8 border border-[#e9e9e9] bg-white rounded-lg pl-8 pr-3 text-[12px] text-[#1e1e1e] placeholder:text-[#767676] focus:outline-none focus:border-[#0040a4] focus:ring-1 focus:ring-[#0040a4]/20 transition-all"
+              className="w-full h-8 border border-[#e9e9e9] bg-white rounded-lg pl-8 pr-3 text-[12px] text-[var(--color-foreground)] placeholder:text-[var(--color-text-muted)] focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)]/20 transition-all"
             />
           </div>
           <div
@@ -236,7 +236,7 @@ export function ProductFilters({
               return (
                 <label
                   key={brand.id}
-                  className="flex items-center gap-2.5 py-2 px-2 cursor-pointer rounded-lg hover:bg-[#0040a4]/5 transition-colors duration-150"
+                  className="flex items-center gap-2.5 py-2 px-2 cursor-pointer rounded-lg hover:bg-[var(--color-primary)]/5 transition-colors duration-150"
                 >
                   <input
                     type="checkbox"
@@ -245,12 +245,12 @@ export function ProductFilters({
                       onChange({ brandId: checked ? "" : brand.id, page: 1 })
                     }
                     aria-label={`${brand.name} markasını filtrele`}
-                    className="h-3.5 w-3.5 border-[#e9e9e9] text-[#0040a4] focus:ring-[#0040a4] focus:ring-offset-0 accent-[#0040a4] rounded"
+                    className="h-3.5 w-3.5 border-[#e9e9e9] text-[var(--color-primary)] focus:ring-[var(--color-primary)] focus:ring-offset-0 accent-[var(--color-primary)] rounded"
                   />
-                  <span className="text-[13px] text-[#767676] flex-1 truncate hover:text-[#0040a4] transition-colors duration-150">
+                  <span className="text-[13px] text-[var(--color-text-muted)] flex-1 truncate hover:text-[var(--color-primary)] transition-colors duration-150">
                     {brand.name}
                   </span>
-                  <span className="text-[11px] text-[#767676] tabular-nums">
+                  <span className="text-[11px] text-[var(--color-text-muted)] tabular-nums">
                     ({brand.productCount})
                   </span>
                 </label>
@@ -267,7 +267,7 @@ export function ProductFilters({
           <div className="flex-1">
             <label
               htmlFor="min-price"
-              className="text-[11px] text-[#767676] mb-1 block uppercase tracking-wide"
+              className="text-[11px] text-[var(--color-text-muted)] mb-1 block uppercase tracking-wide"
             >
               Min ₺
             </label>
@@ -278,14 +278,14 @@ export function ProductFilters({
               placeholder="0"
               value={filters.minPrice}
               onChange={(e) => onChange({ minPrice: e.target.value, page: 1 })}
-              className="w-full h-8 border border-[#e9e9e9] rounded-lg px-2.5 text-[13px] text-[#1e1e1e] focus:outline-none focus:border-[#0040a4] focus:ring-1 focus:ring-[#0040a4]/20 transition-all"
+              className="w-full h-8 border border-[#e9e9e9] rounded-lg px-2.5 text-[13px] text-[var(--color-foreground)] focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)]/20 transition-all"
             />
           </div>
           <span className="text-[#e9e9e9] mt-4 text-lg">—</span>
           <div className="flex-1">
             <label
               htmlFor="max-price"
-              className="text-[11px] text-[#767676] mb-1 block uppercase tracking-wide"
+              className="text-[11px] text-[var(--color-text-muted)] mb-1 block uppercase tracking-wide"
             >
               Max ₺
             </label>
@@ -296,7 +296,7 @@ export function ProductFilters({
               placeholder="∞"
               value={filters.maxPrice}
               onChange={(e) => onChange({ maxPrice: e.target.value, page: 1 })}
-              className="w-full h-8 border border-[#e9e9e9] rounded-lg px-2.5 text-[13px] text-[#1e1e1e] focus:outline-none focus:border-[#0040a4] focus:ring-1 focus:ring-[#0040a4]/20 transition-all"
+              className="w-full h-8 border border-[#e9e9e9] rounded-lg px-2.5 text-[13px] text-[var(--color-foreground)] focus:outline-none focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)]/20 transition-all"
             />
           </div>
         </div>

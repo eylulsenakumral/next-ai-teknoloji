@@ -12,7 +12,7 @@ export function ProductCardHorizontal({ product }: { product: PublicProduct }) {
 
   return (
     <article
-      className="group flex gap-4 bg-[#f4f7fa] rounded-[20px] p-3 hover:shadow-[0_8px_25px_rgba(187,187,187,0.5)] hover:-translate-y-0.5 transition-all duration-300 linear overflow-hidden"
+      className="group flex gap-4 bg-[var(--color-background)] rounded-[20px] p-3 hover:shadow-[0_8px_25px_rgba(187,187,187,0.5)] hover:-translate-y-0.5 transition-all duration-300 linear overflow-hidden"
     >
       {/* Image left */}
       <div className="relative w-24 h-24 bg-white rounded-[14px] flex-shrink-0 overflow-hidden">
@@ -33,7 +33,7 @@ export function ProductCardHorizontal({ product }: { product: PublicProduct }) {
         {/* Stock Badge */}
         {!product.stockStatus && (
           <div className="absolute top-1 left-1 z-10">
-            <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[8px] font-bold text-white bg-[#a60811]">
+            <span className="inline-flex items-center rounded px-1.5 py-0.5 text-[8px] font-bold text-white bg-[var(--color-error)]">
               Tukendi
             </span>
           </div>
@@ -46,14 +46,14 @@ export function ProductCardHorizontal({ product }: { product: PublicProduct }) {
         <div className="absolute top-1 right-1 flex flex-col gap-1 z-10 opacity-0 group-hover:opacity-100 transition-all duration-300">
           <button
             type="button"
-            className="w-7 h-7 bg-white rounded-full shadow flex items-center justify-center text-[#0040a4] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
+            className="w-7 h-7 bg-white rounded-full shadow flex items-center justify-center text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200"
             aria-label={`${product.name} favorilere ekle`}
           >
             <Heart className="h-3 w-3" aria-hidden />
           </button>
           <Link
             href={`/katalog/${product.slug}`}
-            className="w-7 h-7 bg-white rounded-full shadow flex items-center justify-center text-[#0040a4] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
+            className="w-7 h-7 bg-white rounded-full shadow flex items-center justify-center text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200"
             aria-label={`${product.name} detay`}
           >
             <Eye className="h-3 w-3" aria-hidden />
@@ -71,7 +71,7 @@ export function ProductCardHorizontal({ product }: { product: PublicProduct }) {
           )}
           <Link
             href={`/katalog/${product.slug}`}
-            className="block font-semibold text-[#0040a4] hover:text-[#0040a4] transition-colors leading-snug line-clamp-2 text-[13px] mt-0.5"
+            className="block font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors leading-snug line-clamp-2 text-[13px] mt-0.5"
           >
             {product.name}
           </Link>
@@ -79,13 +79,13 @@ export function ProductCardHorizontal({ product }: { product: PublicProduct }) {
 
         <div className="flex items-center justify-between mt-2">
           {product.category && (
-            <span className="text-[10px] text-[#64748b] bg-[#eeeeee] px-2 py-0.5 rounded truncate max-w-[120px]">
+            <span className="text-[10px] text-[var(--color-text-muted)] bg-[var(--color-border)] px-2 py-0.5 rounded truncate max-w-[120px]">
               {product.category.name}
             </span>
           )}
           <Link
             href={`/katalog/${product.slug}`}
-            className="rounded-full bg-[#0040a4] text-white w-10 h-10 flex items-center justify-center hover:bg-[#0040a4] transition-colors flex-shrink-0 ml-auto"
+            className="rounded-full bg-[var(--color-primary)] text-white w-10 h-10 flex items-center justify-center hover:bg-[var(--color-primary)] transition-colors flex-shrink-0 ml-auto"
             aria-label={`${product.name} detayina git`}
           >
             <ArrowRight className="h-4 w-4" aria-hidden />

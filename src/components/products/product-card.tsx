@@ -21,7 +21,7 @@ function ProductImage({ src, alt, className }: ProductImageProps) {
   if (!src || error) {
     return (
       <div className={cn("flex h-full w-full items-center justify-center bg-white", className)}>
-        <Package className="h-14 w-14 text-[#eeeeee]" aria-hidden />
+        <Package className="h-14 w-14 text-[var(--color-border)]" aria-hidden />
       </div>
     )
   }
@@ -131,7 +131,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
   return (
     <article
       className={cn(
-        "group relative flex flex-col bg-[#f3f3f3] rounded-[20px] overflow-hidden",
+        "group relative flex flex-col bg-[var(--color-surface-muted)] rounded-[20px] overflow-hidden",
         "hover:shadow-[0_8px_25px_rgba(187,187,187,0.5)] hover:-translate-y-1",
         "transition-all duration-300 linear"
       )}
@@ -159,7 +159,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
                 e.stopPropagation()
                 onAddToCart(product)
               }}
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1e1e1e] hover:bg-[#0040a4] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-foreground)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
               aria-label={`${product.name} sepete ekle`}
             >
               <ShoppingCart className="h-4 w-4" aria-hidden />
@@ -172,14 +172,14 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
               e.stopPropagation()
               window.location.href = `/urunler/${product.slug}`
             }}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1e1e1e] hover:bg-[#0040a4] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-foreground)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
             aria-label={`${product.name} hizli bak`}
           >
             <Eye className="h-4 w-4" aria-hidden />
           </button>
           <button
             type="button"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#1e1e1e] hover:bg-[#0040a4] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[var(--color-foreground)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200 shadow-md translate-y-2 group-hover:translate-y-0"
             aria-label={`${product.name} favorilere ekle`}
           >
             <Heart className="h-4 w-4" aria-hidden />
@@ -190,17 +190,17 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
       {/* Badges - top left */}
       <div className="absolute top-2 left-2 z-10 flex flex-col gap-1">
         {product.isNew && (
-          <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-[10px] font-bold text-white bg-[#0040a4]">
+          <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-[10px] font-bold text-white bg-[var(--color-primary)]">
             YENI
           </span>
         )}
         {product.isOutlet && (
-          <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-[10px] font-bold text-white bg-[#a60811]">
+          <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-[10px] font-bold text-white bg-[var(--color-error)]">
             OUTLET
           </span>
         )}
         {!product.stock.isAvailable && (
-          <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-[10px] font-bold text-white bg-[#767676]">
+          <span className="inline-flex items-center rounded-lg px-2.5 py-1 text-[10px] font-bold text-white bg-[var(--color-text-muted)]">
             TUKENDI
           </span>
         )}
@@ -223,20 +223,20 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
             </p>
           </div>
         ) : (
-          <p className="text-[14px] text-[#767676]">--</p>
+          <p className="text-[14px] text-[var(--color-text-muted)]">--</p>
         )}
 
         {/* Product name - AFTER */}
         <Link
           href={`/urunler/${product.slug}`}
-          className="text-[13px] text-[#1e1e1e] leading-snug line-clamp-2 hover:text-[#0040a4] transition-colors min-h-[2.4rem] font-medium"
+          className="text-[13px] text-[var(--color-foreground)] leading-snug line-clamp-2 hover:text-[var(--color-primary)] transition-colors min-h-[2.4rem] font-medium"
         >
           {product.name}
         </Link>
 
         {/* Stock status - only critical cases */}
         {!product.stock.isAvailable ? (
-          <p className="text-[11px] text-[#a60811] font-medium">Stok Yok</p>
+          <p className="text-[11px] text-[var(--color-error)] font-medium">Stok Yok</p>
         ) : product.stock.quantity < 5 ? (
           <p className="text-[11px] text-amber-600 font-medium">Son {product.stock.quantity} adet</p>
         ) : null}
@@ -251,7 +251,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
                 onChange={(e) => handleFieldChange("brandId", e.target.value)}
                 className={cn(
                   "w-full text-xs py-0.5 px-1 rounded border bg-transparent outline-none cursor-pointer",
-                  "border-transparent hover:border-gray-300 focus:border-[#0040a4] transition-colors",
+                  "border-transparent hover:border-gray-300 focus:border-[var(--color-primary)] transition-colors",
                   flash["brandId"] === "ok" && "border-green-500 text-green-700",
                   flash["brandId"] === "err" && "border-red-500 text-red-600",
                 )}
@@ -270,7 +270,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
                 onChange={(e) => handleFieldChange("categoryId", e.target.value)}
                 className={cn(
                   "w-full text-xs py-0.5 px-1 rounded border bg-transparent outline-none cursor-pointer",
-                  "border-transparent hover:border-gray-300 focus:border-[#0040a4] transition-colors text-[#767676]",
+                  "border-transparent hover:border-gray-300 focus:border-[var(--color-primary)] transition-colors text-[var(--color-text-muted)]",
                   flash["categoryId"] === "ok" && "border-green-500 text-green-700",
                   flash["categoryId"] === "err" && "border-red-500 text-red-600",
                 )}
@@ -289,8 +289,8 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
 
         {/* Sepete ekle bölümü */}
         {product.stock.isAvailable && product.pricing ? (
-          <div className="flex items-center gap-2 mt-2 pt-2 border-t border-[#eeeeee]" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center rounded-lg border border-[#eeeeee] overflow-hidden shrink-0">
+          <div className="flex items-center gap-2 mt-2 pt-2 border-t border-[var(--color-border)]" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center rounded-lg border border-[var(--color-border)] overflow-hidden shrink-0">
               <button
                 type="button"
                 onClick={() => setQty((prev) => Math.max(product.minOrderQuantity || 1, prev - 1))}
@@ -300,7 +300,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
               >
                 <Minus className="h-3 w-3" aria-hidden />
               </button>
-              <span className="h-8 w-10 flex items-center justify-center text-[13px] font-medium border-x border-[#eeeeee]">
+              <span className="h-8 w-10 flex items-center justify-center text-[13px] font-medium border-x border-[var(--color-border)]">
                 {qty}
               </span>
               <button
@@ -320,7 +320,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
                 "flex-1 h-8 flex items-center justify-center gap-1.5 rounded-lg text-[12px] font-semibold transition-all duration-200",
                 justAdded
                   ? "bg-[#3b7300] text-white"
-                  : "bg-[#0040a4] text-white hover:bg-[#003080]"
+                  : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
               )}
               aria-label={`${product.name} sepete ekle`}
             >
@@ -338,7 +338,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
             </button>
           </div>
         ) : !product.stock.isAvailable ? (
-          <div className="mt-2 pt-2 border-t border-[#eeeeee]">
+          <div className="mt-2 pt-2 border-t border-[var(--color-border)]">
             <button
               type="button"
               disabled
@@ -353,7 +353,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); openCart() }}
-            className="text-[11px] text-center text-[#0040a4] hover:underline mt-1"
+            className="text-[11px] text-center text-[var(--color-primary)] hover:underline mt-1"
           >
             Sepette {cartQty} adet
           </button>
@@ -365,7 +365,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
 
 export function ProductCardSkeleton() {
   return (
-    <div className="flex flex-col bg-[#f3f3f3] rounded-[20px] overflow-hidden animate-pulse">
+    <div className="flex flex-col bg-[var(--color-surface-muted)] rounded-[20px] overflow-hidden animate-pulse">
       <div className="aspect-square bg-[#f5f5f5] rounded-t-[20px]" />
       <div className="p-[10px] space-y-2">
         <div className="h-4 w-24 bg-[#e5e5e5] rounded" />

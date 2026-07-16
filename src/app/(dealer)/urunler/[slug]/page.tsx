@@ -173,14 +173,14 @@ function ErrorState({ message }: { message: string }) {
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-red-100">
           <AlertCircle className="h-8 w-8 text-red-600" aria-hidden />
         </div>
-        <h2 className="text-xl font-bold text-[#333333]">{message}</h2>
-        <p className="text-sm text-[#767676] max-w-md">
+        <h2 className="text-xl font-bold text-[var(--color-foreground)]">{message}</h2>
+        <p className="text-sm text-[var(--color-text-muted)] max-w-md">
           Aradığınız ürün bulunamadı veya geçici bir sorun oluştu.
           Ürün kataloğundan devam edebilirsiniz.
         </p>
         <Link
           href="/urunler"
-          className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-[#0040a4] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#0040a4]/90"
+          className="mt-2 inline-flex items-center gap-1.5 rounded-lg bg-[var(--color-primary)] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[var(--color-primary)]/90"
         >
           Ürün Kataloğuna Dön
           <ChevronRight className="h-4 w-4" aria-hidden />
@@ -296,21 +296,21 @@ export default function ProductDetailPage() {
           {product.brand && (
             <Link
               href={`/urunler?brandId=${product.brand.id}`}
-              className="inline-block text-sm font-semibold uppercase tracking-wider text-[#0040a4] hover:text-[#0040a4]/80 transition-colors"
+              className="inline-block text-sm font-semibold uppercase tracking-wider text-[var(--color-primary)] hover:text-[var(--color-primary)]/80 transition-colors"
             >
               {product.brand.name}
             </Link>
           )}
 
           {/* Urun adi */}
-          <h1 className="text-2xl sm:text-3xl font-bold leading-tight text-[#333333]">
+          <h1 className="text-2xl sm:text-3xl font-bold leading-tight text-[var(--color-foreground)]">
             {product.name}
           </h1>
 
           {/* Badge'ler */}
           <div className="flex flex-wrap gap-2">
             {product.isNew && (
-              <Badge className="rounded-full bg-[#0040a4] px-3 py-1 text-xs font-semibold hover:bg-[#0040a4]/90">
+              <Badge className="rounded-full bg-[var(--color-primary)] px-3 py-1 text-xs font-semibold hover:bg-[var(--color-primary)]/90">
                 Yeni
               </Badge>
             )}
@@ -329,37 +329,37 @@ export default function ProductDetailPage() {
           {/* Urun kodlari */}
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 rounded-xl border border-[#f0f0f0] bg-[#f9f9f9] p-4 text-sm">
             {product.barcode && (
-              <div className="flex items-center gap-2 text-[#767676]">
+              <div className="flex items-center gap-2 text-[var(--color-text-muted)]">
                 <Barcode className="h-4 w-4 shrink-0" aria-hidden />
                 <span>Barkod:</span>
-                <span className="font-mono text-[#333333]">
+                <span className="font-mono text-[var(--color-foreground)]">
                   {product.barcode}
                 </span>
               </div>
             )}
             {product.sku && (
-              <div className="flex items-center gap-2 text-[#767676]">
+              <div className="flex items-center gap-2 text-[var(--color-text-muted)]">
                 <Hash className="h-4 w-4 shrink-0" aria-hidden />
                 <span>SKU:</span>
-                <span className="font-mono text-[#333333]">
+                <span className="font-mono text-[var(--color-foreground)]">
                   {product.sku}
                 </span>
               </div>
             )}
             {product.modelCode && (
-              <div className="flex items-center gap-2 text-[#767676]">
+              <div className="flex items-center gap-2 text-[var(--color-text-muted)]">
                 <Tag className="h-4 w-4 shrink-0" aria-hidden />
                 <span>Model:</span>
-                <span className="font-mono text-[#333333]">
+                <span className="font-mono text-[var(--color-foreground)]">
                   {product.modelCode}
                 </span>
               </div>
             )}
             {product.warrantyMonths && (
-              <div className="flex items-center gap-2 text-[#767676]">
+              <div className="flex items-center gap-2 text-[var(--color-text-muted)]">
                 <Shield className="h-4 w-4 shrink-0" aria-hidden />
                 <span>Garanti:</span>
-                <span className="text-[#333333]">
+                <span className="text-[var(--color-foreground)]">
                   {product.warrantyMonths} ay
                 </span>
               </div>
@@ -374,25 +374,25 @@ export default function ProductDetailPage() {
 
           {/* Fiyat kutusu */}
           {product.pricing ? (
-            <div className="rounded-2xl border-2 border-[#0040a4]/10 bg-gradient-to-br from-[#f9f9f9] to-white p-5 space-y-3">
+            <div className="rounded-2xl border-2 border-[var(--color-primary)]/10 bg-gradient-to-br from-[#f9f9f9] to-white p-5 space-y-3">
               <div className="flex items-baseline justify-between">
-                <span className="text-sm text-[#767676]">KDV Haric</span>
-                <span className="text-lg font-bold text-[#333333]">
+                <span className="text-sm text-[var(--color-text-muted)]">KDV Haric</span>
+                <span className="text-lg font-bold text-[var(--color-foreground)]">
                   {formatCurrency(product.pricing.salePriceExVat, currency)}
                 </span>
               </div>
               <div className="h-px bg-[#f0f0f0]" />
               <div className="flex items-baseline justify-between">
-                <span className="text-sm text-[#767676]">
+                <span className="text-sm text-[var(--color-text-muted)]">
                   KDV Dahil (%{product.pricing.vatRate})
                 </span>
-                <span className="text-3xl font-extrabold text-[#0040a4]">
+                <span className="text-3xl font-extrabold text-[var(--color-primary)]">
                   {formatCurrency(product.pricing.salePriceIncVat, currency)}
                 </span>
               </div>
             </div>
           ) : (
-            <div className="rounded-2xl border border-[#f0f0f0] bg-[#f9f9f9] p-5 text-sm text-[#767676] flex items-center gap-2">
+            <div className="rounded-2xl border border-[#f0f0f0] bg-[#f9f9f9] p-5 text-sm text-[var(--color-text-muted)] flex items-center gap-2">
               <Package className="h-4 w-4" aria-hidden />
               Fiyat bilgisi şu an mevcut değil. Lütfen iletişime geçin.
             </div>
@@ -414,7 +414,7 @@ export default function ProductDetailPage() {
 
           {/* Kisa aciklama */}
           {product.shortDescription && (
-            <p className="text-sm leading-relaxed text-[#767676] border-l-2 border-[#0040a4]/20 pl-4">
+            <p className="text-sm leading-relaxed text-[var(--color-text-muted)] border-l-2 border-[var(--color-primary)]/20 pl-4">
               {product.shortDescription}
             </p>
           )}
@@ -429,14 +429,14 @@ export default function ProductDetailPage() {
         <TabsList className="inline-flex gap-1 rounded-xl bg-[#f9f9f9] p-1">
           <TabsTrigger
             value="specs"
-            className="rounded-lg px-5 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-white data-[state=active]:text-[#0040a4] data-[state=active]:shadow-sm"
+            className="rounded-lg px-5 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-white data-[state=active]:text-[var(--color-primary)] data-[state=active]:shadow-sm"
           >
             Teknik Özellikler
           </TabsTrigger>
           {product.description && (
             <TabsTrigger
               value="description"
-              className="rounded-lg px-5 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-white data-[state=active]:text-[#0040a4] data-[state=active]:shadow-sm"
+              className="rounded-lg px-5 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-white data-[state=active]:text-[var(--color-primary)] data-[state=active]:shadow-sm"
             >
               Açıklama
             </TabsTrigger>
@@ -467,10 +467,10 @@ export default function ProductDetailPage() {
                             : "bg-white"
                         }
                       >
-                        <td className="w-1/3 border-r border-[#f0f0f0] px-5 py-3 font-medium text-[#767676]">
+                        <td className="w-1/3 border-r border-[#f0f0f0] px-5 py-3 font-medium text-[var(--color-text-muted)]">
                           {key}
                         </td>
-                        <td className="px-5 py-3 text-[#333333]">
+                        <td className="px-5 py-3 text-[var(--color-foreground)]">
                           {String(value)}
                         </td>
                       </tr>
@@ -481,7 +481,7 @@ export default function ProductDetailPage() {
             </div>
           ) : (
             <div className="rounded-2xl border border-[#f0f0f0] bg-[#f9f9f9] p-10 text-center">
-              <p className="text-sm text-[#767676]">
+              <p className="text-sm text-[var(--color-text-muted)]">
                 Bu ürün için teknik özellik bilgisi henüz eklenmemiş.
               </p>
             </div>
@@ -490,7 +490,7 @@ export default function ProductDetailPage() {
 
         {product.description && (
           <TabsContent value="description">
-            <div className="prose prose-sm max-w-none rounded-2xl border border-[#f0f0f0] bg-white p-6 text-[#333333]">
+            <div className="prose prose-sm max-w-none rounded-2xl border border-[#f0f0f0] bg-white p-6 text-[var(--color-foreground)]">
               <p className="whitespace-pre-wrap leading-relaxed">
                 {product.description}
               </p>
@@ -503,7 +503,7 @@ export default function ProductDetailPage() {
       {relatedProducts.length > 0 && (
         <section aria-label="Benzer ürünler" className="space-y-6">
           <div className="flex items-center gap-3">
-            <h2 className="text-xl font-bold text-[#333333]">
+            <h2 className="text-xl font-bold text-[var(--color-foreground)]">
               Benzer Ürünler
             </h2>
             <div className="flex-1 h-px bg-[#f0f0f0]" />

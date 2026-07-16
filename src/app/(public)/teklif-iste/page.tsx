@@ -108,10 +108,10 @@ export default function TeklifIstePage() {
     return (
       <div className="font-nx-sans min-h-[60vh] flex items-center justify-center px-6 py-20">
         <div className="max-w-lg text-center">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[#5086a8]/10">
-            <CheckCircle2 className="h-8 w-8 text-[#5086a8]" />
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-primary)]/10">
+            <CheckCircle2 className="h-8 w-8 text-[var(--color-primary)]" />
           </div>
-          <h1 className="mt-6 text-3xl font-bold tracking-tight text-[#0040a4]">Teklif talebiniz alındı</h1>
+          <h1 className="mt-6 text-3xl font-bold tracking-tight text-[var(--color-primary)]">Teklif talebiniz alındı</h1>
           <p className="mt-3 text-sm leading-7 text-slate-500">
             Teknik ekibimiz projenizi inceleyip <strong>2–4 saat içinde</strong> size geri dönecek. Telefon ve
             e-posta yoluyla ulaşacağız.
@@ -119,13 +119,13 @@ export default function TeklifIstePage() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               href="/"
-              className="rounded-xl bg-[#0040a4] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#003080]"
+              className="rounded-xl bg-[var(--color-primary)] px-5 py-3 text-sm font-bold text-white transition hover:bg-[var(--color-primary-hover)]"
             >
               Ana sayfaya dön
             </Link>
             <Link
               href="/cozumler"
-              className="rounded-xl border border-slate-200 px-5 py-3 text-sm font-bold text-[#0040a4] transition hover:bg-slate-50"
+              className="rounded-xl border border-slate-200 px-5 py-3 text-sm font-bold text-[var(--color-primary)] transition hover:bg-slate-50"
             >
               Çözümleri incele →
             </Link>
@@ -138,7 +138,7 @@ export default function TeklifIstePage() {
   return (
     <div className="font-nx-sans">
       {/* Header */}
-      <section className="bg-[#0040a4] px-6 py-20 text-white md:px-10">
+      <section className="bg-[var(--color-primary)] px-6 py-20 text-white md:px-10">
         <div className="mx-auto max-w-3xl">
           <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#8aa8bc]">
             Proje teklifi
@@ -154,7 +154,7 @@ export default function TeklifIstePage() {
       </section>
 
       {/* Form */}
-      <section className="bg-[#f4f7fa] px-6 py-16 md:px-10">
+      <section className="bg-[var(--color-background)] px-6 py-16 md:px-10">
         <form onSubmit={handleSubmit} className="mx-auto max-w-3xl rounded-3xl bg-white p-8 shadow-sm md:p-10">
           <div className="grid gap-5 sm:grid-cols-2">
             <Field
@@ -227,7 +227,7 @@ export default function TeklifIstePage() {
                   onClick={() => update("projectType", pt.id)}
                   className={`rounded-xl border px-3 py-2.5 text-left text-xs font-semibold transition ${
                     form.projectType === pt.id
-                      ? "border-[#5086a8] bg-[#5086a8]/5 text-[#5086a8]"
+                      ? "border-[var(--color-primary)] bg-[var(--color-primary)]/5 text-[var(--color-primary)]"
                       : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
                   }`}
                 >
@@ -250,7 +250,7 @@ export default function TeklifIstePage() {
                   onClick={() => update("budget", b.id)}
                   className={`rounded-xl border px-3 py-2.5 text-xs font-semibold transition ${
                     form.budget === b.id
-                      ? "border-[#5086a8] bg-[#5086a8]/5 text-[#5086a8]"
+                      ? "border-[var(--color-primary)] bg-[var(--color-primary)]/5 text-[var(--color-primary)]"
                       : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
                   }`}
                 >
@@ -271,7 +271,7 @@ export default function TeklifIstePage() {
               onChange={(e) => update("description", e.target.value)}
               rows={5}
               placeholder="Kapsama alanları, özel ihtiyaçlar (gece görüş, plaka tanıma vs.), mevcut sistem, beklenen teslim tarihi…"
-              className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[#0040a4] placeholder-slate-400 outline-none transition focus:border-[#5086a8] focus:ring-2 focus:ring-[#5086a8]/10"
+              className="mt-2 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-[var(--color-primary)] placeholder-slate-400 outline-none transition focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/10"
             />
           </div>
 
@@ -290,7 +290,7 @@ export default function TeklifIstePage() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-[#5086a8] py-4 text-sm font-bold text-white transition hover:bg-[#456680] disabled:opacity-60"
+            className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-primary)] py-4 text-sm font-bold text-white transition hover:bg-[#456680] disabled:opacity-60"
           >
             {status === "submitting" ? (
               <>
@@ -327,7 +327,7 @@ function Field({ id, label, value, onChange, placeholder, required, type = "text
   return (
     <div>
       <label htmlFor={id} className="block text-xs font-bold uppercase tracking-wider text-slate-500">
-        {label} {required && <span className="text-[#5086a8]">*</span>}
+        {label} {required && <span className="text-[var(--color-primary)]">*</span>}
       </label>
       <div className="relative mt-2">
         {icon && (
@@ -342,7 +342,7 @@ function Field({ id, label, value, onChange, placeholder, required, type = "text
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           required={required}
-          className={`w-full rounded-xl border border-slate-200 bg-white py-3 text-sm text-[#0040a4] placeholder-slate-400 outline-none transition focus:border-[#5086a8] focus:ring-2 focus:ring-[#5086a8]/10 ${
+          className={`w-full rounded-xl border border-slate-200 bg-white py-3 text-sm text-[var(--color-primary)] placeholder-slate-400 outline-none transition focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/10 ${
             icon ? "pl-10 pr-4" : "px-4"
           }`}
         />

@@ -29,8 +29,8 @@ export function PublicHeaderNext() {
   const headerClass = cn(
     "sticky top-0 z-40 border-b px-5 py-4 backdrop-blur-xl md:px-10 font-nx-sans",
     home
-      ? "border-white/10 bg-[#0040a4]/90 text-white"
-      : "border-slate-200 bg-white/95 text-[#0040a4]"
+      ? "border-white/10 bg-[var(--color-primary)]/90 text-white"
+      : "border-slate-200 bg-white/95 text-[var(--color-primary)]"
   )
 
   return (
@@ -38,7 +38,7 @@ export function PublicHeaderNext() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
         {/* Logo */}
         <Link href="/" className="shrink-0 text-xl font-extrabold tracking-[-.09em]">
-          NEXT<span className="text-[#5086a8]">AI</span>
+          NEXT<span className="text-[var(--color-primary)]">AI</span>
           <small className="ml-2 hidden align-middle font-nx-mono text-[9px] font-normal tracking-[.14em] text-slate-400 sm:inline">
             / NEXTADEPO
           </small>
@@ -56,10 +56,10 @@ export function PublicHeaderNext() {
                 className={cn(
                   "text-[13px] font-semibold transition",
                   isCta
-                    ? "rounded-lg border border-[#5086a8]/40 bg-[#5086a8]/10 px-3 py-1.5 text-[#5086a8] hover:bg-[#5086a8]/20 opacity-100"
+                    ? "rounded-lg border border-[var(--color-primary)]/40 bg-[var(--color-primary)]/10 px-3 py-1.5 text-[var(--color-primary)] hover:bg-[var(--color-primary)]/20 opacity-100"
                     : isActive
                       ? "text-[#6b96b3]"
-                      : "text-current opacity-75 hover:text-[#5086a8] hover:opacity-100"
+                      : "text-current opacity-75 hover:text-[var(--color-primary)] hover:opacity-100"
                 )}
               >
                 {label}
@@ -72,19 +72,19 @@ export function PublicHeaderNext() {
         <div className="flex items-center gap-2">
           <Link
             href="/bayimiz-olun"
-            className="hidden text-xs font-bold opacity-70 transition hover:text-[#5086a8] hover:opacity-100 xl:block"
+            className="hidden text-xs font-bold opacity-70 transition hover:text-[var(--color-primary)] hover:opacity-100 xl:block"
           >
             Bayimiz Olun
           </Link>
           <Link
             href="/bayi-giris"
-            className="hidden rounded-lg bg-[#5086a8] px-3 py-2 text-xs font-bold text-white transition hover:bg-[#456680] sm:block"
+            className="hidden rounded-lg bg-[var(--color-primary)] px-3 py-2 text-xs font-bold text-white transition hover:bg-[#456680] sm:block"
           >
             Bayi Girişi
           </Link>
           <Link
             href="/teklif-iste"
-            className="rounded-lg bg-[#ff9b43] px-3 py-2 text-xs font-bold leading-5 text-[#0040a4] transition hover:bg-[#ffad64] md:px-4"
+            className="rounded-lg bg-[#ff9b43] px-3 py-2 text-xs font-bold leading-5 text-[var(--color-primary)] transition hover:bg-[#ffad64] md:px-4"
           >
             Teklif İste
           </Link>
@@ -114,10 +114,10 @@ export function PublicHeaderNext() {
                 className={cn(
                   "block px-3 py-2 rounded-lg text-sm font-semibold",
                   isActive
-                    ? "bg-[#5086a8]/10 text-[#5086a8]"
+                    ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)]"
                     : home
                       ? "text-white/80 hover:bg-white/5"
-                      : "text-[#0040a4]/80 hover:bg-slate-100"
+                      : "text-[var(--color-primary)]/80 hover:bg-slate-100"
                 )}
               >
                 {label}
@@ -128,7 +128,7 @@ export function PublicHeaderNext() {
             <Link
               href="/bayi-giris"
               onClick={() => setMobileOpen(false)}
-              className="flex-1 text-center rounded-lg bg-[#5086a8] px-3 py-2 text-xs font-bold text-white"
+              className="flex-1 text-center rounded-lg bg-[var(--color-primary)] px-3 py-2 text-xs font-bold text-white"
             >
               Bayi Girişi
             </Link>

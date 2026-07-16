@@ -254,7 +254,7 @@ describe('ProductCard', () => {
       const { container } = render(<ProductCard product={mockProduct} />)
       const card = container.querySelector('article')
       expect(card?.className).toContain('rounded-[20px]')
-      expect(card?.className).toContain('bg-[#f3f3f3]')
+      expect(card?.className).toContain('bg-[var(--color-surface-muted)]')
     })
 
     it('applies hover effect classes', () => {

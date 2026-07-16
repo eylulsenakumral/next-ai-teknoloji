@@ -149,7 +149,7 @@ export default function LoginPage() {
       ====================================================== */}
       <div className="relative flex w-full flex-col bg-white md:w-1/2">
         {/* Üst çizgi aksanı */}
-        <div className="h-1 w-full bg-gradient-to-r from-[#5086a8] to-[#5086a8]" />
+        <div className="h-1 w-full bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary)]" />
 
         {/* Header */}
         <header className="flex items-center justify-between px-8 py-5">
@@ -165,13 +165,13 @@ export default function LoginPage() {
           <nav className="hidden items-center gap-5 sm:flex">
             <Link
               href="/basvuru"
-              className="text-xs font-medium text-[#6b7280] transition-colors hover:text-[#5086a8]"
+              className="text-xs font-medium text-[#6b7280] transition-colors hover:text-[var(--color-primary)]"
             >
               Bayilik Başvurusu
             </Link>
             <Link
               href="tel:+905529895959"
-              className="text-xs font-medium text-[#6b7280] transition-colors hover:text-[#5086a8]"
+              className="text-xs font-medium text-[#6b7280] transition-colors hover:text-[var(--color-primary)]"
             >
               İletişim
             </Link>
@@ -226,7 +226,7 @@ export default function LoginPage() {
                     className={cn(
                       "h-12 w-full border border-[#ccd1db] bg-white px-4 text-sm text-[#0e121a]",
                       "placeholder:text-[#9ca3af] outline-none",
-                      "transition-colors focus:border-[#5086a8] focus:ring-2 focus:ring-[#5086a8]/20",
+                      "transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20",
                       "disabled:cursor-not-allowed disabled:bg-[#f9fafb] disabled:text-[#9ca3af]"
                     )}
                   />
@@ -254,7 +254,7 @@ export default function LoginPage() {
                       className={cn(
                         "h-12 w-full border border-[#ccd1db] bg-white px-4 pr-12 text-sm text-[#0e121a]",
                         "placeholder:text-[#9ca3af] outline-none",
-                        "transition-colors focus:border-[#5086a8] focus:ring-2 focus:ring-[#5086a8]/20",
+                        "transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20",
                         "disabled:cursor-not-allowed disabled:bg-[#f9fafb] disabled:text-[#9ca3af]"
                       )}
                     />
@@ -282,13 +282,13 @@ export default function LoginPage() {
                       name="remember"
                       checked={rememberMe}
                       onChange={(e) => setRememberMe(e.target.checked)}
-                      className="h-4 w-4 rounded border-[#ccd1db] accent-[#5086a8]"
+                      className="h-4 w-4 rounded border-[#ccd1db] accent-[var(--color-primary)]"
                     />
                     <span className="text-xs text-[#374151]">Beni Hatırla</span>
                   </label>
                   <Link
                     href="/sifremi-unuttum"
-                    className="text-xs text-[#5086a8] transition-colors hover:text-[#456680]"
+                    className="text-xs text-[var(--color-primary)] transition-colors hover:text-[#456680]"
                   >
                     Şifremi Unuttum?
                   </Link>
@@ -301,7 +301,7 @@ export default function LoginPage() {
                     disabled={isLoading}
                     className={cn(
                       "flex h-12 w-full items-center justify-center gap-2",
-                      "bg-[#5086a8] text-sm font-semibold uppercase tracking-wide text-white",
+                      "bg-[var(--color-primary)] text-sm font-semibold uppercase tracking-wide text-white",
                       "transition-colors hover:bg-[#162d4a]",
                       "disabled:cursor-not-allowed disabled:opacity-60"
                     )}
@@ -323,7 +323,7 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => switchMode("admin")}
-                    className="text-[#5086a8] transition-colors hover:text-[#456680]"
+                    className="text-[var(--color-primary)] transition-colors hover:text-[#456680]"
                   >
                     Admin Girişi →
                   </button>
@@ -359,7 +359,7 @@ export default function LoginPage() {
                     className={cn(
                       "h-12 w-full border border-[#ccd1db] bg-white px-4 text-sm text-[#0e121a] normal-case",
                       "placeholder:text-[#9ca3af] outline-none",
-                      "transition-colors focus:border-[#5086a8] focus:ring-2 focus:ring-[#5086a8]/20",
+                      "transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20",
                       "disabled:cursor-not-allowed disabled:bg-[#f9fafb] disabled:text-[#9ca3af]"
                     )}
                   />
@@ -386,7 +386,7 @@ export default function LoginPage() {
                       className={cn(
                         "h-12 w-full border border-[#ccd1db] bg-white px-4 pr-12 text-sm text-[#0e121a]",
                         "placeholder:text-[#9ca3af] outline-none",
-                        "transition-colors focus:border-[#5086a8] focus:ring-2 focus:ring-[#5086a8]/20",
+                        "transition-colors focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20",
                         "disabled:cursor-not-allowed disabled:bg-[#f9fafb] disabled:text-[#9ca3af]"
                       )}
                     />
@@ -412,7 +412,7 @@ export default function LoginPage() {
                   disabled={isLoading}
                   className={cn(
                     "flex h-12 w-full items-center justify-center gap-2",
-                    "bg-[#5086a8] text-sm font-semibold uppercase tracking-wide text-white",
+                    "bg-[var(--color-primary)] text-sm font-semibold uppercase tracking-wide text-white",
                     "transition-colors hover:bg-[#162d4a]",
                     "disabled:cursor-not-allowed disabled:opacity-60"
                   )}
@@ -433,7 +433,7 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => switchMode("dealer")}
-                    className="text-[#5086a8] transition-colors hover:text-[#456680]"
+                    className="text-[var(--color-primary)] transition-colors hover:text-[#456680]"
                   >
                     buraya tıklayın →
                   </button>
@@ -452,7 +452,7 @@ export default function LoginPage() {
                 className={cn(
                   "inline-flex h-10 w-full items-center justify-center gap-1.5",
                   "border border-[#ccd1db] text-sm font-medium text-[#374151]",
-                  "transition-colors hover:border-[#5086a8] hover:text-[#5086a8]"
+                  "transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
                 )}
               >
                 Ürün Kataloğunu İncele →
@@ -473,7 +473,7 @@ export default function LoginPage() {
       <aside
         className="relative hidden flex-col md:flex md:w-1/2"
         style={{
-          background: "linear-gradient(-45deg, #000d5e 0%, #5086a8 50%, #5086a8 100%)",
+          background: "linear-gradient(-45deg, #000d5e 0%, var(--color-primary) 50%, var(--color-primary) 100%)",
         }}
         aria-hidden="true"
       >

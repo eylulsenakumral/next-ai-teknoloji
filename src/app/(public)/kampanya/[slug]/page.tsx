@@ -80,8 +80,8 @@ const TYPE_LABELS: Record<string, string> = {
 }
 
 const TYPE_COLORS: Record<string, string> = {
-  FEATURED: "bg-[#5086a8] text-white",
-  OUTLET: "bg-[#a60811] text-white",
+  FEATURED: "bg-[var(--color-primary)] text-white",
+  OUTLET: "bg-[var(--color-error)] text-white",
   BUNDLE: "bg-[#3b7300] text-white",
 }
 
@@ -133,37 +133,37 @@ export default async function KampanyaDetailPage({
   return (
     <div className="bg-white min-h-screen">
       {/* Page Header */}
-      <div className="bg-[#f4f7fa] border-b border-[#e2e8f0]">
+      <div className="bg-[var(--color-background)] border-b border-[var(--color-border)]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-[12px] text-[#64748b] mb-4">
-            <Link href="/" className="hover:text-[#5086a8] transition-colors">Ana Sayfa</Link>
+          <nav className="flex items-center gap-2 text-[12px] text-[var(--color-text-muted)] mb-4">
+            <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">Ana Sayfa</Link>
             <ChevronRight className="h-3 w-3" aria-hidden />
-            <Link href="/kampanya" className="hover:text-[#5086a8] transition-colors">Kampanyalar</Link>
+            <Link href="/kampanya" className="hover:text-[var(--color-primary)] transition-colors">Kampanyalar</Link>
             <ChevronRight className="h-3 w-3" aria-hidden />
-            <span className="text-[#0040a4] font-semibold truncate max-w-[200px]">{campaign.name}</span>
+            <span className="text-[var(--color-primary)] font-semibold truncate max-w-[200px]">{campaign.name}</span>
           </nav>
 
           <div className="flex flex-wrap items-start gap-4">
             <div className="flex-1 min-w-0">
               {/* Type badge */}
-              <span className={`inline-block text-[11px] font-bold px-2.5 py-1 rounded-md mb-3 ${TYPE_COLORS[campaign.type] ?? "bg-[#5086a8] text-white"}`}>
+              <span className={`inline-block text-[11px] font-bold px-2.5 py-1 rounded-md mb-3 ${TYPE_COLORS[campaign.type] ?? "bg-[var(--color-primary)] text-white"}`}>
                 {TYPE_LABELS[campaign.type] ?? campaign.type}
               </span>
 
-              <h1 className="text-[28px] md:text-[36px] font-bold text-[#0040a4] leading-tight mb-2">
+              <h1 className="text-[28px] md:text-[36px] font-bold text-[var(--color-primary)] leading-tight mb-2">
                 {campaign.name}
               </h1>
 
               {campaign.description && (
-                <p className="text-[15px] text-[#64748b] leading-relaxed max-w-2xl">
+                <p className="text-[15px] text-[var(--color-text-muted)] leading-relaxed max-w-2xl">
                   {campaign.description}
                 </p>
               )}
 
               {/* Meta info */}
               <div className="flex flex-wrap items-center gap-4 mt-4">
-                <span className="inline-flex items-center gap-1.5 text-[13px] text-[#64748b]">
+                <span className="inline-flex items-center gap-1.5 text-[13px] text-[var(--color-text-muted)]">
                   <Tag className="h-3.5 w-3.5" aria-hidden />
                   {campaign.products.length} ürün
                 </span>
@@ -173,7 +173,7 @@ export default async function KampanyaDetailPage({
                   </span>
                 ) : null}
                 {(validFromStr || validUntilStr) && (
-                  <span className="inline-flex items-center gap-1.5 text-[13px] text-[#64748b]">
+                  <span className="inline-flex items-center gap-1.5 text-[13px] text-[var(--color-text-muted)]">
                     <Calendar className="h-3.5 w-3.5" aria-hidden />
                     {validFromStr && validUntilStr
                       ? `${validFromStr} – ${validUntilStr}`
@@ -204,18 +204,18 @@ export default async function KampanyaDetailPage({
       {/* Products Grid + Add to Cart */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {campaign.products.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-24 text-center gap-4 border-2 border-dashed border-gray-300 rounded-[20px] bg-[#f4f7fa]/50">
+          <div className="flex flex-col items-center justify-center py-24 text-center gap-4 border-2 border-dashed border-gray-300 rounded-[20px] bg-[var(--color-background)]/50">
             <Tag className="h-12 w-12 text-gray-400" aria-hidden />
             <p className="text-base font-semibold text-gray-600">Bu kampanyada henüz ürün bulunmuyor.</p>
           </div>
         ) : (
           <>
             {/* Set Info Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-4 mb-8 p-4 bg-[#f4f7fa] rounded-xl border border-[#e2e8f0]">
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8 p-4 bg-[var(--color-background)] rounded-xl border border-[var(--color-border)]">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
-                  <Package className="h-5 w-5 text-[#5086a8]" />
-                  <span className="text-sm font-semibold text-[#0040a4]">
+                  <Package className="h-5 w-5 text-[var(--color-primary)]" />
+                  <span className="text-sm font-semibold text-[var(--color-primary)]">
                     {campaign.products.length} ürün
                   </span>
                 </div>
@@ -250,7 +250,7 @@ export default async function KampanyaDetailPage({
                 <Link
                   key={cp.id}
                   href={`/katalog/${cp.product.slug}`}
-                  className="group bg-[#f4f7fa] rounded-[20px] overflow-hidden hover:shadow-[0_8px_25px_rgba(187,187,187,0.5)] hover:-translate-y-1 transition-all duration-300 flex flex-col"
+                  className="group bg-[var(--color-background)] rounded-[20px] overflow-hidden hover:shadow-[0_8px_25px_rgba(187,187,187,0.5)] hover:-translate-y-1 transition-all duration-300 flex flex-col"
                 >
                   <div className="relative aspect-square bg-white overflow-hidden rounded-t-[20px]">
                     {cp.product.images?.[0] ? (
@@ -262,19 +262,19 @@ export default async function KampanyaDetailPage({
                         className="object-contain p-6 transition-transform duration-500 group-hover:scale-110"
                       />
                     ) : (
-                      <div className="absolute inset-0 flex items-center justify-center bg-[#f4f7fa]">
+                      <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-background)]">
                         <Package className="h-14 w-14 text-[#e0e0e0]" />
                       </div>
                     )}
                     {!cp.product.stockStatus && (
                       <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-t-[20px]">
-                        <div className="w-20 h-20 bg-[#a60811] rounded-full flex items-center justify-center">
+                        <div className="w-20 h-20 bg-[var(--color-error)] rounded-full flex items-center justify-center">
                           <span className="text-white font-bold text-center text-sm">Stok<br />Yok</span>
                         </div>
                       </div>
                     )}
                     {cp.quantity > 1 && (
-                      <span className="absolute top-3 right-3 bg-[#5086a8] text-white text-xs font-bold px-2 py-1 rounded-lg">
+                      <span className="absolute top-3 right-3 bg-[var(--color-primary)] text-white text-xs font-bold px-2 py-1 rounded-lg">
                         x{cp.quantity}
                       </span>
                     )}
@@ -285,7 +285,7 @@ export default async function KampanyaDetailPage({
                         {cp.product.brand.name}
                       </p>
                     )}
-                    <p className="text-[13px] font-semibold text-[#0040a4] leading-snug line-clamp-2 group-hover:text-[#5086a8] transition-colors">
+                    <p className="text-[13px] font-semibold text-[var(--color-primary)] leading-snug line-clamp-2 group-hover:text-[var(--color-primary)] transition-colors">
                       {cp.product.name}
                     </p>
                   </div>

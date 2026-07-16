@@ -87,7 +87,7 @@ function BrandsSection() {
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#5086a8]">
+            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">
               02 · Kurumsal çözüm ortaklarımız
             </p>
             <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
@@ -98,7 +98,7 @@ function BrandsSection() {
           </div>
           <Link
             href="/markalar"
-            className="shrink-0 text-sm font-bold text-[#5086a8] hover:underline"
+            className="shrink-0 text-sm font-bold text-[var(--color-primary)] hover:underline"
           >
             Tüm markalar ve kategoriler →
           </Link>
@@ -109,7 +109,7 @@ function BrandsSection() {
           {featuredBrands.map(({ Logo, cat, desc }, i) => (
             <div
               key={i}
-              className="group flex flex-col justify-between bg-white p-6 transition hover:bg-[#0040a4]"
+              className="group flex flex-col justify-between bg-white p-6 transition hover:bg-[var(--color-primary)]"
             >
               <span className="font-nx-mono text-[9px] uppercase tracking-[.15em] text-slate-400 group-hover:text-slate-600">
                 {cat}
@@ -119,7 +119,7 @@ function BrandsSection() {
               </div>
               <div className="mt-4">
                 <p className="text-xs text-slate-400 group-hover:text-slate-500">{desc}</p>
-                <span className="mt-3 block text-xs font-bold text-[#5086a8] opacity-0 transition group-hover:opacity-100">
+                <span className="mt-3 block text-xs font-bold text-[var(--color-primary)] opacity-0 transition group-hover:opacity-100">
                   Ürünleri gör →
                 </span>
               </div>
@@ -167,12 +167,12 @@ const valueProps = [
 
 function ValueSection() {
   return (
-    <section className="bg-[#f4f7fa] px-6 py-20 md:px-10 font-nx-sans">
+    <section className="bg-[var(--color-background)] px-6 py-20 md:px-10 font-nx-sans">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-px bg-slate-200 rounded-2xl overflow-hidden sm:grid-cols-3">
           {valueProps.map((v) => (
             <div key={v.title} className="bg-white p-8 md:p-10">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0040a4] text-white">
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-primary)] text-white">
                 <v.Icon className="h-5 w-5" />
               </div>
               <h3 className="mt-8 text-xl font-bold tracking-tight">{v.title}</h3>
@@ -227,7 +227,7 @@ function SolutionsSection() {
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#5086a8]">
+            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">
               03 · Çözüm alanları
             </p>
             <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
@@ -236,7 +236,7 @@ function SolutionsSection() {
               çözüm ekosistemi.
             </h2>
           </div>
-          <Link href="/cozumler" className="shrink-0 text-sm font-bold text-[#5086a8] hover:underline">
+          <Link href="/cozumler" className="shrink-0 text-sm font-bold text-[var(--color-primary)] hover:underline">
             Tüm çözümleri gör →
           </Link>
         </div>
@@ -247,16 +247,16 @@ function SolutionsSection() {
               key={s.number}
               className={`group flex min-h-72 flex-col justify-between rounded-2xl p-7 transition ${
                 s.dark
-                  ? "bg-[#0040a4] text-white"
-                  : "bg-[#f4f7fa] hover:bg-[#0040a4] hover:text-white"
+                  ? "bg-[var(--color-primary)] text-white"
+                  : "bg-[var(--color-background)] hover:bg-[var(--color-primary)] hover:text-white"
               }`}
             >
               <div>
                 <div
                   className={`flex h-10 w-10 items-center justify-center rounded-xl ${
                     s.dark
-                      ? "bg-[#5086a8]/20 text-[#8aa8bc]"
-                      : "bg-white text-[#5086a8] group-hover:bg-[#5086a8]/20 group-hover:text-[#8aa8bc]"
+                      ? "bg-[var(--color-primary)]/20 text-[#8aa8bc]"
+                      : "bg-white text-[var(--color-primary)] group-hover:bg-[var(--color-primary)]/20 group-hover:text-[#8aa8bc]"
                   }`}
                 >
                   <s.Icon className="h-5 w-5" />
@@ -302,7 +302,7 @@ function ProjectDesignSection() {
   ]
 
   return (
-    <section className="bg-[#0040a4] px-6 py-24 text-white md:px-10 font-nx-sans">
+    <section className="bg-[var(--color-primary)] px-6 py-24 text-white md:px-10 font-nx-sans">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-center">
           <div>
@@ -322,7 +322,7 @@ function ProjectDesignSection() {
             </p>
             <Link
               href="/proje-tasarim"
-              className="mt-8 flex items-center gap-3 rounded-xl bg-[#5086a8] px-6 py-4 text-sm font-bold text-white shadow-lg shadow-[#5086a8]/25 transition hover:bg-[#456680] w-fit"
+              className="mt-8 flex items-center gap-3 rounded-xl bg-[var(--color-primary)] px-6 py-4 text-sm font-bold text-white shadow-lg shadow-[var(--color-primary)]/25 transition hover:bg-[#456680] w-fit"
             >
               Projenizi Tasarlayalım
               <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20 text-xs">
@@ -335,7 +335,7 @@ function ProjectDesignSection() {
             {steps.map((s, i) => (
               <div
                 key={s.n}
-                className={`rounded-2xl p-6 ${i === 0 ? "bg-[#5086a8]" : "border border-white/10 bg-white/5"}`}
+                className={`rounded-2xl p-6 ${i === 0 ? "bg-[var(--color-primary)]" : "border border-white/10 bg-white/5"}`}
               >
                 <span
                   className={`font-nx-mono text-[10px] font-bold tracking-[.18em] ${
@@ -371,13 +371,13 @@ function PartnershipSection() {
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-16 lg:grid-cols-2 lg:items-start">
           <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#5086a8]">
+            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">
               05 · İş ortaklığı
             </p>
             <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
               Tedarikçiden fazlası —
               <br />
-              <span className="text-[#5086a8]">güçlü bir iş ortağı.</span>
+              <span className="text-[var(--color-primary)]">güçlü bir iş ortağı.</span>
             </h2>
             <p className="mt-6 max-w-md text-sm leading-7 text-slate-500">
               CCTV bayileri ve sistem entegratörleri için özel ticari koşullar, kredi limiti, proje bazlı
@@ -393,10 +393,10 @@ function PartnershipSection() {
                 ] as const
               ).map(([Icon, title, sub]) => (
                 <div key={title} className="rounded-xl border border-slate-100 p-4">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#f4f7fa] text-[#5086a8]">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-background)] text-[var(--color-primary)]">
                     <Icon className="h-4 w-4" />
                   </div>
-                  <p className="mt-3 text-sm font-bold text-[#0040a4]">{title}</p>
+                  <p className="mt-3 text-sm font-bold text-[var(--color-primary)]">{title}</p>
                   <p className="mt-0.5 text-xs text-slate-400">{sub}</p>
                 </div>
               ))}
@@ -404,28 +404,28 @@ function PartnershipSection() {
             <div className="mt-8 flex gap-3">
               <Link
                 href="/bayimiz-olun"
-                className="rounded-xl bg-[#0040a4] px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[#003080]"
+                className="rounded-xl bg-[var(--color-primary)] px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[var(--color-primary-hover)]"
               >
                 Bayimiz Olun
               </Link>
               <Link
                 href="/bayi-programi"
-                className="rounded-xl border border-slate-200 px-5 py-3.5 text-sm font-bold text-[#0040a4] transition hover:bg-slate-50"
+                className="rounded-xl border border-slate-200 px-5 py-3.5 text-sm font-bold text-[var(--color-primary)] transition hover:bg-slate-50"
               >
                 Programı İncele →
               </Link>
             </div>
           </div>
 
-          <div className="rounded-3xl bg-[#f4f7fa] p-8 md:p-10">
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#5086a8]">
+          <div className="rounded-3xl bg-[var(--color-background)] p-8 md:p-10">
+            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">
               Proje süreci
             </p>
             <div className="mt-8 space-y-0">
               {process.map((step, i) => (
                 <div key={step.n} className="flex gap-5">
                   <div className="flex flex-col items-center">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#0040a4] font-nx-mono text-[10px] font-bold text-white">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] font-nx-mono text-[10px] font-bold text-white">
                       {step.n}
                     </div>
                     {i < process.length - 1 && (
@@ -433,7 +433,7 @@ function PartnershipSection() {
                     )}
                   </div>
                   <div className="pb-8">
-                    <h4 className="font-bold text-[#0040a4]">{step.title}</h4>
+                    <h4 className="font-bold text-[var(--color-primary)]">{step.title}</h4>
                     <p className="mt-1 text-sm leading-6 text-slate-500">{step.desc}</p>
                   </div>
                 </div>
@@ -449,7 +449,7 @@ function PartnershipSection() {
 // ─── Stats band ────────────────────────────────────────────────────────────────
 function StatsBand() {
   return (
-    <section className="border-y border-slate-100 bg-[#f4f7fa] px-6 py-14 md:px-10 font-nx-sans">
+    <section className="border-y border-slate-100 bg-[var(--color-background)] px-6 py-14 md:px-10 font-nx-sans">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           {[
@@ -459,7 +459,7 @@ function StatsBand() {
             ["4.8/5", "Bayi memnuniyet skoru"],
           ].map(([val, label]) => (
             <div key={label}>
-              <strong className="block text-3xl font-extrabold tracking-tight text-[#0040a4]">{val}</strong>
+              <strong className="block text-3xl font-extrabold tracking-tight text-[var(--color-primary)]">{val}</strong>
               <span className="mt-1 block font-nx-mono text-[9px] uppercase tracking-[.14em] text-slate-400">
                 {label}
               </span>
@@ -474,7 +474,7 @@ function StatsBand() {
 // ─── Final CTA ─────────────────────────────────────────────────────────────────
 function CtaSection() {
   return (
-    <section className="bg-[#5086a8] px-6 py-24 text-white md:px-10 font-nx-sans">
+    <section className="bg-[var(--color-primary)] px-6 py-24 text-white md:px-10 font-nx-sans">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-10 md:grid-cols-2 md:items-end">
           <div>
@@ -494,7 +494,7 @@ function CtaSection() {
           <div className="flex flex-wrap gap-3 md:justify-end md:self-end">
             <Link
               href="/proje-tasarim"
-              className="rounded-xl bg-white px-6 py-4 text-sm font-bold text-[#5086a8] transition hover:bg-blue-50"
+              className="rounded-xl bg-white px-6 py-4 text-sm font-bold text-[var(--color-primary)] transition hover:bg-blue-50"
             >
               Projenizi Tasarlayalım
             </Link>

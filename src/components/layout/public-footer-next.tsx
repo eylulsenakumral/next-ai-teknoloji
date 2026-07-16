@@ -6,10 +6,10 @@ import Link from "next/link"
  */
 export function PublicFooterNext() {
   return (
-    <footer className="bg-[#0040a4] px-6 py-10 text-white md:px-10 font-nx-sans">
+    <footer className="bg-[var(--color-primary)] px-6 py-10 text-white md:px-10 font-nx-sans">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4">
         <Link href="/" className="tracking-[-.08em] text-2xl font-extrabold">
-          NEXT<span className="text-[#5086a8]">AI</span>
+          NEXT<span className="text-[var(--color-primary)]">AI</span>
         </Link>
         <span className="font-nx-mono text-[10px] uppercase tracking-[.18em] text-slate-500">
           B2B teknoloji tedarik ve proje platformu

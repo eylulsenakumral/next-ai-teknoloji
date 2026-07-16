@@ -1219,7 +1219,7 @@ export default function KampanyaSetleriPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Layers className="h-5 w-5 text-[#0040a4]" />
+          <Layers className="h-5 w-5 text-[var(--color-primary)]" />
           <h1 className="text-xl font-bold text-[#1a1a1a]">Kampanya Setleri</h1>
           {meta && (
             <Badge variant="outline" className="text-xs">

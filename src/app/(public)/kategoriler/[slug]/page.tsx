@@ -186,11 +186,11 @@ function CategoryBreadcrumb({
   return (
     <nav
       aria-label="Breadcrumb"
-      className="flex items-center gap-1.5 text-[12px] text-[#64748b] flex-wrap"
+      className="flex items-center gap-1.5 text-[12px] text-[var(--color-text-muted)] flex-wrap"
     >
       <Link
         href="/katalog"
-        className="flex items-center gap-1 hover:text-[#5086a8] transition-colors"
+        className="flex items-center gap-1 hover:text-[var(--color-primary)] transition-colors"
       >
         <Home className="h-3 w-3" aria-hidden />
         Katalog
@@ -200,14 +200,14 @@ function CategoryBreadcrumb({
           <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
           <Link
             href={`/kategoriler/${item.slug}`}
-            className="hover:text-[#5086a8] transition-colors"
+            className="hover:text-[var(--color-primary)] transition-colors"
           >
             {item.name}
           </Link>
         </span>
       ))}
       <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
-      <span className="text-[#333333] font-semibold">{currentName}</span>
+      <span className="text-[var(--color-foreground)] font-semibold">{currentName}</span>
     </nav>
   )
 }
@@ -222,19 +222,19 @@ function SubCategoryCard({ child }: { child: CategoryChild }) {
   return (
     <Link
       href={`/kategoriler/${child.slug}`}
-      className="group flex items-center gap-4 bg-white border border-[#eeeeee] p-4 hover:border-[#5086a8]/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+      className="group flex items-center gap-4 bg-white border border-[var(--color-border)] p-4 hover:border-[var(--color-primary)]/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
     >
       {/* Ikon */}
-      <div className="flex items-center justify-center w-11 h-11 shrink-0 bg-[#5086a8]/5 text-[#5086a8] group-hover:bg-[#5086a8]/10 transition-colors">
+      <div className="flex items-center justify-center w-11 h-11 shrink-0 bg-[var(--color-primary)]/5 text-[var(--color-primary)] group-hover:bg-[var(--color-primary)]/10 transition-colors">
         {getCategoryIcon(child.slug)}
       </div>
 
       {/* Bilgi */}
       <div className="flex-1 min-w-0">
-        <p className="text-[14px] font-bold text-[#333333] group-hover:text-[#5086a8] transition-colors truncate">
+        <p className="text-[14px] font-bold text-[var(--color-foreground)] group-hover:text-[var(--color-primary)] transition-colors truncate">
           {child.name}
         </p>
-        <div className="flex items-center gap-2 mt-0.5 text-[12px] text-[#64748b]">
+        <div className="flex items-center gap-2 mt-0.5 text-[12px] text-[var(--color-text-muted)]">
           <span>{child.productCount} ürün</span>
           {hasChildren && (
             <>
@@ -245,7 +245,7 @@ function SubCategoryCard({ child }: { child: CategoryChild }) {
         </div>
       </div>
 
-      <ArrowRight className="h-4 w-4 text-[#cccccc] group-hover:text-[#5086a8] group-hover:translate-x-1 transition-all duration-200 shrink-0" aria-hidden />
+      <ArrowRight className="h-4 w-4 text-[#cccccc] group-hover:text-[var(--color-primary)] group-hover:translate-x-1 transition-all duration-200 shrink-0" aria-hidden />
     </Link>
   )
 }
@@ -282,7 +282,7 @@ function Pagination({
         <Link
           href={`/kategoriler/${currentSlug}?page=${currentPage - 1}`}
           aria-label="Onceki sayfa"
-          className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] bg-white text-[#64748b] hover:border-[#5086a8] hover:text-[#5086a8] transition-colors rounded"
+          className="inline-flex items-center justify-center h-9 w-9 border border-[var(--color-border)] bg-white text-[var(--color-text-muted)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors rounded"
         >
           <ChevronRight className="h-4 w-4 rotate-180" aria-hidden />
         </Link>
@@ -296,8 +296,8 @@ function Pagination({
           aria-current={pageNum === currentPage ? "page" : undefined}
           className={`inline-flex items-center justify-center h-9 w-9 text-[13px] font-semibold transition-colors rounded ${
             pageNum === currentPage
-              ? "bg-[#5086a8] text-white border border-[#5086a8]"
-              : "bg-white border border-[#eeeeee] text-[#333333] hover:border-[#5086a8] hover:text-[#5086a8]"
+              ? "bg-[var(--color-primary)] text-white border border-[var(--color-primary)]"
+              : "bg-white border border-[var(--color-border)] text-[var(--color-foreground)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
           }`}
         >
           {pageNum}
@@ -308,7 +308,7 @@ function Pagination({
         <Link
           href={`/kategoriler/${currentSlug}?page=${currentPage + 1}`}
           aria-label="Sonraki sayfa"
-          className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] bg-white text-[#64748b] hover:border-[#5086a8] hover:text-[#5086a8] transition-colors rounded"
+          className="inline-flex items-center justify-center h-9 w-9 border border-[var(--color-border)] bg-white text-[var(--color-text-muted)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors rounded"
         >
           <ChevronRight className="h-4 w-4" aria-hidden />
         </Link>
@@ -345,16 +345,16 @@ export default async function CategoryDetailPage({
   const { products, meta } = productsData
 
   return (
-    <div className="bg-[#f4f7fa] min-h-screen pb-20 md:pb-0">
+    <div className="bg-[var(--color-background)] min-h-screen pb-20 md:pb-0">
       {/* Breadcrumb band */}
-      <div className="bg-white border-b border-[#eeeeee]">
+      <div className="bg-white border-b border-[var(--color-border)]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <CategoryBreadcrumb breadcrumb={category.breadcrumb} currentName={category.name} />
         </div>
       </div>
 
       {/* Kategori Hero */}
-      <div className="bg-gradient-to-r from-[#5086a8] to-[#4da6ff] text-white">
+      <div className="bg-gradient-to-r from-[var(--color-primary)] to-[#4da6ff] text-white">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
           <div className="flex items-start gap-5">
             {/* Kategori ikonu / gorsel */}
@@ -404,11 +404,11 @@ export default async function CategoryDetailPage({
           <div className="flex items-center gap-3 mb-4">
             <h2
               id="subcategories-heading"
-              className="text-[17px] font-bold text-[#333333] whitespace-nowrap"
+              className="text-[17px] font-bold text-[var(--color-foreground)] whitespace-nowrap"
             >
               Alt Kategoriler
             </h2>
-            <div className="flex-1 h-px bg-[#eeeeee]" aria-hidden />
+            <div className="flex-1 h-px bg-[var(--color-border)]" aria-hidden />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
@@ -424,40 +424,40 @@ export default async function CategoryDetailPage({
         <div className="flex items-center gap-3 mb-4">
           <h2
             id="products-heading"
-            className="text-[17px] font-bold text-[#333333] whitespace-nowrap"
+            className="text-[17px] font-bold text-[var(--color-foreground)] whitespace-nowrap"
           >
             {category.name} Ürünleri
           </h2>
-          <div className="flex-1 h-px bg-[#eeeeee]" aria-hidden />
+          <div className="flex-1 h-px bg-[var(--color-border)]" aria-hidden />
           {meta.total > 0 && (
-            <span className="text-[12px] text-[#64748b] whitespace-nowrap">
+            <span className="text-[12px] text-[var(--color-text-muted)] whitespace-nowrap">
               {meta.total.toLocaleString("tr-TR")} ürün bulundu
             </span>
           )}
         </div>
 
         {products.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-20 text-center gap-4 bg-white border border-[#eeeeee]">
+          <div className="flex flex-col items-center justify-center py-20 text-center gap-4 bg-white border border-[var(--color-border)]">
             <div className="w-20 h-20 flex items-center justify-center bg-[#f5f5f5]">
               <Package className="h-9 w-9 text-[#dddddd]" aria-hidden />
             </div>
             <div>
-              <p className="font-bold text-[16px] text-[#333333]">Bu kategoride ürün bulunmuyor</p>
-              <p className="text-[#64748b] text-[13px] mt-1 max-w-xs">
+              <p className="font-bold text-[16px] text-[var(--color-foreground)]">Bu kategoride ürün bulunmuyor</p>
+              <p className="text-[var(--color-text-muted)] text-[13px] mt-1 max-w-xs">
                 Bu kategoride henuz ürün eklenmemis. Diger kategorilere goz atin.
               </p>
             </div>
             <div className="flex gap-3">
               <Link
                 href="/katalog"
-                className="inline-flex items-center gap-1.5 h-9 px-5 border border-[#eeeeee] text-[13px] text-[#333333] hover:border-[#5086a8] hover:text-[#5086a8] transition-colors"
+                className="inline-flex items-center gap-1.5 h-9 px-5 border border-[var(--color-border)] text-[13px] text-[var(--color-foreground)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors"
               >
                 Kataloğa Dön
               </Link>
               {!isLoggedIn && (
               <Link
                 href="/login"
-                className="inline-flex items-center gap-1.5 h-9 px-5 border border-[#5086a8]/30 bg-[#5086a8]/5 text-[13px] font-bold text-[#5086a8] hover:bg-[#5086a8]/10 hover:underline transition-colors"
+                className="inline-flex items-center gap-1.5 h-9 px-5 border border-[var(--color-primary)]/30 bg-[var(--color-primary)]/5 text-[13px] font-bold text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 hover:underline transition-colors"
               >
                 <Lock className="h-3.5 w-3.5" aria-hidden />
                 Özel Fiyatlar İçin Bayi Girişi Yapınız

@@ -168,13 +168,13 @@ function InfoRow({
   return (
     <div className="flex items-start gap-3 py-3 border-b border-[#f0f0f0] last:border-b-0">
       <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#f0f4ff] shrink-0">
-        <Icon className="h-4 w-4 text-[#0040a4]" aria-hidden />
+        <Icon className="h-4 w-4 text-[var(--color-primary)]" aria-hidden />
       </div>
       <div className="flex flex-col min-w-0">
-        <span className="text-[11px] font-medium uppercase tracking-wider text-[#767676]">
+        <span className="text-[11px] font-medium uppercase tracking-wider text-[var(--color-text-muted)]">
           {label}
         </span>
-        <span className="text-[14px] font-semibold text-[#333333] break-words">
+        <span className="text-[14px] font-semibold text-[var(--color-foreground)] break-words">
           {value}
         </span>
       </div>
@@ -254,7 +254,7 @@ export default function GarantiTakipPage() {
   return (
     <div className="min-h-[calc(100vh-200px)]">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-[#0040a4] to-[#0040a4] text-white">
+      <section className="bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-primary)] text-white">
         <div className="max-w-2xl mx-auto px-4 py-12 sm:py-16 text-center">
           <div className="flex justify-center mb-4">
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm ring-1 ring-white/20">
@@ -286,7 +286,7 @@ export default function GarantiTakipPage() {
             value={seriNo}
             onChange={(e) => setSeriNo(e.target.value)}
             placeholder="Seri veya barkod numarası girin..."
-            className="flex-1 px-5 py-4 text-[15px] text-[#333333] placeholder:text-[#b0b0b0] outline-none bg-transparent"
+            className="flex-1 px-5 py-4 text-[15px] text-[var(--color-foreground)] placeholder:text-[#b0b0b0] outline-none bg-transparent"
             autoComplete="off"
             autoFocus
           />
@@ -296,8 +296,8 @@ export default function GarantiTakipPage() {
             className={cn(
               "flex items-center gap-2 px-6 text-[13px] font-bold uppercase tracking-wider text-white transition-colors shrink-0",
               state.kind === "loading" || !seriNo.trim()
-                ? "bg-[#767676] cursor-not-allowed"
-                : "bg-[#0040a4] hover:bg-[#0040a4]"
+                ? "bg-[var(--color-text-muted)] cursor-not-allowed"
+                : "bg-[var(--color-primary)] hover:bg-[var(--color-primary)]"
             )}
             aria-label="Garanti sorgula"
           >
@@ -318,43 +318,43 @@ export default function GarantiTakipPage() {
           <div className="space-y-8">
             {/* Nasıl Çalışır */}
             <div className="bg-white rounded-2xl shadow-sm ring-1 ring-black/5 p-6 sm:p-8">
-              <h2 className="text-[16px] font-bold text-[#333333] mb-4 flex items-center gap-2">
-                <Info className="h-4.5 w-4.5 text-[#0040a4]" aria-hidden />
+              <h2 className="text-[16px] font-bold text-[var(--color-foreground)] mb-4 flex items-center gap-2">
+                <Info className="h-4.5 w-4.5 text-[var(--color-primary)]" aria-hidden />
                 Nasıl Çalışır?
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="flex flex-col items-center text-center p-4 rounded-xl bg-[#f8f9fc]">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0040a4] text-white text-[14px] font-bold mb-3">1</div>
-                  <p className="text-[13px] font-semibold text-[#333333] mb-1">Seri Numarasını Girin</p>
-                  <p className="text-[12px] text-[#767676]">Ürün üzerindeki seri numarasını veya barkod numarasını yukarıdaki alana yazın.</p>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-primary)] text-white text-[14px] font-bold mb-3">1</div>
+                  <p className="text-[13px] font-semibold text-[var(--color-foreground)] mb-1">Seri Numarasını Girin</p>
+                  <p className="text-[12px] text-[var(--color-text-muted)]">Ürün üzerindeki seri numarasını veya barkod numarasını yukarıdaki alana yazın.</p>
                 </div>
                 <div className="flex flex-col items-center text-center p-4 rounded-xl bg-[#f8f9fc]">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0040a4] text-white text-[14px] font-bold mb-3">2</div>
-                  <p className="text-[13px] font-semibold text-[#333333] mb-1">Sorgulama Yapın</p>
-                  <p className="text-[12px] text-[#767676]">Sorgula butonuna basarak garanti kayıtlarında arama yapın.</p>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-primary)] text-white text-[14px] font-bold mb-3">2</div>
+                  <p className="text-[13px] font-semibold text-[var(--color-foreground)] mb-1">Sorgulama Yapın</p>
+                  <p className="text-[12px] text-[var(--color-text-muted)]">Sorgula butonuna basarak garanti kayıtlarında arama yapın.</p>
                 </div>
                 <div className="flex flex-col items-center text-center p-4 rounded-xl bg-[#f8f9fc]">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0040a4] text-white text-[14px] font-bold mb-3">3</div>
-                  <p className="text-[13px] font-semibold text-[#333333] mb-1">Sonuçları Görün</p>
-                  <p className="text-[12px] text-[#767676]">Garanti durumu, başlangıç/bitiş tarihi ve kalan süre bilgilerine ulaşın.</p>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-primary)] text-white text-[14px] font-bold mb-3">3</div>
+                  <p className="text-[13px] font-semibold text-[var(--color-foreground)] mb-1">Sonuçları Görün</p>
+                  <p className="text-[12px] text-[var(--color-text-muted)]">Garanti durumu, başlangıç/bitiş tarihi ve kalan süre bilgilerine ulaşın.</p>
                 </div>
               </div>
             </div>
 
             {/* Önemli Bilgiler */}
             <div className="bg-white rounded-2xl shadow-sm ring-1 ring-black/5 p-6 sm:p-8">
-              <h2 className="text-[16px] font-bold text-[#333333] mb-4 flex items-center gap-2">
-                <Shield className="h-4.5 w-4.5 text-[#0040a4]" aria-hidden />
+              <h2 className="text-[16px] font-bold text-[var(--color-foreground)] mb-4 flex items-center gap-2">
+                <Shield className="h-4.5 w-4.5 text-[var(--color-primary)]" aria-hidden />
                 Garanti Koşulları
               </h2>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" aria-hidden />
-                  <p className="text-[13px] text-[#555555]">Tüm ürünlerimiz satın alma tarihinden itibaren <span className="font-semibold text-[#333333]">2 yıl</span> garanti kapsamındadır.</p>
+                  <p className="text-[13px] text-[#555555]">Tüm ürünlerimiz satın alma tarihinden itibaren <span className="font-semibold text-[var(--color-foreground)]">2 yıl</span> garanti kapsamındadır.</p>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" aria-hidden />
-                  <p className="text-[13px] text-[#555555]">Garanti süresi içindeki arızalar <span className="font-semibold text-[#333333]">ücretsiz</span> onarılır veya ürün değiştirilir.</p>
+                  <p className="text-[13px] text-[#555555]">Garanti süresi içindeki arızalar <span className="font-semibold text-[var(--color-foreground)]">ücretsiz</span> onarılır veya ürün değiştirilir.</p>
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle2 className="h-4 w-4 text-emerald-500 mt-0.5 shrink-0" aria-hidden />
@@ -370,12 +370,12 @@ export default function GarantiTakipPage() {
             {/* İletişim */}
             <div className="bg-gradient-to-r from-[#f8f9fc] to-[#f0f4ff] rounded-2xl p-6 sm:p-8 ring-1 ring-[#e0e7ff]">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0040a4] shrink-0">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--color-primary)] shrink-0">
                   <Package className="h-6 w-6 text-white" aria-hidden />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-[15px] font-bold text-[#333333] mb-1">Yardıma mı İhtiyacınız Var?</h3>
-                  <p className="text-[13px] text-[#767676]">Garanti süreciyle ilgili sorularınız için teknik destek ekibimize <a href="tel:+905529895959" className="text-[#0040a4] font-semibold hover:underline">0 552 989 5959</a> numarasından ulaşabilirsiniz. Hafta içi 09:00 - 18:00 saatleri arasında hizmetinizdeyiz.</p>
+                  <h3 className="text-[15px] font-bold text-[var(--color-foreground)] mb-1">Yardıma mı İhtiyacınız Var?</h3>
+                  <p className="text-[13px] text-[var(--color-text-muted)]">Garanti süreciyle ilgili sorularınız için teknik destek ekibimize <a href="tel:+905529895959" className="text-[var(--color-primary)] font-semibold hover:underline">0 552 989 5959</a> numarasından ulaşabilirsiniz. Hafta içi 09:00 - 18:00 saatleri arasında hizmetinizdeyiz.</p>
                 </div>
               </div>
             </div>
@@ -384,7 +384,7 @@ export default function GarantiTakipPage() {
 
         {/* Loading */}
         {state.kind === "loading" && (
-          <div className="flex flex-col items-center justify-center py-16 text-[#767676]">
+          <div className="flex flex-col items-center justify-center py-16 text-[var(--color-text-muted)]">
             <Loader2 className="h-8 w-8 animate-spin mb-3" aria-hidden />
             <p className="text-[14px] font-medium">Garanti kaydı aranıyor...</p>
           </div>
@@ -401,10 +401,10 @@ export default function GarantiTakipPage() {
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-50 mb-4">
               <AlertTriangle className="h-7 w-7 text-amber-500" aria-hidden />
             </div>
-            <h2 className="text-[16px] font-bold text-[#333333] mb-1">
+            <h2 className="text-[16px] font-bold text-[var(--color-foreground)] mb-1">
               Kayıt Bulunamadı
             </h2>
-            <p className="text-[13px] text-[#767676] max-w-sm">
+            <p className="text-[13px] text-[var(--color-text-muted)] max-w-sm">
               Bu seri numarasına ait garanti kaydı bulunamadı. Lütfen numarayı
               kontrol edip tekrar deneyin veya teknik destek ile iletişime geçin.
             </p>
@@ -417,10 +417,10 @@ export default function GarantiTakipPage() {
             <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-50 mb-4">
               <XCircle className="h-7 w-7 text-red-500" aria-hidden />
             </div>
-            <h2 className="text-[16px] font-bold text-[#333333] mb-1">
+            <h2 className="text-[16px] font-bold text-[var(--color-foreground)] mb-1">
               Hata Oluştu
             </h2>
-            <p className="text-[13px] text-[#767676] max-w-sm">
+            <p className="text-[13px] text-[var(--color-text-muted)] max-w-sm">
               {state.message}
             </p>
           </div>
@@ -445,11 +445,11 @@ function ResultCard({ data }: { data: GarantiRecord }) {
       {/* Header */}
       <div className="px-6 py-5 border-b border-[#f0f0f0] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h2 className="text-[17px] font-bold text-[#333333]">
+          <h2 className="text-[17px] font-bold text-[var(--color-foreground)]">
             {data.productName ?? "Ürün Bilgisi"}
           </h2>
           {data.customerName && (
-            <p className="text-[12px] text-[#767676] mt-0.5">
+            <p className="text-[12px] text-[var(--color-text-muted)] mt-0.5">
               Müşteri: {data.customerName}
             </p>
           )}

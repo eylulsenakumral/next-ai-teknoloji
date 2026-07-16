@@ -59,18 +59,18 @@ function EmptyState({ onClear }: { onClear: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center py-24 text-center gap-4">
       <div className="w-20 h-20 flex items-center justify-center bg-[#f5f5f5]">
-        <Package className="h-9 w-9 text-[#eeeeee]" aria-hidden />
+        <Package className="h-9 w-9 text-[var(--color-border)]" aria-hidden />
       </div>
       <div>
-        <p className="font-bold text-[16px] text-[#333333]">Ürün Bulunamadı</p>
-        <p className="text-[#767676] text-[13px] mt-1 max-w-xs">
+        <p className="font-bold text-[16px] text-[var(--color-foreground)]">Ürün Bulunamadı</p>
+        <p className="text-[var(--color-text-muted)] text-[13px] mt-1 max-w-xs">
           Arama kriterlerinize uygun ürün bulunamadı. Filtreleri değiştirmeyi deneyin.
         </p>
       </div>
       <button
         type="button"
         onClick={onClear}
-        className="inline-flex items-center gap-1.5 h-9 px-5 border border-[#eeeeee] text-[13px] text-[#333333] hover:border-[#0040a4] hover:text-[#0040a4] transition-colors"
+        className="inline-flex items-center gap-1.5 h-9 px-5 border border-[var(--color-border)] text-[13px] text-[var(--color-foreground)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors"
       >
         Filtreleri Temizle
       </button>
@@ -105,12 +105,12 @@ function MobileFilterDrawer({
         aria-hidden
       />
       <div className="fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-2xl flex flex-col">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-[#eeeeee]">
-          <p className="font-bold text-[14px] text-[#333333] uppercase tracking-wider">Filtreler</p>
+        <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)]">
+          <p className="font-bold text-[14px] text-[var(--color-foreground)] uppercase tracking-wider">Filtreler</p>
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-[#767676] hover:text-[#333333] transition-colors"
+            className="p-1.5 text-[var(--color-text-muted)] hover:text-[var(--color-foreground)] transition-colors"
             aria-label="Filtreleri kapat"
           >
             <X className="h-4 w-4" />
@@ -256,39 +256,39 @@ export default function ProductsPage() {
   return (
     <div className="bg-[#f9f9f9]">
       {/* Sayfa başlık bandı */}
-      <div className="bg-white border-b border-[#eeeeee]">
+      <div className="bg-white border-b border-[var(--color-border)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           {/* Breadcrumb */}
           <nav
-            className="flex items-center gap-1.5 text-[12px] text-[#767676] mb-2"
+            className="flex items-center gap-1.5 text-[12px] text-[var(--color-text-muted)] mb-2"
             aria-label="Breadcrumb"
           >
             <a
               href="/"
-              className="flex items-center gap-1 hover:text-[#0040a4] transition-colors"
+              className="flex items-center gap-1 hover:text-[var(--color-primary)] transition-colors"
             >
               <Home className="h-3 w-3" />
               Anasayfa
             </a>
-            <ChevronRight className="h-3 w-3 text-[#eeeeee]" aria-hidden />
-            <span className="text-[#333333] font-semibold">Ürünler</span>
+            <ChevronRight className="h-3 w-3 text-[var(--color-border)]" aria-hidden />
+            <span className="text-[var(--color-foreground)] font-semibold">Ürünler</span>
             {filters.q && (
               <>
-                <ChevronRight className="h-3 w-3 text-[#eeeeee]" aria-hidden />
-                <span className="text-[#0040a4] font-semibold">&ldquo;{filters.q}&rdquo;</span>
+                <ChevronRight className="h-3 w-3 text-[var(--color-border)]" aria-hidden />
+                <span className="text-[var(--color-primary)] font-semibold">&ldquo;{filters.q}&rdquo;</span>
               </>
             )}
           </nav>
 
           <div className="flex items-center justify-between gap-4">
-            <h1 className="text-[20px] font-bold text-[#333333] uppercase tracking-wider">
+            <h1 className="text-[20px] font-bold text-[var(--color-foreground)] uppercase tracking-wider">
               {filters.q ? `"${filters.q}" sonuçları` : "Ürün Kataloğu"}
             </h1>
             {activeFilterCount > 0 && (
               <button
                 type="button"
                 onClick={clearAllFilters}
-                className="inline-flex items-center gap-1.5 text-[12px] text-[#767676] hover:text-[#c82333] border border-[#eeeeee] hover:border-[#c82333] px-3 py-1.5 transition-colors"
+                className="inline-flex items-center gap-1.5 text-[12px] text-[var(--color-text-muted)] hover:text-[#c82333] border border-[var(--color-border)] hover:border-[#c82333] px-3 py-1.5 transition-colors"
               >
                 <X className="h-3 w-3" aria-hidden />
                 Temizle ({activeFilterCount})
@@ -303,9 +303,9 @@ export default function ProductsPage() {
         <div className="flex gap-6">
           {/* Sol Sidebar — desktop */}
           <aside className="hidden lg:block w-[300px] shrink-0" aria-label="Filtreler">
-            <div className="bg-white border border-[#eeeeee]">
-              <div className="px-4 py-3 border-b border-[#eeeeee]">
-                <p className="font-bold text-[12px] text-[#333333] uppercase tracking-wider">
+            <div className="bg-white border border-[var(--color-border)]">
+              <div className="px-4 py-3 border-b border-[var(--color-border)]">
+                <p className="font-bold text-[12px] text-[var(--color-foreground)] uppercase tracking-wider">
                   Filtreler
                 </p>
               </div>
@@ -327,31 +327,31 @@ export default function ProductsPage() {
           {/* Ana içerik kolonu */}
           <div className="flex-1 min-w-0 space-y-4">
             {/* Toolbar */}
-            <div className="flex items-center gap-3 flex-wrap bg-white border border-[#eeeeee] px-4 py-2.5">
+            <div className="flex items-center gap-3 flex-wrap bg-white border border-[var(--color-border)] px-4 py-2.5">
               {/* Mobil filtre butonu */}
               <button
                 type="button"
                 onClick={() => setFilterDrawerOpen(true)}
-                className="lg:hidden inline-flex items-center gap-2 h-8 px-3 border border-[#eeeeee] text-[12px] font-semibold text-[#333333] hover:border-[#0040a4] hover:text-[#0040a4] transition-colors"
+                className="lg:hidden inline-flex items-center gap-2 h-8 px-3 border border-[var(--color-border)] text-[12px] font-semibold text-[var(--color-foreground)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors"
                 aria-label="Filtreleri aç"
               >
                 <SlidersHorizontal className="h-3.5 w-3.5" aria-hidden />
                 Filtreler
                 {activeFilterCount > 0 && (
-                  <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#0040a4] text-white text-[10px] font-bold">
+                  <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-primary)] text-white text-[10px] font-bold">
                     {activeFilterCount}
                   </span>
                 )}
               </button>
 
               {/* Sonuç sayısı */}
-              <span className="text-[13px] text-[#767676]">
+              <span className="text-[13px] text-[var(--color-text-muted)]">
                 {isLoadingProducts ? (
                   <Skeleton className="h-4 w-40 inline-block" />
                 ) : total > 0 ? (
                   <>
                     {pageStart}–{pageEnd} /{" "}
-                    <span className="font-bold text-[#333333]">{total}</span> ürün
+                    <span className="font-bold text-[var(--color-foreground)]">{total}</span> ürün
                   </>
                 ) : (
                   "Ürün bulunamadı"
@@ -368,7 +368,7 @@ export default function ProductsPage() {
                 >
                   <SelectTrigger
                     size="sm"
-                    className="w-44 border-[#eeeeee] text-[#333333] text-[12px] rounded-none focus:ring-0"
+                    className="w-44 border-[var(--color-border)] text-[var(--color-foreground)] text-[12px] rounded-none focus:ring-0"
                     aria-label="Sıralama"
                   >
                     <SelectValue />
@@ -384,7 +384,7 @@ export default function ProductsPage() {
 
                 {/* View toggle */}
                 <div
-                  className="flex border border-[#eeeeee] overflow-hidden"
+                  className="flex border border-[var(--color-border)] overflow-hidden"
                   role="group"
                   aria-label="Görünüm modu"
                 >
@@ -394,8 +394,8 @@ export default function ProductsPage() {
                     className={cn(
                       "p-2 transition-colors",
                       viewMode === "grid"
-                        ? "bg-[#0040a4] text-white"
-                        : "text-[#767676] hover:bg-[#f5f5f5] hover:text-[#333333]"
+                        ? "bg-[var(--color-primary)] text-white"
+                        : "text-[var(--color-text-muted)] hover:bg-[#f5f5f5] hover:text-[var(--color-foreground)]"
                     )}
                     aria-label="Grid görünüm"
                     aria-pressed={viewMode === "grid"}
@@ -406,10 +406,10 @@ export default function ProductsPage() {
                     type="button"
                     onClick={() => setViewMode("list")}
                     className={cn(
-                      "p-2 transition-colors border-l border-[#eeeeee]",
+                      "p-2 transition-colors border-l border-[var(--color-border)]",
                       viewMode === "list"
-                        ? "bg-[#0040a4] text-white"
-                        : "text-[#767676] hover:bg-[#f5f5f5] hover:text-[#333333]"
+                        ? "bg-[var(--color-primary)] text-white"
+                        : "text-[var(--color-text-muted)] hover:bg-[#f5f5f5] hover:text-[var(--color-foreground)]"
                     )}
                     aria-label="Liste görünüm"
                     aria-pressed={viewMode === "list"}
@@ -431,14 +431,14 @@ export default function ProductsPage() {
                   ))}
                 </div>
               ) : (
-                <div className="border border-[#eeeeee] bg-white divide-y divide-[#eeeeee]">
+                <div className="border border-[var(--color-border)] bg-white divide-y divide-[var(--color-border)]">
                   {Array.from({ length: 8 }).map((_, i) => (
                     <ProductListItemSkeleton key={i} />
                   ))}
                 </div>
               )
             ) : products.length === 0 ? (
-              <div className="bg-white border border-[#eeeeee]">
+              <div className="bg-white border border-[var(--color-border)]">
                 <EmptyState onClear={clearAllFilters} />
               </div>
             ) : viewMode === "grid" ? (
@@ -458,7 +458,7 @@ export default function ProductsPage() {
                 ))}
               </div>
             ) : (
-              <div className="border border-[#eeeeee] bg-white divide-y divide-[#eeeeee]">
+              <div className="border border-[var(--color-border)] bg-white divide-y divide-[var(--color-border)]">
                 {products.map((product) => (
                   <ProductListItem
                     key={product.id}
@@ -484,7 +484,7 @@ export default function ProductsPage() {
                   onClick={() => updateURL({ page: filters.page - 1 })}
                   disabled={filters.page <= 1}
                   aria-label="Önceki sayfa"
-                  className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] text-[#767676] hover:border-[#0040a4] hover:text-[#0040a4] disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white"
+                  className="inline-flex items-center justify-center h-9 w-9 border border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white"
                 >
                   <ChevronLeft className="h-4 w-4" aria-hidden />
                 </button>
@@ -511,8 +511,8 @@ export default function ProductsPage() {
                       className={cn(
                         "inline-flex items-center justify-center h-9 w-9 text-[13px] font-semibold transition-colors",
                         filters.page === pageNum
-                          ? "bg-[#0040a4] text-white border border-[#0040a4]"
-                          : "bg-white border border-[#eeeeee] text-[#333333] hover:border-[#0040a4] hover:text-[#0040a4]"
+                          ? "bg-[var(--color-primary)] text-white border border-[var(--color-primary)]"
+                          : "bg-white border border-[var(--color-border)] text-[var(--color-foreground)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
                       )}
                     >
                       {pageNum}
@@ -525,7 +525,7 @@ export default function ProductsPage() {
                   onClick={() => updateURL({ page: filters.page + 1 })}
                   disabled={filters.page >= totalPages}
                   aria-label="Sonraki sayfa"
-                  className="inline-flex items-center justify-center h-9 w-9 border border-[#eeeeee] text-[#767676] hover:border-[#0040a4] hover:text-[#0040a4] disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white"
+                  className="inline-flex items-center justify-center h-9 w-9 border border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors bg-white"
                 >
                   <ChevronRight className="h-4 w-4" aria-hidden />
                 </button>

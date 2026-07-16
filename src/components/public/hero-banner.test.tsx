@@ -94,10 +94,10 @@ describe("HeroBanner", () => {
     expect(screen.getByRole("banner")).toBeInTheDocument()
   })
 
-  it("renders with bg-[#f4f7fa] background", () => {
+  it("renders with bg-[var(--color-background)] background", () => {
     render(<HeroBanner slides={defaultSlides} />)
     const banner = screen.getByRole("banner")
-    expect(banner.className).toContain("bg-[#f4f7fa]")
+    expect(banner.className).toContain("bg-[var(--color-background)]")
   })
 
   it("uses max-w-[1400px] container", () => {
@@ -178,10 +178,10 @@ describe("HeroBanner", () => {
     expect(sub.className).toContain("font-medium")
   })
 
-  it("sub-heading uses text-[#0040a4] accent color", () => {
+  it("sub-heading uses text-[var(--color-primary)] accent color", () => {
     render(<HeroBanner slides={defaultSlides} />)
     const sub = screen.getByText("Ev Aletleri")
-    expect(sub.className).toContain("text-[#0040a4]")
+    expect(sub.className).toContain("text-[var(--color-primary)]")
   })
 
   /* ── Title (H1) ── */
@@ -201,8 +201,8 @@ describe("HeroBanner", () => {
     render(<HeroBanner slides={defaultSlides} />)
     const title = screen.getByText("En İyi Ürünlerimizi Keşfedin")
     expect(title.className).toContain("bg-gradient-to-r")
-    expect(title.className).toContain("from-[#0040a4]")
-    expect(title.className).toContain("to-[#0040a4]")
+    expect(title.className).toContain("from-[var(--color-primary)]")
+    expect(title.className).toContain("to-[var(--color-primary)]")
     expect(title.className).toContain("bg-clip-text")
     expect(title.className).toContain("text-transparent")
   })
@@ -232,10 +232,10 @@ describe("HeroBanner", () => {
     expect(desc.className).toContain("text-[16px]")
   })
 
-  it("description uses text-[#64748b] body color", () => {
+  it("description uses text-[var(--color-text-muted)] body color", () => {
     render(<HeroBanner slides={defaultSlides} />)
     const desc = screen.getByText("Kaliteli ürünler, uygun fiyatlar.")
-    expect(desc.className).toContain("text-[#64748b]")
+    expect(desc.className).toContain("text-[var(--color-text-muted)]")
   })
 
   /* ── CTA Button ── */
@@ -256,15 +256,15 @@ describe("HeroBanner", () => {
     render(<HeroBanner slides={defaultSlides} />)
     const link = screen.getByText("Keşfet").closest("a")!
     expect(link.className).toContain("bg-gradient-to-r")
-    expect(link.className).toContain("from-[#0040a4]")
+    expect(link.className).toContain("from-[var(--color-primary)]")
     expect(link.className).toContain("to-[#1a6fe0]")
   })
 
   it("CTA button uses hover gradient to dark", () => {
     render(<HeroBanner slides={defaultSlides} />)
     const link = screen.getByText("Keşfet").closest("a")!
-    expect(link.className).toContain("hover:from-[#0040a4]")
-    expect(link.className).toContain("hover:to-[#0040a4]")
+    expect(link.className).toContain("hover:from-[var(--color-primary)]")
+    expect(link.className).toContain("hover:to-[var(--color-primary)]")
   })
 
   it("CTA button uses white text", () => {
@@ -339,13 +339,13 @@ describe("HeroBanner", () => {
   it("feature card titles turn blue on hover", () => {
     render(<HeroBanner slides={defaultSlides} features={defaultFeatures} />)
     const title = screen.getByText("Özel Klavye Fiyatları")
-    expect(title.className).toContain("group-hover:text-[#0040a4]")
+    expect(title.className).toContain("group-hover:text-[var(--color-primary)]")
   })
 
   it("feature card descriptions use muted text color", () => {
     render(<HeroBanner slides={defaultSlides} features={defaultFeatures} />)
     const desc = screen.getByText("Premium klavyelerde sınırlı süre özel fırsatlar")
-    expect(desc.className).toContain("text-[#64748b]")
+    expect(desc.className).toContain("text-[var(--color-text-muted)]")
   })
 
   it("feature cards link to provided href", () => {

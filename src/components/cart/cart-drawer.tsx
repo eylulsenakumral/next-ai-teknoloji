@@ -207,22 +207,22 @@ export function CartDrawer() {
                     onClick={() => setPaymentMethod("transfer")}
                     className={cn(
                       "flex flex-col items-center gap-1 p-2.5 rounded-lg border-2 transition-all text-center",
-                      paymentMethod === "transfer" ? "border-[#0040a4] bg-[#0040a4]/5" : "border-[#e5e5e5] hover:border-[#ccc]"
+                      paymentMethod === "transfer" ? "border-[var(--color-primary)] bg-[var(--color-primary)]/5" : "border-[#e5e5e5] hover:border-[#ccc]"
                     )}
                   >
-                    <Truck className={cn("h-4 w-4", paymentMethod === "transfer" ? "text-[#0040a4]" : "text-muted-foreground")} aria-hidden />
-                    <span className={cn("text-[11px] font-semibold", paymentMethod === "transfer" ? "text-[#0040a4]" : "text-[#333]")}>Havale / EFT</span>
+                    <Truck className={cn("h-4 w-4", paymentMethod === "transfer" ? "text-[var(--color-primary)]" : "text-muted-foreground")} aria-hidden />
+                    <span className={cn("text-[11px] font-semibold", paymentMethod === "transfer" ? "text-[var(--color-primary)]" : "text-[#333]")}>Havale / EFT</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => setPaymentMethod("credit-card")}
                     className={cn(
                       "flex flex-col items-center gap-1 p-2.5 rounded-lg border-2 transition-all text-center",
-                      paymentMethod === "credit-card" ? "border-[#0040a4] bg-[#0040a4]/5" : "border-[#e5e5e5] hover:border-[#ccc]"
+                      paymentMethod === "credit-card" ? "border-[var(--color-primary)] bg-[var(--color-primary)]/5" : "border-[#e5e5e5] hover:border-[#ccc]"
                     )}
                   >
-                    <CreditCard className={cn("h-4 w-4", paymentMethod === "credit-card" ? "text-[#0040a4]" : "text-muted-foreground")} aria-hidden />
-                    <span className={cn("text-[11px] font-semibold", paymentMethod === "credit-card" ? "text-[#0040a4]" : "text-[#333]")}>Kredi Kartı</span>
+                    <CreditCard className={cn("h-4 w-4", paymentMethod === "credit-card" ? "text-[var(--color-primary)]" : "text-muted-foreground")} aria-hidden />
+                    <span className={cn("text-[11px] font-semibold", paymentMethod === "credit-card" ? "text-[var(--color-primary)]" : "text-[#333]")}>Kredi Kartı</span>
                   </button>
                 </div>
               </div>
@@ -231,14 +231,14 @@ export function CartDrawer() {
                 <Link
                   href="/sepet"
                   onClick={closeCart}
-                  className="inline-flex h-10 items-center justify-center rounded-lg border border-[#e0e0e0] bg-white px-4 text-sm font-medium text-[#333333] transition-colors hover:bg-[#f9f9f9]"
+                  className="inline-flex h-10 items-center justify-center rounded-lg border border-[#e0e0e0] bg-white px-4 text-sm font-medium text-[var(--color-foreground)] transition-colors hover:bg-[#f9f9f9]"
                 >
                   Sepeti Görüntüle
                 </Link>
                 <Link
                   href={paymentMethod === "credit-card" ? "/sepet/odeme" : "/sepet/onay"}
                   onClick={closeCart}
-                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-[#00179e] px-4 text-sm font-medium text-white transition-colors hover:bg-[#001380]"
+                  className="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-[var(--color-primary)] px-4 text-sm font-medium text-white transition-colors hover:bg-[#001380]"
                 >
                   {paymentMethod === "credit-card" ? "Kredi Kartı ile Öde" : "Siparişi Tamamla"}
                 </Link>

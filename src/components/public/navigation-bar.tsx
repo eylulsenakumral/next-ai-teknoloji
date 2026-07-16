@@ -146,7 +146,7 @@ function CategoryDropdown() {
       <button
         type="button"
         onClick={() => setOpen((p) => !p)}
-        className="flex items-center gap-2 h-10 px-4 rounded-lg bg-[#0040a4] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#1a6fe0] transition-colors"
+        className="flex items-center gap-2 h-10 px-4 rounded-lg bg-[var(--color-primary)] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#1a6fe0] transition-colors"
         aria-expanded={open}
         aria-haspopup="true"
       >
@@ -163,18 +163,18 @@ function CategoryDropdown() {
 
       {open && (
         <div
-          className="absolute top-full left-0 z-50 bg-white border border-[#e2e8f0] shadow-xl mt-0 flex"
+          className="absolute top-full left-0 z-50 bg-white border border-[var(--color-border)] shadow-xl mt-0 flex"
           style={{ minWidth: "680px" }}
           role="menu"
         >
           {/* Left panel: Parent categories */}
-          <div className="w-56 border-r border-[#e2e8f0] py-2 shrink-0">
+          <div className="w-56 border-r border-[var(--color-border)] py-2 shrink-0">
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="h-5 w-5 animate-spin text-[#64748b]" />
+                <Loader2 className="h-5 w-5 animate-spin text-[var(--color-text-muted)]" />
               </div>
             ) : categories.length === 0 ? (
-              <p className="px-4 py-3 text-[13px] text-[#64748b]">
+              <p className="px-4 py-3 text-[13px] text-[var(--color-text-muted)]">
                 Kategori bulunamadı
               </p>
             ) : (
@@ -190,8 +190,8 @@ function CategoryDropdown() {
                   className={cn(
                     "w-full flex items-center justify-between px-4 py-2.5 text-[13px] transition-colors text-left",
                     activeParentId === cat.id
-                      ? "bg-[#f0f4ff] text-[#0040a4] font-semibold"
-                      : "text-[#0040a4] hover:bg-[#f4f7fa]"
+                      ? "bg-[#f0f4ff] text-[var(--color-primary)] font-semibold"
+                      : "text-[var(--color-primary)] hover:bg-[var(--color-background)]"
                   )}
                   role="menuitem"
                 >
@@ -202,7 +202,7 @@ function CategoryDropdown() {
                   >
                     {cat.name}
                     {cat.productCount > 0 && (
-                      <span className="ml-1 text-[11px] font-normal text-[#64748b]">
+                      <span className="ml-1 text-[11px] font-normal text-[var(--color-text-muted)]">
                         ({cat.productCount})
                       </span>
                     )}
@@ -225,11 +225,11 @@ function CategoryDropdown() {
                     setOpen(false)
                     setActiveParentId(null)
                   }}
-                  className="inline-block text-[15px] font-bold text-[#0040a4] mb-4 hover:underline"
+                  className="inline-block text-[15px] font-bold text-[var(--color-primary)] mb-4 hover:underline"
                 >
                   {activeParent.name}
                   {activeParent.productCount > 0 && (
-                    <span className="ml-1.5 text-[11px] font-normal text-[#64748b]">
+                    <span className="ml-1.5 text-[11px] font-normal text-[var(--color-text-muted)]">
                       ({activeParent.productCount})
                     </span>
                   )}
@@ -243,7 +243,7 @@ function CategoryDropdown() {
                           setOpen(false)
                           setActiveParentId(null)
                         }}
-                        className="inline-flex items-baseline gap-1.5 text-[13px] font-semibold text-[#0040a4] hover:text-[#0040a4] transition-colors py-1.5"
+                        className="inline-flex items-baseline gap-1.5 text-[13px] font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors py-1.5"
                       >
                         {sub.name}
                         {sub.productCount > 0 && (
@@ -262,7 +262,7 @@ function CategoryDropdown() {
                                   setOpen(false)
                                   setActiveParentId(null)
                                 }}
-                                className="inline-flex items-baseline gap-1 text-[12px] text-[#64748b] hover:text-[#0040a4] transition-colors py-1"
+                                className="inline-flex items-baseline gap-1 text-[12px] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors py-1"
                               >
                                 {child.name}
                                 {child.productCount > 0 && (
@@ -281,18 +281,18 @@ function CategoryDropdown() {
               </>
             ) : activeParent ? (
               <div className="flex flex-col items-center justify-center h-full text-center">
-                <Package className="h-8 w-8 text-[#64748b]/30 mb-2" aria-hidden />
+                <Package className="h-8 w-8 text-[var(--color-text-muted)]/30 mb-2" aria-hidden />
                 <Link
                   href={`/katalog?categorySlug=${encodeURIComponent(activeParent.slug)}`}
                   onClick={() => {
                     setOpen(false)
                     setActiveParentId(null)
                   }}
-                  className="text-[14px] font-semibold text-[#0040a4] hover:underline"
+                  className="text-[14px] font-semibold text-[var(--color-primary)] hover:underline"
                 >
                   {activeParent.name} kategorisine git
                   {activeParent.productCount > 0 && (
-                    <span className="ml-1 text-[12px] font-normal text-[#64748b]">
+                    <span className="ml-1 text-[12px] font-normal text-[var(--color-text-muted)]">
                       ({activeParent.productCount} ürün)
                     </span>
                   )}
@@ -317,7 +317,7 @@ export function NavigationBar() {
 
   return (
     <nav
-      className="w-full bg-white border-b border-[#e2e8f0]"
+      className="w-full bg-white border-b border-[var(--color-border)]"
       role="navigation"
       aria-label="Ana navigasyon"
     >
@@ -332,7 +332,7 @@ export function NavigationBar() {
               <li key={link.href + link.label}>
                 <Link
                   href={link.href}
-                  className="inline-flex items-center h-[50px] px-4 text-[13px] font-medium tracking-wider text-[#0040a4] hover:text-[#0040a4] transition-colors duration-300"
+                  className="inline-flex items-center h-[50px] px-4 text-[13px] font-medium tracking-wider text-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors duration-300"
                 >
                   {link.label}
                 </Link>

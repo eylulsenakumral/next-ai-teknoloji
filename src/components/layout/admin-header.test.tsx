@@ -27,12 +27,12 @@ describe("AdminHeader", () => {
     expect(header.className).toMatch(/bg-white|bg-\[#ffffff\]/)
   })
 
-  /* ── Text: #1e1e1e ── */
+  /* ── Text: var(--color-foreground) ── */
 
   it("has dark text color", () => {
     render(<AdminHeader />)
     const header = screen.getByRole("banner")
-    expect(header.className).toMatch(/text-\[var\(--DTSecondaryColor\)\]|text-\[#1e1e1e\]/)
+    expect(header.className).toMatch(/text-\[var\(--DTSecondaryColor\)\]|text-\[var(--color-foreground)\]/)
   })
 
   /* ── Border bottom: 1px solid #e9e9e9 ── */

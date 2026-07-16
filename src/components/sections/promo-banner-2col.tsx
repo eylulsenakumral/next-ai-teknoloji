@@ -33,7 +33,7 @@ export function PromoBanner2Col({ banners }: PromoBanner2ColProps) {
               <p className="text-white mt-2 text-lg">{banner.discount}</p>
               <Link
                 href={banner.href ?? "/katalog"}
-                className="w-fit mt-4 bg-white text-[#1e1e1e] px-6 py-2 rounded-lg font-bold hover:bg-gray-100 transition-colors"
+                className="w-fit mt-4 bg-white text-[var(--color-foreground)] px-6 py-2 rounded-lg font-bold hover:bg-gray-100 transition-colors"
               >
                 {banner.cta}
               </Link>

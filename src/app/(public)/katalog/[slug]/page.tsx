@@ -252,11 +252,11 @@ function ProductBreadcrumb({
   return (
     <nav
       aria-label="Breadcrumb"
-      className="flex items-center gap-1.5 text-[12px] text-[#64748b] flex-wrap"
+      className="flex items-center gap-1.5 text-[12px] text-[var(--color-text-muted)] flex-wrap"
     >
       <Link
         href="/katalog"
-        className="flex items-center gap-1 hover:text-[#5086a8] transition-colors"
+        className="flex items-center gap-1 hover:text-[var(--color-primary)] transition-colors"
       >
         <Home className="h-3 w-3" aria-hidden />
         Katalog
@@ -266,14 +266,14 @@ function ProductBreadcrumb({
           <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
           <Link
             href={`/katalog?categorySlug=${cat.slug}`}
-            className="hover:text-[#5086a8] transition-colors"
+            className="hover:text-[var(--color-primary)] transition-colors"
           >
             {cat.name}
           </Link>
         </span>
       ))}
       <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
-      <span className="text-[#333333] font-semibold truncate max-w-[200px] sm:max-w-none">
+      <span className="text-[var(--color-foreground)] font-semibold truncate max-w-[200px] sm:max-w-none">
         {productName}
       </span>
     </nav>
@@ -308,16 +308,16 @@ function StockBadge({ inStock }: { inStock: boolean }) {
 
 function QuoteCTA({ productName }: { productName: string }) {
   return (
-    <div className="border border-[#5086a8]/20 bg-gradient-to-br from-[#5086a8]/5 to-white p-5 space-y-4">
+    <div className="border border-[var(--color-primary)]/20 bg-gradient-to-br from-[var(--color-primary)]/5 to-white p-5 space-y-4">
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[#5086a8]/10">
-          <Lock className="h-5 w-5 text-[#5086a8]" aria-hidden />
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[var(--color-primary)]/10">
+          <Lock className="h-5 w-5 text-[var(--color-primary)]" aria-hidden />
         </div>
         <div className="space-y-1">
-          <p className="text-[14px] font-bold text-[#333333]">
+          <p className="text-[14px] font-bold text-[var(--color-foreground)]">
             Özel Fiyatlar İçin Bayi Girişi Yapınız
           </p>
-          <p className="text-[12px] text-[#64748b] leading-relaxed">
+          <p className="text-[12px] text-[var(--color-text-muted)] leading-relaxed">
             Bayi girişi yaparak özel fiyatları görüntüleyebilir ve sipariş oluşturabilirsiniz.
           </p>
         </div>
@@ -325,7 +325,7 @@ function QuoteCTA({ productName }: { productName: string }) {
 
       <Link
         href="/login"
-        className="flex w-full items-center justify-center gap-2 h-11 bg-[#5086a8] px-5 text-[13px] font-bold text-white uppercase tracking-wider transition-colors hover:bg-[#001489] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#5086a8] focus-visible:ring-offset-2"
+        className="flex w-full items-center justify-center gap-2 h-11 bg-[var(--color-primary)] px-5 text-[13px] font-bold text-white uppercase tracking-wider transition-colors hover:bg-[#001489] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
       >
         <Lock className="h-4 w-4" aria-hidden />
         Bayi Girişi Yap
@@ -340,7 +340,7 @@ function QuoteCTA({ productName }: { productName: string }) {
 
 function SpecsTable({ specs }: { specs: Array<{ key: string; value: string }> }) {
   return (
-    <div className="overflow-hidden border border-[#eeeeee]">
+    <div className="overflow-hidden border border-[var(--color-border)]">
       <table className="w-full text-sm" aria-label="Teknik özellikler">
         <thead className="sr-only">
           <tr>
@@ -352,12 +352,12 @@ function SpecsTable({ specs }: { specs: Array<{ key: string; value: string }> })
           {specs.map(({ key, value }, index) => (
             <tr
               key={key}
-              className={index % 2 === 0 ? "bg-[#f4f7fa]" : "bg-white"}
+              className={index % 2 === 0 ? "bg-[var(--color-background)]" : "bg-white"}
             >
-              <td className="w-2/5 sm:w-1/3 border-r border-[#eeeeee] px-4 py-2.5 text-[12px] font-semibold text-[#64748b] align-top">
+              <td className="w-2/5 sm:w-1/3 border-r border-[var(--color-border)] px-4 py-2.5 text-[12px] font-semibold text-[var(--color-text-muted)] align-top">
                 {key}
               </td>
-              <td className="px-4 py-2.5 text-[13px] text-[#333333]">{value}</td>
+              <td className="px-4 py-2.5 text-[13px] text-[var(--color-foreground)]">{value}</td>
             </tr>
           ))}
         </tbody>
@@ -372,10 +372,10 @@ function SpecsTable({ specs }: { specs: Array<{ key: string; value: string }> })
 
 function StickyMobileCTA({ productName }: { productName: string }) {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-white border-t border-[#eeeeee] px-4 py-3 shadow-lg">
+    <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-white border-t border-[var(--color-border)] px-4 py-3 shadow-lg">
       <Link
         href="/login"
-        className="flex items-center justify-center gap-2 h-11 w-full bg-[#5086a8] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
+        className="flex items-center justify-center gap-2 h-11 w-full bg-[var(--color-primary)] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
       >
         <Lock className="h-4 w-4" aria-hidden />
         Özel Fiyatlar İçin Bayi Girişi Yapınız
@@ -415,7 +415,7 @@ export default async function PublicProductDetailPage({
       />
       <div className="bg-[#f5f5f5] pb-20 md:pb-0">
         {/* Breadcrumb band */}
-        <div className="bg-white border-b border-[#eeeeee]">
+        <div className="bg-white border-b border-[var(--color-border)]">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <ProductBreadcrumb categoryPath={product.categoryPath || []} productName={product.name} />
           </div>
@@ -427,7 +427,7 @@ export default async function PublicProductDetailPage({
             {/* Galeri */}
             <section
               aria-label="Ürün görselleri"
-              className="bg-white border border-[#eeeeee] p-4 lg:sticky lg:top-4 lg:self-start"
+              className="bg-white border border-[var(--color-border)] p-4 lg:sticky lg:top-4 lg:self-start"
             >
               <ProductGallery
                 images={product.images}
@@ -442,7 +442,7 @@ export default async function PublicProductDetailPage({
                 {product.brand && (
                   <Link
                     href={`/katalog?brandSlug=${product.brand.slug}`}
-                    className="text-[12px] font-bold uppercase tracking-wider text-[#5086a8] hover:text-[#001489] transition-colors"
+                    className="text-[12px] font-bold uppercase tracking-wider text-[var(--color-primary)] hover:text-[#001489] transition-colors"
                   >
                     {product.brand.name}
                   </Link>
@@ -450,7 +450,7 @@ export default async function PublicProductDetailPage({
                 {product.category && (
                   <Link
                     href={`/katalog?categorySlug=${product.category.slug}`}
-                    className="inline-flex items-center gap-1.5 bg-[#f0f0f0] px-2.5 py-1 text-[11px] font-medium text-[#64748b] hover:bg-[#e8e8e8] transition-colors"
+                    className="inline-flex items-center gap-1.5 bg-[#f0f0f0] px-2.5 py-1 text-[11px] font-medium text-[var(--color-text-muted)] hover:bg-[#e8e8e8] transition-colors"
                   >
                     <Tag className="h-3 w-3" aria-hidden />
                     {product.category.name}
@@ -459,7 +459,7 @@ export default async function PublicProductDetailPage({
               </div>
 
               {/* Ürün Adı */}
-              <h1 className="text-xl sm:text-2xl font-extrabold leading-tight text-[#333333]">
+              <h1 className="text-xl sm:text-2xl font-extrabold leading-tight text-[var(--color-foreground)]">
                 {product.name}
               </h1>
 
@@ -476,53 +476,53 @@ export default async function PublicProductDetailPage({
 
               {/* Ürün Bilgileri */}
               {(product.sku || product.barcode || product.modelCode || product.brand || product.warrantyMonths || product.productCode) && (
-                <div className="border border-[#eeeeee] bg-white">
-                  <div className="px-4 py-2.5 border-b border-[#eeeeee] bg-[#fafafa]">
-                    <p className="text-[11px] font-bold text-[#64748b] uppercase tracking-wider">
+                <div className="border border-[var(--color-border)] bg-white">
+                  <div className="px-4 py-2.5 border-b border-[var(--color-border)] bg-[#fafafa]">
+                    <p className="text-[11px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider">
                       Ürün Bilgileri
                     </p>
                   </div>
                   <ul className="divide-y divide-[#f5f5f5]">
                     {product.productCode && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">Ürün Kodu</span>
-                        <span className="text-[12px] text-[#5086a8] font-bold font-mono bg-[#f0f4ff] px-2 py-0.5 rounded">{product.productCode}</span>
+                        <span className="text-[12px] text-[var(--color-text-muted)] w-1/3 shrink-0 font-medium">Ürün Kodu</span>
+                        <span className="text-[12px] text-[var(--color-primary)] font-bold font-mono bg-[#f0f4ff] px-2 py-0.5 rounded">{product.productCode}</span>
                       </li>
                     )}
                     {product.brand && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">Marka</span>
-                        <span className="text-[12px] text-[#333333] font-semibold">{product.brand.name}</span>
+                        <span className="text-[12px] text-[var(--color-text-muted)] w-1/3 shrink-0 font-medium">Marka</span>
+                        <span className="text-[12px] text-[var(--color-foreground)] font-semibold">{product.brand.name}</span>
                       </li>
                     )}
                     {product.modelCode && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">Model Kodu</span>
-                        <span className="text-[12px] text-[#333333] font-semibold">{product.modelCode}</span>
+                        <span className="text-[12px] text-[var(--color-text-muted)] w-1/3 shrink-0 font-medium">Model Kodu</span>
+                        <span className="text-[12px] text-[var(--color-foreground)] font-semibold">{product.modelCode}</span>
                       </li>
                     )}
                     {product.sku && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">SKU</span>
-                        <span className="text-[12px] text-[#333333] font-semibold font-mono">{product.sku}</span>
+                        <span className="text-[12px] text-[var(--color-text-muted)] w-1/3 shrink-0 font-medium">SKU</span>
+                        <span className="text-[12px] text-[var(--color-foreground)] font-semibold font-mono">{product.sku}</span>
                       </li>
                     )}
                     {product.barcode && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">Barkod</span>
-                        <span className="text-[12px] text-[#333333] font-semibold font-mono">{product.barcode}</span>
+                        <span className="text-[12px] text-[var(--color-text-muted)] w-1/3 shrink-0 font-medium">Barkod</span>
+                        <span className="text-[12px] text-[var(--color-foreground)] font-semibold font-mono">{product.barcode}</span>
                       </li>
                     )}
                     {product.warrantyMonths && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">Garanti</span>
-                        <span className="text-[12px] text-[#333333] font-semibold">{product.warrantyMonths} ay</span>
+                        <span className="text-[12px] text-[var(--color-text-muted)] w-1/3 shrink-0 font-medium">Garanti</span>
+                        <span className="text-[12px] text-[var(--color-foreground)] font-semibold">{product.warrantyMonths} ay</span>
                       </li>
                     )}
                     {product.weight && (
                       <li className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">Ağırlık</span>
-                        <span className="text-[12px] text-[#333333] font-semibold">{product.weight} kg</span>
+                        <span className="text-[12px] text-[var(--color-text-muted)] w-1/3 shrink-0 font-medium">Ağırlık</span>
+                        <span className="text-[12px] text-[var(--color-foreground)] font-semibold">{product.weight} kg</span>
                       </li>
                     )}
                   </ul>
@@ -531,11 +531,11 @@ export default async function PublicProductDetailPage({
 
               {/* Kısa açıklama */}
               {product.description && (
-                <div className="text-[13px] leading-relaxed text-[#64748b] border-l-2 border-[#5086a8]/20 pl-3">
+                <div className="text-[13px] leading-relaxed text-[var(--color-text-muted)] border-l-2 border-[var(--color-primary)]/20 pl-3">
                   <p className="line-clamp-3">{product.description}</p>
                   <a
                     href="#description-heading"
-                    className="inline-block mt-1 text-[#5086a8] font-semibold text-[12px] hover:underline"
+                    className="inline-block mt-1 text-[var(--color-primary)] font-semibold text-[12px] hover:underline"
                   >
                     Devamını Oku ↓
                   </a>
@@ -549,12 +549,12 @@ export default async function PublicProductDetailPage({
                   {isLoggedIn && product.hidePrice ? (
                     <div className="p-5">
                       <div className="flex items-start gap-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#a60811]/10">
-                          <Lock className="h-5 w-5 text-[#a60811]" aria-hidden />
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-error)]/10">
+                          <Lock className="h-5 w-5 text-[var(--color-error)]" aria-hidden />
                         </div>
                         <div className="space-y-1">
-                          <p className="text-[14px] font-bold text-[#a60811]">Müşteri Temsilcinizden Özel Fiyat Alınız</p>
-                          <p className="text-[12px] text-[#64748b]">Bu ürün için fiyat bilgisi müşteri temsilcinizden alınmaktadır.</p>
+                          <p className="text-[14px] font-bold text-[var(--color-error)]">Müşteri Temsilcinizden Özel Fiyat Alınız</p>
+                          <p className="text-[12px] text-[var(--color-text-muted)]">Bu ürün için fiyat bilgisi müşteri temsilcinizden alınmaktadır.</p>
                         </div>
                       </div>
                     </div>
@@ -563,7 +563,7 @@ export default async function PublicProductDetailPage({
                       <div className="flex items-end justify-between gap-4">
                         <div>
                           <p className="text-[11px] text-gray-400 uppercase tracking-wider mb-1">Bayi Fiyatı</p>
-                          <p className="text-[28px] font-bold text-[#5086a8] leading-none">
+                          <p className="text-[28px] font-bold text-[var(--color-primary)] leading-none">
                             {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                             <span className="text-[12px] font-medium text-gray-400 ml-1.5">+KDV</span>
                           </p>
@@ -591,13 +591,13 @@ export default async function PublicProductDetailPage({
                   ) : !isLoggedIn && !product.hidePrice ? (
                     <div className="p-5">
                       <div className="flex items-start gap-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#5086a8]/10">
-                          <Lock className="h-5 w-5 text-[#5086a8]" aria-hidden />
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-primary)]/10">
+                          <Lock className="h-5 w-5 text-[var(--color-primary)]" aria-hidden />
                         </div>
                         <div className="flex-1 space-y-2">
-                          <p className="text-[14px] font-bold text-[#333333]">Özel Fiyatlar İçin Bayi Girişi</p>
-                          <p className="text-[12px] text-[#64748b]">Bayi girişi yaparak fiyatları görüntüleyin.</p>
-                          <Link href="/login" className="inline-flex items-center justify-center gap-2 h-9 px-5 bg-[#5086a8] text-[12px] font-bold text-white rounded-xl hover:bg-[#003080] transition-colors">
+                          <p className="text-[14px] font-bold text-[var(--color-foreground)]">Özel Fiyatlar İçin Bayi Girişi</p>
+                          <p className="text-[12px] text-[var(--color-text-muted)]">Bayi girişi yaparak fiyatları görüntüleyin.</p>
+                          <Link href="/login" className="inline-flex items-center justify-center gap-2 h-9 px-5 bg-[var(--color-primary)] text-[12px] font-bold text-white rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors">
                             <Lock className="h-3.5 w-3.5" aria-hidden />
                             Bayi Girişi Yap
                           </Link>
@@ -644,19 +644,19 @@ export default async function PublicProductDetailPage({
 
               {/* Özellik özeti — ilk 5 spec */}
               {specs && specs.length > 0 && (
-                <div className="border border-[#eeeeee] bg-white">
-                  <div className="px-4 py-2.5 border-b border-[#eeeeee] bg-[#fafafa]">
-                    <p className="text-[11px] font-bold text-[#64748b] uppercase tracking-wider">
+                <div className="border border-[var(--color-border)] bg-white">
+                  <div className="px-4 py-2.5 border-b border-[var(--color-border)] bg-[#fafafa]">
+                    <p className="text-[11px] font-bold text-[var(--color-text-muted)] uppercase tracking-wider">
                       Öne Çıkan Özellikler
                     </p>
                   </div>
                   <ul className="divide-y divide-[#f5f5f5]">
                     {specs.slice(0, 5).map(({ key, value }) => (
                       <li key={key} className="flex items-center gap-3 px-4 py-2">
-                        <span className="text-[12px] text-[#64748b] w-1/3 shrink-0 font-medium">
+                        <span className="text-[12px] text-[var(--color-text-muted)] w-1/3 shrink-0 font-medium">
                           {key}
                         </span>
-                        <span className="text-[12px] text-[#333333] font-semibold flex-1 truncate">
+                        <span className="text-[12px] text-[var(--color-foreground)] font-semibold flex-1 truncate">
                           {value}
                         </span>
                       </li>
@@ -672,7 +672,7 @@ export default async function PublicProductDetailPage({
             <section aria-labelledby="specs-heading" className="space-y-3">
               <h2
                 id="specs-heading"
-                className="text-[17px] font-bold text-[#333333] border-b border-[#eeeeee] pb-2"
+                className="text-[17px] font-bold text-[var(--color-foreground)] border-b border-[var(--color-border)] pb-2"
               >
                 Teknik Özellikler
               </h2>
@@ -685,11 +685,11 @@ export default async function PublicProductDetailPage({
             <section aria-labelledby="description-heading" className="space-y-3">
               <h2
                 id="description-heading"
-                className="text-[17px] font-bold text-[#333333] border-b border-[#eeeeee] pb-2"
+                className="text-[17px] font-bold text-[var(--color-foreground)] border-b border-[var(--color-border)] pb-2"
               >
                 Ürün Açıklaması
               </h2>
-              <div className="bg-white border border-[#eeeeee] p-5 text-[13px] text-[#555555] leading-relaxed whitespace-pre-wrap">
+              <div className="bg-white border border-[var(--color-border)] p-5 text-[13px] text-[#555555] leading-relaxed whitespace-pre-wrap">
                 {product.description}
               </div>
             </section>
@@ -701,18 +701,18 @@ export default async function PublicProductDetailPage({
               <div className="flex items-center gap-3">
                 <h2
                   id="related-heading"
-                  className="text-[17px] font-bold text-[#333333] whitespace-nowrap"
+                  className="text-[17px] font-bold text-[var(--color-foreground)] whitespace-nowrap"
                 >
                   Benzer Ürünler
                 </h2>
-                <div className="flex-1 h-px bg-[#eeeeee]" aria-hidden />
+                <div className="flex-1 h-px bg-[var(--color-border)]" aria-hidden />
                 <Link
                   href={
                     product.category
                       ? `/katalog?categorySlug=${product.category.slug}`
                       : "/katalog"
                   }
-                  className="text-[12px] font-semibold text-[#5086a8] hover:text-[#001489] transition-colors whitespace-nowrap"
+                  className="text-[12px] font-semibold text-[var(--color-primary)] hover:text-[#001489] transition-colors whitespace-nowrap"
                 >
                   Tümünü Gör
                 </Link>
@@ -731,8 +731,8 @@ export default async function PublicProductDetailPage({
       {/* Sticky Fiyat / CTA — mobile */}
       {!isLoggedIn && !product.hidePrice && <StickyMobileCTA productName={product.name} />}
       {isLoggedIn && product.hidePrice && (
-        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#a60811]/20 px-4 py-3 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
-          <p className="text-[13px] font-bold text-[#a60811] text-center">
+        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[var(--color-error)]/20 px-4 py-3 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
+          <p className="text-[13px] font-bold text-[var(--color-error)] text-center">
             Müşteri Temsilcinizden Özel Fiyat Alınız
           </p>
         </div>
@@ -741,7 +741,7 @@ export default async function PublicProductDetailPage({
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-3 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
-              <p className="text-[16px] font-bold text-[#5086a8] leading-none">
+              <p className="text-[16px] font-bold text-[var(--color-primary)] leading-none">
                 {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                 <span className="text-[10px] font-medium text-gray-400 ml-1">+KDV</span>
               </p>

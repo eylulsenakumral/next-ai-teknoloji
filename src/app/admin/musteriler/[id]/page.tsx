@@ -421,9 +421,9 @@ export default function CustomerDetailPage({
                     Üret
                   </Button>
                 </div>
-                <p className="text-[11px] text-[#767676] mt-1">Boş bırakırsanız mevcut şifre korunur</p>
+                <p className="text-[11px] text-[var(--color-text-muted)] mt-1">Boş bırakırsanız mevcut şifre korunur</p>
               </div>
-              <div className="sm:col-span-2 flex items-center gap-3 pt-2 border-t border-[#eeeeee]">
+              <div className="sm:col-span-2 flex items-center gap-3 pt-2 border-t border-[var(--color-border)]">
                 <Button
                   type="button"
                   variant="outline"

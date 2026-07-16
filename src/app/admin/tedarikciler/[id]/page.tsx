@@ -202,7 +202,7 @@ export default function TedarikciUrunlerPage() {
           <h1 className="text-xl font-bold text-[#333]">
             {supplier ? supplier.name : "Tedarikçi"} — Tedarikçi Ürünleri
           </h1>
-          <p className="text-sm text-[#767676] mt-0.5">
+          <p className="text-sm text-[var(--color-text-muted)] mt-0.5">
             Sync edilen ham tedarikçi ürünleri ve kategori eşleşmeleri
           </p>
         </div>
@@ -238,7 +238,7 @@ export default function TedarikciUrunlerPage() {
       )}
 
       {/* Filters */}
-      <div className="bg-white border border-[#eeeeee] rounded-lg p-4 space-y-3">
+      <div className="bg-white border border-[var(--color-border)] rounded-lg p-4 space-y-3">
         <div className="flex items-center gap-2 text-xs font-bold text-[#333] uppercase tracking-widest">
           <Filter className="h-3.5 w-3.5" />
           Filtreler
@@ -246,12 +246,12 @@ export default function TedarikciUrunlerPage() {
         <div className="flex flex-wrap items-center gap-3">
           {/* Search */}
           <div className="relative w-64">
-            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#767676]" />
+            <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[var(--color-text-muted)]" />
             <Input
               placeholder="İsim, barkod, SKU ara..."
               value={q}
               onChange={(e) => setQ(e.target.value)}
-              className="pl-8 h-8 text-sm border-[#eeeeee]"
+              className="pl-8 h-8 text-sm border-[var(--color-border)]"
             />
           </div>
 
@@ -259,7 +259,7 @@ export default function TedarikciUrunlerPage() {
           <select
             value={filterCategory}
             onChange={(e) => setFilterCategory(e.target.value)}
-            className="h-8 rounded-md border border-[#eeeeee] bg-white px-2.5 text-sm text-[#333] outline-none focus:border-[var(--DTPrimaryColor)]"
+            className="h-8 rounded-md border border-[var(--color-border)] bg-white px-2.5 text-sm text-[#333] outline-none focus:border-[var(--DTPrimaryColor)]"
           >
             <option value="">Tüm Kategoriler</option>
             {categories.map((cat) => (
@@ -274,7 +274,7 @@ export default function TedarikciUrunlerPage() {
           <select
             value={filterLinked}
             onChange={(e) => setFilterLinked(e.target.value as "" | "true" | "false")}
-            className="h-8 rounded-md border border-[#eeeeee] bg-white px-2.5 text-sm text-[#333] outline-none focus:border-[var(--DTPrimaryColor)]"
+            className="h-8 rounded-md border border-[var(--color-border)] bg-white px-2.5 text-sm text-[#333] outline-none focus:border-[var(--DTPrimaryColor)]"
           >
             <option value="">Tüm Durum</option>
             <option value="true">Ürün Bağlı</option>
@@ -290,7 +290,7 @@ export default function TedarikciUrunlerPage() {
                 setFilterCategory("")
                 setFilterLinked("")
               }}
-              className="text-xs text-[#767676] hover:text-[#c82333] transition-colors"
+              className="text-xs text-[var(--color-text-muted)] hover:text-[#c82333] transition-colors"
             >
               Temizle
             </button>
@@ -300,7 +300,7 @@ export default function TedarikciUrunlerPage() {
 
       {/* Category Distribution */}
       {summary && summary.categoryDistribution.length > 0 && !filterCategory && (
-        <div className="bg-white border border-[#eeeeee] rounded-lg p-4">
+        <div className="bg-white border border-[var(--color-border)] rounded-lg p-4">
           <div className="text-xs font-bold text-[#333] uppercase tracking-widest mb-3">
             Kategori Dağılımı
           </div>
@@ -316,7 +316,7 @@ export default function TedarikciUrunlerPage() {
                   "inline-flex items-center gap-1.5 text-xs px-2.5 py-1.5 rounded-full border transition-colors",
                   filterCategory === (cat.categoryId ?? "")
                     ? "bg-[var(--DTPrimaryColor)] text-white border-[var(--DTPrimaryColor)]"
-                    : "bg-white text-[#333] border-[#eeeeee] hover:border-[var(--DTPrimaryColor)] hover:text-[var(--DTPrimaryColor)]"
+                    : "bg-white text-[#333] border-[var(--color-border)] hover:border-[var(--DTPrimaryColor)] hover:text-[var(--DTPrimaryColor)]"
                 )}
               >
                 <span className="truncate max-w-32">
@@ -327,7 +327,7 @@ export default function TedarikciUrunlerPage() {
                     "text-[10px] font-semibold tabular-nums",
                     filterCategory === (cat.categoryId ?? "")
                       ? "text-white/70"
-                      : "text-[#767676]"
+                      : "text-[var(--color-text-muted)]"
                   )}
                 >
                   {cat.count}
@@ -346,32 +346,32 @@ export default function TedarikciUrunlerPage() {
       )}
 
       {/* Table */}
-      <div className="bg-white border border-[#eeeeee] rounded-lg overflow-hidden">
+      <div className="bg-white border border-[var(--color-border)] rounded-lg overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-[#eeeeee] bg-[#fafafa]">
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#767676] uppercase tracking-wider">
+              <tr className="border-b border-[var(--color-border)] bg-[#fafafa]">
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
                   Ürün
                 </th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#767676] uppercase tracking-wider">
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
                   Tedarikçi Kategorisi
                 </th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-[#767676] uppercase tracking-wider">
+                <th className="text-left px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
                   Eşleşen Kategori
                 </th>
-                <th className="text-right px-4 py-3 text-xs font-semibold text-[#767676] uppercase tracking-wider">
+                <th className="text-right px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
                   Fiyat
                 </th>
-                <th className="text-right px-4 py-3 text-xs font-semibold text-[#767676] uppercase tracking-wider">
+                <th className="text-right px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
                   Stok
                 </th>
-                <th className="text-center px-4 py-3 text-xs font-semibold text-[#767676] uppercase tracking-wider">
+                <th className="text-center px-4 py-3 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
                   Durum
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#eeeeee]">
+            <tbody className="divide-y divide-[var(--color-border)]">
               {loading ? (
                 Array.from({ length: 10 }).map((_, i) => (
                   <tr key={i} className="animate-pulse">
@@ -397,7 +397,7 @@ export default function TedarikciUrunlerPage() {
                 ))
               ) : products.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-4 py-12 text-center text-[#767676]">
+                  <td colSpan={6} className="px-4 py-12 text-center text-[var(--color-text-muted)]">
                     Ürün bulunamadı
                   </td>
                 </tr>
@@ -422,12 +422,12 @@ export default function TedarikciUrunlerPage() {
                             </p>
                             <div className="flex items-center gap-2 mt-0.5">
                               {sp.externalBarcode && (
-                                <span className="text-[11px] text-[#767676] font-mono">
+                                <span className="text-[11px] text-[var(--color-text-muted)] font-mono">
                                   {sp.externalBarcode}
                                 </span>
                               )}
                               {sp.externalSku && (
-                                <span className="text-[11px] text-[#767676]">
+                                <span className="text-[11px] text-[var(--color-text-muted)]">
                                   SKU: {sp.externalSku}
                                 </span>
                               )}
@@ -447,7 +447,7 @@ export default function TedarikciUrunlerPage() {
                               href={sp.externalUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="shrink-0 text-[#767676] hover:text-[var(--DTPrimaryColor)]"
+                              className="shrink-0 text-[var(--color-text-muted)] hover:text-[var(--DTPrimaryColor)]"
                             >
                               <ExternalLink className="h-3.5 w-3.5" />
                             </a>
@@ -457,7 +457,7 @@ export default function TedarikciUrunlerPage() {
 
                       {/* Tedarikçi kategorisi */}
                       <td className="px-4 py-3">
-                        <span className="text-[12px] text-[#767676] truncate max-w-40 block">
+                        <span className="text-[12px] text-[var(--color-text-muted)] truncate max-w-40 block">
                           {supplierCat || "—"}
                         </span>
                       </td>
@@ -531,8 +531,8 @@ export default function TedarikciUrunlerPage() {
 
         {/* Pagination */}
         {!loading && totalPages > 1 && (
-          <div className="flex items-center justify-between border-t border-[#eeeeee] px-4 py-3">
-            <span className="text-xs text-[#767676]">
+          <div className="flex items-center justify-between border-t border-[var(--color-border)] px-4 py-3">
+            <span className="text-xs text-[var(--color-text-muted)]">
               {(page - 1) * limit + 1}–{Math.min(page * limit, total)} / {total}
             </span>
             <div className="flex items-center gap-1">
@@ -540,7 +540,7 @@ export default function TedarikciUrunlerPage() {
                 type="button"
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page <= 1}
-                className="inline-flex items-center justify-center h-8 w-8 border border-[#eeeeee] text-[#767676] hover:border-[var(--DTPrimaryColor)] hover:text-[var(--DTPrimaryColor)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="inline-flex items-center justify-center h-8 w-8 border border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--DTPrimaryColor)] hover:text-[var(--DTPrimaryColor)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
@@ -564,7 +564,7 @@ export default function TedarikciUrunlerPage() {
                       "inline-flex items-center justify-center h-8 w-8 text-xs font-semibold transition-colors",
                       page === pageNum
                         ? "bg-[var(--DTPrimaryColor)] text-white border border-[var(--DTPrimaryColor)]"
-                        : "border border-[#eeeeee] text-[#333] hover:border-[var(--DTPrimaryColor)] hover:text-[var(--DTPrimaryColor)]"
+                        : "border border-[var(--color-border)] text-[#333] hover:border-[var(--DTPrimaryColor)] hover:text-[var(--DTPrimaryColor)]"
                     )}
                   >
                     {pageNum}
@@ -575,7 +575,7 @@ export default function TedarikciUrunlerPage() {
                 type="button"
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page >= totalPages}
-                className="inline-flex items-center justify-center h-8 w-8 border border-[#eeeeee] text-[#767676] hover:border-[var(--DTPrimaryColor)] hover:text-[var(--DTPrimaryColor)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                className="inline-flex items-center justify-center h-8 w-8 border border-[var(--color-border)] text-[var(--color-text-muted)] hover:border-[var(--DTPrimaryColor)] hover:text-[var(--DTPrimaryColor)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
@@ -607,7 +607,7 @@ function SummaryCard({
     <div
       className={cn(
         "bg-white border rounded-lg p-3 flex items-center gap-3",
-        accent ? "border-emerald-200" : warning ? "border-amber-200" : "border-[#eeeeee]"
+        accent ? "border-emerald-200" : warning ? "border-amber-200" : "border-[var(--color-border)]"
       )}
     >
       <div
@@ -624,7 +624,7 @@ function SummaryCard({
       </div>
       <div>
         <p className="text-lg font-bold text-[#333] tabular-nums">{value}</p>
-        <p className="text-[11px] text-[#767676]">{label}</p>
+        <p className="text-[11px] text-[var(--color-text-muted)]">{label}</p>
       </div>
     </div>
   )

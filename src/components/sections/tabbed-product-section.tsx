@@ -63,8 +63,8 @@ export function TabbedProductSection({
             className={cn(
               "px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200",
               activeTab === tab.key
-                ? "bg-[#0040a4] text-white shadow-sm"
-                : "bg-transparent text-[#1e1e1e] hover:bg-[#f3f3f3]"
+                ? "bg-[var(--color-primary)] text-white shadow-sm"
+                : "bg-transparent text-[var(--color-foreground)] hover:bg-[var(--color-surface-muted)]"
             )}
           >
             {tab.label}
@@ -82,7 +82,7 @@ export function TabbedProductSection({
             <PublicProductCard key={product.id} product={product} />
           ))
         ) : (
-          <p className="col-span-full text-center text-sm text-[#767676] py-12">
+          <p className="col-span-full text-center text-sm text-[var(--color-text-muted)] py-12">
             Bu kategoride ürün bulunamadı.
           </p>
         )}

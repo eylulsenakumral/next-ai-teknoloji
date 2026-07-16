@@ -19,9 +19,9 @@ interface BlogSectionProps {
 
 export function BlogSection({ posts, className = "" }: BlogSectionProps) {
   return (
-    <section className={`py-16 bg-[#f4f7fa] ${className}`}>
+    <section className={`py-16 bg-[var(--color-background)] ${className}`}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center text-3xl font-bold mb-12 text-[#0040a4]">Son Blog Yazıları</h2>
+        <h2 className="text-center text-3xl font-bold mb-12 text-[var(--color-primary)]">Son Blog Yazıları</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-[30px]">
           {posts.map((post) => (
             <article
@@ -34,18 +34,18 @@ export function BlogSection({ posts, className = "" }: BlogSectionProps) {
                 className="w-full h-48 object-cover"
               />
               <div className="p-6">
-                <p className="text-xs text-[#0040a4]/60 mb-2">
+                <p className="text-xs text-[var(--color-primary)]/60 mb-2">
                   {new Date(post.date).toLocaleDateString("tr-TR")} &bull; {post.author}
                 </p>
-                <h3 className="text-xl font-bold mb-3 text-[#0040a4] leading-snug">
+                <h3 className="text-xl font-bold mb-3 text-[var(--color-primary)] leading-snug">
                   {post.title}
                 </h3>
-                <p className="text-[#0040a4]/70 mb-4 text-sm leading-relaxed line-clamp-3">
+                <p className="text-[var(--color-primary)]/70 mb-4 text-sm leading-relaxed line-clamp-3">
                   {post.excerpt}
                 </p>
                 <Link
                   href={post.link}
-                  className="inline-block text-[#0040a4] font-semibold hover:text-[#0040a4] transition-colors duration-200 text-sm"
+                  className="inline-block text-[var(--color-primary)] font-semibold hover:text-[var(--color-primary)] transition-colors duration-200 text-sm"
                 >
                   Devamını Oku &rarr;
                 </Link>

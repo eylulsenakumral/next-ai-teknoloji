@@ -114,10 +114,10 @@ describe("DealerFooter", () => {
 
   /* ── Styling ── */
 
-  it("uses bg-[#1e1e1e] background color", () => {
+  it("uses bg-[var(--color-foreground)] background color", () => {
     render(<DealerFooter />)
     const footer = screen.getByRole("contentinfo")
-    expect(footer.className).toContain("bg-[#1e1e1e]")
+    expect(footer.className).toContain("bg-[var(--color-foreground)]")
   })
 
   it("has responsive grid classes", () => {
@@ -138,7 +138,7 @@ describe("DealerFooter", () => {
     ).not.toBeInTheDocument()
   })
 
-  it("link hover uses primary color class #0040a4", () => {
+  it("link hover uses primary color class var(--color-primary)", () => {
     render(<DealerFooter />)
     const footer = screen.getByRole("contentinfo")
     const linkEls = footer.querySelectorAll("a[class*='2189ff']")
