@@ -11,6 +11,19 @@ export const metadata = {
 // Statik logo component'leri yerine text-based grid kullanıyoruz.
 // Gerçek logolar admin panelden yönetiliyor (Brand.logoUrl).
 
+// Kategori/OEM/typo gibi gerçek marka olmayan kayıtlar — listede gösterme.
+// (B2BDepo sync'inden kaynaklı: "Hiksivion" = Hikvision typo'su, diğerleri kategori/metaveri.)
+const HIDDEN_BRANDS = [
+  "Hiksivion",
+  "Marka Yok",
+  "OEM",
+  "Microsoft Oem",
+  "Kurumsal OEM Paket",
+  "Para Çekmecesi",
+  "Video İnterkom Ürünleri",
+  "FOEM",
+]
+
 const FEATURED_BRANDS = [
   { name: "Dahua", cat: "Kamera Sistemleri", desc: "AI kamera, NVR ve analitik" },
   { name: "Hikvision", cat: "Kamera Sistemleri", desc: "Kurumsal güvenlik global lideri" },
@@ -27,7 +40,7 @@ export const dynamic = "force-dynamic"
 async function getBrands() {
   try {
     const brands = await prisma.brand.findMany({
-      where: { deletedAt: null, isActive: true },
+      where: { deletedAt: null, isActive: true, name: { notIn: HIDDEN_BRANDS } },
       orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
       select: {
         id: true,
@@ -98,7 +111,7 @@ export default async function MarkalarPage() {
                 <div className="mt-4">
                   <p className="text-xs text-slate-400 group-hover:text-slate-500">{b.desc}</p>
                   <Link
-                    href={`/katalog?brandSlug=${b.name.toLowerCase()}`}
+                    href={`/urunler?brandSlug=${b.name.toLowerCase()}`}
                     className="mt-3 block text-xs font-bold text-[var(--color-primary)] opacity-0 transition group-hover:opacity-100"
                   >
                     Ürünleri gör →
@@ -151,7 +164,7 @@ export default async function MarkalarPage() {
                     )}
                   </div>
                   <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-500">
-                    {b.description ?? "Marka açıklaması"}
+                    {b.description ?? `${b.name} ürünleri — toptan bayi fiyatları ve stok`}
                   </p>
                   <span className="mt-auto pt-3 text-xs font-bold text-[var(--color-primary)]">
                     Ürünleri gör →
