@@ -7,6 +7,19 @@ const STATE_FILE = "./.whatsapp-state.json";
 
 type ConnectionStatus = "disconnected" | "connecting" | "connected" | "qr_ready";
 
+/**
+ * Baileys socket'in API route tarafında erişilebilen yüzü.
+ * PM2 worker bağlantıyı yönetir; getSocket() API route'ta her zaman null döner,
+ * ama tip gerçek socket şeklini yansıtır ki status route user bilgisini okuyabilsin.
+ */
+export interface WhatsAppSocket {
+  user?: {
+    id: string;
+    name?: string | null;
+    verifiedName?: string | null;
+  };
+}
+
 interface WAppState {
   status: ConnectionStatus;
   qr: string | null;
@@ -36,7 +49,7 @@ export function getLatestQR(): string | null {
   return null;
 }
 
-export function getSocket() {
+export function getSocket(): WhatsAppSocket | null {
   return null; // Worker process'te, API route erişemez
 }
 

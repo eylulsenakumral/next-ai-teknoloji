@@ -201,7 +201,18 @@ export async function GET(req: NextRequest) {
         try {
           const decoded = await decode({ secret: process.env.NEXTAUTH_SECRET, token: bearer })
           if (decoded?.role === "dealer" && decoded?.status === "APPROVED") {
-            authSession = { user: decoded as any, expires: "" }
+            authSession = {
+              user: {
+                id: decoded.id,
+                dealerCode: decoded.dealerCode,
+                companyName: decoded.companyName,
+                contactName: decoded.contactName,
+                email: decoded.email ?? undefined,
+                role: decoded.role,
+                status: decoded.status,
+              },
+              expires: "",
+            }
           }
         } catch {}
       }

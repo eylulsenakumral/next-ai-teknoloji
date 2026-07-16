@@ -16,6 +16,7 @@ import {
   ArrowRight,
 } from "lucide-react"
 import { prisma } from "@/lib/db"
+import type { Prisma } from "@prisma/client"
 
 /* ------------------------------------------------------------------ */
 /*  Types                                                              */
@@ -85,8 +86,7 @@ function mapCategory(cat: PrismaCategory): CategoryTree {
 }
 
 // Recursive include builder - 5 seviye
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function buildInclude(depth: number): any {
+function buildInclude(depth: number): Prisma.CategoryInclude {
   const filter = { deletedAt: null, isActive: true }
 
   if (depth === 0) {
@@ -118,8 +118,7 @@ async function getCategories(): Promise<CategoryTree[]> {
       include: buildInclude(4),
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return (categories as any[]).map(mapCategory)
+    return (categories as unknown as PrismaCategory[]).map(mapCategory)
   } catch {
     return []
   }

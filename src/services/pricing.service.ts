@@ -1,3 +1,4 @@
+import type { ProfitMargin } from "@prisma/client"
 import { prisma } from "@/lib/db"
 import { withCache, invalidatePriceCache, CacheKey, TTL } from "@/lib/cache"
 
@@ -325,8 +326,7 @@ export async function calculateBulkPrices(
 // ---------------------------------------------------------------------------
 
 function resolveMarginFromList(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  margins: any[],
+  margins: ProfitMargin[],
   productId: string,
   categoryId: string | null,
   brandId: string | null

@@ -131,8 +131,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
 
   const product = await prisma.product.update({
     where: { id },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: updateData as any,
+    data: updateData as Prisma.ProductUncheckedUpdateInput,
     include: {
       brand: { select: { id: true, name: true } },
       category: { select: { id: true, name: true } },
