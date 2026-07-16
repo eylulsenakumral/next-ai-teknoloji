@@ -15,7 +15,7 @@ export function AskAiButton({ productName }: { productName: string }) {
     <button
       type="button"
       onClick={handleClick}
-      className="inline-flex items-center gap-1.5 text-[12px] font-medium text-[#0040a4] hover:text-[#003080] bg-[#0040a4]/5 hover:bg-[#0040a4]/10 px-3 py-1.5 rounded-full transition-colors"
+      className="inline-flex items-center gap-1.5 text-[12px] font-medium text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] bg-[var(--color-primary)]/5 hover:bg-[var(--color-primary)]/10 px-3 py-1.5 rounded-full transition-colors"
     >
       <MessageSquare className="w-3.5 h-3.5" />
       Bu ürün hakkında AI&apos;ye Soru Sor

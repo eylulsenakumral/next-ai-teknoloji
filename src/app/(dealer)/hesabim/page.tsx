@@ -120,12 +120,12 @@ function InfoRow({
 }) {
   return (
     <div className="flex items-start gap-3 py-2.5">
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#0040a4]/5">
-        <Icon className="h-4 w-4 text-[#0040a4]" />
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--color-primary)]/5">
+        <Icon className="h-4 w-4 text-[var(--color-primary)]" />
       </div>
       <div className="min-w-0">
-        <p className="text-xs text-[#767676]">{label}</p>
-        <p className={`text-sm font-medium text-[#333333] ${mono ? "font-mono" : ""}`}>
+        <p className="text-xs text-[var(--color-text-muted)]">{label}</p>
+        <p className={`text-sm font-medium text-[var(--color-foreground)] ${mono ? "font-mono" : ""}`}>
           {value}
         </p>
       </div>
@@ -153,8 +153,8 @@ function StatCard({
           <Icon className={`h-5 w-5 ${accent.replace("bg-", "text-")}`} />
         </div>
         <div>
-          <p className="text-xs font-medium text-[#767676]">{label}</p>
-          <p className="text-lg font-bold text-[#333333]">{value}</p>
+          <p className="text-xs font-medium text-[var(--color-text-muted)]">{label}</p>
+          <p className="text-lg font-bold text-[var(--color-foreground)]">{value}</p>
         </div>
       </div>
     </div>
@@ -420,7 +420,7 @@ export default function HesabimPage() {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
       {/* ==================== HERO BANNER ==================== */}
       {profile && (
-        <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0040a4] to-[#1a6fd4] p-6 sm:p-8 text-white shadow-lg">
+        <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[var(--color-primary)] to-[#1a6fd4] p-6 sm:p-8 text-white shadow-lg">
           {/* Decorative circles */}
           <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/5" />
           <div className="pointer-events-none absolute -left-8 -bottom-8 h-40 w-40 rounded-full bg-white/5" />
@@ -486,17 +486,17 @@ export default function HesabimPage() {
 
       {/* ==================== TABS ==================== */}
       <Tabs defaultValue="profil" className="space-y-6">
-        <TabsList className="!h-12 !rounded-xl !bg-[#0040a4] !p-1">
+        <TabsList className="!h-12 !rounded-xl !bg-[var(--color-primary)] !p-1">
           <TabsTrigger
             value="profil"
-            className="!gap-2 !rounded-lg !px-5 !text-[13px] !font-semibold !bg-transparent !text-white data-active:!bg-white data-active:!text-[#0040a4] data-active:!shadow-md"
+            className="!gap-2 !rounded-lg !px-5 !text-[13px] !font-semibold !bg-transparent !text-white data-active:!bg-white data-active:!text-[var(--color-primary)] data-active:!shadow-md"
           >
             <User className="h-4 w-4" />
             Profil
           </TabsTrigger>
           <TabsTrigger
             value="sifre"
-            className="!gap-2 !rounded-lg !px-5 !text-[13px] !font-semibold !bg-transparent !text-white data-active:!bg-white data-active:!text-[#0040a4] data-active:!shadow-md"
+            className="!gap-2 !rounded-lg !px-5 !text-[13px] !font-semibold !bg-transparent !text-white data-active:!bg-white data-active:!text-[var(--color-primary)] data-active:!shadow-md"
           >
             <KeyRound className="h-4 w-4" />
             Şifre Değiştir
@@ -510,10 +510,10 @@ export default function HesabimPage() {
             <section className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
               <div className="border-b border-black/5 px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-[#0040a4]" />
-                  <h2 className="text-base font-semibold text-[#333333]">Firma Bilgileri</h2>
+                  <Building2 className="h-5 w-5 text-[var(--color-primary)]" />
+                  <h2 className="text-base font-semibold text-[var(--color-foreground)]">Firma Bilgileri</h2>
                 </div>
-                <div className="mt-1 flex items-center gap-1.5 text-xs text-[#767676]">
+                <div className="mt-1 flex items-center gap-1.5 text-xs text-[var(--color-text-muted)]">
                   <Info className="h-3 w-3" />
                   Bu bilgiler admin tarafından güncellenir.
                 </div>
@@ -561,10 +561,10 @@ export default function HesabimPage() {
           <section className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
             <div className="border-b border-black/5 px-6 py-4">
               <div className="flex items-center gap-2">
-                <Phone className="h-5 w-5 text-[#0040a4]" />
-                <h2 className="text-base font-semibold text-[#333333]">İletişim Bilgileri</h2>
+                <Phone className="h-5 w-5 text-[var(--color-primary)]" />
+                <h2 className="text-base font-semibold text-[var(--color-foreground)]">İletişim Bilgileri</h2>
               </div>
-              <p className="mt-1 text-xs text-[#767676]">
+              <p className="mt-1 text-xs text-[var(--color-text-muted)]">
                 Yetkili iletişim bilgilerinizi güncelleyebilirsiniz.
               </p>
             </div>
@@ -573,8 +573,8 @@ export default function HesabimPage() {
               <div className="grid gap-5 sm:grid-cols-2">
                 {/* Ad Soyad */}
                 <div className="space-y-1.5">
-                  <Label htmlFor="contactName" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <User className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="contactName" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <User className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Ad Soyad
                   </Label>
                   <Input
@@ -587,8 +587,8 @@ export default function HesabimPage() {
 
                 {/* Unvan */}
                 <div className="space-y-1.5">
-                  <Label htmlFor="contactTitle" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <Briefcase className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="contactTitle" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <Briefcase className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Ünvan
                   </Label>
                   <Input
@@ -601,8 +601,8 @@ export default function HesabimPage() {
 
                 {/* Telefon */}
                 <div className="space-y-1.5">
-                  <Label htmlFor="phone" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <Phone className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="phone" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <Phone className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Telefon
                   </Label>
                   <Input
@@ -616,8 +616,8 @@ export default function HesabimPage() {
 
                 {/* Telefon 2 */}
                 <div className="space-y-1.5">
-                  <Label htmlFor="phone2" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <Phone className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="phone2" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <Phone className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Telefon 2
                   </Label>
                   <Input
@@ -631,8 +631,8 @@ export default function HesabimPage() {
 
                 {/* WhatsApp */}
                 <div className="space-y-1.5">
-                  <Label htmlFor="whatsappPhone" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <MessageCircle className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="whatsappPhone" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <MessageCircle className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     WhatsApp
                   </Label>
                   <Input
@@ -646,8 +646,8 @@ export default function HesabimPage() {
 
                 {/* Posta Kodu */}
                 <div className="space-y-1.5">
-                  <Label htmlFor="postalCode" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <MapPin className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="postalCode" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <MapPin className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Posta Kodu
                   </Label>
                   <Input
@@ -683,8 +683,8 @@ export default function HesabimPage() {
 
                 {/* Adres (full width) */}
                 <div className="space-y-1.5 sm:col-span-2">
-                  <Label htmlFor="address" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <MapPin className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="address" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <MapPin className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Adres
                   </Label>
                   <Textarea
@@ -705,7 +705,7 @@ export default function HesabimPage() {
                 <Button
                   onClick={handleSaveProfile}
                   disabled={saving}
-                  className="gap-2 rounded-xl bg-[#0040a4] text-white px-6 hover:bg-[#1a6fd4]"
+                  className="gap-2 rounded-xl bg-[var(--color-primary)] text-white px-6 hover:bg-[#1a6fd4]"
                 >
                   {saving ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -724,10 +724,10 @@ export default function HesabimPage() {
           <section className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
             <div className="border-b border-black/5 px-6 py-4">
               <div className="flex items-center gap-2">
-                <Lock className="h-5 w-5 text-[#0040a4]" />
-                <h2 className="text-base font-semibold text-[#333333]">Şifre Değiştir</h2>
+                <Lock className="h-5 w-5 text-[var(--color-primary)]" />
+                <h2 className="text-base font-semibold text-[var(--color-foreground)]">Şifre Değiştir</h2>
               </div>
-              <p className="mt-1 text-xs text-[#767676]">
+              <p className="mt-1 text-xs text-[var(--color-text-muted)]">
                 Güvenliğiniz için güçlü bir şifre seçin.
               </p>
             </div>
@@ -736,8 +736,8 @@ export default function HesabimPage() {
               <div className="max-w-md space-y-5">
                 {/* Mevcut Sifre */}
                 <div className="space-y-1.5">
-                  <Label htmlFor="currentPassword" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <KeyRound className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="currentPassword" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <KeyRound className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Mevcut Şifre
                   </Label>
                   <div className="relative">
@@ -753,7 +753,7 @@ export default function HesabimPage() {
                       type="button"
                       tabIndex={-1}
                       onClick={() => setShowCurrentPw(!showCurrentPw)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#767676] hover:text-[#333333] transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-foreground)] transition-colors"
                       aria-label={showCurrentPw ? "Şifreyi gizle" : "Şifreyi göster"}
                     >
                       {showCurrentPw ? (
@@ -767,8 +767,8 @@ export default function HesabimPage() {
 
                 {/* Yeni Sifre */}
                 <div className="space-y-1.5">
-                  <Label htmlFor="newPassword" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <Lock className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="newPassword" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <Lock className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Yeni Şifre
                   </Label>
                   <div className="relative">
@@ -784,7 +784,7 @@ export default function HesabimPage() {
                       type="button"
                       tabIndex={-1}
                       onClick={() => setShowNewPw(!showNewPw)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[#767676] hover:text-[#333333] transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)] hover:text-[var(--color-foreground)] transition-colors"
                       aria-label={showNewPw ? "Şifreyi gizle" : "Şifreyi göster"}
                     >
                       {showNewPw ? (
@@ -810,19 +810,19 @@ export default function HesabimPage() {
                           />
                         ))}
                       </div>
-                      <p className="text-xs text-[#767676]">
+                      <p className="text-xs text-[var(--color-text-muted)]">
                         Şifre gücü: <span className="font-medium">{passwordStrength.label}</span>
                       </p>
                     </div>
                   )}
 
-                  <p className="text-xs text-[#767676]">En az 6 karakter</p>
+                  <p className="text-xs text-[var(--color-text-muted)]">En az 6 karakter</p>
                 </div>
 
                 {/* Yeni Sifre (Tekrar) */}
                 <div className="space-y-1.5">
-                  <Label htmlFor="confirmPassword" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <Lock className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="confirmPassword" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <Lock className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Yeni Şifre (Tekrar)
                   </Label>
                   <Input
@@ -849,7 +849,7 @@ export default function HesabimPage() {
                   <Button
                     onClick={handleChangePassword}
                     disabled={passwordSaving}
-                    className="gap-2 rounded-xl bg-[#0040a4] text-white px-6 hover:bg-[#1a6fd4]"
+                    className="gap-2 rounded-xl bg-[var(--color-primary)] text-white px-6 hover:bg-[#1a6fd4]"
                   >
                     {passwordSaving ? (
                       <Loader2 className="h-4 w-4 animate-spin" />

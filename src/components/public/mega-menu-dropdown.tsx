@@ -83,11 +83,11 @@ export function MegaMenuDropdown({ isOpen, onClose }: MegaMenuDropdownProps) {
         <div className="bg-white rounded-2xl shadow-2xl w-full max-w-[1200px] max-h-[80vh] flex flex-col overflow-hidden">
           {/* Header */}
           <div className="flex items-center justify-between px-8 py-5 border-b border-gray-100">
-            <h2 className="text-lg font-bold text-[#0040a4]">Tüm Kategoriler</h2>
+            <h2 className="text-lg font-bold text-[var(--color-primary)]">Tüm Kategoriler</h2>
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-lg text-gray-400 hover:text-[#0040a4] hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-lg text-gray-400 hover:text-[var(--color-primary)] hover:bg-gray-100 transition-colors"
               aria-label="Kapat"
             >
               <X className="h-5 w-5" />
@@ -98,7 +98,7 @@ export function MegaMenuDropdown({ isOpen, onClose }: MegaMenuDropdownProps) {
           <div className="flex-1 overflow-y-auto px-8 py-6">
             {loading ? (
               <div className="flex items-center justify-center gap-2 py-20 text-sm text-gray-400">
-                <div className="w-5 h-5 border-2 border-[#0040a4] border-t-transparent rounded-full animate-spin" />
+                <div className="w-5 h-5 border-2 border-[var(--color-primary)] border-t-transparent rounded-full animate-spin" />
                 Kategoriler yükleniyor...
               </div>
             ) : categories.length === 0 ? (
@@ -114,7 +114,7 @@ export function MegaMenuDropdown({ isOpen, onClose }: MegaMenuDropdownProps) {
                     <button
                       type="button"
                       onClick={() => navigateTo(cat.slug)}
-                      className="inline-flex items-center gap-2 text-[13px] font-bold text-[#0040a4] uppercase tracking-wide hover:text-[#0040a4] transition-colors"
+                      className="inline-flex items-center gap-2 text-[13px] font-bold text-[var(--color-primary)] uppercase tracking-wide hover:text-[var(--color-primary)] transition-colors"
                     >
                       {cat.name}
                       {cat.productCount ? (
@@ -130,7 +130,7 @@ export function MegaMenuDropdown({ isOpen, onClose }: MegaMenuDropdownProps) {
                             <button
                               type="button"
                               onClick={() => navigateTo(child.slug)}
-                              className="text-[12px] text-gray-600 hover:text-[#0040a4] transition-colors block"
+                              className="text-[12px] text-gray-600 hover:text-[var(--color-primary)] transition-colors block"
                             >
                               {child.name}
                               {child.productCount ? (
@@ -146,7 +146,7 @@ export function MegaMenuDropdown({ isOpen, onClose }: MegaMenuDropdownProps) {
                                     <button
                                       type="button"
                                       onClick={() => navigateTo(sub.slug)}
-                                      className="text-[11px] text-gray-400 hover:text-[#0040a4] transition-colors block"
+                                      className="text-[11px] text-gray-400 hover:text-[var(--color-primary)] transition-colors block"
                                     >
                                       {sub.name}
                                     </button>

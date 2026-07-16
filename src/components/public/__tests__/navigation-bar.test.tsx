@@ -140,7 +140,7 @@ describe('NavigationBar', () => {
     it('All Categories button has correct styling', () => {
       render(<NavigationBar />)
       const button = screen.getByRole('button', { name: /tüm kategoriler/i })
-      expect(button.className).toContain('bg-[#0040a4]')
+      expect(button.className).toContain('bg-[var(--color-primary)]')
       expect(button.className).toContain('hover:bg-[#1a6fe0]')
     })
 
@@ -148,7 +148,7 @@ describe('NavigationBar', () => {
       const { container } = render(<NavigationBar />)
       const navLinks = container.querySelectorAll('nav ul li a')
       navLinks.forEach(link => {
-        expect(link.className).toContain('hover:text-[#0040a4]')
+        expect(link.className).toContain('hover:text-[var(--color-primary)]')
       })
     })
   })

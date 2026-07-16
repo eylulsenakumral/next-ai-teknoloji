@@ -302,6 +302,28 @@
   --success: #4F8A10;
   --warning: #9F6000;
   --info: #31708f;
+
+  /* =============================================
+     Semantic Design Tokens (Bölüm 25 önerisi)
+     Kurumsal palet: lacivert/gri/border/background/error.
+     Mevcut --DT* ve --color-nx-* değişkenleri korundu, sadece ekleme.
+     Not: @theme inline'daki --color-* map'lerini override eder
+     (kaynak sırasında sonra gelir). primary/foreground aynı değer,
+     background #ffffff→#f4f7fa, border #e9e9e9→#eeeeee (kasıtlı).
+     ============================================= */
+  --color-primary: #0040a4;
+  --color-primary-hover: #003080;
+  --color-primary-foreground: #ffffff;
+  --color-background: #f4f7fa;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f3f3f3;
+  --color-foreground: #1e1e1e;
+  --color-text-muted: #767676;
+  --color-border: #eeeeee;
+  --color-border-strong: #cbd5e1;
+  --color-error: #dc2626;
+  --color-success: #15803d;
+  --color-price: var(--color-primary);
 }
 
 .dark {
@@ -347,6 +369,24 @@
   --sidebar-accent-foreground: #f3f3f3;
   --sidebar-border: rgba(255, 255, 255, 0.1);
   --sidebar-ring: #0040a4;
+
+  /* Semantic Design Tokens — dark overrides (Bölüm 25)
+     primary lacivert marka rengi olarak korunur;
+     hover/error/success/border dark'ta kontrast için aydınlatılır.
+     Mevcut --DT* ve --color-nx-* değişkenleri korundu. */
+  --color-primary: #0040a4;
+  --color-primary-hover: #2980d9;
+  --color-primary-foreground: #ffffff;
+  --color-background: #121212;
+  --color-surface: #1e1e1e;
+  --color-surface-muted: #2a2a2a;
+  --color-foreground: #f3f3f3;
+  --color-text-muted: #999999;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-strong: #3f3f46;
+  --color-error: #f87171;
+  --color-success: #4ade80;
+  --color-price: var(--color-primary);
 }
 
 @layer base {

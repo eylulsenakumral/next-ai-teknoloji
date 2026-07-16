@@ -74,8 +74,8 @@ function PaymentOption({
       className={cn(
         "flex w-full items-start gap-4 rounded-xl border-2 p-4 text-left transition-all",
         selected
-          ? "border-[#0040a4] bg-[#0040a4]/5 ring-1 ring-[#0040a4]/20"
-          : "border-[#e5e5e5] bg-white hover:border-[#0040a4]/50 hover:bg-[#f9fafb]"
+          ? "border-[var(--color-primary)] bg-[var(--color-primary)]/5 ring-1 ring-[var(--color-primary)]/20"
+          : "border-[#e5e5e5] bg-white hover:border-[var(--color-primary)]/50 hover:bg-[#f9fafb]"
       )}
       aria-pressed={selected}
     >
@@ -83,7 +83,7 @@ function PaymentOption({
         className={cn(
           "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-all",
           selected
-            ? "border-[#0040a4] bg-[#0040a4]"
+            ? "border-[var(--color-primary)] bg-[var(--color-primary)]"
             : "border-[#cccccc] bg-white"
         )}
         aria-hidden
@@ -92,18 +92,18 @@ function PaymentOption({
           <div className="h-2 w-2 rounded-full bg-white" />
         )}
       </div>
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0040a4]/10">
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-primary)]/10">
         <Icon className={cn(
           "h-5 w-5",
-          selected ? "text-[#0040a4]" : "text-[#767676]"
+          selected ? "text-[var(--color-primary)]" : "text-[var(--color-text-muted)]"
         )} />
       </div>
       <div className="flex-1">
         <p className={cn(
           "text-sm font-semibold",
-          selected ? "text-[#0040a4]" : "text-[#333333]"
+          selected ? "text-[var(--color-primary)]" : "text-[var(--color-foreground)]"
         )}>{title}</p>
-        <p className="mt-1 text-xs text-[#767676] leading-relaxed">{description}</p>
+        <p className="mt-1 text-xs text-[var(--color-text-muted)] leading-relaxed">{description}</p>
       </div>
     </button>
   )
@@ -138,36 +138,36 @@ function SuccessView({
           </div>
         </div>
         <div className="space-y-3">
-          <h1 className="text-3xl font-bold text-[#333333]">Siparişiniz Alındı!</h1>
-          <p className="text-[#767676] max-w-md mx-auto">
+          <h1 className="text-3xl font-bold text-[var(--color-foreground)]">Siparişiniz Alındı!</h1>
+          <p className="text-[var(--color-text-muted)] max-w-md mx-auto">
             Siparişiniz başarıyla oluşturuldu. En kısa sürede işleme alınacaktır.
           </p>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0040a4]/10 border border-[#0040a4]/20">
-            <span className="text-sm text-[#767676]">Sipariş Numarası:</span>
-            <span className="text-lg font-bold text-[#0040a4] font-mono">{orderNumber}</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20">
+            <span className="text-sm text-[var(--color-text-muted)]">Sipariş Numarası:</span>
+            <span className="text-lg font-bold text-[var(--color-primary)] font-mono">{orderNumber}</span>
           </div>
         </div>
 
         {/* Havale/EFT IBAN Bilgileri */}
         {paymentMethod === "BANK_TRANSFER" && (
-          <div className="w-full max-w-md rounded-2xl bg-[#f0f6ff] border border-[#0040a4]/20 p-6 text-left space-y-4">
+          <div className="w-full max-w-md rounded-2xl bg-[#f0f6ff] border border-[var(--color-primary)]/20 p-6 text-left space-y-4">
             <div className="flex items-center gap-2">
-              <Building2 className="h-5 w-5 text-[#0040a4]" />
-              <span className="text-base font-semibold text-[#0040a4]">Havale / EFT Bilgileri</span>
+              <Building2 className="h-5 w-5 text-[var(--color-primary)]" />
+              <span className="text-base font-semibold text-[var(--color-primary)]">Havale / EFT Bilgileri</span>
             </div>
             <div className="space-y-3 text-sm">
               <div className="flex flex-col gap-0.5">
-                <span className="text-xs text-[#767676]">Hesap Sahibi</span>
-                <span className="font-semibold text-[#333333]">Next AI Teknoloji Yazılım San ve Tic Ltd Şti</span>
+                <span className="text-xs text-[var(--color-text-muted)]">Hesap Sahibi</span>
+                <span className="font-semibold text-[var(--color-foreground)]">Next AI Teknoloji Yazılım San ve Tic Ltd Şti</span>
               </div>
               <div className="flex flex-col gap-0.5">
-                <span className="text-xs text-[#767676]">IBAN</span>
-                <span className="font-mono font-semibold text-[#333333] tracking-wide">TR72 0006 2000 0450 0006 2885 83</span>
+                <span className="text-xs text-[var(--color-text-muted)]">IBAN</span>
+                <span className="font-mono font-semibold text-[var(--color-foreground)] tracking-wide">TR72 0006 2000 0450 0006 2885 83</span>
               </div>
-              <div className="flex flex-col gap-0.5 pt-3 border-t border-[#0040a4]/10">
-                <span className="text-xs text-[#767676]">Ödenecek Tutar (TL Karşılığı)</span>
-                <span className="font-bold text-[#0040a4] text-lg">{formatCurrency(totalTL, "TRY")}</span>
-                <span className="text-[10px] text-[#767676]">({formatCurrency(grandTotal)} · 1 USD = {usdTry} TL)</span>
+              <div className="flex flex-col gap-0.5 pt-3 border-t border-[var(--color-primary)]/10">
+                <span className="text-xs text-[var(--color-text-muted)]">Ödenecek Tutar (TL Karşılığı)</span>
+                <span className="font-bold text-[var(--color-primary)] text-lg">{formatCurrency(totalTL, "TRY")}</span>
+                <span className="text-[10px] text-[var(--color-text-muted)]">({formatCurrency(grandTotal)} · 1 USD = {usdTry} TL)</span>
               </div>
             </div>
             <div className="flex items-start gap-2 rounded-lg bg-amber-50 border border-amber-200 px-3 py-2">
@@ -179,10 +179,10 @@ function SuccessView({
           </div>
         )}
 
-        <p className="max-w-lg text-sm text-[#767676] leading-relaxed">
+        <p className="max-w-lg text-sm text-[var(--color-text-muted)] leading-relaxed">
           Siparişiniz onaylandığında ve kargo durumu güncellendiğinde sizi bilgilendireceğiz.
           Sipariş detaylarınızı {" "}
-          <Link href="/siparisler" className="text-[#0040a4] font-semibold hover:underline">
+          <Link href="/siparisler" className="text-[var(--color-primary)] font-semibold hover:underline">
             Siparişlerim
           </Link>
           {" "} sayfasından takip edebilirsiniz.
@@ -190,13 +190,13 @@ function SuccessView({
         <div className="flex flex-col sm:flex-row gap-3 pt-2">
           <Link
             href="/siparisler"
-            className="rounded-xl bg-[#0040a4] text-white hover:bg-[#003080] transition-colors h-12 px-6 text-sm font-semibold inline-flex items-center justify-center gap-2"
+            className="rounded-xl bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] transition-colors h-12 px-6 text-sm font-semibold inline-flex items-center justify-center gap-2"
           >
             Siparişlerime Git
           </Link>
           <Link
             href="/urunler"
-            className="rounded-xl border border-[#e5e5e5] text-[#333333] hover:bg-[#f9fafb] hover:border-[#0040a4] hover:text-[#0040a4] h-12 px-6 text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors"
+            className="rounded-xl border border-[#e5e5e5] text-[var(--color-foreground)] hover:bg-[#f9fafb] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] h-12 px-6 text-sm font-semibold inline-flex items-center justify-center gap-2 transition-colors"
           >
             Alışverişe Devam Et
           </Link>
@@ -378,14 +378,14 @@ export default function CheckoutPage() {
       <div className="flex items-center gap-4">
         <Link
           href="/sepet"
-          className="rounded-xl hover:bg-[#f9fafb] h-10 w-10 text-[#767676] inline-flex items-center justify-center transition-colors"
+          className="rounded-xl hover:bg-[#f9fafb] h-10 w-10 text-[var(--color-text-muted)] inline-flex items-center justify-center transition-colors"
           aria-label="Sepete dön"
         >
           <ArrowLeft className="h-4 w-4" aria-hidden />
         </Link>
         <div>
-          <h1 className="text-2xl font-bold text-[#333333]">Sipariş Onayı</h1>
-          <p className="text-sm text-[#767676]">Lütfen teslimat adresi ve ödeme bilgilerinizi kontrol edin</p>
+          <h1 className="text-2xl font-bold text-[var(--color-foreground)]">Sipariş Onayı</h1>
+          <p className="text-sm text-[var(--color-text-muted)]">Lütfen teslimat adresi ve ödeme bilgilerinizi kontrol edin</p>
         </div>
       </div>
 
@@ -395,19 +395,19 @@ export default function CheckoutPage() {
           <div className="lg:col-span-2 space-y-5">
             {/* Teslimat Adresi */}
             <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
-              <div className="border-b border-[#f3f3f3] px-6 py-4">
+              <div className="border-b border-[var(--color-surface-muted)] px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0040a4]/10">
-                    <MapPin className="h-4 w-4 text-[#0040a4]" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-primary)]/10">
+                    <MapPin className="h-4 w-4 text-[var(--color-primary)]" />
                   </div>
-                  <h2 className="text-base font-semibold text-[#333333]">Teslimat Adresi</h2>
+                  <h2 className="text-base font-semibold text-[var(--color-foreground)]">Teslimat Adresi</h2>
                 </div>
-                <p className="mt-1 text-xs text-[#767676]">Siparişinizin teslim edileceği adres bilgileri</p>
+                <p className="mt-1 text-xs text-[var(--color-text-muted)]">Siparişinizin teslim edileceği adres bilgileri</p>
               </div>
               <div className="p-6 grid gap-5 sm:grid-cols-2">
                 <div className="sm:col-span-2 space-y-2">
-                  <Label htmlFor="companyName" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <Building2 className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="companyName" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <Building2 className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Firma / Ad Soyad
                   </Label>
                   <Input
@@ -415,7 +415,7 @@ export default function CheckoutPage() {
                     value={shippingForm.companyName}
                     onChange={(e) => updateField("companyName", e.target.value)}
                     placeholder="Firma adı veya ad soyad"
-                    className="rounded-lg border-[#e5e5e5] focus:border-[#0040a4] focus:ring-[#0040a4]/20"
+                    className="rounded-lg border-[#e5e5e5] focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]/20"
                     aria-invalid={!!errors.companyName}
                     aria-describedby={errors.companyName ? "companyName-error" : undefined}
                   />
@@ -428,8 +428,8 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="contactName" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <User className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="contactName" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <User className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Yetkili Ad Soyad
                   </Label>
                   <Input
@@ -437,7 +437,7 @@ export default function CheckoutPage() {
                     value={shippingForm.contactName}
                     onChange={(e) => updateField("contactName", e.target.value)}
                     placeholder="Yetkili ad soyad"
-                    className="rounded-lg border-[#e5e5e5] focus:border-[#0040a4] focus:ring-[#0040a4]/20"
+                    className="rounded-lg border-[#e5e5e5] focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]/20"
                     aria-invalid={!!errors.contactName}
                     aria-describedby={errors.contactName ? "contactName-error" : undefined}
                   />
@@ -450,8 +450,8 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="phone" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <Phone className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="phone" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <Phone className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Telefon Numarası
                   </Label>
                   <Input
@@ -460,7 +460,7 @@ export default function CheckoutPage() {
                     value={shippingForm.phone}
                     onChange={(e) => updateField("phone", e.target.value)}
                     placeholder="0(5XX) XXX XX XX"
-                    className="rounded-lg border-[#e5e5e5] focus:border-[#0040a4] focus:ring-[#0040a4]/20"
+                    className="rounded-lg border-[#e5e5e5] focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]/20"
                     aria-invalid={!!errors.phone}
                     aria-describedby={errors.phone ? "phone-error" : undefined}
                   />
@@ -473,8 +473,8 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="sm:col-span-2 space-y-2">
-                  <Label htmlFor="address" className="flex items-center gap-1.5 text-sm text-[#333333]">
-                    <MapPin className="h-3.5 w-3.5 text-[#767676]" />
+                  <Label htmlFor="address" className="flex items-center gap-1.5 text-sm text-[var(--color-foreground)]">
+                    <MapPin className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                     Açık Adres
                   </Label>
                   <Textarea
@@ -483,7 +483,7 @@ export default function CheckoutPage() {
                     onChange={(e) => updateField("address", e.target.value)}
                     placeholder="Mahalle, sokak, bina, daire..."
                     rows={3}
-                    className="rounded-lg border-[#e5e5e5] focus:border-[#0040a4] focus:ring-[#0040a4]/20 resize-none"
+                    className="rounded-lg border-[#e5e5e5] focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]/20 resize-none"
                     aria-invalid={!!errors.address}
                     aria-describedby={errors.address ? "address-error" : undefined}
                   />
@@ -527,30 +527,30 @@ export default function CheckoutPage() {
                 )}
 
                 <div className="space-y-2">
-                  <Label htmlFor="postalCode" className="text-sm text-[#333333]">Posta Kodu</Label>
+                  <Label htmlFor="postalCode" className="text-sm text-[var(--color-foreground)]">Posta Kodu</Label>
                   <Input
                     id="postalCode"
                     value={shippingForm.postalCode}
                     onChange={(e) => updateField("postalCode", e.target.value)}
                     placeholder="34710"
                     maxLength={10}
-                    className="rounded-lg border-[#e5e5e5] focus:border-[#0040a4] focus:ring-[#0040a4]/20"
+                    className="rounded-lg border-[#e5e5e5] focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]/20"
                   />
-                  <p className="text-xs text-[#767676]">İsteğe bağlı</p>
+                  <p className="text-xs text-[var(--color-text-muted)]">İsteğe bağlı</p>
                 </div>
               </div>
             </div>
 
             {/* Ödeme Yöntemi */}
             <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
-              <div className="border-b border-[#f3f3f3] px-6 py-4">
+              <div className="border-b border-[var(--color-surface-muted)] px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0040a4]/10">
-                    <CreditCard className="h-4 w-4 text-[#0040a4]" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-primary)]/10">
+                    <CreditCard className="h-4 w-4 text-[var(--color-primary)]" />
                   </div>
-                  <h2 className="text-base font-semibold text-[#333333]">Ödeme Yöntemi</h2>
+                  <h2 className="text-base font-semibold text-[var(--color-foreground)]">Ödeme Yöntemi</h2>
                 </div>
-                <p className="mt-1 text-xs text-[#767676]">Size en uygun ödeme seçeneğini seçin</p>
+                <p className="mt-1 text-xs text-[var(--color-text-muted)]">Size en uygun ödeme seçeneğini seçin</p>
               </div>
               <div className="p-6 space-y-3">
                 <PaymentOption
@@ -580,24 +580,24 @@ export default function CheckoutPage() {
 
                 {/* IBAN Bilgileri */}
                 {paymentMethod === "BANK_TRANSFER" && (
-                  <div className="mt-4 rounded-xl bg-[#f0f6ff] border border-[#0040a4]/20 p-4 space-y-3">
+                  <div className="mt-4 rounded-xl bg-[#f0f6ff] border border-[var(--color-primary)]/20 p-4 space-y-3">
                     <div className="flex items-center gap-2">
-                      <Building2 className="h-4 w-4 text-[#0040a4]" />
-                      <span className="text-sm font-semibold text-[#0040a4]">Banka Hesap Bilgileri</span>
+                      <Building2 className="h-4 w-4 text-[var(--color-primary)]" />
+                      <span className="text-sm font-semibold text-[var(--color-primary)]">Banka Hesap Bilgileri</span>
                     </div>
                     <div className="space-y-2 text-sm">
                       <div className="flex flex-col gap-0.5">
-                        <span className="text-xs text-[#767676]">Hesap Sahibi</span>
-                        <span className="font-semibold text-[#333333]">Next AI Teknoloji Yazılım San ve Tic Ltd Şti</span>
+                        <span className="text-xs text-[var(--color-text-muted)]">Hesap Sahibi</span>
+                        <span className="font-semibold text-[var(--color-foreground)]">Next AI Teknoloji Yazılım San ve Tic Ltd Şti</span>
                       </div>
                       <div className="flex flex-col gap-0.5">
-                        <span className="text-xs text-[#767676]">IBAN</span>
-                        <span className="font-mono font-semibold text-[#333333] tracking-wide">TR72 0006 2000 0450 0006 2885 83</span>
+                        <span className="text-xs text-[var(--color-text-muted)]">IBAN</span>
+                        <span className="font-mono font-semibold text-[var(--color-foreground)] tracking-wide">TR72 0006 2000 0450 0006 2885 83</span>
                       </div>
-                      <div className="flex flex-col gap-0.5 pt-2 border-t border-[#0040a4]/10">
-                        <span className="text-xs text-[#767676]">Ödenecek Tutar (TL Karşılığı)</span>
-                        <span className="font-bold text-[#0040a4] text-base">{formatCurrency(grandTotal * usdTry, "TRY")}</span>
-                        <span className="text-[10px] text-[#767676]">({formatCurrency(grandTotal)} · 1 USD = {usdTry} TL)</span>
+                      <div className="flex flex-col gap-0.5 pt-2 border-t border-[var(--color-primary)]/10">
+                        <span className="text-xs text-[var(--color-text-muted)]">Ödenecek Tutar (TL Karşılığı)</span>
+                        <span className="font-bold text-[var(--color-primary)] text-base">{formatCurrency(grandTotal * usdTry, "TRY")}</span>
+                        <span className="text-[10px] text-[var(--color-text-muted)]">({formatCurrency(grandTotal)} · 1 USD = {usdTry} TL)</span>
                       </div>
                     </div>
                     <div className="flex items-start gap-2 rounded-lg bg-amber-50 border border-amber-200 px-3 py-2">
@@ -613,14 +613,14 @@ export default function CheckoutPage() {
 
             {/* Sipariş Notu */}
             <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
-              <div className="border-b border-[#f3f3f3] px-6 py-4">
+              <div className="border-b border-[var(--color-surface-muted)] px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0040a4]/10">
-                    <FileText className="h-4 w-4 text-[#0040a4]" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-primary)]/10">
+                    <FileText className="h-4 w-4 text-[var(--color-primary)]" />
                   </div>
-                  <h2 className="text-base font-semibold text-[#333333]">Sipariş Notu</h2>
+                  <h2 className="text-base font-semibold text-[var(--color-foreground)]">Sipariş Notu</h2>
                 </div>
-                <p className="mt-1 text-xs text-[#767676]">Siparişinizle ilgili özel notlarınız (isteğe bağlı)</p>
+                <p className="mt-1 text-xs text-[var(--color-text-muted)]">Siparişinizle ilgili özel notlarınız (isteğe bağlı)</p>
               </div>
               <div className="p-6">
                 <Textarea
@@ -630,10 +630,10 @@ export default function CheckoutPage() {
                   placeholder="Siparişinizle ilgili özel notunuz varsa buraya yazabilirsiniz..."
                   rows={3}
                   maxLength={2000}
-                  className="rounded-lg border-[#e5e5e5] focus:border-[#0040a4] focus:ring-[#0040a4]/20 resize-none"
+                  className="rounded-lg border-[#e5e5e5] focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)]/20 resize-none"
                   aria-label="Sipariş notu"
                 />
-                <p className="mt-2 text-xs text-[#767676] text-right">
+                <p className="mt-2 text-xs text-[var(--color-text-muted)] text-right">
                   {notes.length} / 2000 karakter
                 </p>
               </div>
@@ -643,14 +643,14 @@ export default function CheckoutPage() {
           {/* Sağ Kolon: Sipariş Özeti */}
           <aside>
             <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden sticky top-24">
-              <div className="border-b border-[#f3f3f3] px-6 py-4">
+              <div className="border-b border-[var(--color-surface-muted)] px-6 py-4">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#0040a4]/10">
-                    <Package className="h-4 w-4 text-[#0040a4]" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-primary)]/10">
+                    <Package className="h-4 w-4 text-[var(--color-primary)]" />
                   </div>
                   <div>
-                    <h2 className="text-base font-semibold text-[#333333]">Sipariş Özeti</h2>
-                    <p className="text-xs text-[#767676]">{items.length} kalem ürün</p>
+                    <h2 className="text-base font-semibold text-[var(--color-foreground)]">Sipariş Özeti</h2>
+                    <p className="text-xs text-[var(--color-text-muted)]">{items.length} kalem ürün</p>
                   </div>
                 </div>
               </div>
@@ -658,14 +658,14 @@ export default function CheckoutPage() {
                 {/* Ürün listesi */}
                 <ul className="space-y-3" aria-label="Siparişteki ürünler">
                   {items.map((item) => (
-                    <li key={item.productId} className="flex justify-between gap-3 text-sm pb-3 border-b border-[#f3f3f3] last:border-0 last:pb-0">
-                      <span className="text-[#767676] line-clamp-2 flex-1 min-w-0">
-                        <span className="font-semibold text-[#333333]">
+                    <li key={item.productId} className="flex justify-between gap-3 text-sm pb-3 border-b border-[var(--color-surface-muted)] last:border-0 last:pb-0">
+                      <span className="text-[var(--color-text-muted)] line-clamp-2 flex-1 min-w-0">
+                        <span className="font-semibold text-[var(--color-foreground)]">
                           {item.quantity}x{" "}
                         </span>
                         {item.productName}
                       </span>
-                      <span className="shrink-0 font-semibold text-[#333333] tabular-nums">
+                      <span className="shrink-0 font-semibold text-[var(--color-foreground)] tabular-nums">
                         {formatCurrency(item.unitPriceExVat * item.quantity)}
                       </span>
                     </li>
@@ -695,7 +695,7 @@ export default function CheckoutPage() {
                 <Button
                   type="submit"
                   size="lg"
-                  className="w-full rounded-xl bg-[#0040a4] text-white hover:bg-[#0040a4] transition-colors h-12 text-sm font-semibold"
+                  className="w-full rounded-xl bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary)] transition-colors h-12 text-sm font-semibold"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
@@ -715,12 +715,12 @@ export default function CheckoutPage() {
                 </Button>
 
                 <div className="rounded-lg bg-[#f9fafb] px-4 py-3 border border-[#e5e5e5]">
-                  <p className="text-center text-xs text-[#767676] leading-relaxed">
+                  <p className="text-center text-xs text-[var(--color-text-muted)] leading-relaxed">
                     Siparişi onayladığınızda{" "}
-                    <strong className="text-[#333333]">
+                    <strong className="text-[var(--color-foreground)]">
                       {formatCurrency(grandTotal)}
                     </strong>{" "}
-                    <span className="text-[#0040a4] font-semibold">
+                    <span className="text-[var(--color-primary)] font-semibold">
                       ({formatCurrency(grandTotal * usdTry, "TRY")} TL karşılığı)
                     </span>{" "}
                     tutarında {paymentMethod === "ON_ACCOUNT"

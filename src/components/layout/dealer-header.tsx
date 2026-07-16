@@ -231,10 +231,10 @@ function CategoryDropdown() {
           <div className="w-56 border-r border-[var(--DTColor_Border)] py-2 shrink-0">
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="h-5 w-5 animate-spin text-[#767676]" />
+                <Loader2 className="h-5 w-5 animate-spin text-[var(--color-text-muted)]" />
               </div>
             ) : categories.length === 0 ? (
-              <p className="px-4 py-3 text-[13px] text-[#767676]">
+              <p className="px-4 py-3 text-[13px] text-[var(--color-text-muted)]">
                 Kategori bulunamadı
               </p>
             ) : (
@@ -284,7 +284,7 @@ function CategoryDropdown() {
                 >
                   {activeParent.name}
                   {activeParent.productCount > 0 && (
-                    <span className="ml-1.5 text-[11px] font-normal text-[#767676]">
+                    <span className="ml-1.5 text-[11px] font-normal text-[var(--color-text-muted)]">
                       ({activeParent.productCount})
                     </span>
                   )}
@@ -317,7 +317,7 @@ function CategoryDropdown() {
                                   setOpen(false)
                                   setActiveParentId(null)
                                 }}
-                                className="inline-flex items-baseline gap-1 text-[12px] text-[#767676] hover:text-[var(--DTPrimaryColor)] transition-colors py-1"
+                                className="inline-flex items-baseline gap-1 text-[12px] text-[var(--color-text-muted)] hover:text-[var(--DTPrimaryColor)] transition-colors py-1"
                               >
                                 {child.name}
                                 {child.productCount > 0 && (
@@ -346,7 +346,7 @@ function CategoryDropdown() {
                 >
                   {activeParent.name} kategorisine git
                   {activeParent.productCount > 0 && (
-                    <span className="ml-1 text-[12px] font-normal text-[#767676]">
+                    <span className="ml-1 text-[12px] font-normal text-[var(--color-text-muted)]">
                       ({activeParent.productCount} ürün)
                     </span>
                   )}
@@ -390,8 +390,8 @@ function MobileCategoryAccordion({
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-4">
-        <Loader2 className="h-4 w-4 animate-spin text-[#767676]" />
-        <span className="ml-2 text-[12px] text-[#767676]">Kategoriler yükleniyor...</span>
+        <Loader2 className="h-4 w-4 animate-spin text-[var(--color-text-muted)]" />
+        <span className="ml-2 text-[12px] text-[var(--color-text-muted)]">Kategoriler yükleniyor...</span>
       </div>
     )
   }
@@ -422,7 +422,7 @@ function MobileCategoryAccordion({
               <button
                 type="button"
                 onClick={() => toggle(cat.id)}
-                className="p-2 text-[#767676] hover:text-[var(--DTPrimaryColor)] transition-colors"
+                className="p-2 text-[var(--color-text-muted)] hover:text-[var(--DTPrimaryColor)] transition-colors"
                 aria-expanded={expandedIds.has(cat.id)}
                 aria-label={`${cat.name} alt kategorilerini ${expandedIds.has(cat.id) ? "kapat" : "ac"}`}
               >
@@ -457,7 +457,7 @@ function MobileCategoryAccordion({
                       <button
                         type="button"
                         onClick={() => toggle(sub.id)}
-                        className="p-2 text-[#767676] hover:text-[var(--DTPrimaryColor)] transition-colors"
+                        className="p-2 text-[var(--color-text-muted)] hover:text-[var(--DTPrimaryColor)] transition-colors"
                         aria-expanded={expandedIds.has(sub.id)}
                         aria-label={`${sub.name} alt kategorilerini ${expandedIds.has(sub.id) ? "kapat" : "ac"}`}
                       >
@@ -478,7 +478,7 @@ function MobileCategoryAccordion({
                           key={child.id}
                           href={`/urunler?kategori=${child.slug}`}
                           onClick={onNavigate}
-                          className="block px-3 py-1 text-[11px] text-[#767676] hover:text-[var(--DTPrimaryColor)] transition-colors"
+                          className="block px-3 py-1 text-[11px] text-[var(--color-text-muted)] hover:text-[var(--DTPrimaryColor)] transition-colors"
                         >
                           {child.name}
                           {child.productCount > 0 && (
@@ -661,7 +661,7 @@ export function DealerHeader() {
 
             {/* Yardim metni */}
             <div className="hidden lg:flex flex-col shrink-0">
-              <span className="text-[11px] text-[#767676]">Yardıma mı ihtiyacınız var?</span>
+              <span className="text-[11px] text-[var(--color-text-muted)]">Yardıma mı ihtiyacınız var?</span>
               <a
                 href="tel:+905529895959"
                 className="text-[15px] font-bold text-[var(--DTSecondaryColor)] hover:text-[var(--DTPrimaryColor)] transition-colors"
@@ -682,7 +682,7 @@ export function DealerHeader() {
             <div className="flex items-center gap-4 shrink-0 ml-auto">
               <Link
                 href="/favoriler"
-                className="flex flex-col items-center gap-0.5 text-[#767676] hover:text-[var(--DTPrimaryColor)] transition-colors"
+                className="flex flex-col items-center gap-0.5 text-[var(--color-text-muted)] hover:text-[var(--DTPrimaryColor)] transition-colors"
                 aria-label="Favorilerim"
               >
                 <Heart className="h-5 w-5" />

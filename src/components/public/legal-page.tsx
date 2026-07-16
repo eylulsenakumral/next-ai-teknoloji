@@ -22,7 +22,7 @@ export function LegalPage({ title, subtitle, lastUpdated, intro, sections }: Leg
   return (
     <div className="font-nx-sans">
       {/* Hero */}
-      <section className="bg-[#0040a4] px-6 py-20 text-white md:px-10 md:py-24">
+      <section className="bg-[var(--color-primary)] px-6 py-20 text-white md:px-10 md:py-24">
         <div className="mx-auto max-w-4xl">
           <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#8aa8bc]">
             {subtitle ?? "Yasal"}
@@ -37,7 +37,7 @@ export function LegalPage({ title, subtitle, lastUpdated, intro, sections }: Leg
       </section>
 
       {/* Body */}
-      <section className="bg-[#f4f7fa] px-6 py-16 md:px-10">
+      <section className="bg-[var(--color-background)] px-6 py-16 md:px-10">
         <div className="mx-auto max-w-4xl">
           {intro && (
             <div className="mb-8 rounded-3xl border border-slate-200 bg-white p-6 text-sm leading-7 text-slate-600 md:p-8">
@@ -52,7 +52,7 @@ export function LegalPage({ title, subtitle, lastUpdated, intro, sections }: Leg
                 id={s.id}
                 className="rounded-3xl border border-slate-200 bg-white p-6 md:p-8"
               >
-                <h2 className="text-lg font-bold tracking-tight text-[#0040a4]">{s.title}</h2>
+                <h2 className="text-lg font-bold tracking-tight text-[var(--color-primary)]">{s.title}</h2>
                 <div className="mt-3 text-sm leading-7 text-slate-600">{s.body}</div>
               </section>
             ))}
@@ -69,7 +69,7 @@ export function LegalList({ items }: { items: ReactNode[] }) {
     <ul className="mt-3 space-y-2">
       {items.map((item, i) => (
         <li key={i} className="flex items-start gap-3 text-sm leading-6 text-slate-600">
-          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[#5086a8]" />
+          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--color-primary)]" />
           <span>{item}</span>
         </li>
       ))}

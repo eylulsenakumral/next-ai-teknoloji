@@ -145,8 +145,8 @@ export const metadata: Metadata = {
 /* ------------------------------------------------------------------ */
 
 const CATEGORY_GRADIENTS = [
-  "from-[#5086a8] to-[#1a6fe0]",
-  "from-[#0040a4] to-[#2d6da3]",
+  "from-[var(--color-primary)] to-[#1a6fe0]",
+  "from-[var(--color-primary)] to-[#2d6da3]",
   "from-[#0c2340] to-[#1a5276]",
   "from-[#2c3e50] to-[#3498db]",
   "from-[#1a3c5e] to-[#2980b9]",
@@ -229,29 +229,29 @@ export default async function KategorilerPage() {
   const categories = await getCategories()
 
   return (
-    <div className="bg-[#f4f7fa] min-h-screen">
+    <div className="bg-[var(--color-background)] min-h-screen">
       {/* Breadcrumb */}
-      <div className="bg-white border-b border-[#eeeeee]">
+      <div className="bg-white border-b border-[var(--color-border)]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-1.5 text-[12px] text-[#64748b]"
+            className="flex items-center gap-1.5 text-[12px] text-[var(--color-text-muted)]"
           >
             <Link
               href="/"
-              className="flex items-center gap-1 hover:text-[#5086a8] transition-colors"
+              className="flex items-center gap-1 hover:text-[var(--color-primary)] transition-colors"
             >
               <Home className="h-3 w-3" aria-hidden />
               Ana Sayfa
             </Link>
             <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
-            <span className="text-[#333333] font-semibold">Kategoriler</span>
+            <span className="text-[var(--color-foreground)] font-semibold">Kategoriler</span>
           </nav>
         </div>
       </div>
 
       {/* Hero */}
-      <div className="bg-gradient-to-r from-[#5086a8] to-[#4da6ff] text-white">
+      <div className="bg-gradient-to-r from-[var(--color-primary)] to-[#4da6ff] text-white">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-14">
           <p className="text-[12px] font-bold uppercase tracking-widest text-white/60 mb-2">
             Kategoriler
@@ -272,8 +272,8 @@ export default async function KategorilerPage() {
             <div className="w-20 h-20 flex items-center justify-center bg-[#f5f5f5]">
               <Package className="h-9 w-9 text-[#dddddd]" aria-hidden />
             </div>
-            <p className="font-bold text-[16px] text-[#333333]">Kategori bulunamadı</p>
-            <p className="text-[#64748b] text-[13px] max-w-xs">
+            <p className="font-bold text-[16px] text-[var(--color-foreground)]">Kategori bulunamadı</p>
+            <p className="text-[var(--color-text-muted)] text-[13px] max-w-xs">
               Henüz kategori oluşturulmamış. Lütfen daha sonra tekrar deneyin.
             </p>
           </div>

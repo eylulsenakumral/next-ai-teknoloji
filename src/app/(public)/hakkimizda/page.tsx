@@ -50,7 +50,7 @@ export default function HakkimizdaPage() {
   return (
     <div className="font-nx-sans">
       {/* Hero */}
-      <section className="bg-[#0040a4] px-6 py-24 text-white md:px-10 md:py-32">
+      <section className="bg-[var(--color-primary)] px-6 py-24 text-white md:px-10 md:py-32">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-end">
             <div>
@@ -59,7 +59,7 @@ export default function HakkimizdaPage() {
               </p>
               <h1 className="mt-4 text-4xl font-bold leading-[1.05] tracking-[-0.055em] md:text-6xl">
                 Türkiye'nin B2B teknoloji
-                <span className="block bg-gradient-to-r from-[#a8c4d4] to-[#5086a8] bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-[#a8c4d4] to-[var(--color-primary)] bg-clip-text text-transparent">
                   tedarik ve proje platformu.
                 </span>
               </h1>
@@ -90,9 +90,9 @@ export default function HakkimizdaPage() {
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-12 lg:grid-cols-2">
             <div>
-              <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#5086a8]">Misyonumuz</p>
+              <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">Misyonumuz</p>
               <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
-                Teknoloji tedarikçiden <span className="text-[#5086a8]">iş ortağına dönüşmek.</span>
+                Teknoloji tedarikçiden <span className="text-[var(--color-primary)]">iş ortağına dönüşmek.</span>
               </h2>
               <p className="mt-5 text-sm leading-7 text-slate-600">
                 Bayilerimizin yalnızca ürün tedarik ettiği bir firmadan, teknik danışmanlık aldıkları, proje
@@ -102,9 +102,9 @@ export default function HakkimizdaPage() {
             </div>
 
             <div>
-              <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#5086a8]">Vizyonumuz</p>
+              <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">Vizyonumuz</p>
               <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
-                Türkiye'nin <span className="text-[#5086a8]">1 numaralı B2B teknoloji platformu.</span>
+                Türkiye'nin <span className="text-[var(--color-primary)]">1 numaralı B2B teknoloji platformu.</span>
               </h2>
               <p className="mt-5 text-sm leading-7 text-slate-600">
                 Güvenlik, network ve bina otomasyonunda ülkenin en kapsamlı ürün gamına, en hızlı lojistik
@@ -117,10 +117,10 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* Values */}
-      <section className="bg-[#f4f7fa] px-6 py-20 md:px-10">
+      <section className="bg-[var(--color-background)] px-6 py-20 md:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-2xl">
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#5086a8]">Değerlerimiz</p>
+            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">Değerlerimiz</p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">
               4 temel ilke üzerine kurulduk.
             </h2>
@@ -129,10 +129,10 @@ export default function HakkimizdaPage() {
           <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v) => (
               <div key={v.title} className="rounded-2xl bg-white p-6 border border-slate-200">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0040a4] text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-primary)] text-white">
                   <v.Icon className="h-5 w-5" />
                 </div>
-                <h3 className="mt-5 text-lg font-bold text-[#0040a4]">{v.title}</h3>
+                <h3 className="mt-5 text-lg font-bold text-[var(--color-primary)]">{v.title}</h3>
                 <p className="mt-2 text-sm leading-6 text-slate-500">{v.desc}</p>
               </div>
             ))}
@@ -144,7 +144,7 @@ export default function HakkimizdaPage() {
       <section className="bg-white px-6 py-20 md:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-2xl">
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#5086a8]">Tarihçe</p>
+            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">Tarihçe</p>
             <h2 className="mt-3 text-3xl font-bold tracking-tight md:text-4xl">12 yıllık yolculuk.</h2>
           </div>
 
@@ -154,13 +154,13 @@ export default function HakkimizdaPage() {
                 key={m.year}
                 className={`rounded-2xl p-6 ${
                   i === 0 || i === milestones.length - 1
-                    ? "bg-[#0040a4] text-white"
-                    : "bg-[#f4f7fa] text-[#0040a4]"
+                    ? "bg-[var(--color-primary)] text-white"
+                    : "bg-[var(--color-background)] text-[var(--color-primary)]"
                 }`}
               >
                 <span
                   className={`font-nx-mono text-[10px] font-bold tracking-[.18em] ${
-                    i === 0 || i === milestones.length - 1 ? "text-[#8aa8bc]" : "text-[#5086a8]"
+                    i === 0 || i === milestones.length - 1 ? "text-[#8aa8bc]" : "text-[var(--color-primary)]"
                   }`}
                 >
                   {m.year}
@@ -180,7 +180,7 @@ export default function HakkimizdaPage() {
       </section>
 
       {/* Contact CTA */}
-      <section className="bg-[#5086a8] px-6 py-20 text-white md:px-10">
+      <section className="bg-[var(--color-primary)] px-6 py-20 text-white md:px-10">
         <div className="mx-auto max-w-7xl text-center">
           <h2 className="text-3xl font-bold tracking-[-0.055em] md:text-5xl">Bizimle çalışmak ister misiniz?</h2>
           <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-blue-100">
@@ -189,7 +189,7 @@ export default function HakkimizdaPage() {
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
               href="/bayimiz-olun"
-              className="rounded-xl bg-white px-6 py-4 text-sm font-bold text-[#5086a8] transition hover:bg-blue-50"
+              className="rounded-xl bg-white px-6 py-4 text-sm font-bold text-[var(--color-primary)] transition hover:bg-blue-50"
             >
               Bayimiz Olun
             </Link>

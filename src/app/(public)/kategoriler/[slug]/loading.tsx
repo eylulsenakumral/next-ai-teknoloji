@@ -2,9 +2,9 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export default function CategoryDetailLoading() {
   return (
-    <div className="bg-[#f4f7fa] min-h-screen">
+    <div className="bg-[var(--color-background)] min-h-screen">
       {/* Breadcrumb skeleton */}
-      <div className="bg-white border-b border-[#eeeeee]">
+      <div className="bg-white border-b border-[var(--color-border)]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
           <div className="flex items-center gap-2">
             <Skeleton className="h-3 w-16" />
@@ -17,7 +17,7 @@ export default function CategoryDetailLoading() {
       </div>
 
       {/* Hero skeleton */}
-      <div className="bg-gradient-to-r from-[#5086a8] to-[#4da6ff]">
+      <div className="bg-gradient-to-r from-[var(--color-primary)] to-[#4da6ff]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
           <div className="flex items-start gap-5">
             <Skeleton className="hidden sm:block w-16 h-16 shrink-0 bg-white/20" />
@@ -37,11 +37,11 @@ export default function CategoryDetailLoading() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-8">
         <div className="flex items-center gap-3 mb-4">
           <Skeleton className="h-5 w-32" />
-          <div className="flex-1 h-px bg-[#eeeeee]" />
+          <div className="flex-1 h-px bg-[var(--color-border)]" />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="flex items-center gap-4 bg-white border border-[#eeeeee] p-4">
+            <div key={i} className="flex items-center gap-4 bg-white border border-[var(--color-border)] p-4">
               <Skeleton className="w-11 h-11 shrink-0" />
               <div className="flex-1 space-y-2">
                 <Skeleton className="h-4 w-28" />
@@ -56,12 +56,12 @@ export default function CategoryDetailLoading() {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center gap-3 mb-4">
           <Skeleton className="h-5 w-40" />
-          <div className="flex-1 h-px bg-[#eeeeee]" />
+          <div className="flex-1 h-px bg-[var(--color-border)]" />
           <Skeleton className="h-4 w-28" />
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3">
           {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="bg-white border border-[#eeeeee] flex flex-col animate-pulse">
+            <div key={i} className="bg-white border border-[var(--color-border)] flex flex-col animate-pulse">
               <Skeleton className="aspect-square w-full" />
               <div className="p-3.5 space-y-2.5">
                 <Skeleton className="h-3 w-16" />

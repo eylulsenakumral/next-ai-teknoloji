@@ -181,7 +181,7 @@ function StatusTimeline({ currentStatus, createdAt, shippedAt, deliveredAt, canc
       <div className="relative">
         <div className="flex items-start gap-3 relative" style={{ minHeight: 44 }}>
           <div className="absolute left-[13px] top-[28px] bottom-0 w-0.5 bg-[#e5e5e5]" />
-          <div className="relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-[#0040a4] bg-[#0040a4]">
+          <div className="relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-primary)]">
             <div className="h-2.5 w-2.5 rounded-full bg-white" />
           </div>
           <div className="pt-0.5">
@@ -220,19 +220,19 @@ function StatusTimeline({ currentStatus, createdAt, shippedAt, deliveredAt, canc
         return (
           <div key={step.status} className="flex items-start gap-3 relative" style={{ minHeight: isLast ? 28 : 44 }}>
             {!isLast && (
-              <div className="absolute left-[13px] top-[28px] bottom-0 w-0.5" style={{ backgroundColor: idx < currentIndex ? "#0040a4" : "#e5e5e5" }} />
+              <div className="absolute left-[13px] top-[28px] bottom-0 w-0.5" style={{ backgroundColor: idx < currentIndex ? "var(--color-primary)" : "#e5e5e5" }} />
             )}
-            <div className={`relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 ${isDone ? "border-[#0040a4] bg-[#0040a4]" : "border-[#e5e5e5] bg-white"}`}>
+            <div className={`relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 ${isDone ? "border-[var(--color-primary)] bg-[var(--color-primary)]" : "border-[#e5e5e5] bg-white"}`}>
               <div className={`h-2.5 w-2.5 rounded-full ${isDone ? "bg-white" : "bg-[#ccc]"}`} />
             </div>
             <div className="pt-0.5">
-              <p className={`text-sm leading-snug ${isCurrent ? "font-semibold text-[#0040a4]" : isDone ? "font-medium text-[#333]" : "text-[#999]"}`}>
+              <p className={`text-sm leading-snug ${isCurrent ? "font-semibold text-[var(--color-primary)]" : isDone ? "font-medium text-[#333]" : "text-[#999]"}`}>
                 {step.label}
               </p>
               {step.date ? (
                 <p className="text-xs text-[#999] mt-0.5">{formatDate(step.date)}</p>
               ) : isCurrent ? (
-                <p className="flex items-center gap-1 text-xs text-[#767676] mt-0.5">
+                <p className="flex items-center gap-1 text-xs text-[var(--color-text-muted)] mt-0.5">
                   <Clock className="h-3 w-3" /><span>İşlemde</span>
                 </p>
               ) : null}
@@ -276,25 +276,25 @@ function Pagination({ meta, page, onPageChange, isLoading }: {
 
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-      <p className="text-sm text-[#767676]">
-        Toplam <span className="font-medium text-[#333333]">{total}</span>{" "}
+      <p className="text-sm text-[var(--color-text-muted)]">
+        Toplam <span className="font-medium text-[var(--color-foreground)]">{total}</span>{" "}
         siparişten{" "}
-        <span className="font-medium text-[#333333]">{from}-{to}</span>{" "}
+        <span className="font-medium text-[var(--color-foreground)]">{from}-{to}</span>{" "}
         arası gösteriliyor
       </p>
       <nav className="flex items-center gap-1" aria-label="Sayfa navigasyonu">
         <button onClick={() => onPageChange(page - 1)} disabled={page <= 1 || isLoading}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#e0e0e0] bg-white text-[#767676] transition-colors hover:border-[#0040a4] hover:text-[#0040a4] disabled:opacity-40 disabled:pointer-events-none"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#e0e0e0] bg-white text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:opacity-40 disabled:pointer-events-none"
           aria-label="Önceki sayfa">
           <ChevronLeft className="h-4 w-4" aria-hidden />
         </button>
         {getPageNumbers().map((p, idx) =>
           p === "ellipsis" ? (
-            <span key={`e-${idx}`} className="inline-flex h-8 w-8 items-center justify-center text-sm text-[#767676]">...</span>
+            <span key={`e-${idx}`} className="inline-flex h-8 w-8 items-center justify-center text-sm text-[var(--color-text-muted)]">...</span>
           ) : (
             <button key={p} onClick={() => onPageChange(p)} disabled={isLoading}
               className={`inline-flex h-8 w-8 items-center justify-center rounded-lg text-sm font-medium transition-colors ${
-                p === page ? "bg-[#0040a4] text-white shadow-sm" : "border border-[#e0e0e0] bg-white text-[#767676] hover:border-[#0040a4] hover:text-[#0040a4]"
+                p === page ? "bg-[var(--color-primary)] text-white shadow-sm" : "border border-[#e0e0e0] bg-white text-[var(--color-text-muted)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
               } disabled:opacity-40 disabled:pointer-events-none`}
               aria-label={`Sayfa ${p}`} aria-current={p === page ? "page" : undefined}>
               {p}
@@ -302,7 +302,7 @@ function Pagination({ meta, page, onPageChange, isLoading }: {
           ),
         )}
         <button onClick={() => onPageChange(page + 1)} disabled={page >= totalPages || isLoading}
-          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#e0e0e0] bg-white text-[#767676] transition-colors hover:border-[#0040a4] hover:text-[#0040a4] disabled:opacity-40 disabled:pointer-events-none"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#e0e0e0] bg-white text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:opacity-40 disabled:pointer-events-none"
           aria-label="Sonraki sayfa">
           <ChevronRight className="h-4 w-4" aria-hidden />
         </button>
@@ -350,7 +350,7 @@ function OrderDetailPanel({ orderId, usdTryRate }: { orderId: string; usdTryRate
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <Loader2 className="h-6 w-6 animate-spin text-[#0040a4]" />
+        <Loader2 className="h-6 w-6 animate-spin text-[var(--color-primary)]" />
       </div>
     )
   }
@@ -370,7 +370,7 @@ function OrderDetailPanel({ orderId, usdTryRate }: { orderId: string; usdTryRate
           {/* Sipariş Başlığı */}
           <div className="flex items-center gap-2 flex-wrap">
             <span className="font-mono text-sm font-bold text-[#333]">{detail.orderNumber}</span>
-            <button onClick={copyOrderNumber} className="text-[#999] hover:text-[#0040a4] transition-colors" title="Kopyala">
+            <button onClick={copyOrderNumber} className="text-[#999] hover:text-[var(--color-primary)] transition-colors" title="Kopyala">
               {copied ? <Check className="h-3.5 w-3.5 text-green-600" /> : <Copy className="h-3.5 w-3.5" />}
             </button>
             <OrderStatusBadge status={detail.status} />
@@ -380,7 +380,7 @@ function OrderDetailPanel({ orderId, usdTryRate }: { orderId: string; usdTryRate
           {/* Sipariş Kalemleri */}
           <div className="rounded-xl ring-1 ring-black/5 overflow-hidden">
             <div className="p-3 pb-2 flex items-center gap-2 bg-[#fafafa]">
-              <Package className="h-3.5 w-3.5 text-[#0040a4]" />
+              <Package className="h-3.5 w-3.5 text-[var(--color-primary)]" />
               <span className="text-xs font-semibold text-[#333]">Sipariş Kalemleri</span>
               <span className="ml-auto text-xs text-[#999]">{detail.items.length} ürün</span>
             </div>
@@ -388,10 +388,10 @@ function OrderDetailPanel({ orderId, usdTryRate }: { orderId: string; usdTryRate
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-y border-[#e5e5e5] bg-[#fafafa]">
-                    <th className="text-left py-2 px-4 text-xs font-medium text-[#767676] uppercase tracking-wide">Ürün</th>
-                    <th className="text-center py-2 px-2 text-xs font-medium text-[#767676] uppercase tracking-wide w-14">Adet</th>
-                    <th className="text-right py-2 px-2 text-xs font-medium text-[#767676] uppercase tracking-wide w-24">Birim</th>
-                    <th className="text-right py-2 px-4 text-xs font-medium text-[#767676] uppercase tracking-wide w-24">Toplam</th>
+                    <th className="text-left py-2 px-4 text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wide">Ürün</th>
+                    <th className="text-center py-2 px-2 text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wide w-14">Adet</th>
+                    <th className="text-right py-2 px-2 text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wide w-24">Birim</th>
+                    <th className="text-right py-2 px-4 text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wide w-24">Toplam</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#e5e5e5]">
@@ -413,8 +413,8 @@ function OrderDetailPanel({ orderId, usdTryRate }: { orderId: string; usdTryRate
               </table>
             </div>
             <div className="border-t border-[#e5e5e5] bg-[#fafafa] px-4 py-2.5 flex items-center justify-between">
-              <span className="text-xs text-[#767676]">Toplam ({detail.items.reduce((s, i) => s + i.quantity, 0)} adet)</span>
-              <span className="font-bold text-[#0040a4] tabular-nums">{formatCurrency(detail.grandTotal)}</span>
+              <span className="text-xs text-[var(--color-text-muted)]">Toplam ({detail.items.reduce((s, i) => s + i.quantity, 0)} adet)</span>
+              <span className="font-bold text-[var(--color-primary)] tabular-nums">{formatCurrency(detail.grandTotal)}</span>
             </div>
           </div>
 
@@ -422,20 +422,20 @@ function OrderDetailPanel({ orderId, usdTryRate }: { orderId: string; usdTryRate
           {(detail.shippingTrackingNumber || detail.shippingCarrier) && (
             <div className="rounded-xl ring-1 ring-black/5 p-4">
               <div className="flex items-center gap-2 mb-2">
-                <Truck className="h-3.5 w-3.5 text-[#0040a4]" />
+                <Truck className="h-3.5 w-3.5 text-[var(--color-primary)]" />
                 <span className="text-xs font-semibold text-[#333]">Kargo Bilgileri</span>
               </div>
               <div className="space-y-1.5 text-xs">
                 {detail.shippingCarrier && (
                   <div className="flex justify-between">
-                    <span className="text-[#767676]">Kargo Firması</span>
+                    <span className="text-[var(--color-text-muted)]">Kargo Firması</span>
                     <span className="font-medium text-[#333]">{detail.shippingCarrier}</span>
                   </div>
                 )}
                 {detail.shippingTrackingNumber && (
                   <div className="flex justify-between">
-                    <span className="text-[#767676]">Takip No</span>
-                    <span className="font-mono font-medium text-[#0040a4]">{detail.shippingTrackingNumber}</span>
+                    <span className="text-[var(--color-text-muted)]">Takip No</span>
+                    <span className="font-mono font-medium text-[var(--color-primary)]">{detail.shippingTrackingNumber}</span>
                   </div>
                 )}
               </div>
@@ -457,7 +457,7 @@ function OrderDetailPanel({ orderId, usdTryRate }: { orderId: string; usdTryRate
           {detail.notes && (
             <div className="rounded-xl ring-1 ring-black/5 p-4">
               <span className="text-xs font-semibold text-[#333]">Sipariş Notu</span>
-              <p className="text-xs text-[#767676] mt-1">{detail.notes}</p>
+              <p className="text-xs text-[var(--color-text-muted)] mt-1">{detail.notes}</p>
             </div>
           )}
         </div>
@@ -479,18 +479,18 @@ function OrderDetailPanel({ orderId, usdTryRate }: { orderId: string; usdTryRate
           {/* Ödeme */}
           <div className="rounded-xl ring-1 ring-black/5 p-4">
             <div className="flex items-center gap-2 mb-3">
-              <CreditCard className="h-3.5 w-3.5 text-[#0040a4]" />
+              <CreditCard className="h-3.5 w-3.5 text-[var(--color-primary)]" />
               <span className="text-xs font-semibold text-[#333]">Ödeme Bilgileri</span>
             </div>
             <div className="space-y-2 text-xs">
               <div className="flex justify-between">
-                <span className="text-[#767676]">Ödeme Yöntemi</span>
+                <span className="text-[var(--color-text-muted)]">Ödeme Yöntemi</span>
                 <span className="font-medium text-[#333]">
                   {PAYMENT_ICONS[detail.paymentMethod]} {PAYMENT_METHOD_LABELS[detail.paymentMethod] ?? detail.paymentMethod}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-[#767676]">Ödeme Durumu</span>
+                <span className="text-[var(--color-text-muted)]">Ödeme Durumu</span>
                 <span className={`inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full ${
                   detail.paymentStatus === "PAID" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"
                 }`}>
@@ -504,15 +504,15 @@ function OrderDetailPanel({ orderId, usdTryRate }: { orderId: string; usdTryRate
           {shippingAddr && (
             <div className="rounded-xl ring-1 ring-black/5 p-4">
               <div className="flex items-center gap-2 mb-2">
-                <MapPin className="h-3.5 w-3.5 text-[#0040a4]" />
+                <MapPin className="h-3.5 w-3.5 text-[var(--color-primary)]" />
                 <span className="text-xs font-semibold text-[#333]">Teslimat Adresi</span>
               </div>
               <div className="text-xs space-y-0.5">
                 {shippingAddr.companyName && <p className="font-semibold text-[#333]">{shippingAddr.companyName}</p>}
-                {shippingAddr.contactName && <p className="text-[#767676]">{shippingAddr.contactName}</p>}
-                {shippingAddr.phone && <p className="text-[#767676]">{shippingAddr.phone}</p>}
-                {shippingAddr.address && <p className="text-[#767676]">{shippingAddr.address}</p>}
-                <p className="text-[#767676]">{[shippingAddr.district, shippingAddr.city, shippingAddr.postalCode].filter(Boolean).join(", ")}</p>
+                {shippingAddr.contactName && <p className="text-[var(--color-text-muted)]">{shippingAddr.contactName}</p>}
+                {shippingAddr.phone && <p className="text-[var(--color-text-muted)]">{shippingAddr.phone}</p>}
+                {shippingAddr.address && <p className="text-[var(--color-text-muted)]">{shippingAddr.address}</p>}
+                <p className="text-[var(--color-text-muted)]">{[shippingAddr.district, shippingAddr.city, shippingAddr.postalCode].filter(Boolean).join(", ")}</p>
               </div>
             </div>
           )}
@@ -522,22 +522,22 @@ function OrderDetailPanel({ orderId, usdTryRate }: { orderId: string; usdTryRate
             <span className="text-xs font-semibold text-[#333]">Fiyat Özeti</span>
             <div className="space-y-1 text-xs">
               <div className="flex justify-between">
-                <span className="text-[#767676]">Ara Toplam</span>
+                <span className="text-[var(--color-text-muted)]">Ara Toplam</span>
                 <span className="text-[#333] tabular-nums">{formatCurrency(detail.subtotal)}</span>
               </div>
               {detail.discountTotal > 0 && (
                 <div className="flex justify-between">
-                  <span className="text-[#767676]">İskonto</span>
+                  <span className="text-[var(--color-text-muted)]">İskonto</span>
                   <span className="text-green-600 tabular-nums">-{formatCurrency(detail.discountTotal)}</span>
                 </div>
               )}
               <div className="flex justify-between">
-                <span className="text-[#767676]">KDV</span>
+                <span className="text-[var(--color-text-muted)]">KDV</span>
                 <span className="text-[#333] tabular-nums">{formatCurrency(detail.vatTotal)}</span>
               </div>
               {detail.shippingTotal > 0 && (
                 <div className="flex justify-between">
-                  <span className="text-[#767676]">Kargo</span>
+                  <span className="text-[var(--color-text-muted)]">Kargo</span>
                   <span className="text-[#333] tabular-nums">{formatCurrency(detail.shippingTotal)}</span>
                 </div>
               )}
@@ -545,15 +545,15 @@ function OrderDetailPanel({ orderId, usdTryRate }: { orderId: string; usdTryRate
             <Separator className="bg-[#e5e5e5]" />
             <div className="flex justify-between items-center">
               <span className="font-semibold text-[#333] text-xs">Genel Toplam</span>
-              <span className="font-bold text-[#0040a4] tabular-nums">{formatCurrency(detail.grandTotal)}</span>
+              <span className="font-bold text-[var(--color-primary)] tabular-nums">{formatCurrency(detail.grandTotal)}</span>
             </div>
             {grandTotalTRY > 0 && (
               <div className="rounded-lg bg-[#f0f5ff] border border-[#c5d9f8] p-2.5 space-y-0.5">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-[#0040a4] font-medium">TL Karşılığı</span>
-                  <span className="font-bold text-[#0040a4] tabular-nums">{formatCurrency(grandTotalTRY, "TRY")}</span>
+                  <span className="text-[var(--color-primary)] font-medium">TL Karşılığı</span>
+                  <span className="font-bold text-[var(--color-primary)] tabular-nums">{formatCurrency(grandTotalTRY, "TRY")}</span>
                 </div>
-                <p className="text-[10px] text-[#767676]">1 USD = {usdTryRate.toFixed(2)} TL</p>
+                <p className="text-[10px] text-[var(--color-text-muted)]">1 USD = {usdTryRate.toFixed(2)} TL</p>
               </div>
             )}
           </div>
@@ -620,17 +620,17 @@ export default function OrdersPage() {
       {/* ---- Header ---- */}
       <div className="flex items-start justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#333333] tracking-tight">Siparişlerim</h1>
-          <p className="mt-1 text-sm text-[#767676]">Tüm siparişlerinizi buradan takip edebilirsiniz.</p>
+          <h1 className="text-2xl font-bold text-[var(--color-foreground)] tracking-tight">Siparişlerim</h1>
+          <p className="mt-1 text-sm text-[var(--color-text-muted)]">Tüm siparişlerinizi buradan takip edebilirsiniz.</p>
         </div>
         <div className="flex items-center gap-3">
           {meta && (
-            <span className="inline-flex items-center rounded-full bg-[#0040a4]/10 px-3 py-1 text-xs font-semibold text-[#0040a4]">
+            <span className="inline-flex items-center rounded-full bg-[var(--color-primary)]/10 px-3 py-1 text-xs font-semibold text-[var(--color-primary)]">
               {meta.total} sipariş
             </span>
           )}
           <button onClick={fetchOrders} disabled={isLoading}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-[#0040a4] px-3.5 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#1a6fd4] disabled:opacity-50"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-[var(--color-primary)] px-3.5 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-[#1a6fd4] disabled:opacity-50"
             aria-label="Siparişleri yenile">
             <RefreshCw className={`h-4 w-4 ${isLoading ? "animate-spin" : ""}`} aria-hidden />
             Yenile
@@ -645,7 +645,7 @@ export default function OrdersPage() {
           return (
             <button key={tab.value} role="tab" aria-selected={isActive} onClick={() => handleStatusChange(tab.value)}
               className={`shrink-0 rounded-lg px-4 py-2 text-sm font-medium transition-all ${
-                isActive ? "bg-[#0040a4] text-white shadow-sm" : "border border-[#e0e0e0] bg-white text-[#767676] hover:border-[#0040a4] hover:text-[#0040a4]"
+                isActive ? "bg-[var(--color-primary)] text-white shadow-sm" : "border border-[#e0e0e0] bg-white text-[var(--color-text-muted)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
               }`}>
               {tab.label}
             </button>
@@ -667,16 +667,16 @@ export default function OrdersPage() {
       ) : orders.length === 0 ? (
         <div className="rounded-2xl ring-1 ring-black/5 shadow-sm bg-white">
           <div className="flex flex-col items-center justify-center gap-5 py-20 text-center px-6">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#0040a4]/10">
-              <ShoppingBag className="h-8 w-8 text-[#0040a4]" aria-hidden />
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--color-primary)]/10">
+              <ShoppingBag className="h-8 w-8 text-[var(--color-primary)]" aria-hidden />
             </div>
             <div>
-              <p className="text-lg font-semibold text-[#333333]">Sipariş bulunamadı</p>
-              <p className="mt-1.5 text-sm text-[#767676] max-w-sm mx-auto">
+              <p className="text-lg font-semibold text-[var(--color-foreground)]">Sipariş bulunamadı</p>
+              <p className="mt-1.5 text-sm text-[var(--color-text-muted)] max-w-sm mx-auto">
                 {status !== "ALL" ? "Bu filtreye uygun sipariş bulunmuyor. Farklı bir filtre deneyin." : "Henüz siparişiniz yok. Ürünlerimize göz atın!"}
               </p>
             </div>
-            <Link href="/urunler" className="mt-2 bg-[#0040a4] text-white hover:bg-[#1a6fd4] inline-flex items-center justify-center gap-1.5 rounded-lg h-8 px-2.5 text-sm font-medium transition-colors">
+            <Link href="/urunler" className="mt-2 bg-[var(--color-primary)] text-white hover:bg-[#1a6fd4] inline-flex items-center justify-center gap-1.5 rounded-lg h-8 px-2.5 text-sm font-medium transition-colors">
               Alışverişe Başla
             </Link>
           </div>
@@ -690,12 +690,12 @@ export default function OrdersPage() {
                 <thead>
                   <tr className="bg-[#f9f9f9] border-b border-black/5">
                     <th className="w-10 px-3 py-3" />
-                    <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[#767676]">Sipariş No</th>
-                    <th className="hidden sm:table-cell px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[#767676]">Tarih</th>
-                    <th className="hidden md:table-cell px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[#767676]">Ürün Sayısı</th>
-                    <th className="hidden sm:table-cell px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[#767676]">Ödeme Yöntemi</th>
-                    <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[#767676] text-right">Toplam</th>
-                    <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[#767676]">Durum</th>
+                    <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Sipariş No</th>
+                    <th className="hidden sm:table-cell px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Tarih</th>
+                    <th className="hidden md:table-cell px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Ürün Sayısı</th>
+                    <th className="hidden sm:table-cell px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Ödeme Yöntemi</th>
+                    <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] text-right">Toplam</th>
+                    <th className="px-5 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">Durum</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-black/5">
@@ -714,26 +714,26 @@ export default function OrdersPage() {
                               setExpandedId(isExpanded ? null : order.id)
                             }
                           }}
-                          className={`cursor-pointer transition-colors hover:bg-[#f0f4ff] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0040a4] ${idx % 2 === 1 ? "bg-[#fafafa]" : "bg-white"}`}
+                          className={`cursor-pointer transition-colors hover:bg-[#f0f4ff] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--color-primary)] ${idx % 2 === 1 ? "bg-[#fafafa]" : "bg-white"}`}
                         >
                           <td className="px-3 py-3.5">
-                            <ChevronDown className={`h-4 w-4 text-[#767676] transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} />
+                            <ChevronDown className={`h-4 w-4 text-[var(--color-text-muted)] transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} />
                           </td>
-                          <td className="px-5 py-3.5 font-mono text-sm font-bold text-[#333333] whitespace-nowrap">{order.orderNumber}</td>
-                          <td className="hidden sm:table-cell px-5 py-3.5 text-sm text-[#767676] whitespace-nowrap">{formatDate(order.createdAt)}</td>
-                          <td className="hidden md:table-cell px-5 py-3.5 text-sm text-[#767676]">{order.itemCount} ürün</td>
-                          <td className="hidden sm:table-cell px-5 py-3.5 text-sm text-[#767676]">{PAYMENT_METHOD_LABELS[order.paymentMethod] ?? order.paymentMethod}</td>
+                          <td className="px-5 py-3.5 font-mono text-sm font-bold text-[var(--color-foreground)] whitespace-nowrap">{order.orderNumber}</td>
+                          <td className="hidden sm:table-cell px-5 py-3.5 text-sm text-[var(--color-text-muted)] whitespace-nowrap">{formatDate(order.createdAt)}</td>
+                          <td className="hidden md:table-cell px-5 py-3.5 text-sm text-[var(--color-text-muted)]">{order.itemCount} ürün</td>
+                          <td className="hidden sm:table-cell px-5 py-3.5 text-sm text-[var(--color-text-muted)]">{PAYMENT_METHOD_LABELS[order.paymentMethod] ?? order.paymentMethod}</td>
                           <td className="px-5 py-3.5 text-right tabular-nums whitespace-nowrap">
-                            <div className="text-sm font-semibold text-[#333333]">{formatCurrency(order.grandTotal, "USD")}</div>
+                            <div className="text-sm font-semibold text-[var(--color-foreground)]">{formatCurrency(order.grandTotal, "USD")}</div>
                             {usdTryRate > 0 && (
-                              <div className="text-[11px] text-[#767676] mt-0.5">≈ {formatCurrency(order.grandTotal * usdTryRate, "TRY")}</div>
+                              <div className="text-[11px] text-[var(--color-text-muted)] mt-0.5">≈ {formatCurrency(order.grandTotal * usdTryRate, "TRY")}</div>
                             )}
                           </td>
                           <td className="px-5 py-3.5"><OrderStatusBadge status={order.status} /></td>
                         </tr>
                         {isExpanded && (
                           <tr>
-                            <td colSpan={7} className="bg-[#fafcff] border-t border-b-2 border-[#0040a4]/10 p-0">
+                            <td colSpan={7} className="bg-[#fafcff] border-t border-b-2 border-[var(--color-primary)]/10 p-0">
                               <OrderDetailPanel orderId={order.id} usdTryRate={usdTryRate} />
                             </td>
                           </tr>

@@ -737,7 +737,7 @@ export default function KampanyalarPage() {
                                 type="button"
                                 onClick={() => handleSaveEdit(product.id)}
                                 disabled={saveLoading}
-                                className="inline-flex items-center gap-1 rounded-lg bg-[#0040a4] px-3 py-1 text-xs font-medium text-white hover:bg-[#1a6fd4] disabled:opacity-50 transition-colors"
+                                className="inline-flex items-center gap-1 rounded-lg bg-[var(--color-primary)] px-3 py-1 text-xs font-medium text-white hover:bg-[#1a6fd4] disabled:opacity-50 transition-colors"
                               >
                                 {saveLoading ? "Kaydediliyor..." : "Kaydet"}
                               </button>
@@ -808,7 +808,7 @@ export default function KampanyalarPage() {
                                 type="button"
                                 onClick={() => startEdit(product)}
                                 title="Fiyat/İndirim Düzenle"
-                                className="inline-flex items-center gap-1 rounded-lg border border-[#0040a4]/30 bg-white px-2.5 py-1 text-xs font-medium text-[#0040a4] hover:bg-[#0040a4]/5 hover:border-[#0040a4]/50 transition-colors"
+                                className="inline-flex items-center gap-1 rounded-lg border border-[var(--color-primary)]/30 bg-white px-2.5 py-1 text-xs font-medium text-[var(--color-primary)] hover:bg-[var(--color-primary)]/5 hover:border-[var(--color-primary)]/50 transition-colors"
                               >
                                 <Pencil className="h-3 w-3" />
                                 Düzenle

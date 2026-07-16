@@ -47,7 +47,7 @@ export function PromoBar({
 
   return (
     <div
-      className={`${bgColor ?? "bg-[#0040a4]"} ${textColor} relative z-50 transition-all duration-300`}
+      className={`${bgColor ?? "bg-[var(--color-primary)]"} ${textColor} relative z-50 transition-all duration-300`}
       role="banner"
       aria-label="Promosyon"
     >

@@ -30,7 +30,7 @@ export interface CampaignProductCardProps {
 function DiscountBadge({ discountPct, label }: { discountPct?: number | null; label?: string | null }) {
   if (discountPct && discountPct > 0) {
     return (
-      <div className="absolute top-3 left-3 z-20 bg-[#0040a4] text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-sm">
+      <div className="absolute top-3 left-3 z-20 bg-[var(--color-primary)] text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-sm">
         -{Math.round(Number(discountPct))}%
       </div>
     )
@@ -41,7 +41,7 @@ function DiscountBadge({ discountPct, label }: { discountPct?: number | null; la
       <div
         className={cn(
           "absolute top-3 left-3 z-20 text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-sm",
-          isOutlet ? "bg-[#a60811]" : "bg-[#0040a4]"
+          isOutlet ? "bg-[var(--color-error)]" : "bg-[var(--color-primary)]"
         )}
       >
         {label}
@@ -55,7 +55,7 @@ function SoldOutOverlay({ inStock }: { inStock: boolean }) {
   if (inStock) return null
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-black/30 rounded-t-[20px] z-10">
-      <div className="w-20 h-20 bg-[#a60811] rounded-full flex items-center justify-center">
+      <div className="w-20 h-20 bg-[var(--color-error)] rounded-full flex items-center justify-center">
         <span className="text-white font-bold text-center text-sm">
           Stok<br />Yok
         </span>
@@ -77,7 +77,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
   return (
     <article
       className={cn(
-        "group relative bg-[#f4f7fa] rounded-[20px] flex flex-col overflow-hidden",
+        "group relative bg-[var(--color-background)] rounded-[20px] flex flex-col overflow-hidden",
         "hover:shadow-[0_8px_25px_rgba(187,187,187,0.5)] hover:-translate-y-1",
         "transition-all duration-300 linear"
       )}
@@ -101,7 +101,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
             className="object-contain p-6 transition-transform duration-500 group-hover:scale-110"
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-[#f4f7fa]">
+          <div className="absolute inset-0 flex items-center justify-center bg-[var(--color-background)]">
             <ImageOff className="h-14 w-14 text-[#e0e0e0]" aria-hidden />
           </div>
         )}
@@ -116,7 +116,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
         <div className="absolute top-3 right-3 flex flex-col gap-2 z-10 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
           <button
             type="button"
-            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[#0040a4] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
+            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200"
             aria-label={`${product.name} favorilere ekle`}
           >
             <Heart className="h-4 w-4" aria-hidden />
@@ -124,7 +124,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
           <button
             type="button"
             onClick={() => router.push(`/katalog/${product.slug}`)}
-            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[#0040a4] hover:bg-[#0040a4] hover:text-white transition-all duration-200"
+            className="w-9 h-9 bg-white rounded-full shadow-md flex items-center justify-center text-[var(--color-primary)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200"
             aria-label={`${product.name} hızlı bak`}
           >
             <Eye className="h-4 w-4" aria-hidden />
@@ -146,7 +146,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
         {/* Product Name */}
         <Link
           href={`/katalog/${product.slug}`}
-          className="text-[13px] font-semibold text-[#0040a4] leading-snug line-clamp-2 hover:text-[#0040a4] transition-colors min-h-[40px]"
+          className="text-[13px] font-semibold text-[var(--color-primary)] leading-snug line-clamp-2 hover:text-[var(--color-primary)] transition-colors min-h-[40px]"
         >
           {product.name}
         </Link>
@@ -154,7 +154,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
         {/* Category chip */}
         {product.category && (
           <div>
-            <span className="inline-flex items-center gap-1 text-[10px] text-[#64748b] bg-[#eeeeee] px-2 py-0.5 rounded max-w-full truncate">
+            <span className="inline-flex items-center gap-1 text-[10px] text-[var(--color-text-muted)] bg-[var(--color-border)] px-2 py-0.5 rounded max-w-full truncate">
               <Tag className="h-2.5 w-2.5 shrink-0" aria-hidden />
               {product.category.name}
             </span>
@@ -172,7 +172,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
           {showPrice && ((product as any).manualPrice != null || (product as any).salePriceExVat != null) ? (
             <Link
               href={`/katalog/${product.slug}`}
-              className="flex flex-col items-center justify-center gap-0.5 py-2.5 px-4 rounded-lg w-full bg-[#0040a4] hover:bg-[#003080] transition-all duration-300"
+              className="flex flex-col items-center justify-center gap-0.5 py-2.5 px-4 rounded-lg w-full bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] transition-all duration-300"
             >
               {(() => {
                 const p = product as any
@@ -196,7 +196,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
           ) : showPrice ? (
             <Link
               href={`/katalog/${product.slug}`}
-              className="flex items-center justify-center gap-1.5 h-10 px-4 text-[11px] font-semibold rounded-lg w-full bg-[#0040a4] text-white hover:bg-[#003080] transition-all duration-300"
+              className="flex items-center justify-center gap-1.5 h-10 px-4 text-[11px] font-semibold rounded-lg w-full bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] transition-all duration-300"
             >
               Fiyatı Gör
             </Link>
@@ -205,7 +205,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
               href="/login"
               className={cn(
                 "flex items-center justify-center gap-1.5 h-10 px-4 text-[11px] font-semibold rounded-lg w-full",
-                "border border-[#0040a4]/30 bg-[#0040a4]/5 text-[#0040a4] hover:bg-[#0040a4]/10 hover:underline transition-all duration-300"
+                "border border-[var(--color-primary)]/30 bg-[var(--color-primary)]/5 text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 hover:underline transition-all duration-300"
               )}
             >
               <Lock className="h-3.5 w-3.5 shrink-0" aria-hidden />

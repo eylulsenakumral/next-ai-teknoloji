@@ -74,8 +74,8 @@ export function CityDistrictSelector({
   }, [cityId, fetchDistricts])
 
   const selectClass = cn(
-    "w-full h-[46px] px-4 rounded-[20px] border border-transparent bg-[#f3f3f3] text-[14px] text-[#1e1e1e]",
-    "outline-none transition-all duration-300 focus:border-[#0040a4] focus:bg-white",
+    "w-full h-[46px] px-4 rounded-[20px] border border-transparent bg-[var(--color-surface-muted)] text-[14px] text-[var(--color-foreground)]",
+    "outline-none transition-all duration-300 focus:border-[var(--color-primary)] focus:bg-white",
     "appearance-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
   )
 
@@ -84,7 +84,7 @@ export function CityDistrictSelector({
       {/* İl */}
       <div className="space-y-1.5">
         {showLabels && (
-          <Label className="text-[13px] font-semibold text-[#1e1e1e]">
+          <Label className="text-[13px] font-semibold text-[var(--color-foreground)]">
             İl
           </Label>
         )}
@@ -118,9 +118,9 @@ export function CityDistrictSelector({
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
             {loadingCities ? (
-              <Loader2 className="h-4 w-4 animate-spin text-[#767676]" />
+              <Loader2 className="h-4 w-4 animate-spin text-[var(--color-text-muted)]" />
             ) : (
-              <ChevronDown className="h-4 w-4 text-[#767676]" />
+              <ChevronDown className="h-4 w-4 text-[var(--color-text-muted)]" />
             )}
           </div>
         </div>
@@ -129,7 +129,7 @@ export function CityDistrictSelector({
       {/* İlçe */}
       <div className="space-y-1.5">
         {showLabels && (
-          <Label className="text-[13px] font-semibold text-[#1e1e1e]">
+          <Label className="text-[13px] font-semibold text-[var(--color-foreground)]">
             İlçe
           </Label>
         )}
@@ -160,9 +160,9 @@ export function CityDistrictSelector({
           </select>
           <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
             {loadingDistricts ? (
-              <Loader2 className="h-4 w-4 animate-spin text-[#767676]" />
+              <Loader2 className="h-4 w-4 animate-spin text-[var(--color-text-muted)]" />
             ) : (
-              <ChevronDown className="h-4 w-4 text-[#767676]" />
+              <ChevronDown className="h-4 w-4 text-[var(--color-text-muted)]" />
             )}
           </div>
         </div>

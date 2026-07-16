@@ -118,17 +118,17 @@ function OptionCard({
       onClick={onClick}
       className={`group relative flex flex-col items-start gap-3 rounded-2xl border p-5 text-left transition-all duration-200 ${
         selected
-          ? "border-[#5086a8] bg-[#5086a8]/10 ring-1 ring-[#5086a8]/40"
+          ? "border-[var(--color-primary)] bg-[var(--color-primary)]/10 ring-1 ring-[var(--color-primary)]/40"
           : "border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/8"
       }`}
     >
       {selected && (
-        <span className="absolute right-4 top-4 flex h-5 w-5 items-center justify-center rounded-full bg-[#5086a8] text-[10px] text-white">
+        <span className="absolute right-4 top-4 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-primary)] text-[10px] text-white">
           ✓
         </span>
       )}
       <div className={`flex h-10 w-10 items-center justify-center rounded-xl transition ${
-        selected ? "bg-[#5086a8]/20 text-[#8aa8bc]" : "bg-white/10 text-slate-400 group-hover:text-slate-200"
+        selected ? "bg-[var(--color-primary)]/20 text-[#8aa8bc]" : "bg-white/10 text-slate-400 group-hover:text-slate-200"
       }`}>
         <option.Icon className="h-5 w-5" />
       </div>
@@ -162,8 +162,8 @@ function ResultScreen({ answers }: { answers: Record<string, string[]> }) {
     <div className="flex flex-col items-center text-center">
       {/* success icon */}
       <div className="relative flex h-20 w-20 items-center justify-center">
-        <div className="absolute inset-0 animate-ping rounded-full bg-[#5086a8]/20" />
-        <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-[#5086a8]/30 bg-[#5086a8]/10 text-[#5086a8]">
+        <div className="absolute inset-0 animate-ping rounded-full bg-[var(--color-primary)]/20" />
+        <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-[var(--color-primary)]/30 bg-[var(--color-primary)]/10 text-[var(--color-primary)]">
           <IcnTarget className="h-9 w-9" />
         </div>
       </div>
@@ -198,7 +198,7 @@ function ResultScreen({ answers }: { answers: Record<string, string[]> }) {
 
       {/* recommended series */}
       <div className="mt-8 w-full max-w-2xl rounded-2xl border border-white/10 bg-white/5 p-6 text-left">
-        <p className="font-mono text-[10px] uppercase tracking-[.18em] text-[#5086a8]">Ön öneri</p>
+        <p className="font-mono text-[10px] uppercase tracking-[.18em] text-[var(--color-primary)]">Ön öneri</p>
         <div className="mt-4 space-y-3">
           {[
             { name: "IP Kamera Seti", detail: "PoE switch dahil, çoklu çözünürlük seçenekleri", badge: "Popüler" },
@@ -213,7 +213,7 @@ function ResultScreen({ answers }: { answers: Record<string, string[]> }) {
                 <p className="text-sm font-semibold text-white">{item.name}</p>
                 <p className="mt-0.5 text-xs text-slate-500">{item.detail}</p>
               </div>
-              <span className="shrink-0 rounded-full border border-[#5086a8]/40 bg-[#5086a8]/10 px-2.5 py-0.5 text-[10px] font-bold text-[#57a1ff]">
+              <span className="shrink-0 rounded-full border border-[var(--color-primary)]/40 bg-[var(--color-primary)]/10 px-2.5 py-0.5 text-[10px] font-bold text-[#57a1ff]">
                 {item.badge}
               </span>
             </div>
@@ -225,7 +225,7 @@ function ResultScreen({ answers }: { answers: Record<string, string[]> }) {
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <button
           onClick={() => router.push("/teklif-iste")}
-          className="rounded-xl bg-[#5086a8] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#5086a8]/25 transition hover:bg-[#456680]"
+          className="rounded-xl bg-[var(--color-primary)] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[var(--color-primary)]/25 transition hover:bg-[#456680]"
         >
           Resmi Teklif İste →
         </button>
@@ -254,7 +254,7 @@ function SumCard({
 }) {
   return (
     <div className="rounded-xl border border-white/10 bg-white/5 p-4">
-      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#5086a8]/10 text-[#5086a8]">
+      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-primary)]/10 text-[var(--color-primary)]">
         <Icon className="h-4 w-4" />
       </div>
       <p className="mt-2 font-mono text-[9px] uppercase tracking-widest text-slate-500">{label}</p>
@@ -299,9 +299,9 @@ export default function ProjectDesign() {
   const progress = done ? 100 : (currentStep / STEPS.length) * 100;
 
   return (
-    <div className="min-h-screen bg-[#0040a4] text-white">
+    <div className="min-h-screen bg-[var(--color-primary)] text-white">
       {/* Top bar */}
-      <div className="sticky top-0 z-10 border-b border-white/8 bg-[#0040a4]/90 backdrop-blur-xl">
+      <div className="sticky top-0 z-10 border-b border-white/8 bg-[var(--color-primary)]/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
           <button
             onClick={() => router.push("/")}
@@ -310,7 +310,7 @@ export default function ProjectDesign() {
             <span>←</span>
             <span>Ana Sayfa</span>
           </button>
-          <span className="font-mono text-[11px] font-semibold tracking-[.15em] text-[#5086a8]">
+          <span className="font-mono text-[11px] font-semibold tracking-[.15em] text-[var(--color-primary)]">
             PROJE TASARIM SİHİRBAZI
           </span>
           <span className="font-mono text-[11px] text-slate-600">
@@ -320,7 +320,7 @@ export default function ProjectDesign() {
         {/* progress bar */}
         <div className="h-0.5 w-full bg-white/5">
           <div
-            className="h-full bg-[#5086a8] transition-all duration-500"
+            className="h-full bg-[var(--color-primary)] transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -337,9 +337,9 @@ export default function ProjectDesign() {
                     key={s.id}
                     className={`flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-bold transition-all ${
                       i < currentStep
-                        ? "bg-[#5086a8] text-white"
+                        ? "bg-[var(--color-primary)] text-white"
                         : i === currentStep
-                        ? "border-2 border-[#5086a8] text-[#5086a8]"
+                        ? "border-2 border-[var(--color-primary)] text-[var(--color-primary)]"
                         : "border border-white/15 text-slate-600"
                     }`}
                   >
@@ -347,7 +347,7 @@ export default function ProjectDesign() {
                   </div>
                 ))}
               </div>
-              <p className="font-mono text-[10px] uppercase tracking-[.18em] text-[#5086a8]">
+              <p className="font-mono text-[10px] uppercase tracking-[.18em] text-[var(--color-primary)]">
                 Adım {currentStep + 1} · {step.label}
               </p>
               <h1 className="mt-4 text-3xl font-bold tracking-tight md:text-4xl">{step.title}</h1>
@@ -391,7 +391,7 @@ export default function ProjectDesign() {
                   disabled={!canProceed}
                   className={`rounded-xl px-7 py-3.5 text-sm font-bold transition-all ${
                     canProceed
-                      ? "bg-[#5086a8] text-white shadow-lg shadow-[#5086a8]/25 hover:bg-[#456680]"
+                      ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/25 hover:bg-[#456680]"
                       : "cursor-not-allowed bg-white/5 text-slate-600"
                   }`}
                 >

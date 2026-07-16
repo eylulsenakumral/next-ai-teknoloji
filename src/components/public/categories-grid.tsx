@@ -22,8 +22,8 @@ const colClasses: Record<3 | 4 | 6, string> = {
 }
 
 const CATEGORY_GRADIENTS = [
-  "from-[#0040a4] to-[#1a6fe0]",
-  "from-[#0040a4] to-[#2d6da3]",
+  "from-[var(--color-primary)] to-[#1a6fe0]",
+  "from-[var(--color-primary)] to-[#2d6da3]",
   "from-[#0c2340] to-[#1a5276]",
   "from-[#2c3e50] to-[#3498db]",
   "from-[#1a3c5e] to-[#2980b9]",
@@ -44,16 +44,16 @@ export function CategoriesGrid({
         <div className="flex items-center justify-between mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <span className="inline-flex items-center gap-1.5 bg-[#0040a4] text-white px-3 py-1 rounded-full text-xs font-bold">
+              <span className="inline-flex items-center gap-1.5 bg-[var(--color-primary)] text-white px-3 py-1 rounded-full text-xs font-bold">
                 <FolderTree className="w-3 h-3" />
                 KATEGORİLER
               </span>
             </div>
-            <h2 className="text-2xl font-bold text-[#0040a4]">{title}</h2>
+            <h2 className="text-2xl font-bold text-[var(--color-primary)]">{title}</h2>
           </div>
           <Link
             href="/katalog"
-            className="text-sm font-semibold text-[#0040a4] hover:text-[#003080] transition-colors flex items-center gap-1 group"
+            className="text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors flex items-center gap-1 group"
           >
             Tümünü Gör
             <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />

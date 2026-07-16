@@ -203,7 +203,7 @@ function FooterColumn({
 }) {
   return (
     <div>
-      <h3 className="font-bold text-[14px] text-[#f3f3f3] uppercase tracking-wider mb-4 pb-2 border-b border-[#333333]">
+      <h3 className="font-bold text-[14px] text-[var(--color-surface-muted)] uppercase tracking-wider mb-4 pb-2 border-b border-[var(--color-foreground)]">
         {title}
       </h3>
       <ul className="space-y-2.5">
@@ -211,7 +211,7 @@ function FooterColumn({
           <li key={href + label}>
             <Link
               href={href}
-              className="text-[14px] text-[#999999] hover:text-[#0040a4] transition-[var(--DTBaseTransition)]"
+              className="text-[14px] text-[#999999] hover:text-[var(--color-primary)] transition-[var(--DTBaseTransition)]"
             >
               {label}
             </Link>
@@ -229,7 +229,7 @@ function FooterColumn({
 export function DealerFooter() {
   return (
     <footer
-      className="bg-[#1e1e1e] border-t border-[#333333] mt-auto"
+      className="bg-[var(--color-foreground)] border-t border-[var(--color-foreground)] mt-auto"
       style={{ borderRadius: "0px" }}
       role="contentinfo"
     >
@@ -245,7 +245,7 @@ export function DealerFooter() {
               >
                 <IconCpu className="w-5 h-5 text-white" />
               </div>
-              <span className="font-extrabold text-[15px] text-[#f3f3f3] uppercase tracking-tight">
+              <span className="font-extrabold text-[15px] text-[var(--color-surface-muted)] uppercase tracking-tight">
                 Next AI Teknoloji
               </span>
             </div>
@@ -265,25 +265,25 @@ export function DealerFooter() {
                 <IconPhone className="h-4 w-4 text-[var(--DTPrimaryColor)] shrink-0 mt-0.5" />
                 <div className="space-y-1">
                   <div>
-                    <span className="text-[11px] font-semibold text-[#f3f3f3] uppercase tracking-wide">
+                    <span className="text-[11px] font-semibold text-[var(--color-surface-muted)] uppercase tracking-wide">
                       Satış Destek Hattı
                     </span>
                     <br />
                     <a
                       href="tel:+905529895959"
-                      className="text-[13px] text-[#999999] hover:text-[#0040a4] transition-[var(--DTBaseTransition)]"
+                      className="text-[13px] text-[#999999] hover:text-[var(--color-primary)] transition-[var(--DTBaseTransition)]"
                     >
                       0 552 989 5959
                     </a>
                   </div>
                   <div>
-                    <span className="text-[11px] font-semibold text-[#f3f3f3] uppercase tracking-wide">
+                    <span className="text-[11px] font-semibold text-[var(--color-surface-muted)] uppercase tracking-wide">
                       Teknik Destek Hatti
                     </span>
                     <br />
                     <a
                       href="tel:+905529915959"
-                      className="text-[13px] text-[#999999] hover:text-[#0040a4] transition-[var(--DTBaseTransition)]"
+                      className="text-[13px] text-[#999999] hover:text-[var(--color-primary)] transition-[var(--DTBaseTransition)]"
                     >
                       0 552 991 5959
                     </a>
@@ -294,7 +294,7 @@ export function DealerFooter() {
                 <IconMail className="h-4 w-4 text-[var(--DTPrimaryColor)] shrink-0" />
                 <a
                   href="mailto:info@next-ai.com.tr"
-                  className="text-[13px] text-[#999999] hover:text-[#0040a4] transition-[var(--DTBaseTransition)]"
+                  className="text-[13px] text-[#999999] hover:text-[var(--color-primary)] transition-[var(--DTBaseTransition)]"
                 >
                   info@next-ai.com.tr
                 </a>
@@ -325,7 +325,7 @@ export function DealerFooter() {
       </div>
 
       {/* Alt Footer */}
-      <div className="border-t border-[#333333] bg-[#1a1a1a]">
+      <div className="border-t border-[var(--color-foreground)] bg-[#1a1a1a]">
         <div className="max-w-[var(--DTContainer)] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-4">
             <p className="text-[13px] text-[#999999]">

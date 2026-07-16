@@ -130,7 +130,7 @@ function StatusTimeline({
       <div className="relative">
         <div className="flex items-start gap-3 relative" style={{ minHeight: 44 }}>
           <div className="absolute left-[13px] top-[28px] bottom-0 w-0.5 bg-[#e5e5e5]" />
-          <div className="relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-[#0040a4] bg-[#0040a4]">
+          <div className="relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 border-[var(--color-primary)] bg-[var(--color-primary)]">
             <div className="h-2.5 w-2.5 rounded-full bg-white" />
           </div>
           <div className="pt-0.5">
@@ -172,14 +172,14 @@ function StatusTimeline({
             {!isLast && (
               <div
                 className="absolute left-[13px] top-[28px] bottom-0 w-0.5"
-                style={{ backgroundColor: idx < currentIndex ? "#0040a4" : "#e5e5e5" }}
+                style={{ backgroundColor: idx < currentIndex ? "var(--color-primary)" : "#e5e5e5" }}
               />
             )}
             {/* Daire */}
             <div
               className={`relative z-10 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 ${
                 isDone
-                  ? "border-[#0040a4] bg-[#0040a4]"
+                  ? "border-[var(--color-primary)] bg-[var(--color-primary)]"
                   : "border-[#e5e5e5] bg-white"
               }`}
             >
@@ -189,7 +189,7 @@ function StatusTimeline({
             <div className="pt-0.5">
               <p
                 className={`text-sm leading-snug ${
-                  isCurrent ? "font-semibold text-[#0040a4]" : isDone ? "font-medium text-[#333]" : "text-[#999]"
+                  isCurrent ? "font-semibold text-[var(--color-primary)]" : isDone ? "font-medium text-[#333]" : "text-[#999]"
                 }`}
               >
                 {step.label}
@@ -197,7 +197,7 @@ function StatusTimeline({
               {step.date ? (
                 <p className="text-xs text-[#999] mt-0.5">{formatDate(step.date)}</p>
               ) : isCurrent ? (
-                <p className="flex items-center gap-1 text-xs text-[#767676] mt-0.5">
+                <p className="flex items-center gap-1 text-xs text-[var(--color-text-muted)] mt-0.5">
                   <Clock className="h-3 w-3" />
                   <span>İşlemde</span>
                 </p>
@@ -242,7 +242,7 @@ function CancelModal({
       <DialogContent className="rounded-2xl">
         <DialogHeader>
           <DialogTitle className="text-[#333]">Siparişi İptal Et</DialogTitle>
-          <DialogDescription className="text-[#767676]">
+          <DialogDescription className="text-[var(--color-text-muted)]">
             Bu işlem geri alınamaz. Cari hesabınıza yapılan borç kaydı da iptal edilecektir.
           </DialogDescription>
         </DialogHeader>
@@ -257,7 +257,7 @@ function CancelModal({
               onChange={(e) => { setReason(e.target.value); setErr("") }}
               placeholder="İptal sebebinizi yazın..."
               rows={3}
-              className="rounded-xl border-[#e5e5e5] focus:border-[#0040a4]"
+              className="rounded-xl border-[#e5e5e5] focus:border-[var(--color-primary)]"
             />
             {err && <p className="text-xs text-red-600">{err}</p>}
           </div>
@@ -354,15 +354,15 @@ export default function OrderDetailPage() {
     return (
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-lg bg-[#f3f3f3] animate-pulse" />
+          <div className="h-10 w-10 rounded-lg bg-[var(--color-surface-muted)] animate-pulse" />
           <div className="space-y-2">
-            <div className="h-5 w-32 bg-[#f3f3f3] rounded animate-pulse" />
-            <div className="h-3 w-48 bg-[#f3f3f3] rounded animate-pulse" />
+            <div className="h-5 w-32 bg-[var(--color-surface-muted)] rounded animate-pulse" />
+            <div className="h-3 w-48 bg-[var(--color-surface-muted)] rounded animate-pulse" />
           </div>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 h-64 rounded-2xl bg-[#f3f3f3] animate-pulse" />
-          <div className="h-48 rounded-2xl bg-[#f3f3f3] animate-pulse" />
+          <div className="lg:col-span-2 h-64 rounded-2xl bg-[var(--color-surface-muted)] animate-pulse" />
+          <div className="h-48 rounded-2xl bg-[var(--color-surface-muted)] animate-pulse" />
         </div>
       </div>
     )
@@ -377,10 +377,10 @@ export default function OrderDetailPage() {
           </div>
         </div>
         <h1 className="text-xl font-bold text-[#333] mb-2">Sipariş Bulunamadı</h1>
-        <p className="text-[#767676] mb-6">{error ?? "Aradığınız sipariş mevcut değil."}</p>
+        <p className="text-[var(--color-text-muted)] mb-6">{error ?? "Aradığınız sipariş mevcut değil."}</p>
         <Link
           href="/siparisler"
-          className="inline-flex h-11 items-center justify-center rounded-xl bg-[#0040a4] px-6 text-sm font-semibold text-white hover:bg-[#003080] transition-colors"
+          className="inline-flex h-11 items-center justify-center rounded-xl bg-[var(--color-primary)] px-6 text-sm font-semibold text-white hover:bg-[var(--color-primary-hover)] transition-colors"
         >
           Siparişlerime Dön
         </Link>
@@ -398,7 +398,7 @@ export default function OrderDetailPage() {
         <div className="flex items-center gap-3">
           <Link
             href="/siparisler"
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#e5e5e5] text-[#767676] hover:text-[#0040a4] hover:border-[#0040a4] transition-colors"
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-[#e5e5e5] text-[var(--color-text-muted)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)] transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
           </Link>
@@ -409,14 +409,14 @@ export default function OrderDetailPage() {
               </h1>
               <button
                 onClick={copyOrderNumber}
-                className="text-[#999] hover:text-[#0040a4] transition-colors"
+                className="text-[#999] hover:text-[var(--color-primary)] transition-colors"
                 title="Kopyala"
               >
                 {copied ? <Check className="h-3.5 w-3.5 text-green-600" /> : <Copy className="h-3.5 w-3.5" />}
               </button>
               <OrderStatusBadge status={order.status} />
             </div>
-            <p className="text-sm text-[#767676]">{formatDate(order.createdAt)}</p>
+            <p className="text-sm text-[var(--color-text-muted)]">{formatDate(order.createdAt)}</p>
           </div>
         </div>
 
@@ -437,8 +437,8 @@ export default function OrderDetailPage() {
           {/* Sipariş Kalemleri */}
           <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 overflow-hidden">
             <div className="p-5 pb-3 flex items-center gap-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#0040a4]/10">
-                <Package className="h-3.5 w-3.5 text-[#0040a4]" />
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-primary)]/10">
+                <Package className="h-3.5 w-3.5 text-[var(--color-primary)]" />
               </div>
               <h2 className="text-sm font-semibold text-[#333]">Sipariş Kalemleri</h2>
               <span className="ml-auto text-xs text-[#999]">{order.items.length} ürün</span>
@@ -448,10 +448,10 @@ export default function OrderDetailPage() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-y border-[#e5e5e5] bg-[#fafafa]">
-                    <th className="text-left py-2.5 px-5 text-xs font-medium text-[#767676] uppercase tracking-wide">Ürün</th>
-                    <th className="text-center py-2.5 px-3 text-xs font-medium text-[#767676] uppercase tracking-wide w-16">Adet</th>
-                    <th className="text-right py-2.5 px-3 text-xs font-medium text-[#767676] uppercase tracking-wide w-28">Birim</th>
-                    <th className="text-right py-2.5 px-5 text-xs font-medium text-[#767676] uppercase tracking-wide w-28">Toplam</th>
+                    <th className="text-left py-2.5 px-5 text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wide">Ürün</th>
+                    <th className="text-center py-2.5 px-3 text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wide w-16">Adet</th>
+                    <th className="text-right py-2.5 px-3 text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wide w-28">Birim</th>
+                    <th className="text-right py-2.5 px-5 text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wide w-28">Toplam</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#e5e5e5]">
@@ -483,8 +483,8 @@ export default function OrderDetailPage() {
 
             {/* Tablo altı toplam */}
             <div className="border-t border-[#e5e5e5] bg-[#fafafa] px-5 py-3 flex items-center justify-between">
-              <span className="text-sm text-[#767676]">Toplam ({order.items.reduce((s, i) => s + i.quantity, 0)} adet)</span>
-              <span className="font-bold text-[#0040a4] text-lg tabular-nums">{formatCurrency(order.grandTotal)}</span>
+              <span className="text-sm text-[var(--color-text-muted)]">Toplam ({order.items.reduce((s, i) => s + i.quantity, 0)} adet)</span>
+              <span className="font-bold text-[var(--color-primary)] text-lg tabular-nums">{formatCurrency(order.grandTotal)}</span>
             </div>
           </div>
 
@@ -492,22 +492,22 @@ export default function OrderDetailPage() {
           {(order.shippingTrackingNumber || order.shippingCarrier) && (
             <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
               <div className="flex items-center gap-2 mb-3">
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#0040a4]/10">
-                  <Truck className="h-3.5 w-3.5 text-[#0040a4]" />
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-primary)]/10">
+                  <Truck className="h-3.5 w-3.5 text-[var(--color-primary)]" />
                 </div>
                 <h2 className="text-sm font-semibold text-[#333]">Kargo Bilgileri</h2>
               </div>
               <div className="space-y-2 text-sm">
                 {order.shippingCarrier && (
                   <div className="flex justify-between">
-                    <span className="text-[#767676]">Kargo Firması</span>
+                    <span className="text-[var(--color-text-muted)]">Kargo Firması</span>
                     <span className="font-medium text-[#333]">{order.shippingCarrier}</span>
                   </div>
                 )}
                 {order.shippingTrackingNumber && (
                   <div className="flex justify-between">
-                    <span className="text-[#767676]">Takip No</span>
-                    <span className="font-mono font-medium text-[#0040a4]">{order.shippingTrackingNumber}</span>
+                    <span className="text-[var(--color-text-muted)]">Takip No</span>
+                    <span className="font-mono font-medium text-[var(--color-primary)]">{order.shippingTrackingNumber}</span>
                   </div>
                 )}
               </div>
@@ -529,12 +529,12 @@ export default function OrderDetailPage() {
           {order.notes && (
             <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
               <div className="flex items-center gap-2 mb-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#f3f3f3]">
-                  <FileText className="h-3.5 w-3.5 text-[#767676]" />
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-surface-muted)]">
+                  <FileText className="h-3.5 w-3.5 text-[var(--color-text-muted)]" />
                 </div>
                 <p className="text-sm font-semibold text-[#333]">Sipariş Notu</p>
               </div>
-              <p className="text-sm text-[#767676]">{order.notes}</p>
+              <p className="text-sm text-[var(--color-text-muted)]">{order.notes}</p>
             </div>
           )}
         </div>
@@ -556,21 +556,21 @@ export default function OrderDetailPage() {
           {/* Ödeme Bilgileri */}
           <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
             <div className="flex items-center gap-2 mb-4">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#0040a4]/10">
-                <CreditCard className="h-3.5 w-3.5 text-[#0040a4]" />
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-primary)]/10">
+                <CreditCard className="h-3.5 w-3.5 text-[var(--color-primary)]" />
               </div>
               <h2 className="text-sm font-semibold text-[#333]">Ödeme Bilgileri</h2>
             </div>
             <div className="space-y-2.5 text-sm">
               <div className="flex justify-between">
-                <span className="text-[#767676]">Ödeme Yöntemi</span>
+                <span className="text-[var(--color-text-muted)]">Ödeme Yöntemi</span>
                 <span className="font-medium text-[#333]">
                   {PAYMENT_ICONS[order.paymentMethod]}{" "}
                   {PAYMENT_METHOD_LABELS[order.paymentMethod] ?? order.paymentMethod}
                 </span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-[#767676]">Ödeme Durumu</span>
+                <span className="text-[var(--color-text-muted)]">Ödeme Durumu</span>
                 <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full ${
                   order.paymentStatus === "PAID"
                     ? "bg-green-100 text-green-700"
@@ -590,17 +590,17 @@ export default function OrderDetailPage() {
           {shippingAddr && (
             <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
               <div className="flex items-center gap-2 mb-3">
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#0040a4]/10">
-                  <MapPin className="h-3.5 w-3.5 text-[#0040a4]" />
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-primary)]/10">
+                  <MapPin className="h-3.5 w-3.5 text-[var(--color-primary)]" />
                 </div>
                 <h2 className="text-sm font-semibold text-[#333]">Teslimat Adresi</h2>
               </div>
               <div className="text-sm space-y-1">
                 {shippingAddr.companyName && <p className="font-semibold text-[#333]">{shippingAddr.companyName}</p>}
-                {shippingAddr.contactName && <p className="text-[#767676]">{shippingAddr.contactName}</p>}
-                {shippingAddr.phone && <p className="text-[#767676]">{shippingAddr.phone}</p>}
-                {shippingAddr.address && <p className="text-[#767676]">{shippingAddr.address}</p>}
-                <p className="text-[#767676]">
+                {shippingAddr.contactName && <p className="text-[var(--color-text-muted)]">{shippingAddr.contactName}</p>}
+                {shippingAddr.phone && <p className="text-[var(--color-text-muted)]">{shippingAddr.phone}</p>}
+                {shippingAddr.address && <p className="text-[var(--color-text-muted)]">{shippingAddr.address}</p>}
+                <p className="text-[var(--color-text-muted)]">
                   {[shippingAddr.district, shippingAddr.city, shippingAddr.postalCode].filter(Boolean).join(", ")}
                 </p>
               </div>
@@ -612,22 +612,22 @@ export default function OrderDetailPage() {
             <h2 className="text-sm font-semibold text-[#333]">Fiyat Özeti</h2>
             <div className="space-y-1.5 text-sm">
               <div className="flex justify-between">
-                <span className="text-[#767676]">Ara Toplam (KDV hariç)</span>
+                <span className="text-[var(--color-text-muted)]">Ara Toplam (KDV hariç)</span>
                 <span className="text-[#333] tabular-nums">{formatCurrency(order.subtotal)}</span>
               </div>
               {order.discountTotal > 0 && (
                 <div className="flex justify-between">
-                  <span className="text-[#767676]">İskonto</span>
+                  <span className="text-[var(--color-text-muted)]">İskonto</span>
                   <span className="text-green-600 tabular-nums">-{formatCurrency(order.discountTotal)}</span>
                 </div>
               )}
               <div className="flex justify-between">
-                <span className="text-[#767676]">KDV</span>
+                <span className="text-[var(--color-text-muted)]">KDV</span>
                 <span className="text-[#333] tabular-nums">{formatCurrency(order.vatTotal)}</span>
               </div>
               {order.shippingTotal > 0 && (
                 <div className="flex justify-between">
-                  <span className="text-[#767676]">Kargo</span>
+                  <span className="text-[var(--color-text-muted)]">Kargo</span>
                   <span className="text-[#333] tabular-nums">{formatCurrency(order.shippingTotal)}</span>
                 </div>
               )}
@@ -637,16 +637,16 @@ export default function OrderDetailPage() {
 
             <div className="flex justify-between items-center">
               <span className="font-semibold text-[#333]">Genel Toplam</span>
-              <span className="font-bold text-lg text-[#0040a4] tabular-nums">{formatCurrency(order.grandTotal)}</span>
+              <span className="font-bold text-lg text-[var(--color-primary)] tabular-nums">{formatCurrency(order.grandTotal)}</span>
             </div>
 
             {usd > 0 && (
               <div className="rounded-xl bg-[#f0f5ff] border border-[#c5d9f8] p-3 space-y-1">
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-[#0040a4] font-medium">TL Karşılığı</span>
-                  <span className="font-bold text-[#0040a4] tabular-nums">{formatCurrency(grandTotalTRY, "TRY")}</span>
+                  <span className="text-[var(--color-primary)] font-medium">TL Karşılığı</span>
+                  <span className="font-bold text-[var(--color-primary)] tabular-nums">{formatCurrency(grandTotalTRY, "TRY")}</span>
                 </div>
-                <p className="text-[11px] text-[#767676]">1 USD = {usd.toFixed(2)} TL (TCMB günlük kur)</p>
+                <p className="text-[11px] text-[var(--color-text-muted)]">1 USD = {usd.toFixed(2)} TL (TCMB günlük kur)</p>
               </div>
             )}
           </div>

@@ -48,8 +48,8 @@ export function TrustBadges() {
                 style={{ animationDelay: `${idx * 100}ms` }}
               >
                 {/* Icon Circle - gradient background */}
-                <div className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-[#0040a4]/15 to-[#1a6fe0]/10 shadow-sm">
-                  <Icon className="w-7 h-7 text-[#0040a4]" aria-hidden />
+                <div className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-[var(--color-primary)]/15 to-[#1a6fe0]/10 shadow-sm">
+                  <Icon className="w-7 h-7 text-[var(--color-primary)]" aria-hidden />
                 </div>
 
                 {/* Text Content */}
@@ -57,7 +57,7 @@ export function TrustBadges() {
                   <p className="text-[11px] text-gray-500 uppercase tracking-wider mb-1 font-medium">
                     {badge.desc}
                   </p>
-                  <h3 className="font-bold text-[#1e1e1e] text-[15px] mb-1.5">
+                  <h3 className="font-bold text-[var(--color-foreground)] text-[15px] mb-1.5">
                     {badge.title}
                   </h3>
                   <p className="text-xs text-gray-500 leading-relaxed">
