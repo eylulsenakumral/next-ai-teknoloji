@@ -101,10 +101,13 @@ async function resizeImage(
 
     // In Jimp v1 quality is passed as a second argument to getBuffer
     type GetBufferMime = Parameters<typeof image.getBuffer>[0]
+    type GetBufferWithQuality = (
+      mime: GetBufferMime,
+      opts?: { quality?: number }
+    ) => Promise<Buffer>
     const mimeArg = contentType as GetBufferMime
     if (contentType === "image/jpeg") {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return await (image.getBuffer as any)(mimeArg, { quality })
+      return await (image.getBuffer as unknown as GetBufferWithQuality)(mimeArg, { quality })
     }
 
     return await image.getBuffer(mimeArg)

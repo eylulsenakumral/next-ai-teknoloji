@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server"
+import { Prisma } from "@prisma/client"
 import { prisma } from "@/lib/db"
 import { withCache, CacheKey, TTL } from "@/lib/cache"
 
 // Recursive include builder - 5 seviye derinlik
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function buildNestedInclude(depth: number, activeOnly = false): any {
+function buildNestedInclude(depth: number, activeOnly = false): Prisma.CategoryInclude {
   const filter = activeOnly
     ? { deletedAt: null, isActive: true }
     : { deletedAt: null }

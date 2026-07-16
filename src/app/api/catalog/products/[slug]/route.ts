@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
+import { Prisma } from "@prisma/client"
 import { prisma } from "@/lib/db"
 import { getDealerSession, requireDealerSession } from "@/lib/dealer-auth"
 
@@ -256,8 +257,7 @@ export async function PUT(
 
   const product = await prisma.product.update({
     where: { id: existing.id },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: updateData as any,
+    data: updateData as Prisma.ProductUncheckedUpdateInput,
     include: {
       brand: { select: { id: true, name: true } },
       category: { select: { id: true, name: true } },
