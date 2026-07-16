@@ -14,8 +14,8 @@ declare global {
 }
 
 function createRedisClient(): RedisClient | null {
-  const url = process.env.UPSTASH_REDIS_REST_URL
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN
+  const url = process.env.UPSTASH_REDIS_REST_URL?.trim()
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim()
   if (!url || !token) {
     console.warn("[redis] Upstash env not set — cache disabled")
     return null
