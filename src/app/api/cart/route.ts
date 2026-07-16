@@ -12,7 +12,7 @@ const addToCartSchema = z.object({
 
 // CartItem.id @default(cuid()) — uuid doğrulaması cuid'yi reddeder, PUT üretimde 400 verir.
 const updateCartSchema = z.object({
-  itemId: z.string().min(1),
+  itemId: z.string().uuid(),
   quantity: z.number().int().min(1),
 })
 
