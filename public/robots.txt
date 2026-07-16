@@ -1,8 +1,20 @@
 User-agent: *
 Allow: /
 
+# Admin paneli
 Disallow: /admin/
-Disallow: /dealer/
+
+# Bayi route'ları ((dealer) route group URL'e yansımaz — gerçek yollar)
+Disallow: /sepet
+Disallow: /hesabim
+Disallow: /siparisler
+Disallow: /kampanyalar
+Disallow: /kampanya-setleri
+Disallow: /garanti-takip
+Disallow: /online-odeme
+Disallow: /favoriler
+
+# API
 Disallow: /api/
 
 Sitemap: https://next-ai-teknoloji.com/sitemap.xml

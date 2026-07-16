@@ -3,6 +3,7 @@
 // ============================================================================
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers";
 
 // Ensure the auth state table exists (run once)
 async function ensureTable() {
@@ -21,6 +22,10 @@ async function ensureTable() {
 
 // POST — Set auth state key
 export async function POST(req: NextRequest) {
+  const session = await getAdminSession();
+  const denied = requireAdminSession(session);
+  if (denied) return denied;
+
   await ensureTable();
 
   const body = await req.json();
@@ -41,6 +46,10 @@ export async function POST(req: NextRequest) {
 
 // GET — Get auth state value
 export async function GET(req: NextRequest) {
+  const session = await getAdminSession();
+  const denied = requireAdminSession(session);
+  if (denied) return denied;
+
   await ensureTable();
 
   const { searchParams } = new URL(req.url);

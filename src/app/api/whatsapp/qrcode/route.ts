@@ -3,8 +3,13 @@
 // ============================================================================
 import { NextResponse } from "next/server";
 import { getConnectionStatus, getLatestQR } from "@/lib/whatsapp/client";
+import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers";
 
 export async function GET() {
+  const session = await getAdminSession();
+  const denied = requireAdminSession(session);
+  if (denied) return denied;
+
   const status = getConnectionStatus();
 
   if (status === "connected") {

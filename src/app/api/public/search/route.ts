@@ -11,6 +11,8 @@ export async function GET(req: NextRequest) {
   try {
     const products = await prisma.product.findMany({
       where: {
+        deletedAt: null,
+        isActive: true,
         OR: [
           { name: { contains: query, mode: "insensitive" } },
           { description: { contains: query, mode: "insensitive" } },
@@ -21,8 +23,6 @@ export async function GET(req: NextRequest) {
       select: {
         id: true,
         name: true,
-        description: true,
-        manualPrice: true,
         images: true,
         slug: true,
       },

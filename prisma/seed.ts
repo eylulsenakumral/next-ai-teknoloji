@@ -10,11 +10,27 @@ const pool = new pg.Pool({
 const adapter = new PrismaPg(pool)
 const prisma = new PrismaClient({ adapter })
 
+// Güvenlik: seed şifreleri env'den okunur. Hardcoded zayıf şifre (admin123/test123) içeremez.
+// Üretim .env'inde SEED_ADMIN_PASSWORD ve SEED_DEALER_PASSWORD tanımlanmalı.
+function requireSeedEnv(name: string): string {
+  const value = process.env[name]
+  if (!value) {
+    throw new Error(
+      `${name} env değişkeni tanımlı değil — seed hardcoded şifre içeremez. ` +
+        `SEED_ADMIN_PASSWORD ve SEED_DEALER_PASSWORD tanımlayın.`
+    )
+  }
+  return value
+}
+
 async function main() {
+  const seedAdminPassword = requireSeedEnv("SEED_ADMIN_PASSWORD")
+  const seedDealerPassword = requireSeedEnv("SEED_DEALER_PASSWORD")
+
   console.log("Seeding database...")
 
   // Admin kullanıcı: SUPER_ADMIN
-  const adminPasswordHash = await bcrypt.hash("admin123", 12)
+  const adminPasswordHash = await bcrypt.hash(seedAdminPassword, 12)
   const admin = await prisma.adminUser.upsert({
     where: { email: "admin@nextai.com.tr" },
     update: {},
@@ -29,7 +45,7 @@ async function main() {
   console.log(`Admin oluşturuldu: ${admin.email} (role: ${admin.role})`)
 
   // Test bayi: APPROVED customer
-  const dealerPasswordHash = await bcrypt.hash("test123", 12)
+  const dealerPasswordHash = await bcrypt.hash(seedDealerPassword, 12)
   const dealer = await prisma.customer.upsert({
     where: { dealerCode: "BAY001" },
     update: {},
@@ -1251,7 +1267,7 @@ async function main() {
   // EK TEST BAYİLERİ
   // =========================================================
 
-  const dealer2PasswordHash = await bcrypt.hash("test123", 12)
+  const dealer2PasswordHash = await bcrypt.hash(seedDealerPassword, 12)
   const dealer2 = await prisma.customer.upsert({
     where: { dealerCode: "NAT-1001" },
     update: {},
@@ -1276,7 +1292,7 @@ async function main() {
   })
   console.log(`Bayi oluşturuldu: ${dealer2.dealerCode} — ${dealer2.companyName} (APPROVED)`)
 
-  const dealer3PasswordHash = await bcrypt.hash("test123", 12)
+  const dealer3PasswordHash = await bcrypt.hash(seedDealerPassword, 12)
   const dealer3 = await prisma.customer.upsert({
     where: { dealerCode: "NAT-1002" },
     update: {},
@@ -1297,7 +1313,7 @@ async function main() {
   })
   console.log(`Bayi oluşturuldu: ${dealer3.dealerCode} — ${dealer3.companyName} (PENDING)`)
 
-  const dealer4PasswordHash = await bcrypt.hash("test123", 12)
+  const dealer4PasswordHash = await bcrypt.hash(seedDealerPassword, 12)
   const dealer4 = await prisma.customer.upsert({
     where: { dealerCode: "NAT-1003" },
     update: {},

@@ -2,6 +2,9 @@ export const dynamic = 'force-dynamic'
 
 import type { Metadata } from "next"
 import Link from "next/link"
+import { redirect } from "next/navigation"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 
 export const metadata: Metadata = {
@@ -13,6 +16,13 @@ import { formatCurrency } from "@/lib/utils/format"
 import { calculateBulkPrices } from "@/services/pricing.service"
 
 export default async function CampaignsPage() {
+  // KRİTİK: Bayi fiyatları içerir — giriş yapmamış/anonim kullanıcıya açmamak için auth zorunlu.
+  // (dealer) route group URL'e yansımaz → /kampanyalar herkese açık olurdu.
+  const session = await getServerSession(authOptions)
+  if (!session || session.user.role !== "dealer") {
+    redirect("/login")
+  }
+
   // Kampanyalı ürünler = outlet, öne çıkan veya isFeatured olanlar
   const [campaignProducts, campaignSets] = await Promise.all([
     prisma.product.findMany({

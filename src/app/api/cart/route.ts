@@ -3,14 +3,16 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import { z } from "zod"
+import { calculateProductPrice } from "@/services/pricing.service"
 
 const addToCartSchema = z.object({
   productId: z.string().uuid(),
   quantity: z.number().int().min(1).default(1),
 })
 
+// CartItem.id @default(cuid()) — uuid doğrulaması cuid'yi reddeder, PUT üretimde 400 verir.
 const updateCartSchema = z.object({
-  itemId: z.string().uuid(),
+  itemId: z.string().min(1),
   quantity: z.number().int().min(1),
 })
 
@@ -36,7 +38,7 @@ export async function GET() {
                 brand: { select: { name: true } },
                 supplierProducts: {
                   where: { supplier: { isActive: true, deletedAt: null } },
-                  select: { stockQuantity: true, purchasePrice: true },
+                  select: { stockQuantity: true },
                   orderBy: { purchasePrice: "asc" },
                   take: 1,
                 },
@@ -72,12 +74,6 @@ export async function POST(req: NextRequest) {
         id: true,
         manualPrice: true,
         manualPriceCurrency: true,
-        supplierProducts: {
-          where: { supplier: { isActive: true, deletedAt: null } },
-          select: { purchasePrice: true, stockQuantity: true, currency: true },
-          orderBy: { purchasePrice: "asc" },
-          take: 1,
-        },
       },
     })
 
@@ -85,15 +81,21 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 })
     }
 
-    const price =
-      product.manualPrice?.toNumber() ??
-      product.supplierProducts[0]?.purchasePrice?.toNumber() ??
-      0
+    // Satış fiyatını merkezi pricing servisten al — tedarik maliyetine (purchasePrice) fallback YASAK.
+    const calc = await calculateProductPrice(productId)
+    if (!calc) {
+      return NextResponse.json(
+        { error: "Bu ürün şu anda fiyatlandırılamıyor (stok/tedarikçi yok)." },
+        { status: 400 }
+      )
+    }
+    const price = calc.salePriceExVat
 
+    // Currency: outlet (manualPrice) ürünlerde manualPriceCurrency; yoksa USD (satış fiyatları USD kökenli, siparişte TL'ye çevrilir)
     const currency =
       product.manualPrice != null
         ? (product.manualPriceCurrency ?? "USD")
-        : (product.supplierProducts[0]?.currency ?? "TRY")
+        : "USD"
 
     // Upsert cart
     const cart = await prisma.cart.upsert({

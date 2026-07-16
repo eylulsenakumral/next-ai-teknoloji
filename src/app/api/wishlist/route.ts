@@ -31,7 +31,7 @@ export async function GET() {
                 category: { select: { name: true, slug: true } },
                 supplierProducts: {
                   where: { supplier: { isActive: true, deletedAt: null } },
-                  select: { stockQuantity: true, purchasePrice: true },
+                  select: { stockQuantity: true },
                   orderBy: { purchasePrice: "asc" },
                   take: 1,
                 },

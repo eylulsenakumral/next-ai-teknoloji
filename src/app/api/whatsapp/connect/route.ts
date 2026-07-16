@@ -3,8 +3,13 @@
 // ============================================================================
 import { NextResponse } from "next/server";
 import { connectWhatsApp, getConnectionStatus } from "@/lib/whatsapp/client";
+import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers";
 
 export async function POST() {
+  const session = await getAdminSession();
+  const denied = requireAdminSession(session);
+  if (denied) return denied;
+
   const currentStatus = getConnectionStatus();
 
   if (currentStatus === "connected") {

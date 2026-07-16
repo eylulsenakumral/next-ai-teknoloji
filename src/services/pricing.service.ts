@@ -7,6 +7,7 @@ const DEFAULT_VAT_RATE = 20
 
 export interface PriceCalculation {
   purchasePrice: number
+  supplierProductId: string | null
   supplierId: string
   supplierName: string
   marginPct: number
@@ -140,6 +141,7 @@ async function _calculateProductPrice(productId: string): Promise<PriceCalculati
     const sp = product.supplierProducts[0]
     return {
       purchasePrice: manualPriceNum,
+      supplierProductId: sp?.id ?? null,
       supplierId: sp?.supplierId ?? "",
       supplierName: sp?.supplier?.name ?? "",
       marginPct: 0,
@@ -190,6 +192,7 @@ async function _calculateProductPrice(productId: string): Promise<PriceCalculati
 
   return {
     purchasePrice,
+    supplierProductId: cheapest.id,
     supplierId: cheapest.supplierId,
     supplierName: cheapest.supplier.name,
     marginPct,
@@ -260,6 +263,7 @@ export async function calculateBulkPrices(
       const sp = product.supplierProducts[0]
       results.set(product.id, {
         purchasePrice: manualPriceNum,
+        supplierProductId: sp?.id ?? null,
         supplierId: sp?.supplierId ?? "",
         supplierName: sp?.supplier?.name ?? "",
         marginPct: 0,
@@ -300,6 +304,7 @@ export async function calculateBulkPrices(
 
     results.set(product.id, {
       purchasePrice,
+      supplierProductId: cheapest.id,
       supplierId: cheapest.supplierId,
       supplierName: cheapest.supplier.name,
       marginPct,

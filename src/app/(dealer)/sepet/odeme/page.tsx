@@ -13,7 +13,6 @@ export default function OdemePage() {
   const { usd } = useExchangeRate()
   const [isRedirecting, setIsRedirecting] = useState(false)
   const [error, setError] = useState("")
-  const [debugInfo, setDebugInfo] = useState<Record<string, unknown> | null>(null)
 
   const grandTotal = getGrandTotal()
   const subtotal = getSubtotal()
@@ -23,7 +22,6 @@ export default function OdemePage() {
   async function handlePay() {
     setIsRedirecting(true)
     setError("")
-    setDebugInfo(null)
 
     try {
       // Step 1: Create order in DB first (status: PENDING, payment: CREDIT_CARD)
@@ -59,7 +57,6 @@ export default function OdemePage() {
       })
 
       const data = await res.json()
-      console.log("[ODEME] API response:", data)
 
       if (data.success && data.returnUrl) {
         // Redirect to NomuPay hosted payment page
@@ -67,12 +64,10 @@ export default function OdemePage() {
       } else {
         setIsRedirecting(false)
         setError(data.resultMessage || "Ödeme başlatma başarısız")
-        setDebugInfo(data)
       }
     } catch (err) {
       setIsRedirecting(false)
       setError(err instanceof Error ? err.message : "Bağlantı hatası oluştu.")
-      console.error("[ODEME] Error:", err)
     }
   }
 
@@ -155,11 +150,6 @@ export default function OdemePage() {
             {error && (
               <div className="rounded-xl bg-red-50 border border-red-200 p-4">
                 <p className="text-sm font-medium text-red-700">{error}</p>
-                {debugInfo && (
-                  <pre className="mt-2 text-[11px] bg-white rounded-lg p-3 overflow-auto text-[#333]">
-                    {JSON.stringify(debugInfo, null, 2)}
-                  </pre>
-                )}
               </div>
             )}
 

@@ -121,7 +121,9 @@ export const authOptions: NextAuthOptions = {
         const role =
           admin.role === "SUPER_ADMIN"
             ? ("super_admin" as const)
-            : ("admin" as const)
+            : admin.role === "VIEWER"
+              ? ("viewer" as const)
+              : ("admin" as const)
 
         return {
           id: admin.id,

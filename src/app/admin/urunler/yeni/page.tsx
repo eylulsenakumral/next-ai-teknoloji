@@ -12,7 +12,7 @@ export const metadata = {
 export default async function YeniUrunPage() {
   const session = await getAdminSession()
   if (!session?.user) {
-    redirect("/admin/giris")
+    redirect("/login")
   }
 
   const [brands, categories] = await Promise.all([

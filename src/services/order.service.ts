@@ -214,6 +214,7 @@ export async function createOrder(
     let vatRate: number
     let purchasePrice: number | null = null
     let marginPct: number | null = null
+    let supplierProductId: string | null = null
     let productName = ""
 
     if (item.productId.startsWith("set-")) {
@@ -229,6 +230,7 @@ export async function createOrder(
       vatRate = price.vatRate
       purchasePrice = price.purchasePrice
       marginPct = price.marginPct
+      supplierProductId = price.supplierProductId
     }
 
     const lineSubtotal = round2(unitPrice * item.quantity)
@@ -240,7 +242,7 @@ export async function createOrder(
 
     return {
       productId: item.productId.startsWith("set-") ? null : item.productId,
-      supplierProductId: null as string | null,
+      supplierProductId,
       productName,
       productBarcode: null as string | null,
       quantity: item.quantity,
@@ -279,21 +281,13 @@ export async function createOrder(
   vatTotal = round2(vatTotal)
   const grandTotal = round2(subtotal + vatTotal)
 
-  // 6. Açık hesap kontrolü
+  // 6. Döviz kuru (USD → TL çevrim)
   const usdTryRate = await getUsdTryRate()
   const grandTotalTL = round2(grandTotal * usdTryRate)
 
-  if (input.paymentMethod === "ON_ACCOUNT") {
-    const newBalance = Number(customer.balance) + grandTotalTL
-    const creditLimit = Number(customer.creditLimit)
-    if (creditLimit > 0 && newBalance > creditLimit) {
-      throw new Error(
-        `Kredi limitiniz aşılıyor. Mevcut bakiye: ${Number(customer.balance).toFixed(2)} TL, Limit: ${creditLimit.toFixed(2)} TL`
-      )
-    }
-  }
-
-  // 7. Transaction: Sipariş + AccountTransaction + Balance güncelleme
+  // 7. Transaction: Sipariş + (sadece ON_ACCOUNT cari borç/bakiye) + sepet temizle.
+  //    Bakiye ve kredi limiti tx İÇİNDE fresh okunur (eşzamanlı siparişte lost update fix — cancelOrder pattern).
+  //    CREDIT_CARD / BANK_TRANSFER cari hesaba borç yazmaz; ödeme ayrı akışta (NomuPay callback vb.) işlenir.
   return await prisma.$transaction(async (tx) => {
     const orderNumber = await generateOrderNumber()
 
@@ -318,30 +312,73 @@ export async function createOrder(
       },
     })
 
-    // AccountTransaction: INVOICE (borç = pozitif, TL cinsinden)
-    const balanceAfter = round2(Number(customer.balance) + grandTotalTL)
+    // Stok düşürme — supplierProductId'si olan normal ürünler için koşullu (conditional) decrement.
+    // Stok yetmezse updateMany 0 satır etkiler → throw → tx rollback (oversell koruması, KRİTİK-08).
+    // Set ürünleri ve manuel fiyatlı (outlet) ürünler supplierProductId olmadığından burada atlanır.
+    for (const item of orderItemsData) {
+      if (item.supplierProductId && item.quantity > 0) {
+        const result = await tx.supplierProduct.updateMany({
+          where: { id: item.supplierProductId, stockQuantity: { gte: item.quantity } },
+          data: { stockQuantity: { decrement: item.quantity } },
+        })
+        if (result.count === 0) {
+          throw new Error(
+            `Yetersiz stok: ${item.productName} (istenen: ${item.quantity}). Sipariş oluşturulamadı.`
+          )
+        }
+      }
+    }
 
-    await tx.accountTransaction.create({
-      data: {
-        customerId,
-        type: "INVOICE",
-        amount: grandTotalTL,
-        balanceAfter,
-        currency: "TRY",
-        referenceType: "ORDER",
-        referenceId: order.id,
-        description: `Sipariş faturası - ${orderNumber} (${grandTotal} USD × ${usdTryRate})`,
-      },
-    })
+    if (input.paymentMethod === "ON_ACCOUNT") {
+      // Bakiyeyi transaction içinde tekrar oku — stale balance ile lost update'i engeller
+      const fresh = await tx.customer.findUnique({
+        where: { id: customerId },
+        select: { balance: true, creditLimit: true },
+      })
+      const currentBalance = Number(fresh?.balance ?? 0)
+      const creditLimit = Number(fresh?.creditLimit ?? 0)
+      const balanceAfter = round2(currentBalance + grandTotalTL)
 
-    // Müşteri bakiyesini güncelle
-    await tx.customer.update({
-      where: { id: customerId },
-      data: {
-        balance: balanceAfter,
-        lastOrderAt: new Date(),
-      },
-    })
+      // Kredi limit kontrolü fresh bakiye ile tx içinde
+      if (creditLimit > 0 && balanceAfter > creditLimit) {
+        throw new Error(
+          `Kredi limitiniz aşılıyor. Mevcut bakiye: ${currentBalance.toFixed(2)} TL, Limit: ${creditLimit.toFixed(2)} TL`
+        )
+      }
+
+      await tx.accountTransaction.create({
+        data: {
+          customerId,
+          type: "INVOICE",
+          amount: grandTotalTL,
+          balanceAfter,
+          currency: "TRY",
+          referenceType: "ORDER",
+          referenceId: order.id,
+          description: `Sipariş faturası - ${orderNumber} (${grandTotal} USD × ${usdTryRate})`,
+        },
+      })
+
+      await tx.customer.update({
+        where: { id: customerId },
+        data: {
+          balance: balanceAfter,
+          lastOrderAt: new Date(),
+        },
+      })
+    } else {
+      // CREDIT_CARD / BANK_TRANSFER: cari hesaba borç yazma, ödeme akışı ayrı işlenir
+      await tx.customer.update({
+        where: { id: customerId },
+        data: { lastOrderAt: new Date() },
+      })
+    }
+
+    // Sepeti temizle — sipariş başarıyla oluşturuldu, tekrar sipariş riskini engeller
+    const cart = await tx.cart.findFirst({ where: { userId: customerId } })
+    if (cart) {
+      await tx.cartItem.deleteMany({ where: { cartId: cart.id } })
+    }
 
     return { orderId: order.id, orderNumber }
   })
