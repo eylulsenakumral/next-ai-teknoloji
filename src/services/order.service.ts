@@ -10,7 +10,7 @@ import type { OrderStatus } from "@prisma/client"
 let cachedRate: { usdTry: number; lastUpdated: number } | null = null
 const RATE_CACHE_MS = 60 * 60 * 1000 // 1 saat
 
-async function getUsdTryRate(): Promise<number> {
+export async function getUsdTryRate(): Promise<number> {
   const now = Date.now()
   if (cachedRate && now - cachedRate.lastUpdated < RATE_CACHE_MS) {
     return cachedRate.usdTry

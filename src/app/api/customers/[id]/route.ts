@@ -58,7 +58,9 @@ export async function GET(
     return NextResponse.json({ error: "Müşteri bulunamadı." }, { status: 404 })
   }
 
-  return NextResponse.json({ data: customer })
+  // KRİTİK-29: passwordHash asla cliente sızmasın (include tüm scalar döndürürdü).
+  const { passwordHash, ...safeCustomer } = customer
+  return NextResponse.json({ data: safeCustomer })
 }
 
 // PUT /api/customers/[id] — Admin: Müşteri güncelle
