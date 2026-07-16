@@ -155,6 +155,9 @@ export async function generateMetadata({
   return {
     title: category.name,
     description,
+    alternates: {
+      canonical: `/kategoriler/${category.slug}`,
+    },
     openGraph: {
       title: `${category.name} | Next AI Teknoloji`,
       description,

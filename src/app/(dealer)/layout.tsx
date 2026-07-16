@@ -20,7 +20,7 @@ export default function DealerLayout({
   return (
     <div className="flex flex-col min-h-screen bg-[#f9f9f9]">
       <ConditionalHeader />
-      <main className="flex-1 w-full">
+      <main id="main-content" className="flex-1 w-full">
         {children}
       </main>
       <ConditionalFooter />

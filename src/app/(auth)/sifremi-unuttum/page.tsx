@@ -54,7 +54,7 @@ export default function SifremiUnuttumPage() {
         </header>
 
         {/* Form bölgesi */}
-        <main className="flex flex-1 items-center justify-center px-8 py-10">
+        <main id="main-content" className="flex flex-1 items-center justify-center px-8 py-10">
           <div className="w-full max-w-[370px]">
             {submitted ? (
               <div className="text-center">
@@ -91,7 +91,7 @@ export default function SifremiUnuttumPage() {
                 </div>
 
                 {error && (
-                  <div className="mb-5 flex items-start gap-2.5 rounded-lg border border-red-200 bg-red-50 px-4 py-3">
+                  <div role="alert" className="mb-5 flex items-start gap-2.5 rounded-lg border border-red-200 bg-red-50 px-4 py-3">
                     <p className="text-sm text-red-700">{error}</p>
                   </div>
                 )}

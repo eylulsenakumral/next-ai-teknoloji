@@ -144,10 +144,11 @@ function QuoteForm() {
       <h3 className="text-[20px] font-bold text-[#0040a4] mb-6">Teklif Formu</h3>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-[13px] font-semibold text-[#0040a4] mb-1.5">
+          <label htmlFor="companyName" className="block text-[13px] font-semibold text-[#0040a4] mb-1.5">
             Şirket Adı *
           </label>
           <input
+            id="companyName"
             name="companyName"
             type="text"
             required
@@ -158,10 +159,11 @@ function QuoteForm() {
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-[13px] font-semibold text-[#0040a4] mb-1.5">
+            <label htmlFor="contactName" className="block text-[13px] font-semibold text-[#0040a4] mb-1.5">
               Ad Soyad *
             </label>
             <input
+              id="contactName"
               name="contactName"
               type="text"
               required
@@ -170,10 +172,11 @@ function QuoteForm() {
             />
           </div>
           <div>
-            <label className="block text-[13px] font-semibold text-[#0040a4] mb-1.5">
+            <label htmlFor="phone" className="block text-[13px] font-semibold text-[#0040a4] mb-1.5">
               Telefon *
             </label>
             <input
+              id="phone"
               name="phone"
               type="tel"
               required
@@ -184,10 +187,11 @@ function QuoteForm() {
         </div>
 
         <div>
-          <label className="block text-[13px] font-semibold text-[#0040a4] mb-1.5">
+          <label htmlFor="email" className="block text-[13px] font-semibold text-[#0040a4] mb-1.5">
             E-posta *
           </label>
           <input
+            id="email"
             name="email"
             type="email"
             required
@@ -197,10 +201,11 @@ function QuoteForm() {
         </div>
 
         <div>
-          <label className="block text-[13px] font-semibold text-[#0040a4] mb-1.5">
+          <label htmlFor="sector" className="block text-[13px] font-semibold text-[#0040a4] mb-1.5">
             Sektör
           </label>
           <select
+            id="sector"
             name="sector"
             className="w-full h-11 border border-[#eeeeee] px-4 text-[14px] text-[#0040a4] focus:outline-none focus:border-[#5086a8] focus:ring-1 focus:ring-[#5086a8]/20 bg-white"
           >
@@ -214,10 +219,11 @@ function QuoteForm() {
         </div>
 
         <div>
-          <label className="block text-[13px] font-semibold text-[#0040a4] mb-1.5">
+          <label htmlFor="message" className="block text-[13px] font-semibold text-[#0040a4] mb-1.5">
             İhtiyaçlarınız *
           </label>
           <textarea
+            id="message"
             name="message"
             required
             rows={4}
@@ -227,7 +233,7 @@ function QuoteForm() {
         </div>
 
         {formStatus === "error" && (
-          <p className="text-red-600 text-[13px] font-medium">
+          <p role="alert" className="text-red-600 text-[13px] font-medium">
             Bir hata oluştu. Lütfen tekrar deneyin.
           </p>
         )}

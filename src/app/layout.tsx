@@ -39,6 +39,7 @@ const dmMono = DM_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nexadepo.com"),
   title: {
     default: "Next AI Teknoloji",
     template: "%s | Next AI Teknoloji",
@@ -59,7 +60,15 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
-        <Providers>{children}</Providers>
+        <Providers>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:px-4 focus:py-2"
+          >
+            İçeriğe geç
+          </a>
+          {children}
+        </Providers>
       </body>
     </html>
   )

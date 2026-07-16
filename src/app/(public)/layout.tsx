@@ -35,7 +35,7 @@ export default function PublicLayout({
   return (
     <div className="flex flex-col min-h-screen bg-[#f4f7fa] text-[#0040a4] font-nx-sans">
       <PublicHeaderNext />
-      <main className="flex-1 w-full">{children}</main>
+      <main id="main-content" className="flex-1 w-full">{children}</main>
       <PublicFooterNext />
       <WhatsAppButton />
       <ChatWidget />

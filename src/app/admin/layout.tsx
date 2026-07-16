@@ -34,7 +34,7 @@ export default async function AdminLayout({
       <AdminSidebar />
       <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader />
-        <main className="flex-1 p-6 overflow-auto bg-[var(--DT_product_bg_color)]">
+        <main id="main-content" className="flex-1 p-6 overflow-auto bg-[var(--DT_product_bg_color)]">
           {children}
         </main>
       </div>
