@@ -63,6 +63,8 @@ next-env.d.ts
 *.log
 data/backups/
 *.sql
+# Prisma migration'ları tracked olmalı (Prisma migrate deploy için)
+!prisma/migrations/**/*.sql
 
 # temp and cache
 .understand-anything/
