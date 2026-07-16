@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | Next AI Teknoloji",
   },
   description:
-    "16+ global markanın yetkili tedarikçisi. CCTV, network, geçiş kontrol, akıllı bina çözümleri. Bayi avantajları, proje tasarımı ve teknik danışmanlık.",
+    "27+ global markanın yetkili tedarikçisi. CCTV, network, geçiş kontrol, akıllı bina çözümleri. Bayi avantajları, proje tasarımı ve teknik danışmanlık.",
   keywords: [
     "CCTV tedarik",
     "güvenlik kamera bayi",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "Next AI Teknoloji — B2B Teknoloji Tedarik & Proje Platformu",
-    description: "16+ global markanın yetkili tedarikçisi. Bayi avantajları, proje tasarımı ve teknik danışmanlık.",
+    description: "27+ global markanın yetkili tedarikçisi. Bayi avantajları, proje tasarımı ve teknik danışmanlık.",
     type: "website",
     locale: "tr_TR",
   },
