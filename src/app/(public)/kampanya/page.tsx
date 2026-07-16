@@ -45,7 +45,7 @@ const TYPE_LABELS: Record<string, string> = {
 const TYPE_COLORS: Record<string, string> = {
   FEATURED: "bg-[var(--color-primary)] text-white",
   OUTLET: "bg-[var(--color-error)] text-white",
-  BUNDLE: "bg-[#3b7300] text-white",
+  BUNDLE: "bg-[var(--color-price)] text-white",
 }
 
 function formatDate(dateStr: string | null) {

@@ -82,7 +82,7 @@ const TYPE_LABELS: Record<string, string> = {
 const TYPE_COLORS: Record<string, string> = {
   FEATURED: "bg-[var(--color-primary)] text-white",
   OUTLET: "bg-[var(--color-error)] text-white",
-  BUNDLE: "bg-[#3b7300] text-white",
+  BUNDLE: "bg-[var(--color-price)] text-white",
 }
 
 function formatDate(dateStr: string | null) {
@@ -168,7 +168,7 @@ export default async function KampanyaDetailPage({
                   {campaign.products.length} ürün
                 </span>
                 {discountPct ? (
-                  <span className="inline-flex items-center gap-1 text-[13px] font-bold text-[#3b7300]">
+                  <span className="inline-flex items-center gap-1 text-[13px] font-bold text-[var(--color-price)]">
                     %{discountPct} indirim
                   </span>
                 ) : null}

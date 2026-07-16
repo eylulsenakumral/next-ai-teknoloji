@@ -209,8 +209,8 @@
 
   /* Status Colors */
   --DT_Error_Color: #D8000C;
-  --DT_Success_Color: #4F8A10;
-  --DT_discount_color: #4F8A10;
+  --DT_Success_Color: var(--color-price);
+  --DT_discount_color: var(--color-price);
   --DT_Warning_Color: #9F6000;
   --DT_Info_Color: #31708f;
 
@@ -299,7 +299,7 @@
   --light-rgb: 243, 243, 243;
   --border-rgb: 233, 233, 233;
   --error: #D8000C;
-  --success: #4F8A10;
+  --success: var(--color-price);
   --warning: #9F6000;
   --info: #31708f;
 

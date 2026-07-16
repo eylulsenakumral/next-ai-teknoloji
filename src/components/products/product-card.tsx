@@ -212,7 +212,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
         {product.pricing ? (
           <div className="flex flex-col">
             <div className="flex items-baseline gap-1.5">
-              <p className="text-[16px] font-bold text-[#3b7300] leading-tight">
+              <p className="text-[16px] font-bold text-[var(--color-price)] leading-tight">
                 {formatCurrency(product.pricing.salePriceExVat, product.pricing.currency)}
                 <span className="text-[10px] text-gray-400 font-normal ml-0.5">+KDV</span>
               </p>
@@ -319,7 +319,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
               className={cn(
                 "flex-1 h-8 flex items-center justify-center gap-1.5 rounded-lg text-[12px] font-semibold transition-all duration-200",
                 justAdded
-                  ? "bg-[#3b7300] text-white"
+                  ? "bg-[var(--color-price)] text-white"
                   : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
               )}
               aria-label={`${product.name} sepete ekle`}

@@ -164,7 +164,7 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
         {/* Price area - B2B model */}
         <div className="mt-auto">
           {campaign?.discountPct && campaign.discountPct > 0 ? (
-            <p className="text-[12px] text-[#3b7300] font-bold mb-1.5">
+            <p className="text-[12px] text-[var(--color-price)] font-bold mb-1.5">
               %{Math.round(Number(campaign.discountPct))} özel indirim
             </p>
           ) : null}
