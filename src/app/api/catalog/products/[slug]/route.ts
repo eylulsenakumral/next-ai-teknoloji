@@ -3,6 +3,10 @@ import { z } from "zod"
 import { Prisma } from "@prisma/client"
 import { prisma } from "@/lib/db"
 import { getDealerSession, requireDealerSession } from "@/lib/dealer-auth"
+import {
+  calculateProductPrice,
+  calculateBulkPrices,
+} from "@/services/pricing.service"
 
 
 const SUPPLIER_DEPO_MAP: Record<string, string> = {
@@ -70,39 +74,26 @@ export async function GET(
     return NextResponse.json({ error: "Ürün bulunamadı." }, { status: 404 })
   }
 
-  // Fiyat hesapla (liste route ile aynı manuel hesap — services cache None sorununu atlar)
-  const sp = product.supplierProducts[0]
+  // Fiyat hesabı — services kullanılır (tek kaynak). Manuel inline hesap kaldırıldı.
+  const priceCalc = await calculateProductPrice(product.id)
+
   let pricing: {
     salePriceExVat: number
     salePriceIncVat: number
     vatRate: number
     currency: string
   } | null = null
-  if (product.manualPrice != null) {
-    const m = Number(product.manualPrice)
+  if (priceCalc) {
     pricing = {
-      salePriceExVat: m,
-      salePriceIncVat: Math.round(m * 1.2 * 100) / 100,
-      vatRate: 20,
-      currency: product.manualPriceCurrency ?? "USD",
-    }
-  } else if (sp?.purchasePrice) {
-    const pp = Number(sp.purchasePrice)
-    const vatRate = Number(sp.vatRate ?? 20)
-    const ex = pp * (1 + Number(sp.supplier?.marginRate ?? 30) / 100)
-    pricing = {
-      salePriceExVat: Math.round(ex * 100) / 100,
-      salePriceIncVat: Math.round(ex * (1 + vatRate / 100) * 100) / 100,
-      vatRate,
-      currency: sp.currency ?? "TRY",
+      salePriceExVat: priceCalc.salePriceExVat,
+      salePriceIncVat: priceCalc.salePriceIncVat,
+      vatRate: priceCalc.vatRate,
+      currency: priceCalc.currency,
     }
   }
 
-  // Stok
-  const totalStock = product.supplierProducts.reduce(
-    (sum, sp) => sum + sp.stockQuantity,
-    0
-  )
+  // Stok — services toplam stokla aynı (filter: deletedAt null + isAvailable true)
+  const totalStock = priceCalc?.stockQuantity ?? 0
 
   // Benzer ürünler (aynı kategoriden, bu ürün hariç)
   const relatedProducts = product.categoryId
@@ -117,48 +108,35 @@ export async function GET(
         orderBy: { viewCount: "desc" },
         include: {
           brand: { select: { id: true, name: true, slug: true } },
-          supplierProducts: {
-            where: { deletedAt: null, isAvailable: true },
-            select: {
-              purchasePrice: true,
-              vatRate: true,
-              stockQuantity: true,
-              supplier: { select: { marginRate: true } },
-            },
-            orderBy: { purchasePrice: "asc" },
-            take: 1,
-          },
         },
       })
     : []
 
+  // Benzer ürünlerin fiyat/stok hesabı — services (tek kaynak)
+  const relatedIds = relatedProducts.map((rp) => rp.id)
+  const relatedPriceMap = relatedIds.length > 0
+    ? await calculateBulkPrices(relatedIds)
+    : new Map<string, never>()
+
   const relatedWithPricing = relatedProducts.map((rp) => {
-    const sp = rp.supplierProducts[0]
-    let relPricing = null
-    if (sp?.purchasePrice) {
-      const purchasePrice = Number(sp.purchasePrice)
-      const vatRate = Number(sp.vatRate ?? 20)
-      const multiplier = 1 + Number(sp.supplier?.marginRate ?? 30) / 100
-      const salePriceExVat = purchasePrice * multiplier
-      const salePriceIncVat = salePriceExVat * (1 + vatRate / 100)
-      relPricing = {
-        salePriceExVat: Math.round(salePriceExVat * 100) / 100,
-        salePriceIncVat: Math.round(salePriceIncVat * 100) / 100,
-        vatRate,
-      }
-    }
-    const stock = rp.supplierProducts.reduce(
-      (sum, s) => sum + s.stockQuantity,
-      0
-    )
+    const calc = relatedPriceMap.get(rp.id)
     return {
       id: rp.id,
       name: rp.name,
       slug: rp.slug,
       images: rp.images,
       brand: rp.brand,
-      pricing: relPricing,
-      stock: { quantity: stock, isAvailable: stock > 0 },
+      pricing: calc
+        ? {
+            salePriceExVat: calc.salePriceExVat,
+            salePriceIncVat: calc.salePriceIncVat,
+            vatRate: calc.vatRate,
+          }
+        : null,
+      stock: {
+        quantity: calc?.stockQuantity ?? 0,
+        isAvailable: (calc?.stockQuantity ?? 0) > 0,
+      },
     }
   })
 
