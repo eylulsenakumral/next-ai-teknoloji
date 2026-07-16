@@ -198,7 +198,7 @@ export function PublicProductCard({ product }: PublicProductCardProps) {
               <span className="h-7 w-8 flex items-center justify-center text-[12px] font-medium border-x border-[var(--color-border)]">{qty}</span>
               <button type="button" onClick={() => setQty((p) => p + 1)} className="h-7 w-7 flex items-center justify-center hover:bg-[#f5f5f5] transition-colors" aria-label="Artır"><Plus className="h-3 w-3" aria-hidden /></button>
             </div>
-            <button type="button" onClick={handleAddToCart} className={cn("flex-1 h-7 flex items-center justify-center gap-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200", justAdded ? "bg-[var(--color-price)] text-white" : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]")} aria-label={`${product.name} sepete ekle`}>
+            <button type="button" onClick={handleAddToCart} className={cn("flex-1 h-7 flex items-center justify-center gap-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200", justAdded ? "bg-[var(--color-success)] text-white" : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]")} aria-label={`${product.name} sepete ekle`}>
               {justAdded ? <><Check className="h-3 w-3" aria-hidden /> Eklendi</> : <><ShoppingCart className="h-3 w-3" aria-hidden /> Sepete Ekle</>}
             </button>
           </div>

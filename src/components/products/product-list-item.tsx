@@ -301,7 +301,7 @@ export function ProductListItem({ product, onAddToCart, brands, categories }: Pr
               onClick={handleAddToCart}
               className={cn(
                 "h-7 px-3 flex items-center justify-center gap-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200",
-                justAdded ? "bg-[var(--color-price)] text-white" : "bg-[#1e3a5f] hover:bg-[var(--color-primary)] text-white"
+                justAdded ? "bg-[var(--color-success)] text-white" : "bg-[#1e3a5f] hover:bg-[var(--color-primary)] text-white"
               )}
               aria-label={`${product.name} sepete ekle`}
             >
