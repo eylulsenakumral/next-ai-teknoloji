@@ -169,13 +169,13 @@ export function CampaignProductCard({ product, campaign }: CampaignProductCardPr
             </p>
           ) : null}
 
-          {showPrice && ((product as any).manualPrice != null || (product as any).salePriceExVat != null) ? (
+          {showPrice && (product.manualPrice != null || product.salePriceExVat != null) ? (
             <Link
               href={`/katalog/${product.slug}`}
               className="flex flex-col items-center justify-center gap-0.5 py-2.5 px-4 rounded-lg w-full bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] transition-all duration-300"
             >
               {(() => {
-                const p = product as any
+                const p = product
                 const price = p.manualPrice != null ? p.manualPrice : p.salePriceExVat
                 const curr = p.manualPrice != null ? (p.manualPriceCurrency || "USD") : (p.currency || "USD")
                 const vatRate = 0.20

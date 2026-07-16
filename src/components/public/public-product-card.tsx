@@ -30,6 +30,11 @@ export interface PublicProduct {
   usdTryRate?: number | null
   campaignDiscountPct?: string | number | null
   hidePrice?: boolean
+  // Fırsat/outlet ürünleri için doğrudan satış fiyatı
+  manualPrice?: number | null
+  manualPriceCurrency?: string | null
+  // Liste fiyatı (KDV hariç) — bayi görmüyorsa undefined
+  salePriceExVat?: number | null
 }
 
 /* ------------------------------------------------------------------ */

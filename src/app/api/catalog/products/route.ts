@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { getDealerSession, requireDealerSession } from "@/lib/dealer-auth"
-import { calculateProductPrice, getStockInfo } from "@/lib/pricing"
+import { calculateBulkPrices } from "@/services/pricing.service"
 
 export async function GET(req: NextRequest) {
   const session = await getDealerSession()
@@ -120,60 +120,25 @@ export async function GET(req: NextRequest) {
       include: {
         brand: { select: { id: true, name: true, slug: true, logoUrl: true } },
         category: { select: { id: true, name: true, slug: true } },
-        supplierProducts: {
-          where: { deletedAt: null, isAvailable: true },
-          select: {
-            purchasePrice: true,
-            vatRate: true,
-            stockQuantity: true,
-            isAvailable: true,
-            currency: true,
-            supplier: { select: { marginRate: true } },
-          },
-          orderBy: { purchasePrice: "asc" },
-          take: 1,
-        },
       },
     }),
     prisma.product.count({ where }),
   ])
 
-  // Fiyat ve stok bilgilerini hesapla
+  // Fiyat ve stok — services calculateBulkPrices (tek kaynak).
+  const priceMap = await calculateBulkPrices(products.map((p) => p.id))
+
   const productsWithPricing = products.map((product) => {
-    const sp = product.supplierProducts[0]
-    let pricing = null
-
-    // Fırsat/outlet ürünlerde manualPrice direkt satış fiyatıdır
-    if (product.manualPrice != null) {
-      const manualPriceNum = Number(product.manualPrice)
-      const originalPriceNum = sp?.purchasePrice
-        ? Math.round(Number(sp.purchasePrice) * (1 + Number(sp.supplier?.marginRate ?? 30) / 100) * 100) / 100
-        : null
-      pricing = {
-        salePriceExVat: manualPriceNum,
-        salePriceIncVat: Math.round(manualPriceNum * 1.20 * 100) / 100,
-        vatRate: 20,
-        currency: product.manualPriceCurrency ?? "USD",
-        originalPrice: originalPriceNum,
-      }
-    } else if (sp?.purchasePrice) {
-      const purchasePrice = Number(sp.purchasePrice)
-      const vatRate = Number(sp.vatRate ?? 20)
-      const multiplier = 1 + Number(sp.supplier?.marginRate ?? 30) / 100
-      const salePriceExVat = purchasePrice * multiplier
-      const salePriceIncVat = salePriceExVat * (1 + vatRate / 100)
-      pricing = {
-        salePriceExVat: Math.round(salePriceExVat * 100) / 100,
-        salePriceIncVat: Math.round(salePriceIncVat * 100) / 100,
-        vatRate,
-        currency: sp.currency ?? "TRY",
-      }
-    }
-
-    const totalStock = product.supplierProducts.reduce(
-      (sum, s) => sum + s.stockQuantity,
-      0
-    )
+    const calc = priceMap.get(product.id)
+    const pricing = calc
+      ? {
+          salePriceExVat: calc.salePriceExVat,
+          salePriceIncVat: calc.salePriceIncVat,
+          vatRate: calc.vatRate,
+          currency: calc.currency,
+          originalPrice: calc.originalSalePriceExVat,
+        }
+      : null
 
     return {
       id: product.id,
@@ -194,8 +159,8 @@ export async function GET(req: NextRequest) {
       category: product.category,
       pricing,
       stock: {
-        quantity: totalStock,
-        isAvailable: totalStock > 0,
+        quantity: calc?.stockQuantity ?? 0,
+        isAvailable: (calc?.stockQuantity ?? 0) > 0,
       },
     }
   })

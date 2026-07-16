@@ -1,3 +1,4 @@
+import type { ProfitMargin } from "@prisma/client"
 import { prisma } from "@/lib/db"
 import { withCache, invalidatePriceCache, CacheKey, TTL } from "@/lib/cache"
 
@@ -17,6 +18,10 @@ export interface PriceCalculation {
   salePriceIncVat: number
   profitAmount: number
   stockQuantity: number
+  currency: string
+  // manualPrice (outlet) ürünlerde, manualPrice uygulanmadan önceki normal hesaplanmış fiyat.
+  // outlet olmayan ürünlerde null. Liste UI'ında üzeri çizili "orijinal fiyat" için.
+  originalSalePriceExVat: number | null
 }
 
 /**
@@ -134,11 +139,17 @@ async function _calculateProductPrice(productId: string): Promise<PriceCalculati
 
   if (!product) return null
 
-  // Fırsat/outlet ürünlerde manualPrice doğrudan satış fiyatıdır — marj uygulanmaz
+  // Fırsat/outlet ürünlerde manualPrice doğrudan satış fiyatıdır — marj uygulanmaz.
+  // supplierProducts query filter'ı (isAvailable + purchasePrice not null) bu ürünleri
+  // eleyebilir; bu yüzden manualPrice dalı supplierProducts[0] opsiyonel kabul eder.
   if (product.manualPrice != null) {
     const manualPriceNum = parseFloat(product.manualPrice.toString())
     const totalStock = product.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
     const sp = product.supplierProducts[0]
+    // manualPrice uygulanmadan önceki "normal" fiyat — üzeri çizili orijinal fiyat için.
+    const originalSalePriceExVat = sp?.purchasePrice != null
+      ? await computeOriginalPrice(sp, productId, product.categoryId, product.brandId)
+      : null
     return {
       purchasePrice: manualPriceNum,
       supplierProductId: sp?.id ?? null,
@@ -151,23 +162,23 @@ async function _calculateProductPrice(productId: string): Promise<PriceCalculati
       salePriceIncVat: Math.round(manualPriceNum * 1.20 * 100) / 100,
       profitAmount: 0,
       stockQuantity: totalStock,
+      currency: product.manualPriceCurrency ?? "USD",
+      originalSalePriceExVat,
     }
   }
 
-  const available = product.supplierProducts.filter(
-    (sp) => sp.purchasePrice !== null && sp.stockQuantity > 0
-  )
+  // Non-manualPrice: product query zaten purchasePrice: { not: null } + orderBy asc
+  // filter ediyor. Liste/detay route ile tutarlı olması için stock şartı KOYMUYORUZ —
+  // stok 0 ürünler için de fiyat döner (outlet / pre-order / detay görünür).
+  if (product.supplierProducts.length === 0) return null
 
-  if (available.length === 0) return null
-
-  // Cheapest supplier first
-  const cheapest = available[0]
+  const cheapest = product.supplierProducts[0]
   const purchasePrice = parseFloat(cheapest.purchasePrice!.toString())
   const vatRate = cheapest.vatRate
     ? parseFloat(cheapest.vatRate.toString())
     : DEFAULT_VAT_RATE
 
-  const totalStock = available.reduce((sum, sp) => sum + sp.stockQuantity, 0)
+  const totalStock = product.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
   // Supplier margin önce gelir; yoksa ProfitMargin tablosuna düş
   const supplierMarginRate = cheapest.supplier?.marginRate != null
@@ -202,6 +213,8 @@ async function _calculateProductPrice(productId: string): Promise<PriceCalculati
     salePriceIncVat: saleIncVat,
     profitAmount: profit,
     stockQuantity: totalStock,
+    currency: cheapest.currency ?? "TRY",
+    originalSalePriceExVat: null,
   }
 }
 
@@ -257,10 +270,18 @@ export async function calculateBulkPrices(
   for (const product of products) {
     const totalStock = product.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
-    // Fırsat/outlet ürünlerde manualPrice doğrudan satış fiyatıdır
+    // Fırsat/outlet ürünlerde manualPrice doğrudan satış fiyatıdır.
+    // supplierProducts query filter'ı bu ürünleri eleyebilir; bu yüzden sp opsiyonel.
     if ((product as { manualPrice?: unknown }).manualPrice != null) {
       const manualPriceNum = parseFloat(String((product as { manualPrice: unknown }).manualPrice))
       const sp = product.supplierProducts[0]
+      const originalSalePriceExVat = computeOriginalPriceFromList(
+        sp,
+        allMargins,
+        product.id,
+        product.categoryId,
+        product.brandId
+      )
       results.set(product.id, {
         purchasePrice: manualPriceNum,
         supplierProductId: sp?.id ?? null,
@@ -273,16 +294,16 @@ export async function calculateBulkPrices(
         salePriceIncVat: Math.round(manualPriceNum * 1.20 * 100) / 100,
         profitAmount: 0,
         stockQuantity: totalStock,
+        currency: (product as { manualPriceCurrency?: string | null }).manualPriceCurrency ?? "USD",
+        originalSalePriceExVat,
       })
       continue
     }
 
-    const available = product.supplierProducts.filter(
-      (sp) => sp.purchasePrice !== null && sp.stockQuantity > 0
-    )
-    if (available.length === 0) continue
+    // Stock şartı yok — liste/detay route ile tutarlı.
+    if (product.supplierProducts.length === 0) continue
 
-    const cheapest = available[0]
+    const cheapest = product.supplierProducts[0]
     const purchasePrice = parseFloat(cheapest.purchasePrice!.toString())
     const vatRate = cheapest.vatRate
       ? parseFloat(cheapest.vatRate.toString())
@@ -314,6 +335,8 @@ export async function calculateBulkPrices(
       salePriceIncVat: saleIncVat,
       profitAmount: profit,
       stockQuantity: totalStock,
+      currency: (cheapest as { currency?: string | null }).currency ?? "TRY",
+      originalSalePriceExVat: null,
     })
   }
 
@@ -325,8 +348,7 @@ export async function calculateBulkPrices(
 // ---------------------------------------------------------------------------
 
 function resolveMarginFromList(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  margins: any[],
+  margins: ProfitMargin[],
   productId: string,
   categoryId: string | null,
   brandId: string | null
@@ -368,4 +390,46 @@ function resolveMarginFromList(
 
 function round4(value: number): number {
   return Math.round(value * 10000) / 10000
+}
+
+/**
+ * manualPrice uygulanmadan önceki "normal" satış fiyatı (outlet için üzeri çizili).
+ * Liste route'taki originalPrice hesabıyla birebir aynı: supplier.marginRate ?? ProfitMargin.
+ */
+async function computeOriginalPrice(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  sp: any,
+  productId: string,
+  categoryId: string | null,
+  brandId: string | null
+): Promise<number | null> {
+  if (sp?.purchasePrice == null) return null
+  const pp = parseFloat(sp.purchasePrice.toString())
+  if (!Number.isFinite(pp)) return null
+  const supplierRate =
+    sp.supplier?.marginRate != null ? Number(sp.supplier.marginRate) : null
+  const rate =
+    supplierRate ?? (await getApplicableMargin(productId, categoryId, brandId)).marginPct
+  return Math.round(pp * (1 + rate / 100) * 100) / 100
+}
+
+/**
+ * computeOriginalPrice'ın bulk versiyonu — pre-loaded margins listesinden.
+ */
+function computeOriginalPriceFromList(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  sp: any,
+  margins: any[],
+  productId: string,
+  categoryId: string | null,
+  brandId: string | null
+): number | null {
+  if (sp?.purchasePrice == null) return null
+  const pp = parseFloat(sp.purchasePrice.toString())
+  if (!Number.isFinite(pp)) return null
+  const supplierRate =
+    sp.supplier?.marginRate != null ? Number(sp.supplier.marginRate) : null
+  const rate =
+    supplierRate ?? resolveMarginFromList(margins, productId, categoryId, brandId).marginPct
+  return Math.round(pp * (1 + rate / 100) * 100) / 100
 }

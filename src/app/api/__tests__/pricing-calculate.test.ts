@@ -107,6 +107,8 @@ describe("POST /api/pricing/calculate", () => {
       salePriceIncVat: 156,
       profitAmount: 30,
       stockQuantity: 50,
+      currency: "TRY",
+      originalSalePriceExVat: null,
     }
     vi.mocked(calculateProductPrice).mockResolvedValueOnce(mockPriceResult)
 

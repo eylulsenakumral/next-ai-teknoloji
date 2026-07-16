@@ -10,6 +10,7 @@
  */
 
 import { redis, isRedisAvailable } from "./redis"
+import type { Redis } from "@upstash/redis"
 
 const LOGIN_MAX = 5
 const WINDOW_MS = 15 * 60 * 1000 // 15 minutes
@@ -53,8 +54,7 @@ export async function checkLoginRate(
     // 3. refresh TTL so the key expires after the window
     // 4. count remaining members
     // 5. fetch the oldest member's score → reset time
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const pipe = (redis as any).pipeline()
+    const pipe = (redis as Redis).pipeline()
     pipe.zremrangebyscore(key, "-inf", now - WINDOW_MS)
     pipe.zadd(key, { score: now, member })
     pipe.pexpire(key, WINDOW_MS)
