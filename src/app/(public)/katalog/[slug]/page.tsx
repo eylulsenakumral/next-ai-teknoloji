@@ -138,6 +138,9 @@ export async function generateMetadata({
   return {
     title: product.name,
     description,
+    alternates: {
+      canonical: `/katalog/${product.slug}`,
+    },
     openGraph: {
       title: product.name,
       description,
@@ -163,6 +166,76 @@ function parseSpecs(
   const entries = Object.entries(specs)
   if (entries.length === 0) return null
   return entries.map(([key, value]) => ({ key, value: String(value) }))
+}
+
+/* ------------------------------------------------------------------ */
+/*  JSON-LD (Schema.org Product)                                       */
+/* ------------------------------------------------------------------ */
+
+type ProductJsonLd = {
+  "@context": "https://schema.org"
+  "@type": "Product"
+  name: string
+  image: string[]
+  description?: string
+  sku?: string
+  brand?: { "@type": "Brand"; name: string }
+  offers?: {
+    "@type": "Offer"
+    price: number
+    priceCurrency: "TRY"
+    availability: "https://schema.org/InStock" | "https://schema.org/OutOfStock"
+  }
+}
+
+/**
+ * Schema.org Product JSON-LD üretir.
+ * Bayi fiyat görmüyorsa (showPrice false) Offer dahil edilmez;
+ * sadece Product name/image/description yayınlanır.
+ */
+function buildProductJsonLd(
+  product: PublicProductDetail,
+  showPrice: boolean
+): ProductJsonLd {
+  const jsonLd: ProductJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    image: product.images,
+  }
+
+  if (product.description) {
+    jsonLd.description = product.description
+  }
+
+  if (product.sku) {
+    jsonLd.sku = product.sku
+  }
+
+  if (product.brand) {
+    jsonLd.brand = { "@type": "Brand", name: product.brand.name }
+  }
+
+  if (showPrice) {
+    // Schema price her zaman TRY olarak yayınlanır.
+    // Önce TL karşılığı (priceTry), yoksa currency TRY ise price kullanılır.
+    const tryPrice =
+      product.priceTry ??
+      (product.currency === "TRY" ? product.price : null)
+
+    if (tryPrice != null) {
+      jsonLd.offers = {
+        "@type": "Offer",
+        price: tryPrice,
+        priceCurrency: "TRY",
+        availability: product.stockStatus
+          ? "https://schema.org/InStock"
+          : "https://schema.org/OutOfStock",
+      }
+    }
+  }
+
+  return jsonLd
 }
 
 /* ------------------------------------------------------------------ */
@@ -328,10 +401,18 @@ export default async function PublicProductDetailPage({
   const session = await getServerSession(authOptions)
   const isLoggedIn = !!session?.user
 
+  // Fiyat sadece giriş yapmış bayi için, hidePrice bayrağı kapalı ve fiyat dolu ise gösterilir.
+  const showPrice = isLoggedIn && !product.hidePrice && product.price != null
+
   const specs = parseSpecs(product.specifications)
+  const productJsonLd = buildProductJsonLd(product, showPrice)
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <div className="bg-[#f5f5f5] pb-20 md:pb-0">
         {/* Breadcrumb band */}
         <div className="bg-white border-b border-[#eeeeee]">

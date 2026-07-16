@@ -158,6 +158,7 @@ export default function TeklifIstePage() {
         <form onSubmit={handleSubmit} className="mx-auto max-w-3xl rounded-3xl bg-white p-8 shadow-sm md:p-10">
           <div className="grid gap-5 sm:grid-cols-2">
             <Field
+              id="companyName"
               label="Şirket adı"
               icon={<Building2 className="h-4 w-4" />}
               value={form.companyName}
@@ -166,6 +167,7 @@ export default function TeklifIstePage() {
               required
             />
             <Field
+              id="contactName"
               label="Yetkili adı soyadı"
               icon={<User className="h-4 w-4" />}
               value={form.contactName}
@@ -174,6 +176,7 @@ export default function TeklifIstePage() {
               required
             />
             <Field
+              id="phone"
               label="Telefon"
               icon={<Phone className="h-4 w-4" />}
               value={form.phone}
@@ -183,6 +186,7 @@ export default function TeklifIstePage() {
               type="tel"
             />
             <Field
+              id="email"
               label="E-posta"
               icon={<Mail className="h-4 w-4" />}
               value={form.email}
@@ -192,6 +196,7 @@ export default function TeklifIstePage() {
               type="email"
             />
             <Field
+              id="city"
               label="Şehir"
               icon={<MapPin className="h-4 w-4" />}
               value={form.city}
@@ -200,6 +205,7 @@ export default function TeklifIstePage() {
               required
             />
             <Field
+              id="cameraCount"
               label="Tahmini kamera adedi"
               icon={<FileText className="h-4 w-4" />}
               value={form.cameraCount}
@@ -209,10 +215,10 @@ export default function TeklifIstePage() {
           </div>
 
           {/* Project type */}
-          <div className="mt-6">
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
+          <div className="mt-6" role="group" aria-labelledby="projectType-label">
+            <span id="projectType-label" className="block text-xs font-bold uppercase tracking-wider text-slate-500">
               Proje türü
-            </label>
+            </span>
             <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
               {projectTypes.map((pt) => (
                 <button
@@ -232,10 +238,10 @@ export default function TeklifIstePage() {
           </div>
 
           {/* Budget */}
-          <div className="mt-6">
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
+          <div className="mt-6" role="group" aria-labelledby="budget-label">
+            <span id="budget-label" className="block text-xs font-bold uppercase tracking-wider text-slate-500">
               Bütçe aralığı
-            </label>
+            </span>
             <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
               {budgetRanges.map((b) => (
                 <button
@@ -256,10 +262,11 @@ export default function TeklifIstePage() {
 
           {/* Description */}
           <div className="mt-6">
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
+            <label htmlFor="description" className="block text-xs font-bold uppercase tracking-wider text-slate-500">
               Proje detayları
             </label>
             <textarea
+              id="description"
               value={form.description}
               onChange={(e) => update("description", e.target.value)}
               rows={5}
@@ -270,7 +277,7 @@ export default function TeklifIstePage() {
 
           {/* Error */}
           {status === "error" && (
-            <div className="mt-6 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+            <div role="alert" className="mt-6 flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
               <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
               <div>
                 <strong className="font-bold">Teklif gönderilemedi.</strong>
@@ -306,6 +313,7 @@ export default function TeklifIstePage() {
 }
 
 interface FieldProps {
+  id: string
   label: string
   value: string
   onChange: (v: string) => void
@@ -315,10 +323,10 @@ interface FieldProps {
   icon?: React.ReactNode
 }
 
-function Field({ label, value, onChange, placeholder, required, type = "text", icon }: FieldProps) {
+function Field({ id, label, value, onChange, placeholder, required, type = "text", icon }: FieldProps) {
   return (
     <div>
-      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500">
+      <label htmlFor={id} className="block text-xs font-bold uppercase tracking-wider text-slate-500">
         {label} {required && <span className="text-[#5086a8]">*</span>}
       </label>
       <div className="relative mt-2">
@@ -328,6 +336,7 @@ function Field({ label, value, onChange, placeholder, required, type = "text", i
           </span>
         )}
         <input
+          id={id}
           type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}

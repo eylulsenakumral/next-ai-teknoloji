@@ -704,8 +704,17 @@ export default function OrdersPage() {
                     return (
                       <Fragment key={order.id}>
                         <tr
+                          role="button"
+                          tabIndex={0}
+                          aria-expanded={isExpanded}
                           onClick={() => setExpandedId(isExpanded ? null : order.id)}
-                          className={`cursor-pointer transition-colors hover:bg-[#f0f4ff] ${idx % 2 === 1 ? "bg-[#fafafa]" : "bg-white"}`}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault()
+                              setExpandedId(isExpanded ? null : order.id)
+                            }
+                          }}
+                          className={`cursor-pointer transition-colors hover:bg-[#f0f4ff] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#0040a4] ${idx % 2 === 1 ? "bg-[#fafafa]" : "bg-white"}`}
                         >
                           <td className="px-3 py-3.5">
                             <ChevronDown className={`h-4 w-4 text-[#767676] transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} />

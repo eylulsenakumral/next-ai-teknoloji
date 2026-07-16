@@ -30,6 +30,42 @@ export const metadata = {
   alternates: { canonical: "/" },
 }
 
+// Ana üretim domain'i env ile override edilebilir (sitemap.ts ile aynı kural).
+// globalThis required: bu dosyada PartnershipSection'ın `const process` array'i
+// modül-scope'ta global Node process'ini gölgeliyor.
+const SITE_URL = globalThis.process.env.NEXT_PUBLIC_SITE_URL ?? "https://next-ai-teknoloji.com"
+
+// Organization JSON-LD — Knowledge Graph / kurumsal kimlik tanımı.
+// İletişim bilgileri dealer-footer.tsx ile tutarlı (tek kaynak: +905529895959 / info@next-ai.com.tr).
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${SITE_URL}/#organization`,
+  name: "Next AI Teknoloji",
+  url: SITE_URL,
+  description:
+    "16+ global markanın yetkili tedarikçisi. CCTV, IP kamera, NVR, network altyapısı, geçiş kontrol ve akıllı bina çözümleri için proje bazlı teklif ve bayi avantajları.",
+  logo: {
+    "@type": "ImageObject",
+    url: `${SITE_URL}/logo.png`,
+    width: 940,
+    height: 400,
+  },
+  image: `${SITE_URL}/logo.png`,
+  email: "info@next-ai.com.tr",
+  telephone: "+905529895959",
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: "+905529895959",
+      email: "info@next-ai.com.tr",
+      contactType: "sales",
+      areaServed: "TR",
+      availableLanguage: ["Turkish", "English"],
+    },
+  ],
+}
+
 // ─── Brand Ecosystem ───────────────────────────────────────────────────────────
 const featuredBrands = [
   { Logo: LogoDahua, cat: "Kamera Sistemleri", desc: "AI kamera, NVR ve analitik" },
@@ -478,6 +514,10 @@ function CtaSection() {
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
       <Hero />
       <ValueSection />
       <BrandsSection />
