@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { Prisma } from "@prisma/client"
+import { getUsdTryRate } from "@/services/order.service"
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:4040"
 
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest) {
     const amount = formData.get("Price") as string
 
     console.log("[NOMUPAY CALLBACK POST]", {
-      statusCode, orderId, mpay, maskedCCNo, resultCode, resultMessage, amount,
+      statusCode, orderId, mpay, resultCode, resultMessage,
     })
 
     if (statusCode === "0" && mpay) {
@@ -82,23 +83,26 @@ export async function POST(request: NextRequest) {
               },
             })
 
-            // Sipariş ödemesini de cari hesaba işle
-            const paymentAmount = Number(order.grandTotal)
+            // Sipariş ödemesini cari hesaba işle — order.grandTotal USD kökenli, TL'ye çevir
+            // (KRİTİK-30: önceden USD tutarını doğrudan TL bakiyeden düşüyordu ~36x eksik).
+            const paymentAmountUSD = Number(order.grandTotal)
+            const usdTryRate = await getUsdTryRate()
+            const paymentTL = Math.round(paymentAmountUSD * usdTryRate * 100) / 100
             const customer = await prisma.customer.findFirst({
               where: { id: order.customerId, deletedAt: null },
             })
             if (customer) {
-              const newBalance = Number(customer.balance) - paymentAmount
+              const newBalance = Math.round((Number(customer.balance) - paymentTL) * 100) / 100
               await prisma.accountTransaction.create({
                 data: {
                   customerId: customer.id,
                   type: "PAYMENT",
-                  amount: new Prisma.Decimal(-paymentAmount),
+                  amount: new Prisma.Decimal(-paymentTL),
                   balanceAfter: new Prisma.Decimal(newBalance),
                   currency: "TRY",
                   referenceType: "ORDER",
                   referenceId: order.id,
-                  description: `Sipariş Ödemesi (${mpay})${maskedCCNo ? ` - ${maskedCCNo}` : ""}`,
+                  description: `Sipariş Ödemesi (${mpay}) - ${paymentAmountUSD} USD × ${usdTryRate} = ${paymentTL} TL`,
                   notes: `NomuPay OrderId: ${orderId}`,
                 },
               })
