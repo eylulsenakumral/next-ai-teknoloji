@@ -72,7 +72,7 @@ export async function GET(
   // Gerçek fiyat hesaplaması — merkezi services (marginRate, outlet desteği)
   const pricingRaw = await calculateProductPrice(product.id)
   // purchasePrice (tedarik maliyeti) bayiye sızmasın — strip.
-  const { purchasePrice: _pp, profitMarginPct: _pm, ...pricing } = pricingRaw ?? {}
+  const { purchasePrice: _pp, marginPct: _mm, profitAmount: _pa, ...pricing } = pricingRaw ?? {}
 
   // Stok
   const totalStock = product.supplierProducts.reduce(
