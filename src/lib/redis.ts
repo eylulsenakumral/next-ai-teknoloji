@@ -5,8 +5,10 @@
  * Falls back to no-op when not configured.
  */
 
+import { Redis } from "@upstash/redis"
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type RedisClient = any
+type RedisClient = Redis
 
 declare global {
   // eslint-disable-next-line no-var
@@ -21,13 +23,10 @@ function createRedisClient(): RedisClient | null {
     return null
   }
 
-  // Dynamic require to avoid bundling issues during build
   try {
-    const { Redis } = require("@upstash/redis")
-    console.log("[redis] Using Upstash REST API")
     return new Redis({ url, token })
   } catch {
-    console.warn("[redis] @upstash/redis not available — cache disabled")
+    console.warn("[redis] Redis init failed — cache disabled")
     return null
   }
 }
