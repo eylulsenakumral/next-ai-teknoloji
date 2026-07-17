@@ -3,6 +3,7 @@ import { z } from "zod"
 import { Prisma } from "@prisma/client"
 import { prisma } from "@/lib/db"
 import { getDealerSession, requireDealerSession } from "@/lib/dealer-auth"
+import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import {
   calculateProductPrice,
   calculateBulkPrices,
@@ -201,8 +202,9 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  const session = await getDealerSession()
-  const authError = requireDealerSession(session)
+  // Güvenlik: brand/category düzenleme admin yetkisi — dealer erişemez (KRİTİK).
+  const session = await getAdminSession()
+  const authError = requireAdminSession(session)
   if (authError) return authError
 
   const { slug } = await params
