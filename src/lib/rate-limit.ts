@@ -44,34 +44,18 @@ export async function checkLoginRate(
 
   const key = `ratelimit:login:${identifier}`
   const now = Date.now()
-  // Unique member: score collisions within the same ms still insert separately.
-  const member = `${now}:${Math.random().toString(36).slice(2, 10)}`
 
   try {
-    // Pipeline = single round-trip to Upstash REST. Order matters:
-    // 1. drop entries older than the window
-    // 2. record this attempt
-    // 3. refresh TTL so the key expires after the window
-    // 4. count remaining members
-    // 5. fetch the oldest member's score → reset time
-    const pipe = (redis as Redis).pipeline()
-    pipe.zremrangebyscore(key, "-inf", now - WINDOW_MS)
-    pipe.zadd(key, { score: now, member })
-    pipe.pexpire(key, WINDOW_MS)
-    pipe.zcard(key)
-    pipe.zrange(key, 0, 0, { withScores: true })
-
-    const res = (await pipe.exec()) as unknown[]
-    const count = Number(res[3] ?? 0)
-    const oldest = res[4] as [string, number] | []
+    // Fixed window: incr + expire (15 dk). İlk istek key yaratır + expire set.
+    // @upstash/redis basit incr/expire — pipeline z* komutları TypeError veriyordu.
+    const count = await redis.incr(key)
+    if (count === 1) {
+      await redis.expire(key, Math.ceil(WINDOW_MS / 1000))
+    }
 
     const success = count <= LOGIN_MAX
     const remaining = Math.max(0, LOGIN_MAX - count)
-    const oldestScore =
-      Array.isArray(oldest) && oldest.length >= 2 ? Number(oldest[1]) : null
-    const resetAt = new Date(
-      oldestScore !== null ? oldestScore + WINDOW_MS : now + WINDOW_MS
-    )
+    const resetAt = new Date(now + WINDOW_MS)
 
     return { success, remaining, resetAt }
   } catch (err) {
