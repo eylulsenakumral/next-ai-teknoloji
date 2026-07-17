@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db"
 import { updateProductSchema } from "@/lib/validators/product"
 import { generateSlug } from "@/lib/utils/slug"
 import { getAdminSession, requireReadPermission, requireWritePermission } from "@/lib/auth-helpers"
-import { withCache, invalidateProductCache, invalidateNextCache, CacheKey, TTL } from "@/lib/cache"
+import { withCache, invalidateProductCache, invalidatePriceCache, invalidateNextCache, CacheKey, TTL } from "@/lib/cache"
 
 type Params = { params: Promise<{ id: string }> }
 
@@ -140,6 +140,8 @@ export async function PUT(req: NextRequest, { params }: Params) {
 
   // Invalidate detail + list caches for this product
   await invalidateProductCache(id)
+  // Fiyat cache (manualPrice/brand/category/margin değişti) — pricing.service stale'i önle
+  await invalidatePriceCache(id)
 
   return NextResponse.json({ data: product })
 }
