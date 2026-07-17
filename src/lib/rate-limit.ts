@@ -48,9 +48,9 @@ export async function checkLoginRate(
   try {
     // Fixed window: incr + expire (15 dk). İlk istek key yaratır + expire set.
     // @upstash/redis basit incr/expire — pipeline z* komutları TypeError veriyordu.
-    const count = await redis.incr(key)
+    const count = await redis!.incr(key)
     if (count === 1) {
-      await redis.expire(key, Math.ceil(WINDOW_MS / 1000))
+      await redis!.expire(key, Math.ceil(WINDOW_MS / 1000))
     }
 
     const success = count <= LOGIN_MAX
