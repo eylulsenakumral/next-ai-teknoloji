@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useSession } from "next-auth/react"
 import Link from "next/link"
 import { Package, ShoppingCart, Eye, Heart, Check, Minus, Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -74,6 +75,8 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, onAddToCart, brands, categories }: ProductCardProps) {
+  const { data: session } = useSession()
+  const isAdmin = session?.user?.role === "admin" || session?.user?.role === "super_admin"
   const mainImage = product.images[0]
   const { addItem, items, openCart } = useCart()
 
@@ -126,7 +129,7 @@ export function ProductCard({ product, onAddToCart, brands, categories }: Produc
     setUpdating(false)
   }
 
-  const showDropdowns = (brands && brands.length > 0) || (categories && categories.length > 0)
+  const showDropdowns = isAdmin && ((brands && brands.length > 0) || (categories && categories.length > 0))
 
   return (
     <article
