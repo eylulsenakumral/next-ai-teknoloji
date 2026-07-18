@@ -9,12 +9,12 @@ export function PublicFooterNext() {
     <footer className="bg-[var(--color-primary)] px-6 py-10 text-white md:px-10 font-nx-sans">
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4">
         <Link href="/" className="tracking-[-.08em] text-2xl font-extrabold">
-          NEXT<span className="text-[var(--color-primary)]">AI</span>
+          NEXT<span className="text-white/80">AI</span>
         </Link>
-        <span className="font-nx-mono text-[10px] uppercase tracking-[.18em] text-slate-500">
+        <span className="font-nx-mono text-[10px] uppercase tracking-[.18em] text-slate-300">
           B2B teknoloji tedarik ve proje platformu
         </span>
-        <div className="flex flex-wrap items-center gap-4 text-[11px] font-semibold text-slate-400">
+        <div className="flex flex-wrap items-center gap-4 text-[11px] font-semibold text-slate-300">
           <Link href="/katalog" className="hover:text-white transition">
             Ürünler
           </Link>
@@ -27,7 +27,7 @@ export function PublicFooterNext() {
           <Link href="/bayimiz-olun" className="hover:text-white transition">
             Bayimiz Olun
           </Link>
-          <span className="font-nx-mono text-[9px] uppercase tracking-[.14em] text-slate-600">
+          <span className="font-nx-mono text-[9px] uppercase tracking-[.14em] text-slate-400">
             © {new Date().getFullYear()} Next AI Teknoloji
           </span>
         </div>

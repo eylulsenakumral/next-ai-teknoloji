@@ -33,7 +33,7 @@ export const metadata = {
 // Ana üretim domain'i env ile override edilebilir (sitemap.ts ile aynı kural).
 // globalThis required: bu dosyada PartnershipSection'ın `const process` array'i
 // modül-scope'ta global Node process'ini gölgeliyor.
-const SITE_URL = globalThis.process.env.NEXT_PUBLIC_SITE_URL ?? "https://next-ai-teknoloji.com"
+const SITE_URL = globalThis.process.env.NEXT_PUBLIC_SITE_URL ?? "https://nexadepo.com"
 
 // Organization JSON-LD — Knowledge Graph / kurumsal kimlik tanımı.
 // İletişim bilgileri dealer-footer.tsx ile tutarlı (tek kaynak: +905529895959 / info@next-ai.com.tr).

@@ -24,6 +24,21 @@ export const metadata: Metadata = {
     description: "27+ global markanın yetkili tedarikçisi. Bayi avantajları, proje tasarımı ve teknik danışmanlık.",
     type: "website",
     locale: "tr_TR",
+    siteName: "Next AI Teknoloji",
+    images: [
+      {
+        url: "/logo.png",
+        width: 940,
+        height: 400,
+        alt: "Next AI Teknoloji",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Next AI Teknoloji — B2B Teknoloji Tedarik & Proje Platformu",
+    description: "27+ global markanın yetkili tedarikçisi. Bayi avantajları, proje tasarımı ve teknik danışmanlık.",
+    images: ["/logo.png"],
   },
 }
 

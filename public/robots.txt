@@ -17,4 +17,4 @@ Disallow: /favoriler
 # API
 Disallow: /api/
 
-Sitemap: https://next-ai-teknoloji.com/sitemap.xml
+Sitemap: https://nexadepo.com/sitemap.xml

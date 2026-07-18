@@ -46,7 +46,7 @@ export default function RootLayout({
       className={`${poppins.variable} ${manrope.variable} ${dmMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
+      <body className="min-h-full flex flex-col font-sans">
         <Providers>
           <a
             href="#main-content"

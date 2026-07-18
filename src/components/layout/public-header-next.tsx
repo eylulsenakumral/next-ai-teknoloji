@@ -38,7 +38,7 @@ export function PublicHeaderNext() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
         {/* Logo */}
         <Link href="/" className="shrink-0 text-xl font-extrabold tracking-[-.09em]">
-          NEXT<span className="text-[var(--color-primary)]">AI</span>
+          NEXT<span className={home ? "text-white/80" : "text-[var(--color-primary)]"}>AI</span>
           <small className="ml-2 hidden align-middle font-nx-mono text-[9px] font-normal tracking-[.14em] text-slate-400 sm:inline">
             / NEXTADEPO
           </small>
@@ -94,6 +94,8 @@ export function PublicHeaderNext() {
             type="button"
             className="lg:hidden p-2"
             aria-label="Menü"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-drawer"
             onClick={() => setMobileOpen((v) => !v)}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -103,7 +105,7 @@ export function PublicHeaderNext() {
 
       {/* Mobile drawer (inline) */}
       {mobileOpen && (
-        <div className="lg:hidden mt-4 pb-2 space-y-1">
+        <div id="mobile-nav-drawer" className="lg:hidden mt-4 pb-2 space-y-1">
           {NAV.map(([label, to]) => {
             const isActive = pathname === to || (to !== "/" && pathname.startsWith(to))
             return (

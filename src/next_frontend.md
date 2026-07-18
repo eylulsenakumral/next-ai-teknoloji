@@ -26,15 +26,39 @@ Her sayfa açılışında `https://nexadepo.com/markalar?_rsc=XXXX` istekleri `n
 - **Etkisi:** Marka logosu kırık görünüyor (broken image).
 - **Öneri:** Eksik görseli yükle veya fallback logo (placeholder) ekle; `storage/brands` asset yönetimini kontrol et.
 
-### 1.4 `/hakkimizda` ve `/bayiler` auth wall'a düşüyor
-Bu iki route, giriş yapmamış kullanıcıda **login ekranına yönleniyor** (body içeriği Next.js theme script + login formu, "Giriş" H1'ı).
-- Title: `Giriş | Next AI Teknologi`.
-- **Sorun:** Footer/nav'da "Hakkımızda" / "Bayiler" gibi public görünen linkler aslında auth gerektiriyor. Kullanıcı tıklayınca login'e düşüyor — kötü UX.
-- **Öneri:** Bu içerikler gerçekten gizli mi? Değilse public sayfa oluştur. Gizliyse nav/footer'da linki gösterme veya "Giriş gerekli" rozeti ekle.
+### 1.4 Sistematik auth wall sorunu (nav menüsünün çoğu linki login'e atıyor)
+İlk incelemede `/hakkimizda`, `/bayiler` auth wall'a düşüyordu. Derinlemesine taramada **nav menüsündeki 9 linkten yalnızca 3'ü (`/`, `/katalog`, `/markalar`) gerçekten public**; geri kalanları giriş yapmamış kullanıcıyı `/login?callbackUrl=...` adresine yönlendiriyor:
+- `/teklif-iste` → login ✅ (Title: `Giriş`)
+- `/proje-tasarim` → login ✅
+- `/cozumler` → login ✅
+- `/bayi-programi` → login ✅ (AMA nav'da "Bayi Programı" public gibi gösteriliyor)
+- `/hakkimizda` → login ✅
+- `/bayiler` → login ✅
+- `/bayimiz-olun` → ✅ public (doğru, başvuru formu açık)
+- `/bayi-giris` → ✅ login formu (doğru)
+- **Sorun:** Menüde "Çözümler", "Projenizi Tasarlayalım", "Teklif İste", "Bayi Programı", "Hakkımızda", "Bayiler" linklerine tıklayan misafir kullanıcı anında login ekranına savruluyor. Bu kötü bir misafir deneyimi ve dönüşüm kaybı.
+- **Öneri:** Bu sayfaların içeriği public olabilecek nitelikte (çözüm tanıtımları, proje tasarım aracı, teklif formu). Mümkünse public'e aç; ya da menüde "Giriş gerekli" rozeti / hover tooltip ile beklenti yönetimi yap. En azından `/bayi-programi` ile `/bayi-giris` karışıklığını çöz (ikisi de aynı login formu gösteriyor).
+
+### 1.5 🔴 KRİTİK: Ürün görselleri `402 Payment Required` (b2bdepo.com kaynaklı)
+`/katalog` ve ürün detay sayfalarında ürün fotoğrafları `https://www.b2bdepo.com/images/UrunResimleri/...` adresinden Next.js image optimizer (`/_next/image?url=...b2bdepo.com...`) üzerinden çekiliyor ve **HTTP 402 (Payment Required) dönüyor**.
+- `/katalog`: **11 adet 402** görsel hatası (konsol dolu).
+- Ürün detay (ASUS Monitor): **14/15 görsel 402** — galeri neredeyse tamamen kırık.
+- HDD ürününde ise 4/4 görsel **200** (çalışıyor). Yani sorun ürün bazlı değişken: bazı b2bdepo.com görselleri 402, bazıları OK.
+- **Etkisi:** Ürün kartları ve detay galerileri boş/kırık görünüyor → satış dönüşümü doğrudan etkilenir. Ayrıca LCP metriği 402 görsel yüzünden ölçülemiyor (LCP 0 geliyor).
+- **Kök neden (tahmini):** `b2bdepo.com` üzerinde görsel başına quota/ücretli erişim veya token eksikliği; ya da o domain için Next image optimizer'ın remote pattern izni/ücretlendirme sorunu.
+- **Öneri:**
+  1. `b2bdepo.com` görsel erişim/quota durumunu acil kontrol et (402 = ödeme/limit).
+  2. Görselleri nexadepo.com'a mirror'la (`/storage/products/...`) veya CDN'e taşı; `next.config` remotePatterns'ı güncelle.
+  3. Görsel yüklenemezse `onError` fallback (placeholder) ekle.
+
+### 1.6 `/urunler` + `/katalog` ikilemi ve 401
+- `/urunler` → `/api/catalog/products` **401** (public katalog boş).
+- `/katalog` → 200 ve içerik var, ama görselleri 402 (bkz. 1.5).
+- **Öneri:** `/urunler`'i `/katalog`'a 301 yönlendir; `/katalog` API'sinin public çalıştığından emin ol.
 
 ---
 
-## 2. Uyumsuzlıklar (Inconsistencies)
+## 2. Uyumsuzluklar (Inconsistencies)
 
 ### 2.1 Çift ürün rotası
 - Navigasyon `/katalog` linkini kullanıyor.
@@ -68,10 +92,12 @@ Ana sayfa sadece 10 benzersiz link içeriyor; kategori (`/kategoriler/*`) ve ür
 ## 3. Eksikler (Gaps)
 
 - **404 sayfası yok:** `/sayfa-yok-xyz` → 200 dönüyor (login benzeri içerik). Bilinmeyen route'lar düzgün 404 vermeli (`not-found.tsx`).
-- **Lazy/placeholder görseller:** `/kategori` 15 görsel içeriyor, hepsi yüklü; LCP için `priority`/`loading="lazy"` ve `width/height` optimizasyonu doğrulanmalı.
+- **Lazy/placeholder görseller:** `/kategori` 15 görsel içeriyor, hepsi yüklü; LCP için `priority`/`loading="lazy"` ve `width/height` optimizasyonu doğrulanmalı. (Ayrıca bkz. 1.5 — görseller 402)
 - **SEO canonical/sitemap:** `robots.txt` ve `sitemap.xml` varlığı kontrol edilmedi — production SEO için gerekli.
 - **Structured data (JSON-LD):** Ürün/marka sayfalarında `Product`/`Organization` schema eksik görünüyor.
 - **OpenGraph/Twitter Card:** Sosyal paylaşım etiketleri test edilmedi.
+- **Ölü ürün linkleri:** `/katalog/dahua-hac-hfw-1200t-s3-...` slug'ı → "Ürün Bulunamadı" (HTTP 200 ama içerik yok). Katalogda eski/geçersiz slug'lar olabilir; 410/redirect gerekir.
+- **Ürün detayda eylem butonu yok:** Misafir kullanıcıda "Sepete Ekle" / "Teklif İste" butonu görünmüyor (fiyat "Özel Fiyatlar İçin Bayi Girişi"). Satın alma hunisi kırık.
 
 ---
 
@@ -82,22 +108,42 @@ Ana sayfa sadece 10 benzersiz link içeriyor; kategori (`/kategoriler/*`) ve ür
 - ✅ Ana sayfa meta description kaliteli ve anahtar kelime odaklı.
 - ✅ `/markalar` zengin içerik: 296 link, 119 görsel (sadece 1 kırık).
 - ✅ `/kategori` 23 kategori RSC isteği yapıyor (dinamik içerik akışı çalışıyor).
+- ✅ Performansın temeli iyi: TTFB ~220-380ms, FCP 700ms-1.6s (ANA/KATALOG/MARKA), CLS ~0 (görsel 402'ler düzelince LCP de sağlıklı gelecek).
+- ✅ Auth API sağlam: `/api/auth/session` 200, login formu (`/bayi-giris`) düzgün render, alanlar `required` ve placeholder'lı.
 
 ---
 
-## 5. Öncelikli Aksiyon Listesi
+## 5. Performans Ölçümleri (Playwright)
+
+| Sayfa | TTFB | DCL | FCP | LCP* | CLS | Resources |
+|---|---|---|---|---|---|---|
+| `/` | 219ms | 643ms | 716ms | 0** | 0.000 | 64 |
+| `/katalog` | 248ms | 697ms | 920ms | 0** | 0.012 | 100 |
+| `/markalar` | 220ms | 1398ms | 1648ms | 0** | 0.000 | 196 |
+| `/kategori` | 378ms | 1335ms | 1508ms | 0** | 0.000 | 106 |
+
+`*` LCP 0 = ürün görselleri 402 ile kırıldığı için largest-contentful-paint event'i tetiklenmiyor (bkz. 1.5). Görsel sorunu çözülünce tekrar ölçülmeli.
+`**` Marka sayfasında 366 script / 2130 DOM node — ağır; mobilde ilk etkileşim gecikebilir.
+
+---
+
+## 6. Öncelikli Aksiyon Listesi
 
 | # | Sorun | Öncelik | Tahmini Effort |
 |---|---|---|---|
-| 1 | `/urunler` API 401 (public katalog boş) | 🔴 Kritik | M |
-| 2 | `/hakkimizda`, `/bayiler` auth wall'a düşüyor | 🔴 Kritik | M |
-| 3 | `/markalar` kırık logo (404) | 🟠 Yüksek | S |
-| 4 | `markalar?_rsc` ERR_ABORTED tekrarı | 🟠 Yüksek | M |
-| 5 | Çift ürün rotası (/katalog + /urunler) | 🟡 Orta | S |
-| 6 | 404 sayfası eksik | 🟡 Orta | S |
-| 7 | Title/meta tutarsızlıkları | 🟡 Orta | M |
-| 8 | Ana sayfa internal linking zayıf | 🟢 Düşük | M |
-| 9 | Mobil hamburger erişilebilirlik | 🟢 Düşük | S |
+| 1 | 🔴 Ürün görselleri 402 (b2bdepo.com) — satışı doğrudan vurur | 🔴 Kritik | M |
+| 2 | 🔴 Sistematik auth wall (6 nav linki login'e atıyor) | 🔴 Kritik | L |
+| 3 | `/urunler` API 401 (public katalog boş) | 🔴 Kritik | M |
+| 4 | `/markalar` kırık logo (404) | 🟠 Yüksek | S |
+| 5 | `markalar?_rsc` ERR_ABORTED tekrarı | 🟠 Yüksek | M |
+| 6 | Ölü ürün slug'ları ("Ürün Bulunamadı") | 🟠 Yüksek | M |
+| 7 | Ürün detayda eylem butonu (misafir) eksik | 🟠 Yüksek | M |
+| 8 | Çift ürün rotası (/katalog + /urunler) | 🟡 Orta | S |
+| 9 | 404 sayfası eksik | 🟡 Orta | S |
+| 10 | Title/meta tutarsızlıkları | 🟡 Orta | M |
+| 11 | Ana sayfa internal linking zayıf | 🟢 Düşük | M |
+| 12 | Mobil hamburger erişilebilirlik | 🟢 Düşük | S |
+| 13 | Marka sayfası ağır (366 script) — lazy/bölme | 🟢 Düşük | M |
 
 *(S = <2saat, M = 0.5-1 gün, L = >1 gün)*
 
