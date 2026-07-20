@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Sistem Mimarisi",
+  title: "nexadepo — Güvenlik & Network Sistemleri",
   description:
-    "Akıllı güvenlik mekanı — kamera, yangın, hırsız algılama, switch, yazılım ve araç kamerası. İnteraktif kurulum haritası.",
+    "B2B güvenlik ve network tedarik platformu. Güvenlik kamerası, ağ altyapısı, alarm sistemleri, switch ve yazılım. Proje bazlı teklif, bayi avantajları.",
   alternates: { canonical: "/vitrin" },
 }
 

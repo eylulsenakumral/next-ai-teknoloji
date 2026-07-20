@@ -1,175 +1,400 @@
-"use client"
+import Link from "next/link"
+import {
+  Cctv,
+  Network,
+  Fingerprint,
+  Building2,
+  Flame,
+  Siren,
+  ShieldCheck,
+  Truck,
+  Headphones,
+  Tag,
+  Users,
+  Award,
+  ArrowRight,
+  Phone,
+  Check,
+  ClipboardList,
+  FileText,
+  PackageCheck,
+  Star,
+  Plus,
+  Quote,
+} from "lucide-react"
 
-import { useState } from "react"
-import { Cctv, Flame, Siren, Network, Code, CarFront, X } from "lucide-react"
+const PARTNERS = ["DAHUA", "HIKVISION", "UNIVIEW", "RUIJIE", "AJAX", "HONEYWELL", "SEAGATE"]
 
-// Mekana yerleşen cihazlar — gerçek oda fotoğrafı üzerinde gerçek konumlarda
-const DEVICES = [
-  {
-    id: "kamera",
-    Icon: Cctv,
-    title: "GÜVENLİK KAMERASI",
-    desc: "IP kamera + AI analitik. 4K kayıt, gece görüş, plaka ve yüz tanıma. Köşe görüş açısı ile alan tam kapsama.",
-    color: "#0040a4",
-    x: 88,
-    y: 10,
-  },
-  {
-    id: "yangin",
-    Icon: Flame,
-    title: "YANGIN ALGILAMA",
-    desc: "Duman ve ısı dedektörü + adresli yangın paneli. Erken tespit, sprinkler ve gaz söndürme entegrasyonu.",
-    color: "#ea580c",
-    x: 50,
-    y: 7,
-  },
-  {
-    id: "hirsiz",
-    Icon: Siren,
-    title: "HIRSIZ ALGILAMA",
-    desc: "PIR hareket + manyetik kontak sensörler. İzinsiz giriş tespiti, siren ve anlık push bildirim.",
-    color: "#be123c",
-    x: 12,
-    y: 22,
-  },
-  {
-    id: "switch",
-    Icon: Network,
-    title: "SWITCH / NETWORK",
-    desc: "PoE switch + fiber omurga. Tüm cihazlara güç ve veri tek kablodan, VLAN ile güvenli segmentasyon.",
-    color: "#15803d",
-    x: 93,
-    y: 48,
-  },
-  {
-    id: "yazilim",
-    Icon: Code,
-    title: "YAZILIM / VMS",
-    desc: "Video yönetim + erişim kontrol platformu. Tek panelden tüm sistem canlı izleme, kayıt ve raporlama.",
-    color: "#6d28d9",
-    x: 45,
-    y: 62,
-  },
-  {
-    id: "arac",
-    Icon: CarFront,
-    title: "ARAÇ KAMERASI",
-    desc: "Dashcam + 360° araç kameraları. Sürekli kayıt, GPS takip ve uzaktan canlı izleme.",
-    color: "#0f766e",
-    x: 74,
-    y: 30,
-  },
-] as const
+const SERVICES = [
+  { Icon: Cctv, title: "Güvenlik Kamerası", desc: "IP kamera, NVR ve AI analitik ile uçtan uca görüntü güvenliği.", color: "bg-blue-50 text-[#0040a4]" },
+  { Icon: Network, title: "Ağ ve Network", desc: "PoE switch, wireless AP ve fiber omurga ile güvenli bağlantı altyapısı.", color: "bg-emerald-50 text-emerald-600" },
+  { Icon: Fingerprint, title: "Geçiş Kontrol", desc: "Kart okuyucu, bariyer ve biometrik sistemlerle erişim yönetimi.", color: "bg-sky-50 text-sky-600" },
+  { Icon: Building2, title: "Akıllı Bina", desc: "Alarm, interkom ve otomasyon sistemlerini tek platformdan yönetim.", color: "bg-amber-50 text-amber-600" },
+  { Icon: Flame, title: "Yangın Algılama", desc: "Duman/ısı sensörü ve adresli yangın paneli, sprinkler entegrasyonu.", color: "bg-orange-50 text-orange-600" },
+  { Icon: Siren, title: "Hırsız Alarm", desc: "PIR sensör ve manyetik kontak ile 7/24 izinsiz giriş tespiti.", color: "bg-rose-50 text-rose-600" },
+]
+
+const STATS = [
+  ["12", "Yıl Deneyim"],
+  ["340+", "Aktif Bayi"],
+  ["1.800+", "Teknik Ürün"],
+  ["48 sn", "İlk Yanıt SLA"],
+]
+
+const WHY = [
+  { Icon: ShieldCheck, title: "Özellikli Ürünler", desc: "AI kamera, Layer 3 switch, adresli panel — kurumsal kalite.", bg: "bg-emerald-50" },
+  { Icon: Truck, title: "Hızlı Tedarik", desc: "Stoklu ürünlerde aynı gün kargo, proje siparişinde öncelikli lojistik.", bg: "bg-slate-100" },
+  { Icon: Headphones, title: "7/24 Teknik Destek", desc: "Uzaktan yardım, saha analizi ve sistem tasarımı danışmanlığı.", bg: "bg-slate-100" },
+  { Icon: Tag, title: "Rekabetçi Bayi Fiyatları", desc: "Hacim bazlı kademeli iskonto, proje özel indirimleri.", bg: "bg-blue-50" },
+  { Icon: Users, title: "Uzman Kadro", desc: "Sertifikalı güvenlik ve network mühendislerinden destek.", bg: "bg-slate-100" },
+  { Icon: Award, title: "2 Yıl Garanti", desc: "Tüm ürünlerde üretici garantisi + nexadepo ek destek.", bg: "bg-sky-50" },
+]
+
+const PROCESS = [
+  { n: "01", Icon: ClipboardList, title: "İhtiyaç Analizi", desc: "Sahanızı ve gereksinimlerinizi anlıyoruz, ürün ve marka önerisi hazırlıyoruz." },
+  { n: "02", Icon: FileText, title: "Sistem Tasarımı & Teklif", desc: "Sistem mimarisi, BOM ve bayi fiyatlarıyla detaylı teklif sunuyoruz." },
+  { n: "03", Icon: PackageCheck, title: "Tedarik & Kurulum", desc: "Lojistik koordinasyon, kurulum sonrası destek ve garanti takibi." },
+]
+
+const FAQS = [
+  { q: "Bayi olmadan ürün satın alabilir miyim?", a: "nexadepo B2B bir platformdur. Bayi başvurusu onaylanarak özel fiyat, kredi limiti ve proje bazlı tekliflere erişebilirsiniz." },
+  { q: "Proje bazlı teklif nasıl alırım?", a: "Teklif İste formundan saha ve ihtiyaç bilgilerinizi iletin; teknik ekibimiz 2–4 saat içinde marka, ürün ve fiyat önerisi hazırlasın." },
+  { q: "Hangi markaların yetkili tedarikçisisiniz?", a: "Dahua, Hikvision, Uniview, Ruijie, Ajax, Honeywell, Seagate ve daha fazlası — 27+ global markanın yetkili tedarikçisiyiz." },
+  { q: "Kurulum desteği veriyor musunuz?", a: "Evet. Saha analizi, sistem tasarımı ve gerektiğinde kurulum koordinasyonu sağlıyoruz; 7/24 uzaktan teknik destek sunuyoruz." },
+  { q: "Ürünlerde garanti var mı?", a: "Tüm ürünlerde üretici garantisi (genelde 2 yıl) ve nexadepo ek desteği geçerlidir." },
+  { q: "Ödeme ve kredi limiti nasıl işliyor?", a: "Onaylı bayilere vade ile ödeme ve kredi limiti, proje siparişlerinde özel ödeme planları sunuyoruz." },
+]
 
 export default function VitrinPage() {
-  const [active, setActive] = useState<string | null>(null)
-
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-[radial-gradient(ellipse_at_top,_#0a1e3a_0%,_#050912_70%)] font-nx-sans text-white">
-      <header className="relative z-10 px-4 pt-16 pb-6 text-center sm:pt-20">
-        <p className="font-nx-mono text-[10px] uppercase tracking-[0.3em] text-sky-400/80">
-          Sistem Mimarisi
-        </p>
-        <h1 className="mt-3 text-2xl font-extrabold uppercase tracking-tight sm:text-4xl">
-          Akıllı Güvenlik Mekanı
-        </h1>
-        <p className="mx-auto mt-3 max-w-md text-xs text-slate-400 sm:text-sm">
-          Cihazların üzerine gelin — her nokta gerçek bir kurulum konumunu temsil eder.
-        </p>
-      </header>
-
-      <main className="relative z-10 mx-auto w-full max-w-5xl px-4 pb-20">
-        <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
-          {/* gerçek oda fotoğrafı */}
-          <img
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&auto=format&fit=crop"
-            alt="Ofis iç mekan — güvenlik sistemi kurulum şeması"
-            className="absolute inset-0 h-full w-full object-cover"
-            loading="eager"
-          />
-          {/* kontrast overlay — hotspot'lar okunaklı */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-slate-950/50" />
-
-          {/* Cihaz hotspot'ları */}
-          {DEVICES.map((d) => {
-            const isActive = active === d.id
-            return (
-              <button
-                key={d.id}
-                type="button"
-                onMouseEnter={() => setActive(d.id)}
-                onMouseLeave={() => setActive(null)}
-                onClick={() => setActive(isActive ? null : d.id)}
-                onFocus={() => setActive(d.id)}
-                onBlur={() => setActive(null)}
-                className="group absolute z-20 outline-none"
-                style={{ left: `${d.x}%`, top: `${d.y}%`, transform: "translate(-50%, -50%)" }}
-                aria-label={d.title}
+    <div className="bg-slate-50 font-nx-sans text-slate-900">
+      {/* ─── HERO ─────────────────────────────────────────────── */}
+      <section className="bg-white">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-16 md:grid-cols-2 md:py-24">
+          <div>
+            <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-600">
+              <ShieldCheck className="h-3.5 w-3.5" /> B2B Güvenlik & Network Tedariği
+            </span>
+            <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight text-slate-900 md:text-6xl">
+              Güvenlik sistemleri{" "}
+              <span className="text-[#0040a4]">modern iş alanları</span> için yeniden tanımlandı
+            </h1>
+            <p className="mt-5 max-w-md text-base leading-7 text-slate-500">
+              Kamera, alarm, switch ve yazılım — proje bazlı teklif, bayi avantajları ve teknik
+              danışmanlıkla tek noktada. Türkiye genelinde 340+ aktif bayi ağı.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Link
+                href="/teklif-iste"
+                className="inline-flex items-center gap-2 rounded-full bg-[#0040a4] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#003080]"
               >
-                <span className="relative flex h-9 w-9 items-center justify-center sm:h-12 sm:w-12">
-                  {/* pulse ring */}
-                  <span
-                    className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60"
-                    style={{ backgroundColor: d.color }}
-                  />
-                  {/* pin */}
-                  <span
-                    className={`relative inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-white shadow-lg transition-transform duration-200 sm:h-12 sm:w-12 ${
-                      isActive ? "scale-110" : "group-hover:scale-105"
-                    }`}
-                    style={{ backgroundColor: d.color }}
-                  >
-                    <d.Icon className="h-4 w-4 text-white sm:h-5 sm:w-5" strokeWidth={2} />
-                  </span>
-                </span>
-
-                {/* tooltip */}
-                {isActive && (
-                  <div
-                    className="absolute bottom-full left-1/2 z-30 mb-3 w-60 -translate-x-1/2 rounded-xl border border-white/10 bg-slate-950/95 p-3.5 text-left shadow-2xl backdrop-blur-md"
-                    style={{ minWidth: "15rem" }}
-                  >
-                    <div className="flex items-start justify-between gap-2">
-                      <p
-                        className="font-nx-mono text-[10px] font-bold uppercase tracking-widest"
-                        style={{ color: d.color }}
-                      >
-                        {d.title}
-                      </p>
-                      <X className="h-3.5 w-3.5 shrink-0 text-slate-500 sm:hidden" />
-                    </div>
-                    <p className="mt-1.5 text-xs leading-relaxed text-slate-300">{d.desc}</p>
-                  </div>
-                )}
-              </button>
-            )
-          })}
-        </div>
-
-        {/* kategori lejantı */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
-          {DEVICES.map((d) => (
-            <button
-              key={`leg-${d.id}`}
-              type="button"
-              onMouseEnter={() => setActive(d.id)}
-              onMouseLeave={() => setActive(null)}
-              onClick={() => setActive(active === d.id ? null : d.id)}
-              className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide transition ${
-                active === d.id
-                  ? "border-white/30 bg-white/10 text-white"
-                  : "border-white/10 bg-white/[0.03] text-slate-400 hover:text-white"
-              }`}
-            >
-              <span
-                className="inline-block h-2.5 w-2.5 rounded-full"
-                style={{ backgroundColor: d.color }}
+                TEKLİF AL <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a
+                href="tel:+905529895959"
+                className="inline-flex items-center gap-2 text-sm font-bold text-slate-700 hover:text-[#0040a4]"
+              >
+                <Phone className="h-4 w-4" /> +90 552 989 59 59
+              </a>
+            </div>
+            <div className="mt-8 flex items-center gap-6">
+              <div>
+                <p className="text-2xl font-extrabold text-[#0040a4]">340+</p>
+                <p className="text-xs uppercase tracking-wider text-slate-400">Aktif Bayi</p>
+              </div>
+              <div className="h-8 w-px bg-slate-200" />
+              <div>
+                <p className="text-2xl font-extrabold text-[#0040a4]">4.8/5</p>
+                <p className="text-xs uppercase tracking-wider text-slate-400">Bayi Memnuniyeti</p>
+              </div>
+            </div>
+          </div>
+          <div className="relative">
+            <div className="overflow-hidden rounded-3xl shadow-2xl">
+              <img
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&q=75&auto=format&fit=crop"
+                alt="Güvenlik kontrol odası"
+                className="h-[420px] w-full object-cover"
               />
-              {d.title}
-            </button>
-          ))}
+            </div>
+            <div className="absolute -bottom-5 -left-5 hidden rounded-2xl bg-white p-4 shadow-xl md:block">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                  <Award className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-sm font-bold">27+ Global Marka</p>
+                  <p className="text-xs text-slate-400">Yetkili tedarikçi</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
+      </section>
+
+      {/* ─── PARTNERS ─────────────────────────────────────────── */}
+      <section className="border-y border-slate-100 bg-slate-50 py-10">
+        <div className="mx-auto max-w-7xl px-6">
+          <p className="text-center font-nx-mono text-[10px] uppercase tracking-[0.3em] text-slate-400">
+            Tedarik ortaklarımız
+          </p>
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
+            {PARTNERS.map((p) => (
+              <span
+                key={p}
+                className="text-lg font-extrabold tracking-tight text-slate-400 grayscale transition hover:text-[#0040a4] hover:grayscale-0"
+              >
+                {p}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── SERVICES ─────────────────────────────────────────── */}
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="max-w-2xl">
+            <span className="font-nx-mono text-xs font-bold uppercase tracking-widest text-[#0040a4]">
+              Hizmetlerimiz
+            </span>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">
+              Projenize özel çözüm ekosistemi
+            </h2>
+            <p className="mt-3 text-slate-500">
+              Güvenlik kamerasından yangın algılamaya, network altyapısından akıllı bina
+              otomasyonuna kadar uçtan uca sistem tedariki.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.map((s) => (
+              <Link
+                key={s.title}
+                href="/cozumler"
+                className="group rounded-2xl border border-slate-100 bg-white p-7 transition hover:-translate-y-1 hover:border-[#0040a4]/20 hover:shadow-xl"
+              >
+                <div className={`flex h-14 w-14 items-center justify-center rounded-2xl ${s.color}`}>
+                  <s.Icon className="h-7 w-7" strokeWidth={1.5} />
+                </div>
+                <h3 className="mt-6 text-lg font-bold">{s.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-500">{s.desc}</p>
+                <span className="mt-5 inline-flex items-center gap-1 text-sm font-bold text-[#0040a4]">
+                  İncele
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── ABOUT ────────────────────────────────────────────── */}
+      <section className="bg-slate-50 py-20">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 md:grid-cols-2">
+          <div className="relative">
+            <div className="overflow-hidden rounded-3xl shadow-xl">
+              <img
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=75&auto=format&fit=crop"
+                alt="nexadepo ofis ve tedarik"
+                className="h-[440px] w-full object-cover"
+              />
+            </div>
+          </div>
+          <div>
+            <span className="font-nx-mono text-xs font-bold uppercase tracking-widest text-[#0040a4]">
+              Hakkımızda
+            </span>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">
+              Güvenlikle, özenle, uzmanla
+            </h2>
+            <p className="mt-4 leading-7 text-slate-500">
+              nexadepo, güvenlik ve network sistemlerinde global güç ile yerel uzmanlığı
+              birleştiren bir B2B tedarik platformudur. 27+ global markanın yetkili tedarikçisi
+              olarak bayilere özel fiyat, kredi limiti ve proje bazlı ticari koşullar sunuyoruz.
+            </p>
+            <div className="mt-8 grid grid-cols-2 gap-5">
+              {STATS.map(([val, label]) => (
+                <div key={label} className="rounded-2xl border border-slate-100 bg-white p-5">
+                  <p className="text-3xl font-extrabold text-[#0040a4]">{val}</p>
+                  <p className="mt-1 text-xs uppercase tracking-wider text-slate-400">{label}</p>
+                </div>
+              ))}
+            </div>
+            <Link
+              href="/bayi-programi"
+              className="mt-8 inline-flex items-center gap-2 rounded-full border-2 border-[#0040a4] px-6 py-3 text-sm font-bold text-[#0040a4] transition hover:bg-[#0040a4] hover:text-white"
+            >
+              Bayi Programı <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── WHY CHOOSE ───────────────────────────────────────── */}
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="max-w-2xl">
+            <span className="font-nx-mono text-xs font-bold uppercase tracking-widest text-[#0040a4]">
+              Neden nexadepo?
+            </span>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">
+              Tedarikçiden fazlası — güçlü bir iş ortağı
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {WHY.map((w) => (
+              <div key={w.title} className={`rounded-2xl p-7 ${w.bg}`}>
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-[#0040a4] shadow-sm">
+                  <w.Icon className="h-6 w-6" strokeWidth={1.5} />
+                </div>
+                <h3 className="mt-5 text-lg font-bold">{w.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{w.desc}</p>
+                <Link
+                  href="/teklif-iste"
+                  className="mt-5 inline-flex items-center gap-1 border-b-2 border-slate-900 text-xs font-bold uppercase tracking-wider text-slate-900 hover:gap-2"
+                >
+                  İletişime Geç <ArrowRight className="h-3 w-3" />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── PROCESS ──────────────────────────────────────────── */}
+      <section className="bg-slate-50 py-20">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="max-w-2xl">
+            <span className="font-nx-mono text-xs font-bold uppercase tracking-widest text-[#0040a4]">
+              Süreç
+            </span>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">
+              Güvenli alana giden basit adımlar
+            </h2>
+            <p className="mt-3 text-slate-500">
+              İhtiyaç analizinden kurulum sonrası desteğe kadar uçtan uca proje takibi.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {PROCESS.map((p) => (
+              <div
+                key={p.n}
+                className="rounded-2xl border border-slate-100 bg-white p-8 transition hover:shadow-lg"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-nx-mono text-3xl font-extrabold text-slate-200">{p.n}</span>
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0040a4]/10 text-[#0040a4]">
+                    <p.Icon className="h-5 w-5" strokeWidth={1.5} />
+                  </div>
+                </div>
+                <h3 className="mt-5 text-lg font-bold">{p.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-500">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── TESTIMONIALS ─────────────────────────────────────── */}
+      <section className="bg-slate-900 py-20 text-white">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="max-w-2xl">
+            <span className="font-nx-mono text-xs font-bold uppercase tracking-widest text-sky-400">
+              Referanslar
+            </span>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">
+              Gerçek sonuçlar, gerçek bayi yorumları
+            </h2>
+          </div>
+          <div className="mt-12 grid gap-8 md:grid-cols-[1fr_1.4fr]">
+            <div className="rounded-3xl bg-slate-800 p-8">
+              <div className="flex items-center gap-1 text-amber-400">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="h-5 w-5 fill-current" />
+                ))}
+              </div>
+              <p className="mt-4 text-4xl font-extrabold">4.8/5</p>
+              <p className="mt-1 text-sm text-slate-400">Bayi memnuniyet skoru</p>
+              <p className="mt-6 text-sm leading-6 text-slate-300">
+                340+ aktif bayi ve binlerce proje ile Türkiye genelinde güvenilir tedarik.
+              </p>
+            </div>
+            <div className="rounded-3xl bg-slate-800 p-8">
+              <Quote className="h-10 w-10 text-sky-400/40" />
+              <p className="mt-4 text-lg leading-8 text-slate-200">
+                &ldquo;Proje bazlı teklif süreci çok hızlı. Teknik ekip kamera ve network mimarisini
+                baştan tasarladı, aynı gün stoktan sevkiyat yaptılar. Müşterilerimize kurulum
+                artık çok daha sorunsuz.&rdquo;
+              </p>
+              <div className="mt-6 flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#0040a4] font-bold">
+                  MK
+                </div>
+                <div>
+                  <p className="font-bold">Mehmet K.</p>
+                  <p className="text-xs text-slate-400">Sistem Entegratörü, İstanbul</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FAQ ──────────────────────────────────────────────── */}
+      <section className="bg-white py-20">
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 md:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <span className="font-nx-mono text-xs font-bold uppercase tracking-widest text-[#0040a4]">
+              SSS
+            </span>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">
+              Sorularınız mı var? Cevabımız var
+            </h2>
+            <p className="mt-3 text-slate-500">
+              Bayilik, teklif süreçi ve teknik destek hakkında sık sorulan sorular.
+            </p>
+          </div>
+          <div className="divide-y divide-slate-100 border-y border-slate-100">
+            {FAQS.map((f) => (
+              <details key={f.q} className="group py-5">
+                <summary className="flex cursor-pointer items-center justify-between gap-4 text-base font-bold text-slate-900 marker:content-none">
+                  {f.q}
+                  <Plus className="h-5 w-5 shrink-0 text-[#0040a4] transition group-open:rotate-45" />
+                </summary>
+                <p className="mt-3 text-sm leading-6 text-slate-500">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CTA BAND ─────────────────────────────────────────── */}
+      <section className="bg-[#0040a4] py-16 text-white">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 text-center md:flex-row md:text-left">
+          <div>
+            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+              Projenizi birlikte planlayalım
+            </h2>
+            <p className="mt-2 text-sm text-blue-100">
+              Teknik ekibimiz 2–4 saat içinde size geri döner. Ücretsiz analiz ve teklif.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/teklif-iste"
+              className="inline-flex items-center gap-2 rounded-full bg-green-500 px-7 py-3.5 text-sm font-bold text-white transition hover:bg-green-600"
+            >
+              TEKLİF AL <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/bayimiz-olun"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-white/40 px-7 py-3.5 text-sm font-bold transition hover:bg-white/10"
+            >
+              Bayimiz Olun
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
