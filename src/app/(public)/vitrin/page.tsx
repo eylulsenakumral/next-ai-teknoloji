@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Cctv, Flame, Siren, Network, Code, CarFront, X } from "lucide-react"
 
-// Mekana yerleşen cihazlar — izometrik oda üzerinde gerçek konumlarda
+// Mekana yerleşen cihazlar — gerçek oda fotoğrafı üzerinde gerçek konumlarda
 const DEVICES = [
   {
     id: "kamera",
@@ -11,8 +11,8 @@ const DEVICES = [
     title: "GÜVENLİK KAMERASI",
     desc: "IP kamera + AI analitik. 4K kayıt, gece görüş, plaka ve yüz tanıma. Köşe görüş açısı ile alan tam kapsama.",
     color: "#0040a4",
-    x: 64,
-    y: 17,
+    x: 88,
+    y: 10,
   },
   {
     id: "yangin",
@@ -21,7 +21,7 @@ const DEVICES = [
     desc: "Duman ve ısı dedektörü + adresli yangın paneli. Erken tespit, sprinkler ve gaz söndürme entegrasyonu.",
     color: "#ea580c",
     x: 50,
-    y: 14,
+    y: 7,
   },
   {
     id: "hirsiz",
@@ -29,8 +29,8 @@ const DEVICES = [
     title: "HIRSIZ ALGILAMA",
     desc: "PIR hareket + manyetik kontak sensörler. İzinsiz giriş tespiti, siren ve anlık push bildirim.",
     color: "#be123c",
-    x: 32,
-    y: 28,
+    x: 12,
+    y: 22,
   },
   {
     id: "switch",
@@ -38,8 +38,8 @@ const DEVICES = [
     title: "SWITCH / NETWORK",
     desc: "PoE switch + fiber omurga. Tüm cihazlara güç ve veri tek kablodan, VLAN ile güvenli segmentasyon.",
     color: "#15803d",
-    x: 24,
-    y: 37,
+    x: 93,
+    y: 48,
   },
   {
     id: "yazilim",
@@ -47,8 +47,8 @@ const DEVICES = [
     title: "YAZILIM / VMS",
     desc: "Video yönetim + erişim kontrol platformu. Tek panelden tüm sistem canlı izleme, kayıt ve raporlama.",
     color: "#6d28d9",
-    x: 50,
-    y: 55,
+    x: 45,
+    y: 62,
   },
   {
     id: "arac",
@@ -56,8 +56,8 @@ const DEVICES = [
     title: "ARAÇ KAMERASI",
     desc: "Dashcam + 360° araç kameraları. Sürekli kayıt, GPS takip ve uzaktan canlı izleme.",
     color: "#0f766e",
-    x: 50,
-    y: 28,
+    x: 74,
+    y: 30,
   },
 ] as const
 
@@ -78,43 +78,17 @@ export default function VitrinPage() {
         </p>
       </header>
 
-      <main className="relative z-10 mx-auto w-full max-w-4xl px-4 pb-20">
-        <div className="relative w-full">
-          {/* İzometrik oda */}
-          <svg viewBox="0 0 1000 700" className="w-full h-auto" role="img" aria-label="İzometrik güvenlik odası şeması">
-            {/* zemin */}
-            <polygon points="180,500 820,500 700,320 300,320" fill="#1e293b" />
-            {/* sol duvar */}
-            <polygon points="180,500 300,320 300,90 180,270" fill="#243447" />
-            {/* arka duvar */}
-            <polygon points="300,320 700,320 700,90 300,90" fill="#2d4055" />
-            {/* tavan çizgileri (izometrik grid hissi) */}
-            <line x1="300" y1="90" x2="180" y2="270" stroke="#3b82f6" strokeOpacity="0.15" strokeWidth="1" />
-            <line x1="700" y1="90" x2="820" y2="270" stroke="#3b82f6" strokeOpacity="0.15" strokeWidth="1" />
-            {/* pencere (arka duvarda) */}
-            <polygon points="430,150 570,150 570,250 430,250" fill="#1e3a5f" stroke="#3b82f6" strokeWidth="2" />
-            <line x1="500" y1="150" x2="500" y2="250" stroke="#3b82f6" strokeWidth="1.5" strokeOpacity="0.6" />
-            <line x1="430" y1="200" x2="570" y2="200" stroke="#3b82f6" strokeWidth="1" strokeOpacity="0.4" />
-            {/* pencereden ışık */}
-            <polygon points="430,250 570,250 540,290 460,290" fill="#3b82f6" opacity="0.08" />
-            {/* kapı (sol duvarda) */}
-            <polygon points="220,290 255,272 255,425 220,443" fill="#1e293b" stroke="#475569" strokeWidth="1.5" />
-            <circle cx="248" cy="355" r="3" fill="#475569" />
-            {/* network rack (sol duvarda) */}
-            <polygon points="250,250 275,237 275,330 250,343" fill="#0f172a" stroke="#22c55e" strokeWidth="1" strokeOpacity="0.4" />
-            <line x1="252" y1="260" x2="273" y2="248" stroke="#22c55e" strokeWidth="1" strokeOpacity="0.5" />
-            <line x1="252" y1="280" x2="273" y2="268" stroke="#22c55e" strokeWidth="1" strokeOpacity="0.5" />
-            <line x1="252" y1="300" x2="273" y2="288" stroke="#22c55e" strokeWidth="1" strokeOpacity="0.5" />
-            <line x1="252" y1="320" x2="273" y2="308" stroke="#22c55e" strokeWidth="1" strokeOpacity="0.5" />
-            {/* masa (zeminde izometrik) */}
-            <polygon points="440,440 560,440 540,415 460,415" fill="#334155" />
-            <polygon points="440,440 460,415 460,470 440,495" fill="#1e293b" />
-            <polygon points="560,440 540,415 540,470 560,495" fill="#1e293b" />
-            {/* monitor (masada) */}
-            <rect x="475" y="378" width="50" height="30" rx="2" fill="#0a0f1a" stroke="#6d28d9" strokeWidth="1.5" />
-            <rect x="495" y="408" width="10" height="8" fill="#334155" />
-            <rect x="485" y="415" width="30" height="3" rx="1" fill="#334155" />
-          </svg>
+      <main className="relative z-10 mx-auto w-full max-w-5xl px-4 pb-20">
+        <div className="relative aspect-[3/2] w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
+          {/* gerçek oda fotoğrafı */}
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80&auto=format&fit=crop"
+            alt="Ofis iç mekan — güvenlik sistemi kurulum şeması"
+            className="absolute inset-0 h-full w-full object-cover"
+            loading="eager"
+          />
+          {/* kontrast overlay — hotspot'lar okunaklı */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-slate-950/50" />
 
           {/* Cihaz hotspot'ları */}
           {DEVICES.map((d) => {
@@ -132,7 +106,7 @@ export default function VitrinPage() {
                 style={{ left: `${d.x}%`, top: `${d.y}%`, transform: "translate(-50%, -50%)" }}
                 aria-label={d.title}
               >
-                <span className="relative flex h-10 w-10 items-center justify-center sm:h-12 sm:w-12">
+                <span className="relative flex h-9 w-9 items-center justify-center sm:h-12 sm:w-12">
                   {/* pulse ring */}
                   <span
                     className="absolute inline-flex h-full w-full animate-ping rounded-full opacity-60"
@@ -140,7 +114,7 @@ export default function VitrinPage() {
                   />
                   {/* pin */}
                   <span
-                    className={`relative inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-white shadow-lg transition-transform duration-200 sm:h-12 sm:w-12 ${
+                    className={`relative inline-flex h-9 w-9 items-center justify-center rounded-full border-2 border-white shadow-lg transition-transform duration-200 sm:h-12 sm:w-12 ${
                       isActive ? "scale-110" : "group-hover:scale-105"
                     }`}
                     style={{ backgroundColor: d.color }}
