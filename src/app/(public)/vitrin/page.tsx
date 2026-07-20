@@ -13,6 +13,7 @@ const SOLUTIONS = [
     desc: "IP kamera, NVR ve AI analitik ile uçtan uca görüntü güvenliği.",
     tags: ["4K / 8MP", "AI Analitik", "NVR"],
     bg: "#0040a4",
+    img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1400&q=70&auto=format&fit=crop",
   },
   {
     Icon: Network,
@@ -21,6 +22,7 @@ const SOLUTIONS = [
     desc: "Yönetilen switch, wireless AP ve fiber omurga ile güvenli bağlantı altyapısı.",
     tags: ["Switch", "Wi-Fi 6", "Fiber"],
     bg: "#15803d",
+    img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=70&auto=format&fit=crop",
   },
   {
     Icon: Database,
@@ -29,6 +31,7 @@ const SOLUTIONS = [
     desc: "NAS, RAID dizili sistemler ve SSD ile güvenli, ölçeklenebilir veri saklama.",
     tags: ["NAS", "RAID", "SSD"],
     bg: "#0e7490",
+    img: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1400&q=70&auto=format&fit=crop",
   },
   {
     Icon: CarFront,
@@ -37,6 +40,7 @@ const SOLUTIONS = [
     desc: "Dashcam ve 360° araç kameraları, GPS takip ve kayıt yönetimi.",
     tags: ["Dashcam", "360°", "GPS"],
     bg: "#1e293b",
+    img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1400&q=70&auto=format&fit=crop",
   },
   {
     Icon: Code,
@@ -45,6 +49,7 @@ const SOLUTIONS = [
     desc: "VMS, erişim kontrol yazılımı ve üçüncü parti sistem entegrasyonları.",
     tags: ["VMS", "Entegrasyon", "API"],
     bg: "#6d28d9",
+    img: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=70&auto=format&fit=crop",
   },
   {
     Icon: Siren,
@@ -53,6 +58,7 @@ const SOLUTIONS = [
     desc: "Manyetik kontak, PIR sensör ve siren ile 7/24 hırsızlık tespiti ve anlık bildirim.",
     tags: ["Sensör", "Siren", "İzleme"],
     bg: "#be123c",
+    img: "https://images.unsplash.com/photo-1486520299386-6d106b22014b?w=1400&q=70&auto=format&fit=crop",
   },
   {
     Icon: Flame,
@@ -61,6 +67,7 @@ const SOLUTIONS = [
     desc: "Duman ve ısı dedektörleri, adresli yangın paneli ve sprinkler entegrasyonu.",
     tags: ["Duman", "Isı", "Sprinkler"],
     bg: "#ea580c",
+    img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=70&auto=format&fit=crop",
   },
 ] as const
 
@@ -189,6 +196,23 @@ export default function VitrinPage() {
       className="font-nx-sans relative w-full overflow-hidden"
     >
       <div className="relative w-full" style={{ height: "100vh", overflow: "hidden" }}>
+        {/* 0. Fotoğraf layer'ları — kategori görseli + renk+koyu gradient (crossfade) */}
+        <div className="absolute inset-0" style={{ zIndex: 0 }}>
+          {SOLUTIONS.map((s, i) => (
+            <div
+              key={`bg-${s.title}`}
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `linear-gradient(180deg, ${s.bg}aa 0%, ${s.bg}55 38%, #000000ee 100%), url(${s.img})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                opacity: i === activeIndex ? 1 : 0,
+                transition: `opacity 650ms ${EASE}`,
+              }}
+            />
+          ))}
+        </div>
+
         {/* 1. Grain overlay */}
         <div
           className="pointer-events-none absolute inset-0"
