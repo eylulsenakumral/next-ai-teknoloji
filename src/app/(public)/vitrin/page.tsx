@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { HeroCarousel } from "./hero-carousel"
 import {
   Cctv,
   Network,
@@ -68,69 +69,8 @@ const FAQS = [
 export default function VitrinPage() {
   return (
     <div className="bg-slate-50 font-nx-sans text-slate-900">
-      {/* ─── HERO ─────────────────────────────────────────────── */}
-      <section className="bg-white">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-16 md:grid-cols-2 md:py-24">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-600">
-              <ShieldCheck className="h-3.5 w-3.5" /> B2B Güvenlik & Network Tedariği
-            </span>
-            <h1 className="mt-5 text-4xl font-extrabold leading-[1.05] tracking-tight text-slate-900 md:text-6xl">
-              Güvenlik sistemleri{" "}
-              <span className="text-[#0040a4]">modern iş alanları</span> için yeniden tanımlandı
-            </h1>
-            <p className="mt-5 max-w-md text-base leading-7 text-slate-500">
-              Kamera, alarm, switch ve yazılım — proje bazlı teklif, bayi avantajları ve teknik
-              danışmanlıkla tek noktada. Türkiye genelinde 340+ aktif bayi ağı.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link
-                href="/teklif-iste"
-                className="inline-flex items-center gap-2 rounded-full bg-[#0040a4] px-7 py-3.5 text-sm font-bold text-white transition hover:bg-[#003080]"
-              >
-                TEKLİF AL <ArrowRight className="h-4 w-4" />
-              </Link>
-              <a
-                href="tel:+905529895959"
-                className="inline-flex items-center gap-2 text-sm font-bold text-slate-700 hover:text-[#0040a4]"
-              >
-                <Phone className="h-4 w-4" /> +90 552 989 59 59
-              </a>
-            </div>
-            <div className="mt-8 flex items-center gap-6">
-              <div>
-                <p className="text-2xl font-extrabold text-[#0040a4]">340+</p>
-                <p className="text-xs uppercase tracking-wider text-slate-400">Aktif Bayi</p>
-              </div>
-              <div className="h-8 w-px bg-slate-200" />
-              <div>
-                <p className="text-2xl font-extrabold text-[#0040a4]">4.8/5</p>
-                <p className="text-xs uppercase tracking-wider text-slate-400">Bayi Memnuniyeti</p>
-              </div>
-            </div>
-          </div>
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl shadow-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&q=75&auto=format&fit=crop"
-                alt="Güvenlik kontrol odası"
-                className="h-[420px] w-full object-cover"
-              />
-            </div>
-            <div className="absolute -bottom-5 -left-5 hidden rounded-2xl bg-white p-4 shadow-xl md:block">
-              <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
-                  <Award className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold">27+ Global Marka</p>
-                  <p className="text-xs text-slate-400">Yetkili tedarikçi</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ─── HERO (carousel) ──────────────────────────────────── */}
+      <HeroCarousel />
 
       {/* ─── PARTNERS ─────────────────────────────────────────── */}
       <section className="border-y border-slate-100 bg-slate-50 py-10">
