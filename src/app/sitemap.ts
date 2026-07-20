@@ -3,7 +3,8 @@ import { prisma } from "@/lib/db"
 
 export const dynamic = "force-dynamic"
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nexadepo.com"
+// .trim(): NEXT_PUBLIC_SITE_URL bazı ortamlarda trailing newline sızdırıyor → sitemap <loc> bozuluyordu
+const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://nexadepo.com").trim()
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [products, categories] = await Promise.all([
