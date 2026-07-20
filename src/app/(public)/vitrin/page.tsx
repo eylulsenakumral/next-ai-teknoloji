@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
-import { ArrowLeft, ArrowRight, Cctv, Flame, Siren, Database, CarFront, Code } from "lucide-react"
+import { ArrowLeft, ArrowRight, Cctv, Flame, Siren, Database, CarFront, Code, Network } from "lucide-react"
 
 // nexadepo kategorileri — TOONHUB figurin carousel template'ine uyarlandı
 const SOLUTIONS = [
@@ -29,6 +29,14 @@ const SOLUTIONS = [
     desc: "IP kamera, NVR ve AI analitik ile uçtan uca görüntü güvenliği.",
     tags: ["4K / 8MP", "AI Analitik", "NVR"],
     bg: "#0040a4",
+  },
+  {
+    Icon: Network,
+    title: "AĞ VE NETWORK",
+    ghost: "NETWORK",
+    desc: "Yönetilen switch, wireless AP ve fiber omurga ile güvenli bağlantı altyapısı.",
+    tags: ["Switch", "Wi-Fi 6", "Fiber"],
+    bg: "#15803d",
   },
   {
     Icon: Database,
@@ -87,6 +95,12 @@ export default function VitrinPage() {
     },
     [isAnimating]
   )
+
+  // Auto-play — 4 sn'de bir sonraki kategori
+  useEffect(() => {
+    const id = setInterval(() => navigate("next"), 4000)
+    return () => clearInterval(id)
+  }, [navigate])
 
   const roleOf = (i: number): Role => {
     const c = activeIndex
@@ -230,7 +244,7 @@ export default function VitrinPage() {
           style={{ zIndex: 60, maxWidth: 360 }}
         >
           <p
-            className="font-nx-sans mb-2 text-base font-extrabold uppercase tracking-widest sm:mb-3 sm:text-2xl"
+            className="font-nx-sans mb-2 text-sm font-extrabold uppercase tracking-widest sm:mb-3 sm:text-lg"
             style={{ color: "white", opacity: 0.95, letterSpacing: "0.02em" }}
           >
             {active.title}
