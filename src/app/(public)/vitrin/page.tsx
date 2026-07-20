@@ -2,47 +2,63 @@
 
 import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
-import { ArrowLeft, ArrowRight } from "lucide-react"
-import {
-  IcnCamera,
-  IcnNetwork,
-  IcnAccessControl,
-  IcnSmartHome,
-} from "@/components/public/icons-next"
+import { ArrowLeft, ArrowRight, Cctv, Flame, Siren, Database, CarFront, Code } from "lucide-react"
 
-// nexadepo Çözümleri — TOONHUB figurin carousel template'ine uyarlandı
+// nexadepo kategorileri — TOONHUB figurin carousel template'ine uyarlandı
 const SOLUTIONS = [
   {
-    Icon: IcnCamera,
-    title: "VİDEO GÜVENLİK",
-    desc: "IP kamera, NVR ve AI analitik ile uçtan uca görüntü güvenliği. Davranış analitiği ve plaka tanıma entegrasyonu.",
-    tags: ["AI Analitik", "4K / 8MP", "PoE"],
+    Icon: Siren,
+    title: "HIRSIZ ALARM",
+    ghost: "ALARM",
+    desc: "Manyetik kontak, PIR sensör ve siren ile 7/24 hırsızlık tespiti ve anlık bildirim.",
+    tags: ["Sensör", "Siren", "İzleme"],
+    bg: "#be123c",
+  },
+  {
+    Icon: Flame,
+    title: "YANGIN ALARM",
+    ghost: "YANGIN",
+    desc: "Duman ve ısı dedektörleri, adresli yangın paneli ve sprinkler entegrasyonu.",
+    tags: ["Duman", "Isı", "Sprinkler"],
+    bg: "#ea580c",
+  },
+  {
+    Icon: Cctv,
+    title: "GÜVENLİK KAMERASI",
+    ghost: "KAMERA",
+    desc: "IP kamera, NVR ve AI analitik ile uçtan uca görüntü güvenliği.",
+    tags: ["4K / 8MP", "AI Analitik", "NVR"],
     bg: "#0040a4",
   },
   {
-    Icon: IcnNetwork,
-    title: "AĞ ALTYAPISI",
-    desc: "Yönetilen switch, wireless AP ve fiber omurga ile yüksek performanslı, güvenli bağlantı altyapısı.",
-    tags: ["Layer 3", "Wi-Fi 6", "VLAN"],
+    Icon: Database,
+    title: "VERİ DEPOLAMA",
+    ghost: "DEPOLAMA",
+    desc: "NAS, RAID dizili sistemler ve SSD ile güvenli, ölçeklenebilir veri saklama.",
+    tags: ["NAS", "RAID", "SSD"],
     bg: "#0e7490",
   },
   {
-    Icon: IcnAccessControl,
-    title: "GEÇİŞ KONTROL",
-    desc: "Kart okuyucu, bariyer, turnike ve biometrik sistemlerle kritik erişim noktalarının yönetimi.",
-    tags: ["Biometrik", "IP Entegre", "OSDP"],
-    bg: "#b45309",
+    Icon: CarFront,
+    title: "ARAÇ KAMERA SİSTEMLERİ",
+    ghost: "ARAÇ",
+    desc: "Dashcam ve 360° araç kameraları, GPS takip ve kayıt yönetimi.",
+    tags: ["Dashcam", "360°", "GPS"],
+    bg: "#1e293b",
   },
   {
-    Icon: IcnSmartHome,
-    title: "AKILLI BİNA",
-    desc: "Alarm, interkom, otomasyon ve izleme sistemlerini tek platformdan yönetin.",
-    tags: ["IoT", "KNX", "Entegre Panel"],
+    Icon: Code,
+    title: "YAZILIMLAR",
+    ghost: "YAZILIM",
+    desc: "VMS, erişim kontrol yazılımı ve üçüncü parti sistem entegrasyonları.",
+    tags: ["VMS", "Entegrasyon", "API"],
     bg: "#6d28d9",
   },
 ] as const
 
-type Role = "center" | "left" | "right" | "back"
+const N = SOLUTIONS.length
+
+type Role = "center" | "left" | "right" | "back" | "hidden"
 
 const EASE = "cubic-bezier(0.4,0,0.2,1)"
 
@@ -66,7 +82,7 @@ export default function VitrinPage() {
     (dir: "next" | "prev") => {
       if (isAnimating) return
       setIsAnimating(true)
-      setActiveIndex((prev) => (dir === "next" ? (prev + 1) % 4 : (prev + 3) % 4))
+      setActiveIndex((prev) => (dir === "next" ? (prev + 1) % N : (prev + N - 1) % N))
       setTimeout(() => setIsAnimating(false), 650)
     },
     [isAnimating]
@@ -75,9 +91,10 @@ export default function VitrinPage() {
   const roleOf = (i: number): Role => {
     const c = activeIndex
     if (i === c) return "center"
-    if (i === (c + 3) % 4) return "left"
-    if (i === (c + 1) % 4) return "right"
-    return "back"
+    if (i === (c + N - 1) % N) return "left"
+    if (i === (c + 1) % N) return "right"
+    if (i === (c + 2) % N) return "back"
+    return "hidden"
   }
 
   const itemStyle = (role: Role): React.CSSProperties => {
@@ -133,6 +150,17 @@ export default function VitrinPage() {
           height: isMobile ? "13%" : "22%",
           bottom: isMobile ? "32%" : "12%",
         }
+      case "hidden":
+        return {
+          ...base,
+          transform: `${t} scale(1)`,
+          opacity: 0,
+          zIndex: 0,
+          left: "50%",
+          height: "20%",
+          bottom: "30%",
+          pointerEvents: "none",
+        }
     }
   }
 
@@ -159,7 +187,7 @@ export default function VitrinPage() {
           }}
         />
 
-        {/* 2. Giant ghost text */}
+        {/* 2. Giant ghost text — aktif kategori (dinamik) */}
         <div
           className="pointer-events-none absolute inset-x-0 flex select-none items-center justify-center"
           style={{ zIndex: 2, top: "16%" }}
@@ -177,11 +205,11 @@ export default function VitrinPage() {
               whiteSpace: "nowrap",
             }}
           >
-            NEXADEPO
+            {active.ghost}
           </span>
         </div>
 
-        {/* 3. Carousel — çözüm ikonları figurin pozisyonunda */}
+        {/* 3. Carousel — kategori ikonları */}
         <div className="absolute inset-0" style={{ zIndex: 3 }}>
           {SOLUTIONS.map((s, i) => (
             <div key={s.title} style={itemStyle(roleOf(i))}>
@@ -190,7 +218,7 @@ export default function VitrinPage() {
                 style={{ color: "white", opacity: 0.95 }}
                 aria-hidden
               >
-                <s.Icon className="h-2/5 w-2/5" />
+                <s.Icon className="h-2/5 w-2/5" strokeWidth={1.5} />
               </div>
             </div>
           ))}
@@ -214,20 +242,20 @@ export default function VitrinPage() {
             {active.desc}
           </p>
           <div className="mb-5 hidden flex-wrap gap-2 sm:flex">
-            {active.tags.map((t) => (
+            {active.tags.map((tg) => (
               <span
-                key={t}
+                key={tg}
                 className="font-nx-mono rounded-full border border-white/25 px-2.5 py-1 text-[10px] uppercase tracking-widest"
                 style={{ color: "white", opacity: 0.9 }}
               >
-                {t}
+                {tg}
               </span>
             ))}
           </div>
           <div className="flex gap-3">
             <button
               type="button"
-              aria-label="Önceki çözüm"
+              aria-label="Önceki kategori"
               onClick={() => navigate("prev")}
               className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white text-white transition duration-150 hover:scale-[1.08] hover:bg-white/10 sm:h-16 sm:w-16"
             >
@@ -235,7 +263,7 @@ export default function VitrinPage() {
             </button>
             <button
               type="button"
-              aria-label="Sonraki çözüm"
+              aria-label="Sonraki kategori"
               onClick={() => navigate("next")}
               className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white text-white transition duration-150 hover:scale-[1.08] hover:bg-white/10 sm:h-16 sm:w-16"
             >
