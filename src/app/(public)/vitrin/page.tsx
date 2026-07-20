@@ -92,7 +92,7 @@ export default function VitrinPage() {
       case "center":
         return {
           ...base,
-          transform: `${t} scale(${isMobile ? 1.25 : 1.68})`,
+          transform: `${t} scale(${isMobile ? 0.95 : 1.1})`,
           filter: "none",
           opacity: 1,
           zIndex: 20,
@@ -190,7 +190,7 @@ export default function VitrinPage() {
                 style={{ color: "white", opacity: 0.95 }}
                 aria-hidden
               >
-                <s.Icon className="h-3/4 w-3/4" />
+                <s.Icon className="h-2/5 w-2/5" />
               </div>
             </div>
           ))}
