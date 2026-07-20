@@ -15,6 +15,7 @@ const PUBLIC_PATHS = [
   "/kategoriler",
   "/kategori",
   "/cozumler",
+  "/vitrin",
   "/proje-tasarim",
   "/teklif-iste",
   "/bayi-programi",
