@@ -4,24 +4,8 @@ import { useState, useEffect, useCallback } from "react"
 import Link from "next/link"
 import { ArrowLeft, ArrowRight, Cctv, Flame, Siren, Database, CarFront, Code, Network } from "lucide-react"
 
-// nexadepo kategorileri — TOONHUB figurin carousel template'ine uyarlandı
+// nexadepo kategorileri — Güvenlik Kamerası başta (vitrin yüzü)
 const SOLUTIONS = [
-  {
-    Icon: Siren,
-    title: "HIRSIZ ALARM",
-    ghost: "ALARM",
-    desc: "Manyetik kontak, PIR sensör ve siren ile 7/24 hırsızlık tespiti ve anlık bildirim.",
-    tags: ["Sensör", "Siren", "İzleme"],
-    bg: "#be123c",
-  },
-  {
-    Icon: Flame,
-    title: "YANGIN ALARM",
-    ghost: "YANGIN",
-    desc: "Duman ve ısı dedektörleri, adresli yangın paneli ve sprinkler entegrasyonu.",
-    tags: ["Duman", "Isı", "Sprinkler"],
-    bg: "#ea580c",
-  },
   {
     Icon: Cctv,
     title: "GÜVENLİK KAMERASI",
@@ -61,6 +45,22 @@ const SOLUTIONS = [
     desc: "VMS, erişim kontrol yazılımı ve üçüncü parti sistem entegrasyonları.",
     tags: ["VMS", "Entegrasyon", "API"],
     bg: "#6d28d9",
+  },
+  {
+    Icon: Siren,
+    title: "HIRSIZ ALARM",
+    ghost: "ALARM",
+    desc: "Manyetik kontak, PIR sensör ve siren ile 7/24 hırsızlık tespiti ve anlık bildirim.",
+    tags: ["Sensör", "Siren", "İzleme"],
+    bg: "#be123c",
+  },
+  {
+    Icon: Flame,
+    title: "YANGIN ALARM",
+    ghost: "YANGIN",
+    desc: "Duman ve ısı dedektörleri, adresli yangın paneli ve sprinkler entegrasyonu.",
+    tags: ["Duman", "Isı", "Sprinkler"],
+    bg: "#ea580c",
   },
 ] as const
 
@@ -204,13 +204,13 @@ export default function VitrinPage() {
         {/* 2. Giant ghost text — aktif kategori (dinamik) */}
         <div
           className="pointer-events-none absolute inset-x-0 flex select-none items-center justify-center"
-          style={{ zIndex: 2, top: "16%" }}
+          style={{ zIndex: 2, top: "20%" }}
         >
           <span
             className="font-nx-sans"
             style={{
               fontWeight: 800,
-              fontSize: "clamp(70px, 22vw, 300px)",
+              fontSize: "clamp(48px, 15vw, 210px)",
               color: "white",
               opacity: 0.92,
               lineHeight: 1,
@@ -244,13 +244,13 @@ export default function VitrinPage() {
           style={{ zIndex: 60, maxWidth: 360 }}
         >
           <p
-            className="font-nx-sans mb-2 text-sm font-extrabold uppercase tracking-widest sm:mb-3 sm:text-lg"
+            className="font-nx-sans mb-2 text-xs font-extrabold uppercase tracking-widest sm:mb-3 sm:text-sm"
             style={{ color: "white", opacity: 0.95, letterSpacing: "0.02em" }}
           >
             {active.title}
           </p>
           <p
-            className="font-nx-sans mb-4 hidden text-sm sm:mb-5 sm:block"
+            className="font-nx-sans mb-4 hidden text-xs sm:mb-5 sm:block sm:text-sm"
             style={{ color: "white", opacity: 0.85, lineHeight: 1.6 }}
           >
             {active.desc}
