@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
         const referenceId = paymentReference(orderId, mpay)
 
         if (!customerId || paymentAmount <= 0) {
-          return seeOther(resultUrl("error", { msg: "Ge?ersiz ?deme bilgisi" }))
+          return seeOther(resultUrl("error", { msg: "Gecersiz odeme bilgisi" }))
         }
 
         const existingPayment = await prisma.accountTransaction.findFirst({
@@ -96,13 +96,11 @@ export async function POST(request: NextRequest) {
             data: {
               customerId: customer.id,
               type: "PAYMENT",
-              debit: 0,
-              credit: paymentAmount,
-              balance: new Prisma.Decimal(newBalance),
-              description: `Online ?deme - NomuPay ${maskedCCNo ? `(${maskedCCNo})` : ""}`,
+              amount: new Prisma.Decimal(paymentAmount),
+              balanceAfter: new Prisma.Decimal(newBalance),
+              description: `Online odeme - NomuPay ${maskedCCNo ? `(${maskedCCNo})` : ""}`,
               referenceType: "NOMUPAY",
               referenceId,
-              transactionDate: new Date(),
             },
           })
 
@@ -117,7 +115,7 @@ export async function POST(request: NextRequest) {
         })
 
         if (!order) {
-          return seeOther(resultUrl("error", { msg: "Sipari? bulunamad?" }))
+          return seeOther(resultUrl("error", { msg: "Siparis bulunamadi" }))
         }
 
         const existingPayment = await prisma.accountTransaction.findFirst({
@@ -162,7 +160,7 @@ export async function POST(request: NextRequest) {
             data: {
               paymentStatus: "PAID",
               status: "CONFIRMED",
-              adminNotes: `?deme al?nd?. Kart: ${maskedCCNo}, NomuPay OrderId: ${orderId}`,
+              adminNotes: `Odeme alindi. Kart: ${maskedCCNo}, NomuPay OrderId: ${orderId}`,
             },
           })
 
@@ -173,13 +171,11 @@ export async function POST(request: NextRequest) {
             data: {
               customerId: customer.id,
               type: "PAYMENT",
-              debit: 0,
-              credit: paymentTL,
-              balance: new Prisma.Decimal(newBalance),
-              description: `Sipari? ?demesi - ${currentOrder.orderNumber} - NomuPay ${maskedCCNo ? `(${maskedCCNo})` : ""}`,
+              amount: new Prisma.Decimal(paymentTL),
+              balanceAfter: new Prisma.Decimal(newBalance),
+              description: `Siparis odemesi - ${currentOrder.orderNumber} - NomuPay ${maskedCCNo ? `(${maskedCCNo})` : ""}`,
               referenceType: "ORDER",
               referenceId: currentOrder.id,
-              transactionDate: new Date(),
             },
           })
 
@@ -202,16 +198,16 @@ export async function POST(request: NextRequest) {
         await prisma.order.update({
           where: { id: failedOrder.id },
           data: {
-            adminNotes: `?deme ba?ar?s?z: ${resultMessage || resultCode}`,
+            adminNotes: `Odeme basarisiz: ${resultMessage || resultCode}`,
           },
         })
       }
     }
 
-    return seeOther(resultUrl("error", { msg: resultMessage || "?deme ba?ar?s?z" }))
+    return seeOther(resultUrl("error", { msg: resultMessage || "Odeme basarisiz" }))
   } catch (error) {
     console.error("NomuPay callback error:", error)
-    return seeOther(resultUrl("error", { msg: "Callback i?leme hatas?" }))
+    return seeOther(resultUrl("error", { msg: "Callback isleme hatasi" }))
   }
 }
 
@@ -227,5 +223,5 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(resultUrl("success", { order }))
   }
 
-  return NextResponse.redirect(resultUrl("error", { msg: msg || "?deme ba?ar?s?z" }))
+  return NextResponse.redirect(resultUrl("error", { msg: msg || "Odeme basarisiz" }))
 }

@@ -172,7 +172,7 @@ function SocialIcon({
   return (
     <a
       href={href}
-      className="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+      className="flex items-center justify-center w-9 h-9 rounded-full bg-white/10 hover:bg-[var(--color-nx-dark)] transition-[var(--DTBaseTransition)]"
       aria-label={label}
     >
       <span className="text-white">
@@ -233,7 +233,7 @@ export function DealerFooter() {
             <div className="flex items-center gap-2.5 mb-4">
               <div
                 data-testid="footer-logo"
-                className="w-9 h-9 rounded-[20px] bg-[var(--DTPrimaryColor)] flex items-center justify-center"
+                className="w-9 h-9 rounded-[20px] bg-[var(--color-nx-dark)] flex items-center justify-center"
               >
                 <IconCpu className="w-5 h-5 text-white" />
               </div>
@@ -247,14 +247,14 @@ export function DealerFooter() {
             </p>
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
-                <IconMapPin className="h-4 w-4 text-[var(--DTPrimaryColor)] shrink-0 mt-0.5" />
+                <IconMapPin className="h-4 w-4 text-[var(--color-nx-dark)] shrink-0 mt-0.5" />
                 <span className="text-[13px] text-[#999999] leading-relaxed">
                   Esentepe Mh. Sancad Cad. Real Tower Plaza K:2 D:14
                   Corlu/Tekirdag
                 </span>
               </li>
               <li className="flex items-start gap-2">
-                <IconPhone className="h-4 w-4 text-[var(--DTPrimaryColor)] shrink-0 mt-0.5" />
+                <IconPhone className="h-4 w-4 text-[var(--color-nx-dark)] shrink-0 mt-0.5" />
                 <div className="space-y-1">
                   <div>
                     <span className="text-[11px] font-semibold text-[var(--color-surface-muted)] uppercase tracking-wide">
@@ -283,7 +283,7 @@ export function DealerFooter() {
                 </div>
               </li>
               <li className="flex items-center gap-2">
-                <IconMail className="h-4 w-4 text-[var(--DTPrimaryColor)] shrink-0" />
+                <IconMail className="h-4 w-4 text-[var(--color-nx-dark)] shrink-0" />
                 <a
                   href="mailto:info@next-ai.com.tr"
                   className="text-[13px] text-[#999999] hover:text-[var(--color-primary)] transition-[var(--DTBaseTransition)]"

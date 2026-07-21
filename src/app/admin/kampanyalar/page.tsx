@@ -358,7 +358,7 @@ export default function KampanyalarPage() {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold tracking-tight flex items-center gap-2">
-            <Megaphone className="h-5 w-5 text-[var(--DTPrimaryColor)]" aria-hidden />
+            <Megaphone className="h-5 w-5 text-[var(--color-nx-dark)]" aria-hidden />
             Kampanyalı Setler
           </h1>
           <p className="text-sm text-muted-foreground mt-0.5">
@@ -385,7 +385,7 @@ export default function KampanyalarPage() {
       <div className="rounded-xl border border-border bg-card text-card-foreground shadow-sm">
         <div className="flex flex-col space-y-1.5 p-6 pb-3">
           <h2 className="text-base font-semibold flex items-center gap-2">
-            <Plus className="h-4 w-4 text-[var(--DTPrimaryColor)]" aria-hidden />
+            <Plus className="h-4 w-4 text-[var(--color-nx-dark)]" aria-hidden />
             Kampanyaya Ürün Ekle
           </h2>
         </div>
@@ -409,7 +409,7 @@ export default function KampanyalarPage() {
                     setSearchQuery(e.target.value)
                     if (selectedProduct) setSelectedProduct(null)
                   }}
-                  className="w-full pl-8 pr-8 py-2 text-sm text-[#333] bg-white border border-[#ccc] rounded-lg outline-none focus:border-[var(--DTPrimaryColor)] focus:ring-1 focus:ring-[var(--DTPrimaryColor)]/20 transition-colors"
+                  className="w-full pl-8 pr-8 py-2 text-sm text-[#333] bg-white border border-[#ccc] rounded-lg outline-none focus:border-[var(--color-nx-dark)] focus:ring-1 focus:ring-[var(--color-nx-dark)]/20 transition-colors"
                   aria-label="Ürün ara"
                   aria-autocomplete="list"
                   aria-expanded={showDropdown}
@@ -500,7 +500,7 @@ export default function KampanyalarPage() {
             <Button
               onClick={handleAdd}
               disabled={!selectedProduct || addLoading}
-              className="h-[38px] bg-[var(--DTPrimaryColor)] hover:bg-[var(--DTSecondaryColor)] text-white shrink-0"
+              className="h-[38px] bg-[var(--color-nx-dark)] hover:bg-[var(--color-nx-accent)] text-white shrink-0"
             >
               <Plus className="h-4 w-4" />
               {addLoading ? "Ekleniyor..." : "Kampanyaya Ekle"}
@@ -509,7 +509,7 @@ export default function KampanyalarPage() {
 
           {/* Seçilen ürün önizleme */}
           {selectedProduct && (
-            <div className="mt-3 flex items-center gap-2 rounded-lg border border-[var(--DTPrimaryColor)]/20 bg-[#f0f4ff] px-3 py-2">
+            <div className="mt-3 flex items-center gap-2 rounded-lg border border-[var(--color-nx-dark)]/20 bg-[#f0f4ff] px-3 py-2">
               <span className="text-xs text-[#333] font-medium truncate flex-1">
                 Seçildi: {selectedProduct.name}
               </span>
@@ -793,7 +793,7 @@ export default function KampanyalarPage() {
                               className={cn(
                                 "text-xs",
                                 product.isActive
-                                  ? "bg-[var(--DTPrimaryColor)] text-white hover:bg-[var(--DTSecondaryColor)]"
+                                  ? "bg-[var(--color-nx-dark)] text-white hover:bg-[var(--color-nx-accent)]"
                                   : ""
                               )}
                             >

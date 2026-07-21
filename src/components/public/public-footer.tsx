@@ -196,7 +196,7 @@ function FooterColumn({
           <li key={href + label}>
             <Link
               href={href}
-              className="text-sm text-[var(--color-primary)] hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+              className="text-sm text-[var(--color-primary)] hover:text-[var(--color-nx-dark)] transition-[var(--DTBaseTransition)]"
             >
               {label}
             </Link>
@@ -263,32 +263,32 @@ export function PublicFooter() {
             </h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
-                <IconMapPin className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--DTPrimaryColor)]" />
+                <IconMapPin className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--color-nx-dark)]" />
                 <span className="text-sm text-gray-600 break-words">
                   Esentepe Mh. Sancad Cad. Real Tower Plaza K:2 D:14
                   Corlu/Tekirdag
                 </span>
               </li>
               <li className="flex items-center gap-2">
-                <IconPhone className="w-5 h-5 flex-shrink-0 text-[var(--DTPrimaryColor)]" />
+                <IconPhone className="w-5 h-5 flex-shrink-0 text-[var(--color-nx-dark)]" />
                 <a
                   href="tel:+905529895959"
-                  className="text-sm text-gray-600 hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+                  className="text-sm text-gray-600 hover:text-[var(--color-nx-dark)] transition-[var(--DTBaseTransition)]"
                 >
                   0 552 989 5959
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <IconMail className="w-5 h-5 flex-shrink-0 text-[var(--DTPrimaryColor)]" />
+                <IconMail className="w-5 h-5 flex-shrink-0 text-[var(--color-nx-dark)]" />
                 <a
                   href="mailto:info@next-ai.com.tr"
-                  className="text-sm text-gray-600 hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+                  className="text-sm text-gray-600 hover:text-[var(--color-nx-dark)] transition-[var(--DTBaseTransition)]"
                 >
                   info@next-ai.com.tr
                 </a>
               </li>
               <li className="flex items-start gap-2">
-                <IconClock className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--DTPrimaryColor)]" />
+                <IconClock className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--color-nx-dark)]" />
                 <span className="text-sm text-gray-600">
                   Pzt - Cum: 09:00 - 18:00
                 </span>
@@ -309,7 +309,7 @@ export function PublicFooter() {
                 <Link
                   key={href}
                   href={href}
-                  className="hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+                  className="hover:text-[var(--color-nx-dark)] transition-[var(--DTBaseTransition)]"
                 >
                   {label}
                 </Link>

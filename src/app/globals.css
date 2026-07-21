@@ -88,8 +88,6 @@
 
   /* === dt-framework Integration === */
   /* dt colors */
-  --color-dt-primary: var(--DTPrimaryColor);
-  --color-dt-secondary: var(--DTSecondaryColor);
   --color-dt-tertiary: var(--DTTertiaryColor);
   --color-dt-border: var(--DTColor_Border);
   --color-dt-error: var(--DT_Error_Color);
@@ -196,8 +194,6 @@
 
   /* Primary Colors */
   --swiper-theme-color: #06B6D4;
-  --DTPrimaryColor: #0F172A;
-  --DTSecondaryColor: #06B6D4;
   --DTTertiaryColor: #f3f3f3;
   --DTBodyBGColor: #ffffff;
   --DTOverlayColor: rgba(0, 0, 0, 0.5);

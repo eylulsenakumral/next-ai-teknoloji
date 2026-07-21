@@ -32,7 +32,7 @@ describe("AdminHeader", () => {
   it("has dark text color", () => {
     render(<AdminHeader />)
     const header = screen.getByRole("banner")
-    expect(header.className).toMatch(/text-\[var\(--DTSecondaryColor\)\]|text-\[var(--color-foreground)\]/)
+    expect(header.className).toMatch(/text-\[var\(--color-nx-accent\)\]|text-\[var(--color-foreground)\]/)
   })
 
   /* ── Border bottom: 1px solid #e9e9e9 ── */

@@ -145,7 +145,7 @@ function SidebarItem({ href, label, icon: Icon, collapsed, active }: SidebarItem
         "transition-all duration-300 linear",
         collapsed ? "justify-center px-2" : "pl-9", // grup başlığıyla hizala
         active
-          ? "bg-[var(--DTPrimaryColor)] text-white"
+          ? "bg-[var(--color-nx-dark)] text-white"
           : "text-white/80 hover:bg-[rgba(33,137,255,0.1)] hover:text-white"
       )}
       aria-current={active ? "page" : undefined}
@@ -272,7 +272,7 @@ export function AdminSidebar() {
           collapsed ? "justify-center" : "gap-2"
         )}
       >
-        <div className="w-7 h-7 rounded-md bg-[var(--DTPrimaryColor)] flex items-center justify-center shrink-0">
+        <div className="w-7 h-7 rounded-md bg-[var(--color-nx-dark)] flex items-center justify-center shrink-0">
           <Cpu className="w-4 h-4 text-white" />
         </div>
         {!collapsed && (
@@ -286,7 +286,7 @@ export function AdminSidebar() {
       {/* Admin badge */}
       {!collapsed && (
         <div className="mx-3 mt-1 flex items-center gap-2 px-2 py-1.5 bg-white/5 rounded-md">
-          <ShieldCheck className="h-3.5 w-3.5 text-[var(--DTPrimaryColor)] shrink-0" />
+          <ShieldCheck className="h-3.5 w-3.5 text-[var(--color-nx-dark)] shrink-0" />
           <span className="text-xs text-white font-medium">Yönetici</span>
         </div>
       )}
@@ -315,7 +315,7 @@ export function AdminSidebar() {
           )}
         >
           <Avatar className="h-7 w-7 shrink-0">
-            <AvatarFallback className="bg-[var(--DTPrimaryColor)] text-white text-xs font-semibold">
+            <AvatarFallback className="bg-[var(--color-nx-dark)] text-white text-xs font-semibold">
               {adminInitials}
             </AvatarFallback>
           </Avatar>
@@ -394,7 +394,7 @@ export function AdminSidebar() {
       {/* Mobile drawer */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex flex-col bg-[var(--DTSecondaryColor)] transition-transform duration-300 md:hidden",
+          "fixed inset-y-0 left-0 z-50 flex flex-col bg-[var(--color-nx-accent)] transition-transform duration-300 md:hidden",
           "w-[var(--sidebar_width)]",
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         )}
@@ -417,7 +417,7 @@ export function AdminSidebar() {
       {/* Desktop sidebar */}
       <aside
         className={cn(
-          "hidden md:flex flex-col h-screen sticky top-0 bg-[var(--DTSecondaryColor)] border-r border-[var(--DTColor_Border)]/20 transition-all duration-300 linear",
+          "hidden md:flex flex-col h-screen sticky top-0 bg-[var(--color-nx-accent)] border-r border-[var(--DTColor_Border)]/20 transition-all duration-300 linear",
           collapsed ? "w-14" : "w-[var(--sidebar_width)]"
         )}
         aria-label="Admin navigasyon"

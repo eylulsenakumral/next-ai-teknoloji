@@ -66,12 +66,12 @@ describe("AdminSidebar", () => {
     expect(links.length).toBeGreaterThan(5)
   })
 
-  /* ── Sidebar BG: var(--DTSecondaryColor) ── */
+  /* ── Sidebar BG: var(--color-nx-accent) ── */
 
   it("uses CSS variable --DTSecondaryColor for background", () => {
     render(<AdminSidebar />)
     const aside = getDesktopSidebar()
-    expect(aside.className).toContain("bg-[var(--DTSecondaryColor)]")
+    expect(aside.className).toContain("bg-[var(--color-nx-accent)]")
   })
 
   /* ── Sidebar width: var(--sidebar_width) ── */
@@ -82,15 +82,15 @@ describe("AdminSidebar", () => {
     expect(aside.className).toContain("w-[var(--sidebar_width)]")
   })
 
-  /* ── Active menu item: BG var(--DTPrimaryColor), text white ── */
+  /* ── Active menu item: BG var(--color-nx-dark), text white ── */
 
-  it("highlights active menu item with var(--DTPrimaryColor) background", () => {
+  it("highlights active menu item with var(--color-nx-dark) background", () => {
     mockPathname = "/admin"
     render(<AdminSidebar />)
     const aside = getDesktopSidebar()
     const dashboardLink = aside.querySelector("a[aria-current='page']")
     expect(dashboardLink).not.toBeNull()
-    expect(dashboardLink!.className).toContain("bg-[var(--DTPrimaryColor)]")
+    expect(dashboardLink!.className).toContain("bg-[var(--color-nx-dark)]")
   })
 
   it("active menu item has white text", () => {
@@ -215,13 +215,13 @@ describe("AdminSidebar", () => {
     const aside = getDesktopSidebar()
     const html = aside.outerHTML
     expect(html).not.toContain("#00179e")
-    // Should have var(--DTPrimaryColor) references
-    expect(html).toContain("var(--DTPrimaryColor)")
+    // Should have var(--color-nx-dark) references
+    expect(html).toContain("var(--color-nx-dark)")
   })
 
   it("uses CSS variables for secondary color on background", () => {
     render(<AdminSidebar />)
     const aside = getDesktopSidebar()
-    expect(aside.className).toContain("var(--DTSecondaryColor)")
+    expect(aside.className).toContain("var(--color-nx-accent)")
   })
 })
