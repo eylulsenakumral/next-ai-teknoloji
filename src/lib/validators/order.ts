@@ -24,7 +24,7 @@ const shippingAddressSchema = z.object({
 // ---------------------------------------------------------------------------
 
 const orderItemInputSchema = z.object({
-  productId: z.string().min(1, "Ürün ID gerekli"),
+  productId: z.string().uuid("Geçerli bir ürün ID girin"),
   quantity: z
     .number()
     .int("Adet tam sayı olmalı")

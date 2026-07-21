@@ -1,8 +1,8 @@
 // NETGSM SMS Gönderim Servisi
 // Kaynak: TamirHanem projesi
 
-const NETGSM_USERCODE = process.env.NETGSM_USERCODE ?? "NETGSM_USERCODE_REDACTED"
-const NETGSM_PASSWORD = process.env.NETGSM_PASSWORD ?? "NETGSM_PASSWORD_REDACTED"
+const NETGSM_USERCODE = process.env.NETGSM_USERCODE
+const NETGSM_PASSWORD = process.env.NETGSM_PASSWORD
 const NETGSM_HEADER = process.env.NETGSM_HEADER ?? "NEXTAI"
 const NETGSM_OTP_URL = "https://api.netgsm.com.tr/sms/send/otp"
 
@@ -43,6 +43,10 @@ export interface SMSResult {
 }
 
 export async function sendSMS(phone: string, message: string): Promise<SMSResult> {
+  if (!NETGSM_USERCODE || !NETGSM_PASSWORD) {
+    return { success: false, message: "SMS servisi yapılandırılmamış." }
+  }
+
   const normalizedPhone = normalizePhone(phone)
   const asciiMessage = toAscii(message)
 

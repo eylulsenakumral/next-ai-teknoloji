@@ -21,18 +21,23 @@ function createMinioClient(): MinioClient | null {
   }
 
   const port = parseInt(process.env.MINIO_PORT ?? "9000", 10)
-  const accessKey = process.env.MINIO_ACCESS_KEY ?? "minioadmin"
-  const secretKey = process.env.MINIO_SECRET_KEY ?? "minioadmin"
+  const accessKey = process.env.MINIO_ACCESS_KEY
+  const secretKey = process.env.MINIO_SECRET_KEY
   // Use SSL only when not connecting to localhost or an explicit IP
   const useSSL = process.env.MINIO_USE_SSL === "true"
+
+  if (process.env.NODE_ENV === "production" && (!accessKey || !secretKey)) {
+    console.error("[minio] MINIO_ACCESS_KEY / MINIO_SECRET_KEY eksik — production'da MinIO devre dışı")
+    return null
+  }
 
   try {
     const client = new MinioClient({
       endPoint: endpoint,
       port,
       useSSL,
-      accessKey,
-      secretKey,
+      accessKey: accessKey ?? "minioadmin",
+      secretKey: secretKey ?? "minioadmin",
     })
 
     return client
