@@ -79,7 +79,7 @@ export function PublicHeaderNext() {
         <form
           onSubmit={onSearch}
           role="search"
-          className="hidden min-w-0 flex-1 max-w-[220px] items-center xl:flex"
+          className="hidden min-w-0 flex-1 max-w-[220px] items-center lg:flex"
         >
           <div className="relative w-full">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/50" />
@@ -98,7 +98,7 @@ export function PublicHeaderNext() {
         <div className="flex items-center gap-2">
           <Link
             href="/bayimiz-olun"
-            className="hidden text-[13px] font-semibold text-nx-dark transition hover:text-nx-accent lg:block"
+            className="hidden rounded-full bg-nx-dark px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-nx-accent lg:block"
           >
             Bayimiz Olun
           </Link>
