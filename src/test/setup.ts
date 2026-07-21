@@ -17,6 +17,13 @@ vi.mock("next-auth", () => ({
   getServerSession: vi.fn(),
 }))
 
+vi.mock("next-auth/react", () => ({
+  useSession: vi.fn(() => ({ data: null, status: "unauthenticated" })),
+  SessionProvider: ({ children }: { children: React.ReactNode }) => children,
+  signIn: vi.fn(),
+  signOut: vi.fn(),
+}))
+
 vi.mock("@/lib/auth", () => ({
   authOptions: {},
 }))

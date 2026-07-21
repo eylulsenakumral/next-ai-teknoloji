@@ -21,6 +21,8 @@ vi.mock("@/lib/db", () => ({
 vi.mock("@/lib/cache", () => ({
   withCache: vi.fn((_k: string, _t: number, loader: () => unknown) => loader()),
   invalidateProductCache: vi.fn().mockResolvedValue(undefined),
+  invalidatePriceCache: vi.fn().mockResolvedValue(undefined),
+  invalidateNextCache: vi.fn().mockResolvedValue(undefined),
   CacheKey: {
     productDetail: (id: string) => `products:detail:${id}`,
     price: (id: string) => `price:${id}`,

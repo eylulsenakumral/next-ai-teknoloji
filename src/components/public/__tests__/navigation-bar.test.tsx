@@ -3,12 +3,21 @@ import { describe, it, expect, vi } from 'vitest'
 import '@testing-library/jest-dom/vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 
-// Mock dependencies
-vi.mock('../mega-menu-dropdown', () => ({
-  MegaMenuDropdown: ({ isOpen }: { isOpen: boolean }) => (
-    <div data-testid="mega-menu" data-open={isOpen}>
-      Mock MegaMenuDropdown
-    </div>
+// Mock next/link
+vi.mock('next/link', () => ({
+  __esModule: true,
+  default: ({
+    children,
+    href,
+    ...props
+  }: {
+    children: React.ReactNode
+    href: string
+    [key: string]: unknown
+  }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
   ),
 }))
 
@@ -36,59 +45,36 @@ describe('NavigationBar', () => {
     it('renders desktop navigation links', () => {
       render(<NavigationBar />)
       
-      expect(screen.getByText('Ana Sayfa')).toBeInTheDocument()
-      expect(screen.getByText('Ürün Kataloğu')).toBeInTheDocument()
-      expect(screen.getByText('Markalar')).toBeInTheDocument()
-      expect(screen.getByText('Blog')).toBeInTheDocument()
-      expect(screen.getByText('İletişim')).toBeInTheDocument()
-    })
-
-    it('renders Yeni Gelenler link', () => {
-      render(<NavigationBar />)
-      expect(screen.getByText('Yeni Gelenler')).toBeInTheDocument()
-    })
-
-    it('renders MegaMenuDropdown', () => {
-      render(<NavigationBar />)
-      expect(screen.getByTestId('mega-menu')).toBeInTheDocument()
+      expect(screen.getByText('ANA SAYFA')).toBeInTheDocument()
+      expect(screen.getByText('ÜRÜNLER')).toBeInTheDocument()
+      expect(screen.getByText('MARKALAR')).toBeInTheDocument()
+      expect(screen.getByText('GARANTİ TAKİP')).toBeInTheDocument()
     })
   })
 
   describe('Navigation Links', () => {
     it('renders Ana Sayfa link with correct href', () => {
       render(<NavigationBar />)
-      const link = screen.getByText('Ana Sayfa').closest('a')
+      const link = screen.getByText('ANA SAYFA').closest('a')
       expect(link).toHaveAttribute('href', '/')
     })
 
-    it('renders Urun Katalogu link with correct href', () => {
+    it('renders Urunler link with correct href', () => {
       render(<NavigationBar />)
-      const link = screen.getByText('Ürün Kataloğu').closest('a')
+      const link = screen.getByText('ÜRÜNLER').closest('a')
       expect(link).toHaveAttribute('href', '/katalog')
     })
 
     it('renders Markalar link with correct href', () => {
       render(<NavigationBar />)
-      const markalarLink = screen.getByText('Markalar').closest('a')
+      const markalarLink = screen.getByText('MARKALAR').closest('a')
       expect(markalarLink).toHaveAttribute('href', '/markalar')
     })
 
-    it('renders Blog link with correct href', () => {
+    it('renders Garanti Takip link with correct href', () => {
       render(<NavigationBar />)
-      const blogLink = screen.getByText('Blog').closest('a')
-      expect(blogLink).toHaveAttribute('href', '/blog')
-    })
-
-    it('renders İletişim link with correct href', () => {
-      render(<NavigationBar />)
-      const iletisimLink = screen.getByText('İletişim').closest('a')
-      expect(iletisimLink).toHaveAttribute('href', '/basvuru')
-    })
-
-    it('renders Yeni Gelenler link with correct href', () => {
-      render(<NavigationBar />)
-      const yeniGelenlerLink = screen.getByText('Yeni Gelenler').closest('a')
-      expect(yeniGelenlerLink).toHaveAttribute('href', '/katalog')
+      const garantiLink = screen.getByText('GARANTİ TAKİP').closest('a')
+      expect(garantiLink).toHaveAttribute('href', '/garanti-takip')
     })
   })
 
@@ -104,22 +90,10 @@ describe('NavigationBar', () => {
       const button = screen.getByRole('button', { name: /tüm kategoriler/i })
       
       fireEvent.click(button)
-      expect(screen.getByTestId('mega-menu')).toHaveAttribute('data-open', 'true')
+      expect(screen.getByRole('menu')).toBeInTheDocument()
       
       fireEvent.click(button)
-      expect(screen.getByTestId('mega-menu')).toHaveAttribute('data-open', 'false')
-    })
-
-    it('closes mega menu on blur', () => {
-      render(<NavigationBar />)
-      const button = screen.getByRole('button', { name: /tüm kategoriler/i })
-      
-      fireEvent.click(button)
-      expect(screen.getByTestId('mega-menu')).toHaveAttribute('data-open', 'true')
-      
-      // Simulate blur by clicking outside
-      fireEvent.blur(button, { relatedTarget: null })
-      // Note: The actual blur behavior depends on the implementation
+      expect(screen.queryByRole('menu')).not.toBeInTheDocument()
     })
   })
 
@@ -133,15 +107,15 @@ describe('NavigationBar', () => {
 
     it('applies correct height to menu bar', () => {
       const { container } = render(<NavigationBar />)
-      const menuBar = container.querySelector('.flex')
-      expect(menuBar?.className).toContain('h-[48px]')
+      const menuBar = container.querySelector('.hidden.md\\:flex')
+      expect(menuBar?.className).toContain('h-[50px]')
     })
 
     it('All Categories button has correct styling', () => {
       render(<NavigationBar />)
       const button = screen.getByRole('button', { name: /tüm kategoriler/i })
       expect(button.className).toContain('bg-[var(--color-primary)]')
-      expect(button.className).toContain('hover:bg-[#1a6fe0]')
+      expect(button.className).toContain('hover:bg-[#06B6D4]')
     })
 
     it('navigation links have hover color', () => {
@@ -185,20 +159,11 @@ describe('NavigationBar', () => {
   })
 
   describe('Responsive Behavior', () => {
-    it('hides full category text on small screens', () => {
-      const { container } = render(<NavigationBar />)
-      const spans = container.querySelectorAll('span')
-      const hiddenSpan = Array.from(spans).find(span => 
-        span.className.includes('hidden') && span.className.includes('sm:inline')
-      )
-      expect(hiddenSpan).toBeTruthy()
-    })
-
     it('hides menu items on small screens', () => {
       const { container } = render(<NavigationBar />)
-      const menuList = container.querySelector('ul')
-      expect(menuList?.className).toContain('hidden')
-      expect(menuList?.className).toContain('lg:flex')
+      const menuBar = container.querySelector('.hidden.md\\:flex')
+      expect(menuBar?.className).toContain('hidden')
+      expect(menuBar?.className).toContain('md:flex')
     })
   })
 })

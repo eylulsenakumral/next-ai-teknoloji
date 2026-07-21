@@ -75,7 +75,7 @@ describe("DealerFooter", () => {
   it("renders bayi-specific links: Profil, Satis, Raporlar", () => {
     render(<DealerFooter />)
     expect(screen.getByText(/Profilim/i)).toBeInTheDocument()
-    expect(screen.getByText(/Satis Yonetimi/i)).toBeInTheDocument()
+    expect(screen.getByText(/Satış Yönetimi/i)).toBeInTheDocument()
     expect(screen.getByText(/Raporlar/i)).toBeInTheDocument()
   })
 
@@ -141,7 +141,9 @@ describe("DealerFooter", () => {
   it("link hover uses primary color class var(--color-primary)", () => {
     render(<DealerFooter />)
     const footer = screen.getByRole("contentinfo")
-    const linkEls = footer.querySelectorAll("a[class*='2189ff']")
+    const linkEls = footer.querySelectorAll(
+      "a[class*='hover:text-[var(--color-primary)]']"
+    )
     expect(linkEls.length).toBeGreaterThan(0)
   })
 })

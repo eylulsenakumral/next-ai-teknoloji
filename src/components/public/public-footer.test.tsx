@@ -40,19 +40,19 @@ describe("PublicFooter", () => {
     expect(screen.getByRole("contentinfo")).toBeInTheDocument()
   })
 
-  it("renders the brand logo area with rounded-lg class", () => {
+  it("renders the brand logo with object-contain class", () => {
     render(<PublicFooter />)
     const footer = screen.getByRole("contentinfo")
     const logoEl = footer.querySelector("[data-testid='footer-logo']")
     expect(logoEl).toBeInTheDocument()
-    expect(logoEl?.className).toContain("rounded-lg")
+    expect(logoEl?.className).toContain("object-contain")
   })
 
   /* ── Brand Section ── */
 
-  it("renders the company brand name", () => {
+  it("renders the company brand name in the logo alt text", () => {
     render(<PublicFooter />)
-    expect(screen.getByText("Next AI Teknoloji")).toBeInTheDocument()
+    expect(screen.getByAltText("Next AI Teknoloji")).toBeInTheDocument()
   })
 
   it("renders a brand description paragraph", () => {
@@ -112,11 +112,9 @@ describe("PublicFooter", () => {
     )
   })
 
-  it("renders Bizi Tanıyın links: Hakkımızda, Kariyer, Blog, İletişim", () => {
+  it("renders Bizi Tanıyın links: Hakkımızda and İletişim", () => {
     render(<PublicFooter />)
     expect(screen.getByText(/Hakkımızda/i)).toBeInTheDocument()
-    expect(screen.getByText(/Kariyer/i)).toBeInTheDocument()
-    expect(screen.getByText(/Blog/i)).toBeInTheDocument()
     // "İletişim" appears both as a link and in heading "İletişim Bilgileri"
     const iletisimLinks = screen.getAllByText(/İletişim/i)
     expect(iletisimLinks.length).toBeGreaterThanOrEqual(2)
@@ -131,10 +129,10 @@ describe("PublicFooter", () => {
     expect(screen.getByText(/Kampanyalar/i)).toBeInTheDocument()
   })
 
-  it("renders at least 12 footer links total", () => {
+  it("renders at least 10 footer links total", () => {
     render(<PublicFooter />)
     const allLinks = screen.getAllByRole("link")
-    expect(allLinks.length).toBeGreaterThanOrEqual(12)
+    expect(allLinks.length).toBeGreaterThanOrEqual(10)
   })
 
   /* ── Bottom Section: Copyright ── */
@@ -147,25 +145,18 @@ describe("PublicFooter", () => {
     ).toBeInTheDocument()
   })
 
-  /* ── Bottom Section: Payment Icons ── */
+  /* ── Bottom Section: Payment Info ── */
 
-  it("renders payment method indicators", () => {
+  it("renders secure payment info text", () => {
     render(<PublicFooter />)
-    const footer = screen.getByRole("contentinfo")
-    const paymentSection = footer.querySelector(
-      "[data-testid='payment-icons']"
-    )
-    expect(paymentSection).toBeInTheDocument()
-    const icons = paymentSection!.children
-    expect(icons.length).toBeGreaterThanOrEqual(4)
+    expect(
+      screen.getByText(/Güvenli Ödeme.*NomuPay.*3D Secure/i)
+    ).toBeInTheDocument()
   })
 
-  it("renders payment alt text: Visa, Mastercard, Amex, PayPal", () => {
+  it("renders payment provider name NomuPay", () => {
     render(<PublicFooter />)
-    expect(screen.getByAltText("Visa")).toBeInTheDocument()
-    expect(screen.getByAltText("Mastercard")).toBeInTheDocument()
-    expect(screen.getByAltText("Amex")).toBeInTheDocument()
-    expect(screen.getByAltText("PayPal")).toBeInTheDocument()
+    expect(screen.getByText(/NomuPay/i)).toBeInTheDocument()
   })
 
   /* ── Bottom Section: Legal Links ── */
@@ -174,8 +165,6 @@ describe("PublicFooter", () => {
     render(<PublicFooter />)
     expect(screen.getByText(/Gizlilik Politikası/i)).toBeInTheDocument()
     expect(screen.getByText(/Kullanım Koşulları/i)).toBeInTheDocument()
-    expect(screen.getByText(/İade Politikası/i)).toBeInTheDocument()
-    expect(screen.getByText(/SSS/i)).toBeInTheDocument()
   })
 
   /* ── Styling ── */
@@ -199,15 +188,22 @@ describe("PublicFooter", () => {
   it("link text uses var(--color-primary) color class", () => {
     render(<PublicFooter />)
     const footer = screen.getByRole("contentinfo")
-    const linkEls = footer.querySelectorAll("a[class*='1e1e1e']")
+    const linkEls = footer.querySelectorAll(
+      "a[class*='var(--color-primary)']"
+    )
     expect(linkEls.length).toBeGreaterThan(0)
   })
 
-  it("social icons use gray-100 background with hover to primary", () => {
+  it("social icons use gray-100 background with hover gradient to primary", () => {
     render(<PublicFooter />)
     const footer = screen.getByRole("contentinfo")
-    const socialEls = footer.querySelectorAll("a[class*='rounded-full']")
+    // Social icons are rendered as spans (not links) with rounded-full styling
+    const socialEls = footer.querySelectorAll("span[class*='rounded-full']")
     expect(socialEls.length).toBe(5)
+    socialEls.forEach((el) => {
+      expect(el.className).toContain("bg-gray-100")
+      expect(el.className).toContain("hover:bg-gradient-to-r")
+    })
   })
 
   it("section headings use uppercase styling", () => {

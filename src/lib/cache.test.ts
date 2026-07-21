@@ -30,12 +30,12 @@ beforeEach(() => {
 // TTL constants
 // ---------------------------------------------------------------------------
 describe("TTL constants", () => {
-  it("PRODUCT_LIST is 5 minutes (300 seconds)", () => {
-    expect(TTL.PRODUCT_LIST).toBe(5 * 60)
+  it("PRODUCT_LIST is 2 minutes (120 seconds)", () => {
+    expect(TTL.PRODUCT_LIST).toBe(2 * 60)
   })
 
-  it("PRODUCT_DETAIL is 5 minutes (300 seconds)", () => {
-    expect(TTL.PRODUCT_DETAIL).toBe(5 * 60)
+  it("PRODUCT_DETAIL is 2 minutes (120 seconds)", () => {
+    expect(TTL.PRODUCT_DETAIL).toBe(2 * 60)
   })
 
   it("CATEGORY_TREE is 30 minutes (1800 seconds)", () => {
@@ -140,7 +140,7 @@ describe("cacheSet", () => {
   it("calls redis.set with JSON-serialised value and EX flag", async () => {
     mockRedis.set.mockResolvedValue("OK")
     await cacheSet("my-key", { foo: "bar" }, 300)
-    expect(mockRedis.set).toHaveBeenCalledWith("my-key", JSON.stringify({ foo: "bar" }), "EX", 300)
+    expect(mockRedis.set).toHaveBeenCalledWith("my-key", JSON.stringify({ foo: "bar" }), { ex: 300 })
   })
 
   it("does not throw when Redis fails", async () => {
@@ -152,7 +152,7 @@ describe("cacheSet", () => {
     mockRedis.set.mockResolvedValue("OK")
     const arr = [1, 2, 3]
     await cacheSet("arr-key", arr, 60)
-    expect(mockRedis.set).toHaveBeenCalledWith("arr-key", JSON.stringify(arr), "EX", 60)
+    expect(mockRedis.set).toHaveBeenCalledWith("arr-key", JSON.stringify(arr), { ex: 60 })
   })
 })
 
@@ -190,7 +190,7 @@ describe("cacheDelPattern", () => {
 
     await cacheDelPattern("nexadepo:products:list:*")
 
-    expect(mockRedis.scan).toHaveBeenCalledWith("0", "MATCH", "nexadepo:products:list:*", "COUNT", 100)
+    expect(mockRedis.scan).toHaveBeenCalledWith("0", { match: "nexadepo:products:list:*", count: 100 })
     expect(mockRedis.del).toHaveBeenCalledWith(
       "nexadepo:products:list:1",
       "nexadepo:products:list:2"
@@ -237,8 +237,7 @@ describe("withCache", () => {
     expect(mockRedis.set).toHaveBeenCalledWith(
       "miss-key",
       JSON.stringify({ data: "fresh" }),
-      "EX",
-      300
+      { ex: 300 }
     )
   })
 

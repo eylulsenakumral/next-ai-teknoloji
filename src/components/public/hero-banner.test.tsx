@@ -103,7 +103,7 @@ describe("HeroBanner", () => {
   it("uses max-w-[1400px] container", () => {
     render(<HeroBanner slides={defaultSlides} />)
     const banner = screen.getByRole("banner")
-    const container = banner.querySelector("[class*='max-w-\\[1330px\\]']")
+    const container = banner.querySelector("[class*='max-w-\\[1400px\\]']")
     expect(container).toBeInTheDocument()
   })
 
@@ -252,12 +252,12 @@ describe("HeroBanner", () => {
     expect(link).toHaveAttribute("href", "/katalog")
   })
 
-  it("CTA button uses gradient from primary to primary-dark", () => {
+  it("CTA button uses gradient from primary to cyan (#06B6D4)", () => {
     render(<HeroBanner slides={defaultSlides} />)
     const link = screen.getByText("Keşfet").closest("a")!
     expect(link.className).toContain("bg-gradient-to-r")
     expect(link.className).toContain("from-[var(--color-primary)]")
-    expect(link.className).toContain("to-[#1a6fe0]")
+    expect(link.className).toContain("to-[#06B6D4]")
   })
 
   it("CTA button uses hover gradient to dark", () => {
