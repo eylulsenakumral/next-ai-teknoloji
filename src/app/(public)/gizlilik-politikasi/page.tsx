@@ -13,15 +13,23 @@ export default function GizlilikPolitikasiPage() {
     <LegalPage
       title="Gizlilik Politikası"
       subtitle="KVKK & GDPR"
-      lastUpdated="15 Temmuz 2026"
+      lastUpdated="22 Temmuz 2026"
       intro={
-        <p>
-          Next AI Teknoloji olarak kişisel verilerinizin güvenliğine büyük önem veriyoruz. Bu gizlilik
-          politikası, web sitemizi ve hizmetlerimizi kullandığınızda kişisel verilerinizin nasıl toplandığı,
-          işlendiği, kullanıldığı ve korunduğu hakkında sizi bilgilendirmek amacıyla hazırlanmıştır. Bu
-          politika, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) ve Avrupa Birliğinin Genel Veri
-          Koruma Tüzüğü (GDPR) kapsamında haklarınızı ve yükümlülüklerimizi açıklamaktadır.
-        </p>
+        <>
+          <p>
+            Next AI Teknoloji olarak kişisel verilerinizin güvenliğine büyük önem veriyoruz. Bu gizlilik
+            politikası, web sitemizi ve hizmetlerimizi kullandığınızda kişisel verilerinizin nasıl toplandığı,
+            işlendiği, kullanıldığı ve korunduğu hakkında sizi bilgilendirmek amacıyla hazırlanmıştır. Bu
+            politika, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) ve Avrupa Birliğinin Genel Veri
+            Koruma Tüzüğü (GDPR) kapsamında haklarınızı ve yükümlülüklerimizi açıklamaktadır.
+          </p>
+          <p className="mt-4">
+            <strong>Veri Sorumlusu:</strong> Next AI Teknoloji, 6698 sayılı KVKK'nın 16'ncı maddesi uyarınca
+            Kişisel Verileri Koruma Kurumu tarafından tutulan Veri Sorumluları Sicili'ne (VERBİS) kayıtlı veri
+            sorumlusudur. Şirketimize ait VERBİS sicil numarası için kvkk@next-ai.com.tr adresinden bilgi
+            alabilirsiniz.
+          </p>
+        </>
       }
       sections={[
         {
@@ -52,6 +60,7 @@ export default function GizlilikPolitikasiPage() {
         {
           title: "2. Veri Kullanım Amaçları",
           body: (
+            <>
             <LegalList
               items={[
                 "Sipariş işlemlerinin gerçekleştirilmesi ve takibi",
@@ -63,6 +72,14 @@ export default function GizlilikPolitikasiPage() {
                 "İstatistiksel analizler ve pazar araştırmaları",
               ]}
             />
+              <p className="mt-4">
+                Kişisel verilerinizi 6698 sayılı KVKK'nın 5'inci maddesi uyarınca aşağıdaki hukuki
+                dayanaklara dayanarak işliyoruz: sözleşmesel ilişkinin ifası (sipariş ve teslimat),
+                hukuki yükümlülüklerimizin yerine getirilmesi (vergi, ticaret, muhasebe) ve meşru
+                menfaatimiz (hizmet kalitesi, güvenlik, dolandırıcılık önleme). Pazarlama amaçlı işlemelerde
+                ve özel nitelikli verilerde ise açık rızanız alınır.
+              </p>
+            </>
           ),
         },
         {
@@ -89,7 +106,57 @@ export default function GizlilikPolitikasiPage() {
           ),
         },
         {
-          title: "4. Çerez (Cookie) Politikası",
+          title: "4. Veri İhlali Bildirimi",
+          body: (
+            <>
+              <p>
+                6698 sayılı KVKK'nın 12'nci maddesi ve Kişisel Verileri Koruma Kurumu'nun "Veri Sorumlusu
+                Güvenliği" rehberi uyarınca, kişisel verilerin yasaya aykırı olarak işlenmesi, erişilmesi veya
+                ifşa edilmesini içeren bir ihlal tespit ettiğimizde, durumu en kısa sürede ve her hâlküda
+                <strong> ihlali öğrendiğimiz tarihten itibaren 72 saat içinde</strong> Kişisel Verileri Koruma
+                Kurulu'na bildiririz. Gerekli hâllerde ihlalden etkilenen ilgili kişileri de uygun araçlarla
+                (e-posta, site duyurusu) bilgilendiririz.
+              </p>
+              <p className="mt-4">
+                İhlal şüphesi veya tespiti durumunda kvkk@next-ai.com.tr adresine bildirim yapabilirsiniz.
+              </p>
+            </>
+          ),
+        },
+        {
+          title: "5. Verilerin Üçüncü Taraflara ve Yurt Dışına Aktarılması",
+          body: (
+            <>
+              <p>
+                Kişisel verileriniz, hizmetin yerine getirilmesi (ödeme altyapısı NomuPay, kargo, SMS/NETGSM,
+                bulut barındırma) için zorunlu ölçüde iş ortaklarımızla paylaşılır. Bu üçüncü taraflar yalnızca
+                gerekli verileri işlemekle yetinir ve KVKK md.12 kapsamında yeterli önlemleri almakla
+                yükümlüdürler.
+              </p>
+              <p className="mt-4">
+                6698 sayılı KVKK'nın 9'uncu maddesi uyarınca verilerinizin yurt dışına aktarılması; yalnızca
+                yurt dışında yerleşik iş ortaklarımız (ör. bulut hizmet sağlayıcıları) için, kişilerin açık
+                rızası bulunması, yeterli korumanın bulunduğu ülkelere aktarım veya korumanın yeterli
+                olmaması durumunda Türkiye'nin taraf olduğu uluslararası sözleşmeler veya ilgili kişinin
+                haklarını güvence altına alan taahhütler kapsamında gerçekleştirilir. Hangi ülkelerin yeterli
+                koruma sağladığı KVKK tarafından ilan edilen listelerle belirlenir.
+              </p>
+            </>
+          ),
+        },
+        {
+          title: "6. Çocukların Verilerinin Korunması",
+          body: (
+            <p>
+              Hizmetlerimiz B2B bayi portalı olarak ticari müşterilere yönelik olup 18 yaş altındaki çocuklara
+              yönelik değildir. Bilgimiz olmadan bir çocuğun kişisel verisini bilerek toplamıyoruz. Bir
+              velinin, çocuğunun kişisel verilerini bizimle paylaştığını öğrenirsek, bu verileri KVKK md.7
+              uyarınca derhal siler/yok ederiz. Bu durumu kvkk@next-ai.com.tr adresine bildirmenizi rica ederiz.
+            </p>
+          ),
+        },
+        {
+          title: "7. Çerez (Cookie) Politikası",
           body: (
             <>
               <p>
@@ -112,7 +179,7 @@ export default function GizlilikPolitikasiPage() {
           ),
         },
         {
-          title: "5. KVKK ve GDPR Kapsamındaki Haklarınız",
+          title: "8. KVKK ve GDPR Kapsamındaki Haklarınız",
           body: (
             <LegalList
               items={[
@@ -123,14 +190,14 @@ export default function GizlilikPolitikasiPage() {
                 "Eksik veya yanlış işlenen verilerin düzeltilmesini isteme",
                 "Kişisel verilerin silinmesini veya yok edilmesini isteme",
                 "İşlemin üçüncü kişilere bildirilmesini isteme",
-                "Otomatik sistemler vasıtasıyla kişi aleyhine sonuca itiraz etme",
+                "Otomatik sistemler vasıtasıyla (KVKK md.18) kişi aleyhine sonuç çıkartılmasına itiraz etme — yalnızca açık rızanızla profilleme/otomatik karar işlemesi yapılır",
                 "Kanuna aykırı işleme sebebiyle zararın giderilmesini talep etme",
               ]}
             />
           ),
         },
         {
-          title: "6. Veri Saklama Süresi",
+          title: "9. Veri Saklama Süresi",
           body: (
             <p>
               Kişisel verileriniz, toplama amacının gerektirdiği süre boyunca saklanır. Yasal yükümlülükler
@@ -142,7 +209,7 @@ export default function GizlilikPolitikasiPage() {
           ),
         },
         {
-          title: "7. Politika Değişiklikleri",
+          title: "10. Politika Değişiklikleri",
           body: (
             <p>
               Bu gizlilik politikası zaman zaman güncellenebilir. Önemli değişiklikler yapılması durumunda web
@@ -152,7 +219,7 @@ export default function GizlilikPolitikasiPage() {
           ),
         },
         {
-          title: "8. Gizlilik ile İlgili İletişim",
+          title: "11. Gizlilik ile İlgili İletişim",
           body: (
             <>
               <p>
@@ -164,6 +231,7 @@ export default function GizlilikPolitikasiPage() {
                   <><strong>E-posta:</strong> kvkk@next-ai.com.tr</>,
                   <><strong>Telefon:</strong> 0 552 989 5959</>,
                   <><strong>Adres:</strong> Esentepe Mh. Büyükdere Cd. No:123, Şişli, İstanbul 34394</>,
+                  <><strong>VERBİS Sicil No:</strong> [VERBİS kaydınız tamamlandığında numarayı buraya ekleyin]</>,
                 ]}
               />
               <p className="mt-4">Başvurularınız en geç 30 gün içinde cevaplandırılacaktır.</p>
