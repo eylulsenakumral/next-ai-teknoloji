@@ -112,7 +112,7 @@ export default function GizlilikPolitikasiPage() {
               <p>
                 6698 sayılı KVKK'nın 12'nci maddesi ve Kişisel Verileri Koruma Kurumu'nun "Veri Sorumlusu
                 Güvenliği" rehberi uyarınca, kişisel verilerin yasaya aykırı olarak işlenmesi, erişilmesi veya
-                ifşa edilmesini içeren bir ihlal tespit ettiğimizde, durumu en kısa sürede ve her hâlküda
+                ifşa edilmesini içeren bir ihlal tespit ettiğimizde, durumu en kısa sürede ve her hâlde
                 <strong> ihlali öğrendiğimiz tarihten itibaren 72 saat içinde</strong> Kişisel Verileri Koruma
                 Kurulu'na bildiririz. Gerekli hâllerde ihlalden etkilenen ilgili kişileri de uygun araçlarla
                 (e-posta, site duyurusu) bilgilendiririz.
