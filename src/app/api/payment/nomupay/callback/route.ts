@@ -5,272 +5,227 @@ import { getUsdTryRate } from "@/services/order.service"
 
 const APP_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:4040"
 
-// 303 See Other redirect — forces browser to use GET (prevents 405 on POST→redirect)
 function seeOther(url: string) {
   return NextResponse.redirect(url, { status: 303 })
 }
 
-// Step 3: NomuPay calls this URL with POST form-data after payment
+function resultUrl(status: "success" | "error", params: Record<string, string> = {}) {
+  const url = new URL("/sepet/odeme/sonuc", APP_URL)
+  url.searchParams.set("status", status)
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (value) url.searchParams.set(key, value)
+  })
+
+  return url.toString()
+}
+
+function parseNomuPayPrice(price: string | null) {
+  if (!price) return 0
+
+  const parsedPrice = Number(price)
+  if (!Number.isFinite(parsedPrice)) return 0
+
+  return Math.abs(parsedPrice / 100)
+}
+
+function paymentReference(orderId: string | null, mpay: string) {
+  return orderId || mpay
+}
+
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.formData() as unknown as FormData
-    const statusCode = formData.get("StatusCode") as string
-    const orderId = formData.get("OrderId") as string
-    const mpay = formData.get("MPAY") as string
-    const maskedCCNo = formData.get("MaskedCCNo") as string
-    const resultCode = formData.get("ResultCode") as string
-    const resultMessage = formData.get("ResultMessage") as string
-    const amount = formData.get("Price") as string
+    const formData = await request.formData()
+    const statusCode = String(formData.get("StatusCode") || "")
+    const orderId = String(formData.get("OrderId") || "")
+    const mpay = String(formData.get("MPAY") || "")
+    const maskedCCNo = String(formData.get("MaskedCCNo") || "")
+    const resultCode = String(formData.get("ResultCode") || "")
+    const resultMessage = String(formData.get("ResultMessage") || "")
+    const amount = String(formData.get("Price") || "")
 
-    console.log("[NOMUPAY CALLBACK POST]", {
-      statusCode, orderId, mpay, resultCode, resultMessage,
+    console.log("NomuPay Callback:", {
+      statusCode,
+      orderId,
+      mpay,
+      maskedCCNo,
+      resultCode,
+      resultMessage,
+      amount,
     })
 
     if (statusCode === "0" && mpay) {
-      // Ödeme başarılı
-      const isOnlinePayment = mpay.startsWith("ODEME:")
+      if (mpay.startsWith("ODEME:")) {
+        const customerId = mpay.split(":")[1]
+        const paymentAmount = parseNomuPayPrice(amount)
+        const referenceId = paymentReference(orderId, mpay)
 
-      if (isOnlinePayment) {
-        // Online ödeme — cari hesaba PAYMENT olarak işle
-        try {
-          const customerId = mpay.split(":")[1] // MPAY formatı: ODEME:{customerId}:{timestamp}
-          if (customerId) {
-            const customer = await prisma.customer.findFirst({
-              where: { id: customerId, deletedAt: null },
-            })
-            if (customer) {
-              const paymentAmount = amount ? Math.abs(parseFloat(amount) / 100) : 0
-              const newBalance = Number(customer.balance) - paymentAmount
-
-              await prisma.accountTransaction.create({
-                data: {
-                  customerId: customer.id,
-                  type: "PAYMENT",
-                  amount: new Prisma.Decimal(-paymentAmount),
-                  balanceAfter: new Prisma.Decimal(newBalance),
-                  currency: "TRY",
-                  referenceType: "NOMUPAY",
-                  referenceId: orderId || mpay,
-                  description: `Online Ödeme${maskedCCNo ? ` (${maskedCCNo})` : ""}`,
-                  notes: `NomuPay OrderId: ${orderId}`,
-                },
-              })
-
-              await prisma.customer.update({
-                where: { id: customer.id },
-                data: { balance: new Prisma.Decimal(newBalance) },
-              })
-
-              console.log("[NOMUPAY] Online payment recorded for customer:", customerId, "Amount:", paymentAmount)
-            }
-          }
-        } catch (dbErr) {
-          console.error("[NOMUPAY] Online payment DB error:", dbErr)
+        if (!customerId || paymentAmount <= 0) {
+          return seeOther(resultUrl("error", { msg: "Ge?ersiz ?deme bilgisi" }))
         }
+
+        const existingPayment = await prisma.accountTransaction.findFirst({
+          where: { referenceType: "NOMUPAY", referenceId },
+          select: { id: true },
+        })
+
+        if (existingPayment) {
+          return seeOther(resultUrl("success", { order: mpay }))
+        }
+
+        await prisma.$transaction(async (tx) => {
+          const alreadyProcessed = await tx.accountTransaction.findFirst({
+            where: { referenceType: "NOMUPAY", referenceId },
+            select: { id: true },
+          })
+
+          if (alreadyProcessed) return
+
+          const customer = await tx.customer.findFirst({
+            where: { id: customerId, deletedAt: null },
+          })
+
+          if (!customer) {
+            throw new Error(`Customer not found: ${customerId}`)
+          }
+
+          const currentBalance = Number(customer.balance)
+          const newBalance = currentBalance - paymentAmount
+
+          await tx.accountTransaction.create({
+            data: {
+              customerId: customer.id,
+              type: "PAYMENT",
+              debit: 0,
+              credit: paymentAmount,
+              balance: new Prisma.Decimal(newBalance),
+              description: `Online ?deme - NomuPay ${maskedCCNo ? `(${maskedCCNo})` : ""}`,
+              referenceType: "NOMUPAY",
+              referenceId,
+              transactionDate: new Date(),
+            },
+          })
+
+          await tx.customer.update({
+            where: { id: customer.id },
+            data: { balance: new Prisma.Decimal(newBalance) },
+          })
+        })
       } else {
-        // Sipariş ödemesi — order'ı güncelle
-        try {
-          const order = await prisma.order.findFirst({
-            where: { orderNumber: mpay, deletedAt: null },
-          })
-          if (order) {
-            await prisma.order.update({
-              where: { id: order.id },
-              data: {
-                paymentStatus: "PAID",
-                status: "CONFIRMED",
-                adminNotes: `NomuPay OrderId: ${orderId}, CC: ${maskedCCNo}`,
-              },
-            })
+        const order = await prisma.order.findFirst({
+          where: { orderNumber: mpay, deletedAt: null },
+        })
 
-            // Sipariş ödemesini cari hesaba işle — order.grandTotal USD kökenli, TL'ye çevir
-            // (KRİTİK-30: önceden USD tutarını doğrudan TL bakiyeden düşüyordu ~36x eksik).
-            const paymentAmountUSD = Number(order.grandTotal)
-            const usdTryRate = await getUsdTryRate()
-            const paymentTL = Math.round(paymentAmountUSD * usdTryRate * 100) / 100
-            const customer = await prisma.customer.findFirst({
-              where: { id: order.customerId, deletedAt: null },
-            })
-            if (customer) {
-              const newBalance = Math.round((Number(customer.balance) - paymentTL) * 100) / 100
-              await prisma.accountTransaction.create({
-                data: {
-                  customerId: customer.id,
-                  type: "PAYMENT",
-                  amount: new Prisma.Decimal(-paymentTL),
-                  balanceAfter: new Prisma.Decimal(newBalance),
-                  currency: "TRY",
-                  referenceType: "ORDER",
-                  referenceId: order.id,
-                  description: `Sipariş Ödemesi (${mpay}) - ${paymentAmountUSD} USD × ${usdTryRate} = ${paymentTL} TL`,
-                  notes: `NomuPay OrderId: ${orderId}`,
-                },
-              })
-              await prisma.customer.update({
-                where: { id: customer.id },
-                data: { balance: new Prisma.Decimal(newBalance) },
-              })
-            }
-
-            console.log("[NOMUPAY] Order updated:", mpay, "-> PAID/CONFIRMED")
-          } else {
-            console.warn("[NOMUPAY] Order not found for MPAY:", mpay)
-          }
-        } catch (dbErr) {
-          console.error("[NOMUPAY] DB update error:", dbErr)
+        if (!order) {
+          return seeOther(resultUrl("error", { msg: "Sipari? bulunamad?" }))
         }
+
+        const existingPayment = await prisma.accountTransaction.findFirst({
+          where: { referenceType: "ORDER", referenceId: order.id },
+          select: { id: true },
+        })
+
+        if (order.paymentStatus === "PAID" || existingPayment) {
+          return seeOther(resultUrl("success", { order: mpay }))
+        }
+
+        const paymentAmountUSD = Number(order.grandTotal)
+        const usdTryRate = await getUsdTryRate()
+        const paymentTL = paymentAmountUSD * usdTryRate
+
+        await prisma.$transaction(async (tx) => {
+          const currentOrder = await tx.order.findFirst({
+            where: { id: order.id, deletedAt: null },
+          })
+
+          if (!currentOrder) {
+            throw new Error(`Order not found: ${order.id}`)
+          }
+
+          const alreadyProcessed = await tx.accountTransaction.findFirst({
+            where: { referenceType: "ORDER", referenceId: currentOrder.id },
+            select: { id: true },
+          })
+
+          if (currentOrder.paymentStatus === "PAID" || alreadyProcessed) return
+
+          const customer = await tx.customer.findFirst({
+            where: { id: currentOrder.customerId, deletedAt: null },
+          })
+
+          if (!customer) {
+            throw new Error(`Customer not found: ${currentOrder.customerId}`)
+          }
+
+          await tx.order.update({
+            where: { id: currentOrder.id },
+            data: {
+              paymentStatus: "PAID",
+              status: "CONFIRMED",
+              adminNotes: `?deme al?nd?. Kart: ${maskedCCNo}, NomuPay OrderId: ${orderId}`,
+            },
+          })
+
+          const currentBalance = Number(customer.balance)
+          const newBalance = currentBalance - paymentTL
+
+          await tx.accountTransaction.create({
+            data: {
+              customerId: customer.id,
+              type: "PAYMENT",
+              debit: 0,
+              credit: paymentTL,
+              balance: new Prisma.Decimal(newBalance),
+              description: `Sipari? ?demesi - ${currentOrder.orderNumber} - NomuPay ${maskedCCNo ? `(${maskedCCNo})` : ""}`,
+              referenceType: "ORDER",
+              referenceId: currentOrder.id,
+              transactionDate: new Date(),
+            },
+          })
+
+          await tx.customer.update({
+            where: { id: customer.id },
+            data: { balance: new Prisma.Decimal(newBalance) },
+          })
+        })
       }
 
-      return seeOther(
-        new URL(`/sepet/odeme/sonuc?status=success&order=${encodeURIComponent(mpay)}`, APP_URL).toString()
-      )
+      return seeOther(resultUrl("success", { order: mpay }))
     }
 
-    // Payment failed
-    if (mpay) {
-      const isOnlinePayment = mpay.startsWith("ODEME:")
-      if (!isOnlinePayment) {
-        try {
-          const order = await prisma.order.findFirst({
-            where: { orderNumber: mpay, deletedAt: null },
-          })
-          if (order) {
-            await prisma.order.update({
-              where: { id: order.id },
-              data: {
-                adminNotes: `NomuPay failed: ${resultMessage}`,
-              },
-            })
-          }
-        } catch (dbErr) {
-          console.error("[NOMUPAY] DB update error:", dbErr)
-        }
+    if (mpay && !mpay.startsWith("ODEME:")) {
+      const failedOrder = await prisma.order.findFirst({
+        where: { orderNumber: mpay },
+      })
+
+      if (failedOrder) {
+        await prisma.order.update({
+          where: { id: failedOrder.id },
+          data: {
+            adminNotes: `?deme ba?ar?s?z: ${resultMessage || resultCode}`,
+          },
+        })
       }
     }
 
-    return seeOther(
-      new URL(`/sepet/odeme/sonuc?status=error&msg=${encodeURIComponent(resultMessage || "Ödeme başarısız")}`, APP_URL).toString()
-    )
+    return seeOther(resultUrl("error", { msg: resultMessage || "?deme ba?ar?s?z" }))
   } catch (error) {
-    console.error("Nomupay callback error:", error)
-    return seeOther(
-      new URL("/sepet/odeme/sonuc?status=error&msg=İşlem+hata", APP_URL).toString()
-    )
+    console.error("NomuPay callback error:", error)
+    return seeOther(resultUrl("error", { msg: "Callback i?leme hatas?" }))
   }
 }
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
-  const status = searchParams.get("status") || "error"
+  const status = searchParams.get("status")
   const msg = searchParams.get("msg") || ""
-  const order = searchParams.get("order") || ""
-  const mpay = searchParams.get("mpay") || ""
-  const amountParam = searchParams.get("amount") || ""
+  const order = searchParams.get("order") || searchParams.get("mpay") || ""
 
-  const ref = order || mpay
-  console.log("[NOMUPAY CALLBACK GET]", { status, order, mpay, amountParam, msg })
-
-  // Başarılı ödemeyi işle — cari hesaba yaz
-  if (status === "success" && ref) {
-    const isOnlinePayment = ref.startsWith("ODEME:")
-
-    try {
-      if (isOnlinePayment && amountParam) {
-        // Online ödeme — cari hesaba PAYMENT olarak işle
-        const customerId = ref.split(":")[1]
-        const paymentAmount = parseFloat(amountParam)
-
-        if (customerId && paymentAmount > 0) {
-          const customer = await prisma.customer.findFirst({
-            where: { id: customerId, deletedAt: null },
-          })
-          if (customer) {
-            const newBalance = Math.round((Number(customer.balance) - paymentAmount) * 100) / 100
-
-            await prisma.$transaction([
-              prisma.accountTransaction.create({
-                data: {
-                  customerId: customer.id,
-                  type: "PAYMENT",
-                  amount: new Prisma.Decimal(-paymentAmount),
-                  balanceAfter: new Prisma.Decimal(newBalance),
-                  currency: "TRY",
-                  referenceType: "NOMUPAY",
-                  referenceId: ref,
-                  description: `Online Ödeme - ${paymentAmount.toFixed(2)} TL`,
-                },
-              }),
-              prisma.customer.update({
-                where: { id: customer.id },
-                data: { balance: new Prisma.Decimal(newBalance) },
-              }),
-            ])
-            console.log("[NOMUPAY GET] Online payment recorded:", paymentAmount, "TL for customer:", customerId)
-          }
-        }
-      } else {
-        // Sipariş ödemesi — order'ı güncelle ve cariye işle
-        const orderRow = await prisma.order.findFirst({
-          where: { orderNumber: order, deletedAt: null },
-        })
-        if (orderRow && orderRow.paymentStatus !== "PAID") {
-          const paymentAmount = Number(orderRow.grandTotal)
-          const customer = await prisma.customer.findFirst({
-            where: { id: orderRow.customerId, deletedAt: null },
-          })
-
-          if (customer) {
-            // TCMB kurundan TL karşılık
-            const rateRes = await fetch("https://www.tcmb.gov.tr/kurlar/today.xml")
-            const rateXml = await rateRes.text()
-            const rateMatch = rateXml.match(/CurrencyCode="USD"[\s\S]*?<ForexSelling>([\d.,]+)<\/ForexSelling>/)
-            const usdTry = rateMatch ? parseFloat(rateMatch[1].replace(",", ".")) : 38
-            const paymentTL = Math.round(paymentAmount * usdTry * 100) / 100
-
-            const newBalance = Math.round((Number(customer.balance) - paymentTL) * 100) / 100
-
-            await prisma.$transaction([
-              prisma.order.update({
-                where: { id: orderRow.id },
-                data: {
-                  paymentStatus: "PAID",
-                  status: "CONFIRMED",
-                  adminNotes: `NomuPay ödeme (GET) - ${order}`,
-                },
-              }),
-              prisma.accountTransaction.create({
-                data: {
-                  customerId: customer.id,
-                  type: "PAYMENT",
-                  amount: new Prisma.Decimal(-paymentTL),
-                  balanceAfter: new Prisma.Decimal(newBalance),
-                  currency: "TRY",
-                  referenceType: "ORDER",
-                  referenceId: orderRow.id,
-                  description: `Sipariş ödemesi - ${order} (${paymentAmount} USD × ${usdTry})`,
-                  notes: "NomuPay online ödeme",
-                },
-              }),
-              prisma.customer.update({
-                where: { id: customer.id },
-                data: { balance: new Prisma.Decimal(newBalance) },
-              }),
-            ])
-            console.log("[NOMUPAY GET] Order payment recorded:", order, paymentTL, "TL")
-          }
-        }
-      }
-    } catch (dbErr) {
-      console.error("[NOMUPAY GET] Payment processing error:", dbErr)
-    }
-  }
+  console.log("NomuPay GET redirect:", { status, msg, order })
 
   if (status === "success") {
-    return NextResponse.redirect(
-      new URL(`/sepet/odeme/sonuc?status=success&order=${order}`, APP_URL)
-    )
+    return NextResponse.redirect(resultUrl("success", { order }))
   }
-  return NextResponse.redirect(
-    new URL(`/sepet/odeme/sonuc?status=error&msg=${msg}`, APP_URL)
-  )
+
+  return NextResponse.redirect(resultUrl("error", { msg: msg || "?deme ba?ar?s?z" }))
 }

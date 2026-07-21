@@ -112,7 +112,7 @@ export async function GET(req: NextRequest) {
 
       // Set fiyatı: manuel girilen fiyat + currency
       let setPrice: number | null = null
-      let setCurrency = c.currency || "TRY"
+      const setCurrency = c.currency || "TRY"
       let setPriceTry: number | null = null
       if (showPrice && c.price !== null) {
         setPrice = Number(c.price)

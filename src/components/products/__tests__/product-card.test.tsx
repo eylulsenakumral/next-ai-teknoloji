@@ -33,6 +33,12 @@ vi.mock('next/link', () => ({
   ),
 }))
 
+// Mock next/image — test ortamında optimization proxy'sini atla (düz img)
+vi.mock('next/image', () => ({
+  __esModule: true,
+  default: (props: Record<string, unknown>) => <img {...props} />,
+}))
+
 // Import after mocks
 import { ProductCard, ProductCardSkeleton } from '../product-card'
 import type { CatalogProduct } from '@/types/catalog'

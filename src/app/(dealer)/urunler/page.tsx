@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useState, useEffect, useCallback, useTransition } from "react"
 import { useSearchParams, useRouter, usePathname } from "next/navigation"
 import {
@@ -263,13 +264,13 @@ export default function ProductsPage() {
             className="flex items-center gap-1.5 text-[12px] text-[var(--color-text-muted)] mb-2"
             aria-label="Breadcrumb"
           >
-            <a
+            <Link
               href="/"
               className="flex items-center gap-1 hover:text-[var(--color-primary)] transition-colors"
             >
               <Home className="h-3 w-3" />
               Anasayfa
-            </a>
+            </Link>
             <ChevronRight className="h-3 w-3 text-[var(--color-border)]" aria-hidden />
             <span className="text-[var(--color-foreground)] font-semibold">Ürünler</span>
             {filters.q && (

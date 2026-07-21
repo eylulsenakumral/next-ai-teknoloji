@@ -405,7 +405,7 @@ export async function syncProducts(token: string): Promise<SyncProductsResult> {
       // 2. Category eşleştir - SADECE BUL, otomatik oluşturma
       let categoryId: string | undefined
       if (categoryName) {
-        let cat = await prisma.category.findFirst({
+        const cat = await prisma.category.findFirst({
           where: { name: { equals: categoryName, mode: "insensitive" }, deletedAt: null },
         })
         categoryId = cat?.id ?? undefined

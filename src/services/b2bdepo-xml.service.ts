@@ -199,7 +199,7 @@ async function resolveCategory(
   if (!ustKategori) return undefined
 
   // 1. Ust kategori - SADECE BUL, otomatik oluşturma
-  let parent = await prisma.category.findFirst({
+  const parent = await prisma.category.findFirst({
     where: { name: { equals: ustKategori, mode: "insensitive" }, parentId: null, deletedAt: null },
   })
   if (!parent) return undefined
@@ -207,7 +207,7 @@ async function resolveCategory(
   if (!altKategori) return parent.id
 
   // 2. Alt kategori - SADECE BUL, otomatik oluşturma
-  let mid = await prisma.category.findFirst({
+  const mid = await prisma.category.findFirst({
     where: { name: { equals: altKategori, mode: "insensitive" }, parentId: parent.id, deletedAt: null },
   })
   if (!mid) return undefined
@@ -215,7 +215,7 @@ async function resolveCategory(
   if (!enAltKategori) return mid.id
 
   // 3. En alt kategori - SADECE BUL, otomatik oluşturma
-  let leaf = await prisma.category.findFirst({
+  const leaf = await prisma.category.findFirst({
     where: { name: { equals: enAltKategori, mode: "insensitive" }, parentId: mid.id, deletedAt: null },
   })
   if (!leaf) return undefined

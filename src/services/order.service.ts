@@ -157,7 +157,7 @@ export async function createOrder(
 
   // Set ürünlerini DB'den çek
   const setIds = setItems.map((i) => i.productId.replace("set-", ""))
-  let setMap = new Map<string, { name: string; price: number }>()
+  const setMap = new Map<string, { name: string; price: number }>()
   if (setIds.length > 0) {
     const sets = await prisma.campaignSet.findMany({
       where: { id: { in: setIds }, deletedAt: null },

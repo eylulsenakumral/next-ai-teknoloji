@@ -7,11 +7,11 @@
 
 import { Redis } from "@upstash/redis"
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 type RedisClient = Redis
 
 declare global {
-  // eslint-disable-next-line no-var
+   
   var __redis: RedisClient | null | undefined
 }
 

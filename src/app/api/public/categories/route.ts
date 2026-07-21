@@ -48,7 +48,7 @@ function mapCategory(cat: PrismaCategory): CategoryTreeNode {
 /*  Recursive include builder - 5 seviye                               */
 /* ------------------------------------------------------------------ */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+ 
 function buildPublicInclude(depth: number): Prisma.CategoryInclude {
   const filter = { deletedAt: null, isActive: true }
 
@@ -149,7 +149,7 @@ export async function GET(req: NextRequest) {
           include: buildPublicInclude(6),
         })
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+         
         return (categories as unknown as PrismaCategory[]).map(mapCategory)
       }
     )

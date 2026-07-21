@@ -9,7 +9,7 @@
 import { Client as MinioClient } from "minio"
 
 declare global {
-  // eslint-disable-next-line no-var
+   
   var __minio: MinioClient | null | undefined
 }
 
