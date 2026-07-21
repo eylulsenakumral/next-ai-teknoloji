@@ -98,7 +98,7 @@ export function PublicHeaderNext() {
         <div className="flex items-center gap-2">
           <Link
             href="/bayimiz-olun"
-            className="hidden rounded-full bg-nx-dark px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-nx-accent lg:block"
+            className="hidden rounded-full bg-black px-4 py-2 text-[13px] font-semibold text-white transition hover:bg-nx-accent lg:block"
           >
             Bayimiz Olun
           </Link>
