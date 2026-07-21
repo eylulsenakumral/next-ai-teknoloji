@@ -12,6 +12,11 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Üst dizindeki ~/package-lock.json, Turbopack workspace root'unu yanlış yukarı taşıyordu.
+  // Proje kökünü sabitle (node_modules yerel, linked dependency yok).
+  turbopack: {
+    root: __dirname,
+  },
   typescript: {
     // Build sırasında Next'in typecheck'i çöküyor; tsc --noEmit ayrıca çalıştırılıyor.
     ignoreBuildErrors: true,
