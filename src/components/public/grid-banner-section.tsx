@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 
 interface GridBannerItem {
   id: string
@@ -32,10 +33,11 @@ export function GridBannerSection({ items, columns = 3, className = "" }: GridBa
               href={item.link ?? "#"}
               className="relative h-64 rounded-[20px] overflow-hidden group block"
             >
-              <img
+              <Image
                 src={item.image}
                 alt={item.title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                fill
+                className="object-cover group-hover:scale-110 transition-transform duration-300"
               />
               <div className="absolute inset-0 bg-black/30 flex items-end justify-start p-6">
                 <h3 className="text-white text-2xl font-bold leading-tight">{item.title}</h3>

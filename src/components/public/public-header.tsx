@@ -5,7 +5,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import {
-  Cpu,
   Menu,
   X,
   Phone,
@@ -377,9 +376,11 @@ function HeaderSearchBar() {
                     >
                       {/* Product Image */}
                       <div className="w-10 h-10 shrink-0 rounded-lg bg-white border border-[var(--color-border)] flex items-center justify-center overflow-hidden">
-                        <img
+                        <Image
                           src={getProductImage(product)}
                           alt={product.name}
+                          width={40}
+                          height={40}
                           className="w-full h-full object-cover"
                           loading="lazy"
                         />
@@ -441,7 +442,7 @@ function HeaderSearchBar() {
 /* ------------------------------------------------------------------ */
 
 export function PublicHeader() {
-  const { user, isAuthenticated, isDealer } = useAuth()
+  const { user, isAuthenticated } = useAuth()
   const { items } = useCart()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [isSticky, setIsSticky] = useState(false)

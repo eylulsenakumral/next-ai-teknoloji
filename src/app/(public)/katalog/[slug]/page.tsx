@@ -303,40 +303,22 @@ function StockBadge({ inStock }: { inStock: boolean }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  CTA — Login Prompt                                                 */
+/*  Sticky Mobile CTA                                                  */
 /* ------------------------------------------------------------------ */
 
-function QuoteCTA({ productName }: { productName: string }) {
+function StickyMobileCTA() {
   return (
-    <div className="border border-[var(--color-primary)]/20 bg-gradient-to-br from-[var(--color-primary)]/5 to-white p-5 space-y-4">
-      <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-[var(--color-primary)]/10">
-          <Lock className="h-5 w-5 text-[var(--color-primary)]" aria-hidden />
-        </div>
-        <div className="space-y-1">
-          <p className="text-[14px] font-bold text-[var(--color-foreground)]">
-            Özel Fiyatlar İçin Bayi Girişi Yapınız
-          </p>
-          <p className="text-[12px] text-[var(--color-text-muted)] leading-relaxed">
-            Bayi girişi yaparak özel fiyatları görüntüleyebilir ve sipariş oluşturabilirsiniz.
-          </p>
-        </div>
-      </div>
-
+    <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-white border-t border-[var(--color-border)] px-4 py-3 shadow-lg">
       <Link
         href="/login"
-        className="flex w-full items-center justify-center gap-2 h-11 bg-[var(--color-primary)] px-5 text-[13px] font-bold text-white uppercase tracking-wider transition-colors hover:bg-[#001489] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+        className="flex items-center justify-center gap-2 h-11 w-full bg-[var(--color-primary)] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
       >
         <Lock className="h-4 w-4" aria-hidden />
-        Bayi Girişi Yap
+        Özel Fiyatlar İçin Bayi Girişi Yapınız
       </Link>
     </div>
   )
 }
-
-/* ------------------------------------------------------------------ */
-/*  Specs Table                                                        */
-/* ------------------------------------------------------------------ */
 
 function SpecsTable({ specs }: { specs: Array<{ key: string; value: string }> }) {
   return (
@@ -365,28 +347,6 @@ function SpecsTable({ specs }: { specs: Array<{ key: string; value: string }> })
     </div>
   )
 }
-
-/* ------------------------------------------------------------------ */
-/*  Sticky Mobile CTA                                                  */
-/* ------------------------------------------------------------------ */
-
-function StickyMobileCTA({ productName }: { productName: string }) {
-  return (
-    <div className="fixed bottom-0 left-0 right-0 z-30 md:hidden bg-white border-t border-[var(--color-border)] px-4 py-3 shadow-lg">
-      <Link
-        href="/login"
-        className="flex items-center justify-center gap-2 h-11 w-full bg-[var(--color-primary)] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#001489] transition-colors"
-      >
-        <Lock className="h-4 w-4" aria-hidden />
-        Özel Fiyatlar İçin Bayi Girişi Yapınız
-      </Link>
-    </div>
-  )
-}
-
-/* ------------------------------------------------------------------ */
-/*  Page                                                               */
-/* ------------------------------------------------------------------ */
 
 export default async function PublicProductDetailPage({
   params,
@@ -729,7 +689,7 @@ export default async function PublicProductDetailPage({
       </div>
 
       {/* Sticky Fiyat / CTA — mobile */}
-      {!isLoggedIn && !product.hidePrice && <StickyMobileCTA productName={product.name} />}
+      {!isLoggedIn && !product.hidePrice && <StickyMobileCTA />}
       {isLoggedIn && product.hidePrice && (
         <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[var(--color-error)]/20 px-4 py-3 z-50 shadow-[0_-4px_12px_rgba(0,0,0,0.06)]">
           <p className="text-[13px] font-bold text-[var(--color-error)] text-center">

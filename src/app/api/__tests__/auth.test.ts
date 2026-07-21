@@ -1,12 +1,9 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest'
+import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 
 const API_BASE = process.env.API_URL || 'http://localhost:3000'
 
 describe.skip('Auth API', () => {
   let testDealer: { id: string; email: string; password: string; name: string }
-  let testAdmin: { id: string; email: string; password: string; name: string }
-  let dealerToken: string
-  let adminToken: string
 
   beforeAll(async () => {
     testDealer = {
@@ -14,12 +11,6 @@ describe.skip('Auth API', () => {
       email: `dealer-auth-${Date.now()}@test.com`,
       password: 'TestPassword123!',
       name: 'Test Dealer'
-    }
-    testAdmin = {
-      id: 'test-admin-auth-001',
-      email: `admin-auth-${Date.now()}@test.com`,
-      password: 'AdminPass123!',
-      name: 'Test Admin'
     }
   })
 
@@ -524,7 +515,6 @@ describe.skip('Auth API', () => {
       })
 
       // Check for security-related headers
-      const csrfHeader = response.headers.get('x-csrf-token')
       // CSRF might not be implemented, so we just check if request succeeded
       expect([200, 401, 404]).toContain(response.status)
     })

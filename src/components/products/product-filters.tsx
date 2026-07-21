@@ -13,14 +13,6 @@ interface ProductFiltersProps {
   onChange: (updated: Partial<ProductFilters>) => void
 }
 
-const depthPad: Record<number, string> = {
-  0: "pl-0",
-  1: "pl-3",
-  2: "pl-6",
-  3: "pl-8",
-  4: "pl-9",
-}
-
 const depthFont: Record<number, string> = {
   0: "text-[13px]",
   1: "text-[12px]",
@@ -175,7 +167,6 @@ function FilterSection({
 export function ProductFilters({
   categories,
   brands,
-  suppliers = [],
   filters,
   onChange,
 }: ProductFiltersProps) {

@@ -25,13 +25,13 @@ function parseValue(value: string) {
 export function AnimatedCounter({ value, label, duration = 1400 }: AnimatedCounterProps) {
   const ref = useRef<HTMLDivElement | null>(null)
   const [display, setDisplay] = useState("0")
-  const [done, setDone] = useState(false)
+  const [, setDone] = useState(false)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
 
-    const { num, suffix, hasDot } = parseValue(value)
+    const { num, hasDot } = parseValue(value)
 
     const animate = () => {
       const start = performance.now()

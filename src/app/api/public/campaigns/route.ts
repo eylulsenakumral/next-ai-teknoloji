@@ -128,6 +128,8 @@ export async function GET(req: NextRequest) {
         }
       }
 
+      // price & currency destructured out of `rest` below — overridden by setPrice/setCurrency.
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { price, currency, ...rest } = c
       return {
         ...rest,

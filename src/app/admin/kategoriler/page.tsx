@@ -21,7 +21,7 @@ import {
 import { CSS } from "@dnd-kit/utilities"
 import {
   Plus, Pencil, Trash2, Search, RefreshCw, ChevronRight, ChevronDown,
-  Network, Download, Upload, ChevronsUpDown, ChevronsDownUp,
+  Download, Upload, ChevronsUpDown, ChevronsDownUp,
   FolderOpen, Folder, Package, Layers, Eye, EyeOff, GripVertical,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -64,8 +64,6 @@ interface FlatCategory {
   _count: CategoryCount
   parent?: { id: string; name: string } | null
 }
-
-type ViewMode = "tree"
 
 // ---------- Constants ----------
 const depthColors: Record<number, string> = {

@@ -17,8 +17,8 @@ export function SpecsScraper({ onSpecsExtracted, disabled, className }: SpecsScr
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle")
   const [message, setMessage] = useState("")
-  const [extractedCount, setExtractedCount] = useState(0)
-  const [imageCount, setImageCount] = useState(0)
+  const [, setExtractedCount] = useState(0)
+  const [, setImageCount] = useState(0)
 
   async function handleScrape() {
     if (!url.trim()) return

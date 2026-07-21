@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 
 interface BrandLogoItem {
   id: string
@@ -27,9 +28,11 @@ export function BrandLogoBar({ brands, className = "" }: BrandLogoBarProps) {
               className="flex items-center justify-center p-4 bg-[var(--color-background)] rounded-[20px] hover:shadow-lg transition-shadow duration-300"
             >
               {brand.logo ? (
-                <img
+                <Image
                   src={brand.logo}
                   alt={brand.name}
+                  width={160}
+                  height={64}
                   className="h-16 object-contain"
                 />
               ) : (

@@ -62,7 +62,6 @@ export async function POST(req: NextRequest) {
     where: { deletedAt: null },
     select: { id: true, name: true, slug: true, parentId: true, depth: true },
   })
-  const existingByName = new Map(existingCategories.map((c) => [c.name.toLowerCase(), c]))
   const existingBySlug = new Map(existingCategories.map((c) => [c.slug, c]))
 
   const results = {
@@ -87,11 +86,6 @@ export async function POST(req: NextRequest) {
         const slug = row.slug && levelIdx === row.levels.length - 1
           ? row.slug
           : generateSlug(name)
-
-        // Build lookup key: parent path + this name
-        const parentKey = levelIdx === 0 ? name.toLowerCase() : Array.from(createdMap.entries()).find(
-          ([, v]) => v === parentId
-        )?.[0] + "/" + name.toLowerCase()
 
         // Check existing
         const existing = existingBySlug.get(slug)

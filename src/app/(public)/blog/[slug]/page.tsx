@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { ArrowLeft, ArrowRight, CalendarDays, Clock } from "lucide-react"
@@ -56,7 +57,7 @@ export default async function BlogPostPage({ params }: Params) {
           </span>
         </div>
         <div className="mt-8 overflow-hidden rounded-[15px]">
-          <img src={post.img} alt={post.title} className="h-[340px] w-full object-cover" />
+          <Image src={post.img} alt={post.title} width={1200} height={340} className="h-[340px] w-full object-cover" />
         </div>
         <div className="mt-10 space-y-10">
           {post.sections.map((s) => (

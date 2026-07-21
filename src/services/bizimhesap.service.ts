@@ -302,11 +302,6 @@ function normalizePhonesFromRaw(raw: string | undefined | null): {
   }
 }
 
-/** Tek değer döndüren basit helper (inventory / eski kullanım için) */
-function normalizePhone(raw: string | undefined | null): string | null {
-  return normalizePhonesFromRaw(raw).whatsappPhone
-}
-
 // ============================================================================
 // syncProducts
 // ============================================================================

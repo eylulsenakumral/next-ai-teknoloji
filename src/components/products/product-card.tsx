@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useSession } from "next-auth/react"
 import Link from "next/link"
+import Image from "next/image"
 import { Package, ShoppingCart, Eye, Heart, Check, Minus, Plus } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { formatCurrency } from "@/lib/utils/format"
@@ -28,11 +29,12 @@ function ProductImage({ src, alt, className }: ProductImageProps) {
   }
 
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
+      fill
       className={cn(
-        "h-full w-full object-contain p-4 transition-transform duration-500 group-hover:scale-110",
+        "object-contain p-4 transition-transform duration-500 group-hover:scale-110",
         className
       )}
       onError={() => setError(true)}

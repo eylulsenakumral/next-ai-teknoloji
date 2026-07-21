@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from "react"
 import {
   RefreshCw,
   TrendingUp,
-  TrendingDown,
   Clock,
   Zap,
   Pencil,

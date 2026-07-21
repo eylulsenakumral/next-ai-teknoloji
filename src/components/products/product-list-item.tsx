@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Package, ShoppingCart, Check, Minus, Plus } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { cn } from "@/lib/utils"
@@ -22,10 +23,11 @@ function ProductImage({ src, alt }: { src?: string; alt: string }) {
   }
 
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
-      className="h-full w-full object-contain p-2"
+      fill
+      className="object-contain p-2"
       onError={() => setError(true)}
     />
   )
@@ -90,7 +92,7 @@ interface ProductListItemProps {
   categories?: CategoryNode[]
 }
 
-export function ProductListItem({ product, onAddToCart, brands, categories }: ProductListItemProps) {
+export function ProductListItem({ product, brands, categories }: ProductListItemProps) {
   const mainImage = product.images[0]
   const { addItem, items, openCart } = useCart()
 

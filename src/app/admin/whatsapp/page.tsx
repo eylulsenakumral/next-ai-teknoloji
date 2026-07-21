@@ -10,12 +10,11 @@ import {
   WifiOff,
   Loader2,
   ArrowLeft,
-  User,
   Bot,
   Check,
-  AlertCircle,
   QrCode,
 } from "lucide-react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -72,12 +71,13 @@ function QRCodeDisplay({ qr }: { qr: string }) {
   return (
     <div className="flex justify-center p-4">
       {qrUrl && (
-        <img
+        <Image
           src={qrUrl}
           alt="WhatsApp QR Code"
           className="rounded-lg border border-gray-200 dark:border-gray-700"
           width={300}
           height={300}
+          unoptimized
         />
       )}
     </div>

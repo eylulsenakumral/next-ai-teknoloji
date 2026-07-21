@@ -59,6 +59,7 @@ export async function GET(
   }
 
   // KRİTİK-29: passwordHash asla cliente sızmasın (include tüm scalar döndürürdü).
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { passwordHash, ...safeCustomer } = customer
   return NextResponse.json({ data: safeCustomer })
 }

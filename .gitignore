@@ -38,6 +38,7 @@ yarn-error.log*
 .env.production
 .env.production.local
 .env.sync
+.env*.bak-*
 # .env.example is intentionally tracked in git
 *.bak.supplier-cleanup
 *.bak.*

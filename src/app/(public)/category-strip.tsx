@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useState } from "react"
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 
@@ -46,11 +47,12 @@ export function CategoryStrip({ categories }: { categories: HeroCard[] }) {
                 isCenter ? " nx-cat-card--center" : ""
               }`}
             >
-              <img
+              <Image
                 src={cat.img}
                 alt={cat.title}
                 loading="eager"
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                className="object-cover"
               />
               {/* Ceron: açık kenar gradientleri — kenar kartlarda sabit, iç kartlarda hover'da */}
               {i === 0 && (

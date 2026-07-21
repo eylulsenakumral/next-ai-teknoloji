@@ -1,6 +1,6 @@
 import type { ProfitMargin } from "@prisma/client"
 import { prisma } from "@/lib/db"
-import { withCache, invalidatePriceCache, CacheKey, TTL } from "@/lib/cache"
+import { withCache, CacheKey, TTL } from "@/lib/cache"
 
 // Default global margin when no ProfitMargin record exists
 const DEFAULT_MARGIN_PCT = 30

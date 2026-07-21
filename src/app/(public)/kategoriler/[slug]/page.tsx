@@ -7,7 +7,6 @@ import {
   Home,
   ArrowRight,
   Package,
-  ImageOff,
   Monitor,
   Camera,
   Wifi,

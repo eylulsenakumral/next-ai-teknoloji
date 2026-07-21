@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 import { Search, X, Package, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { SearchResult } from "@/types/catalog"
@@ -30,10 +31,11 @@ function ResultImage({ src, alt }: { src?: string | null; alt: string }) {
   }
 
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
-      className="h-full w-full object-contain p-1"
+      fill
+      className="object-contain p-1"
       onError={() => setError(true)}
     />
   )

@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { bulkUpdateSchema } from "@/lib/validators/product"
-import { generateSlug } from "@/lib/utils/slug"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 
 export async function POST(req: NextRequest) {

@@ -298,7 +298,7 @@ export default async function CampaignsPage() {
                 {/* Set Görseli */}
                 <div className="relative h-44 bg-gradient-to-br from-[var(--color-primary)]/5 to-gray-50 flex items-center justify-center p-4">
                   {set.imageUrl ? (
-                    <img src={set.imageUrl} alt={set.name} className="h-full w-full object-cover rounded-lg" />
+                    <Image src={set.imageUrl} alt={set.name} fill className="object-cover rounded-lg" />
                   ) : (
                     <Package className="h-14 w-14 text-gray-200" />
                   )}

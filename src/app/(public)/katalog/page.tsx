@@ -12,7 +12,6 @@ import {
   Package,
   Search,
   ChevronDown,
-  ArrowRight,
   Zap,
   Shield,
   Truck,
@@ -25,6 +24,7 @@ import {
   Tag,
 } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Select,
@@ -309,10 +309,11 @@ function CategoryGrid({
                 aria-pressed={isActive}
               >
                 {hasImage ? (
-                  <img
+                  <Image
                     src={cat.imageUrl!}
                     alt={cat.name}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                 ) : (
                   <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />

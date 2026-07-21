@@ -12,14 +12,6 @@ const bayiLinks = [
   { href: "/destek", label: "Müşteri Destek" },
 ]
 
-const infoLinks = [
-  { href: "/hakkimizda", label: "Hakkımızda" },
-  { href: "/iletisim", label: "İletişim" },
-  { href: "/kampanyalar", label: "Kampanyalar" },
-  { href: "/gizlilik", label: "Gizlilik Politikası" },
-  { href: "/kullanim", label: "Kullanım Koşulları" },
-]
-
 const shopLinks = [
   { href: "/urunler", label: "Tüm Ürünler" },
   { href: "/markalar", label: "Markalar" },

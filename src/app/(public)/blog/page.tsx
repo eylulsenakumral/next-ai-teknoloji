@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import type { Metadata } from "next"
 import { ArrowRight, CalendarDays, Clock } from "lucide-react"
 import { POSTS } from "./posts"
@@ -34,9 +35,11 @@ export default function BlogPage() {
                 className="group overflow-hidden rounded-[15px] bg-white"
               >
                 <div className="h-[220px] overflow-hidden">
-                  <img
+                  <Image
                     src={post.img}
                     alt={post.title}
+                    width={400}
+                    height={220}
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                   />
                 </div>

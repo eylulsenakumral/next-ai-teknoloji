@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, CreditCard, Loader2, Package, Lock, ExternalLink } from "lucide-react"
 import { Separator } from "@/components/ui/separator"
 import { useCart } from "@/hooks/use-cart"
@@ -175,8 +176,22 @@ export default function OdemePage() {
             </button>
 
             <div className="flex items-center justify-center gap-4 pt-1">
-              <img src="/images/visa-logo.svg" alt="Visa" className="h-6 opacity-60" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
-              <img src="/images/mastercard-logo.svg" alt="Mastercard" className="h-6 opacity-60" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
+              <Image
+                src="/images/visa-logo.svg"
+                alt="Visa"
+                width={48}
+                height={24}
+                className="h-6 w-auto opacity-60"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+              />
+              <Image
+                src="/images/mastercard-logo.svg"
+                alt="Mastercard"
+                width={48}
+                height={24}
+                className="h-6 w-auto opacity-60"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }}
+              />
               <span className="text-[11px] text-[#999]">Güvenli ödeme altyapısı</span>
             </div>
           </div>

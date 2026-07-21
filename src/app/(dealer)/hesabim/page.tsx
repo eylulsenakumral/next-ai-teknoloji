@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useMemo } from "react"
-import { useSession } from "next-auth/react"
+
 import {
   Save,
   Loader2,
@@ -214,7 +214,6 @@ function PageSkeleton() {
    MAIN PAGE
    ================================================================ */
 export default function HesabimPage() {
-  const { data: session } = useSession()
   const [profile, setProfile] = useState<Profile | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)

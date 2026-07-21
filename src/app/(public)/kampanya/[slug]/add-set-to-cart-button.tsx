@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { ShoppingCart, CheckCircle, Loader2 } from "lucide-react"
 import { useCart } from "@/hooks/use-cart"
-import { useRouter } from "next/navigation"
 
 interface SetProductItem {
   id: string
@@ -31,10 +30,8 @@ export function AddSetToCartButton({
   products,
   setPrice,
   discountPct,
-  currency,
   stockQuantity,
 }: AddSetToCartButtonProps) {
-  const router = useRouter()
   const { addItem, openCart } = useCart()
   const [adding, setAdding] = useState(false)
   const [added, setAdded] = useState(false)

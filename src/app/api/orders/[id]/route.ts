@@ -35,6 +35,8 @@ export async function GET(
 
     // Bayiye kar/maliyet bilgisi gönderme — hem üst seviye hem her sipariş kalemi.
     // Kalem bazında purchasePrice (tedarik maliyeti) ve profitMarginPct (kâr marjı) sızmasını engeller.
+    // _-prefixed ve anonim destructure hedefleri kasıtlı omit (security) — eslint disable.
+    /* eslint-disable @typescript-eslint/no-unused-vars */
     const {
       totalPurchaseCost: _,
       totalProfit: __,
@@ -45,6 +47,7 @@ export async function GET(
     const safeItems = (rawItems ?? []).map(
       ({ purchasePrice, profitMarginPct: _itemMargin, ...itemRest }) => itemRest
     )
+    /* eslint-enable @typescript-eslint/no-unused-vars */
     const safeOrder = { ...safeRest, items: safeItems }
 
     return NextResponse.json({ data: safeOrder })

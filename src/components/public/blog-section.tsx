@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 
 interface BlogPost {
   id: string
@@ -28,9 +29,11 @@ export function BlogSection({ posts, className = "" }: BlogSectionProps) {
               key={post.id}
               className="bg-white rounded-[20px] overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300"
             >
-              <img
+              <Image
                 src={post.image}
                 alt={post.title}
+                width={400}
+                height={192}
                 className="w-full h-48 object-cover"
               />
               <div className="p-6">

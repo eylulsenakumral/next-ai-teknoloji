@@ -29,6 +29,7 @@ vi.mock("next/image", () => ({
   }: {
     alt: string
     [key: string]: unknown
+    // eslint-disable-next-line @next/next/no-img-element
   }) => <img alt={alt} {...props} />,
 }))
 

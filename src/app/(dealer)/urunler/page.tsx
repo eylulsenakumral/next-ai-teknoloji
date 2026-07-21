@@ -126,7 +126,7 @@ export default function ProductsPage() {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const [isPending, startTransition] = useTransition()
+  const [, startTransition] = useTransition()
 
   const filters = useFiltersFromURL()
   const [viewMode, setViewMode] = useState<ViewMode>("grid")

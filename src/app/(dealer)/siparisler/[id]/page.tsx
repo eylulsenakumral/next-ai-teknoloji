@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useParams, useRouter } from "next/navigation"
+import { useParams } from "next/navigation"
 import Link from "next/link"
 import {
   ArrowLeft,
@@ -291,7 +291,6 @@ function CancelModal({
 
 export default function OrderDetailPage() {
   const { id } = useParams<{ id: string }>()
-  const router = useRouter()
   const { usd } = useExchangeRate()
 
   const [order, setOrder] = useState<OrderDetail | null>(null)

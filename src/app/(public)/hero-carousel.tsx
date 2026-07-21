@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useEffect, useState } from "react"
 import { ArrowRight, Phone } from "lucide-react"
 
@@ -108,10 +109,12 @@ export function HeroCarousel() {
               "/images/ceron/124545.jpg",
               "/images/ceron/r-3.jpg",
             ].map((src) => (
-              <img
+              <Image
                 key={src}
                 src={src}
                 alt="Bayi"
+                width={40}
+                height={40}
                 className="h-10 w-10 rounded-full border-2 border-[#F5F5F5] object-cover"
               />
             ))}
