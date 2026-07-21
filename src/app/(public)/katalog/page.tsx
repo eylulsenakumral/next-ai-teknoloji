@@ -158,7 +158,7 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--color-primary)] mb-4">
-            Her Teknoloji <span className="text-[var(--color-primary)]">İhtiyacı</span>
+            Her Teknoloji <span className="text-nx-accent">İhtiyacı</span>
           </h1>
 
           <p className="text-lg text-[var(--color-text-muted)] mb-8 leading-relaxed">
@@ -166,13 +166,13 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
           </p>
 
           <form onSubmit={handleSubmit} className="flex max-w-xl" role="search" aria-label="Ürün ara">
-            <div className="flex flex-1 h-14 bg-[var(--color-background)] border border-[var(--color-border)] overflow-hidden focus-within:border-[#999] focus-within:ring-4 focus-within:ring-[var(--color-background)]/50 transition-all rounded-l-[20px] rounded-r-lg">
+            <div className="flex flex-1 h-14 bg-[var(--color-background)] border border-[var(--color-border)] overflow-hidden focus-within:border-nx-accent focus-within:ring-4 focus-within:ring-[var(--color-background)]/50 transition-all rounded-l-[20px] rounded-r-lg">
               <input
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Ürün, marka veya model ara..."
-                className="flex-1 px-6 text-[15px] text-[var(--color-primary)] placeholder:text-[#999] focus:outline-none bg-transparent"
+                className="flex-1 px-6 text-[15px] text-[var(--color-primary)] placeholder:text-slate-400 focus:outline-none bg-transparent"
                 aria-label="Arama terimi"
               />
               <button
@@ -186,8 +186,8 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
           </form>
 
           {total > 0 && (
-            <p className="mt-4 text-sm text-[#999]">
-              <span className="font-semibold text-[#555]">{total.toLocaleString("tr-TR")}</span> ürün bulunuyor
+            <p className="mt-4 text-sm text-slate-400">
+              <span className="font-semibold text-slate-600">{total.toLocaleString("tr-TR")}</span> ürün bulunuyor
             </p>
           )}
         </div>
@@ -231,12 +231,12 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
 /* ------------------------------------------------------------------ */
 
 const CATEGORY_GRADIENTS = [
-  "from-[var(--color-primary)] to-[#06B6D4]",
-  "from-[var(--color-primary)] to-[#2d6da3]",
-  "from-[#0c2340] to-[#1a5276]",
-  "from-[#2c3e50] to-[#3498db]",
-  "from-[#1a3c5e] to-[#2980b9]",
-  "from-[#0d3b66] to-[#1d6fa5]",
+  "from-[#0F172A] to-[#06B6D4]",
+  "from-[#0F172A] to-[#0891B2]",
+  "from-[#1E293B] to-[#06B6D4]",
+  "from-[#0F172A] to-[#22D3EE]",
+  "from-[#1E293B] to-[#0891B2]",
+  "from-[#0F172A] to-[#67E8F9]",
 ]
 
 function CategoryGrid({
@@ -280,7 +280,7 @@ function CategoryGrid({
             <div className={cn(
               "absolute inset-0 transition-all duration-300",
               !activeSlug
-                ? "bg-gradient-to-br from-[var(--color-primary)] to-[#06B6D4] ring-2 ring-[var(--color-primary)] ring-offset-2"
+                ? "bg-gradient-to-br from-[var(--color-primary)] to-[#06B6D4] ring-2 ring-nx-accent ring-offset-2"
                 : "bg-gradient-to-br from-[var(--color-primary)] to-[#06B6D4]"
             )} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -304,7 +304,7 @@ function CategoryGrid({
                 onClick={() => onSelect(cat.slug)}
                 className={cn(
                   "relative flex flex-col justify-end rounded-2xl overflow-hidden h-44 group transition-all duration-300",
-                  isActive && "ring-2 ring-[var(--color-primary)] ring-offset-2"
+                  isActive && "ring-2 ring-nx-accent ring-offset-2"
                 )}
                 aria-pressed={isActive}
               >
@@ -346,7 +346,7 @@ function EmptyState({ onClear }: { onClear: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center py-24 text-center gap-5">
       <div className="w-24 h-24 rounded-[20px] bg-[var(--color-background)] flex items-center justify-center">
-        <Package className="h-10 w-10 text-[#bebebe]" aria-hidden />
+        <Package className="h-10 w-10 text-slate-300" aria-hidden />
       </div>
       <div className="space-y-2">
         <p className="font-semibold text-xl text-[var(--color-primary)]">Ürün Bulunamadı</p>
@@ -406,7 +406,7 @@ function MobileFilterSheet({
           <button
             type="button"
             onClick={onClose}
-            className="p-2 text-[#999] hover:text-[var(--color-primary)] hover:bg-[var(--color-background)] rounded-lg transition-colors"
+            className="p-2 text-slate-400 hover:text-[var(--color-primary)] hover:bg-[var(--color-background)] rounded-lg transition-colors"
             aria-label="Filtreleri kapat"
           >
             <X className="h-5 w-5" />
@@ -501,8 +501,8 @@ function CatalogFilters({
               isActive
                 ? "bg-[var(--color-primary)] text-white"
                 : isRoot
-                  ? "text-[#555] hover:bg-[var(--color-background)]"
-                  : "text-[var(--color-text-muted)] hover:bg-[var(--color-background)] hover:text-[#555]"
+                  ? "text-slate-600 hover:bg-[var(--color-background)]"
+                  : "text-[var(--color-text-muted)] hover:bg-[var(--color-background)] hover:text-slate-600"
             )}
             aria-pressed={isActive}
           >
@@ -516,7 +516,7 @@ function CatalogFilters({
                 "p-1 rounded transition-all",
                 isExpanded
                   ? "text-[var(--color-primary)] bg-[var(--color-primary)]/10"
-                  : "text-[#999] hover:bg-[var(--color-background)]"
+                  : "text-slate-400 hover:bg-[var(--color-background)]"
               )}
               aria-label={isExpanded ? "Daralt" : "Genişlet"}
             >
@@ -541,7 +541,7 @@ function CatalogFilters({
   return (
     <aside aria-label="Ürün filtreleri" className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-semibold uppercase tracking-widest text-[#999]">
+        <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-400">
           Filtreler
         </h3>
         {filters.categorySlug || filters.brandSlug || filters.search ? (
@@ -576,13 +576,13 @@ function CatalogFilters({
               </svg>
             )}
           </div>
-          <span className="text-sm text-[#555]">Sadece stokta olanlar</span>
+          <span className="text-sm text-slate-600">Sadece stokta olanlar</span>
         </label>
       </div>
 
       {categories.length > 0 && (
         <div className="space-y-1">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#999] mb-3">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">
             Kategoriler
           </p>
           <button
@@ -592,7 +592,7 @@ function CatalogFilters({
               "w-full text-left py-2.5 px-3 text-sm font-medium transition-all rounded-lg",
               !filters.categorySlug
                 ? "bg-[var(--color-primary)] text-white"
-                : "text-[#555] hover:bg-[var(--color-background)]"
+                : "text-slate-600 hover:bg-[var(--color-background)]"
             )}
             aria-pressed={!filters.categorySlug}
           >
@@ -606,12 +606,12 @@ function CatalogFilters({
 
       {brands.length > 0 && (
         <div className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#999]">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
             Markalar
           </p>
           <div className="relative">
             <Search
-              className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#999] pointer-events-none"
+              className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none"
               aria-hidden
             />
             <input
@@ -619,7 +619,7 @@ function CatalogFilters({
               placeholder="Marka ara..."
               value={brandSearch}
               onChange={(e) => setBrandSearch(e.target.value)}
-              className="w-full h-10 pl-10 pr-4 text-sm bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-[#999] focus:ring-2 focus:ring-[var(--color-background)] transition-all"
+              className="w-full h-10 pl-10 pr-4 text-sm bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-nx-accent focus:ring-2 focus:ring-[var(--color-background)] transition-all"
               aria-label="Marka ara"
             />
           </div>
@@ -655,7 +655,7 @@ function CatalogFilters({
                       </svg>
                     )}
                   </div>
-                  <span className="text-sm text-[#555] flex-1 truncate">
+                  <span className="text-sm text-slate-600 flex-1 truncate">
                     {brand.name}
                   </span>
                 </button>
@@ -730,7 +730,7 @@ function ActiveFilterTags({
       {activeTags.map((tag) => (
         <span
           key={tag.key}
-          className="inline-flex items-center gap-1.5 h-8 px-3 bg-[var(--color-background)] text-[#555] text-sm font-medium rounded-full"
+          className="inline-flex items-center gap-1.5 h-8 px-3 bg-[var(--color-background)] text-slate-600 text-sm font-medium rounded-full"
         >
           {tag.label}
           <button
@@ -960,13 +960,13 @@ export default function KatalogPage() {
                 <button
                   type="button"
                   onClick={() => setFilterSheetOpen(true)}
-                  className="lg:hidden inline-flex items-center gap-2 h-10 px-4 bg-[var(--color-background)] border border-[var(--color-border)] text-sm font-medium text-[#555] hover:bg-[var(--color-background)] transition-colors rounded-lg"
+                  className="lg:hidden inline-flex items-center gap-2 h-10 px-4 bg-[var(--color-background)] border border-[var(--color-border)] text-sm font-medium text-slate-600 hover:bg-[var(--color-background)] transition-colors rounded-lg"
                   aria-label="Filtreleri aç"
                 >
                   <SlidersHorizontal className="h-4 w-4" aria-hidden />
                   Filtreler
                   {activeFilterCount > 0 && (
-                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-primary)] text-white text-xs font-semibold">
+                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-nx-accent text-white text-xs font-semibold">
                       {activeFilterCount}
                     </span>
                   )}
@@ -988,7 +988,7 @@ export default function KatalogPage() {
                       type="checkbox"
                       checked={filters.inStock}
                       onChange={(e) => updateURL({ inStock: e.target.checked, page: 1 })}
-                      className="w-4 h-4 rounded border-[var(--color-border)] text-[var(--color-primary)] focus:ring-[var(--color-primary)]/30"
+                      className="w-4 h-4 rounded border-[var(--color-border)] text-[var(--color-primary)] focus:ring-nx-accent/30"
                     />
                     <span className="text-xs font-medium text-[var(--color-text-muted)] whitespace-nowrap">Stoktakiler</span>
                   </label>
@@ -1026,7 +1026,7 @@ export default function KatalogPage() {
                       className={cn(
                         "p-2.5 rounded-lg transition-all",
                         viewMode === "grid"
-                          ? "bg-[var(--color-primary)] text-white shadow-sm"
+                          ? "bg-nx-accent text-white shadow-sm"
                           : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)]"
                       )}
                       aria-label="Grid görünüm"
@@ -1040,7 +1040,7 @@ export default function KatalogPage() {
                       className={cn(
                         "p-2.5 rounded-lg transition-all",
                         viewMode === "list"
-                          ? "bg-[var(--color-primary)] text-white shadow-sm"
+                          ? "bg-nx-accent text-white shadow-sm"
                           : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)]"
                       )}
                       aria-label="Liste görünüm"
@@ -1101,7 +1101,7 @@ export default function KatalogPage() {
                   onClick={() => updateURL({ page: filters.page - 1 })}
                   disabled={filters.page <= 1}
                   aria-label="Önceki sayfa"
-                  className="inline-flex items-center justify-center h-10 w-10 border border-[var(--color-border)] text-[#555] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:opacity-40 disabled:cursor-not-allowed transition-all rounded-lg bg-white"
+                  className="inline-flex items-center justify-center h-10 w-10 border border-[var(--color-border)] text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:opacity-40 disabled:cursor-not-allowed transition-all rounded-lg bg-white"
                 >
                   <ChevronLeft className="h-4 w-4" aria-hidden />
                 </button>
@@ -1128,8 +1128,8 @@ export default function KatalogPage() {
                       className={cn(
                         "inline-flex items-center justify-center h-10 w-10 text-sm font-semibold transition-all rounded-lg",
                         filters.page === pageNum
-                          ? "bg-[var(--color-primary)] text-white border border-[var(--color-primary)]"
-                          : "bg-white border border-[var(--color-border)] text-[#555] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
+                          ? "bg-nx-accent text-white border border-nx-accent"
+                          : "bg-white border border-[var(--color-border)] text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
                       )}
                     >
                       {pageNum}
@@ -1142,7 +1142,7 @@ export default function KatalogPage() {
                   onClick={() => updateURL({ page: filters.page + 1 })}
                   disabled={filters.page >= totalPages}
                   aria-label="Sonraki sayfa"
-                  className="inline-flex items-center justify-center h-10 w-10 border border-[var(--color-border)] text-[#555] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:opacity-40 disabled:cursor-not-allowed transition-all rounded-lg bg-white"
+                  className="inline-flex items-center justify-center h-10 w-10 border border-[var(--color-border)] text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:opacity-40 disabled:cursor-not-allowed transition-all rounded-lg bg-white"
                 >
                   <ChevronRight className="h-4 w-4" aria-hidden />
                 </button>
