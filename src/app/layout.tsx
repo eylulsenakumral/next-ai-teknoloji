@@ -1,24 +1,10 @@
 import type { Metadata } from "next"
-import { Poppins, Manrope, DM_Mono, Sora, Inter, Instrument_Serif } from "next/font/google"
+import { DM_Mono, Sora, Inter, Instrument_Serif } from "next/font/google"
 import "./globals.css"
 import { Providers } from "@/components/providers"
 import { Analytics } from "@vercel/analytics/next"
 
-// Poppins (dealer/admin), Manrope (public body+heading), DM Mono (kod/fiyat) — latin-ext Türkçe garanti
-const poppins = Poppins({
-  subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-poppins",
-  display: "swap",
-})
-
-const manrope = Manrope({
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-manrope",
-  display: "swap",
-})
-
+// DM Mono (kod/fiyat), Sora (heading), Inter (body), Instrument Serif (dekoratif) — latin-ext Türkçe garanti
 const dmMono = DM_Mono({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500"],
@@ -68,7 +54,7 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${poppins.variable} ${manrope.variable} ${dmMono.variable} ${sora.variable} ${inter.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${dmMono.variable} ${sora.variable} ${inter.variable} ${instrumentSerif.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans">

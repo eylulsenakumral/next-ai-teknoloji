@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import type { Metadata } from "next"
 import { prisma } from "@/lib/db"
 import { HeroCarousel } from "./hero-carousel"
@@ -189,9 +190,12 @@ export default async function VitrinPage() {
         <div className="mx-auto grid max-w-[1300px] items-center gap-12 px-6 md:grid-cols-2">
           <div className="relative">
             <div className="overflow-hidden rounded-[15px]">
-              <img
+              <Image
                 src="/images/cards/about.jpg"
                 alt="nexadepo tedarik ve proje ekibi"
+                width={1300}
+                height={440}
+                sizes="(max-width: 768px) 100vw, 650px"
                 className="h-[440px] w-full object-cover"
               />
             </div>
@@ -258,10 +262,12 @@ export default async function VitrinPage() {
         <div className="mx-auto grid max-w-[1300px] gap-[15px] px-6 lg:grid-cols-2">
           {/* Sol: görsel kart + başlık */}
           <div className="relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[15px] p-8">
-            <img
+            <Image
               src="/images/cards/why.jpg"
               alt="nexadepo depo ve lojistik"
-              className="absolute inset-0 h-full w-full object-cover"
+              fill
+              sizes="(max-width: 1024px) 100vw, 650px"
+              className="object-cover"
             />
             <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(15,23,42,0.75)_0%,transparent_55%)]" />
             <div className="relative">
@@ -320,10 +326,12 @@ export default async function VitrinPage() {
               Hemen Başla <ArrowRight className="h-4 w-4" />
             </Link>
             <div className="relative mt-8 flex min-h-[350px] flex-col justify-end overflow-hidden rounded-[15px]">
-              <img
+              <Image
                 src="/images/cards/process.jpg"
                 alt="Saha kurulum ve sistem entegrasyonu"
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 650px"
+                className="object-cover"
               />
               <div className="relative flex flex-wrap gap-[10px] p-5">
                 {["Aynı Gün Sevkiyat", "Sertifikalı Teknik Ekip", "Garanti Takibi"].map((t) => (
@@ -474,11 +482,13 @@ export default async function VitrinPage() {
                 href={post.href}
                 className="group overflow-hidden rounded-[15px] bg-white"
               >
-                <div className="h-[220px] overflow-hidden">
-                  <img
+                <div className="relative h-[220px] overflow-hidden">
+                  <Image
                     src={post.img}
                     alt={post.title}
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    className="object-cover transition duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="p-7">
