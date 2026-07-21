@@ -27,9 +27,9 @@ export const metadata: Metadata = {
     siteName: "Next AI Teknoloji",
     images: [
       {
-        url: "/logo.png",
-        width: 940,
-        height: 400,
+        url: "/images/og.png",
+        width: 1200,
+        height: 630,
         alt: "Next AI Teknoloji",
       },
     ],
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Next AI Teknoloji — B2B Teknoloji Tedarik & Proje Platformu",
     description: "27+ global markanın yetkili tedarikçisi. Bayi avantajları, proje tasarımı ve teknik danışmanlık.",
-    images: ["/logo.png"],
+    images: ["/images/og.png"],
   },
 }
 

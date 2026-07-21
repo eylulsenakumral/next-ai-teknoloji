@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
-import { Poppins, Manrope, DM_Mono, Sora, Inter } from "next/font/google"
+import { Poppins, Manrope, DM_Mono, Sora, Inter, Instrument_Serif } from "next/font/google"
 import "./globals.css"
 import { Providers } from "@/components/providers"
+import { Analytics } from "@vercel/analytics/next"
 
 // Poppins (dealer/admin), Manrope (public body+heading), DM Mono (kod/fiyat) — latin-ext Türkçe garanti
 const poppins = Poppins({
@@ -40,6 +41,15 @@ const inter = Inter({
   display: "swap",
 })
 
+// Instrument Serif — dekoratif italik alıntılar ve vurgular için
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400"],
+  style: ["normal", "italic"],
+  variable: "--font-instrument-serif",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://nexadepo.com"),
   title: {
@@ -58,7 +68,7 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${poppins.variable} ${manrope.variable} ${dmMono.variable} ${sora.variable} ${inter.variable} h-full antialiased`}
+      className={`${poppins.variable} ${manrope.variable} ${dmMono.variable} ${sora.variable} ${inter.variable} ${instrumentSerif.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans">
@@ -70,6 +80,7 @@ export default function RootLayout({
             İçeriğe geç
           </a>
           {children}
+          <Analytics />
         </Providers>
       </body>
     </html>

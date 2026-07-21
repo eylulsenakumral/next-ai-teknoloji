@@ -3,7 +3,9 @@ import type { Metadata } from "next"
 import { prisma } from "@/lib/db"
 import { HeroCarousel } from "./hero-carousel"
 import { CategoryStrip, type HeroCard } from "./category-strip"
+import { NewsletterForm } from "./newsletter-form"
 import { Reveal } from "./reveal"
+import { AnimatedCounter } from "@/components/animated-counter"
 import {
   ShieldCheck,
   Truck,
@@ -110,26 +112,66 @@ const POSTS = [
     title: "IP Kamera Seçiminde 5 Kritik Nokta",
     desc: "Çözünürlük, WDR, PoE bütçesi ve AI analitik — projeye doğru kamera seçmenin pratik yolu.",
     img: "/images/cards/blog-kamera.jpg",
-    href: "/blog",
+    href: "/blog/ip-kamera-secimi",
   },
   {
     title: "Adresli Yangın İhbar Sistemleri Rehberi",
     desc: "Adresli panellerin konvansiyonel sistemlere üstünlükleri ve proje tasarımında dikkat edilecekler.",
     img: "/images/cards/blog-yangin.jpg",
-    href: "/blog",
+    href: "/blog/adresli-yangin-ihbar",
   },
   {
     title: "PoE Switch ile Sorunsuz Kamera Altyapısı",
     desc: "Port bütçesi, VLAN ayrımı ve uplink planlaması ile kesintisiz görüntü aktarımı.",
     img: "/images/cards/blog-poe.jpg",
-    href: "/blog",
+    href: "/blog/poe-switch-kamera-altyapisi",
   },
 ]
 
 export default async function VitrinPage() {
   const categories = await getHeroCategories()
+
+  const orgLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Next AI Teknoloji — nexadepo",
+    url: "https://nexadepo.com",
+    logo: "https://nexadepo.com/images/logo-dark.png",
+    description:
+      "B2B güvenlik ve network tedarik platformu. 27+ global markanın yetkili tedarikçisi.",
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+90-552-989-59-59",
+      contactType: "sales",
+      areaServed: "TR",
+      availableLanguage: "tr",
+    },
+  }
+  const siteLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "nexadepo",
+    url: "https://nexadepo.com",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: "https://nexadepo.com/katalog?search={search_term_string}",
+      },
+      "query-input": "required name=search_term_string",
+    },
+  }
+
   return (
     <div className="bg-[#F5F5F5] font-nx-sans text-slate-900">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(orgLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteLd) }}
+      />
       {/* ─── HERO (carousel) ──────────────────────────────────── */}
       <HeroCarousel />
 
@@ -159,7 +201,8 @@ export default async function VitrinPage() {
               Hakkımızda
             </span>
             <h2 className="mt-3 text-3xl font-nx-heading font-extrabold tracking-tight md:text-4xl">
-              Güvenlikle, özenle, uzmanla
+              Güvenlikle, özenle,{" "}
+              <span className="font-nx-serif italic text-nx-accent">uzmanla</span>
             </h2>
             <p className="mt-4 leading-7 text-slate-500">
               nexadepo, güvenlik ve network sistemlerinde global güç ile yerel uzmanlığı
@@ -179,13 +222,10 @@ export default async function VitrinPage() {
                 </div>
               ))}
             </div>
-            {/* Ceron: sayaç satırı */}
+            {/* Ceron: animasyonlu sayaç satırı */}
             <div className="mt-8 flex flex-wrap gap-x-10 gap-y-4 border-t border-slate-200 pt-7">
               {STATS.map(([val, label]) => (
-                <div key={label}>
-                  <p className="text-3xl font-nx-heading font-extrabold text-nx-dark">{val}</p>
-                  <p className="mt-1 text-xs uppercase tracking-wider text-slate-400">{label}</p>
-                </div>
+                <AnimatedCounter key={label} value={val} label={label} />
               ))}
             </div>
           </div>
@@ -413,7 +453,8 @@ export default async function VitrinPage() {
                 Blog
               </span>
               <h2 className="mt-3 text-3xl font-nx-heading font-extrabold tracking-tight md:text-4xl">
-                Güvenlik ipuçları ve uzman görüşleri
+                Güvenlik ipuçları ve{" "}
+                <span className="font-nx-serif italic text-nx-accent">uzman görüşleri</span>
               </h2>
               <p className="mt-3 text-slate-500">
                 Pratik kurulum ipuçları, ürün karşılaştırmaları ve proje deneyimleri.
@@ -466,23 +507,7 @@ export default async function VitrinPage() {
               İstediğiniz zaman abonelikten ayrılabilirsiniz.
             </p>
           </div>
-          <form
-            action="/teklif-iste"
-            className="flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
-            <input
-              type="email"
-              required
-              placeholder="E-posta adresiniz"
-              className="h-[52px] flex-1 rounded-full border border-white/20 bg-white/10 px-6 text-sm text-white placeholder:text-slate-400 outline-none transition focus:border-nx-accent"
-            />
-            <button
-              type="submit"
-              className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full bg-nx-accent px-7 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white hover:text-nx-dark"
-            >
-              Abone Ol <ArrowRight className="h-4 w-4" />
-            </button>
-          </form>
+          <NewsletterForm />
         </div>
         </Reveal>
       </section>

@@ -344,8 +344,38 @@ export default async function CategoryDetailPage({
 
   const { products, meta } = productsData
 
+  // SEO: BreadcrumbList structured data
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Anasayfa",
+        item: "https://nexadepo.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Kategoriler",
+        item: "https://nexadepo.com/kategoriler",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: category.name,
+        item: `https://nexadepo.com/kategoriler/${slug}`,
+      },
+    ],
+  }
+
   return (
     <div className="bg-[var(--color-background)] min-h-screen pb-20 md:pb-0">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
       {/* Breadcrumb band */}
       <div className="bg-white border-b border-[var(--color-border)]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">

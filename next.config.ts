@@ -12,6 +12,10 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  typescript: {
+    // Build sırasında Next'in typecheck'i çöküyor; tsc --noEmit ayrıca çalıştırılıyor.
+    ignoreBuildErrors: true,
+  },
   allowedDevOrigins: ["192.168.4.250", "192.168.5.249", "nexadepo.com", "www.nexadepo.com"],
   images: {
     remotePatterns: [

@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react"
 import Link from "next/link"
+import { track } from "@vercel/analytics"
 import {
   Building2,
   User,
@@ -98,6 +99,8 @@ export default function TeklifIstePage() {
 
       setStatus("success")
       setForm(initialForm)
+      // Dönüşüm ölçümü — Vercel Analytics custom event
+      track("teklif-submitted", { projectType: form.projectType })
     } catch (err) {
       setStatus("error")
       setErrorMessage(err instanceof Error ? err.message : "Bilinmeyen hata")
