@@ -1,531 +1,491 @@
 import Link from "next/link"
-import { Hero } from "@/components/public/hero-next"
+import type { Metadata } from "next"
+import { prisma } from "@/lib/db"
+import { HeroCarousel } from "./hero-carousel"
+import { CategoryStrip, type HeroCard } from "./category-strip"
+import { Reveal } from "./reveal"
 import {
-  IcnTarget,
-  IcnBriefcase,
-  IcnBox,
-  IcnTag,
-  IcnTool,
-  IcnFile,
-  IcnCamera,
-  IcnNetwork,
-  IcnAccessControl,
-  IcnSmartHome,
-} from "@/components/public/icons-next"
-import {
-  LogoDahua,
-  LogoHikvision,
-  LogoUNV,
-  LogoReolink,
-  LogoSeagate,
-  LogoAjax,
-  LogoRuijie,
-  LogoHoneywell,
-} from "@/components/public/brand-logos"
+  ShieldCheck,
+  Truck,
+  Headphones,
+  Tag,
+  ArrowRight,
+  Check,
+  ClipboardList,
+  FileText,
+  PackageCheck,
+  Star,
+  Plus,
+  Quote,
+} from "lucide-react"
 
-export const metadata = {
-  title: "Next AI Teknoloji — Güvenlik & Network Sistemleri Bayi Platformu",
+export const metadata: Metadata = {
+  title: "nexadepo — Güvenlik & Network Sistemleri",
   description:
-    "27+ global markanın yetkili tedarikçisi. CCTV, IP kamera, NVR, network altyapısı, geçiş kontrol ve akıllı bina çözümleri için proje bazlı teklif ve bayi avantajları.",
+    "B2B güvenlik ve network tedarik platformu. Güvenlik kamerası, ağ altyapısı, alarm sistemleri, switch ve yazılım. Proje bazlı teklif, bayi avantajları.",
   alternates: { canonical: "/" },
 }
 
-// Ana üretim domain'i env ile override edilebilir (sitemap.ts ile aynı kural).
-// globalThis required: bu dosyada PartnershipSection'ın `const process` array'i
-// modül-scope'ta global Node process'ini gölgeliyor.
-const SITE_URL = (globalThis.process.env.NEXT_PUBLIC_SITE_URL ?? "https://nexadepo.com").trim()
+// Kategori şeridi DB'den beslenir — saatte bir yenilenir (ISR)
+export const revalidate = 3600
 
-// Organization JSON-LD — Knowledge Graph / kurumsal kimlik tanımı.
-// İletişim bilgileri dealer-footer.tsx ile tutarlı (tek kaynak: +905529895959 / info@next-ai.com.tr).
-const organizationJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "@id": `${SITE_URL}/#organization`,
-  name: "Next AI Teknoloji",
-  url: SITE_URL,
-  description:
-    "27+ global markanın yetkili tedarikçisi. CCTV, IP kamera, NVR, network altyapısı, geçiş kontrol ve akıllı bina çözümleri için proje bazlı teklif ve bayi avantajları.",
-  logo: {
-    "@type": "ImageObject",
-    url: `${SITE_URL}/logo.png`,
-    width: 940,
-    height: 400,
-  },
-  image: `${SITE_URL}/logo.png`,
-  email: "info@next-ai.com.tr",
-  telephone: "+905529895959",
-  contactPoint: [
-    {
-      "@type": "ContactPoint",
-      telephone: "+905529895959",
-      email: "info@next-ai.com.tr",
-      contactType: "sales",
-      areaServed: "TR",
-      availableLanguage: ["Turkish", "English"],
-    },
-  ],
+// DB erişilemezse/devre dışıysa kullanılan yedek şerit
+const FALLBACK_CARDS = [
+  { title: "Güvenlik Kamerası", href: "/kategoriler/guvenlik-kamerasi", img: "/images/cards/guvenlik.jpg" },
+  { title: "Yangın İhbar", href: "/kategoriler/yangin-ihbar", img: "/images/cards/yangin.jpg" },
+  { title: "Yapay Zeka", href: "/kategoriler/yapay-zeka", img: "/images/cards/yapay-zeka.jpg" },
+  { title: "Ağ ve Network", href: "/kategoriler/ag-ve-network", img: "/images/cards/network.jpg" },
+  { title: "Plaka Okuma", href: "/kategoriler/plaka-okuma", img: "/images/cards/plaka.jpg" },
+]
+
+/** Hero kategori şeridi — tüm aktif ana kategoriler (şerit 5'li sayfalar halinde gösterir) */
+async function getHeroCategories(): Promise<HeroCard[]> {
+  try {
+    const cats = await prisma.category.findMany({
+      where: { isActive: true, deletedAt: null, parentId: null },
+      orderBy: { sortOrder: "asc" },
+      select: { name: true, slug: true, imageUrl: true },
+    })
+    if (cats.length === 0) return FALLBACK_CARDS
+    return cats.map((c) => ({
+      title: c.name.trim(),
+      href: `/kategoriler/${c.slug}`,
+      img: c.imageUrl ?? "/images/cards/guvenlik.jpg",
+    }))
+  } catch {
+    return FALLBACK_CARDS
+  }
 }
 
-// ─── Brand Ecosystem ───────────────────────────────────────────────────────────
-const featuredBrands = [
-  { Logo: LogoDahua, cat: "Kamera Sistemleri", desc: "AI kamera, NVR ve analitik" },
-  { Logo: LogoHikvision, cat: "Kamera Sistemleri", desc: "Kurumsal güvenlik global lideri" },
-  { Logo: LogoUNV, cat: "Kamera Sistemleri", desc: "4K IP kamera sistemleri" },
-  { Logo: LogoReolink, cat: "Kamera Sistemleri", desc: "PoE & kablosuz kamera çözümleri" },
+const PARTNERS = [
+  { name: "Dahua", img: "/images/logolar/dahua.png" },
+  { name: "Hikvision", img: "/images/logolar/hikvision.png" },
+  { name: "UNV", img: "/images/logolar/unv.png" },
+  { name: "Seagate", img: "/images/logolar/seagate.png" },
+  { name: "Toshiba", img: "/images/logolar/toshiba.png" },
+  { name: "Western Digital", img: "/images/logolar/wd.png" },
+  { name: "TTEC", img: "/images/logolar/ttec.png" },
+  { name: "Perkotek", img: "/images/logolar/perkotek.png" },
+  { name: "Inox", img: "/images/logolar/inox.png" },
+  { name: "RXR", img: "/images/logolar/rxr.png" },
+  { name: "Uniywell", img: "/images/logolar/uniywell.png" },
 ]
 
-const secondaryBrands = [
-  { Logo: LogoRuijie, cat: "Network Sistemleri" },
-  { Logo: LogoAjax, cat: "Akıllı Bina" },
-  { Logo: LogoSeagate, cat: "Veri Depolama" },
-  { Logo: LogoHoneywell, cat: "Yangın Algılama" },
+const STATS = [
+  ["12", "Yıl Deneyim"],
+  ["340+", "Aktif Bayi"],
+  ["1.800+", "Teknik Ürün"],
 ]
 
-function BrandsSection() {
+const ABOUT_FEATURES = [
+  { title: "Uzman Teknik Ekip", desc: "Sertifikalı güvenlik ve network mühendislerinden proje bazlı destek." },
+  { title: "Yetkili Tedarik", desc: "27+ global markanın yetkili tedarikçisi — orijinal ürün, üretici garantisi." },
+  { title: "Bayi Öncelikli", desc: "Özel fiyat, kredi limiti ve proje bazlı ticari koşullar." },
+]
+
+const WHY = [
+  { Icon: ShieldCheck, title: "Özellikli Ürünler", desc: "AI kamera, Layer 3 switch, adresli panel — kurumsal kalite.", bg: "bg-[#E9FFE9]" },
+  { Icon: Truck, title: "Hızlı Tedarik", desc: "Stoklu ürünlerde aynı gün kargo, proje siparişinde öncelikli lojistik.", bg: "bg-[#F5F5F5]" },
+  { Icon: Headphones, title: "7/24 Teknik Destek", desc: "Uzaktan yardım, saha analizi ve sistem tasarımı danışmanlığı.", bg: "bg-[#F5F5F5]" },
+  { Icon: Tag, title: "Rekabetçi Bayi Fiyatları", desc: "Hacim bazlı kademeli iskonto, proje özel indirimleri.", bg: "bg-[#E8ECFF]" },
+]
+
+const PROCESS = [
+  { n: "01", Icon: ClipboardList, title: "İhtiyaç Analizi", desc: "Sahanızı ve gereksinimlerinizi anlıyoruz, ürün ve marka önerisi hazırlıyoruz." },
+  { n: "02", Icon: FileText, title: "Sistem Tasarımı & Teklif", desc: "Sistem mimarisi, BOM ve bayi fiyatlarıyla detaylı teklif sunuyoruz." },
+  { n: "03", Icon: PackageCheck, title: "Tedarik & Kurulum", desc: "Lojistik koordinasyon, kurulum sonrası destek ve garanti takibi." },
+]
+
+const FAQS = [
+  { q: "Bayi olmadan ürün satın alabilir miyim?", a: "nexadepo B2B bir platformdur. Bayi başvurusu onaylanarak özel fiyat, kredi limiti ve proje bazlı tekliflere erişebilirsiniz." },
+  { q: "Proje bazlı teklif nasıl alırım?", a: "Teklif İste formundan saha ve ihtiyaç bilgilerinizi iletin; teknik ekibimiz 2–4 saat içinde marka, ürün ve fiyat önerisi hazırlasın." },
+  { q: "Hangi markaların yetkili tedarikçisisiniz?", a: "Dahua, Hikvision, Uniview, Ruijie, Ajax, Honeywell, Seagate ve daha fazlası — 27+ global markanın yetkili tedarikçisiyiz." },
+  { q: "Kurulum desteği veriyor musunuz?", a: "Evet. Saha analizi, sistem tasarımı ve gerektiğinde kurulum koordinasyonu sağlıyoruz; 7/24 uzaktan teknik destek sunuyoruz." },
+  { q: "Ürünlerde garanti var mı?", a: "Tüm ürünlerde üretici garantisi (genelde 2 yıl) ve nexadepo ek desteği geçerlidir." },
+  { q: "Ödeme ve kredi limiti nasıl işliyor?", a: "Onaylı bayilere vade ile ödeme ve kredi limiti, proje siparişlerinde özel ödeme planları sunuyoruz." },
+]
+
+const POSTS = [
+  {
+    title: "IP Kamera Seçiminde 5 Kritik Nokta",
+    desc: "Çözünürlük, WDR, PoE bütçesi ve AI analitik — projeye doğru kamera seçmenin pratik yolu.",
+    img: "/images/cards/blog-kamera.jpg",
+    href: "/blog",
+  },
+  {
+    title: "Adresli Yangın İhbar Sistemleri Rehberi",
+    desc: "Adresli panellerin konvansiyonel sistemlere üstünlükleri ve proje tasarımında dikkat edilecekler.",
+    img: "/images/cards/blog-yangin.jpg",
+    href: "/blog",
+  },
+  {
+    title: "PoE Switch ile Sorunsuz Kamera Altyapısı",
+    desc: "Port bütçesi, VLAN ayrımı ve uplink planlaması ile kesintisiz görüntü aktarımı.",
+    img: "/images/cards/blog-poe.jpg",
+    href: "/blog",
+  },
+]
+
+export default async function VitrinPage() {
+  const categories = await getHeroCategories()
   return (
-    <section className="bg-white px-6 py-24 md:px-10 font-nx-sans">
-      <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">
-              02 · Kurumsal çözüm ortaklarımız
-            </p>
-            <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
-              27+ global markanın
-              <br />
-              yetkili tedarikçisi.
-            </h2>
+    <div className="bg-[#F5F5F5] font-nx-sans text-slate-900">
+      {/* ─── HERO (carousel) ──────────────────────────────────── */}
+      <HeroCarousel />
+
+      {/* ─── CATEGORY STRIP — DB'den tüm kategoriler, 5'li sayfalar + sağ/sol ok ─── */}
+      {/* Gradyan: hero'nun tonundan About'un beyazına yumuşak geçiş */}
+      <section className="bg-[linear-gradient(180deg,#E9F1FC_0%,#FFFFFF_100%)] px-5 md:px-8">
+        <div className="mx-auto max-w-[1300px]">
+          <CategoryStrip categories={categories} />
+        </div>
+      </section>
+
+      {/* ─── ABOUT — Ceron: hero kartlarından hemen sonra ─── */}
+      <section className="bg-white py-20">
+        <Reveal>
+        <div className="mx-auto grid max-w-[1300px] items-center gap-12 px-6 md:grid-cols-2">
+          <div className="relative">
+            <div className="overflow-hidden rounded-[15px]">
+              <img
+                src="/images/cards/about.jpg"
+                alt="nexadepo tedarik ve proje ekibi"
+                className="h-[440px] w-full object-cover"
+              />
+            </div>
           </div>
-          <Link
-            href="/markalar"
-            className="shrink-0 text-sm font-bold text-[var(--color-primary)] hover:underline"
-          >
-            Tüm markalar ve kategoriler →
-          </Link>
-        </div>
-
-        {/* featured brand grid */}
-        <div className="mt-12 grid grid-cols-2 gap-px bg-slate-100 border border-slate-100 rounded-2xl overflow-hidden md:grid-cols-4">
-          {featuredBrands.map(({ Logo, cat, desc }, i) => (
-            <div
-              key={i}
-              className="group flex flex-col justify-between bg-white p-6 transition hover:bg-[var(--color-primary)]"
-            >
-              <span className="font-nx-mono text-[9px] uppercase tracking-[.15em] text-slate-400 group-hover:text-slate-600">
-                {cat}
-              </span>
-              <div className="mt-6 flex h-12 items-center">
-                <Logo className="h-8 w-auto max-w-[120px] opacity-80 transition group-hover:opacity-100 group-hover:[filter:brightness(10)]" />
-              </div>
-              <div className="mt-4">
-                <p className="text-xs text-slate-400 group-hover:text-slate-500">{desc}</p>
-                <span className="mt-3 block text-xs font-bold text-[var(--color-primary)] opacity-0 transition group-hover:opacity-100">
-                  Ürünleri gör →
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* secondary brands */}
-        <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
-          {secondaryBrands.map(({ Logo, cat }, i) => (
-            <div
-              key={i}
-              className="group flex items-center gap-3 rounded-xl border border-slate-100 bg-slate-50 px-4 py-3 transition hover:border-slate-200 hover:bg-white"
-            >
-              <Logo className="h-6 w-auto max-w-[80px] opacity-60 transition group-hover:opacity-90" />
-              <span className="font-nx-mono text-[8px] uppercase tracking-widest text-slate-400">
-                {cat}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ─── Value Props ───────────────────────────────────────────────────────────────
-const valueProps = [
-  {
-    Icon: IcnTarget,
-    title: "Teknik danışmanlık",
-    desc: "Saha analizi, ürün seçimi ve sistem tasarımı — her adımda uzman desteği.",
-  },
-  {
-    Icon: IcnBriefcase,
-    title: "Bayi avantajları",
-    desc: "Özel fiyatlandırma, kredi limiti ve proje bazlı ticari koşullar.",
-  },
-  {
-    Icon: IcnBox,
-    title: "Hızlı tedarik",
-    desc: "Stoklu ürünlerde aynı gün kargo. Proje siparişlerinde öncelikli lojistik koordinasyonu.",
-  },
-]
-
-function ValueSection() {
-  return (
-    <section className="bg-[var(--color-background)] px-6 py-20 md:px-10 font-nx-sans">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-px bg-slate-200 rounded-2xl overflow-hidden sm:grid-cols-3">
-          {valueProps.map((v) => (
-            <div key={v.title} className="bg-white p-8 md:p-10">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--color-primary)] text-white">
-                <v.Icon className="h-5 w-5" />
-              </div>
-              <h3 className="mt-8 text-xl font-bold tracking-tight">{v.title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-500">{v.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ─── Solutions ─────────────────────────────────────────────────────────────────
-const solutions = [
-  {
-    number: "01",
-    Icon: IcnCamera,
-    title: "Video Güvenlik",
-    desc: "IP kamera, NVR, analitik yazılım ve montaj ekipmanlarıyla uçtan uca görüntü güvenliği.",
-    tags: ["AI Analitik", "4K / 8MP", "PoE"],
-    dark: true,
-  },
-  {
-    number: "02",
-    Icon: IcnNetwork,
-    title: "Ağ Altyapısı",
-    desc: "Yönetilen switch, wireless AP ve fiber omurga ile yüksek performanslı bağlantı altyapısı.",
-    tags: ["Layer 3", "Wi-Fi 6", "VLAN"],
-    dark: false,
-  },
-  {
-    number: "03",
-    Icon: IcnAccessControl,
-    title: "Geçiş Kontrol",
-    desc: "Kart okuyucu, bariyer, turnike ve biometrik sistemlerle kritik erişim noktaları yönetimi.",
-    tags: ["Biometrik", "IP Entegre", "OSDP"],
-    dark: false,
-  },
-  {
-    number: "04",
-    Icon: IcnSmartHome,
-    title: "Akıllı Bina",
-    desc: "Alarm, interkom, otomasyon ve izleme sistemlerini tek platformdan yönetin.",
-    tags: ["IoT", "KNX", "Entegre Panel"],
-    dark: false,
-  },
-]
-
-function SolutionsSection() {
-  return (
-    <section className="bg-white px-6 py-24 md:px-10 font-nx-sans">
-      <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">
-              03 · Çözüm alanları
-            </p>
-            <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
-              Projenize özel
-              <br />
-              çözüm ekosistemi.
+            <span className="font-nx-mono text-xs font-bold uppercase tracking-widest text-nx-accent">
+              Hakkımızda
+            </span>
+            <h2 className="mt-3 text-3xl font-nx-heading font-extrabold tracking-tight md:text-4xl">
+              Güvenlikle, özenle, uzmanla
             </h2>
-          </div>
-          <Link href="/cozumler" className="shrink-0 text-sm font-bold text-[var(--color-primary)] hover:underline">
-            Tüm çözümleri gör →
-          </Link>
-        </div>
-
-        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {solutions.map((s) => (
-            <div
-              key={s.number}
-              className={`group flex min-h-72 flex-col justify-between rounded-2xl p-7 transition ${
-                s.dark
-                  ? "bg-[var(--color-primary)] text-white"
-                  : "bg-[var(--color-background)] hover:bg-[var(--color-primary)] hover:text-white"
-              }`}
-            >
-              <div>
-                <div
-                  className={`flex h-10 w-10 items-center justify-center rounded-xl ${
-                    s.dark
-                      ? "bg-[var(--color-primary)]/20 text-[#8aa8bc]"
-                      : "bg-white text-[var(--color-primary)] group-hover:bg-[var(--color-primary)]/20 group-hover:text-[#8aa8bc]"
-                  }`}
-                >
-                  <s.Icon className="h-5 w-5" />
-                </div>
-                <h3 className="mt-6 text-xl font-bold tracking-tight">{s.title}</h3>
-                <p
-                  className={`mt-3 text-sm leading-6 ${
-                    s.dark ? "text-slate-400" : "text-slate-500 group-hover:text-slate-400"
-                  }`}
-                >
-                  {s.desc}
-                </p>
-              </div>
-              <div className="mt-6 flex flex-wrap gap-1.5">
-                {s.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className={`rounded-full px-2.5 py-1 font-nx-mono text-[8px] font-bold uppercase tracking-[.1em] ${
-                      s.dark
-                        ? "bg-white/10 text-slate-400"
-                        : "bg-white text-slate-500 group-hover:bg-white/10 group-hover:text-slate-400"
-                    }`}
-                  >
-                    {tag}
+            <p className="mt-4 leading-7 text-slate-500">
+              nexadepo, güvenlik ve network sistemlerinde global güç ile yerel uzmanlığı
+              birleştiren bir B2B tedarik platformudur.
+            </p>
+            {/* Ceron: 3 özellik — cyan daire check + başlık + desc */}
+            <div className="mt-8 space-y-5">
+              {ABOUT_FEATURES.map((f) => (
+                <div key={f.title} className="flex items-start gap-4">
+                  <span className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-nx-accent/10 text-nx-accent">
+                    <Check className="h-4 w-4" strokeWidth={2.5} />
                   </span>
-                ))}
-              </div>
+                  <div>
+                    <h3 className="text-base font-bold text-nx-dark">{f.title}</h3>
+                    <p className="mt-1 text-sm leading-6 text-slate-500">{f.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ─── Project Design CTA ────────────────────────────────────────────────────────
-function ProjectDesignSection() {
-  const steps = [
-    { n: "01", label: "Proje türünü seçin", sub: "Konut, işyeri, fabrika, kampüs…" },
-    { n: "02", label: "İhtiyaçları belirleyin", sub: "Alan, kamera sayısı, özellikler" },
-    { n: "03", label: "Bütçe aralığını girin", sub: "Yaklaşık bile olsa yeterli" },
-    { n: "04", label: "Öneri alın", sub: "Ekibimiz size özel hazırlar" },
-  ]
-
-  return (
-    <section className="bg-[var(--color-primary)] px-6 py-24 text-white md:px-10 font-nx-sans">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-16 lg:grid-cols-[1fr_1.1fr] lg:items-center">
-          <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#8aa8bc]">
-              04 · Proje tasarımı
-            </p>
-            <h2 className="mt-4 text-4xl font-bold leading-tight tracking-[-0.055em] md:text-5xl">
-              Kamera sistemini
-              <br />
-              <span className="text-[#a8c4d4]">hiç bilmesek de</span>
-              <br />
-              birlikte tasarlayalım.
-            </h2>
-            <p className="mt-6 max-w-md text-sm leading-7 text-slate-400">
-              Hangi kamerayı nereye koyacağınızı bilmeniz gerekmiyor. Birkaç soruya yanıt verin, teknik ekibimiz
-              sizin için en uygun sistemi hazırlasın.
-            </p>
-            <Link
-              href="/proje-tasarim"
-              className="mt-8 flex items-center gap-3 rounded-xl bg-[var(--color-primary)] px-6 py-4 text-sm font-bold text-white shadow-lg shadow-[var(--color-primary)]/25 transition hover:bg-[#456680] w-fit"
-            >
-              Projenizi Tasarlayalım
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20 text-xs">
-                ↗
-              </span>
-            </Link>
+            {/* Ceron: sayaç satırı */}
+            <div className="mt-8 flex flex-wrap gap-x-10 gap-y-4 border-t border-slate-200 pt-7">
+              {STATS.map(([val, label]) => (
+                <div key={label}>
+                  <p className="text-3xl font-nx-heading font-extrabold text-nx-dark">{val}</p>
+                  <p className="mt-1 text-xs uppercase tracking-wider text-slate-400">{label}</p>
+                </div>
+              ))}
+            </div>
           </div>
+        </div>
+        </Reveal>
+      </section>
 
-          <div className="grid grid-cols-2 gap-3">
-            {steps.map((s, i) => (
-              <div
-                key={s.n}
-                className={`rounded-2xl p-6 ${i === 0 ? "bg-[var(--color-primary)]" : "border border-white/10 bg-white/5"}`}
-              >
-                <span
-                  className={`font-nx-mono text-[10px] font-bold tracking-[.18em] ${
-                    i === 0 ? "text-blue-200" : "text-slate-600"
-                  }`}
+      {/* ─── PARTNERS — Ceron: logo bandı About'tan sonra ─── */}
+      <section className="border-y border-slate-100 bg-[#F5F5F5] py-10">
+        <div className="mx-auto max-w-7xl px-6">
+          <p className="text-center font-nx-mono text-[10px] uppercase tracking-[0.3em] text-slate-400">
+            Çözüm Ortaklarımız
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
+            {PARTNERS.map((p) => (
+              <img
+                key={p.name}
+                src={p.img}
+                alt={p.name}
+                className="h-9 w-auto grayscale opacity-50 transition duration-300 hover:grayscale-0 hover:opacity-100"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── WHY CHOOSE — Ceron: sol görsel kart, sağ 2x2 pastel kart ─── */}
+      <section className="bg-white py-20">
+        <Reveal>
+        <div className="mx-auto grid max-w-[1300px] gap-[15px] px-6 lg:grid-cols-2">
+          {/* Sol: görsel kart + başlık */}
+          <div className="relative flex min-h-[420px] flex-col justify-end overflow-hidden rounded-[15px] p-8">
+            <img
+              src="/images/cards/why.jpg"
+              alt="nexadepo depo ve lojistik"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(15,23,42,0.75)_0%,transparent_55%)]" />
+            <div className="relative">
+              <span className="font-nx-mono text-xs font-bold uppercase tracking-widest text-nx-accent">
+                Neden nexadepo?
+              </span>
+              <h2 className="mt-3 text-3xl font-nx-heading font-extrabold tracking-tight text-white md:text-4xl">
+                Tedarikçiden fazlası — güçlü bir iş ortağı
+              </h2>
+              <p className="mt-3 max-w-md text-sm leading-6 text-white/80">
+                Hassasiyet, özen ve projenize özel modern tedarik çözümleriyle kusursuz sonuçlar.
+              </p>
+            </div>
+          </div>
+          {/* Sağ: 2x2 pastel kartlar */}
+          <div className="grid gap-[15px] sm:grid-cols-2">
+            {WHY.map((w) => (
+              <div key={w.title} className={`rounded-[15px] p-[30px] ${w.bg}`}>
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white text-nx-accent shadow-sm">
+                  <w.Icon className="h-6 w-6" strokeWidth={1.5} />
+                </div>
+                <h3 className="mt-5 text-lg font-bold text-nx-dark">{w.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-600">{w.desc}</p>
+                <Link
+                  href="/teklif-iste"
+                  className="mt-5 inline-flex items-center gap-1 border-b border-nx-dark pb-1 text-xs font-bold uppercase tracking-wider text-nx-dark transition hover:border-nx-accent hover:text-nx-accent"
                 >
-                  {s.n}
-                </span>
-                <h4 className="mt-6 text-sm font-bold leading-snug">{s.label}</h4>
-                <p className={`mt-1.5 text-xs leading-5 ${i === 0 ? "text-blue-200" : "text-slate-500"}`}>
-                  {s.sub}
-                </p>
+                  İletişime Geç <ArrowRight className="h-3 w-3" />
+                </Link>
               </div>
             ))}
           </div>
         </div>
-      </div>
-    </section>
-  )
-}
+        </Reveal>
+      </section>
 
-// ─── Process / Partnership ─────────────────────────────────────────────────────
-const process = [
-  { n: "01", title: "İhtiyaç analizi", desc: "Sahanızı ve gereksinimlerinizi anlıyoruz." },
-  { n: "02", title: "Teknik tasarım", desc: "Ürün, marka ve sistem mimarisi önerileri." },
-  { n: "03", title: "Ticari teklif", desc: "Bayi fiyatları ve proje koşullarıyla detaylı teklif." },
-  { n: "04", title: "Tedarik & destek", desc: "Lojistik koordinasyon ve kurulum sonrası destek." },
-]
-
-function PartnershipSection() {
-  return (
-    <section className="bg-white px-6 py-24 md:px-10 font-nx-sans">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-16 lg:grid-cols-2 lg:items-start">
+      {/* ─── PROCESS — Ceron: sol içerik + görsel pill'ler, sağ dashed kartlar ─── */}
+      <section className="bg-[#F0F5FF] py-20">
+        <Reveal>
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-2">
+          {/* Sol: başlık + buton + görsel üstünde beyaz pill'ler */}
           <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">
-              05 · İş ortaklığı
-            </p>
-            <h2 className="mt-3 text-4xl font-bold tracking-[-0.055em] md:text-5xl">
-              Tedarikçiden fazlası —
-              <br />
-              <span className="text-[var(--color-primary)]">güçlü bir iş ortağı.</span>
+            <span className="font-nx-mono text-xs font-bold uppercase tracking-widest text-nx-accent">
+              Süreç
+            </span>
+            <h2 className="mt-3 text-3xl font-nx-heading font-extrabold tracking-tight md:text-4xl">
+              Güvenli alana giden basit adımlar
             </h2>
-            <p className="mt-6 max-w-md text-sm leading-7 text-slate-500">
-              CCTV bayileri ve sistem entegratörleri için özel ticari koşullar, kredi limiti, proje bazlı
-              fiyatlandırma ve teknik destek.
+            <p className="mt-3 max-w-md text-slate-500">
+              İhtiyaç analizinden kurulum sonrası desteğe kadar uçtan uca proje takibi.
             </p>
-            <div className="mt-8 grid grid-cols-2 gap-3">
-              {(
-                [
-                  [IcnBox, "Stok görünürlüğü", "Gerçek zamanlı stok bilgisi"],
-                  [IcnTag, "Bayi fiyatları", "Rekabetçi toptan fiyatlar"],
-                  [IcnTool, "Teknik destek", "7/24 uzaktan yardım"],
-                  [IcnFile, "Proje danışmanlığı", "Saha analizi ve tasarım"],
-                ] as const
-              ).map(([Icon, title, sub]) => (
-                <div key={title} className="rounded-xl border border-slate-100 p-4">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-background)] text-[var(--color-primary)]">
-                    <Icon className="h-4 w-4" />
-                  </div>
-                  <p className="mt-3 text-sm font-bold text-[var(--color-primary)]">{title}</p>
-                  <p className="mt-0.5 text-xs text-slate-400">{sub}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-8 flex gap-3">
-              <Link
-                href="/bayimiz-olun"
-                className="rounded-xl bg-[var(--color-primary)] px-5 py-3.5 text-sm font-bold text-white transition hover:bg-[var(--color-primary-hover)]"
-              >
-                Bayimiz Olun
-              </Link>
-              <Link
-                href="/bayi-programi"
-                className="rounded-xl border border-slate-200 px-5 py-3.5 text-sm font-bold text-[var(--color-primary)] transition hover:bg-slate-50"
-              >
-                Programı İncele →
-              </Link>
-            </div>
-          </div>
-
-          <div className="rounded-3xl bg-[var(--color-background)] p-8 md:p-10">
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">
-              Proje süreci
-            </p>
-            <div className="mt-8 space-y-0">
-              {process.map((step, i) => (
-                <div key={step.n} className="flex gap-5">
-                  <div className="flex flex-col items-center">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)] font-nx-mono text-[10px] font-bold text-white">
-                      {step.n}
-                    </div>
-                    {i < process.length - 1 && (
-                      <div className="my-1 w-px flex-1 bg-slate-200" style={{ minHeight: 32 }} />
-                    )}
-                  </div>
-                  <div className="pb-8">
-                    <h4 className="font-bold text-[var(--color-primary)]">{step.title}</h4>
-                    <p className="mt-1 text-sm leading-6 text-slate-500">{step.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ─── Stats band ────────────────────────────────────────────────────────────────
-function StatsBand() {
-  return (
-    <section className="border-y border-slate-100 bg-[var(--color-background)] px-6 py-14 md:px-10 font-nx-sans">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
-          {[
-            ["₺2.4M+", "Aylık proje hacmi"],
-            ["340+", "Aktif bayi"],
-            ["99.2%", "Sipariş tamamlama oranı"],
-            ["4.8/5", "Bayi memnuniyet skoru"],
-          ].map(([val, label]) => (
-            <div key={label}>
-              <strong className="block text-3xl font-extrabold tracking-tight text-[var(--color-primary)]">{val}</strong>
-              <span className="mt-1 block font-nx-mono text-[9px] uppercase tracking-[.14em] text-slate-400">
-                {label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-// ─── Final CTA ─────────────────────────────────────────────────────────────────
-function CtaSection() {
-  return (
-    <section className="bg-[var(--color-primary)] px-6 py-24 text-white md:px-10 font-nx-sans">
-      <div className="mx-auto max-w-7xl">
-        <div className="grid gap-10 md:grid-cols-2 md:items-end">
-          <div>
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-blue-200">
-              Bir sonraki adım
-            </p>
-            <h2 className="mt-4 text-4xl font-bold leading-tight tracking-[-0.055em] md:text-5xl lg:text-6xl">
-              Projenizi birlikte
-              <br />
-              planlayalım.
-            </h2>
-            <p className="mt-5 max-w-md text-sm leading-7 text-blue-100">
-              Teknik ekibimiz 2–4 saat içinde size geri döner. Projenizi ücretsiz analiz eder, marka ve ürün
-              önerisi hazırlar.
-            </p>
-          </div>
-          <div className="flex flex-wrap gap-3 md:justify-end md:self-end">
-            <Link
-              href="/proje-tasarim"
-              className="rounded-xl bg-white px-6 py-4 text-sm font-bold text-[var(--color-primary)] transition hover:bg-blue-50"
-            >
-              Projenizi Tasarlayalım
-            </Link>
             <Link
               href="/teklif-iste"
-              className="rounded-xl border border-white/35 px-6 py-4 text-sm font-bold transition hover:bg-white/10"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-nx-accent px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-nx-dark"
             >
-              Proje Teklifi İste
+              Hemen Başla <ArrowRight className="h-4 w-4" />
             </Link>
+            <div className="relative mt-8 flex min-h-[350px] flex-col justify-end overflow-hidden rounded-[15px]">
+              <img
+                src="/images/cards/process.jpg"
+                alt="Saha kurulum ve sistem entegrasyonu"
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="relative flex flex-wrap gap-[10px] p-5">
+                {["Aynı Gün Sevkiyat", "Sertifikalı Teknik Ekip", "Garanti Takibi"].map((t) => (
+                  <span
+                    key={t}
+                    className="inline-flex items-center gap-2 rounded-full bg-white py-[5px] pl-[3px] pr-[10px] text-sm text-nx-dark"
+                  >
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-nx-accent/10 text-nx-accent">
+                      <Check className="h-4 w-4" />
+                    </span>
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* Sağ: Ceron dashed-border adım kartları + outline numara */}
+          <div className="flex flex-col gap-5">
+            {PROCESS.map((p) => (
+              <div
+                key={p.n}
+                className="relative flex-1 rounded-[15px] border border-dashed border-slate-300 bg-white p-7 transition-colors duration-300 hover:border-nx-dark"
+              >
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute right-7 top-5 font-nx-heading text-[80px] font-extrabold leading-[0.8] text-transparent nx-outline-num"
+                >
+                  {p.n}
+                </span>
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-nx-accent/10 text-nx-accent">
+                  <p.Icon className="h-5 w-5" strokeWidth={1.5} />
+                </div>
+                <h3 className="mt-5 text-lg font-bold">{p.title}</h3>
+                <p className="mt-2 max-w-sm text-sm leading-6 text-slate-500">{p.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-    </section>
-  )
-}
+        </Reveal>
+      </section>
 
-export default function Home() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-      />
-      <Hero />
-      <ValueSection />
-      <BrandsSection />
-      <SolutionsSection />
-      <ProjectDesignSection />
-      <PartnershipSection />
-      <StatsBand />
-      <CtaSection />
-    </>
+      {/* ─── TESTIMONIALS ─────────────────────────────────────── */}
+      <section className="bg-[#EFFAF3] py-20">
+        <Reveal>
+        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto mb-12 max-w-2xl text-center">
+            <span className="font-nx-mono text-xs font-bold uppercase tracking-widest text-nx-accent">
+              Referanslar
+            </span>
+            <h2 className="mt-3 text-3xl font-nx-heading font-extrabold tracking-tight text-nx-dark md:text-4xl">
+              Gerçek sonuçlar, gerçek bayi yorumları
+            </h2>
+            <p className="mt-3 text-slate-500">340+ aktif bayinin nexadepo deneyiminden öne çıkanlar.</p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-[1fr_1.4fr]">
+            <div className="rounded-3xl border border-slate-100 bg-white p-8">
+              <div className="flex items-center gap-1 text-amber-400">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="h-5 w-5 fill-current" />
+                ))}
+              </div>
+              <p className="mt-4 text-4xl font-nx-heading font-extrabold text-nx-dark">4.8/5</p>
+              <p className="mt-1 text-sm text-slate-500">Bayi memnuniyet skoru</p>
+              <p className="mt-6 text-sm leading-6 text-slate-600">
+                340+ aktif bayi ve binlerce proje ile Türkiye genelinde güvenilir tedarik.
+              </p>
+            </div>
+            <div className="rounded-3xl border border-slate-100 bg-white p-8">
+              <Quote className="h-10 w-10 text-nx-accent/40" />
+              <p className="mt-4 text-lg leading-8 text-slate-700">
+                &ldquo;Proje bazlı teklif süreci çok hızlı. Teknik ekip kamera ve network mimarisini
+                baştan tasarladı, aynı gün stoktan sevkiyat yaptılar. Müşterilerimize kurulum
+                artık çok daha sorunsuz.&rdquo;
+              </p>
+              <div className="mt-6 flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-nx-accent font-bold text-white">
+                  MK
+                </div>
+                <div>
+                  <p className="font-bold text-nx-dark">Mehmet K.</p>
+                  <p className="text-xs text-slate-500">Sistem Entegratörü, İstanbul</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </Reveal>
+      </section>
+
+      {/* ─── FAQ ──────────────────────────────────────────────── */}
+      <section className="bg-white py-20">
+        <Reveal>
+        <div className="mx-auto grid max-w-7xl gap-12 px-6 md:grid-cols-[0.9fr_1.1fr]">
+          <div>
+            <span className="font-nx-mono text-xs font-bold uppercase tracking-widest text-nx-accent">
+              SSS
+            </span>
+            <h2 className="mt-3 text-3xl font-nx-heading font-extrabold tracking-tight md:text-4xl">
+              Sorularınız mı var? Cevabımız var
+            </h2>
+            <p className="mt-3 text-slate-500">
+              Bayilik, teklif süreçi ve teknik destek hakkında sık sorulan sorular.
+            </p>
+          </div>
+          <div className="divide-y divide-slate-100 border-y border-slate-100">
+            {FAQS.map((f) => (
+              <details key={f.q} className="group py-5">
+                <summary className="flex cursor-pointer items-center justify-between gap-4 text-base font-bold text-slate-900 marker:content-none">
+                  {f.q}
+                  <Plus className="h-5 w-5 shrink-0 text-nx-accent transition group-open:rotate-45" />
+                </summary>
+                <p className="mt-3 text-sm leading-6 text-slate-500">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+        </Reveal>
+      </section>
+
+      {/* ─── BLOG — Ceron: 3 kart ─── */}
+      <section className="bg-[#F5F5F5] py-20">
+        <Reveal>
+        <div className="mx-auto max-w-[1300px] px-6">
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div className="max-w-2xl">
+              <span className="font-nx-mono text-xs font-bold uppercase tracking-widest text-nx-accent">
+                Blog
+              </span>
+              <h2 className="mt-3 text-3xl font-nx-heading font-extrabold tracking-tight md:text-4xl">
+                Güvenlik ipuçları ve uzman görüşleri
+              </h2>
+              <p className="mt-3 text-slate-500">
+                Pratik kurulum ipuçları, ürün karşılaştırmaları ve proje deneyimleri.
+              </p>
+            </div>
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-nx-dark/15 px-6 py-3 text-sm font-semibold uppercase tracking-wide text-nx-dark transition hover:border-nx-accent hover:text-nx-accent"
+            >
+              Tüm Yazılar <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="mt-12 grid gap-[15px] md:grid-cols-3">
+            {POSTS.map((post) => (
+              <Link
+                key={post.title}
+                href={post.href}
+                className="group overflow-hidden rounded-[15px] bg-white"
+              >
+                <div className="h-[220px] overflow-hidden">
+                  <img
+                    src={post.img}
+                    alt={post.title}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-7">
+                  <h3 className="text-lg font-bold leading-snug text-nx-dark">{post.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-500">{post.desc}</p>
+                  <span className="mt-5 inline-flex items-center gap-1 border-b border-nx-dark pb-1 text-xs font-bold uppercase tracking-wider text-nx-dark transition group-hover:border-nx-accent group-hover:text-nx-accent">
+                    Devamını Oku <ArrowRight className="h-3 w-3" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+        </Reveal>
+      </section>
+
+      {/* ─── NEWSLETTER — Ceron: koyu band, abonelik formu ─── */}
+      <section className="bg-nx-dark py-16 text-white">
+        <Reveal>
+        <div className="mx-auto grid max-w-[1300px] items-center gap-8 px-6 md:grid-cols-2">
+          <div>
+            <h2 className="text-2xl font-nx-heading font-extrabold tracking-tight md:text-3xl">
+              Bayi bültenimize abone olun, yeni ürün ve proje fırsatlarından ilk siz haberdar olun.
+            </h2>
+            <p className="mt-2 text-sm text-slate-400">
+              İstediğiniz zaman abonelikten ayrılabilirsiniz.
+            </p>
+          </div>
+          <form
+            action="/teklif-iste"
+            className="flex flex-col gap-3 sm:flex-row sm:items-center"
+          >
+            <input
+              type="email"
+              required
+              placeholder="E-posta adresiniz"
+              className="h-[52px] flex-1 rounded-full border border-white/20 bg-white/10 px-6 text-sm text-white placeholder:text-slate-400 outline-none transition focus:border-nx-accent"
+            />
+            <button
+              type="submit"
+              className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full bg-nx-accent px-7 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white hover:text-nx-dark"
+            >
+              Abone Ol <ArrowRight className="h-4 w-4" />
+            </button>
+          </form>
+        </div>
+        </Reveal>
+      </section>
+    </div>
   )
 }

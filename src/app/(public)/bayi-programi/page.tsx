@@ -113,7 +113,7 @@ export default function BayiProgramiPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   href="/bayimiz-olun"
-                  className="rounded-xl bg-[var(--color-primary)] px-6 py-4 text-sm font-bold text-white transition hover:bg-[#456680]"
+                  className="rounded-xl bg-[var(--color-primary)] px-6 py-4 text-sm font-bold text-white transition hover:bg-[#1E293B]"
                 >
                   Bayimiz Olun
                 </Link>
@@ -224,7 +224,7 @@ export default function BayiProgramiPage() {
                   href="/bayimiz-olun"
                   className={`mt-8 block rounded-xl py-3 text-center text-sm font-bold transition ${
                     t.featured
-                      ? "bg-[var(--color-primary)] text-white hover:bg-[#456680]"
+                      ? "bg-[var(--color-primary)] text-white hover:bg-[#1E293B]"
                       : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
                   } ${!t.featured ? "[&]:hover:bg-[var(--color-primary)]" : ""}`}
                 >

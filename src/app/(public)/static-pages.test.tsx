@@ -81,7 +81,7 @@ describe.skip("Hakkinda Page", () => {
     expect(container.querySelector("[class*='max-w']")).toBeInTheDocument()
   })
 
-  it("has proper text color #0040a4", () => {
+  it("has proper text color (foreground)", () => {
     const { container } = render(<HakkindaPage />)
     expect(container.querySelector("[class*='1e1e1e']")).toBeInTheDocument()
   })

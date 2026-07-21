@@ -1,16 +1,17 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 /**
- * Public Header — Yeni Figma tasarımı (Next.js'e uyarlandı)
+ * Public Header — Ceron tasarım dili
  *
- * Sticky, dark variant ana sayfada, light variant diğer sayfalarda.
- * Mobilde hamburger menü.
+ * Açık zemin (#F5F5F5), lacivert metin (#0F172A), cyan aksan (#06B6D4).
+ * Butonlar pill (radius 50px): cyan → hover'da lacivert (Ceron button spec).
  */
 
 const NAV: ReadonlyArray<readonly [label: string, to: string]> = [
@@ -23,29 +24,25 @@ const NAV: ReadonlyArray<readonly [label: string, to: string]> = [
 
 export function PublicHeaderNext() {
   const pathname = usePathname()
-  const home = pathname === "/"
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const headerClass = cn(
-    "sticky top-0 z-40 border-b px-5 py-4 backdrop-blur-xl md:px-10 font-nx-sans",
-    home
-      ? "border-white/10 bg-[var(--color-primary)]/90 text-white"
-      : "border-slate-200 bg-white/95 text-[var(--color-primary)]"
-  )
-
   return (
-    <header className={headerClass}>
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-[#1852ac]/95 px-5 py-4 backdrop-blur-xl md:px-10 font-nx-sans text-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
-        {/* Logo */}
-        <Link href="/" className="shrink-0 text-xl font-extrabold tracking-[-.09em]">
-          NEXT<span className={home ? "text-white/80" : "text-[var(--color-primary)]"}>AI</span>
-          <small className="ml-2 hidden align-middle font-nx-mono text-[9px] font-normal tracking-[.14em] text-slate-400 sm:inline">
-            / NEXTADEPO
-          </small>
+        {/* Logo — koyu zeminde beyaz versiyon */}
+        <Link href="/" className="shrink-0" aria-label="nexadepo anasayfa">
+          <Image
+            src="/images/logo-dark.png"
+            alt="nexadepo"
+            width={2172}
+            height={724}
+            priority
+            className="h-10 w-auto md:h-12"
+          />
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-5 lg:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {NAV.map(([label, to]) => {
             const isActive = pathname === to || (to !== "/" && pathname.startsWith(to))
             const isCta = to === "/proje-tasarim"
@@ -56,10 +53,10 @@ export function PublicHeaderNext() {
                 className={cn(
                   "text-[13px] font-semibold transition",
                   isCta
-                    ? "rounded-lg border border-[var(--color-primary)]/40 bg-[var(--color-primary)]/10 px-3 py-1.5 text-[var(--color-primary)] hover:bg-[var(--color-primary)]/20 opacity-100"
+                    ? "rounded-full border border-white/30 px-4 py-1.5 text-white hover:border-nx-accent hover:text-nx-accent"
                     : isActive
-                      ? "text-[#6b96b3]"
-                      : "text-current opacity-75 hover:text-[var(--color-primary)] hover:opacity-100"
+                      ? "text-nx-accent"
+                      : "text-white/75 hover:text-nx-accent"
                 )}
               >
                 {label}
@@ -72,19 +69,21 @@ export function PublicHeaderNext() {
         <div className="flex items-center gap-2">
           <Link
             href="/bayimiz-olun"
-            className="hidden text-xs font-bold opacity-70 transition hover:text-[var(--color-primary)] hover:opacity-100 xl:block"
+            className="hidden text-xs font-bold text-white/75 transition hover:text-nx-accent xl:block"
           >
             Bayimiz Olun
           </Link>
+          {/* Koyu zeminde: beyaz pill */}
           <Link
             href="/bayi-giris"
-            className="hidden rounded-lg bg-[var(--color-primary)] px-3 py-2 text-xs font-bold text-white transition hover:bg-[#456680] sm:block"
+            className="hidden rounded-full bg-white px-4 py-2 text-xs font-bold uppercase tracking-wide text-nx-dark transition hover:bg-nx-accent hover:text-white sm:block"
           >
             Bayi Girişi
           </Link>
+          {/* Ceron: accent pill — koyu zeminde cyan parlar */}
           <Link
             href="/teklif-iste"
-            className="rounded-lg bg-[#ff9b43] px-3 py-2 text-xs font-bold leading-5 text-[var(--color-primary)] transition hover:bg-[#ffad64] md:px-4"
+            className="rounded-full bg-nx-accent px-4 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-white hover:text-nx-dark md:px-5"
           >
             Teklif İste
           </Link>
@@ -92,7 +91,7 @@ export function PublicHeaderNext() {
           {/* Mobile hamburger */}
           <button
             type="button"
-            className="lg:hidden p-2"
+            className="lg:hidden p-2 text-white"
             aria-label="Menü"
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-drawer"
@@ -116,28 +115,26 @@ export function PublicHeaderNext() {
                 className={cn(
                   "block px-3 py-2 rounded-lg text-sm font-semibold",
                   isActive
-                    ? "bg-[var(--color-primary)]/10 text-[var(--color-primary)]"
-                    : home
-                      ? "text-white/80 hover:bg-white/5"
-                      : "text-[var(--color-primary)]/80 hover:bg-slate-100"
+                    ? "bg-nx-accent/15 text-nx-accent"
+                    : "text-white/80 hover:bg-white/10"
                 )}
               >
                 {label}
               </Link>
             )
           })}
-          <div className="pt-2 mt-2 border-t border-current/10 flex gap-2">
+          <div className="pt-2 mt-2 border-t border-white/10 flex gap-2">
             <Link
               href="/bayi-giris"
               onClick={() => setMobileOpen(false)}
-              className="flex-1 text-center rounded-lg bg-[var(--color-primary)] px-3 py-2 text-xs font-bold text-white"
+              className="flex-1 text-center rounded-full bg-white px-3 py-2 text-xs font-bold uppercase tracking-wide text-nx-dark"
             >
               Bayi Girişi
             </Link>
             <Link
               href="/bayimiz-olun"
               onClick={() => setMobileOpen(false)}
-              className="flex-1 text-center rounded-lg border border-current/20 px-3 py-2 text-xs font-bold"
+              className="flex-1 text-center rounded-full border border-white/30 px-3 py-2 text-xs font-bold text-white"
             >
               Bayimiz Olun
             </Link>

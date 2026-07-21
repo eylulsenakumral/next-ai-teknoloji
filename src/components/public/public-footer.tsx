@@ -185,7 +185,7 @@ function SocialIcon({
 }) {
   return (
     <span
-      className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-[var(--color-primary)] hover:bg-gradient-to-r hover:from-[var(--color-primary)] hover:to-[#1a6fe0] hover:text-white hover:scale-110 transition-all duration-300"
+      className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-[var(--color-primary)] hover:bg-gradient-to-r hover:from-[var(--color-primary)] hover:to-[#06B6D4] hover:text-white hover:scale-110 transition-all duration-300"
       aria-label={label}
     >
       <Icon />

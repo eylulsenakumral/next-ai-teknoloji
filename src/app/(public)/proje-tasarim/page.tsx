@@ -225,7 +225,7 @@ function ResultScreen({ answers }: { answers: Record<string, string[]> }) {
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <button
           onClick={() => router.push("/teklif-iste")}
-          className="rounded-xl bg-[var(--color-primary)] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[var(--color-primary)]/25 transition hover:bg-[#456680]"
+          className="rounded-xl bg-[var(--color-primary)] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[var(--color-primary)]/25 transition hover:bg-[#1E293B]"
         >
           Resmi Teklif İste →
         </button>
@@ -391,7 +391,7 @@ export default function ProjectDesign() {
                   disabled={!canProceed}
                   className={`rounded-xl px-7 py-3.5 text-sm font-bold transition-all ${
                     canProceed
-                      ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/25 hover:bg-[#456680]"
+                      ? "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/25 hover:bg-[#1E293B]"
                       : "cursor-not-allowed bg-white/5 text-slate-600"
                   }`}
                 >

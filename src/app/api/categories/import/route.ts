@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { generateSlug } from "@/lib/utils/slug"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
+import { invalidateCategoryCache } from "@/lib/cache"
 
 interface ImportRow {
   levels: string[]
@@ -171,6 +172,8 @@ export async function POST(req: NextRequest) {
       results.skipped++
     }
   }
+
+  await invalidateCategoryCache()
 
   return NextResponse.json({
     data: results,

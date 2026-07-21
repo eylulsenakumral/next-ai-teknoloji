@@ -141,7 +141,7 @@ export function HeroBanner({ slides, features }: HeroBannerProps) {
             <div>
               <Link
                 href={slide?.buttonLink ?? "/katalog"}
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-[#1a6fe0] hover:from-[var(--color-primary)] hover:to-[var(--color-primary)] text-white font-bold py-[9px] px-[32px] rounded-lg transition-all duration-300 text-[16px] hover:scale-[1.02] hover:shadow-lg"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[var(--color-primary)] to-[#06B6D4] hover:from-[var(--color-primary)] hover:to-[var(--color-primary)] text-white font-bold py-[9px] px-[32px] rounded-lg transition-all duration-300 text-[16px] hover:scale-[1.02] hover:shadow-lg"
               >
                 {slide?.buttonText ?? "Keşfet"}
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

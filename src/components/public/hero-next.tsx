@@ -166,7 +166,7 @@ export function Hero() {
             <div className="mt-9 flex flex-wrap gap-3">
               <Link
                 href="/proje-tasarim"
-                className="group flex items-center gap-3 rounded-xl bg-[var(--color-primary)] px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-[var(--color-primary)]/25 transition hover:bg-[#456680]"
+                className="group flex items-center gap-3 rounded-xl bg-[var(--color-primary)] px-5 py-3.5 text-sm font-bold text-white shadow-lg shadow-[var(--color-primary)]/25 transition hover:bg-[#1E293B]"
               >
                 Projenizi Tasarlayalım
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20 text-xs transition group-hover:bg-white/30">

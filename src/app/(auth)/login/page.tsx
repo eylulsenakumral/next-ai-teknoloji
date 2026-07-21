@@ -288,7 +288,7 @@ export default function LoginPage() {
                   </label>
                   <Link
                     href="/sifremi-unuttum"
-                    className="text-xs text-[var(--color-primary)] transition-colors hover:text-[#456680]"
+                    className="text-xs text-[var(--color-primary)] transition-colors hover:text-[#1E293B]"
                   >
                     Şifremi Unuttum?
                   </Link>
@@ -323,7 +323,7 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => switchMode("admin")}
-                    className="text-[var(--color-primary)] transition-colors hover:text-[#456680]"
+                    className="text-[var(--color-primary)] transition-colors hover:text-[#1E293B]"
                   >
                     Admin Girişi →
                   </button>
@@ -433,7 +433,7 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => switchMode("dealer")}
-                    className="text-[var(--color-primary)] transition-colors hover:text-[#456680]"
+                    className="text-[var(--color-primary)] transition-colors hover:text-[#1E293B]"
                   >
                     buraya tıklayın →
                   </button>
@@ -521,7 +521,7 @@ export default function LoginPage() {
             className={cn(
               "inline-flex w-fit items-center justify-center px-8 py-3.5",
               "border-2 border-white text-sm font-semibold uppercase tracking-wide text-white",
-              "transition-all hover:bg-white hover:text-[#456680]"
+              "transition-all hover:bg-white hover:text-[#1E293B]"
             )}
           >
             Hemen Başvuru Yap

@@ -146,7 +146,7 @@ function CategoryDropdown() {
       <button
         type="button"
         onClick={() => setOpen((p) => !p)}
-        className="flex items-center gap-2 h-10 px-4 rounded-lg bg-[var(--color-primary)] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#1a6fe0] transition-colors"
+        className="flex items-center gap-2 h-10 px-4 rounded-lg bg-[var(--color-primary)] text-white text-[12px] font-bold uppercase tracking-wider hover:bg-[#06B6D4] transition-colors"
         aria-expanded={open}
         aria-haspopup="true"
       >

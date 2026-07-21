@@ -12,6 +12,7 @@
  */
 
 import { redis } from "./redis"
+import { revalidatePath } from "next/cache"
 
 // ---------------------------------------------------------------------------
 // TTL constants (seconds)
@@ -151,6 +152,8 @@ export async function invalidateCategoryCache(): Promise<void> {
     cacheDelPattern("nexadepo:categories:list:*"),
     cacheDel(CacheKey.dashboardStats()),
   ])
+  // Anasayfadaki kategori şeridi (ISR) — DB değişikliği anında yansısın
+  revalidatePath("/")
 }
 
 /** Wipe all brand cache entries. Call after any brand mutation. */

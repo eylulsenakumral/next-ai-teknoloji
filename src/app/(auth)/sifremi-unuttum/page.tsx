@@ -177,7 +177,7 @@ export default function SifremiUnuttumPage() {
                 <p className="mt-4 text-center text-xs text-[#9ca3af]">
                   <Link
                     href="/login"
-                    className="text-[var(--color-primary)] transition-colors hover:text-[#456680]"
+                    className="text-[var(--color-primary)] transition-colors hover:text-[#1E293B]"
                   >
                     Giriş sayfasına geri dön
                   </Link>

@@ -38,6 +38,7 @@ const nextConfig: NextConfig = {
       { source: "/kataloglar", destination: "/katalog", permanent: true },
       { source: "/bayi-portali", destination: "/login", permanent: true },
       // Eski/silinmiş route'lar
+      { source: "/vitrin", destination: "/", permanent: true },
       { source: "/iletisim", destination: "/", permanent: true },
       { source: "/kvkk", destination: "/gizlilik-politikasi", permanent: true },
       { source: "/kategori/:slug*", destination: "/kategoriler/:slug*", permanent: true },

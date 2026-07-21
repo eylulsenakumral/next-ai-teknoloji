@@ -290,7 +290,7 @@ export default function TeklifIstePage() {
           <button
             type="submit"
             disabled={status === "submitting"}
-            className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-primary)] py-4 text-sm font-bold text-white transition hover:bg-[#456680] disabled:opacity-60"
+            className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-primary)] py-4 text-sm font-bold text-white transition hover:bg-[#1E293B] disabled:opacity-60"
           >
             {status === "submitting" ? (
               <>

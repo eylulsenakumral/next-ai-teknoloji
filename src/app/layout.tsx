@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Poppins, Manrope, DM_Mono } from "next/font/google"
+import { Poppins, Manrope, DM_Mono, Sora, Inter } from "next/font/google"
 import "./globals.css"
 import { Providers } from "@/components/providers"
 
@@ -25,6 +25,21 @@ const dmMono = DM_Mono({
   display: "swap",
 })
 
+// Sora + Inter — Ceron-inspired vitrin tipografisi
+const sora = Sora({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-sora",
+  display: "swap",
+})
+
+const inter = Inter({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://nexadepo.com"),
   title: {
@@ -43,7 +58,7 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${poppins.variable} ${manrope.variable} ${dmMono.variable} h-full antialiased`}
+      className={`${poppins.variable} ${manrope.variable} ${dmMono.variable} ${sora.variable} ${inter.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-sans">

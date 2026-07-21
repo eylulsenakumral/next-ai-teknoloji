@@ -231,7 +231,7 @@ function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) 
 /* ------------------------------------------------------------------ */
 
 const CATEGORY_GRADIENTS = [
-  "from-[var(--color-primary)] to-[#1a6fe0]",
+  "from-[var(--color-primary)] to-[#06B6D4]",
   "from-[var(--color-primary)] to-[#2d6da3]",
   "from-[#0c2340] to-[#1a5276]",
   "from-[#2c3e50] to-[#3498db]",
@@ -280,8 +280,8 @@ function CategoryGrid({
             <div className={cn(
               "absolute inset-0 transition-all duration-300",
               !activeSlug
-                ? "bg-gradient-to-br from-[var(--color-primary)] to-[#1a6fe0] ring-2 ring-[var(--color-primary)] ring-offset-2"
-                : "bg-gradient-to-br from-[var(--color-primary)] to-[#1a6fe0]"
+                ? "bg-gradient-to-br from-[var(--color-primary)] to-[#06B6D4] ring-2 ring-[var(--color-primary)] ring-offset-2"
+                : "bg-gradient-to-br from-[var(--color-primary)] to-[#06B6D4]"
             )} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
             <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">

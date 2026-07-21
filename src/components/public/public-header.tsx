@@ -343,7 +343,7 @@ function HeaderSearchBar() {
           />
           <button
             type="submit"
-            className="absolute right-1 top-1/2 -translate-y-1/2 h-[38px] w-[38px] flex items-center justify-center bg-gradient-to-r from-[var(--color-primary)] to-[#1a6fe0] text-white rounded-full hover:scale-105 hover:shadow-md transition-all duration-300"
+            className="absolute right-1 top-1/2 -translate-y-1/2 h-[38px] w-[38px] flex items-center justify-center bg-gradient-to-r from-[var(--color-primary)] to-[#06B6D4] text-white rounded-full hover:scale-105 hover:shadow-md transition-all duration-300"
             aria-label="Ara"
           >
             <Search className="h-4 w-4" aria-hidden />
@@ -460,7 +460,7 @@ export function PublicHeader() {
   return (
     <>
       {/* TOP BAR - Announcement/Info Bar */}
-      <div className="bg-[var(--color-primary)] text-white border-b border-[#1a6fe0]">
+      <div className="bg-[var(--color-primary)] text-white border-b border-[#06B6D4]">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-[36px] text-[12px]">
             <a
@@ -591,7 +591,7 @@ export function PublicHeader() {
               >
                 <ShoppingCart className="h-5 w-5" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-2 h-5 w-5 bg-gradient-to-r from-[var(--color-primary)] to-[#1a6fe0] text-white text-[11px] font-medium rounded-full flex items-center justify-center animate-badge-bounce shadow-sm">
+                  <span className="absolute -top-2 -right-2 h-5 w-5 bg-gradient-to-r from-[var(--color-primary)] to-[#06B6D4] text-white text-[11px] font-medium rounded-full flex items-center justify-center animate-badge-bounce shadow-sm">
                     {cartCount > 9 ? '9+' : cartCount}
                   </span>
                 )}

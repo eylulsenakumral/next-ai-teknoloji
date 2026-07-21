@@ -22,7 +22,7 @@ const colClasses: Record<3 | 4 | 6, string> = {
 }
 
 const CATEGORY_GRADIENTS = [
-  "from-[var(--color-primary)] to-[#1a6fe0]",
+  "from-[var(--color-primary)] to-[#06B6D4]",
   "from-[var(--color-primary)] to-[#2d6da3]",
   "from-[#0c2340] to-[#1a5276]",
   "from-[#2c3e50] to-[#3498db]",
