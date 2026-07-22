@@ -1,18 +1,19 @@
 import Link from "next/link"
+import Image from "next/image"
+import { BadgeCheck, ArrowRight } from "lucide-react"
 import { prisma } from "@/lib/db"
+import { BrandGrid, type BrandItem, type BrandCategory } from "@/components/public/brand-grid"
 
 export const metadata = {
-  title: "Markalar — 27+ Global Teknoloji Markasının Yetkili Tedarikçisi",
+  title: "Markalar — Global Teknoloji Markalarının Yetkili Tedarikçisi",
   description:
-    "Dahua, Hikvision, UNV, Reolink, Ruijie, Ajax, Honeywell, Seagate ve daha fazlası. Yetkili tedarikçi olarak tüm markaların ürünleri bayi fiyatına.",
+    "Dahua, Hikvision, UNV, Ruijie, Ajax, Honeywell, Seagate ve daha fazlası. Yetkili tedarikçi olarak tüm markaların ürünleri bayi fiyatına.",
   alternates: { canonical: "/markalar" },
 }
 
-// Statik logo component'leri yerine text-based grid kullanıyoruz.
-// Gerçek logolar admin panelden yönetiliyor (Brand.logoUrl).
+export const dynamic = "force-dynamic"
 
 // Kategori/OEM/typo gibi gerçek marka olmayan kayıtlar — listede gösterme.
-// (B2BDepo sync'inden kaynaklı: "Hiksivion" = Hikvision typo'su, diğerleri kategori/metaveri.)
 const HIDDEN_BRANDS = [
   "Hiksivion",
   "Marka Yok",
@@ -24,178 +25,199 @@ const HIDDEN_BRANDS = [
   "FOEM",
 ]
 
-const FEATURED_BRANDS = [
-  { name: "Dahua", cat: "Kamera Sistemleri", desc: "AI kamera, NVR ve analitik" },
-  { name: "Hikvision", cat: "Kamera Sistemleri", desc: "Kurumsal güvenlik global lideri" },
-  { name: "UNV", cat: "Kamera Sistemleri", desc: "4K IP kamera sistemleri" },
-  { name: "Reolink", cat: "Kamera Sistemleri", desc: "PoE & kablosuz kamera" },
-  { name: "Ruijie", cat: "Network", desc: "Yönetilen switch & AP" },
-  { name: "Ajax", cat: "Akıllı Bina", desc: "Alarm & otomasyon" },
-  { name: "Honeywell", cat: "Yangın Algılama", desc: "Ticari yangın sistemleri" },
-  { name: "Seagate", cat: "Veri Depolama", desc: "Surveillance HDD" },
-]
-
-export const dynamic = "force-dynamic"
-
-async function getBrands() {
+async function getBrandsData() {
   try {
-    const brands = await prisma.brand.findMany({
-      where: { deletedAt: null, isActive: true, name: { notIn: HIDDEN_BRANDS } },
-      orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        logoUrl: true,
-        description: true,
-        websiteUrl: true,
-      },
-    })
-    return brands
+    const [brands, allCategories] = await Promise.all([
+      prisma.brand.findMany({
+        where: {
+          deletedAt: null,
+          isActive: true,
+          name: { notIn: HIDDEN_BRANDS },
+          // Sadece sistemde aktif ürünü olan markalar
+          products: { some: { isActive: true, deletedAt: null } },
+        },
+        orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          logoUrl: true,
+          description: true,
+          websiteUrl: true,
+          _count: {
+            select: { products: { where: { isActive: true, deletedAt: null } } },
+          },
+          products: {
+            where: { isActive: true, deletedAt: null },
+            select: { categoryId: true },
+          },
+        },
+      }),
+      prisma.category.findMany({
+        where: { isActive: true, deletedAt: null },
+        select: { id: true, parentId: true, slug: true, name: true, sortOrder: true },
+      }),
+    ])
+
+    // Kategori id → kayıt haritası (üst kategoriye yürümek için)
+    const catById = new Map(allCategories.map((c) => [c.id, c]))
+
+    // Bir kategorinin en üst seviye (root) kategorisinin slug'ını bul
+    function topLevelSlug(id: string | null): string | null {
+      let cur = id ? catById.get(id) : undefined
+      if (!cur) return null
+      const seen = new Set<string>()
+      while (cur && cur.parentId && !seen.has(cur.id)) {
+        seen.add(cur.id)
+        cur = catById.get(cur.parentId)
+      }
+      return cur?.slug ?? null
+    }
+
+    // Marka → ürün sayısı + ait olduğu üst kategoriler
+    const brandItems: BrandItem[] = brands
+      .map((b) => {
+        const catSlugs = new Set<string>()
+        for (const p of b.products) {
+          const root = topLevelSlug(p.categoryId)
+          if (root) catSlugs.add(root)
+        }
+        return {
+          id: b.id,
+          name: b.name,
+          slug: b.slug,
+          logoUrl: b.logoUrl,
+          description: b.description,
+          productCount: b._count.products,
+          categorySlugs: [...catSlugs],
+        }
+      })
+      .sort((a, b) => b.productCount - a.productCount)
+
+    // Sekmeler: en az bir markası olan üst kategoriler (sortOrder'a göre)
+    const categories: BrandCategory[] = allCategories
+      .filter((c) => !c.parentId)
+      .sort((a, b) => a.sortOrder - b.sortOrder)
+      .map((c) => ({
+        slug: c.slug,
+        name: c.name,
+        count: brandItems.filter((b) => b.categorySlugs.includes(c.slug)).length,
+      }))
+      .filter((c) => c.count > 0)
+
+    return { brandItems, categories }
   } catch (e) {
     console.error("[/markalar] brand fetch error:", e)
-    return []
+    return { brandItems: [] as BrandItem[], categories: [] as BrandCategory[] }
   }
 }
 
 export default async function MarkalarPage() {
-  const brands = await getBrands()
+  const { brandItems, categories } = await getBrandsData()
+  const totalProducts = brandItems.reduce((sum, b) => sum + b.productCount, 0)
+  const marqueeBrands = brandItems.slice(0, 12)
 
   return (
     <div className="font-nx-sans">
-      {/* Hero */}
-      <section className="bg-[var(--color-primary)] px-6 py-24 text-white md:px-10 md:py-32">
-        <div className="mx-auto max-w-7xl">
-          <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[#8aa8bc]">
+      {/* ─── Açılış: marka odaklı, canlı sayılar + logo marquee ─── */}
+      <section className="relative overflow-hidden border-b border-[#E9F1FC] bg-white">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-[#E9F1FC] via-[#F4F9FE] to-white" />
+        <div aria-hidden className="absolute inset-0 nx-hero-dots" />
+        <div aria-hidden className="pointer-events-none absolute -top-24 right-[8%] h-[360px] w-[360px] rounded-full bg-[#1852ac]/[0.08] blur-3xl" />
+
+        <div className="relative mx-auto max-w-[1400px] px-4 pb-14 pt-16 sm:px-6 md:pt-20 lg:px-8">
+          <p className="font-nx-mono text-xs font-bold uppercase tracking-[0.25em] text-[#1852ac]">
             Tedarik ortaklarımız
           </p>
-          <h1 className="mt-4 max-w-3xl text-4xl font-bold leading-[1.05] tracking-[-0.055em] md:text-6xl">
-            27+ global markanın
-            <span className="block bg-gradient-to-r from-[#a8c4d4] to-[var(--color-primary)] bg-clip-text text-transparent">
-              yetkili tedarikçisi.
-            </span>
+          <h1 className="mt-4 max-w-3xl font-nx-heading text-4xl font-bold leading-[1.08] tracking-tight text-[#1852ac] sm:text-5xl md:text-6xl">
+            Global markaların <span className="text-nx-accent">yetkili</span> tedarikçisi
           </h1>
-          <p className="mt-6 max-w-2xl text-base leading-7 text-slate-400">
-            CCTV ve network alanında dünya liderlerini Türkiye genelinde bayilere ulaştırıyoruz. Her markanın
-            ürün gamı, teknik dokümantasyonu ve demo desteği tarafımızdan sağlanır.
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600">
+            CCTV, network ve güvenlik alanında dünya liderlerini Türkiye genelinde bayilerle buluşturuyoruz.
+            Listelenen her markanın ürünü stoklarımızda ve bayi fiyatına hazır.
           </p>
-        </div>
-      </section>
 
-      {/* Featured statik grid */}
-      <section className="bg-white px-6 py-20 md:px-10">
-        <div className="mx-auto max-w-7xl">
-          <div className="max-w-2xl">
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">
-              01 · Öne çıkan partnerler
-            </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-[-0.055em] md:text-4xl">
-              Sektörün global liderleri.
-            </h2>
-          </div>
-
-          <div className="mt-10 grid grid-cols-2 gap-px bg-slate-100 border border-slate-100 rounded-2xl overflow-hidden md:grid-cols-4">
-            {FEATURED_BRANDS.map((b) => (
-              <div
-                key={b.name}
-                className="group flex flex-col justify-between bg-white p-6 transition hover:bg-[var(--color-primary)]"
-              >
-                <span className="font-nx-mono text-[9px] uppercase tracking-[.15em] text-slate-400 group-hover:text-slate-600">
-                  {b.cat}
-                </span>
-                <div className="mt-6 flex h-12 items-center">
-                  <span className="text-2xl font-extrabold tracking-[-.04em] text-[var(--color-primary)] group-hover:text-white">
-                    {b.name}
-                  </span>
-                </div>
-                <div className="mt-4">
-                  <p className="text-xs text-slate-400 group-hover:text-slate-500">{b.desc}</p>
-                  <Link
-                    href={`/urunler?brandSlug=${b.name.toLowerCase()}`}
-                    className="mt-3 block text-xs font-bold text-[var(--color-primary)] opacity-0 transition group-hover:opacity-100"
-                  >
-                    Ürünleri gör →
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* All brands from DB */}
-      <section className="bg-[var(--color-background)] px-6 py-20 md:px-10">
-        <div className="mx-auto max-w-7xl">
-          <div className="max-w-2xl">
-            <p className="font-nx-mono text-[10px] uppercase tracking-[.2em] text-[var(--color-primary)]">
-              02 · Tüm markalar ({brands.length})
-            </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-[-0.055em] md:text-4xl">
-              Kataloğumuzdaki tüm markalar.
-            </h2>
-          </div>
-
-          {brands.length === 0 ? (
-            <div className="mt-12 rounded-3xl border border-dashed border-slate-300 bg-white p-12 text-center">
-              <p className="text-sm text-slate-500">
-                Marka listesi yüklenemedi. Lütfen daha sonra tekrar deneyin.
-              </p>
+          {/* Canlı istatistikler */}
+          <div className="mt-10 flex flex-wrap items-center gap-x-12 gap-y-6">
+            <div>
+              <p className="font-nx-heading text-4xl font-bold text-[#1852ac]">{brandItems.length}</p>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-slate-500">Marka</p>
             </div>
-          ) : (
-            <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-              {brands.map((b) => (
+            <div className="hidden h-10 w-px bg-[#1852ac]/15 sm:block" />
+            <div>
+              <p className="font-nx-heading text-4xl font-bold text-[#1852ac]">
+                {totalProducts.toLocaleString("tr-TR")}
+              </p>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-slate-500">Ürün</p>
+            </div>
+            <div className="hidden h-10 w-px bg-[#1852ac]/15 sm:block" />
+            <div className="flex items-center gap-2.5">
+              <BadgeCheck className="h-6 w-6 text-nx-accent" aria-hidden />
+              <div>
+                <p className="text-sm font-bold text-[#1852ac]">Yetkili Tedarik</p>
+                <p className="text-xs text-slate-500">Orijinal ürün, üretici garantisi</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Logo marquee — en çok ürünü olan markalar */}
+        {marqueeBrands.length > 0 && (
+          <div className="nx-marquee relative border-t border-[#E9F1FC] bg-white/70 py-5 backdrop-blur-sm">
+            <div className="nx-marquee-track flex w-max items-center gap-14 px-7">
+              {[...marqueeBrands, ...marqueeBrands].map((b, i) => (
                 <Link
-                  key={b.id}
-                  href={`/urunler?brandSlug=${b.slug}`}
-                  className="group flex flex-col items-start gap-2 rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-[var(--color-primary)]/30 hover:bg-[var(--color-primary)]/5"
+                  key={`${b.id}-${i}`}
+                  href={`/markalar/${b.slug}`}
+                  className="flex shrink-0 items-center gap-3 opacity-70 transition hover:opacity-100"
+                  aria-label={`${b.name} markası`}
                 >
-                  <div className="flex h-10 w-full items-center">
-                    {b.logoUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={b.logoUrl}
-                        alt={b.name}
-                        className="max-h-10 max-w-[120px] object-contain opacity-80 transition group-hover:opacity-100"
-                      />
-                    ) : (
-                      <span className="text-lg font-bold tracking-[-.04em] text-[var(--color-primary)]">
-                        {b.name}
-                      </span>
-                    )}
-                  </div>
-                  <p className="mt-2 line-clamp-2 text-xs leading-5 text-slate-500">
-                    {b.description ?? `${b.name} ürünleri — toptan bayi fiyatları ve stok`}
-                  </p>
-                  <span className="mt-auto pt-3 text-xs font-bold text-[var(--color-primary)]">
-                    Ürünleri gör →
+                  {b.logoUrl ? (
+                    <span className="relative block h-9 w-28">
+                      <Image src={b.logoUrl} alt={b.name} fill className="object-contain" sizes="112px" />
+                    </span>
+                  ) : (
+                    <span className="font-nx-heading text-xl font-bold tracking-tight text-[#1852ac]">{b.name}</span>
+                  )}
+                  <span className="rounded-full bg-[#E9F1FC] px-2 py-0.5 text-[10px] font-bold text-[#1852ac]">
+                    {b.productCount}
                   </span>
                 </Link>
               ))}
             </div>
-          )}
-        </div>
+            <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent" />
+            <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent" />
+          </div>
+        )}
       </section>
 
-      {/* CTA */}
-      <section className="bg-[var(--color-primary)] px-6 py-20 text-white md:px-10">
-        <div className="mx-auto max-w-7xl text-center">
-          <h2 className="text-3xl font-bold tracking-[-0.055em] md:text-5xl">
-            Aradığınız markayı bulamadınız?
-          </h2>
-          <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-blue-100">
-            Tedarik ettiğimiz 27+ markanın tamamı web sitesinde yer almıyor. Belirli bir marka veya ürün için
-            bize ulaşın, ekibimiz araştırıp dönüş yapsın.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
+      {/* ─── İnteraktif marka listesi: arama + kategori sekmeleri ─── */}
+      <BrandGrid brands={brandItems} categories={categories} />
+
+      {/* ─── CTA: split düzen ─── */}
+      <section className="relative overflow-hidden bg-[#1852ac]">
+        <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-nx-accent/20 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -bottom-24 left-1/4 h-72 w-72 rounded-full bg-white/10 blur-3xl" />
+        <div className="relative mx-auto flex max-w-[1400px] flex-col items-start justify-between gap-8 px-4 py-16 sm:px-6 lg:flex-row lg:items-center lg:px-8">
+          <div className="max-w-xl">
+            <h2 className="font-nx-heading text-3xl font-bold tracking-tight text-white md:text-4xl">
+              Aradığınız markayı bulamadınız?
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-blue-100">
+              Tedarik ettiğimiz birçok marka web sitesinde yer almıyor. Belirli bir marka veya ürün için
+              bize ulaşın; ekibimiz araştırıp en kısa sürede dönüş yapsın.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
             <Link
               href="/teklif-iste"
-              className="rounded-xl bg-white px-6 py-4 text-sm font-bold text-[var(--color-primary)] transition hover:bg-blue-50"
+              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-[#1852ac] transition hover:bg-blue-50"
             >
-              Teklif İste
+              Teklif İste <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
             <Link
               href="/bayimiz-olun"
-              className="rounded-xl border border-white/35 px-6 py-4 text-sm font-bold transition hover:bg-white/10"
+              className="inline-flex items-center rounded-full border border-white/40 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-white/10"
             >
               Bayimiz Olun
             </Link>

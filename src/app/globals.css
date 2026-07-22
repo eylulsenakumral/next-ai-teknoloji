@@ -660,6 +660,19 @@
 .nx-fade-up {
   animation: nx-fade-up 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
+
+/* ─── Marka marquee — sonsuz kayan logo şeridi ─── */
+@keyframes nx-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.nx-marquee-track {
+  animation: nx-marquee 45s linear infinite;
+  will-change: transform;
+}
+.nx-marquee:hover .nx-marquee-track {
+  animation-play-state: paused;
+}
 @media (prefers-reduced-motion: reduce) {
   .nx-fade-up { animation: none; }
   /* Otomatik dönüş devam eder, sadece geçiş anlık olur */
