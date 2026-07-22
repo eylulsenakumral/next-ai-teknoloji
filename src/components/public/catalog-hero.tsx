@@ -17,7 +17,7 @@ export function CatalogHero({ total, onSearch }: { total: number; onSearch: (q: 
       : "Ürün Yelpazesi"
 
   const slides = [
-    { label: "Güvenlik", title: "Güvenlik Ürünlerinde Çözüm Ortağınız", accent: "Güvenlik" },
+    { label: "Güvenlik", title: "Güvenlik Sistemleri Ürünlerinde Çözüm Ortağınız", accent: "Güvenlik" },
     { label: "Yangın Alarm", title: "Yangın Algılama Sistemlerinde Güvenilir İş Ortağınız", accent: "Yangın" },
     { label: "Hırsız Alarm", title: "Hırsız Alarm Sistemlerinde Profesyonel Çözümler", accent: "Alarm" },
     { label: "Araç Kameraları", title: "Araç Kameralarında Güvenliğiniz İçin Buradayız", accent: "Araç" },
