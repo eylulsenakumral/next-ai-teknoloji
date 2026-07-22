@@ -1,7 +1,8 @@
 import { Star, Quote } from "lucide-react"
 import { Reveal } from "../reveal"
 
-export function TestimonialsSection() {
+export function TestimonialsSection({ stats }: { stats?: [string, string][] }) {
+  const dealerCount = stats?.find(([_, label]) => label === "Aktif Bayi")?.[0] ?? "340+"
   return (
     <section className="bg-[#EFFAF3] py-20">
       <Reveal>
@@ -13,7 +14,7 @@ export function TestimonialsSection() {
           <h2 className="mt-3 text-3xl font-nx-heading font-extrabold tracking-tight text-nx-dark md:text-4xl">
             Gerçek sonuçlar, gerçek bayi yorumları
           </h2>
-          <p className="mt-3 text-slate-500">340+ aktif bayinin nexadepo deneyiminden öne çıkanlar.</p>
+          <p className="mt-3 text-slate-500">{dealerCount} aktif bayinin nexadepo deneyiminden öne çıkanlar.</p>
         </div>
         <div className="grid gap-8 md:grid-cols-[1fr_1.4fr]">
           <div className="rounded-3xl border border-slate-100 bg-white p-8">
@@ -25,7 +26,7 @@ export function TestimonialsSection() {
             <p className="mt-4 text-4xl font-nx-heading font-extrabold text-nx-dark">4.8/5</p>
             <p className="mt-1 text-sm text-slate-500">Bayi memnuniyet skoru</p>
             <p className="mt-6 text-sm leading-6 text-slate-600">
-              340+ aktif bayi ve binlerce proje ile Türkiye genelinde güvenilir tedarik.
+              {dealerCount} aktif bayi ve binlerce proje ile Türkiye genelinde güvenilir tedarik.
             </p>
           </div>
           <div className="rounded-3xl border border-slate-100 bg-white p-8">

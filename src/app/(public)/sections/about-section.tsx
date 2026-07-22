@@ -4,7 +4,8 @@ import { Reveal } from "../reveal"
 import { AnimatedCounter } from "@/components/animated-counter"
 import { ABOUT_FEATURES, STATS } from "../home-content"
 
-export function AboutSection() {
+export function AboutSection({ stats: externalStats }: { stats?: [string, string][] }) {
+  const stats = externalStats ?? STATS
   return (
     <section className="bg-white py-20">
       <Reveal>

@@ -980,3 +980,126 @@ model NewsletterSubscriber {
   @@index([isActive])
   @@map("newsletter_subscribers")
 }
+
+model Solution {
+  id          String    @id @default(uuid()) @db.Uuid
+  number      String    @db.VarChar(10)
+  title       String    @db.VarChar(255)
+  tagline     String    @db.VarChar(255)
+  description String
+  icon        String    @db.VarChar(100)
+  gradient    String    @db.VarChar(255)
+  brands      String[]  @default([])
+  features    String[]  @default([])
+  category    SolutionCategory @default(MAIN)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([category, isActive, sortOrder])
+  @@map("solutions")
+}
+
+model Sector {
+  id          String    @id @default(uuid()) @db.Uuid
+  title       String    @db.VarChar(255)
+  description String
+  icon        String    @db.VarChar(100)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive, sortOrder])
+  @@map("sectors")
+}
+
+model ReferenceProject {
+  id          String    @id @default(uuid()) @db.Uuid
+  title       String    @db.VarChar(500)
+  description String
+  tags        String[]  @default([])
+  icon        String    @db.VarChar(100)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive, sortOrder])
+  @@map("reference_projects")
+}
+
+model Faq {
+  id          String    @id @default(uuid()) @db.Uuid
+  question    String
+  answer      String
+  group       String    @default("GENERAL") @db.VarChar(50)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([group, isActive, sortOrder])
+  @@map("faqs")
+}
+
+model Testimonial {
+  id          String    @id @default(uuid()) @db.Uuid
+  authorName  String    @map("author_name") @db.VarChar(255)
+  authorTitle String    @map("author_title") @db.VarChar(255)
+  authorInitials String  @map("author_initials") @db.VarChar(5)
+  quote       String
+  rating      Int       @default(5)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive, sortOrder])
+  @@map("testimonials")
+}
+
+model Milestone {
+  id          String    @id @default(uuid()) @db.Uuid
+  year        String    @db.VarChar(10)
+  title       String    @db.VarChar(255)
+  description String
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive, sortOrder])
+  @@map("milestones")
+}
+
+model BlogPost {
+  id          String    @id @default(uuid()) @db.Uuid
+  title       String    @db.VarChar(500)
+  slug        String    @unique @db.VarChar(500)
+  excerpt     String    @db.VarChar(1000)
+  content     String
+  imageUrl    String?   @map("image_url")
+  readTime    String?   @map("read_time") @db.VarChar(50)
+  publishedAt DateTime  @default(now()) @map("published_at") @db.Timestamptz(6)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive, publishedAt(sort: Desc)])
+  @@map("blog_posts")
+}
+
+enum SolutionCategory {
+  MAIN
+  ANALYTICS
+}

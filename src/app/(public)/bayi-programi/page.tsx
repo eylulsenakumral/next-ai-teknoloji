@@ -1,10 +1,11 @@
 import Link from "next/link"
 import { IcnBox, IcnTag, IcnTool, IcnFile, IcnBriefcase, IcnTarget } from "@/components/public/icons-next"
+import { getLiveCounts, getSiteConfig } from "@/lib/settings"
 
 export const metadata = {
   title: "Bayi Programı — CCTV & Sistem Entegratörleri için Özel Koşullar",
   description:
-    "Bayi avantajları: özel fiyatlandırma, kredi limiti, proje bazlı ticari koşullar, teknik destek, stok görünürlüğü. 340+ aktif bayi ağı.",
+    "Bayi avantajları: özel fiyatlandırma, kredi limiti, proje bazlı ticari koşullar, teknik destek, stok görünürlüğü.",
   alternates: { canonical: "/bayi-programi" },
 }
 
@@ -82,14 +83,22 @@ const tiers = [
   },
 ]
 
-const stats = [
-  ["340+", "Aktif bayi"],
-  ["₺2.4M+", "Aylık bayi hacmi"],
-  ["99.2%", "Sipariş tamamlama"],
-  ["4.8/5", "Bayi memnuniyeti"],
-]
+export default async function BayiProgramiPage() {
+  let liveCounts: Awaited<ReturnType<typeof getLiveCounts>> | null = null
+  let siteConfig: Awaited<ReturnType<typeof getSiteConfig>> | null = null
 
-export default function BayiProgramiPage() {
+  try {
+    ;[liveCounts, siteConfig] = await Promise.all([getLiveCounts(), getSiteConfig()])
+  } catch {
+    // fallback — hardcoded defaults
+  }
+
+  const stats: [string, string][] = [
+    [liveCounts?.customerCountFormatted ?? siteConfig?.dealerCount ?? "340+", "Aktif bayi"],
+    [siteConfig?.monthlyVolume ?? "₺2.4M+", "Aylık bayi hacmi"],
+    [siteConfig?.orderCompletionRate ?? "99.2%", "Sipariş tamamlama"],
+    [siteConfig?.satisfactionScore ?? "4.8/5", "Bayi memnuniyeti"],
+  ]
   return (
     <div className="font-nx-sans">
       {/* Hero */}
@@ -108,7 +117,7 @@ export default function BayiProgramiPage() {
               </h1>
               <p className="mt-6 max-w-lg text-base leading-7 text-slate-400">
                 CCTV bayileri ve sistem entegratörleri için özel ticari koşullar, kredi limiti, proje bazlı
-                fiyatlandırma ve teknik destek. Türkiye genelinde 340+ aktif bayi.
+                fiyatlandırma ve teknik destek. Türkiye genelinde {liveCounts?.customerCountFormatted ?? siteConfig?.dealerCount ?? "340+"} aktif bayi.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link

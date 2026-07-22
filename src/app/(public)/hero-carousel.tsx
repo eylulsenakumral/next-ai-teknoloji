@@ -36,7 +36,7 @@ const SLIDES = [
 
 const DURATION = 4500
 
-export function HeroCarousel() {
+export function HeroCarousel({ dealerCount = "340+" }: { dealerCount?: string }) {
   const [idx, setIdx] = useState(0)
 
   useEffect(() => {
@@ -120,7 +120,7 @@ export function HeroCarousel() {
             ))}
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-xl font-semibold text-nx-dark">340+</span>
+            <span className="text-xl font-semibold text-nx-dark">{dealerCount}</span>
             <span className="text-sm text-[#666666]">Aktif Bayi</span>
           </div>
         </div>

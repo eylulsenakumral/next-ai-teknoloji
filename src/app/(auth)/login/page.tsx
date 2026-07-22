@@ -5,15 +5,8 @@ import { signIn } from "next-auth/react"
 import { useSearchParams } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import {
-  Eye,
-  EyeOff,
-  Loader2,
-  AlertCircle,
-  Truck,
-  ShieldCheck,
-  Headphones,
-} from "lucide-react"
+import { Eye, EyeOff, Loader2, AlertCircle } from "lucide-react"
+import { LoginMarketingPanel } from "./login-marketing-panel"
 
 type LoginMode = "dealer" | "admin"
 
@@ -467,88 +460,7 @@ export default function LoginPage() {
         </footer>
       </div>
 
-      {/* ======================================================
-          SAĞ PANEL — Tanıtım (sadece md+)
-      ====================================================== */}
-      <aside
-        className="relative hidden flex-col md:flex md:w-1/2"
-        style={{
-          background: "linear-gradient(-45deg, #000d5e 0%, var(--color-primary) 50%, var(--color-primary) 100%)",
-        }}
-        aria-hidden="true"
-      >
-        {/* Hafif desen overlay */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: `radial-gradient(circle at 25% 25%, #ffffff 1px, transparent 1px),
-                              radial-gradient(circle at 75% 75%, #ffffff 1px, transparent 1px)`,
-            backgroundSize: "48px 48px",
-          }}
-        />
-
-        {/* İçerik — dikey ortalı, sola dayalı */}
-        <div className="relative flex flex-1 flex-col justify-center px-14 xl:px-20">
-          {/* İstatistikler */}
-          <div className="mb-12 grid grid-cols-3 gap-6">
-            {[
-              { value: "5.000+", label: "Ürün Çeşidi" },
-              { value: "150+", label: "Marka" },
-              { value: "500+", label: "Aktif Bayi" },
-            ].map(({ value, label }) => (
-              <div key={label} className="text-center">
-                <p className="text-3xl font-bold text-white">{value}</p>
-                <p className="mt-1 text-xs font-medium uppercase tracking-wider text-white/60">{label}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Ana başlık */}
-          <h2 className="mb-3 text-3xl font-bold leading-tight text-white">
-            Bayimiz Olmak
-            <br />
-            İster Misiniz?
-          </h2>
-
-          <p className="mb-8 text-base leading-relaxed text-white/75">
-            Rekabetçi fiyatlar, geniş ürün yelpazesi ve hızlı teslimat.
-            Next AI Teknoloji ile işletmenizi büyütün.
-          </p>
-
-          {/* CTA */}
-          <Link
-            href="/basvuru"
-            className={cn(
-              "inline-flex w-fit items-center justify-center px-8 py-3.5",
-              "border-2 border-white text-sm font-semibold uppercase tracking-wide text-white",
-              "transition-all hover:bg-white hover:text-[#1E293B]"
-            )}
-          >
-            Hemen Başvuru Yap
-          </Link>
-
-          {/* Özellikler */}
-          <div className="mt-12 flex gap-8">
-            {[
-              { Icon: Truck, text: "Hızlı Teslimat" },
-              { Icon: ShieldCheck, text: "Garantili Ürün" },
-              { Icon: Headphones, text: "7/24 Destek" },
-            ].map(({ Icon, text }) => (
-              <div key={text} className="flex flex-col items-center gap-2">
-                <Icon className="h-5 w-5 text-white/50" />
-                <span className="text-xs font-medium text-white/50">{text}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Sağ panel footer */}
-        <div className="relative px-14 pb-8 xl:px-20">
-          <p className="text-xs text-white/40">
-            Next AI Teknoloji B2B Platformu v2.0
-          </p>
-        </div>
-      </aside>
+      <LoginMarketingPanel />
     </div>
   )
 }

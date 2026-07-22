@@ -1,14 +1,15 @@
 import Link from "next/link"
 import { IcnTarget, IcnBriefcase, IcnTool, IcnBox } from "@/components/public/icons-next"
+import { getSiteConfig, getLiveCounts } from "@/lib/settings"
 
 export const metadata = {
   title: "Hakkımızda — Next AI Teknoloji",
   description:
-    "Türkiye'nin B2B teknoloji tedarik platformu. 12+ yıl sektör deneyimi, 27+ global marka partneri, 340+ aktif bayi. CCTV, network, geçiş kontrol ve akıllı bina çözümlerinde yetkili tedarikçi.",
+    "Türkiye'nin B2B teknoloji tedarik platformu. CCTV, network, geçiş kontrol ve akıllı bina çözümlerinde yetkili tedarikçi.",
   alternates: { canonical: "/hakkimizda" },
 }
 
-const stats = [
+const fallbackStats: [string, string][] = [
   ["12+", "Yıl sektör deneyimi"],
   ["27+", "Global marka partneri"],
   ["340+", "Aktif bayi"],
@@ -46,7 +47,22 @@ const milestones = [
   { year: "2025", title: "Proje platformu", desc: "Yeni nesil proje tasarım platformu ile bayilerin teknik tasarım süreçlerini dijitalleştirdik." },
 ]
 
-export default function HakkimizdaPage() {
+export default async function HakkimizdaPage() {
+  const [siteConfig, liveCounts] = await Promise.all([
+    getSiteConfig().catch(() => null),
+    getLiveCounts().catch(() => null),
+  ])
+
+  const dealerYears = siteConfig?.dealerYears ?? "12"
+  const stats: [string, string][] = liveCounts
+    ? [
+        [`${dealerYears}+`, "Yıl sektör deneyimi"],
+        [`${liveCounts.brandCount}+`, "Global marka partneri"],
+        [`${liveCounts.customerCount}+`, "Aktif bayi"],
+        [liveCounts.productCountFormatted, "Aktif teknik ürün"],
+      ]
+    : fallbackStats
+
   return (
     <div className="font-nx-sans">
       {/* Hero */}
