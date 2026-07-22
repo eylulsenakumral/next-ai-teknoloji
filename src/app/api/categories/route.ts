@@ -13,12 +13,25 @@ export async function GET(req: NextRequest) {
   const isActiveParam = searchParams.get("isActive")
   const parentId = searchParams.get("parentId")
 
+  // Admin session check — admin sees all, public only sees active
+  const session = await getAdminSession()
+  const isAdmin = session?.user?.role === "admin" || session?.user?.role === "super_admin"
+  const isActiveFilter = isActiveParam !== null
+    ? { isActive: isActiveParam === "true" }
+    : isAdmin
+      ? {}
+      : { isActive: true }
+
   const where = {
     deletedAt: null,
+    ...isActiveFilter,
     ...(search ? { name: { contains: search, mode: "insensitive" as const } } : {}),
-    ...(isActiveParam !== null ? { isActive: isActiveParam === "true" } : {}),
     ...(parentId === "null" ? { parentId: null } : parentId ? { parentId } : {}),
   }
+
+  // Aktif filtresi — nested children/product count'lara da uygula
+  const childWhere = { deletedAt: null, ...isActiveFilter }
+  const productWhere = { deletedAt: null, ...(isAdmin ? {} : { isActive: true }) }
 
   if (flat) {
     const cacheKey = CacheKey.categoryList(
@@ -32,8 +45,8 @@ export async function GET(req: NextRequest) {
           parent: { select: { id: true, name: true } },
           _count: {
             select: {
-              children: { where: { deletedAt: null } },
-              products: { where: { deletedAt: null } },
+              children: { where: childWhere },
+              products: { where: productWhere },
             },
           },
         },
@@ -50,48 +63,48 @@ export async function GET(req: NextRequest) {
     include: {
       _count: {
         select: {
-          children: { where: { deletedAt: null } },
-          products: { where: { deletedAt: null } },
+          children: { where: childWhere },
+          products: { where: productWhere },
         },
       },
       children: {
-        where: { deletedAt: null },
+        where: childWhere,
         orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
         include: {
           _count: {
             select: {
-              children: { where: { deletedAt: null } },
-              products: { where: { deletedAt: null } },
+              children: { where: childWhere },
+              products: { where: productWhere },
             },
           },
           children: {
-            where: { deletedAt: null },
+            where: childWhere,
             orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
             include: {
               _count: {
                 select: {
-                  children: { where: { deletedAt: null } },
-                  products: { where: { deletedAt: null } },
+                  children: { where: childWhere },
+                  products: { where: productWhere },
                 },
               },
               children: {
-                where: { deletedAt: null },
+                where: childWhere,
                 orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
                 include: {
                   _count: {
                     select: {
-                      children: { where: { deletedAt: null } },
-                      products: { where: { deletedAt: null } },
+                      children: { where: childWhere },
+                      products: { where: productWhere },
                     },
                   },
                   children: {
-                    where: { deletedAt: null },
+                    where: childWhere,
                     orderBy: [{ sortOrder: "asc" }, { name: "asc" }],
                     include: {
                       _count: {
                         select: {
-                          children: { where: { deletedAt: null } },
-                          products: { where: { deletedAt: null } },
+                          children: { where: childWhere },
+                          products: { where: productWhere },
                         },
                       },
                     },

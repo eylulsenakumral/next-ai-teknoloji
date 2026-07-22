@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { IcnTarget, IcnBriefcase, IcnTool, IcnBox } from "@/components/public/icons-next"
 import { getSiteConfig, getLiveCounts } from "@/lib/settings"
+import { getMilestones } from "@/lib/content"
 
 export const metadata = {
   title: "Hakkımızda — Next AI Teknoloji",
@@ -39,7 +40,7 @@ const values = [
   },
 ]
 
-const milestones = [
+const fallbackMilestones = [
   { year: "2014", title: "Kuruluş", desc: "İstanbul merkez ofis ile CCTV ve güvenlik sistemleri toptan satışına başladık." },
   { year: "2017", title: "Marka anlaşmaları", desc: "Dahua, Hikvision, UNV gibi global markaların Türkiye yetkili distribütörü olduk." },
   { year: "2020", title: "Network & IoT genişlemesi", desc: "Ruijie, Ajax, Honeywell partnerlikleri ile ürün gamını network ve akıllı bina sistemlerine genişlettik." },
@@ -48,9 +49,10 @@ const milestones = [
 ]
 
 export default async function HakkimizdaPage() {
-  const [siteConfig, liveCounts] = await Promise.all([
+  const [siteConfig, liveCounts, dbMilestones] = await Promise.all([
     getSiteConfig().catch(() => null),
     getLiveCounts().catch(() => null),
+    getMilestones().catch(() => []),
   ])
 
   const dealerYears = siteConfig?.dealerYears ?? "12"
@@ -62,6 +64,10 @@ export default async function HakkimizdaPage() {
         [liveCounts.productCountFormatted, "Aktif teknik ürün"],
       ]
     : fallbackStats
+
+  const milestones = dbMilestones.length > 0
+    ? dbMilestones.map(m => ({ year: m.year, title: m.title, desc: m.description }))
+    : fallbackMilestones
 
   return (
     <div className="font-nx-sans">

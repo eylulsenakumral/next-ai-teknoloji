@@ -93,8 +93,8 @@ export async function GET(
       while (current) {
         path.unshift({ name: current.name, slug: current.slug })
         if (!current.parentId) break
-        const parent = await prisma.category.findUnique({
-          where: { id: current.parentId },
+        const parent = await prisma.category.findFirst({
+          where: { id: current.parentId, deletedAt: null, isActive: true },
           select: { name: true, slug: true, parentId: true },
         })
         current = parent as { name: string; slug: string; parentId: string | null } | null

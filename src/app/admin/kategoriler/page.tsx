@@ -94,6 +94,7 @@ function SortableTreeRow({
   onAddChild,
   onEdit,
   onDelete,
+  onToggleActive,
 }: {
   cat: FlatCategory
   depth: number
@@ -105,6 +106,7 @@ function SortableTreeRow({
   onAddChild: (cat: FlatCategory) => void
   onEdit: (cat: FlatCategory) => void
   onDelete: (cat: FlatCategory) => void
+  onToggleActive: (cat: FlatCategory) => void
 }) {
   const {
     attributes,
@@ -185,9 +187,16 @@ function SortableTreeRow({
         {cat._count.products > 0 ? cat._count.products : <span className="text-muted-foreground/50">-</span>}
       </TableCell>
       <TableCell className="text-center">
-        <Badge variant={cat.isActive ? "default" : "outline"}>
+        <button
+          onClick={() => onToggleActive(cat)}
+          className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold transition ${
+            cat.isActive
+              ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+              : "bg-red-100 text-red-700 hover:bg-red-200"
+          }`}
+        >
           {cat.isActive ? "Aktif" : "Pasif"}
-        </Badge>
+        </button>
       </TableCell>
       <TableCell className="text-right pr-4">
         <div className="flex items-center justify-end gap-1">
@@ -324,6 +333,26 @@ export default function KategorilerPage() {
     setEditCategory(cat)
     setDefaultParentId(null)
     setFormOpen(true)
+  }
+
+  async function handleToggleActiveCat(cat: FlatCategory) {
+    // Optimistic update
+    setCategories((prev) =>
+      prev.map((c) => (c.id === cat.id ? { ...c, isActive: !cat.isActive } : c))
+    )
+    try {
+      const res = await fetch(`/api/admin/icerik/${cat.id}?type=categories`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isActive: !cat.isActive }),
+      })
+      if (!res.ok) throw new Error()
+      toast({ title: cat.isActive ? "Pasifleştirildi" : "Aktifleştirildi", description: cat.isActive ? "Kategori ve ürünleri pasifleştirildi." : "Kategori aktifleştirildi." })
+      fetchCategories()
+    } catch {
+      toast({ title: "Hata", description: "Durum güncellenemedi.", variant: "destructive" })
+      fetchCategories()
+    }
   }
 
   function handleAddChild(cat: FlatCategory) {
@@ -493,6 +522,7 @@ export default function KategorilerPage() {
           onAddChild={handleAddChild}
           onEdit={handleEdit}
           onDelete={handleDeleteRequest}
+          onToggleActive={handleToggleActiveCat}
         />
       )
 

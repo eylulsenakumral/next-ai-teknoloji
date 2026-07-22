@@ -1,8 +1,20 @@
 import { Plus } from "lucide-react"
 import { Reveal } from "../reveal"
 import { FAQS } from "../home-content"
+import { getFaqs } from "@/lib/content"
 
-export function FaqSection() {
+export async function FaqSection() {
+  let faqs = FAQS
+
+  try {
+    const dbFaqs = await getFaqs("GENERAL")
+    if (dbFaqs.length > 0) {
+      faqs = dbFaqs.map((f) => ({ q: f.question, a: f.answer }))
+    }
+  } catch {
+    // fallback to hardcoded
+  }
+
   return (
     <section className="bg-white py-20">
       <Reveal>
@@ -15,11 +27,11 @@ export function FaqSection() {
             Sorularınız mı var? Cevabımız var
           </h2>
           <p className="mt-3 text-slate-500">
-            Bayilik, teklif süreçi ve teknik destek hakkında sık sorulan sorular.
+            Bayilik, teklif süreci ve teknik destek hakkında sık sorulan sorular.
           </p>
         </div>
         <div className="divide-y divide-slate-100 border-y border-slate-100">
-          {FAQS.map((f) => (
+          {faqs.map((f) => (
             <details key={f.q} className="group py-5">
               <summary className="flex cursor-pointer items-center justify-between gap-4 text-base font-bold text-slate-900 marker:content-none">
                 {f.q}

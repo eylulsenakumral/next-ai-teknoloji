@@ -50,3 +50,26 @@ export const getBlogPosts = cache(async (limit?: number) => {
     ...(limit ? { take: limit } : {}),
   })
 })
+
+export const getPageSections = cache(async (page: string, section?: string) => {
+  return prisma.pageSection.findMany({
+    where: { isActive: true, deletedAt: null, page: page as never, ...(section ? { section } : {}) },
+    orderBy: { sortOrder: "asc" },
+  })
+})
+
+export const getHeroSlides = cache(async () => {
+  return prisma.heroSlide.findMany({
+    where: { isActive: true, deletedAt: null },
+    orderBy: { sortOrder: "asc" },
+  })
+})
+
+export const getSiteTexts = cache(async (page: string, section?: string) => {
+  const rows = await prisma.siteText.findMany({
+    where: { isActive: true, page: page as never, ...(section ? { section } : {}) },
+  })
+  const map: Record<string, string> = {}
+  for (const r of rows) map[r.key] = r.value
+  return map
+})

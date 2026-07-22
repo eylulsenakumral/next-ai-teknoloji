@@ -4,11 +4,27 @@ import { ArrowRight } from "lucide-react"
 import { Reveal } from "../reveal"
 import { NewsletterForm } from "../newsletter-form"
 import { POSTS } from "../home-content"
+import { getBlogPosts } from "@/lib/content"
 
-export function BlogSection() {
+export async function BlogSection() {
+  let posts = POSTS
+
+  try {
+    const dbPosts = await getBlogPosts(3)
+    if (dbPosts.length > 0) {
+      posts = dbPosts.map((p) => ({
+        title: p.title,
+        desc: p.excerpt,
+        img: p.imageUrl ?? "/images/cards/blog-kamera.jpg",
+        href: `/blog/${p.slug}`,
+      }))
+    }
+  } catch {
+    // fallback
+  }
+
   return (
     <>
-      {/* ─── BLOG — Ceron: 3 kart ─── */}
       <section className="bg-[#F5F5F5] py-20">
         <Reveal>
         <div className="mx-auto max-w-[1300px] px-6">
@@ -33,7 +49,7 @@ export function BlogSection() {
             </Link>
           </div>
           <div className="mt-12 grid gap-[15px] md:grid-cols-3">
-            {POSTS.map((post) => (
+            {posts.map((post) => (
               <Link
                 key={post.title}
                 href={post.href}
@@ -62,7 +78,6 @@ export function BlogSection() {
         </Reveal>
       </section>
 
-      {/* ─── NEWSLETTER — Ceron: koyu band, abonelik formu ─── */}
       <section className="bg-nx-dark py-16 text-white">
         <Reveal>
         <div className="mx-auto grid max-w-[1300px] items-center gap-8 px-6 md:grid-cols-2">

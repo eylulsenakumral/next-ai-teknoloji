@@ -1,4 +1,4 @@
-import { getLiveCounts, getSiteConfig } from "@/lib/settings"
+"use client"
 
 const ICONS = [
   { icon: "truck", text: "Hızlı Teslimat" },
@@ -28,29 +28,11 @@ function IconSvg({ name }: { name: string }) {
   )
 }
 
-export async function LoginMarketingPanel() {
-  let liveCounts: Awaited<ReturnType<typeof getLiveCounts>> | null = null
-  let siteConfig: Awaited<ReturnType<typeof getSiteConfig>> | null = null
-
-  try {
-    ;[liveCounts, siteConfig] = await Promise.all([getLiveCounts(), getSiteConfig()])
-  } catch {
-    // fallback — hardcoded defaults
-  }
-
+export function LoginMarketingPanel() {
   const stats = [
-    {
-      value: liveCounts?.productCountFormatted ?? siteConfig?.productCount ?? "5.000+",
-      label: "Ürün Çeşidi",
-    },
-    {
-      value: liveCounts?.brandCountFormatted ?? siteConfig?.brandCount ?? "150+",
-      label: "Marka",
-    },
-    {
-      value: liveCounts?.customerCountFormatted ?? siteConfig?.dealerCount ?? "500+",
-      label: "Aktif Bayi",
-    },
+    { value: "5.000+", label: "Ürün Çeşidi" },
+    { value: "150+", label: "Marka" },
+    { value: "500+", label: "Aktif Bayi" },
   ]
 
   return (

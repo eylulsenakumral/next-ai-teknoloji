@@ -188,204 +188,83 @@ async function getB2BDepoSupplierId(): Promise<string> {
 }
 
 // ============================================================================
-// Kategori hiyerarsisi olustur/eslestir
+// Kategori hiyerarşisi — B2BDepo yapısını birebir oluştur
 // ============================================================================
 
+/** B2BDepo'nun ust/alt/enAlt kategori ağacını 1:1 oluşturur/enişletir */
 async function resolveCategory(
   ustKategori?: string,
   altKategori?: string,
   enAltKategori?: string
 ): Promise<string | undefined> {
-  // Yeni kategori ağacı: b2bdepo kategorilerini bizim hiyerarşimize eşleştir
-  const ust = (ustKategori || "").toLowerCase()
-  const alt = (altKategori || "").toLowerCase()
-  const enAlt = (enAltKategori || "").toLowerCase()
-  const text = `${ust} ${alt} ${enAlt}`
+  const ustAdi = ustKategori?.trim()
+  if (!ustAdi) return undefined
 
-  const find = async (name: string, parentSlug?: string) => {
-    if (parentSlug) {
-      const parent = await prisma.category.findFirst({ where: { slug: parentSlug, deletedAt: null }, select: { id: true } })
-      if (!parent) return null
-      return prisma.category.findFirst({ where: { name: { equals: name, mode: "insensitive" as const }, parentId: parent.id, deletedAt: null }, select: { id: true } })
-    }
-    return prisma.category.findFirst({ where: { name: { equals: name, mode: "insensitive" as const }, deletedAt: null }, select: { id: true } })
+  // Root (ust kategori, depth 0)
+  let root = await prisma.category.findFirst({
+    where: { name: { equals: ustAdi, mode: "insensitive" as const }, parentId: null, deletedAt: null },
+    select: { id: true },
+  })
+  if (!root) {
+    const slug = await uniqueSlug(ustAdi, "category")
+    root = await prisma.category.create({
+      data: { name: ustAdi, slug, parentId: null, depth: 0, isActive: true, sortOrder: 0 },
+      select: { id: true },
+    })
   }
 
-  // Yangın Algılama
-  if (/yangın|fire|duman|smoke|heat detect/i.test(text)) {
-    const c = await find("Yangın Alarm Sistemleri", "yangin-algilama-urunleri")
-    if (c) return c.id
-    return (await find("Yangın Algılama Ürünleri"))?.id ?? undefined
+  const altAdi = altKategori?.trim()
+  if (!altAdi) return root.id
+
+  // Alt kategori (depth 1)
+  let sub = await prisma.category.findFirst({
+    where: { name: { equals: altAdi, mode: "insensitive" as const }, parentId: root.id, deletedAt: null },
+    select: { id: true },
+  })
+  if (!sub) {
+    const slug = await uniqueSlug(altAdi, "category")
+    sub = await prisma.category.create({
+      data: { name: altAdi, slug, parentId: root.id, depth: 1, isActive: true },
+      select: { id: true },
+    })
   }
 
-  // Hırsız Algılama
-  if (/hırsız|burglar|alarm sistem|hareket sens|pir sensor|motion|siren|magnetic|kontak|shock|glass break/i.test(text)) {
-    const c = await find("Hırsız Alarm Sistemleri", "hirsiz-algilama-urunleri")
-    if (c) return c.id
-    return (await find("Hırsız Algılama Ürünleri"))?.id ?? undefined
+  const enAltAdi = enAltKategori?.trim()
+  if (!enAltAdi) return sub.id
+
+  // En alt kategori (depth 2)
+  let leaf = await prisma.category.findFirst({
+    where: { name: { equals: enAltAdi, mode: "insensitive" as const }, parentId: sub.id, deletedAt: null },
+    select: { id: true },
+  })
+  if (!leaf) {
+    const slug = await uniqueSlug(enAltAdi, "category")
+    leaf = await prisma.category.create({
+      data: { name: enAltAdi, slug, parentId: sub.id, depth: 2, isActive: true },
+      select: { id: true },
+    })
   }
 
-  // Intercom
-  if (/intercom|villa set|kapı telefon|video intercom|dış ünite|iç ünite/i.test(text)) {
-    if (/dış ünite|outdoor unit/i.test(text)) return (await find("Dış Ünite", "guvenlik-intercom-sistemleri"))?.id ?? undefined
-    if (/iç ünite|indoor unit|monitor/i.test(text)) return (await find("İç Ünite", "guvenlik-intercom-sistemleri"))?.id ?? undefined
-    if (/villa set/i.test(text)) return (await find("Villa Setleri", "guvenlik-intercom-sistemleri"))?.id ?? undefined
-    return (await find("Intercom Sistemleri", "guvenlik"))?.id ?? undefined
-  }
-
-  // Analog Kameralar
-  if (/ahd|hdcvi|hdtvi/i.test(text) || enAlt.includes("ahd") || enAlt.includes("hd-tvi")) {
-    if (/hdcvi/i.test(text)) return (await find("HDCVI", "guvenlik-analog-kameralar"))?.id ?? undefined
-    if (/hdtvi|hd-tvi/i.test(text)) return (await find("HDTVI", "guvenlik-analog-kameralar"))?.id ?? undefined
-    return (await find("AHD", "guvenlik-analog-kameralar"))?.id ?? undefined
-  }
-
-  // Kayıt Cihazları
-  if (alt.includes("kayıt")) {
-    if (/nvr/i.test(text)) return (await find("NVR", "guvenlik-kayit-cihazlari"))?.id ?? undefined
-    if (/dvr|xvr|hybrid/i.test(text)) return (await find("DVR / XVR", "guvenlik-kayit-cihazlari"))?.id ?? undefined
-  }
-
-  // Güvenlik Aksesuarları
-  if (alt.includes("aksesuar") && ust.includes("güvenlik")) {
-    if (/bağlantı ekipman/i.test(text)) return (await find("Bağlantı Ekipmanları", "guvenlik-guvenlik-aksesuarlari"))?.id ?? undefined
-    if (/adapt/i.test(text)) return (await find("Güvenlik Adaptörleri", "guvenlik-guvenlik-aksesuarlari"))?.id ?? undefined
-    if (/klavye/i.test(text)) return (await find("Kontrol Klavyesi", "guvenlik-guvenlik-aksesuarlari"))?.id ?? undefined
-    if (/lens/i.test(text)) return (await find("Lens", "guvenlik-guvenlik-aksesuarlari"))?.id ?? undefined
-    if (/montaj|aparat/i.test(text)) return (await find("Montaj Aparatı", "guvenlik-guvenlik-aksesuarlari"))?.id ?? undefined
-    return (await find("Güvenlik Aksesuarları", "guvenlik"))?.id ?? undefined
-  }
-
-  // Switch
-  if (alt.includes("switch")) {
-    if (enAlt.includes("poe") || /poe switch/i.test(text)) return (await find("PoE Switchler", "network-switchler"))?.id ?? undefined
-    if (enAlt.includes("data") || enAlt.includes("non-poe")) return (await find("Data/Non-PoE Switchler", "network-switchler"))?.id ?? undefined
-    if (enAlt.includes("endüstriyel")) return (await find("Endüstriyel Switchler", "network-switchler"))?.id ?? undefined
-    if (enAlt.includes("fiber") || enAlt.includes("omurga")) return (await find("Fiber/Omurga Switchler", "network-switchler"))?.id ?? undefined
-    if (enAlt.includes("sfp") || enAlt.includes("gbic")) return (await find("SFP/GBIC Modül", "network-switchler"))?.id ?? undefined
-    if (/poe/i.test(text)) return (await find("PoE Switchler", "network-switchler"))?.id ?? undefined
-    return (await find("Data/Non-PoE Switchler", "network-switchler"))?.id ?? undefined
-  }
-
-  // Access Point / Ağ İletişim
-  if (alt.includes("ağ iletişim") || /access point|router|hotspot|gateway|wifi|wireless|kablosuz/i.test(text)) {
-    if (/anten|antenna/i.test(text)) return (await find("Antenler", "network"))?.id ?? undefined
-    if (/hotspot|gateway/i.test(text)) return (await find("Hotspot/Gateway", "network-access-point"))?.id ?? undefined
-    if (/home router|ev router|adsl|dsl|modem/i.test(text)) return (await find("Home Router", "network-access-point"))?.id ?? undefined
-    if (/usb adapt/i.test(text)) return (await find("Kablosuz USB Adaptör", "network-access-point"))?.id ?? undefined
-    if (/poe adapt|enjector|injector/i.test(text)) return (await find("PoE Adaptör/Enjector", "network-access-point"))?.id ?? undefined
-    return (await find("Access Point ve Router", "network-access-point"))?.id ?? undefined
-  }
-
-  // Fiber
-  if (alt.includes("fiber") || /fiber|sfp|media converter|optical/i.test(text)) {
-    if (/adapt/i.test(text)) return (await find("Fiber Adaptörler", "network-fiber-urunler"))?.id ?? undefined
-    if (/converter|media converter/i.test(text)) return (await find("Media Converter", "network-fiber-urunler"))?.id ?? undefined
-    if (/patch kablo/i.test(text)) return (await find("Fiber Patch Kablo", "network-fiber-urunler"))?.id ?? undefined
-    if (/patch panel|dağıtıc/i.test(text)) return (await find("Fiber Patch Paneller", "network-fiber-urunler"))?.id ?? undefined
-    if (/pigtail/i.test(text)) return (await find("Fiber Pigtail", "network-fiber-urunler"))?.id ?? undefined
-    return (await find("Fiber Ürünler", "network"))?.id ?? undefined
-  }
-
-  // Ağ Kabloları
-  if (alt.includes("ağ kablo") || /cat6|cat5e|patch kablo|network kablo/i.test(text)) {
-    if (/patch/i.test(text)) return (await find("Patch Kablolar", "network-ag-kablolari"))?.id ?? undefined
-    return (await find("CAT6 Kablo", "network-ag-kablolari"))?.id ?? undefined
-  }
-
-  // Network Sarf
-  if (alt.includes("network sarf") || /konnektor|pense|sonlandirma|crimp/i.test(text)) {
-    if (/konnektor|connector|rj45/i.test(text)) return (await find("Konnektör", "network-network-sarf"))?.id ?? undefined
-    if (/pense|crimp/i.test(text)) return (await find("Pense", "network-network-sarf"))?.id ?? undefined
-    if (/sonlandirma/i.test(text)) return (await find("Sonlandırma Ürünleri", "network-network-sarf"))?.id ?? undefined
-    return (await find("Network Sarf", "network"))?.id ?? undefined
-  }
-
-  // Patch Panel
-  if (/patch panel/i.test(text)) return (await find("Patch Panel", "network"))?.id ?? undefined
-
-  // Antenler
-  if (/anten|antenna|sector|omni|mimo/i.test(text)) return (await find("Antenler", "network"))?.id ?? undefined
-
-  // UPS
-  if (alt.includes("ups") || alt.includes("kesintisiz") || /ups\b|line interactive|online ups|kesintisiz güç/i.test(text)) {
-    if (/online/i.test(text)) return (await find("Online", "guc-elektronigi-ups"))?.id ?? undefined
-    if (/line interactive/i.test(text)) return (await find("Line Interactive", "guc-elektronigi-ups"))?.id ?? undefined
-    return (await find("UPS", "guc-elektronigi"))?.id ?? undefined
-  }
-
-  // Akü
-  if (/akü|battery|\bpil\b/i.test(text)) return (await find("Akü", "guc-elektronigi"))?.id ?? undefined
-
-  // Korumalı Priz
-  if (/priz|surge protector|power strip|korumal/i.test(text)) return (await find("Korumalı Prizler", "guc-elektronigi"))?.id ?? undefined
-
-  // Seslendirme
-  if (alt.includes("ses sistem") || /amfi|mikser|amplifier|receiver|hoparlör|speaker|mikrofon|microphone|anons/i.test(text)) {
-    if (/amfi|mikser|amplifier|receiver/i.test(text)) return (await find("Amfi / Mikserler", "seslendirme-sistemleri"))?.id ?? undefined
-    if (/hoparl|speaker/i.test(text)) return (await find("Hoparlör", "seslendirme-sistemleri"))?.id ?? undefined
-    if (/mikrofon|microphone|\bmic\b/i.test(text)) return (await find("Mikrofonlar", "seslendirme-sistemleri"))?.id ?? undefined
-    if (/anons/i.test(text)) return (await find("Acil Anons Sistemleri", "seslendirme-sistemleri"))?.id ?? undefined
-    return (await find("Seslendirme Sistemleri"))?.id ?? undefined
-  }
-
-  // Kabinetler
-  if (alt.includes("kabin") || /\bkabin\b|rack|server rack|network rack/i.test(text)) {
-    if (/aksesuar|fan|rail|shelf|drawer|cable organ/i.test(text)) return (await find("Kabin Aksesuarları", "kabinetler"))?.id ?? undefined
-    return (await find("Kabin", "kabinetler"))?.id ?? undefined
-  }
-
-  return undefined
+  return leaf.id
 }
 
-// IP kamera ürün adından tip + çözünürlük ile derin kategori bul
-async function resolveIpCameraCategory(productName: string): Promise<string | undefined> {
-  const name = productName.toLowerCase()
-  const find = async (catName: string, parentSlug: string) => {
-    const parent = await prisma.category.findFirst({ where: { slug: parentSlug, deletedAt: null }, select: { id: true } })
-    if (!parent) return null
-    return prisma.category.findFirst({ where: { name: { equals: catName, mode: "insensitive" as const }, parentId: parent.id, deletedAt: null }, select: { id: true } })
+/** Kategorisi olmayan ürünler için "Diğer" kategorisi */
+let digerCategoryId: string | null = null
+async function getDigelerCategoryId(): Promise<string> {
+  if (digerCategoryId) return digerCategoryId
+  let cat = await prisma.category.findFirst({
+    where: { name: { equals: "Diğer", mode: "insensitive" as const }, parentId: null, deletedAt: null },
+    select: { id: true },
+  })
+  if (!cat) {
+    const slug = await uniqueSlug("Diğer", "category")
+    cat = await prisma.category.create({
+      data: { name: "Diğer", slug, parentId: null, depth: 0, isActive: true, sortOrder: 999 },
+      select: { id: true },
+    })
   }
-
-  // Tip belirle
-  let typeSlug = ""
-  let typeName = ""
-  if (/bullet/i.test(name)) { typeSlug = "guvenlik-ip-kameralar-bullet"; typeName = "Bullet" }
-  else if (/dome/i.test(name)) { typeSlug = "guvenlik-ip-kameralar-dome"; typeName = "Dome" }
-  else if (/ptz|speed ?dome|speeddome/i.test(name)) { typeSlug = "guvenlik-ip-kameralar-speed-dome-ptz"; typeName = "Speed Dome (PTZ)" }
-  else if (/turret/i.test(name)) return (await find("Turret", "guvenlik-ip-kameralar"))?.id ?? undefined
-  else if (/fisheye|panoramik|360|pano/i.test(name)) return (await find("Fisheye / Panoramik", "guvenlik-ip-kameralar"))?.id ?? undefined
-  else if (/termal|thermal/i.test(name)) return (await find("Termal Kamera", "guvenlik-ip-kameralar"))?.id ?? undefined
-  else if (/plaka|lpr|anpr/i.test(name)) return (await find("LPR / Plaka Tanıma", "guvenlik-ip-kameralar"))?.id ?? undefined
-  else return (await prisma.category.findFirst({ where: { name: { equals: "IP Kameralar", mode: "insensitive" as const }, deletedAt: null }, select: { id: true } }))?.id ?? undefined
-
-  // MP belirle
-  let mp = "Diğer"
-  if (/8\s?mp|4k\b|3840|2160/i.test(name)) mp = "8MP"
-  else if (/5\s?mp|5mp\b/i.test(name)) mp = "5MP"
-  else if (/4\s?mp|4mp\b|2688|2560/i.test(name)) mp = "4MP"
-  else if (/3\s?mp|3mp\b|2048/i.test(name)) mp = "3MP"
-  else if (/2\s?mp|2mp\b|1080|1920/i.test(name)) mp = "2MP"
-
-  // Önce MP alt kategorisinde ara
-  const mpCat = await find(mp, typeSlug)
-  if (mpCat) return mpCat.id
-
-  // Bulamazsa tip kategorisine dön
-  const typeCat = await prisma.category.findFirst({ where: { slug: typeSlug, deletedAt: null }, select: { id: true } })
-  return typeCat?.id ?? undefined
-}
-
-// Pasif ürünler kategorisinin ID'si (cache'li)
-let passiveCategoryIdCache: string | null = null
-async function getPassiveCategoryId(): Promise<string | undefined> {
-  if (passiveCategoryIdCache) return passiveCategoryIdCache
-  const cat = await prisma.category.findFirst({ where: { name: "Pasif Ürünler", deletedAt: null }, select: { id: true } })
-  if (cat) {
-    passiveCategoryIdCache = cat.id
-    return cat.id
-  }
-  return undefined
+  digerCategoryId = cat.id
+  return digerCategoryId
 }
 
 // ============================================================================
@@ -556,17 +435,9 @@ async function processProduct(
   )
   const brandId = await resolveBrand(item.marka)
 
-  // IP Kameralar: resolveCategory b2bdepo enAlt "IP Kameralar" için skip eder,
-  // ürün adından tip + MP çıkarıp derin kategoriye gönder
-  if (!categoryId && item.enAltKategoriAdi?.toLowerCase().includes("ip kamera")) {
-    categoryId = await resolveIpCameraCategory(item.urunAdi)
-  }
-
-  // Kategori bulunamadıysa pasif kategoriye at
-  let isActive = true
+  // Kategorisi olmayan ürünler "Diğer" kategorisine — pasif ürün yok
   if (!categoryId) {
-    categoryId = await getPassiveCategoryId()
-    isActive = false
+    categoryId = await getDigelerCategoryId()
   }
 
   // Urunu barkod veya metadata ile bul
@@ -596,7 +467,7 @@ async function processProduct(
         brandId,
         categoryId,
         images: item.resimler ?? [],
-        isActive,
+        isActive: true,
         unit: "ADET",
         metadata: { b2bdepo_id: extId },
       },
@@ -616,7 +487,7 @@ async function processProduct(
         barcode: item.ean ?? product.barcode,
         brandId: brandId ?? product.brandId ?? undefined,
         categoryId: categoryId ?? product.categoryId ?? undefined,
-        isActive,
+        isActive: true,
         images: item.resimler && item.resimler.length > 0 ? item.resimler : product.images,
         metadata: {
           ...existingMeta,

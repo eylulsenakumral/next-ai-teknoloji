@@ -1,5 +1,5 @@
 import "dotenv/config"
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient, type SolutionCategory } from "@prisma/client"
 import { PrismaPg } from "@prisma/adapter-pg"
 import pg from "pg"
 
@@ -11,7 +11,7 @@ async function main() {
   console.log("Seeding content tables...")
 
   // Solutions
-  const solutions = [
+  const solutions: { number: string; title: string; tagline: string; description: string; icon: string; gradient: string; brands: string[]; features: string[]; category: SolutionCategory; sortOrder: number }[] = [
     { number: "01", title: "Video Güvenlik", tagline: "CCTV / IP Kamera / NVR", description: "IP kamera, NVR, analitik yazılım ve montaj ekipmanlarıyla uçtan uca görüntü güvenlik sistemleri. AI tabanlı yüz/motorlu taşıt tanıma, plate recognition ve davranış analitiği entegrasyonu.", icon: "IcnCamera", gradient: "from-[var(--color-primary)] via-[var(--color-primary)] to-[#1a2942]", brands: ["Dahua","Hikvision","UNV","Reolink"], features: ["4K / 8MP / 12MP yüksek çözünürlük","AI analitik (yüz, plaka, davranış)","Edge & cloud depolama (NVR/CVR)","PoE — tek kablo ile güç + veri","Mobile & web izleme","Heat mapping & people counting"], category: "MAIN", sortOrder: 1 },
     { number: "02", title: "Ağ Altyapısı", tagline: "Switch / Wi-Fi / Fiber", description: "Yönetilen switch, wireless AP ve fiber omurga ile yüksek performanslı, güvenli ve ölçeklenebilir bağlantı altyapısı.", icon: "IcnNetwork", gradient: "from-[#0f766e] via-[#0d9488] to-[#14b8a6]", brands: ["Ruijie","TP-Link Omada","Ubiquiti","Cisco"], features: ["Layer 2/3 yönetilen switch","Wi-Fi 6 / 6E access point","Fiber OM3/OM4 backbone","VLAN & QoS konfigürasyonu","24/7 monitoring","DDoS koruması & firewall"], category: "MAIN", sortOrder: 2 },
     { number: "03", title: "Geçiş Kontrol", tagline: "Kart / Biometrik / Bariyer", description: "Kart okuyucu, bariyer, turnike ve biometrik sistemlerle kritik erişim noktalarının yönetimi.", icon: "IcnAccessControl", gradient: "from-[#7c3aed] via-[#8b5cf6] to-[#a78bfa]", brands: ["Hikvision","Dahua","ZKTeco","Suprema"], features: ["Biyometrik (parmak izi, yüz, iris)","OSDP v2 protokolü","IP tabanlı merkezi yönetim","Turnike, bariyer, speed gate","Ziyaretçi yönetim sistemi","Anti-passback & zaman dilimi"], category: "MAIN", sortOrder: 3 },

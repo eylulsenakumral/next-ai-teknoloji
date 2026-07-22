@@ -124,16 +124,18 @@ export default async function CozumlerPage() {
 
               {/* Right — solution icon grid */}
               <div className="hidden lg:grid grid-cols-2 gap-4">
-                {solutions.map((s, i) => (
+                {mainSolutions.map((s, i) => {
+                  const SIcon = icon(s.icon)
+                  return (
                   <div
-                    key={s.number}
+                    key={s.id}
                     className="group relative overflow-hidden rounded-2xl border border-[#E9F1FC] bg-white p-5 shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:border-[#1852ac]/20"
                     style={{ animationDelay: `${i * 150}ms` }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-[#1852ac]/[0.03] via-transparent to-[#06B6D4]/[0.03] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     <div className="relative flex items-center gap-4">
                       <span className={`inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${s.gradient} text-white shadow-md transition-transform duration-500 group-hover:scale-110`}>
-                        <s.Icon className="h-6 w-6" />
+                        <SIcon className="h-6 w-6" />
                       </span>
                       <div>
                         <p className="text-sm font-bold text-[#1852ac]">{s.title}</p>
@@ -143,7 +145,8 @@ export default async function CozumlerPage() {
                       </div>
                     </div>
                   </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
 
@@ -193,8 +196,10 @@ export default async function CozumlerPage() {
       </Reveal>
 
       {/* ─── SOLUTION BLOCKS ─── */}
-      {solutions.map((s, idx) => (
-        <Reveal key={s.number} delay={idx * 100}>
+      {mainSolutions.map((s, idx) => {
+        const SIcon = icon(s.icon)
+        return (
+        <Reveal key={s.id} delay={idx * 100}>
           <section
             className={
               idx % 2 === 0
@@ -204,11 +209,10 @@ export default async function CozumlerPage() {
           >
             <div className="mx-auto max-w-7xl">
               <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start">
-                {/* Left — header card */}
                 <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm md:p-10">
                   <div className="flex items-center gap-4">
                     <span className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${s.gradient} text-white shadow-lg`}>
-                      <s.Icon className="h-6 w-6" />
+                      <SIcon className="h-6 w-6" />
                     </span>
                     <span className="font-nx-mono text-[10px] font-bold tracking-[.18em] text-slate-400">
                       {s.number}
@@ -220,7 +224,7 @@ export default async function CozumlerPage() {
                   <p className="mt-2 font-nx-mono text-[10px] uppercase tracking-[.18em] text-slate-400">
                     {s.tagline}
                   </p>
-                  <p className="mt-6 text-sm leading-7 text-slate-600">{s.desc}</p>
+                  <p className="mt-6 text-sm leading-7 text-slate-600">{s.description}</p>
                   <div className="mt-6 flex flex-wrap gap-2">
                     {s.brands.map((b) => (
                       <span
@@ -239,7 +243,6 @@ export default async function CozumlerPage() {
                   </Link>
                 </div>
 
-                {/* Right — features grid */}
                 <div className="grid gap-3 sm:grid-cols-2">
                   {s.features.map((f) => (
                     <div
@@ -255,7 +258,8 @@ export default async function CozumlerPage() {
             </div>
           </section>
         </Reveal>
-      ))}
+        )
+      })}
 
       {/* ─── İLERİ ANALİTİK ÇÖZÜMLER ─── */}
       <Reveal>
@@ -275,20 +279,22 @@ export default async function CozumlerPage() {
             </div>
 
             <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {analyticsSolutions.map((a) => (
+              {analyticsSolutions.map((a) => {
+                const AIcon = icon(a.icon)
+                return (
                 <div
-                  key={a.title}
+                  key={a.id}
                   className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-[var(--color-primary)]/20 hover:shadow-md"
                 >
                   <div className="flex items-center gap-4">
                     <span className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${a.gradient} text-white shadow-md`}>
-                      <a.Icon className="h-6 w-6" />
+                      <AIcon className="h-6 w-6" />
                     </span>
                     <h3 className="text-base font-bold leading-snug text-[var(--color-primary)]">
                       {a.title}
                     </h3>
                   </div>
-                  <p className="mt-4 text-sm leading-6 text-slate-500">{a.desc}</p>
+                  <p className="mt-4 text-sm leading-6 text-slate-500">{a.description}</p>
                   <Link
                     href="/teklif-iste"
                     className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-[var(--color-primary)] transition group-hover:text-[var(--color-primary)]/70"
@@ -296,7 +302,8 @@ export default async function CozumlerPage() {
                     Teklif Al <span aria-hidden>→</span>
                   </Link>
                 </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </section>
@@ -321,18 +328,21 @@ export default async function CozumlerPage() {
             </div>
 
             <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {sectorSolutions.map((sec) => (
+              {sectorSolutions.map((sec) => {
+                const SecIcon = icon(sec.icon)
+                return (
                 <div
-                  key={sec.title}
+                  key={sec.id}
                   className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:bg-white/10 hover:border-white/20"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-[#8aa8bc]">
-                    <sec.Icon className="h-5 w-5" />
+                    <SecIcon className="h-5 w-5" />
                   </div>
                   <h3 className="mt-4 text-base font-bold">{sec.title}</h3>
-                  <p className="mt-2 text-xs leading-5 text-slate-400">{sec.desc}</p>
+                  <p className="mt-2 text-xs leading-5 text-slate-400">{sec.description}</p>
                 </div>
-              ))}
+                )
+              })}
             </div>
           </div>
         </section>
@@ -357,13 +367,15 @@ export default async function CozumlerPage() {
             </div>
 
             <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {referenceProjects.map((p) => (
+              {referenceProjects.map((p) => {
+                const PIcon = icon(p.icon)
+                return (
                 <div
-                  key={p.title}
+                  key={p.id}
                   className="rounded-2xl border border-slate-200 bg-white p-6 transition hover:border-[var(--color-primary)]/30 hover:shadow-md"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-primary)]/10 text-[var(--color-primary)]">
-                    <p.icon className="h-5 w-5" />
+                    <PIcon className="h-5 w-5" />
                   </div>
                   <div className="mt-4 flex flex-wrap gap-1.5">
                     {p.tags.map((t) => (
@@ -378,9 +390,10 @@ export default async function CozumlerPage() {
                   <h3 className="mt-3 text-sm font-bold leading-snug text-[var(--color-primary)]">
                     {p.title}
                   </h3>
-                  <p className="mt-2 text-xs leading-5 text-slate-500">{p.desc}</p>
+                  <p className="mt-2 text-xs leading-5 text-slate-500">{p.description}</p>
                 </div>
-              ))}
+                )
+              })}
             </div>
 
             <div className="mt-10 text-center">
@@ -447,12 +460,12 @@ export default async function CozumlerPage() {
             </div>
             <div className="divide-y divide-slate-100 border-y border-slate-100">
               {faqs.map((f) => (
-                <details key={f.q} className="group py-5">
+                <details key={f.id} className="group py-5">
                   <summary className="flex cursor-pointer items-center justify-between gap-4 text-base font-bold text-slate-900 marker:content-none">
-                    {f.q}
+                    {f.question}
                     <Plus className="h-5 w-5 shrink-0 text-[var(--color-primary)] transition group-open:rotate-45" />
                   </summary>
-                  <p className="mt-3 text-sm leading-6 text-slate-500">{f.a}</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-500">{f.answer}</p>
                 </details>
               ))}
             </div>

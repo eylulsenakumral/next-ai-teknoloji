@@ -8,6 +8,7 @@ export async function GET() {
     TTL.BRAND_LIST,
     () => prisma.brand.findMany({
       where: {
+        isActive: true,
         deletedAt: null,
         products: { some: { deletedAt: null, isActive: true } },
       },

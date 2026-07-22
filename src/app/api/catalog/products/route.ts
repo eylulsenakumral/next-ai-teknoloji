@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
   let categoryFilter: Record<string, unknown> = {}
   if (categoryId) {
     const allCats = await prisma.category.findMany({
-      where: { deletedAt: null },
+      where: { deletedAt: null, isActive: true },
       select: { id: true, parentId: true },
     })
     const descendantIds = new Set<string>([categoryId])

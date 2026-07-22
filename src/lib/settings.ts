@@ -1,20 +1,16 @@
+import "server-only"
 import { cache } from "react"
 import { prisma } from "./db"
-import { cacheGet, cacheSet, CacheKey } from "./cache"
 
-const SETTINGS_CACHE_KEY = CacheKey.dashboardStats().replace("dashboard:stats", "settings:all")
 const SETTINGS_TTL = 5 * 60 // 5 dakika
 
 export type SettingsMap = Record<string, unknown>
 
 /**
- * Tüm ayarları DB'den çeker (Redis cache'li).
+ * Tüm ayarları DB'den çeker.
  * Server Component'lerde React cache ile request başına tek sorgu.
  */
 export const getSettings = cache(async (): Promise<SettingsMap> => {
-  const cached = await cacheGet<SettingsMap>(SETTINGS_CACHE_KEY)
-  if (cached) return cached
-
   const rows = await prisma.setting.findMany({
     orderBy: [{ group: "asc" }, { key: "asc" }],
   })
@@ -23,8 +19,6 @@ export const getSettings = cache(async (): Promise<SettingsMap> => {
   for (const row of rows) {
     map[row.key] = row.value
   }
-
-  cacheSet(SETTINGS_CACHE_KEY, map, SETTINGS_TTL).catch(() => undefined)
   return map
 })
 
@@ -95,6 +89,6 @@ export async function getLiveCounts() {
  * Cache invalidasyonu — admin panelden ayar değişince çağrılır.
  */
 export async function invalidateSettingsCache(): Promise<void> {
-  const { cacheDel } = await import("./cache")
-  await cacheDel(SETTINGS_CACHE_KEY)
+  // React cache per-request'tir, ayrıca temizlemeye gerek yok.
+  // Admin ayrı bir request'te yazdığı için bir sonraki sayfa yüklemesi taze veri çeker.
 }
