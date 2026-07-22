@@ -16,6 +16,7 @@ model Brand {
   isActive    Boolean   @default(true) @map("is_active")
   sortOrder   Int       @default(0) @map("sort_order")
   metadata    Json?
+  source      String?   @db.VarChar(50)
   createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
   createdBy   String?   @map("created_by") @db.Uuid

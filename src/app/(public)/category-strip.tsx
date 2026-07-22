@@ -7,10 +7,10 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 
 export type HeroCard = { title: string; href: string; img: string }
 
-const PAGE_SIZE = 5
+const PAGE_SIZE = 7
 
 /**
- * Hero kategori şeridi — Ceron 5'li kart düzeni, sayfalı.
+ * Hero kategori şeridi — Ceron 7'li kart düzeni, sayfalı.
  * Tüm aktif ana kategoriler sağ/sol oklarla gezilir.
  */
 export function CategoryStrip({ categories }: { categories: HeroCard[] }) {
@@ -34,16 +34,16 @@ export function CategoryStrip({ categories }: { categories: HeroCard[] }) {
         </button>
       )}
 
-      {/* Ceron birebir: 5 kolon grid, 15px gap, orta kart 1.3x scale */}
+      {/* Ceron: 7 kolon grid, 15px gap, orta kart (4.) büyütülmüş */}
       <div className="nx-cat-grid" key={page}>
         {visible.map((cat, i) => {
-          const isCenter = i === 2 // lg'de orta kart
+          const isCenter = i === 3 // lg'de orta kart (7'linin 4.'sü)
           return (
             <Link
               key={cat.href}
               href={cat.href}
-              style={isCenter ? undefined : { zIndex: i === 0 || i === 4 ? 5 : 8 }}
-              className={`nx-cat-card group relative block min-h-[327px] overflow-hidden${
+              style={isCenter ? undefined : { zIndex: i === 0 || i === 6 ? 5 : 8 }}
+              className={`nx-cat-card group relative block overflow-hidden${
                 isCenter ? " nx-cat-card--center" : ""
               }`}
             >
@@ -58,10 +58,10 @@ export function CategoryStrip({ categories }: { categories: HeroCard[] }) {
               {i === 0 && (
                 <div className="absolute inset-0 bg-[linear-gradient(90deg,#E9F1FC_0%,transparent_25%)]" />
               )}
-              {i === 4 && (
+              {i === 6 && (
                 <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_75%,#E9F1FC_100%)]" />
               )}
-              {(i === 1 || i === 3) && (
+              {(i === 1 || i === 2 || i === 4 || i === 5) && (
                 <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_60%,#E9F1FC_100%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               )}
               {isCenter && (
@@ -69,11 +69,11 @@ export function CategoryStrip({ categories }: { categories: HeroCard[] }) {
               )}
               {/* Ceron: cam hap etiket — white/50 + blur 5px, koyu başlık + cyan yuvarlak ikon */}
               <div className="nx-cat-pill absolute bottom-[15px] left-[15px] flex items-center gap-[5px] rounded-full bg-white/50 py-[3px] pl-[10px] pr-[3px] backdrop-blur-[5px] transition-colors duration-300 group-hover:bg-white">
-                <span className="text-base font-semibold leading-none text-nx-dark">
+                <span className="text-[13px] font-semibold leading-none text-nx-dark">
                   {cat.title}
                 </span>
-                <span className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full bg-nx-accent text-white">
-                  <ArrowRight className="h-[15px] w-[15px]" />
+                <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full bg-nx-accent text-white">
+                  <ArrowRight className="h-[13px] w-[13px]" />
                 </span>
               </div>
             </Link>

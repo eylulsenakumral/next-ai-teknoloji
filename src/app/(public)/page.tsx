@@ -21,12 +21,13 @@ export const metadata: Metadata = {
 // Kategori şeridi DB'den beslenir — saatte bir yenilenir (ISR)
 export const revalidate = 3600
 
-/** Hero kategori şeridi — tüm aktif ana kategoriler (şerit 5'li sayfalar halinde gösterir) */
+/** Hero kategori şeridi — ilk 7 aktif ana kategori (Pasif Ürünler sortOrder 99 ile dışarıda kalır) */
 async function getHeroCategories(): Promise<HeroCard[]> {
   try {
     const cats = await prisma.category.findMany({
       where: { isActive: true, deletedAt: null, parentId: null },
       orderBy: { sortOrder: "asc" },
+      take: 7,
       select: { name: true, slug: true, imageUrl: true },
     })
     if (cats.length === 0) return FALLBACK_CARDS

@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const { name, slug, logoUrl, description, websiteUrl, isActive, sortOrder } = parsed.data
+  const { name, slug, logoUrl, description, websiteUrl, isActive, sortOrder, source } = parsed.data
 
   const baseSlug = slug || generateSlug(name)
   let finalSlug = baseSlug
@@ -87,6 +87,7 @@ export async function POST(req: NextRequest) {
       websiteUrl: websiteUrl || null,
       isActive,
       sortOrder,
+      source: source || null,
       createdBy: session!.user.id,
     },
   })

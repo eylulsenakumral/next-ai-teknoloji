@@ -24,6 +24,7 @@ interface BrandFormData {
   websiteUrl: string
   isActive: boolean
   sortOrder: number
+  source: string
 }
 
 interface BrandFormProps {
@@ -41,6 +42,7 @@ const defaultForm: BrandFormData = {
   websiteUrl: "",
   isActive: true,
   sortOrder: 0,
+  source: "",
 }
 
 interface FieldErrors {
@@ -51,6 +53,7 @@ interface FieldErrors {
   websiteUrl?: string[]
   isActive?: string[]
   sortOrder?: string[]
+  source?: string[]
 }
 
 export function BrandForm({ open, onOpenChange, initialData, onSuccess }: BrandFormProps) {
@@ -70,6 +73,7 @@ export function BrandForm({ open, onOpenChange, initialData, onSuccess }: BrandF
         websiteUrl: initialData?.websiteUrl ?? "",
         isActive: initialData?.isActive ?? true,
         sortOrder: initialData?.sortOrder ?? 0,
+        source: initialData?.source ?? "",
       })
       setErrors({})
       setServerError("")
@@ -98,6 +102,7 @@ export function BrandForm({ open, onOpenChange, initialData, onSuccess }: BrandF
       websiteUrl: form.websiteUrl || undefined,
       isActive: form.isActive,
       sortOrder: form.sortOrder,
+      source: form.source || undefined,
     }
 
     const url = isEditing ? `/api/brands/${initialData!.id}` : "/api/brands"
@@ -211,6 +216,24 @@ export function BrandForm({ open, onOpenChange, initialData, onSuccess }: BrandF
               rows={3}
               className="h-auto w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-2 text-sm transition-colors outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 resize-none"
             />
+          </div>
+
+          <div className="space-y-1.5">
+            <Label htmlFor="brand-source">Kaynak</Label>
+            <select
+              id="brand-source"
+              value={form.source}
+              onChange={(e) => setForm((p) => ({ ...p, source: e.target.value }))}
+              className="h-10 w-full rounded-lg border border-input bg-transparent px-2.5 text-sm outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+            >
+              <option value="">Manuel / Belirtilmemiş</option>
+              <option value="b2bdepo">B2BDepo</option>
+              <option value="bizimhesap">BizimHesap</option>
+            </select>
+            {errors.source && (
+              <p className="text-xs text-destructive">{errors.source[0]}</p>
+            )}
+            <p className="text-xs text-muted-foreground">Entegrasyondan gelen markalar için kaynak seçin.</p>
           </div>
 
           <div className="flex items-center gap-3">

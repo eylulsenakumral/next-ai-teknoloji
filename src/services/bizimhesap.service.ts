@@ -392,10 +392,10 @@ export async function syncProducts(token: string): Promise<SyncProductsResult> {
           brand = await prisma.brand.findFirst({ where: { slug: brandSlug, deletedAt: null } })
           if (!brand) {
             try {
-              brand = await prisma.brand.create({ data: { name: brandName, slug: brandSlug } })
+              brand = await prisma.brand.create({ data: { name: brandName, slug: brandSlug, source: "bizimhesap" } })
             } catch {
               // Slug çakışması durumunda timestamp ekle
-              brand = await prisma.brand.create({ data: { name: brandName, slug: `${brandSlug}-${Date.now()}` } })
+              brand = await prisma.brand.create({ data: { name: brandName, slug: `${brandSlug}-${Date.now()}`, source: "bizimhesap" } })
             }
           }
         }
