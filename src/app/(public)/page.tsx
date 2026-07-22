@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { prisma } from "@/lib/db"
-import { HeroCarousel } from "./hero-carousel"
+import { HomeHero } from "./home-hero"
 import { CategoryStrip, type HeroCard } from "./category-strip"
 import { FALLBACK_CARDS } from "./home-content"
 import { AboutSection } from "./sections/about-section"
@@ -42,7 +42,12 @@ async function getHeroCategories(): Promise<HeroCard[]> {
 }
 
 export default async function VitrinPage() {
-  const categories = await getHeroCategories()
+  const [categories, productCount] = await Promise.all([
+    getHeroCategories(),
+    prisma.product
+      .count({ where: { isActive: true, deletedAt: null } })
+      .catch(() => 0),
+  ])
 
   const orgLd = {
     "@context": "https://schema.org",
@@ -85,8 +90,8 @@ export default async function VitrinPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteLd) }}
       />
-      {/* ─── HERO (carousel) ──────────────────────────────────── */}
-      <HeroCarousel />
+      {/* ─── HERO — katalog sayfasıyla aynı, arama /katalog'a yönlendirir ─── */}
+      <HomeHero total={productCount} />
 
       {/* ─── CATEGORY STRIP — DB'den tüm kategoriler, 5'li sayfalar + sağ/sol ok ─── */}
       {/* Gradyan: hero'nun tonundan About'un beyazına yumuşak geçiş */}

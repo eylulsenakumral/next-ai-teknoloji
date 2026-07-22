@@ -2,10 +2,11 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Menu, X, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { SearchAutocomplete } from "@/components/public/search-autocomplete"
 
 /**
  * Public Header — Ceron tasarım dili
@@ -24,17 +25,7 @@ const NAV: ReadonlyArray<readonly [label: string, to: string]> = [
 
 export function PublicHeaderNext() {
   const pathname = usePathname()
-  const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [query, setQuery] = useState("")
-
-  function onSearch(e: React.FormEvent) {
-    e.preventDefault()
-    const q = query.trim()
-    if (!q) return
-    setMobileOpen(false)
-    router.push(`/katalog?search=${encodeURIComponent(q)}`)
-  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-white/10 bg-[#1852ac]/95 px-5 py-4 backdrop-blur-xl md:px-10 font-nx-sans text-white">
@@ -75,24 +66,15 @@ export function PublicHeaderNext() {
           })}
         </nav>
 
-        {/* Arama — B2B: SKU/model/marka */}
-        <form
-          onSubmit={onSearch}
-          role="search"
-          className="hidden min-w-0 flex-1 max-w-[220px] items-center lg:flex"
-        >
-          <div className="relative w-full">
+        {/* Arama — B2B: SKU/model/marka + otomatik tamamlama */}
+        <SearchAutocomplete
+          formClassName="hidden min-w-0 flex-1 max-w-[220px] lg:block"
+          icon={
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/50" />
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Ürün, model, marka ara…"
-              aria-label="Ürün ara"
-              className="h-9 w-full rounded-full border border-white/20 bg-white/10 pl-9 pr-3 text-xs text-white placeholder:text-white/50 outline-none transition focus:border-nx-accent focus:bg-white/15"
-            />
-          </div>
-        </form>
+          }
+          inputClassName="h-9 w-full rounded-full border border-white/20 bg-white/10 pl-9 pr-3 text-xs text-white placeholder:text-white/50 outline-none transition focus:border-nx-accent focus:bg-white/15"
+          dropdownClassName="left-auto right-0 w-[340px] max-w-[92vw]"
+        />
 
         {/* Right actions */}
         <div className="flex items-center gap-2">
@@ -134,18 +116,14 @@ export function PublicHeaderNext() {
       {/* Mobile drawer (inline) */}
       {mobileOpen && (
         <div id="mobile-nav-drawer" className="lg:hidden mt-4 pb-2 space-y-1">
-          {/* Mobil arama */}
-          <form onSubmit={onSearch} role="search" className="relative mb-2">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/50" />
-            <input
-              type="search"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Ürün, model, marka ara…"
-              aria-label="Ürün ara"
-              className="h-10 w-full rounded-full border border-white/20 bg-white/10 pl-9 pr-3 text-sm text-white placeholder:text-white/50 outline-none focus:border-nx-accent"
-            />
-          </form>
+          {/* Mobil arama + otomatik tamamlama */}
+          <SearchAutocomplete
+            formClassName="relative mb-2"
+            icon={
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/50" />
+            }
+            inputClassName="h-10 w-full rounded-full border border-white/20 bg-white/10 pl-9 pr-3 text-sm text-white placeholder:text-white/50 outline-none focus:border-nx-accent"
+          />
           {NAV.map(([label, to]) => {
             const isActive = pathname === to || (to !== "/" && pathname.startsWith(to))
             return (
