@@ -79,7 +79,7 @@ export function PublicHeaderNext() {
         {/* Right actions */}
         <div className="flex items-center gap-2">
           <Link
-            href="/bayimiz-olun"
+            href="/basvuru"
             className="hidden text-[13px] font-semibold text-white transition hover:text-nx-accent lg:block"
           >
             Bayimiz Olun
@@ -151,7 +151,7 @@ export function PublicHeaderNext() {
               Bayi Girişi
             </Link>
             <Link
-              href="/bayimiz-olun"
+              href="/basvuru"
               onClick={() => setMobileOpen(false)}
               className="flex-1 text-center rounded-full border border-nx-dark/20 px-3 py-2 text-xs font-bold text-nx-dark"
             >

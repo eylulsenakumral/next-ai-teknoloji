@@ -90,15 +90,19 @@ export function PublicFooterNext() {
           <ul className="mt-5 space-y-4 text-sm text-slate-300">
             <li className="flex items-start gap-3">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-nx-accent" />
-              <span>İstanbul, Türkiye</span>
+              <span>Nusratiye Mh. Uğur Mumcu Cad. No:23/A Çorlu/Tekirdağ</span>
             </li>
             <li className="flex items-center gap-3">
               <Phone className="h-4 w-4 shrink-0 text-nx-accent" />
-              <span>0850 XXX XX XX</span>
+              <a href="tel:+905529895959" className="transition hover:text-nx-accent">
+                0 552 989 59 59
+              </a>
             </li>
             <li className="flex items-center gap-3">
               <Mail className="h-4 w-4 shrink-0 text-nx-accent" />
-              <span>info@nexadepo.com</span>
+              <a href="mailto:info@nexadepo.com" className="transition hover:text-nx-accent">
+                info@nexadepo.com
+              </a>
             </li>
           </ul>
         </div>
