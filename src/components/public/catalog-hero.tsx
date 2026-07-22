@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Zap, Shield, Truck, Headphones, Search } from "lucide-react"
 
 /**
@@ -23,6 +23,24 @@ export function CatalogHero({ total, onSearch }: { total: number; onSearch: (q: 
       ? `${(Math.floor(total / 100) * 100).toLocaleString("tr-TR")}+ Ürün`
       : "Ürün Yelpazesi"
 
+  const slides = [
+    { label: "Güvenlik", title: "Güvenlik Ürünlerinde Çözüm Ortağınız", accent: "Güvenlik" },
+    { label: "Yangın Alarm", title: "Yangın Algılama Sistemlerinde Güvenilir İş Ortağınız", accent: "Yangın" },
+    { label: "Hırsız Alarm", title: "Hırsız Alarm Sistemlerinde Profesyonel Çözümler", accent: "Alarm" },
+    { label: "Araç Kameraları", title: "Araç Kameralarında Güvenliğiniz İçin Buradayız", accent: "Araç" },
+  ]
+
+  const [index, setIndex] = useState(0)
+
+  const nextSlide = useCallback(() => {
+    setIndex((i) => (i + 1) % slides.length)
+  }, [slides.length])
+
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 4000)
+    return () => clearInterval(timer)
+  }, [nextSlide])
+
   return (
     <section className="relative bg-white border-b border-[var(--color-border)] overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[var(--color-background)] via-white to-white" />
@@ -36,12 +54,17 @@ export function CatalogHero({ total, onSearch }: { total: number; onSearch: (q: 
             </span>
             <span className="w-px h-4 bg-[var(--color-border)]" />
             <span className="text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-widest">
-              Teknoloji Çözüm Merkezi
+              {slides[index].label}
             </span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--color-primary)] mb-4">
-            Güvenlik, Yangın Alarm, Hırsız Alarm ve <span className="text-nx-accent">Araç Kameraları</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--color-primary)] mb-4 min-h-[1.2em]">
+            {slides[index].title.split(slides[index].accent).map((part, i, arr) => (
+              <span key={i}>
+                {part}
+                {i < arr.length - 1 && <span className="text-nx-accent">{slides[index].accent}</span>}
+              </span>
+            ))}
           </h1>
 
           <p className="text-lg text-[var(--color-text-muted)] mb-8 leading-relaxed">
