@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth"
 import { decode } from "next-auth/jwt"
 import { authOptions } from "@/lib/auth"
 import { unstable_cache } from "next/cache"
+import { getActiveCategoryMarginsMap } from "@/services/pricing.service"
 
 // TCMB döviz kuru cache - unstable_cache ile 1 saat
 const getCachedUsdTryRate = unstable_cache(
@@ -27,14 +28,16 @@ const getCachedUsdTryRate = unstable_cache(
 // Kategori hiyerarşisi cache - 5 dakika
 const getCategoryDescendants = unstable_cache(
   async (categorySlug: string) => {
+    // isActive filtresi YOK — kategori pasif olsa bile filtreleme çalışmalı
+    // (isActive sadece navigasyonda görünümü kontrol eder, ürün filtrelemeyi değil)
     const cat = await prisma.category.findFirst({
-      where: { slug: categorySlug, deletedAt: null, isActive: true },
+      where: { slug: categorySlug, deletedAt: null },
       select: { id: true },
     })
     if (!cat) return []
 
     const allCats = await prisma.category.findMany({
-      where: { deletedAt: null, isActive: true },
+      where: { deletedAt: null },
       select: { id: true, parentId: true },
     })
 
@@ -168,6 +171,7 @@ const getCachedProductListing = unstable_cache(
           specs: true,
           manualPrice: true,
           manualPriceCurrency: true,
+          categoryId: true,
           brand: { select: { name: true, slug: true } },
           category: { select: { name: true, slug: true } },
           supplierProducts: {
@@ -255,6 +259,9 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: "Kur bilgisi alınamadı." }, { status: 503 })
     }
 
+    // Aktif kategori marjlarını yükle (kategori marjı varsa tedarikçi marjını ezer)
+    const categoryMargins = showPrice ? await getActiveCategoryMarginsMap() : new Map<string, number>()
+
     const data = products.map((p) => {
       const totalStock = p.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
@@ -266,7 +273,8 @@ export async function GET(req: NextRequest) {
             .map((sp) => {
               const base = Number(sp.purchasePrice)
               const code = sp.supplier?.code?.toUpperCase() ?? ""
-              const markup = 1 + Number(sp.supplier?.marginRate ?? 30) / 100
+              const categoryMargin = p.categoryId ? categoryMargins.get(p.categoryId) : undefined
+              const markup = 1 + (categoryMargin ?? Number(sp.supplier?.marginRate ?? 30)) / 100
               return { ...sp, markedUpPrice: base * markup, supplierCode: code }
             })
             .sort((a, b) => a.markedUpPrice - b.markedUpPrice)[0]
