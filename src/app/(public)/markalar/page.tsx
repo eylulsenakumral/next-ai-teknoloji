@@ -1,5 +1,4 @@
 import Link from "next/link"
-import Image from "next/image"
 import { BadgeCheck, ArrowRight } from "lucide-react"
 import { prisma } from "@/lib/db"
 import { BrandGrid, type BrandItem, type BrandCategory } from "@/components/public/brand-grid"
@@ -172,13 +171,7 @@ export default async function MarkalarPage() {
                   className="flex shrink-0 items-center gap-3 opacity-70 transition hover:opacity-100"
                   aria-label={`${b.name} markası`}
                 >
-                  {b.logoUrl ? (
-                    <span className="relative block h-9 w-28">
-                      <Image src={b.logoUrl} alt={b.name} fill className="object-contain" sizes="112px" />
-                    </span>
-                  ) : (
-                    <span className="font-nx-heading text-xl font-bold tracking-tight text-[#1852ac]">{b.name}</span>
-                  )}
+                  <span className="font-nx-heading text-xl font-bold tracking-tight text-[#1852ac]">{b.name}</span>
                   <span className="rounded-full bg-[#E9F1FC] px-2 py-0.5 text-[10px] font-bold text-[#1852ac]">
                     {b.productCount}
                   </span>
