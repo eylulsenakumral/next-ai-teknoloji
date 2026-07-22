@@ -24,6 +24,7 @@ const PUBLIC_PATHS = [
   "/hakkimizda",
   "/iletisim",
   "/garanti-takip",
+  "/garanti-sorgula",
   "/gizlilik-politikasi",
   "/kullanim-sartlari",
   "/kampanyalar",

@@ -11,7 +11,7 @@ const QUICK_LINKS = [
   { label: "Ürünler", href: "/katalog" },
   { label: "Çözümler", href: "/cozumler" },
   { label: "Markalar", href: "/markalar" },
-  { label: "Bayi Programı", href: "/bayi-programi" },
+  { label: "Garanti Sorgula", href: "/garanti-sorgula" },
   { label: "Projenizi Tasarlayalım", href: "/proje-tasarim" },
 ]
 

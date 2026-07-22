@@ -20,7 +20,7 @@ const NAV: ReadonlyArray<readonly [label: string, to: string]> = [
   ["Çözümler", "/cozumler"],
   ["Markalar", "/markalar"],
   ["Projenizi Tasarlayalım", "/proje-tasarim"],
-  ["Bayi Programı", "/bayi-programi"],
+  ["Garanti Sorgula", "/garanti-sorgula"],
 ]
 
 export function PublicHeaderNext() {
