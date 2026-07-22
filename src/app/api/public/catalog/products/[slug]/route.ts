@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
+import { getActiveCategoryMarginsMap } from "@/services/pricing.service"
 
 // Tedarikçi kodu → Ürün Kodu prefix eşlemesi
 const SUPPLIER_CODE_PREFIX: Record<string, string> = {
@@ -105,6 +106,10 @@ export async function GET(
     // Döviz kuru çek
     const usdTry = showPrice ? await getUsdTryRate() : 0
 
+    // Aktif kategori marjlarını yükle (kategori marjı varsa tedarikçi marjını ezer)
+    const categoryMargins = showPrice ? await getActiveCategoryMarginsMap() : new Map<string, number>()
+    const categoryMargin = product.categoryId ? categoryMargins.get(product.categoryId) : undefined
+
     const totalStock = product.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
     // Tedarikçi bazlı stok ve fiyat bilgisi (mark-up dahil)
@@ -112,7 +117,7 @@ export async function GET(
       const supplierCode = sp.supplier?.code ?? ""
       const depoName = SUPPLIER_DEPO_MAP[supplierCode] || sp.supplier?.name || supplierCode
       const basePrice = sp.purchasePrice ? Number(sp.purchasePrice) : null
-      const marginRate = sp.supplier?.marginRate ?? DEFAULT_MARGIN_PCT
+      const marginRate = categoryMargin ?? sp.supplier?.marginRate ?? DEFAULT_MARGIN_PCT
       const markup = 1 + Number(marginRate) / 100
       const price = basePrice !== null ? basePrice * markup : null
       const currency = sp.currency || "TRY"
@@ -153,8 +158,9 @@ export async function GET(
             name: true,
             slug: true,
             images: true,
+            categoryId: true,
             brand: { select: { name: true, slug: true } },
-            category: { select: { name: true, slug: true } },
+            category: { select: { id: true, name: true, slug: true } },
             supplierProducts: {
               where: { deletedAt: null, isAvailable: true },
               select: {
@@ -221,12 +227,13 @@ export async function GET(
         suppliers,
         relatedProducts: relatedProducts.map((rp) => {
           const stock = rp.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
+          const rpCategoryMargin = rp.categoryId ? categoryMargins.get(rp.categoryId) : undefined
           const prices = showPrice
             ? rp.supplierProducts
                 .filter((sp) => sp.purchasePrice !== null)
                 .map((sp) => {
                   const base = Number(sp.purchasePrice)
-                  const marginRate = sp.supplier?.marginRate ?? DEFAULT_MARGIN_PCT
+                  const marginRate = rpCategoryMargin ?? sp.supplier?.marginRate ?? DEFAULT_MARGIN_PCT
                   return base * (1 + Number(marginRate) / 100)
                 })
             : []

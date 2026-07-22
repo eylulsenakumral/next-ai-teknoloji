@@ -253,38 +253,56 @@ export async function GET(req: NextRequest) {
       limit
     )
 
-    // Döviz kuru çek (sadece bayi/admin fiyat görecekse)
-    const usdTry = showPrice ? await getCachedUsdTryRate() : 0
-    if (showPrice && !usdTry) {
+    // Döviz kuru çek — public kullanıcılar da fiyat görecek
+    const usdTry = await getCachedUsdTryRate()
+    if (!usdTry) {
       return NextResponse.json({ error: "Kur bilgisi alınamadı." }, { status: 503 })
     }
 
     // Aktif kategori marjlarını yükle (kategori marjı varsa tedarikçi marjını ezer)
-    const categoryMargins = showPrice ? await getActiveCategoryMarginsMap() : new Map<string, number>()
+    const categoryMargins = await getActiveCategoryMarginsMap()
+
+    // Public markup (giriş yapmamış kullanıcılar için)
+    const publicMarkupSetting = await prisma.setting.findUnique({
+      where: { key: "pricing.public_markup_percent" },
+    })
+    const publicMarkupPct = Number(publicMarkupSetting?.value ?? 80)
 
     const data = products.map((p) => {
       const totalStock = p.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
-      // Get lowest price if authenticated or admin (with supplier markup)
-      // Okisan ürünleri için fiyat gizlenir
-      const lowestSupplier = showPrice
-        ? p.supplierProducts
-            .filter((sp) => sp.purchasePrice !== null)
-            .map((sp) => {
-              const base = Number(sp.purchasePrice)
-              const code = sp.supplier?.code?.toUpperCase() ?? ""
-              const categoryMargin = p.categoryId ? categoryMargins.get(p.categoryId) : undefined
-              const markup = 1 + (categoryMargin ?? Number(sp.supplier?.marginRate ?? 30)) / 100
-              return { ...sp, markedUpPrice: base * markup, supplierCode: code }
-            })
-            .sort((a, b) => a.markedUpPrice - b.markedUpPrice)[0]
-        : null
+      // En düşük tedarikçi fiyatını bul
+      const lowestSupplier = p.supplierProducts
+        .filter((sp) => sp.purchasePrice !== null)
+        .map((sp) => {
+          const base = Number(sp.purchasePrice)
+          const code = sp.supplier?.code?.toUpperCase() ?? ""
+          const categoryMargin = p.categoryId ? categoryMargins.get(p.categoryId) : undefined
+          const markup = 1 + (categoryMargin ?? Number(sp.supplier?.marginRate ?? 30)) / 100
+          return { ...sp, markedUpPrice: base * markup, supplierCode: code }
+        })
+        .sort((a, b) => a.markedUpPrice - b.markedUpPrice)[0]
 
       const isOkisanOnly = lowestSupplier?.supplierCode === "OKISAN"
-      let lowestPrice = lowestSupplier && !isOkisanOnly ? lowestSupplier.markedUpPrice : null
+
+      // Fiyat hesapla:
+      // - Bayi/Admin (showPrice=true): tedarikçi marjı ile (mevcut sistem)
+      // - Public (showPrice=false): maliyet × (1 + publicMarkupPct/100) — retail fiyat
+      let lowestPrice: number | null = null
       let priceCurrency = lowestSupplier?.currency || "TRY"
 
-      // Fırsat/outlet ürünlerde manualPrice direkt satış fiyatıdır
+      if (lowestSupplier && !isOkisanOnly) {
+        if (showPrice) {
+          lowestPrice = lowestSupplier.markedUpPrice
+        } else {
+          // Public: cost × (1 + publicMarkup/100)
+          const cost = Number(lowestSupplier.purchasePrice)
+          lowestPrice = cost * (1 + publicMarkupPct / 100)
+          priceCurrency = lowestSupplier.currency || "TRY"
+        }
+      }
+
+      // Fırsat/outlet ürünlerde manualPrice direkt satış fiyatıdır (sadece bayi)
       if (showPrice && (p as { manualPrice?: unknown }).manualPrice != null) {
         lowestPrice = Number((p as { manualPrice: unknown }).manualPrice)
         priceCurrency = (p as { manualPriceCurrency?: string }).manualPriceCurrency ?? "USD"

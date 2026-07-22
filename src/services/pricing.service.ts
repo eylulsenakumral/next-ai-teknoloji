@@ -110,6 +110,34 @@ export async function getApplicableMargin(
 }
 
 /**
+ * Returns a map of active category margins keyed by categoryId.
+ * Highest priority wins; first seen (already sorted desc) is kept.
+ */
+export async function getActiveCategoryMarginsMap(): Promise<Map<string, number>> {
+  const now = new Date()
+  const margins = await prisma.profitMargin.findMany({
+    where: {
+      deletedAt: null,
+      isActive: true,
+      scope: "CATEGORY",
+      AND: [
+        { OR: [{ validFrom: null }, { validFrom: { lte: now } }] },
+        { OR: [{ validUntil: null }, { validUntil: { gte: now } }] },
+      ],
+    },
+    orderBy: { priority: "desc" },
+  })
+
+  const map = new Map<string, number>()
+  for (const m of margins) {
+    if (m.scopeId && !map.has(m.scopeId)) {
+      map.set(m.scopeId, parseFloat(m.marginPct.toString()))
+    }
+  }
+  return map
+}
+
+/**
  * Calculate price for a single product.
  * Picks cheapest supplier, resolves applicable margin.
  * Result is cached; call invalidatePriceCache(productId) on data changes.
@@ -180,17 +208,20 @@ async function _calculateProductPrice(productId: string): Promise<PriceCalculati
 
   const totalStock = product.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
-  // Supplier margin önce gelir; yoksa ProfitMargin tablosuna düş
-  const supplierMarginRate = cheapest.supplier?.marginRate != null
-    ? Number(cheapest.supplier.marginRate)
-    : null
+  // Kategori marjı önce gelir; yoksa tedarikçi marjı; o da yoksa diğer marjlar.
+  const supplierMarginRate =
+    cheapest.supplier?.marginRate != null ? Number(cheapest.supplier.marginRate) : null
+  const applicable = await getApplicableMargin(productId, product.categoryId, product.brandId)
+
   let marginPct: number
   let source: string
-  if (supplierMarginRate !== null) {
+  if (applicable.source === "category") {
+    marginPct = applicable.marginPct
+    source = "category"
+  } else if (supplierMarginRate !== null) {
     marginPct = supplierMarginRate
     source = "supplier"
   } else {
-    const applicable = await getApplicableMargin(productId, product.categoryId, product.brandId)
     marginPct = applicable.marginPct
     source = applicable.source
   }
@@ -309,9 +340,12 @@ export async function calculateBulkPrices(
       ? parseFloat(cheapest.vatRate.toString())
       : DEFAULT_VAT_RATE
 
-    // Resolve margin from pre-loaded margins
-    const { marginPct, source } = resolveMarginFromList(
+    // Resolve margin: category > supplier > product/brand/global
+    const supplierRate =
+      cheapest.supplier?.marginRate != null ? Number(cheapest.supplier.marginRate) : null
+    const { marginPct, source } = resolveBestMargin(
       allMargins,
+      supplierRate,
       product.id,
       product.categoryId,
       product.brandId
@@ -388,6 +422,29 @@ function resolveMarginFromList(
   return best ?? { marginPct: DEFAULT_MARGIN_PCT, source: "global" }
 }
 
+function resolveBestMargin(
+  margins: ProfitMargin[],
+  supplierRate: number | null,
+  productId: string,
+  categoryId: string | null,
+  brandId: string | null
+): { marginPct: number; source: string } {
+  // CATEGORY öncelikli
+  const categoryMargins = margins.filter(
+    (m) => m.scope === "CATEGORY" && m.scopeId === categoryId
+  )
+  if (categoryMargins.length > 0) {
+    const best = categoryMargins.sort((a, b) => b.priority - a.priority)[0]
+    return { marginPct: parseFloat(best.marginPct.toString()), source: "category" }
+  }
+
+  if (supplierRate !== null) {
+    return { marginPct: supplierRate, source: "supplier" }
+  }
+
+  return resolveMarginFromList(margins, productId, categoryId, brandId)
+}
+
 function round4(value: number): number {
   return Math.round(value * 10000) / 10000
 }
@@ -408,8 +465,16 @@ async function computeOriginalPrice(
   if (!Number.isFinite(pp)) return null
   const supplierRate =
     sp.supplier?.marginRate != null ? Number(sp.supplier.marginRate) : null
-  const rate =
-    supplierRate ?? (await getApplicableMargin(productId, categoryId, brandId)).marginPct
+  const applicable = await getApplicableMargin(productId, categoryId, brandId)
+
+  let rate: number
+  if (applicable.source === "category") {
+    rate = applicable.marginPct
+  } else if (supplierRate !== null) {
+    rate = supplierRate
+  } else {
+    rate = applicable.marginPct
+  }
   return Math.round(pp * (1 + rate / 100) * 100) / 100
 }
 
@@ -429,7 +494,12 @@ function computeOriginalPriceFromList(
   if (!Number.isFinite(pp)) return null
   const supplierRate =
     sp.supplier?.marginRate != null ? Number(sp.supplier.marginRate) : null
-  const rate =
-    supplierRate ?? resolveMarginFromList(margins, productId, categoryId, brandId).marginPct
+  const { marginPct: rate } = resolveBestMargin(
+    margins,
+    supplierRate,
+    productId,
+    categoryId,
+    brandId
+  )
   return Math.round(pp * (1 + rate / 100) * 100) / 100
 }

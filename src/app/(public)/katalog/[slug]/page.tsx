@@ -361,8 +361,9 @@ export default async function PublicProductDetailPage({
   const session = await getServerSession(authOptions)
   const isLoggedIn = !!session?.user
 
-  // Fiyat sadece giriş yapmış bayi için, hidePrice bayrağı kapalı ve fiyat dolu ise gösterilir.
-  const showPrice = isLoggedIn && !product.hidePrice && product.price != null
+  // Fiyat herkese gösterilir — public için retail (cost × 1.80), bayi için dealer fiyatı
+  const showPrice = !product.hidePrice && product.price != null
+  const price = product.price ?? 0
 
   const specs = parseSpecs(product.specifications)
   const productJsonLd = buildProductJsonLd(product, showPrice)
@@ -506,7 +507,7 @@ export default async function PublicProductDetailPage({
               <div className="hidden md:block">
                 <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                   {/* Fiyat veya Login CTA */}
-                  {isLoggedIn && product.hidePrice ? (
+                  {product.hidePrice ? (
                     <div className="p-5">
                       <div className="flex items-start gap-3">
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-error)]/10">
@@ -518,17 +519,19 @@ export default async function PublicProductDetailPage({
                         </div>
                       </div>
                     </div>
-                  ) : isLoggedIn && product.price != null ? (
+                  ) : showPrice ? (
                     <div className="p-5">
                       <div className="flex items-end justify-between gap-4">
                         <div>
-                          <p className="text-[11px] text-gray-400 uppercase tracking-wider mb-1">Bayi Fiyatı</p>
+                          <p className="text-[11px] text-gray-400 uppercase tracking-wider mb-1">
+                            {isLoggedIn ? "Bayi Fiyatı" : "Liste Fiyatı"}
+                          </p>
                           <p className="text-[28px] font-bold text-[var(--color-primary)] leading-none">
-                            {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
+                            {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(price)}
                             <span className="text-[12px] font-medium text-gray-400 ml-1.5">+KDV</span>
                           </p>
                           <p className="text-[13px] text-gray-500 mt-1.5">
-                            {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price * 1.20)}
+                            {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(price * 1.20)}
                             <span className="text-[11px] text-gray-400 ml-1">KDV Dahil</span>
                           </p>
                         </div>
@@ -547,22 +550,15 @@ export default async function PublicProductDetailPage({
                           </div>
                         )}
                       </div>
-                    </div>
-                  ) : !isLoggedIn && !product.hidePrice ? (
-                    <div className="p-5">
-                      <div className="flex items-start gap-3">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--color-primary)]/10">
-                          <Lock className="h-5 w-5 text-[var(--color-primary)]" aria-hidden />
-                        </div>
-                        <div className="flex-1 space-y-2">
-                          <p className="text-[14px] font-bold text-[var(--color-foreground)]">Özel Fiyatlar İçin Bayi Girişi</p>
-                          <p className="text-[12px] text-[var(--color-text-muted)]">Bayi girişi yaparak fiyatları görüntüleyin.</p>
-                          <Link href="/login" className="inline-flex items-center justify-center gap-2 h-9 px-5 bg-[var(--color-primary)] text-[12px] font-bold text-white rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors">
-                            <Lock className="h-3.5 w-3.5" aria-hidden />
+                      {!isLoggedIn && (
+                        <div className="mt-4 flex items-center gap-3 rounded-xl bg-[var(--color-primary)]/5 border border-[var(--color-primary)]/15 p-3">
+                          <Lock className="h-4 w-4 text-[var(--color-primary)] shrink-0" />
+                          <p className="text-[12px] text-[var(--color-primary)] font-medium flex-1">Bayi girişi yaparak daha avantajlı fiyatlarla satın alın.</p>
+                          <Link href="/login" className="inline-flex items-center justify-center gap-1.5 h-8 px-4 bg-[var(--color-primary)] text-[11px] font-bold text-white rounded-lg hover:bg-[var(--color-primary-hover)] transition-colors whitespace-nowrap">
                             Bayi Girişi Yap
                           </Link>
                         </div>
-                      </div>
+                      )}
                     </div>
                   ) : null}
 
@@ -702,7 +698,7 @@ export default async function PublicProductDetailPage({
           <div className="flex items-center justify-between gap-3">
             <div className="min-w-0">
               <p className="text-[16px] font-bold text-[var(--color-primary)] leading-none">
-                {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
+                {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(price)}
                 <span className="text-[10px] font-medium text-gray-400 ml-1">+KDV</span>
               </p>
               {product.currency !== "TRY" && product.priceTry != null && (

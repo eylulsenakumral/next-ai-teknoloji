@@ -5,6 +5,8 @@ import { Plus, Pencil, Trash2, Search, RefreshCw } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import { Switch } from "@/components/ui/switch"
+import { toast } from "@/components/ui/toaster"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import {
   Table,
@@ -89,6 +91,23 @@ export default function MarklarPage() {
   function handleEdit(brand: Brand) {
     setEditBrand(brand)
     setFormOpen(true)
+  }
+
+  async function handleToggleActive(brand: Brand) {
+    const newVal = !brand.isActive
+    setBrands((prev) => prev.map((b) => (b.id === brand.id ? { ...b, isActive: newVal } : b)))
+    try {
+      const res = await fetch(`/api/admin/icerik/${brand.id}?type=brands`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isActive: newVal }),
+      })
+      if (!res.ok) throw new Error()
+      toast({ title: newVal ? "Aktifleştirildi" : "Pasifleştirildi" })
+    } catch {
+      setBrands((prev) => prev.map((b) => (b.id === brand.id ? { ...b, isActive: brand.isActive } : b)))
+      toast({ title: "Hata", description: "Durum güncellenemedi.", variant: "destructive" })
+    }
   }
 
   function handleDeleteRequest(brand: Brand) {
@@ -305,9 +324,11 @@ export default function MarklarPage() {
                     {brand._count.products}
                   </TableCell>
                   <TableCell className="text-center">
-                    <Badge variant={brand.isActive ? "default" : "outline"}>
-                      {brand.isActive ? "Aktif" : "Pasif"}
-                    </Badge>
+                    <Switch
+                      checked={brand.isActive}
+                      onCheckedChange={() => handleToggleActive(brand)}
+                      size="sm"
+                    />
                   </TableCell>
                   <TableCell className="text-right pr-4">
                     <div className="flex items-center justify-end gap-1">

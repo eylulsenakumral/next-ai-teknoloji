@@ -197,27 +197,38 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
           <p className="text-[12px] font-semibold text-[var(--color-error)] leading-snug">
             Müşteri Temsilcinizden Özel Fiyat Alınız
           </p>
-        ) : hideLoginCTA && product.price != null ? (
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex flex-col">
-              <span className="text-[15px] font-bold text-[var(--color-primary)]">
-                {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
-                <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
-              </span>
-              <span className="text-[11px] text-gray-500">
-                {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price * 1.20)} KDV Dahil
-              </span>
-            </div>
-            {product.currency !== "TRY" && product.priceTry != null && (
-              <div className="flex flex-col items-end">
-                <span className="text-[13px] font-semibold text-gray-600">
-                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry)}
+        ) : product.price != null ? (
+          <div>
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex flex-col">
+                <span className="text-[15px] font-bold text-[var(--color-primary)]">
+                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                   <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
                 </span>
                 <span className="text-[11px] text-gray-500">
-                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry * 1.20)} KDV Dahil
+                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price * 1.20)} KDV Dahil
                 </span>
               </div>
+              {product.currency !== "TRY" && product.priceTry != null && (
+                <div className="flex flex-col items-end">
+                  <span className="text-[13px] font-semibold text-gray-600">
+                    {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry)}
+                    <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
+                  </span>
+                  <span className="text-[11px] text-gray-500">
+                    {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry * 1.20)} KDV Dahil
+                  </span>
+                </div>
+              )}
+            </div>
+            {!hideLoginCTA && (
+              <Link
+                href="/login"
+                className="mt-2 flex items-center gap-1.5 rounded-lg bg-[var(--color-primary)] px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-[var(--color-primary)]/90"
+              >
+                <Lock className="h-3 w-3" aria-hidden />
+                Bayi Girişi ile Daha Avantajlı Fiyat
+              </Link>
             )}
           </div>
         ) : !hideLoginCTA ? (
@@ -370,27 +381,37 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
               Müşteri Temsilcinizden<br />Özel Fiyat Alınız
             </p>
           </div>
-        ) : hideLoginCTA && product.price != null ? (
-          <div className="shrink-0 flex items-start gap-3">
-            <div className="flex flex-col items-end">
-              <span className="text-[15px] font-bold text-[var(--color-primary)]">
-                {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
-                <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
-              </span>
-              <span className="text-[11px] text-gray-500">
-                {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price * 1.20)} KDV Dahil
-              </span>
-            </div>
-            {product.currency !== "TRY" && product.priceTry != null && (
+        ) : product.price != null ? (
+          <div className="shrink-0">
+            <div className="flex items-start gap-3">
               <div className="flex flex-col items-end">
-                <span className="text-[13px] font-semibold text-gray-600">
-                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry)}
+                <span className="text-[15px] font-bold text-[var(--color-primary)]">
+                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                   <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
                 </span>
                 <span className="text-[11px] text-gray-500">
-                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry * 1.20)} KDV Dahil
+                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price * 1.20)} KDV Dahil
                 </span>
               </div>
+              {product.currency !== "TRY" && product.priceTry != null && (
+                <div className="flex flex-col items-end">
+                  <span className="text-[13px] font-semibold text-gray-600">
+                    {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry)}
+                    <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
+                  </span>
+                  <span className="text-[11px] text-gray-500">
+                    {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry * 1.20)} KDV Dahil
+                  </span>
+                </div>
+              )}
+            </div>
+            {!hideLoginCTA && (
+              <Link
+                href="/login"
+                className="mt-1.5 flex items-center justify-end gap-1 text-[10px] font-semibold text-[var(--color-primary)] hover:underline"
+              >
+                <Lock className="h-2.5 w-2.5" /> Bayi girşi ile daha avantajlı
+              </Link>
             )}
           </div>
         ) : !hideLoginCTA ? (

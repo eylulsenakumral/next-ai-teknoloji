@@ -29,6 +29,7 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Switch } from "@/components/ui/switch"
 import {
   Table,
   TableBody,
@@ -187,16 +188,11 @@ function SortableTreeRow({
         {cat._count.products > 0 ? cat._count.products : <span className="text-muted-foreground/50">-</span>}
       </TableCell>
       <TableCell className="text-center">
-        <button
-          onClick={() => onToggleActive(cat)}
-          className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-bold transition ${
-            cat.isActive
-              ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
-              : "bg-red-100 text-red-700 hover:bg-red-200"
-          }`}
-        >
-          {cat.isActive ? "Aktif" : "Pasif"}
-        </button>
+        <Switch
+          checked={cat.isActive}
+          onCheckedChange={() => onToggleActive(cat)}
+          size="sm"
+        />
       </TableCell>
       <TableCell className="text-right pr-4">
         <div className="flex items-center justify-end gap-1">
@@ -336,22 +332,25 @@ export default function KategorilerPage() {
   }
 
   async function handleToggleActiveCat(cat: FlatCategory) {
-    // Optimistic update
+    const newVal = !cat.isActive
+    // Optimistic update — sayfa yenilenmeden anında güncellenir
     setCategories((prev) =>
-      prev.map((c) => (c.id === cat.id ? { ...c, isActive: !cat.isActive } : c))
+      prev.map((c) => (c.id === cat.id ? { ...c, isActive: newVal } : c))
     )
     try {
       const res = await fetch(`/api/admin/icerik/${cat.id}?type=categories`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ isActive: !cat.isActive }),
+        body: JSON.stringify({ isActive: newVal }),
       })
       if (!res.ok) throw new Error()
-      toast({ title: cat.isActive ? "Pasifleştirildi" : "Aktifleştirildi", description: cat.isActive ? "Kategori ve ürünleri pasifleştirildi." : "Kategori aktifleştirildi." })
-      fetchCategories()
+      toast({ title: newVal ? "Aktifleştirildi" : "Pasifleştirildi" })
     } catch {
+      // Hata durumunda geri al
+      setCategories((prev) =>
+        prev.map((c) => (c.id === cat.id ? { ...c, isActive: cat.isActive } : c))
+      )
       toast({ title: "Hata", description: "Durum güncellenemedi.", variant: "destructive" })
-      fetchCategories()
     }
   }
 
