@@ -12,13 +12,13 @@ import type { HeroCard } from "./category-strip"
 
 // DB erişilemezse/devre dışıysa kullanılan yedek şerit (7 kategori)
 export const FALLBACK_CARDS: HeroCard[] = [
-  { title: "Güvenlik", href: "/kategoriler/guvenlik", img: "/images/categories/guvenlik-sistemleri.jpg" },
-  { title: "Network", href: "/kategoriler/network", img: "/images/categories/ag-network.jpg" },
-  { title: "Yangın Algılama Ürünleri", href: "/kategoriler/yangin-algilama-urunleri", img: "/images/cards/yangin.jpg" },
-  { title: "Hırsız Algılama Ürünleri", href: "/kategoriler/hirsiz-algilama-urunleri", img: "/images/categories/guvenlik-urunleri.jpg" },
-  { title: "Güç Elektroniği", href: "/kategoriler/guc-elektronigi", img: "/images/categories/guc-elektronigi.jpg" },
-  { title: "Seslendirme Sistemleri", href: "/kategoriler/seslendirme-sistemleri", img: "/images/categories/seslendirme.jpg" },
-  { title: "Kabinetler", href: "/kategoriler/kabinetler", img: "/images/categories/kabinetler.jpg" },
+  { title: "Güvenlik", href: "/kategoriler/guvenlik", img: "/images/categories/guvenlik-sistemleri.jpg", slug: "guvenlik", productCount: 0 },
+  { title: "Network", href: "/kategoriler/network", img: "/images/categories/ag-network.jpg", slug: "network", productCount: 0 },
+  { title: "Yangın Algılama Ürünleri", href: "/kategoriler/yangin-algilama-urunleri", img: "/images/cards/yangin.jpg", slug: "yangin-algilama-urunleri", productCount: 0 },
+  { title: "Hırsız Algılama Ürünleri", href: "/kategoriler/hirsiz-algilama-urunleri", img: "/images/categories/guvenlik-urunleri.jpg", slug: "hirsiz-algilama-urunleri", productCount: 0 },
+  { title: "Güç Elektroniği", href: "/kategoriler/guc-elektronigi", img: "/images/categories/guc-elektronigi.jpg", slug: "guc-elektronigi", productCount: 0 },
+  { title: "Seslendirme Sistemleri", href: "/kategoriler/seslendirme-sistemleri", img: "/images/categories/seslendirme.jpg", slug: "seslendirme-sistemleri", productCount: 0 },
+  { title: "Kabinetler", href: "/kategoriler/kabinetler", img: "/images/categories/kabinetler.jpg", slug: "kabinetler", productCount: 0 },
 ]
 
 export const PARTNERS = [

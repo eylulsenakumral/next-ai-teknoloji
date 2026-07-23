@@ -29,13 +29,43 @@ async function getHeroCategories(): Promise<HeroCard[]> {
       where: { isActive: true, deletedAt: null, parentId: null },
       orderBy: { sortOrder: "asc" },
       take: 7,
-      select: { name: true, slug: true, imageUrl: true },
+      select: { id: true, name: true, slug: true, imageUrl: true },
     })
     if (cats.length === 0) return FALLBACK_CARDS
+
+    // Alt kategorilerdeki ürünleri de saymak için tüm kategori + ürün verisi
+    const [allCats, productCats] = await Promise.all([
+      prisma.category.findMany({ where: { deletedAt: null }, select: { id: true, parentId: true } }),
+      prisma.product.findMany({ where: { isActive: true, deletedAt: null }, select: { categoryId: true } }),
+    ])
+
+    const productCountByCat = new Map<string, number>()
+    for (const p of productCats) {
+      if (p.categoryId) productCountByCat.set(p.categoryId, (productCountByCat.get(p.categoryId) ?? 0) + 1)
+    }
+
+    // Kök kategorinin tüm alt ağacındaki ürünleri say
+    function countWithDescendants(rootId: string): number {
+      const ids: string[] = [rootId]
+      const queue = [rootId]
+      while (queue.length > 0) {
+        const current = queue.shift()!
+        for (const c of allCats) {
+          if (c.parentId === current && !ids.includes(c.id)) {
+            ids.push(c.id)
+            queue.push(c.id)
+          }
+        }
+      }
+      return ids.reduce((sum, id) => sum + (productCountByCat.get(id) ?? 0), 0)
+    }
+
     return cats.map((c) => ({
       title: c.name.trim(),
       href: `/kategoriler/${c.slug}`,
       img: c.imageUrl ?? "/images/cards/guvenlik.jpg",
+      slug: c.slug,
+      productCount: countWithDescendants(c.id),
     }))
   } catch {
     return FALLBACK_CARDS
@@ -142,7 +172,7 @@ export default async function VitrinPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteLd) }}
       />
       <HomeHero total={productCount} brandCount={homeBrands.brandCount} brands={homeBrands.marquee} />
-      <section className="bg-[linear-gradient(180deg,#E9F1FC_0%,#FFFFFF_100%)] px-5 md:px-8">
+      <section className="bg-[linear-gradient(180deg,#E9F1FC_0%,#FFFFFF_100%)] px-5 py-14 md:px-8 md:py-16">
         <div className="mx-auto max-w-[1300px]">
           <CategoryStrip categories={categories} />
         </div>
