@@ -681,26 +681,53 @@
 
 /* ponytail: CSS-only rotating text, JS easing lib gerekirse IntersectionObserver ile pause ekle */
 
-/* ─── Kategori şeridi — ikon tabanlı kartlar ─── */
+/* ─── Ceron kategori şeridi — 7'li düzen, orta kart büyütülmüş ─── */
 .nx-cat-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-  align-items: stretch;
+  align-items: center;
   overflow: visible;
 }
-@media (min-width: 640px) {
+.nx-cat-card { min-height: 200px; }
+@media (min-width: 768px) {
   .nx-cat-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (min-width: 992px) {
-  .nx-cat-grid { grid-template-columns: repeat(4, 1fr); }
+  .nx-cat-card { min-height: 240px; }
 }
 @media (min-width: 1200px) {
   .nx-cat-grid {
     grid-template-columns: repeat(7, 1fr);
-    gap: 14px;
-    padding: 8px 0 16px;
+    gap: 15px;
+    padding: 12px 0 20px;
   }
+  .nx-cat-card { min-height: 280px; }
+}
+
+/* Ceron kart radius: ilk/son kenarda düz */
+.nx-cat-card { border-radius: 15px; }
+.nx-cat-card:first-child { border-radius: 0 15px 15px 0; }
+.nx-cat-card:last-child { border-radius: 15px 0 0 15px; }
+@media (max-width: 1199px) {
+  .nx-cat-card, .nx-cat-card:first-child, .nx-cat-card:last-child { border-radius: 15px; }
+}
+
+/* Ceron: orta kart büyütme (sadece desktop) */
+@media (min-width: 1200px) {
+  .nx-cat-card--center {
+    transform: scale(1.2);
+    z-index: 20;
+    border: 3px solid #fff;
+    box-shadow: 0 0 24px 0 rgba(24, 82, 172, 0.14);
+    animation: nx-zoomin 0.6s cubic-bezier(0.22, 0.61, 0.36, 1) 0.55s both;
+  }
+  .nx-cat-card--center .nx-cat-pill {
+    transform: scale(0.92);
+    transform-origin: bottom left;
+  }
+}
+@keyframes nx-zoomin {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1.2); }
 }
 
 /* Ceron process: büyük outline numara (text-stroke) */
@@ -726,7 +753,8 @@
 }
 
 /* Kartlarda klavye odağı görünürlüğü */
-.nx-cat-card:focus-visible {
+.nx-cat-card:focus-visible,
+.nx-cat-card--center:focus-visible {
   outline: 3px solid var(--color-nx-accent);
   outline-offset: 3px;
 }

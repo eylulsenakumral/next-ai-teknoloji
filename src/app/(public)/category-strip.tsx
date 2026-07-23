@@ -1,59 +1,17 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useState } from "react"
-import {
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  Package,
-  Monitor,
-  BatteryCharging,
-  Building2,
-  Cpu,
-  Printer,
-  Wifi,
-  Cable,
-  Flame,
-  ShieldAlert,
-  ShieldCheck,
-  Zap,
-  Speaker,
-  Server,
-  type LucideIcon,
-} from "lucide-react"
-import { cn } from "@/lib/utils"
+import { ArrowRight, ChevronLeft, ChevronRight, Package } from "lucide-react"
 
 export type HeroCard = { title: string; href: string; img: string; slug: string; productCount: number }
 
 const PAGE_SIZE = 7
 
-/** slug → ikon + gradyan eşlemesi (her kategoriye özgü görsel kimlik) */
-const CATEGORY_META: Record<string, { icon: LucideIcon; gradient: string }> = {
-  guvenlik: { icon: ShieldCheck, gradient: "from-[#1852ac] to-[#3B82F6]" },
-  "cevre-birimleri": { icon: Monitor, gradient: "from-[#1852ac] to-[#3B82F6]" },
-  "kesintisiz-guc-kaynaklari": { icon: BatteryCharging, gradient: "from-[#06B6D4] to-[#22D3EE]" },
-  "kurumsal-urunler": { icon: Building2, gradient: "from-[#0F172A] to-[#1852ac]" },
-  "bilgisayar-bilesenleri": { icon: Cpu, gradient: "from-[#1852ac] to-[#06B6D4]" },
-  "baski-cozumleri": { icon: Printer, gradient: "from-[#0891B2] to-[#22D3EE]" },
-  "network-urunleri": { icon: Wifi, gradient: "from-[#1852ac] to-[#60A5FA]" },
-  network: { icon: Wifi, gradient: "from-[#1852ac] to-[#60A5FA]" },
-  "kablo-cevirici": { icon: Cable, gradient: "from-[#06B6D4] to-[#0F172A]" },
-  "yangin-algilama-urunleri": { icon: Flame, gradient: "from-[#0891B2] to-[#06B6D4]" },
-  "hirsiz-algilama-urunleri": { icon: ShieldAlert, gradient: "from-[#0F172A] to-[#0891B2]" },
-  "guc-elektronigi": { icon: Zap, gradient: "from-[#06B6D4] to-[#22D3EE]" },
-  "seslendirme-sistemleri": { icon: Speaker, gradient: "from-[#1852ac] to-[#06B6D4]" },
-  kabinetler: { icon: Server, gradient: "from-[#0F172A] to-[#1852ac]" },
-}
-const DEFAULT_META = { icon: Package, gradient: "from-[#1852ac] to-[#06B6D4]" }
-
-function getMeta(slug: string) {
-  return CATEGORY_META[slug] ?? DEFAULT_META
-}
-
 /**
- * Hero kategori şeridi — ikon tabanlı zengin kartlar, sayfalı.
- * Her kategoriye özgü ikon + gradyan, ürün sayısı, hover mikro-etkileşimleri.
+ * Hero kategori şeridi — Ceron 7'li kart düzeni, sayfalı.
+ * Her kategori kendi görseliyle, orta kart büyütülmüş, zengin hover efektleri.
  */
 export function CategoryStrip({ categories }: { categories: HeroCard[] }) {
   const [page, setPage] = useState(0)
@@ -89,55 +47,59 @@ export function CategoryStrip({ categories }: { categories: HeroCard[] }) {
           type="button"
           aria-label="Önceki kategoriler"
           onClick={() => go(-1)}
-          className="absolute -left-3 top-[55%] z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-nx-dark shadow-lg transition hover:bg-nx-accent hover:text-white md:-left-6"
+          className="absolute -left-3 top-[58%] z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-nx-dark shadow-lg transition hover:bg-nx-accent hover:text-white md:-left-6"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
       )}
 
-      {/* Kategori kartları */}
+      {/* Ceron: 7 kolon grid, orta kart (4.) büyütülmüş */}
       <div className="nx-cat-grid" key={page}>
-        {visible.map((cat) => {
-          const { icon: Icon, gradient } = getMeta(cat.slug)
+        {visible.map((cat, i) => {
+          const isCenter = i === 3
           return (
             <Link
               key={cat.href}
               href={cat.href}
-              className="nx-cat-card group relative flex flex-col items-center overflow-hidden rounded-[20px] border border-[#E9F1FC] bg-white px-4 pb-5 pt-7 text-center transition-all duration-300 hover:-translate-y-1.5 hover:border-nx-accent/50 hover:shadow-[0_12px_32px_-8px_rgba(24,82,172,0.18)]"
+              style={isCenter ? undefined : { zIndex: i === 0 || i === 6 ? 5 : 8 }}
+              className={`nx-cat-card group relative block overflow-hidden${
+                isCenter ? " nx-cat-card--center" : ""
+              }`}
             >
-              {/* Üst vurgu çizgisi — hover'da belirir */}
-              <span
-                className={cn(
-                  "absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r transition-transform duration-300 group-hover:scale-x-100",
-                  gradient
-                )}
+              {/* Kategori görseli — hover'da hafif büyür */}
+              <Image
+                src={cat.img}
+                alt={cat.title}
+                loading="eager"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
+              {/* Hover karartması — yazı okunurluğu için */}
+              <div className="absolute inset-0 bg-nx-dark/0 transition-colors duration-300 group-hover:bg-nx-dark/25" />
 
-              {/* İkon rozeti */}
-              <span
-                className={cn(
-                  "flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br text-white shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3",
-                  gradient
+              {/* Kenar gradientleri — kenar kartlarda sabit */}
+              {i === 0 && (
+                <div className="absolute inset-0 bg-[linear-gradient(90deg,#E9F1FC_0%,transparent_25%)]" />
+              )}
+              {i === 6 && (
+                <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_75%,#E9F1FC_100%)]" />
+              )}
+
+              {/* Cam hap etiket — isim + ürün sayısı + ok */}
+              <div className="nx-cat-pill absolute bottom-[15px] left-[15px] right-[15px] flex items-center gap-[6px] rounded-full bg-white/60 py-[3px] pl-[12px] pr-[3px] backdrop-blur-[6px] transition-colors duration-300 group-hover:bg-white">
+                <span className="min-w-0 flex-1 truncate text-[13px] font-semibold leading-none text-nx-dark">
+                  {cat.title}
+                </span>
+                {cat.productCount > 0 && (
+                  <span className="hidden shrink-0 items-center gap-1 rounded-full bg-[#E9F1FC] px-2 py-1 text-[10px] font-bold text-[#1852ac] transition-colors duration-300 group-hover:bg-nx-accent group-hover:text-white sm:flex">
+                    <Package className="h-3 w-3" aria-hidden />
+                    {cat.productCount}
+                  </span>
                 )}
-              >
-                <Icon className="h-7 w-7" aria-hidden />
-              </span>
-
-              {/* Kategori adı */}
-              <span className="mt-4 text-[14px] font-bold leading-snug text-nx-dark transition-colors duration-300 group-hover:text-[#1852ac]">
-                {cat.title}
-              </span>
-
-              {/* Ürün sayısı */}
-              <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-[#E9F1FC] px-2.5 py-1 text-[11px] font-bold text-[#1852ac] transition-colors duration-300 group-hover:bg-nx-accent group-hover:text-white">
-                <Package className="h-3 w-3" aria-hidden />
-                {cat.productCount > 0 ? `${cat.productCount} ürün` : "Ürünler"}
-              </span>
-
-              {/* Hover oku */}
-              <span className="pointer-events-none absolute right-3 top-3 flex h-7 w-7 -translate-x-1 items-center justify-center rounded-full bg-nx-accent text-white opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
-                <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-              </span>
+                <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full bg-nx-accent text-white transition-transform duration-300 group-hover:translate-x-0.5">
+                  <ArrowRight className="h-[13px] w-[13px]" />
+                </span>
+              </div>
             </Link>
           )
         })}
@@ -149,7 +111,7 @@ export function CategoryStrip({ categories }: { categories: HeroCard[] }) {
           type="button"
           aria-label="Sonraki kategoriler"
           onClick={() => go(1)}
-          className="absolute -right-3 top-[55%] z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-nx-dark shadow-lg transition hover:bg-nx-accent hover:text-white md:-right-6"
+          className="absolute -right-3 top-[58%] z-30 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-nx-dark shadow-lg transition hover:bg-nx-accent hover:text-white md:-right-6"
         >
           <ChevronRight className="h-5 w-5" />
         </button>

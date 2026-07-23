@@ -22,6 +22,24 @@ export const metadata: Metadata = {
 // Kategori şeridi DB'den beslenir — saatte bir yenilenir (ISR)
 export const revalidate = 3600
 
+/** Kategori slug → görsel eşlemesi (her kategoriye özgü görsel) */
+const CATEGORY_IMAGES: Record<string, string> = {
+  guvenlik: "/images/categories/guvenlik-sistemleri.jpg",
+  "cevre-birimleri": "/images/categories/cevre-birimleri.jpg",
+  "kesintisiz-guc-kaynaklari": "/images/categories/guc-elektronigi.jpg",
+  "kurumsal-urunler": "/images/categories/kurumsal-urunler.jpg",
+  "bilgisayar-bilesenleri": "/images/categories/bilgisayar-bilesenleri.jpg",
+  "baski-cozumleri": "/images/categories/baski-cozumleri.jpg",
+  "network-urunleri": "/images/categories/ag-network.jpg",
+  "kablo-cevirici": "/images/categories/kablo-cevirici.jpg",
+  "yangin-algilama-urunleri": "/images/cards/yangin.jpg",
+  "hirsiz-algilama-urunleri": "/images/categories/guvenlik-urunleri.jpg",
+  "guc-elektronigi": "/images/categories/guc-elektronigi.jpg",
+  "seslendirme-sistemleri": "/images/categories/seslendirme.jpg",
+  kabinetler: "/images/categories/kabinetler.jpg",
+  network: "/images/categories/ag-network.jpg",
+}
+
 /** Hero kategori şeridi — ilk 7 aktif ana kategori (Pasif Ürünler sortOrder 99 ile dışarıda kalır) */
 async function getHeroCategories(): Promise<HeroCard[]> {
   try {
@@ -63,7 +81,7 @@ async function getHeroCategories(): Promise<HeroCard[]> {
     return cats.map((c) => ({
       title: c.name.trim(),
       href: `/kategoriler/${c.slug}`,
-      img: c.imageUrl ?? "/images/cards/guvenlik.jpg",
+      img: c.imageUrl ?? CATEGORY_IMAGES[c.slug] ?? "/images/cards/guvenlik.jpg",
       slug: c.slug,
       productCount: countWithDescendants(c.id),
     }))
