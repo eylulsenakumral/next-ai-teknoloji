@@ -3,19 +3,21 @@ import { prisma } from "../src/lib/db"
 import { copyFile } from "fs/promises"
 import { join } from "path"
 
-// logo dosyası → marka slug eşlemesi (ruije→ruijie ve unv→uniview düzeltildi)
+// logo dosyası → marka slug eşlemesi (ruije→ruijie, unv→uniview, tuncmatik1→tuncmati-k, ubiquiti→ubnt)
 const MAPPING = [
   { file: "dahua.png", slug: "dahua", target: "dahua.png" },
   { file: "hikvision.png", slug: "hikvision", target: "hikvision.png" },
-  { file: "hilook.jpg", slug: "hilook", target: "hilook.jpg" },
+  { file: "hilook.png", slug: "hilook", target: "hilook.png" },
   { file: "inox.webp", slug: "i-nox", target: "inox.webp" },
   { file: "ruije.png", slug: "ruijie", target: "ruijie.png" },
   { file: "rxr.png", slug: "rxr", target: "rxr.png" },
   { file: "seagate.png", slug: "seagate", target: "seagate.png" },
   { file: "teknim.png", slug: "tekni-m", target: "teknim.png" },
-  { file: "toshiba.png", slug: "toshiba", target: "toshiba.png" },
+  { file: "toshiba.webp", slug: "toshiba", target: "toshiba.webp" },
   { file: "ttec.png", slug: "ttec", target: "ttec.png" },
-  { file: "unv.jpg", slug: "uniview", target: "uniview.jpg" },
+  { file: "tuncmatik1.png", slug: "tuncmati-k", target: "tuncmatik.png" },
+  { file: "ubiquiti.png", slug: "ubnt", target: "ubiquiti.png" },
+  { file: "unv.png", slug: "uniview", target: "uniview.png" },
   { file: "wd.png", slug: "wd", target: "wd.png" },
   { file: "westa.png", slug: "westa", target: "westa.png" },
 ]
