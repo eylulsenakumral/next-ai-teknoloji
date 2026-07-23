@@ -5,6 +5,10 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Zap, Search, Shield, Truck, Headphones, Wrench } from "lucide-react"
 import { SearchAutocomplete } from "@/components/public/search-autocomplete"
+import { PARTNERS } from "./home-content"
+
+// PartnersSection logolarını marquee'de de kullan (isim → logo eşlemesi)
+const PARTNER_LOGOS = new Map(PARTNERS.map((p) => [p.name.toLowerCase(), p.img]))
 import { cn } from "@/lib/utils"
 
 export interface MarqueeBrand {
@@ -12,6 +16,7 @@ export interface MarqueeBrand {
   name: string
   slug: string
   productCount: number
+  logoUrl?: string | null
 }
 
 interface HomeHeroProps {
@@ -165,23 +170,30 @@ export function HomeHero({ total, brandCount, brands }: HomeHeroProps) {
         </div>
       </div>
 
-      {/* Marka marquee — en çok ürünü olan markalar */}
+      {/* Marka marquee — aktif markalar (logo varsa logo, yoksa yazı) */}
       {brands.length > 0 && (
         <div className="nx-marquee relative border-t border-[#E9F1FC] bg-white/70 py-5 backdrop-blur-sm">
           <div className="nx-marquee-track flex w-max items-center gap-14 px-7">
-            {[...brands, ...brands].map((b, i) => (
-              <Link
-                key={`${b.id}-${i}`}
-                href={`/markalar/${b.slug}`}
-                className="flex shrink-0 items-center gap-3 opacity-70 transition hover:opacity-100"
-                aria-label={`${b.name} markası`}
-              >
-                <span className="font-nx-heading text-xl font-bold tracking-tight text-[#1852ac]">{b.name}</span>
-                <span className="rounded-full bg-[#E9F1FC] px-2 py-0.5 text-[10px] font-bold text-[#1852ac]">
-                  {b.productCount}
-                </span>
-              </Link>
-            ))}
+            {[...brands, ...brands].map((b, i) => {
+              const logo = b.logoUrl ?? PARTNER_LOGOS.get(b.name.toLowerCase()) ?? null
+              return (
+                <Link
+                  key={`${b.id}-${i}`}
+                  href={`/markalar/${b.slug}`}
+                  className="flex shrink-0 items-center gap-3 opacity-70 transition hover:opacity-100"
+                  aria-label={`${b.name} markası`}
+                >
+                  {logo ? (
+                    <img src={logo} alt={b.name} className="h-8 w-auto object-contain" loading="lazy" />
+                  ) : (
+                    <span className="font-nx-heading text-xl font-bold tracking-tight text-[#1852ac]">{b.name}</span>
+                  )}
+                  <span className="rounded-full bg-[#E9F1FC] px-2 py-0.5 text-[10px] font-bold text-[#1852ac]">
+                    {b.productCount}
+                  </span>
+                </Link>
+              )
+            })}
           </div>
           <div aria-hidden className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent" />
           <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent" />
