@@ -98,7 +98,8 @@ async function getCachedProductListing(
     const andConditions: Record<string, unknown>[] = [
       { deletedAt: null },
       { isActive: true },
-      { OR: [{ brand: { isActive: true } }, { brandId: null }] },
+      { brand: { isActive: true } },
+      { category: { isActive: true } },
     ]
 
     if (search) {
