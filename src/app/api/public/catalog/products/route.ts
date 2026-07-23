@@ -53,7 +53,7 @@ const getCategoryDescendants = unstable_cache(
     findDescendants(cat.id)
     return [...descendantIds]
   },
-  ["category-descendants"],
+  ["category-descendants-v2"],
   { revalidate: 300 }
 )
 
@@ -190,7 +190,7 @@ const getCachedProductListing = unstable_cache(
 
     return { products, total }
   },
-  ["product-listing"],
+  ["product-listing-v2"],
   { revalidate: 60, tags: ["product-listing"] }
 )
 
