@@ -18,6 +18,7 @@ export async function GET(req: NextRequest) {
       where: {
         deletedAt: null,
         isActive: true,
+        brand: { isActive: true },
         OR: [
           { name: { contains: query, mode: "insensitive" } },
           { sku: { contains: query, mode: "insensitive" } },

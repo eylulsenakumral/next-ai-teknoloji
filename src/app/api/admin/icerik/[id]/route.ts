@@ -22,7 +22,16 @@ async function updateOne(type: ContentType, id: string, data: Record<string, unk
     case "pageSections": return prisma.pageSection.update({ where: { id }, data: data as never })
     case "heroSlides": return prisma.heroSlide.update({ where: { id }, data: data as never })
     case "siteTexts": return prisma.siteText.update({ where: { id }, data: data as never })
-    case "brands": return prisma.brand.update({ where: { id }, data: data as never })
+    case "brands": {
+      const updated = await prisma.brand.update({ where: { id }, data: data as never })
+      if (data.isActive === false || data.isActive === true) {
+        await prisma.product.updateMany({
+          where: { brandId: id, deletedAt: null },
+          data: { isActive: data.isActive as boolean },
+        })
+      }
+      return updated
+    }
     case "categories": {
       const updated = await prisma.category.update({ where: { id }, data: data as never })
 
