@@ -184,11 +184,11 @@ export function HomeHero({ total, brandCount, brands }: HomeHeroProps) {
                   aria-label={`${b.name} markası`}
                 >
                   {logo ? (
-                    <span className="flex h-10 w-24 items-center justify-center">
+                    <span className="flex h-12 items-center justify-center">
                       <img
                         src={logo}
                         alt={b.name}
-                        className="max-h-full max-w-full object-contain opacity-80 transition-all duration-300 [filter:grayscale(1)_sepia(1)_hue-rotate(180deg)_saturate(2)_brightness(0.85)] group-hover:opacity-100 group-hover:[filter:none]"
+                        className="h-9 w-auto max-w-[180px] object-contain opacity-80 transition-all duration-300 [filter:grayscale(1)_sepia(1)_hue-rotate(180deg)_saturate(2.5)_brightness(0.9)] group-hover:opacity-100 group-hover:[filter:grayscale(1)_sepia(1)_hue-rotate(180deg)_saturate(4)_brightness(1.05)]"
                         loading="lazy"
                       />
                     </span>
