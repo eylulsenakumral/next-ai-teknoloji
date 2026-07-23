@@ -62,6 +62,7 @@ async function getHomeBrands(): Promise<{ marquee: MarqueeBrand[]; brandCount: n
         deletedAt: null,
         isActive: true,
         name: { notIn: HIDDEN_BRANDS },
+        logoUrl: { not: null },
         products: { some: { isActive: true, deletedAt: null } },
       },
       select: {
@@ -75,7 +76,7 @@ async function getHomeBrands(): Promise<{ marquee: MarqueeBrand[]; brandCount: n
     const mapped = brands
       .map((b) => ({ id: b.id, name: b.name, slug: b.slug, logoUrl: b.logoUrl, productCount: b._count.products }))
       .sort((a, b) => b.productCount - a.productCount)
-    return { marquee: mapped.slice(0, 12), brandCount: mapped.length }
+    return { marquee: mapped, brandCount: mapped.length }
   } catch {
     return { marquee: [], brandCount: 0 }
   }
