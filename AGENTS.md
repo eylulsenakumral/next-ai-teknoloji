@@ -22,6 +22,7 @@ These rules override everything else in this file when in conflict:
 3. **Never fabricate.** Not file paths, not commit hashes, not API names, not test results, not library functions. If you don't know, read the file, run the command, or say "I don't know, let me check."
 4. **Stop when confused.** If the task has two plausible interpretations, ask. Do not pick silently and proceed.
 5. **Touch only what you must.** Every changed line must trace directly to the user's request. No drive-by refactors, reformatting, or "while I was in there" cleanups.
+6. **Never re-activate deactivated catalog data.** A category, product, or brand with `isActive: false` was deactivated deliberately by the user. NEVER run bulk `isActive: true` updates or "fix" scripts (`fix-*active*.ts` etc.) against the database. If the storefront catalog looks empty or a category shows 0 products, that is almost always intentional deactivation — report it and ask the user, do not "repair" it. Sync code must never overwrite `isActive` on existing rows.
 
 ---
 

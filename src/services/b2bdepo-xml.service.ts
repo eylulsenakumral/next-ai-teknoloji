@@ -191,91 +191,105 @@ async function getB2BDepoSupplierId(): Promise<string> {
 // Kategori hiyerarşisi — B2BDepo yapısını birebir oluştur
 // ============================================================================
 
-/** B2BDepo'nun ust/alt/enAlt kategori ağacını 1:1 oluşturur/enişletir */
+/**
+ * B2BDepo'nun ust/alt/enAlt kategori ağacını 1:1 oluşturur/genişletir.
+ *
+ * KURAL: Sync mevcut kategorilerin isActive durumuna ASLA dokunmaz.
+ * Yeni oluşturulan alt kategoriler parent'ın isActive durumunu miras alır
+ * (kullanıcının pasifleştirdiği ağaca aktif kategori eklenemez).
+ * Dönen `active`, ürün oluştururken kullanılır: pasif kategoriye yeni ürün
+ * pasif olarak eklenir.
+ */
 async function resolveCategory(
   ustKategori?: string,
   altKategori?: string,
   enAltKategori?: string
-): Promise<string | undefined> {
+): Promise<{ id: string; active: boolean } | undefined> {
   const ustAdi = ustKategori?.trim()
   if (!ustAdi) return undefined
 
   // Root (ust kategori, depth 0)
   let root = await prisma.category.findFirst({
     where: { name: { equals: ustAdi, mode: "insensitive" as const }, parentId: null, deletedAt: null },
-    select: { id: true },
+    select: { id: true, isActive: true },
   })
   if (!root) {
     const slug = await uniqueSlug(ustAdi, "category")
     root = await prisma.category.create({
       data: { name: ustAdi, slug, parentId: null, depth: 0, isActive: true, sortOrder: 0 },
-      select: { id: true },
+      select: { id: true, isActive: true },
     })
   }
 
   const altAdi = altKategori?.trim()
-  if (!altAdi) return root.id
+  if (!altAdi) return { id: root.id, active: root.isActive }
 
-  // Alt kategori (depth 1)
+  // Alt kategori (depth 1) — parent'ın isActive durumunu miras alır
   let sub = await prisma.category.findFirst({
     where: { name: { equals: altAdi, mode: "insensitive" as const }, parentId: root.id, deletedAt: null },
-    select: { id: true },
+    select: { id: true, isActive: true },
   })
   if (!sub) {
     const slug = await uniqueSlug(altAdi, "category")
     sub = await prisma.category.create({
-      data: { name: altAdi, slug, parentId: root.id, depth: 1, isActive: true },
-      select: { id: true },
+      data: { name: altAdi, slug, parentId: root.id, depth: 1, isActive: root.isActive },
+      select: { id: true, isActive: true },
     })
   }
 
   const enAltAdi = enAltKategori?.trim()
-  if (!enAltAdi) return sub.id
+  if (!enAltAdi) return { id: sub.id, active: sub.isActive }
 
-  // En alt kategori (depth 2)
+  // En alt kategori (depth 2) — parent'ın isActive durumunu miras alır
   let leaf = await prisma.category.findFirst({
     where: { name: { equals: enAltAdi, mode: "insensitive" as const }, parentId: sub.id, deletedAt: null },
-    select: { id: true },
+    select: { id: true, isActive: true },
   })
   if (!leaf) {
     const slug = await uniqueSlug(enAltAdi, "category")
     leaf = await prisma.category.create({
-      data: { name: enAltAdi, slug, parentId: sub.id, depth: 2, isActive: true },
-      select: { id: true },
+      data: { name: enAltAdi, slug, parentId: sub.id, depth: 2, isActive: sub.isActive },
+      select: { id: true, isActive: true },
     })
   }
 
-  return leaf.id
+  return { id: leaf.id, active: leaf.isActive }
 }
 
-/** Kategorisi olmayan ürünler için "Diğer" kategorisi */
-let digerCategoryId: string | null = null
-async function getDigelerCategoryId(): Promise<string> {
-  if (digerCategoryId) return digerCategoryId
+/** Kategorisi olmayan ürünler için "Diğer" kategorisi (isActive durumu miras alınır) */
+let digerCategory: { id: string; active: boolean } | null = null
+async function getDigerCategory(): Promise<{ id: string; active: boolean }> {
+  if (digerCategory) return digerCategory
   let cat = await prisma.category.findFirst({
     where: { name: { equals: "Diğer", mode: "insensitive" as const }, parentId: null, deletedAt: null },
-    select: { id: true },
+    select: { id: true, isActive: true },
   })
   if (!cat) {
     const slug = await uniqueSlug("Diğer", "category")
     cat = await prisma.category.create({
       data: { name: "Diğer", slug, parentId: null, depth: 0, isActive: true, sortOrder: 999 },
-      select: { id: true },
+      select: { id: true, isActive: true },
     })
   }
-  digerCategoryId = cat.id
-  return digerCategoryId
+  digerCategory = { id: cat.id, active: cat.isActive }
+  return digerCategory
 }
 
 // ============================================================================
 // Marka eslestir
 // ============================================================================
 
-async function resolveBrand(markaAdi?: string): Promise<string | undefined> {
+/**
+ * Markayı isimden çözer; yoksa aktif olarak oluşturur.
+ * KURAL: Mevcut markanın isActive durumuna ASLA dokunulmaz.
+ * Dönen `active`, pasif markaya yeni ürünün pasif eklenmesi için kullanılır.
+ */
+async function resolveBrand(markaAdi?: string): Promise<{ id: string; active: boolean } | undefined> {
   if (!markaAdi) return undefined
 
   let brand = await prisma.brand.findFirst({
     where: { name: { equals: markaAdi, mode: "insensitive" }, deletedAt: null },
+    select: { id: true, isActive: true },
   })
 
   if (!brand) {
@@ -287,10 +301,11 @@ async function resolveBrand(markaAdi?: string): Promise<string | undefined> {
         isActive: true,
         source: "b2bdepo",
       },
+      select: { id: true, isActive: true },
     })
   }
 
-  return brand.id
+  return { id: brand.id, active: brand.isActive }
 }
 
 // ============================================================================
@@ -427,18 +442,19 @@ async function processProduct(
   const extId = item.urunKodu
   const currency = "USD"
 
-  // Kategori ve marka coz
-  let categoryId = await resolveCategory(
+  // Kategori ve marka coz (isActive durumlarıyla birlikte)
+  const cat = await resolveCategory(
     item.ustKategoriAdi,
     item.altKategoriAdi,
     item.enAltKategoriAdi
   )
-  const brandId = await resolveBrand(item.marka)
+  const brand = await resolveBrand(item.marka)
 
-  // Kategorisi olmayan ürünler "Diğer" kategorisine — pasif ürün yok
-  if (!categoryId) {
-    categoryId = await getDigelerCategoryId()
-  }
+  // Kategorisi olmayan ürünler "Diğer" kategorisine
+  const categoryId = cat?.id ?? (await getDigerCategory()).id
+  const categoryActive = cat ? cat.active : (await getDigerCategory()).active
+  const brandId = brand?.id
+  const brandActive = brand ? brand.active : true
 
   // Urunu barkod veya metadata ile bul
   let product = null
@@ -457,7 +473,7 @@ async function processProduct(
   }
 
   if (!product) {
-    // Yeni urun olustur
+    // Yeni urun olustur — pasif kategori/marka altına düşen ürün pasif doğar
     const slug = await uniqueSlug(item.urunAdi, "product")
     product = await prisma.product.create({
       data: {
@@ -467,7 +483,7 @@ async function processProduct(
         brandId,
         categoryId,
         images: item.resimler ?? [],
-        isActive: true,
+        isActive: categoryActive && brandActive,
         unit: "ADET",
         metadata: { b2bdepo_id: extId },
       },
@@ -475,6 +491,8 @@ async function processProduct(
     result.created++
   } else {
     // Mevcut urunu guncelle
+    // KURAL: isActive BİLİNÇLİ olarak güncellenmez — kullanıcının
+    // pasifleştirdiği ürün sync ile asla geri aktifleştirilmez.
     const existingMeta =
       product.metadata && typeof product.metadata === "object" && !Array.isArray(product.metadata)
         ? (product.metadata as Record<string, unknown>)
@@ -487,7 +505,6 @@ async function processProduct(
         barcode: item.ean ?? product.barcode,
         brandId: brandId ?? product.brandId ?? undefined,
         categoryId: categoryId ?? product.categoryId ?? undefined,
-        isActive: true,
         images: item.resimler && item.resimler.length > 0 ? item.resimler : product.images,
         metadata: {
           ...existingMeta,

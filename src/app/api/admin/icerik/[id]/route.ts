@@ -24,10 +24,12 @@ async function updateOne(type: ContentType, id: string, data: Record<string, unk
     case "siteTexts": return prisma.siteText.update({ where: { id }, data: data as never })
     case "brands": {
       const updated = await prisma.brand.update({ where: { id }, data: data as never })
-      if (data.isActive === false || data.isActive === true) {
+      // Cascade SADECE pasifleştirmede çalışır. Aktifleştirmede ürünlere
+      // dokunulmaz — kullanıcının tek tek pasifleştirdiği ürünler korunur.
+      if (data.isActive === false) {
         await prisma.product.updateMany({
           where: { brandId: id, deletedAt: null },
-          data: { isActive: data.isActive as boolean },
+          data: { isActive: false },
         })
       }
       return updated
@@ -35,10 +37,11 @@ async function updateOne(type: ContentType, id: string, data: Record<string, unk
     case "categories": {
       const updated = await prisma.category.update({ where: { id }, data: data as never })
 
-      // Her iki yönde cascade: pasifleştir OR aktifleştir
-      if (data.isActive === false || data.isActive === true) {
-        const targetActive = data.isActive as boolean
-
+      // Cascade SADECE pasifleştirmede çalışır: kategori kapatılınca tüm alt
+      // kategoriler ve ürünler gizlenir. Aktifleştirmede ise SADECE kategorinin
+      // kendisi açılır — ürünler/alt kategoriler kullanıcının bıraktığı gibi kalır
+      // (tek tıkla yüzlerce ürünün geri açılması engellenir).
+      if (data.isActive === false) {
         // Tüm descendant ID'leri topla (iterative — sınırsız derinlik)
         const allIds: string[] = [id]
         let currentIds = [id]
@@ -51,15 +54,15 @@ async function updateOne(type: ContentType, id: string, data: Record<string, unk
           allIds.push(...currentIds)
         }
 
-        // Tüm alt kategorileri güncelle
+        // Tüm alt kategorileri pasifleştir
         await prisma.category.updateMany({
           where: { id: { in: allIds }, deletedAt: null },
-          data: { isActive: targetActive },
+          data: { isActive: false },
         })
-        // Bu kategorilerdeki tüm ürünleri güncelle
+        // Bu kategorilerdeki tüm ürünleri pasifleştir
         await prisma.product.updateMany({
           where: { categoryId: { in: allIds }, deletedAt: null },
-          data: { isActive: targetActive },
+          data: { isActive: false },
         })
       }
       return updated
