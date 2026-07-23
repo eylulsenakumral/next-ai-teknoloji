@@ -6,10 +6,10 @@ import Link from "next/link"
 import { Zap, Search, Shield, Truck, Headphones, Wrench } from "lucide-react"
 import { SearchAutocomplete } from "@/components/public/search-autocomplete"
 import { PARTNERS } from "./home-content"
+import { cn } from "@/lib/utils"
 
 // PartnersSection logolarını marquee'de de kullan (isim → logo eşlemesi)
 const PARTNER_LOGOS = new Map(PARTNERS.map((p) => [p.name.toLowerCase(), p.img]))
-import { cn } from "@/lib/utils"
 
 export interface MarqueeBrand {
   id: string
@@ -180,13 +180,22 @@ export function HomeHero({ total, brandCount, brands }: HomeHeroProps) {
                 <Link
                   key={`${b.id}-${i}`}
                   href={`/markalar/${b.slug}`}
-                  className="flex shrink-0 items-center gap-3 opacity-70 transition hover:opacity-100"
+                  className="group flex shrink-0 items-center gap-3"
                   aria-label={`${b.name} markası`}
                 >
                   {logo ? (
-                    <img src={logo} alt={b.name} className="h-8 w-auto object-contain" loading="lazy" />
+                    <span className="flex h-10 w-24 items-center justify-center">
+                      <img
+                        src={logo}
+                        alt={b.name}
+                        className="max-h-full max-w-full object-contain opacity-80 transition-all duration-300 [filter:grayscale(1)_sepia(1)_hue-rotate(180deg)_saturate(2)_brightness(0.85)] group-hover:opacity-100 group-hover:[filter:none]"
+                        loading="lazy"
+                      />
+                    </span>
                   ) : (
-                    <span className="font-nx-heading text-xl font-bold tracking-tight text-[#1852ac]">{b.name}</span>
+                    <span className="font-nx-heading text-xl font-bold tracking-tight text-[#1852ac] opacity-70 transition-opacity duration-300 group-hover:opacity-100">
+                      {b.name}
+                    </span>
                   )}
                   <span className="rounded-full bg-[#E9F1FC] px-2 py-0.5 text-[10px] font-bold text-[#1852ac]">
                     {b.productCount}
