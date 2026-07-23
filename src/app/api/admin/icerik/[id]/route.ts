@@ -25,8 +25,11 @@ async function updateOne(type: ContentType, id: string, data: Record<string, unk
     case "brands": return prisma.brand.update({ where: { id }, data: data as never })
     case "categories": {
       const updated = await prisma.category.update({ where: { id }, data: data as never })
-      // Kategori pasifleştiriliyorsa — tüm alt kategorileri ve ürünleri cascade pasifleştir
-      if (data.isActive === false) {
+
+      // Her iki yönde cascade: pasifleştir OR aktifleştir
+      if (data.isActive === false || data.isActive === true) {
+        const targetActive = data.isActive as boolean
+
         // Tüm descendant ID'leri topla (iterative — sınırsız derinlik)
         const allIds: string[] = [id]
         let currentIds = [id]
@@ -38,15 +41,16 @@ async function updateOne(type: ContentType, id: string, data: Record<string, unk
           currentIds = children.map((c) => c.id)
           allIds.push(...currentIds)
         }
-        // Tüm kategorileri pasifleştir
+
+        // Tüm alt kategorileri güncelle
         await prisma.category.updateMany({
           where: { id: { in: allIds }, deletedAt: null },
-          data: { isActive: false },
+          data: { isActive: targetActive },
         })
-        // Bu kategorilerdeki tüm ürünleri pasifleştir
+        // Bu kategorilerdeki tüm ürünleri güncelle
         await prisma.product.updateMany({
           where: { categoryId: { in: allIds }, deletedAt: null },
-          data: { isActive: false },
+          data: { isActive: targetActive },
         })
       }
       return updated
