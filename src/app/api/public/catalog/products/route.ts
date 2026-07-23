@@ -26,10 +26,7 @@ const getCachedUsdTryRate = unstable_cache(
 )
 
 // Kategori hiyerarşisi cache - 5 dakika
-const getCategoryDescendants = unstable_cache(
-  async (categorySlug: string) => {
-    // isActive filtresi YOK — kategori pasif olsa bile filtreleme çalışmalı
-    // (isActive sadece navigasyonda görünümü kontrol eder, ürün filtrelemeyi değil)
+async function getCategoryDescendants(categorySlug: string): Promise<string[]> {
     const cat = await prisma.category.findFirst({
       where: { slug: categorySlug, deletedAt: null },
       select: { id: true },
@@ -52,14 +49,10 @@ const getCategoryDescendants = unstable_cache(
     }
     findDescendants(cat.id)
     return [...descendantIds]
-  },
-  ["category-descendants-v2"],
-  { revalidate: 300 }
-)
+  }
 
 // Product listing cache - 60 saniye
-const getCachedProductListing = unstable_cache(
-  async (
+async function getCachedProductListing(
     brandSlug: string,
     categorySlug: string,
     search: string,
@@ -70,7 +63,7 @@ const getCachedProductListing = unstable_cache(
     maxPrice: number | null,
     page: number,
     limit: number
-  ) => {
+  ) {
     const orderBy =
       sortBy === "name-asc"
         ? { name: "asc" as const }
@@ -189,10 +182,7 @@ const getCachedProductListing = unstable_cache(
     ])
 
     return { products, total }
-  },
-  ["product-listing-v2"],
-  { revalidate: 60, tags: ["product-listing"] }
-)
+  }
 
 export async function GET(req: NextRequest) {
   try {
