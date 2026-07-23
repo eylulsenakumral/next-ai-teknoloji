@@ -6,7 +6,7 @@ export async function PartnersSection() {
 
   try {
     const brands = await prisma.brand.findMany({
-      where: { isActive: true, deletedAt: null, logoUrl: { not: null } },
+      where: { isActive: true, deletedAt: null, logoUrl: { not: null }, products: { some: { isActive: true, deletedAt: null } } },
       orderBy: { sortOrder: "asc" },
       take: 12,
       select: { name: true, logoUrl: true },

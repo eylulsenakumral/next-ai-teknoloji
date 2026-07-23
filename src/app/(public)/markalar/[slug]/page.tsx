@@ -14,7 +14,7 @@ interface Props {
 
 async function getBrand(slug: string) {
   return prisma.brand.findFirst({
-    where: { slug, deletedAt: null, isActive: true },
+    where: { slug, deletedAt: null, isActive: true, products: { some: { isActive: true, deletedAt: null } } },
     select: {
       id: true,
       name: true,
