@@ -711,9 +711,7 @@ export default function KatalogPage() {
       if (next.page > 1) params.set("page", String(next.page))
       if (!next.inStock) params.set("inStock", "false")
 
-      startTransition(() => {
-        router.push(`${pathname}?${params.toString()}`, { scroll: false })
-      })
+      router.push(`${pathname}?${params.toString()}`, { scroll: false })
     },
     [filters, pathname, router]
   )
