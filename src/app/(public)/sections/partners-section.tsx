@@ -18,7 +18,19 @@ export async function PartnersSection() {
     // fallback
   }
 
-  if (partners.length === 0) partners = PARTNERS
+  if (partners.length === 0) {
+    // Hardcoded PARTNERS'ı DB'deki pasif markalarla filtrele
+    try {
+      const passiveBrands = await prisma.brand.findMany({
+        where: { isActive: false, deletedAt: null },
+        select: { name: true },
+      })
+      const passiveSet = new Set(passiveBrands.map((b) => b.name.toLowerCase()))
+      partners = PARTNERS.filter((p) => !passiveSet.has(p.name.toLowerCase()))
+    } catch {
+      partners = PARTNERS
+    }
+  }
 
   return (
     <section className="border-y border-slate-100 bg-[#F5F5F5] py-10">
