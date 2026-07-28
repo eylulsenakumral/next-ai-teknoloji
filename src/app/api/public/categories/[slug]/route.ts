@@ -123,22 +123,21 @@ export async function GET(
       }
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const cat = category as any
-
     return NextResponse.json(
       {
         data: {
-          id: cat.id,
-          name: cat.name,
-          slug: cat.slug,
-          description: cat.description ?? null,
-          imageUrl: cat.imageUrl ?? null,
-          depth: cat.depth,
-          parentId: cat.parentId,
-          productCount: cat._count.products,
+          id: category.id,
+          name: category.name,
+          slug: category.slug,
+          description: category.description ?? null,
+          imageUrl: category.imageUrl ?? null,
+          depth: category.depth,
+          parentId: category.parentId,
+          productCount: category._count.products,
           breadcrumb,
-          children: (cat.children ?? []).map(mapNode),
+          children: (category.children ?? []).map((c) =>
+            mapNode(c as unknown as NodeWithCount)
+          ),
         },
       },
       {

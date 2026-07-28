@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useRef, useCallback } from "react"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -141,10 +142,12 @@ export function ImageUpload({
         // Preview mode
         <div className="relative group">
           <div className="relative w-full h-40 rounded-lg border border-border overflow-hidden bg-muted">
-            <img
+            <Image
               src={value}
               alt={label}
-              className="w-full h-full object-contain"
+              fill
+              sizes="(max-width: 768px) 100vw, 400px"
+              className="object-contain"
             />
           </div>
           <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">

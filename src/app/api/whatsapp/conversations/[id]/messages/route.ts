@@ -3,11 +3,16 @@
 // ============================================================================
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers";
 
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const session = await getAdminSession();
+  const denied = requireAdminSession(session);
+  if (denied) return denied;
+
   const { id } = await params;
 
   const { searchParams } = new URL(req.url);

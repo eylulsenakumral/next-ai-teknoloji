@@ -102,24 +102,6 @@ function IconClock({ className }: { className?: string }) {
   )
 }
 
-function IconZap({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden="true"
-    >
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-    </svg>
-  )
-}
-
 /* ------------------------------------------------------------------ */
 /*  Social Icon SVGs                                                   */
 /* ------------------------------------------------------------------ */
@@ -185,7 +167,7 @@ function SocialIcon({
 }) {
   return (
     <span
-      className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-[#0040a4] hover:bg-gradient-to-r hover:from-[#0040a4] hover:to-[#1a6fe0] hover:text-white hover:scale-110 transition-all duration-300"
+      className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 text-[var(--color-primary)] hover:bg-gradient-to-r hover:from-[var(--color-primary)] hover:to-[#06B6D4] hover:text-white hover:scale-110 transition-all duration-300"
       aria-label={label}
     >
       <Icon />
@@ -206,7 +188,7 @@ function FooterColumn({
 }) {
   return (
     <div className="section-accent">
-      <h3 className="font-bold text-sm text-[#0040a4] mb-5 uppercase tracking-[0.1em]">
+      <h3 className="font-bold text-sm text-[var(--color-primary)] mb-5 uppercase tracking-[0.1em]">
         {title}
       </h3>
       <ul className="space-y-2.5">
@@ -214,7 +196,7 @@ function FooterColumn({
           <li key={href + label}>
             <Link
               href={href}
-              className="text-sm text-[#0040a4] hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+              className="text-sm text-[var(--color-primary)] hover:text-[var(--color-nx-dark)] transition-[var(--DTBaseTransition)]"
             >
               {label}
             </Link>
@@ -276,37 +258,37 @@ export function PublicFooter() {
 
           {/* Column 4: Contact Info */}
           <div className="section-accent">
-            <h3 className="font-bold text-sm text-[#0040a4] mb-5 uppercase tracking-[0.1em]">
+            <h3 className="font-bold text-sm text-[var(--color-primary)] mb-5 uppercase tracking-[0.1em]">
               İletişim Bilgileri
             </h3>
             <ul className="space-y-3">
               <li className="flex items-start gap-2">
-                <IconMapPin className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--DTPrimaryColor)]" />
+                <IconMapPin className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--color-nx-dark)]" />
                 <span className="text-sm text-gray-600 break-words">
                   Esentepe Mh. Sancad Cad. Real Tower Plaza K:2 D:14
                   Corlu/Tekirdag
                 </span>
               </li>
               <li className="flex items-center gap-2">
-                <IconPhone className="w-5 h-5 flex-shrink-0 text-[var(--DTPrimaryColor)]" />
+                <IconPhone className="w-5 h-5 flex-shrink-0 text-[var(--color-nx-dark)]" />
                 <a
                   href="tel:+905529895959"
-                  className="text-sm text-gray-600 hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+                  className="text-sm text-gray-600 hover:text-[var(--color-nx-dark)] transition-[var(--DTBaseTransition)]"
                 >
                   0 552 989 5959
                 </a>
               </li>
               <li className="flex items-center gap-2">
-                <IconMail className="w-5 h-5 flex-shrink-0 text-[var(--DTPrimaryColor)]" />
+                <IconMail className="w-5 h-5 flex-shrink-0 text-[var(--color-nx-dark)]" />
                 <a
                   href="mailto:info@next-ai.com.tr"
-                  className="text-sm text-gray-600 hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+                  className="text-sm text-gray-600 hover:text-[var(--color-nx-dark)] transition-[var(--DTBaseTransition)]"
                 >
                   info@next-ai.com.tr
                 </a>
               </li>
               <li className="flex items-start gap-2">
-                <IconClock className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--DTPrimaryColor)]" />
+                <IconClock className="w-5 h-5 flex-shrink-0 mt-0.5 text-[var(--color-nx-dark)]" />
                 <span className="text-sm text-gray-600">
                   Pzt - Cum: 09:00 - 18:00
                 </span>
@@ -327,7 +309,7 @@ export function PublicFooter() {
                 <Link
                   key={href}
                   href={href}
-                  className="hover:text-[var(--DTPrimaryColor)] transition-[var(--DTBaseTransition)]"
+                  className="hover:text-[var(--color-nx-dark)] transition-[var(--DTBaseTransition)]"
                 >
                   {label}
                 </Link>

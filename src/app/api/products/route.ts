@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+import { Prisma } from "@prisma/client"
 import { prisma } from "@/lib/db"
 import { createProductSchema, productFilterSchema } from "@/lib/validators/product"
 import { generateSlug } from "@/lib/utils/slug"
@@ -180,8 +181,7 @@ export async function POST(req: NextRequest) {
       minOrderQuantity: data.minOrderQuantity,
       unit: data.unit,
       // metadata Record<string,unknown> → cast to satisfy Prisma InputJsonValue
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      ...(data.metadata ? { metadata: data.metadata as any } : {}),
+      ...(data.metadata ? { metadata: data.metadata as Prisma.InputJsonValue } : {}),
       createdBy: session!.user.id,
     },
     include: {

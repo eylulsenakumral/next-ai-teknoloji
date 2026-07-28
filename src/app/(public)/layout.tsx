@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | Next AI Teknoloji",
   },
   description:
-    "16+ global markanın yetkili tedarikçisi. CCTV, network, geçiş kontrol, akıllı bina çözümleri. Bayi avantajları, proje tasarımı ve teknik danışmanlık.",
+    "27+ global markanın yetkili tedarikçisi. CCTV, network, geçiş kontrol, akıllı bina çözümleri. Bayi avantajları, proje tasarımı ve teknik danışmanlık.",
   keywords: [
     "CCTV tedarik",
     "güvenlik kamera bayi",
@@ -21,9 +21,24 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "Next AI Teknoloji — B2B Teknoloji Tedarik & Proje Platformu",
-    description: "16+ global markanın yetkili tedarikçisi. Bayi avantajları, proje tasarımı ve teknik danışmanlık.",
+    description: "27+ global markanın yetkili tedarikçisi. Bayi avantajları, proje tasarımı ve teknik danışmanlık.",
     type: "website",
     locale: "tr_TR",
+    siteName: "Next AI Teknoloji",
+    images: [
+      {
+        url: "/images/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Next AI Teknoloji",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Next AI Teknoloji — B2B Teknoloji Tedarik & Proje Platformu",
+    description: "27+ global markanın yetkili tedarikçisi. Bayi avantajları, proje tasarımı ve teknik danışmanlık.",
+    images: ["/images/og.png"],
   },
 }
 
@@ -33,9 +48,9 @@ export default function PublicLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col min-h-screen bg-[#f4f7fa] text-[#0040a4] font-nx-sans">
+    <div className="nx-public flex flex-col min-h-screen bg-[var(--color-background)] text-[var(--color-primary)] font-nx-sans">
       <PublicHeaderNext />
-      <main className="flex-1 w-full">{children}</main>
+      <main id="main-content" className="flex-1 w-full">{children}</main>
       <PublicFooterNext />
       <WhatsAppButton />
       <ChatWidget />

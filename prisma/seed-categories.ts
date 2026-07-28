@@ -173,7 +173,7 @@ async function getOrCreateCategory(
 
     categoryCache.set(dedupKey, category.id)
     return category.id
-  } catch (error: any) {
+  } catch (error: unknown) {
     stats.errors++
     console.error(`  [ERROR] "${name}" (slug: ${finalSlug}, depth: ${depth}):`, error)
     throw error

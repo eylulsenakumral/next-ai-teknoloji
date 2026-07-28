@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function UrunDuzenlemePage({ params }: Props) {
   const session = await getAdminSession()
   if (!session?.user) {
-    redirect("/admin/giris")
+    redirect("/login")
   }
 
   const { id } = await params

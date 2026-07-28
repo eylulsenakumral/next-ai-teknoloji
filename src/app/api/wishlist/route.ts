@@ -20,6 +20,7 @@ export async function GET() {
       where: { userId: session.user.id },
       include: {
         items: {
+          where: { product: { isActive: true, deletedAt: null } },
           include: {
             product: {
               select: {
@@ -31,7 +32,7 @@ export async function GET() {
                 category: { select: { name: true, slug: true } },
                 supplierProducts: {
                   where: { supplier: { isActive: true, deletedAt: null } },
-                  select: { stockQuantity: true, purchasePrice: true },
+                  select: { stockQuantity: true },
                   orderBy: { purchasePrice: "asc" },
                   take: 1,
                 },

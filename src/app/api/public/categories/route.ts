@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
+import { Prisma } from "@prisma/client"
 import { prisma } from "@/lib/db"
 import { withCache, CacheKey, TTL } from "@/lib/cache"
 
@@ -47,8 +48,8 @@ function mapCategory(cat: PrismaCategory): CategoryTreeNode {
 /*  Recursive include builder - 5 seviye                               */
 /* ------------------------------------------------------------------ */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function buildPublicInclude(depth: number): any {
+ 
+function buildPublicInclude(depth: number): Prisma.CategoryInclude {
   const filter = { deletedAt: null, isActive: true }
 
   if (depth === 0) {
@@ -148,8 +149,8 @@ export async function GET(req: NextRequest) {
           include: buildPublicInclude(6),
         })
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        return (categories as any[]).map(mapCategory)
+         
+        return (categories as unknown as PrismaCategory[]).map(mapCategory)
       }
     )
 

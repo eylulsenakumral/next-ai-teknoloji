@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import {
   CheckCircle,
   XCircle,
@@ -26,7 +27,6 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
-import { cn } from "@/lib/utils"
 
 interface ApplicationDetail {
   id: string
@@ -269,10 +269,13 @@ export function ApplicationReview({ applicationId, open, onClose, onDone }: Prop
                       {application.taxCertificateUrl.startsWith("data:") ? (
                         <div className="space-y-2">
                           {application.taxCertificateUrl.startsWith("data:image/") ? (
-                            <img
+                            <Image
                               src={application.taxCertificateUrl}
                               alt="Vergi Levhası"
+                              width={192}
+                              height={192}
                               className="max-w-xs max-h-48 rounded border object-contain"
+                              unoptimized
                             />
                           ) : (
                             <embed

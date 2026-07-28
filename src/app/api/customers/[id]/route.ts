@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
-import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
+import { getAdminSession, requireReadPermission, requireWritePermission } from "@/lib/auth-helpers"
 import { updateCustomerSchema } from "@/lib/validators/customer"
 import bcrypt from "bcryptjs"
 
@@ -10,7 +10,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getAdminSession()
-  const authError = requireAdminSession(session)
+  const authError = requireReadPermission(session)
   if (authError) return authError
 
   const { id } = await params
@@ -58,7 +58,10 @@ export async function GET(
     return NextResponse.json({ error: "Müşteri bulunamadı." }, { status: 404 })
   }
 
-  return NextResponse.json({ data: customer })
+  // KRİTİK-29: passwordHash asla cliente sızmasın (include tüm scalar döndürürdü).
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { passwordHash, ...safeCustomer } = customer
+  return NextResponse.json({ data: safeCustomer })
 }
 
 // PUT /api/customers/[id] — Admin: Müşteri güncelle
@@ -67,7 +70,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getAdminSession()
-  const authError = requireAdminSession(session)
+  const authError = requireWritePermission(session)
   if (authError) return authError
 
   const { id } = await params

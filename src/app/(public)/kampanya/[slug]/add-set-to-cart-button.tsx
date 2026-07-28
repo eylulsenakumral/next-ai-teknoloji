@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { ShoppingCart, CheckCircle, Loader2 } from "lucide-react"
 import { useCart } from "@/hooks/use-cart"
-import { useRouter } from "next/navigation"
 
 interface SetProductItem {
   id: string
@@ -31,10 +30,8 @@ export function AddSetToCartButton({
   products,
   setPrice,
   discountPct,
-  currency,
   stockQuantity,
 }: AddSetToCartButtonProps) {
-  const router = useRouter()
   const { addItem, openCart } = useCart()
   const [adding, setAdding] = useState(false)
   const [added, setAdded] = useState(false)
@@ -87,7 +84,7 @@ export function AddSetToCartButton({
           ? "bg-emerald-600 text-white"
           : isOutOfStock
             ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-            : "bg-[#5086a8] text-white hover:bg-[#003080] active:scale-95"
+            : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)] active:scale-95"
         }
       `}
     >

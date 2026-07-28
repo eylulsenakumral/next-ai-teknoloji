@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import bcrypt from "bcryptjs"
+import { randomInt } from "crypto"
 import { z } from "zod"
 
 // Bayi kodu üretimi: NAT-XXXX (4 haneli artan)
@@ -23,12 +24,12 @@ async function generateDealerCode(): Promise<string> {
   return `NAT-${nextNum.toString().padStart(4, "0")}`
 }
 
-// Güvenli geçici şifre üretimi
+// Güvenli geçici şifre üretimi — kriptografik olarak güvenli (crypto.randomInt)
 function generateTempPassword(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789"
   let password = ""
   for (let i = 0; i < 10; i++) {
-    password += chars.charAt(Math.floor(Math.random() * chars.length))
+    password += chars.charAt(randomInt(0, chars.length))
   }
   return password
 }
@@ -152,15 +153,8 @@ export async function POST(
       data: { customerId: customer.id },
     })
 
-    // E-posta gönderimi (şimdilik console.log)
-    console.log(`
-[E-POSTA GÖNDERİLDİ] Bayi başvurusu onaylandı
-Alıcı: ${application.contactName} <${application.email}>
-Firma: ${application.companyName}
-Bayi Kodu: ${dealerCode}
-Geçici Şifre: ${tempPassword}
-Giriş URL: ${process.env.NEXTAUTH_URL ?? "https://bayi.nextai.com.tr"}/login
-    `)
+    // Not: E-posta/SMS entegrasyonu henüz yok — geçici şifre yanıtta admin'e döner,
+    // admin tarafından manuel iletilir. Production log'larına düz metin şifre YAZMA.
 
     return NextResponse.json({
       success: true,
@@ -182,13 +176,6 @@ Giriş URL: ${process.env.NEXTAUTH_URL ?? "https://bayi.nextai.com.tr"}/login
         reviewedBy,
       },
     })
-
-    console.log(`
-[E-POSTA GÖNDERİLDİ] Bayi başvurusu reddedildi
-Alıcı: ${application.contactName} <${application.email}>
-Firma: ${application.companyName}
-Not: ${adminNotes ?? "—"}
-    `)
 
     return NextResponse.json({
       success: true,

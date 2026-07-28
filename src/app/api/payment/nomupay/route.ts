@@ -67,7 +67,6 @@ export async function POST(request: NextRequest) {
 </WIRECARD>`
 
     console.log("[NOMUPAY] Creating ticket - MPAY:", mpay, "Price:", priceKurus)
-    console.log("[NOMUPAY] XML:", xml)
 
     const nomupayRes = await fetch(NOMUPAY_URL, {
       method: "POST",
@@ -76,7 +75,6 @@ export async function POST(request: NextRequest) {
     })
 
     const responseText = await nomupayRes.text()
-    console.log("[NOMUPAY] Response:", responseText)
 
     const parsed = parseXmlResponse(responseText)
 
@@ -88,10 +86,10 @@ export async function POST(request: NextRequest) {
       })
     }
 
+    // Hassas veri (PIN/XML/ham yanıt) cliente sızdırma — parsed alanlar yeterli.
     return NextResponse.json({
       success: false,
       ...parsed,
-      debug: { priceKurus, rawResponse: responseText },
     })
   } catch (error) {
     console.error("Nomupay ticket error:", error)

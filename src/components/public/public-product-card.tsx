@@ -30,6 +30,11 @@ export interface PublicProduct {
   usdTryRate?: number | null
   campaignDiscountPct?: string | number | null
   hidePrice?: boolean
+  // Fırsat/outlet ürünleri için doğrudan satış fiyatı
+  manualPrice?: number | null
+  manualPriceCurrency?: string | null
+  // Liste fiyatı (KDV hariç) — bayi görmüyorsa undefined
+  salePriceExVat?: number | null
 }
 
 /* ------------------------------------------------------------------ */
@@ -113,7 +118,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
         {/* Badges - Top Left */}
         <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
           {!product.stockStatus ? (
-            <span className="px-3 py-1 bg-[#a60811] text-white text-xs font-bold rounded-full">
+            <span className="px-3 py-1 bg-[var(--color-error)] text-white text-xs font-bold rounded-full">
               Tükendi
             </span>
           ) : product.stockCount !== undefined && product.stockCount > 0 ? (
@@ -127,7 +132,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
         <div className="absolute top-3 right-3 flex flex-col gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <button
             type="button"
-            className="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 hover:bg-[#0040a4] hover:text-white transition-colors"
+            className="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 hover:bg-[var(--color-primary)] hover:text-white transition-colors"
             aria-label={`${product.name} favorilere ekle`}
           >
             <Heart className="w-5 h-5" aria-hidden />
@@ -135,7 +140,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
           <button
             type="button"
             onClick={() => router.push(`/katalog/${product.slug}`)}
-            className="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 hover:bg-[#0040a4] hover:text-white transition-colors"
+            className="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center text-gray-600 hover:bg-[var(--color-primary)] hover:text-white transition-colors"
             aria-label={`${product.name} hızlı bak`}
           >
             <Eye className="w-5 h-5" aria-hidden />
@@ -148,7 +153,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
             <button
               type="button"
               onClick={() => router.push(`/katalog/${product.slug}`)}
-              className="w-full py-3 bg-[#0040a4] text-white font-semibold rounded-lg hover:bg-[#003080] transition-colors flex items-center justify-center gap-2"
+              className="w-full py-3 bg-[var(--color-primary)] text-white font-semibold rounded-lg hover:bg-[var(--color-primary-hover)] transition-colors flex items-center justify-center gap-2"
             >
               <Eye className="w-5 h-5" aria-hidden />
               Ürünü İncele
@@ -159,7 +164,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
         {/* Sold Out Overlay */}
         {!product.stockStatus && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-            <div className="w-20 h-20 bg-[#a60811] rounded-full flex items-center justify-center">
+            <div className="w-20 h-20 bg-[var(--color-error)] rounded-full flex items-center justify-center">
               <span className="text-white font-bold text-sm">Tükendi</span>
             </div>
           </div>
@@ -176,7 +181,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
         {/* Product Name — always 2 lines */}
         <Link
           href={`/katalog/${product.slug}`}
-          className="block font-semibold text-base mb-2 line-clamp-2 hover:text-[#0040a4] transition-colors min-h-[48px]"
+          className="block font-semibold text-base mb-2 line-clamp-2 hover:text-[var(--color-primary)] transition-colors min-h-[48px]"
         >
           {product.name}
         </Link>
@@ -189,36 +194,47 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
         {/* Price / Login CTA */}
         <div className="mt-auto pt-3">
         {hideLoginCTA && product.hidePrice ? (
-          <p className="text-[12px] font-semibold text-[#a60811] leading-snug">
+          <p className="text-[12px] font-semibold text-[var(--color-error)] leading-snug">
             Müşteri Temsilcinizden Özel Fiyat Alınız
           </p>
-        ) : hideLoginCTA && product.price != null ? (
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex flex-col">
-              <span className="text-[15px] font-bold text-[#0040a4]">
-                {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
-                <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
-              </span>
-              <span className="text-[11px] text-gray-500">
-                {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price * 1.20)} KDV Dahil
-              </span>
-            </div>
-            {product.currency !== "TRY" && product.priceTry != null && (
-              <div className="flex flex-col items-end">
-                <span className="text-[13px] font-semibold text-gray-600">
-                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry)}
+        ) : product.price != null ? (
+          <div>
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex flex-col">
+                <span className="text-[15px] font-bold text-[var(--color-primary)]">
+                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                   <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
                 </span>
                 <span className="text-[11px] text-gray-500">
-                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry * 1.20)} KDV Dahil
+                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price * 1.20)} KDV Dahil
                 </span>
               </div>
+              {product.currency !== "TRY" && product.priceTry != null && (
+                <div className="flex flex-col items-end">
+                  <span className="text-[13px] font-semibold text-gray-600">
+                    {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry)}
+                    <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
+                  </span>
+                  <span className="text-[11px] text-gray-500">
+                    {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry * 1.20)} KDV Dahil
+                  </span>
+                </div>
+              )}
+            </div>
+            {!hideLoginCTA && (
+              <Link
+                href="/login"
+                className="mt-2 flex items-center gap-1.5 rounded-lg bg-[var(--color-primary)] px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-[var(--color-primary)]/90"
+              >
+                <Lock className="h-3 w-3" aria-hidden />
+                Bayi Girişi ile Daha Avantajlı Fiyat
+              </Link>
             )}
           </div>
         ) : !hideLoginCTA ? (
           <Link
             href="/login"
-            className="flex items-center justify-center gap-1.5 h-10 px-4 text-xs font-semibold rounded-lg border border-[#0040a4]/30 bg-[#0040a4]/5 text-[#0040a4] hover:bg-[#0040a4]/10 transition-colors"
+            className="flex items-center justify-center gap-1.5 h-10 px-4 text-xs font-semibold rounded-lg border border-[var(--color-primary)]/30 bg-[var(--color-primary)]/5 text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 transition-colors"
           >
             <Lock className="h-3.5 w-3.5" aria-hidden />
             Bayi Fiyatı İçin Giriş Yapın
@@ -253,7 +269,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
               onClick={handleAddToCart}
               className={cn(
                 "flex-1 h-7 flex items-center justify-center gap-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200",
-                justAdded ? "bg-[#3b7300] text-white" : "bg-[#0040a4] text-white hover:bg-[#003080]"
+                justAdded ? "bg-[var(--color-success)] text-white" : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
               )}
               aria-label={`${product.name} sepete ekle`}
             >
@@ -267,7 +283,7 @@ export function PublicProductCard({ product }: { product: PublicProduct }) {
         ) : null}
 
         {cartQty > 0 && (
-          <button type="button" onClick={() => openCart()} className="text-[10px] text-center text-[#0040a4] hover:underline mt-1">Sepette {cartQty} adet</button>
+          <button type="button" onClick={() => openCart()} className="text-[10px] text-center text-[var(--color-primary)] hover:underline mt-1">Sepette {cartQty} adet</button>
         )}
         </div>
       </div>
@@ -334,7 +350,7 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
           </div>
         )}
         {!product.stockStatus && (
-          <span className="absolute top-2 left-2 px-2 py-0.5 bg-[#a60811] text-white text-[10px] font-bold rounded-full z-10">
+          <span className="absolute top-2 left-2 px-2 py-0.5 bg-[var(--color-error)] text-white text-[10px] font-bold rounded-full z-10">
             Tükendi
           </span>
         )}
@@ -350,7 +366,7 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
           )}
           <Link
             href={`/katalog/${product.slug}`}
-            className="block text-[15px] font-semibold text-[#0040a4] hover:text-[#0040a4] transition-colors leading-snug line-clamp-2"
+            className="block text-[15px] font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors leading-snug line-clamp-2"
           >
             {product.name}
           </Link>
@@ -361,38 +377,48 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
 
         {hideLoginCTA && product.hidePrice ? (
           <div className="shrink-0">
-            <p className="text-[12px] font-semibold text-[#a60811] leading-snug whitespace-nowrap">
+            <p className="text-[12px] font-semibold text-[var(--color-error)] leading-snug whitespace-nowrap">
               Müşteri Temsilcinizden<br />Özel Fiyat Alınız
             </p>
           </div>
-        ) : hideLoginCTA && product.price != null ? (
-          <div className="shrink-0 flex items-start gap-3">
-            <div className="flex flex-col items-end">
-              <span className="text-[15px] font-bold text-[#0040a4]">
-                {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
-                <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
-              </span>
-              <span className="text-[11px] text-gray-500">
-                {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price * 1.20)} KDV Dahil
-              </span>
-            </div>
-            {product.currency !== "TRY" && product.priceTry != null && (
+        ) : product.price != null ? (
+          <div className="shrink-0">
+            <div className="flex items-start gap-3">
               <div className="flex flex-col items-end">
-                <span className="text-[13px] font-semibold text-gray-600">
-                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry)}
+                <span className="text-[15px] font-bold text-[var(--color-primary)]">
+                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price)}
                   <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
                 </span>
                 <span className="text-[11px] text-gray-500">
-                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry * 1.20)} KDV Dahil
+                  {new Intl.NumberFormat("tr-TR", { style: "currency", currency: product.currency || "TRY", minimumFractionDigits: 2 }).format(product.price * 1.20)} KDV Dahil
                 </span>
               </div>
+              {product.currency !== "TRY" && product.priceTry != null && (
+                <div className="flex flex-col items-end">
+                  <span className="text-[13px] font-semibold text-gray-600">
+                    {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry)}
+                    <span className="text-[10px] font-normal text-gray-400 ml-1">+KDV</span>
+                  </span>
+                  <span className="text-[11px] text-gray-500">
+                    {new Intl.NumberFormat("tr-TR", { style: "currency", currency: "TRY", minimumFractionDigits: 2 }).format(product.priceTry * 1.20)} KDV Dahil
+                  </span>
+                </div>
+              )}
+            </div>
+            {!hideLoginCTA && (
+              <Link
+                href="/login"
+                className="mt-1.5 flex items-center justify-end gap-1 text-[10px] font-semibold text-[var(--color-primary)] hover:underline"
+              >
+                <Lock className="h-2.5 w-2.5" /> Bayi girşi ile daha avantajlı
+              </Link>
             )}
           </div>
         ) : !hideLoginCTA ? (
           <div className="shrink-0">
             <Link
               href="/login"
-              className="inline-flex items-center gap-1.5 h-10 px-5 text-xs font-semibold rounded-lg border border-[#0040a4]/30 bg-[#0040a4]/5 text-[#0040a4] hover:bg-[#0040a4]/10 transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-5 text-xs font-semibold rounded-lg border border-[var(--color-primary)]/30 bg-[var(--color-primary)]/5 text-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 transition-colors"
             >
               <Lock className="h-3.5 w-3.5" aria-hidden />
               Bayi Fiyatı İçin Giriş Yapın
@@ -413,7 +439,7 @@ export function PublicProductListItem({ product }: { product: PublicProduct }) {
               onClick={handleAddToCart}
               className={cn(
                 "h-8 px-4 flex items-center justify-center gap-1.5 rounded-lg text-[12px] font-semibold transition-all duration-200",
-                justAdded ? "bg-[#3b7300] text-white" : "bg-[#0040a4] text-white hover:bg-[#003080]"
+                justAdded ? "bg-[var(--color-success)] text-white" : "bg-[var(--color-primary)] text-white hover:bg-[var(--color-primary-hover)]"
               )}
               aria-label={`${product.name} sepete ekle`}
             >

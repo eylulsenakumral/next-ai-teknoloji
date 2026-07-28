@@ -2,9 +2,18 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import '@testing-library/jest-dom/vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
+import { useSession } from 'next-auth/react'
 
 // Mock fetch
 global.fetch = vi.fn()
+
+// Mock next-auth/react
+vi.mock('next-auth/react', () => ({
+  useSession: vi.fn(),
+  SessionProvider: ({ children }: { children: React.ReactNode }) => children,
+  signIn: vi.fn(),
+  signOut: vi.fn(),
+}))
 
 // Mock next/link
 vi.mock('next/link', () => ({
@@ -22,6 +31,12 @@ vi.mock('next/link', () => ({
       {children}
     </a>
   ),
+}))
+
+// Mock next/image — test ortamında optimization proxy'sini atla (düz img)
+vi.mock('next/image', () => ({
+  __esModule: true,
+  default: (props: Record<string, unknown>) => <img {...props} />,
 }))
 
 // Import after mocks
@@ -56,6 +71,10 @@ const mockProduct: CatalogProduct = {
 describe('ProductCard', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    ;(useSession as ReturnType<typeof vi.fn>).mockReturnValue({
+      data: { user: { role: 'admin' } },
+      status: 'authenticated',
+    })
   })
 
   describe('Rendering', () => {
@@ -254,7 +273,7 @@ describe('ProductCard', () => {
       const { container } = render(<ProductCard product={mockProduct} />)
       const card = container.querySelector('article')
       expect(card?.className).toContain('rounded-[20px]')
-      expect(card?.className).toContain('bg-[#f3f3f3]')
+      expect(card?.className).toContain('bg-[var(--color-surface-muted)]')
     })
 
     it('applies hover effect classes', () => {
@@ -267,9 +286,8 @@ describe('ProductCard', () => {
 
     it('price has correct color class', () => {
       const { container } = render(<ProductCard product={mockProduct} />)
-      // Find the element with the green price class
-      const greenPriceElement = container.querySelector('.text-\\[\\#3b7300\\]')
-      expect(greenPriceElement).toBeInTheDocument()
+      const priceElement = container.querySelector('.text-\\[var\\(--color-price\\)\\]')
+      expect(priceElement).toBeInTheDocument()
     })
   })
 

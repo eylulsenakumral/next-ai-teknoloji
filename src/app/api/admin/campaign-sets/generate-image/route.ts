@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 import { minio, ensureBucket, buildMinioUrl } from "@/lib/minio"
 
-const OMNI_KEY = process.env.OMNIROUTE_API_KEY || "sk-45a7dc0fe4785ca8-pd7u9d-18c8f9bb"
-const OMNI_BASE = process.env.OMNIROUTE_BASE_URL || "http://192.168.5.249:20128"
+const OMNI_KEY = process.env.OMNIROUTE_API_KEY || ""
+const OMNI_BASE = process.env.OMNIROUTE_BASE_URL || ""
 
 // ---------------------------------------------------------------------------
 // POST /api/admin/campaign-sets/generate-image

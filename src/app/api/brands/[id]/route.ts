@@ -49,7 +49,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
     )
   }
 
-  const { name, slug, logoUrl, description, websiteUrl, isActive, sortOrder } = parsed.data
+  const { name, slug, logoUrl, description, websiteUrl, isActive, sortOrder, source } = parsed.data
 
   let finalSlug = existing.slug
   if (name && name !== existing.name && !slug) {
@@ -87,6 +87,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
       ...(websiteUrl !== undefined ? { websiteUrl: websiteUrl || null } : {}),
       ...(isActive !== undefined ? { isActive } : {}),
       ...(sortOrder !== undefined ? { sortOrder } : {}),
+      ...(source !== undefined ? { source: source || null } : {}),
       updatedBy: session!.user.id,
     },
   })

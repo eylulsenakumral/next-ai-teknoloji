@@ -9,7 +9,7 @@ export function LogoDahua({ className }: P) {
       {/* dot above the 'a' — brand mark */}
       <circle cx="14" cy="6" r="5" fill="#0075C2" />
       {/* wordmark */}
-      <text x="0" y="32" fontFamily="Arial, sans-serif" fontSize="22" fontWeight="700" fill="#0075C2" letterSpacing="-0.5">alhua</text>
+      <text x="0" y="32" fontFamily="Arial, sans-serif" fontSize="22" fontWeight="700" fill="#0075C2" letterSpacing="-0.5">dahua</text>
       <text x="0" y="44" fontFamily="Arial, sans-serif" fontSize="8" fontWeight="400" fill="#0075C2" letterSpacing="2">TECHNOLOGY</text>
     </svg>
   );

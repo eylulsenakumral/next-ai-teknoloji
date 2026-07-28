@@ -97,6 +97,7 @@ describe("POST /api/pricing/calculate", () => {
 
     const mockPriceResult = {
       purchasePrice: 100,
+      supplierProductId: "sp-1",
       supplierId: "sup-1",
       supplierName: "Tedarikçi A",
       marginPct: 30,
@@ -106,6 +107,8 @@ describe("POST /api/pricing/calculate", () => {
       salePriceIncVat: 156,
       profitAmount: 30,
       stockQuantity: 50,
+      currency: "TRY",
+      originalSalePriceExVat: null,
     }
     vi.mocked(calculateProductPrice).mockResolvedValueOnce(mockPriceResult)
 

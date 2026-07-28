@@ -30,16 +30,16 @@ function SonucContent() {
         </div>
         <h1 className="text-2xl font-bold text-[#333] mb-2">Ödeme Başarılı</h1>
         {order && (
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#0040a4]/10 border border-[#0040a4]/20 mb-4">
-            <span className="text-sm text-[#767676]">Sipariş No:</span>
-            <span className="text-lg font-bold text-[#0040a4] font-mono">{order}</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 mb-4">
+            <span className="text-sm text-[var(--color-text-muted)]">Sipariş No:</span>
+            <span className="text-lg font-bold text-[var(--color-primary)] font-mono">{order}</span>
           </div>
         )}
-        <p className="text-[#767676] mb-8">Siparişiniz başarıyla alınmıştır.</p>
+        <p className="text-[var(--color-text-muted)] mb-8">Siparişiniz başarıyla alınmıştır.</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link
             href="/siparisler"
-            className="inline-flex h-11 items-center justify-center rounded-xl bg-[#0040a4] px-6 text-sm font-semibold text-white hover:bg-[#003080] transition-colors"
+            className="inline-flex h-11 items-center justify-center rounded-xl bg-[var(--color-primary)] px-6 text-sm font-semibold text-white hover:bg-[var(--color-primary-hover)] transition-colors"
           >
             Siparişlerime Git
           </Link>
@@ -62,11 +62,11 @@ function SonucContent() {
         </div>
       </div>
       <h1 className="text-2xl font-bold text-[#333] mb-2">Ödeme Başarısız</h1>
-      {msg && <p className="text-[#767676] mb-2">{msg}</p>}
+      {msg && <p className="text-[var(--color-text-muted)] mb-2">{msg}</p>}
       <p className="text-sm text-[#999] mb-8">Lütfen tekrar deneyin veya bizimle iletişime geçin.</p>
       <Link
         href="/sepet/odeme"
-        className="inline-flex h-11 items-center justify-center rounded-xl bg-[#0040a4] px-6 text-sm font-semibold text-white hover:bg-[#003080] transition-colors"
+        className="inline-flex h-11 items-center justify-center rounded-xl bg-[var(--color-primary)] px-6 text-sm font-semibold text-white hover:bg-[var(--color-primary-hover)] transition-colors"
       >
         Tekrar Dene
       </Link>
@@ -76,7 +76,7 @@ function SonucContent() {
 
 export default function SonucPage() {
   return (
-    <Suspense fallback={<div className="text-center py-16 text-[#767676]">Yükleniyor...</div>}>
+    <Suspense fallback={<div className="text-center py-16 text-[var(--color-text-muted)]">Yükleniyor...</div>}>
       <SonucContent />
     </Suspense>
   )

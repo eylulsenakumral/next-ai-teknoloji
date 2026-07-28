@@ -9,7 +9,6 @@ import {
   Search,
   Plus,
   Download,
-  MessageCircle,
   Eye,
   Pencil,
   Trash2,
@@ -141,7 +140,7 @@ export default function AdminQuotesPage() {
         throw new Error(json.error ?? "Silinemedi")
       }
       setExpandedId(null)
-      setDetailCache((prev) => { const { [id]: _, ...rest } = prev; return rest })
+      setDetailCache((prev) => { const next = { ...prev }; delete next[id]; return next })
       fetchQuotes()
     } catch (err) {
       alert(err instanceof Error ? err.message : "Silinemedi.")

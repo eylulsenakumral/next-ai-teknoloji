@@ -1,6 +1,9 @@
 export const dynamic = 'force-dynamic'
 
 import Link from "next/link"
+import { redirect } from "next/navigation"
+import { getServerSession } from "next-auth"
+import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/db"
 import { Layers, InboxIcon, Percent, Tag } from "lucide-react"
 import { formatCurrency } from "@/lib/utils/format"
@@ -30,6 +33,12 @@ export default async function DealerKampanyaSetleriPage({
 }: {
   searchParams: Promise<{ type?: string }>
 }) {
+  // KRİTİK: Bayi fiyatları içerir — giriş yapmamış/anonim kullanıcıya açmamak için auth zorunlu.
+  const session = await getServerSession(authOptions)
+  if (!session || session.user.role !== "dealer") {
+    redirect("/login")
+  }
+
   const { type } = await searchParams
   const now = new Date()
 
@@ -72,7 +81,7 @@ export default async function DealerKampanyaSetleriPage({
   return (
     <div className="bg-white min-h-screen">
       {/* Hero */}
-      <div className="bg-gradient-to-r from-[#0040a4] via-[#0040a4] to-[#0040a4] text-white">
+      <div className="bg-gradient-to-r from-[var(--color-primary)] via-[var(--color-primary)] to-[var(--color-primary)] text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
             <Layers className="h-6 w-6 text-orange-400" />
@@ -101,7 +110,7 @@ export default async function DealerKampanyaSetleriPage({
                 href={f.value ? `/kampanya-setleri?type=${f.value}` : "/kampanya-setleri"}
                 className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   active
-                    ? "bg-[#0040a4] text-white"
+                    ? "bg-[var(--color-primary)] text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -116,10 +125,10 @@ export default async function DealerKampanyaSetleriPage({
           <div className="flex flex-col items-center justify-center py-20 text-center gap-4">
             <InboxIcon className="h-14 w-14 text-[#cccccc]" aria-hidden />
             <div>
-              <p className="text-[16px] font-semibold text-[#333333]">
+              <p className="text-[16px] font-semibold text-[var(--color-foreground)]">
                 Şu an aktif kampanya seti bulunmuyor
               </p>
-              <p className="text-[13px] text-[#767676] mt-1">
+              <p className="text-[13px] text-[var(--color-text-muted)] mt-1">
                 Yeni kampanya setleri eklendiğinde burada görünecektir.
               </p>
             </div>
@@ -170,7 +179,7 @@ export default async function DealerKampanyaSetleriPage({
                     <div className="flex flex-col gap-1 pt-1">
                       {s.price && (
                         <>
-                          <span className="font-bold text-[#0040a4] text-[15px]">
+                          <span className="font-bold text-[var(--color-primary)] text-[15px]">
                             {formatCurrency(parseFloat(String(s.price)), "TRY")} <span className="text-[10px] text-gray-400 font-normal">+KDV</span>
                           </span>
                           <span className="text-[11px] text-gray-400">
@@ -187,7 +196,7 @@ export default async function DealerKampanyaSetleriPage({
                     </div>
 
                     {/* Product count */}
-                    <div className="flex items-center gap-1 text-xs text-[#767676]">
+                    <div className="flex items-center gap-1 text-xs text-[var(--color-text-muted)]">
                       <Tag className="h-3 w-3" />
                       <span>{s._count.products} ürün</span>
                     </div>

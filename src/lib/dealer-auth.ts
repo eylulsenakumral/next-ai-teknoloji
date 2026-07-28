@@ -16,7 +16,18 @@ export async function getDealerSession(): Promise<Session | null> {
     if (bearer && process.env.NEXTAUTH_SECRET) {
       const decoded = await decode({ secret: process.env.NEXTAUTH_SECRET, token: bearer })
       if (decoded?.role === "dealer" && decoded?.status === "APPROVED") {
-        return { user: decoded as any, expires: "" }
+        return {
+          user: {
+            id: decoded.id,
+            dealerCode: decoded.dealerCode,
+            companyName: decoded.companyName,
+            contactName: decoded.contactName,
+            email: decoded.email ?? undefined,
+            role: decoded.role,
+            status: decoded.status,
+          },
+          expires: "",
+        }
       }
     }
   } catch {}

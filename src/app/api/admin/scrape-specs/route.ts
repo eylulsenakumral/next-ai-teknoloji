@@ -212,7 +212,7 @@ JSON formatında özellikleri döndür.`
     let specs: Record<string, string> = {}
 
     try {
-      let jsonStr = llmContent
+      const jsonStr = llmContent
         .replace(/```json\s*/gi, "")
         .replace(/```\s*/gi, "")
         .trim()

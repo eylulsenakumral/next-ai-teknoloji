@@ -1,16 +1,18 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Search } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { SearchAutocomplete } from "@/components/public/search-autocomplete"
 
 /**
- * Public Header — Yeni Figma tasarımı (Next.js'e uyarlandı)
+ * Public Header — Ceron tasarım dili
  *
- * Sticky, dark variant ana sayfada, light variant diğer sayfalarda.
- * Mobilde hamburger menü.
+ * Açık zemin (#F5F5F5), lacivert metin (#0F172A), cyan aksan (#06B6D4).
+ * Butonlar pill (radius 50px): cyan → hover'da lacivert (Ceron button spec).
  */
 
 const NAV: ReadonlyArray<readonly [label: string, to: string]> = [
@@ -18,34 +20,30 @@ const NAV: ReadonlyArray<readonly [label: string, to: string]> = [
   ["Çözümler", "/cozumler"],
   ["Markalar", "/markalar"],
   ["Projenizi Tasarlayalım", "/proje-tasarim"],
-  ["Bayi Programı", "/bayi-programi"],
+  ["Garanti Sorgula", "/garanti-sorgula"],
 ]
 
 export function PublicHeaderNext() {
   const pathname = usePathname()
-  const home = pathname === "/"
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  const headerClass = cn(
-    "sticky top-0 z-40 border-b px-5 py-4 backdrop-blur-xl md:px-10 font-nx-sans",
-    home
-      ? "border-white/10 bg-[#0040a4]/90 text-white"
-      : "border-slate-200 bg-white/95 text-[#0040a4]"
-  )
-
   return (
-    <header className={headerClass}>
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-[#1852ac]/95 px-5 py-4 backdrop-blur-xl md:px-10 font-nx-sans text-white">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-5">
-        {/* Logo */}
-        <Link href="/" className="shrink-0 text-xl font-extrabold tracking-[-.09em]">
-          NEXT<span className="text-[#5086a8]">AI</span>
-          <small className="ml-2 hidden align-middle font-nx-mono text-[9px] font-normal tracking-[.14em] text-slate-400 sm:inline">
-            / NEXTADEPO
-          </small>
+        {/* Logo — koyu zeminde beyaz versiyon */}
+        <Link href="/" className="shrink-0" aria-label="nexadepo anasayfa">
+          <Image
+            src="/images/logo-dark.png"
+            alt="nexadepo"
+            width={2172}
+            height={724}
+            priority
+            className="h-10 w-auto md:h-12"
+          />
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-5 lg:flex">
+        <nav className="hidden items-center gap-6 lg:flex">
           {NAV.map(([label, to]) => {
             const isActive = pathname === to || (to !== "/" && pathname.startsWith(to))
             const isCta = to === "/proje-tasarim"
@@ -56,10 +54,10 @@ export function PublicHeaderNext() {
                 className={cn(
                   "text-[13px] font-semibold transition",
                   isCta
-                    ? "rounded-lg border border-[#5086a8]/40 bg-[#5086a8]/10 px-3 py-1.5 text-[#5086a8] hover:bg-[#5086a8]/20 opacity-100"
+                    ? "rounded-full border border-white/30 px-4 py-1.5 text-white hover:border-nx-accent hover:text-nx-accent"
                     : isActive
-                      ? "text-[#6b96b3]"
-                      : "text-current opacity-75 hover:text-[#5086a8] hover:opacity-100"
+                      ? "text-nx-accent"
+                      : "text-white/75 hover:text-nx-accent"
                 )}
               >
                 {label}
@@ -68,23 +66,35 @@ export function PublicHeaderNext() {
           })}
         </nav>
 
+        {/* Arama — B2B: SKU/model/marka + otomatik tamamlama */}
+        <SearchAutocomplete
+          formClassName="hidden min-w-0 flex-1 max-w-[220px] lg:block"
+          icon={
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/50" />
+          }
+          inputClassName="h-9 w-full rounded-full border border-white/20 bg-white/10 pl-9 pr-3 text-xs text-white placeholder:text-white/50 outline-none transition focus:border-nx-accent focus:bg-white/15"
+          dropdownClassName="left-auto right-0 w-[340px] max-w-[92vw]"
+        />
+
         {/* Right actions */}
         <div className="flex items-center gap-2">
           <Link
-            href="/bayimiz-olun"
-            className="hidden text-xs font-bold opacity-70 transition hover:text-[#5086a8] hover:opacity-100 xl:block"
+            href="/basvuru"
+            className="hidden text-[13px] font-semibold text-white transition hover:text-nx-accent lg:block"
           >
             Bayimiz Olun
           </Link>
+          {/* Ceron: lacivert pill — ikincil CTA */}
           <Link
             href="/bayi-giris"
-            className="hidden rounded-lg bg-[#5086a8] px-3 py-2 text-xs font-bold text-white transition hover:bg-[#456680] sm:block"
+            className="hidden rounded-full bg-nx-dark px-4 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-nx-accent sm:block"
           >
             Bayi Girişi
           </Link>
+          {/* Ceron: accent pill — birincil CTA */}
           <Link
             href="/teklif-iste"
-            className="rounded-lg bg-[#ff9b43] px-3 py-2 text-xs font-bold leading-5 text-[#0040a4] transition hover:bg-[#ffad64] md:px-4"
+            className="rounded-full bg-nx-accent px-4 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-nx-dark md:px-5"
           >
             Teklif İste
           </Link>
@@ -92,8 +102,10 @@ export function PublicHeaderNext() {
           {/* Mobile hamburger */}
           <button
             type="button"
-            className="lg:hidden p-2"
+            className="lg:hidden p-2 text-nx-dark"
             aria-label="Menü"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-nav-drawer"
             onClick={() => setMobileOpen((v) => !v)}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -103,7 +115,15 @@ export function PublicHeaderNext() {
 
       {/* Mobile drawer (inline) */}
       {mobileOpen && (
-        <div className="lg:hidden mt-4 pb-2 space-y-1">
+        <div id="mobile-nav-drawer" className="lg:hidden mt-4 pb-2 space-y-1">
+          {/* Mobil arama + otomatik tamamlama */}
+          <SearchAutocomplete
+            formClassName="relative mb-2"
+            icon={
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-white/50" />
+            }
+            inputClassName="h-10 w-full rounded-full border border-white/20 bg-white/10 pl-9 pr-3 text-sm text-white placeholder:text-white/50 outline-none focus:border-nx-accent"
+          />
           {NAV.map(([label, to]) => {
             const isActive = pathname === to || (to !== "/" && pathname.startsWith(to))
             return (
@@ -114,28 +134,26 @@ export function PublicHeaderNext() {
                 className={cn(
                   "block px-3 py-2 rounded-lg text-sm font-semibold",
                   isActive
-                    ? "bg-[#5086a8]/10 text-[#5086a8]"
-                    : home
-                      ? "text-white/80 hover:bg-white/5"
-                      : "text-[#0040a4]/80 hover:bg-slate-100"
+                    ? "bg-nx-accent/10 text-nx-accent"
+                    : "text-slate-700 hover:bg-slate-100"
                 )}
               >
                 {label}
               </Link>
             )
           })}
-          <div className="pt-2 mt-2 border-t border-current/10 flex gap-2">
+          <div className="pt-2 mt-2 border-t border-slate-200 flex gap-2">
             <Link
               href="/bayi-giris"
               onClick={() => setMobileOpen(false)}
-              className="flex-1 text-center rounded-lg bg-[#5086a8] px-3 py-2 text-xs font-bold text-white"
+              className="flex-1 text-center rounded-full bg-nx-dark px-3 py-2 text-xs font-bold uppercase tracking-wide text-white"
             >
               Bayi Girişi
             </Link>
             <Link
-              href="/bayimiz-olun"
+              href="/basvuru"
               onClick={() => setMobileOpen(false)}
-              className="flex-1 text-center rounded-lg border border-current/20 px-3 py-2 text-xs font-bold"
+              className="flex-1 text-center rounded-full border border-nx-dark/20 px-3 py-2 text-xs font-bold text-nx-dark"
             >
               Bayimiz Olun
             </Link>

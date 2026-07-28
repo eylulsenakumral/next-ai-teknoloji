@@ -6,6 +6,7 @@ import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
 // GET /api/suppliers
 // Tüm tedarikçileri döner (admin auth gerekli)
 // ============================================================================
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(_req: NextRequest) {
   const session = await getAdminSession()
   const authError = requireAdminSession(session)

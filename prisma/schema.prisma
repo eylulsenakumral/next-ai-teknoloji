@@ -16,6 +16,7 @@ model Brand {
   isActive    Boolean   @default(true) @map("is_active")
   sortOrder   Int       @default(0) @map("sort_order")
   metadata    Json?
+  source      String?   @db.VarChar(50)
   createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
   createdBy   String?   @map("created_by") @db.Uuid
@@ -307,6 +308,8 @@ model Customer {
   dealerApplications    DealerApplication[]
   orders                Order[]
   quotes                Quote[]
+  carts                 Cart[]
+  wishlists             Wishlist[]
   whatsappConversations WhatsAppConversation[]
 
   @@index([phone])
@@ -872,8 +875,9 @@ enum QuoteStatus {
 }
 
 model Cart {
-  id        String     @id @default(cuid())
-  userId    String     @unique @map("user_id")
+  id        String     @id @default(uuid()) @db.Uuid
+  userId    String     @unique @map("user_id") @db.Uuid
+  customer  Customer   @relation(fields: [userId], references: [id], onDelete: Cascade)
   items     CartItem[]
   createdAt DateTime   @default(now()) @map("created_at") @db.Timestamptz(6)
   updatedAt DateTime   @updatedAt @map("updated_at") @db.Timestamptz(6)
@@ -882,8 +886,8 @@ model Cart {
 }
 
 model CartItem {
-  id            String   @id @default(cuid())
-  cartId        String   @map("cart_id")
+  id            String   @id @default(uuid()) @db.Uuid
+  cartId        String   @map("cart_id") @db.Uuid
   cart          Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
   productId     String   @map("product_id") @db.Uuid
   product       Product  @relation(fields: [productId], references: [id])
@@ -897,8 +901,9 @@ model CartItem {
 }
 
 model Wishlist {
-  id        String         @id @default(cuid())
-  userId    String         @unique @map("user_id")
+  id        String         @id @default(uuid()) @db.Uuid
+  userId    String         @unique @map("user_id") @db.Uuid
+  customer  Customer       @relation(fields: [userId], references: [id], onDelete: Cascade)
   items     WishlistItem[]
   createdAt DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
 
@@ -906,8 +911,8 @@ model Wishlist {
 }
 
 model WishlistItem {
-  id         String   @id @default(cuid())
-  wishlistId String   @map("wishlist_id")
+  id         String   @id @default(uuid()) @db.Uuid
+  wishlistId String   @map("wishlist_id") @db.Uuid
   wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
   productId  String   @map("product_id") @db.Uuid
   product    Product  @relation(fields: [productId], references: [id])
@@ -962,4 +967,204 @@ model QuoteItem {
   @@index([quoteId])
   @@index([productId])
   @@map("quote_items")
+}
+
+model NewsletterSubscriber {
+  id        String    @id @default(uuid()) @db.Uuid
+  email     String    @unique @db.VarChar(255)
+  source    String    @default("homepage") @db.VarChar(50)
+  isActive  Boolean   @default(true) @map("is_active")
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive])
+  @@map("newsletter_subscribers")
+}
+
+model Solution {
+  id          String    @id @default(uuid()) @db.Uuid
+  number      String    @db.VarChar(10)
+  title       String    @db.VarChar(255)
+  tagline     String    @db.VarChar(255)
+  description String
+  icon        String    @db.VarChar(100)
+  gradient    String    @db.VarChar(255)
+  brands      String[]  @default([])
+  features    String[]  @default([])
+  category    SolutionCategory @default(MAIN)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([category, isActive, sortOrder])
+  @@map("solutions")
+}
+
+model Sector {
+  id          String    @id @default(uuid()) @db.Uuid
+  title       String    @db.VarChar(255)
+  description String
+  icon        String    @db.VarChar(100)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive, sortOrder])
+  @@map("sectors")
+}
+
+model ReferenceProject {
+  id          String    @id @default(uuid()) @db.Uuid
+  title       String    @db.VarChar(500)
+  description String
+  tags        String[]  @default([])
+  icon        String    @db.VarChar(100)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive, sortOrder])
+  @@map("reference_projects")
+}
+
+model Faq {
+  id          String    @id @default(uuid()) @db.Uuid
+  question    String
+  answer      String
+  group       String    @default("GENERAL") @db.VarChar(50)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([group, isActive, sortOrder])
+  @@map("faqs")
+}
+
+model Testimonial {
+  id          String    @id @default(uuid()) @db.Uuid
+  authorName  String    @map("author_name") @db.VarChar(255)
+  authorTitle String    @map("author_title") @db.VarChar(255)
+  authorInitials String  @map("author_initials") @db.VarChar(5)
+  quote       String
+  rating      Int       @default(5)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive, sortOrder])
+  @@map("testimonials")
+}
+
+model Milestone {
+  id          String    @id @default(uuid()) @db.Uuid
+  year        String    @db.VarChar(10)
+  title       String    @db.VarChar(255)
+  description String
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive, sortOrder])
+  @@map("milestones")
+}
+
+model BlogPost {
+  id          String    @id @default(uuid()) @db.Uuid
+  title       String    @db.VarChar(500)
+  slug        String    @unique @db.VarChar(500)
+  excerpt     String    @db.VarChar(1000)
+  content     String
+  imageUrl    String?   @map("image_url")
+  readTime    String?   @map("read_time") @db.VarChar(50)
+  publishedAt DateTime  @default(now()) @map("published_at") @db.Timestamptz(6)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive, publishedAt(sort: Desc)])
+  @@map("blog_posts")
+}
+
+enum SolutionCategory {
+  MAIN
+  ANALYTICS
+}
+
+model PageSection {
+  id          String    @id @default(uuid()) @db.Uuid
+  page        PageName
+  section     String    @db.VarChar(100)
+  title       String    @db.VarChar(500)
+  description String?
+  iconName    String?   @map("icon_name") @db.VarChar(100)
+  label       String?   @db.VarChar(255)
+  badge       String?   @db.VarChar(100)
+  bgClass     String?   @map("bg_class") @db.VarChar(100)
+  metadata    Json?
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([page, section, isActive, sortOrder])
+  @@map("page_sections")
+}
+
+model HeroSlide {
+  id          String    @id @default(uuid()) @db.Uuid
+  label       String    @db.VarChar(100)
+  title       String    @db.VarChar(500)
+  description String?
+  accent      String?   @db.VarChar(100)
+  imageUrl    String?   @map("image_url")
+  ctaText     String?   @map("cta_text") @db.VarChar(100)
+  ctaHref     String?   @map("cta_href") @db.VarChar(255)
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt   DateTime? @map("deleted_at") @db.Timestamptz(6)
+
+  @@index([isActive, sortOrder])
+  @@map("hero_slides")
+}
+
+model SiteText {
+  id          String    @id @default(uuid()) @db.Uuid
+  page        PageName
+  section     String    @db.VarChar(100)
+  key         String    @db.VarChar(100)
+  value       String
+  isActive    Boolean   @default(true) @map("is_active")
+  sortOrder   Int       @default(0) @map("sort_order")
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime  @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  @@unique([page, section, key])
+  @@index([page, section])
+  @@map("site_texts")
+}
+
+enum PageName {
+  HOMEPAGE
+  COZUMLER
+  HAKKIMDA
+  BAYI_PROGRAMI
+  KURUMSAL
+  LOGIN
 }

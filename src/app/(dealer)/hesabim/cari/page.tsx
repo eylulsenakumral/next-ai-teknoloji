@@ -113,12 +113,12 @@ function BalanceCard({
     <div className="relative overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5 sm:p-6">
       <div className="flex items-start justify-between">
         <div className="space-y-1">
-          <p className="text-sm font-medium text-[#767676]">{label}</p>
+          <p className="text-sm font-medium text-[var(--color-text-muted)]">{label}</p>
           <p className={cn("text-2xl sm:text-3xl font-bold tracking-tight", valueClass)}>
             {value}
           </p>
           {subtitle && (
-            <p className="text-xs text-[#767676]">{subtitle}</p>
+            <p className="text-xs text-[var(--color-text-muted)]">{subtitle}</p>
           )}
         </div>
         <div className={cn("flex-shrink-0 rounded-xl p-2.5", accentClass)}>
@@ -154,11 +154,11 @@ function EmptyState() {
       <td colSpan={5} className="text-center py-16">
         <div className="flex flex-col items-center gap-3">
           <div className="rounded-2xl bg-gray-50 p-4">
-            <ReceiptText className="h-8 w-8 text-[#767676]" />
+            <ReceiptText className="h-8 w-8 text-[var(--color-text-muted)]" />
           </div>
           <div>
-            <p className="text-sm font-medium text-[#333333]">Hareket bulunamadı</p>
-            <p className="text-xs text-[#767676] mt-0.5">
+            <p className="text-sm font-medium text-[var(--color-foreground)]">Hareket bulunamadı</p>
+            <p className="text-xs text-[var(--color-text-muted)] mt-0.5">
               Seçili filtrelere uygun işlem yok.
             </p>
           </div>
@@ -173,7 +173,7 @@ function TransactionRow({ tx }: { tx: Transaction }) {
 
   return (
     <tr className="border-b border-gray-50 last:border-b-0 hover:bg-gray-50/50 transition-colors">
-      <td className="px-4 py-3.5 text-sm text-[#767676] whitespace-nowrap">
+      <td className="px-4 py-3.5 text-sm text-[var(--color-text-muted)] whitespace-nowrap">
         {formatDate(tx.createdAt)}
       </td>
       <td className="px-4 py-3.5">
@@ -186,7 +186,7 @@ function TransactionRow({ tx }: { tx: Transaction }) {
           {TRANSACTION_TYPE_LABELS[tx.type] ?? tx.type}
         </span>
       </td>
-      <td className="px-4 py-3.5 text-sm text-[#333333] max-w-xs truncate">
+      <td className="px-4 py-3.5 text-sm text-[var(--color-foreground)] max-w-xs truncate">
         {tx.description ?? "\u2014"}
       </td>
       <td className="px-4 py-3.5 text-right">
@@ -208,7 +208,7 @@ function TransactionRow({ tx }: { tx: Transaction }) {
         <span
           className={cn(
             "font-mono text-sm",
-            tx.balanceAfter < 0 ? "text-emerald-700" : "text-[#333333]"
+            tx.balanceAfter < 0 ? "text-emerald-700" : "text-[var(--color-foreground)]"
           )}
         >
           {formatTL(tx.balanceAfter)}
@@ -241,10 +241,10 @@ function Pagination({
 
   return (
     <div className="flex flex-col sm:flex-row items-center justify-between gap-3 px-4 py-4 border-t border-gray-100">
-      <p className="text-sm text-[#767676]">
-        Toplam <span className="font-medium text-[#333333]">{meta.total}</span> hareket
+      <p className="text-sm text-[var(--color-text-muted)]">
+        Toplam <span className="font-medium text-[var(--color-foreground)]">{meta.total}</span> hareket
         {" "}&middot;{" "}
-        Sayfa <span className="font-medium text-[#333333]">{meta.page}</span>/{meta.totalPages}
+        Sayfa <span className="font-medium text-[var(--color-foreground)]">{meta.page}</span>/{meta.totalPages}
       </p>
 
       <div className="flex items-center gap-1">
@@ -252,7 +252,7 @@ function Pagination({
           type="button"
           disabled={page <= 1}
           onClick={() => onPageChange(page - 1)}
-          className="inline-flex items-center justify-center h-8 w-8 rounded-lg border border-gray-200 bg-white text-[#333333] text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="inline-flex items-center justify-center h-8 w-8 rounded-lg border border-gray-200 bg-white text-[var(--color-foreground)] text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           aria-label="Önceki sayfa"
         >
           <ChevronLeft className="h-4 w-4" />
@@ -263,12 +263,12 @@ function Pagination({
             <button
               type="button"
               onClick={() => onPageChange(1)}
-              className="inline-flex items-center justify-center h-8 min-w-[2rem] rounded-lg border border-gray-200 bg-white text-[#333333] text-sm hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center justify-center h-8 min-w-[2rem] rounded-lg border border-gray-200 bg-white text-[var(--color-foreground)] text-sm hover:bg-gray-50 transition-colors"
             >
               1
             </button>
             {visiblePages[0] > 2 && (
-              <span className="px-1 text-[#767676] text-sm">...</span>
+              <span className="px-1 text-[var(--color-text-muted)] text-sm">...</span>
             )}
           </>
         )}
@@ -281,8 +281,8 @@ function Pagination({
             className={cn(
               "inline-flex items-center justify-center h-8 min-w-[2rem] rounded-lg text-sm font-medium transition-colors",
               p === page
-                ? "bg-[#0040a4] text-white border border-[#0040a4]"
-                : "border border-gray-200 bg-white text-[#333333] hover:bg-gray-50"
+                ? "bg-[var(--color-primary)] text-white border border-[var(--color-primary)]"
+                : "border border-gray-200 bg-white text-[var(--color-foreground)] hover:bg-gray-50"
             )}
           >
             {p}
@@ -292,12 +292,12 @@ function Pagination({
         {visiblePages[visiblePages.length - 1] < meta.totalPages && (
           <>
             {visiblePages[visiblePages.length - 1] < meta.totalPages - 1 && (
-              <span className="px-1 text-[#767676] text-sm">...</span>
+              <span className="px-1 text-[var(--color-text-muted)] text-sm">...</span>
             )}
             <button
               type="button"
               onClick={() => onPageChange(meta.totalPages)}
-              className="inline-flex items-center justify-center h-8 min-w-[2rem] rounded-lg border border-gray-200 bg-white text-[#333333] text-sm hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center justify-center h-8 min-w-[2rem] rounded-lg border border-gray-200 bg-white text-[var(--color-foreground)] text-sm hover:bg-gray-50 transition-colors"
             >
               {meta.totalPages}
             </button>
@@ -308,7 +308,7 @@ function Pagination({
           type="button"
           disabled={page >= meta.totalPages}
           onClick={() => onPageChange(page + 1)}
-          className="inline-flex items-center justify-center h-8 w-8 rounded-lg border border-gray-200 bg-white text-[#333333] text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          className="inline-flex items-center justify-center h-8 w-8 rounded-lg border border-gray-200 bg-white text-[var(--color-foreground)] text-sm hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           aria-label="Sonraki sayfa"
         >
           <ChevronRight className="h-4 w-4" />
@@ -371,10 +371,10 @@ export default function CariPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-[#333333] tracking-tight">
+          <h1 className="text-2xl font-bold text-[var(--color-foreground)] tracking-tight">
             Cari Hesabım
           </h1>
-          <p className="text-sm text-[#767676] mt-0.5">
+          <p className="text-sm text-[var(--color-text-muted)] mt-0.5">
             Hesap hareketlerinizi ve bakiye bilgilerinizi takip edin.
           </p>
         </div>
@@ -408,8 +408,8 @@ export default function CariPage() {
           label="Kredi Limiti"
           value={formatTL(creditLimit)}
           icon={CreditCard}
-          accentClass="bg-[#0040a4]/10 text-[#0040a4]"
-          valueClass="text-[#0040a4]"
+          accentClass="bg-[var(--color-primary)]/10 text-[var(--color-primary)]"
+          valueClass="text-[var(--color-primary)]"
         />
         <BalanceCard
           label="Kullanılabilir Limit"
@@ -428,8 +428,8 @@ export default function CariPage() {
       {/* Filters */}
       <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-4">
         <div className="flex flex-col sm:flex-row sm:items-end gap-3">
-          <div className="flex items-center gap-2 text-sm font-medium text-[#333333]">
-            <Filter className="h-4 w-4 text-[#767676]" />
+          <div className="flex items-center gap-2 text-sm font-medium text-[var(--color-foreground)]">
+            <Filter className="h-4 w-4 text-[var(--color-text-muted)]" />
             <span>Filtreler</span>
           </div>
 
@@ -446,7 +446,7 @@ export default function CariPage() {
                   setTypeFilter(e.target.value)
                   setPage(1)
                 }}
-                className="w-full h-8 rounded-lg border border-gray-200 bg-white px-3 text-sm text-[#333333] outline-none focus:border-[#0040a4] focus:ring-2 focus:ring-[#0040a4]/20 transition-colors appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23767676%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:16px] bg-[right_8px_center] bg-no-repeat pr-8"
+                className="w-full h-8 rounded-lg border border-gray-200 bg-white px-3 text-sm text-[var(--color-foreground)] outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 transition-colors appearance-none bg-[url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23767676%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:16px] bg-[right_8px_center] bg-no-repeat pr-8"
               >
                 {TRANSACTION_TYPE_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -470,10 +470,10 @@ export default function CariPage() {
                     setDateFrom(e.target.value)
                     setPage(1)
                   }}
-                  className="h-8 rounded-lg border border-gray-200 bg-white px-3 text-sm text-[#333333] outline-none focus:border-[#0040a4] focus:ring-2 focus:ring-[#0040a4]/20 transition-colors w-[140px]"
+                  className="h-8 rounded-lg border border-gray-200 bg-white px-3 text-sm text-[var(--color-foreground)] outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 transition-colors w-[140px]"
                 />
               </div>
-              <span className="text-[#767676] text-sm select-none">&ndash;</span>
+              <span className="text-[var(--color-text-muted)] text-sm select-none">&ndash;</span>
               <div className="relative">
                 <label htmlFor="date-to" className="sr-only">
                   Bitiş tarihi
@@ -486,7 +486,7 @@ export default function CariPage() {
                     setDateTo(e.target.value)
                     setPage(1)
                   }}
-                  className="h-8 rounded-lg border border-gray-200 bg-white px-3 text-sm text-[#333333] outline-none focus:border-[#0040a4] focus:ring-2 focus:ring-[#0040a4]/20 transition-colors w-[140px]"
+                  className="h-8 rounded-lg border border-gray-200 bg-white px-3 text-sm text-[var(--color-foreground)] outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/20 transition-colors w-[140px]"
                 />
               </div>
             </div>
@@ -496,7 +496,7 @@ export default function CariPage() {
               <button
                 type="button"
                 onClick={clearFilters}
-                className="inline-flex items-center gap-1 h-8 px-3 rounded-lg text-sm text-[#767676] hover:text-[#333333] hover:bg-gray-100 transition-colors"
+                className="inline-flex items-center gap-1 h-8 px-3 rounded-lg text-sm text-[var(--color-text-muted)] hover:text-[var(--color-foreground)] hover:bg-gray-100 transition-colors"
               >
                 <X className="h-3.5 w-3.5" />
                 Temizle
@@ -512,19 +512,19 @@ export default function CariPage() {
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-gray-100">
-                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-[#767676]">
+                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
                   Tarih
                 </th>
-                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-[#767676]">
+                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
                   Tür
                 </th>
-                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-[#767676]">
+                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)]">
                   Açıklama
                 </th>
-                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-[#767676] text-right">
+                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] text-right">
                   Tutar
                 </th>
-                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-[#767676] text-right">
+                <th className="px-4 py-3 text-xs font-semibold uppercase tracking-wider text-[var(--color-text-muted)] text-right">
                   Bakiye
                 </th>
               </tr>

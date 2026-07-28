@@ -12,10 +12,7 @@ import {
   Package,
   Search,
   ChevronDown,
-  ArrowRight,
-  Zap,
   Shield,
-  Truck,
   Headphones,
   Monitor,
   Camera,
@@ -25,6 +22,7 @@ import {
   Tag,
 } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Select,
@@ -40,6 +38,7 @@ import {
   PublicProductListItemSkeleton,
   type PublicProduct,
 } from "@/components/public/public-product-card"
+import { CatalogHero } from "@/components/public/catalog-hero"
 import { cn } from "@/lib/utils"
 
 /* ------------------------------------------------------------------ */
@@ -128,115 +127,16 @@ function useFiltersFromURL(): PublicFilters {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Hero Banner - Modern Minimal                                        */
-/* ------------------------------------------------------------------ */
-
-function HeroBanner({ total, onSearch }: { total: number; onSearch: (q: string) => void }) {
-  const [query, setQuery] = useState("")
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    const trimmed = query.trim()
-    if (trimmed) onSearch(trimmed)
-  }
-
-  return (
-    <section className="relative bg-white border-b border-[#e2e8f0] overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#f4f7fa] via-white to-white" />
-
-      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-        <div className="max-w-2xl">
-          <div className="flex items-center gap-2 mb-6">
-            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-[#64748b] uppercase tracking-widest">
-              <Zap className="h-3.5 w-3.5" aria-hidden />
-              5.000+ Ürün
-            </span>
-            <span className="w-px h-4 bg-[#e2e8f0]" />
-            <span className="text-xs font-medium text-[#64748b] uppercase tracking-widest">
-              Teknoloji Çözüm Merkezi
-            </span>
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#0040a4] mb-4">
-            Her Teknoloji <span className="text-[#5086a8]">İhtiyacı</span>
-          </h1>
-
-          <p className="text-lg text-[#64748b] mb-8 leading-relaxed">
-            Güvenlik sistemlerinden bilgisayar donanımına, ağ çözümlerinden aksesuarlara kadar tüm teknoloji ürünleriniz için tek adres.
-          </p>
-
-          <form onSubmit={handleSubmit} className="flex max-w-xl" role="search" aria-label="Ürün ara">
-            <div className="flex flex-1 h-14 bg-[#f4f7fa] border border-[#e2e8f0] overflow-hidden focus-within:border-[#999] focus-within:ring-4 focus-within:ring-[#f4f7fa]/50 transition-all rounded-l-[20px] rounded-r-lg">
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Ürün, marka veya model ara..."
-                className="flex-1 px-6 text-[15px] text-[#0040a4] placeholder:text-[#999] focus:outline-none bg-transparent"
-                aria-label="Arama terimi"
-              />
-              <button
-                type="submit"
-                className="h-full px-8 bg-[#5086a8] hover:bg-[#003080] text-white font-semibold text-[13px] uppercase tracking-wider transition-colors rounded-r-[20px] flex items-center gap-2"
-              >
-                <Search className="h-4 w-4" aria-hidden />
-                <span className="hidden sm:block">Ara</span>
-              </button>
-            </div>
-          </form>
-
-          {total > 0 && (
-            <p className="mt-4 text-sm text-[#999]">
-              <span className="font-semibold text-[#555]">{total.toLocaleString("tr-TR")}</span> ürün bulunuyor
-            </p>
-          )}
-        </div>
-
-        <div className="hidden lg:flex items-center gap-8 mt-12 pt-8 border-t border-[#e2e8f0]">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#f4f7fa] flex items-center justify-center">
-              <Shield className="h-5 w-5 text-[#0040a4]" aria-hidden />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[#0040a4]">2 Yıl Garanti</p>
-              <p className="text-xs text-[#64748b]">Tüm ürünlerde</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#f4f7fa] flex items-center justify-center">
-              <Truck className="h-5 w-5 text-[#0040a4]" aria-hidden />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[#0040a4]">Hızlı Teslimat</p>
-              <p className="text-xs text-[#64748b]">24-48 saat içinde</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-[#f4f7fa] flex items-center justify-center">
-              <Headphones className="h-5 w-5 text-[#0040a4]" aria-hidden />
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-[#0040a4]">7/24 Destek</p>
-              <p className="text-xs text-[#64748b]">WhatsApp ile</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ------------------------------------------------------------------ */
 /*  Category Grid - Modern Minimal                                     */
 /* ------------------------------------------------------------------ */
 
 const CATEGORY_GRADIENTS = [
-  "from-[#5086a8] to-[#1a6fe0]",
-  "from-[#0040a4] to-[#2d6da3]",
-  "from-[#0c2340] to-[#1a5276]",
-  "from-[#2c3e50] to-[#3498db]",
-  "from-[#1a3c5e] to-[#2980b9]",
-  "from-[#0d3b66] to-[#1d6fa5]",
+  "from-[#0F172A] to-[#06B6D4]",
+  "from-[#0F172A] to-[#0891B2]",
+  "from-[#1E293B] to-[#06B6D4]",
+  "from-[#0F172A] to-[#22D3EE]",
+  "from-[#1E293B] to-[#0891B2]",
+  "from-[#0F172A] to-[#67E8F9]",
 ]
 
 function CategoryGrid({
@@ -251,18 +151,18 @@ function CategoryGrid({
   if (categories.length === 0) return null
 
   return (
-    <section className="bg-white border-b border-[#e2e8f0]">
+    <section className="bg-white border-b border-[var(--color-border)]">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <span className="inline-flex items-center gap-1.5 bg-[#5086a8] text-white px-3 py-1 rounded-full text-xs font-bold">
+            <span className="inline-flex items-center gap-1.5 bg-[var(--color-primary)] text-white px-3 py-1 rounded-full text-xs font-bold">
               <Package className="w-3 h-3" />
               KATEGORİLER
             </span>
           </div>
           <Link
             href="/kategoriler"
-            className="text-sm font-semibold text-[#5086a8] hover:text-[#003080] transition-colors flex items-center gap-1 group"
+            className="text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] transition-colors flex items-center gap-1 group"
           >
             Tümünü Gör
             <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
@@ -280,8 +180,8 @@ function CategoryGrid({
             <div className={cn(
               "absolute inset-0 transition-all duration-300",
               !activeSlug
-                ? "bg-gradient-to-br from-[#5086a8] to-[#1a6fe0] ring-2 ring-[#5086a8] ring-offset-2"
-                : "bg-gradient-to-br from-[#5086a8] to-[#1a6fe0]"
+                ? "bg-gradient-to-br from-[var(--color-primary)] to-[#06B6D4] ring-2 ring-nx-accent ring-offset-2"
+                : "bg-gradient-to-br from-[var(--color-primary)] to-[#06B6D4]"
             )} />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
             <div className="absolute top-4 left-4 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
@@ -304,15 +204,16 @@ function CategoryGrid({
                 onClick={() => onSelect(cat.slug)}
                 className={cn(
                   "relative flex flex-col justify-end rounded-2xl overflow-hidden h-44 group transition-all duration-300",
-                  isActive && "ring-2 ring-[#5086a8] ring-offset-2"
+                  isActive && "ring-2 ring-nx-accent ring-offset-2"
                 )}
                 aria-pressed={isActive}
               >
                 {hasImage ? (
-                  <img
+                  <Image
                     src={cat.imageUrl!}
                     alt={cat.name}
-                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                 ) : (
                   <div className={`absolute inset-0 bg-gradient-to-br ${gradient}`} />
@@ -345,19 +246,19 @@ function CategoryGrid({
 function EmptyState({ onClear }: { onClear: () => void }) {
   return (
     <div className="flex flex-col items-center justify-center py-24 text-center gap-5">
-      <div className="w-24 h-24 rounded-[20px] bg-[#f4f7fa] flex items-center justify-center">
-        <Package className="h-10 w-10 text-[#bebebe]" aria-hidden />
+      <div className="w-24 h-24 rounded-[20px] bg-[var(--color-background)] flex items-center justify-center">
+        <Package className="h-10 w-10 text-slate-300" aria-hidden />
       </div>
       <div className="space-y-2">
-        <p className="font-semibold text-xl text-[#0040a4]">Ürün Bulunamadı</p>
-        <p className="text-[#64748b] text-sm max-w-sm">
+        <p className="font-semibold text-xl text-[var(--color-primary)]">Ürün Bulunamadı</p>
+        <p className="text-[var(--color-text-muted)] text-sm max-w-sm">
           Arama kriterlerinize uygun ürün bulunamadı. Filtreleri değiştirmeyi deneyin.
         </p>
       </div>
       <button
         type="button"
         onClick={onClear}
-        className="inline-flex items-center gap-2 h-11 px-6 bg-[#5086a8] text-white text-sm font-medium hover:bg-[#003080] transition-colors rounded-lg"
+        className="inline-flex items-center gap-2 h-11 px-6 bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-[var(--color-primary-hover)] transition-colors rounded-lg"
       >
         Filtreleri Temizle
       </button>
@@ -391,7 +292,7 @@ function MobileFilterSheet({
   return (
     <>
       <div
-        className="fixed inset-0 z-40 bg-[#0040a4]/50 backdrop-blur-sm"
+        className="fixed inset-0 z-40 bg-[var(--color-primary)]/50 backdrop-blur-sm"
         onClick={onClose}
         aria-hidden
       />
@@ -401,23 +302,23 @@ function MobileFilterSheet({
         aria-modal
         aria-label="Filtreler"
       >
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[#e2e8f0]">
-          <p className="font-semibold text-base text-[#0040a4]">Filtreler</p>
+        <div className="flex items-center justify-between px-6 py-5 border-b border-[var(--color-border)]">
+          <p className="font-semibold text-base text-[var(--color-primary)]">Filtreler</p>
           <button
             type="button"
             onClick={onClose}
-            className="p-2 text-[#999] hover:text-[#0040a4] hover:bg-[#f4f7fa] rounded-lg transition-colors"
+            className="p-2 text-slate-400 hover:text-[var(--color-primary)] hover:bg-[var(--color-background)] rounded-lg transition-colors"
             aria-label="Filtreleri kapat"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
         <div className="flex-1 overflow-y-auto p-4">{children}</div>
-        <div className="p-4 border-t border-[#e2e8f0]">
+        <div className="p-4 border-t border-[var(--color-border)]">
           <button
             type="button"
             onClick={onClose}
-            className="w-full h-12 bg-[#5086a8] text-white font-medium text-sm rounded-lg hover:bg-[#003080] transition-colors"
+            className="w-full h-12 bg-[var(--color-primary)] text-white font-medium text-sm rounded-lg hover:bg-[var(--color-primary-hover)] transition-colors"
           >
             Filtreleri Uygula
           </button>
@@ -499,10 +400,10 @@ function CatalogFilters({
               "flex-1 text-left py-1.5 px-3 transition-all rounded-lg",
               isRoot ? "text-sm font-medium" : "text-[13px]",
               isActive
-                ? "bg-[#5086a8] text-white"
+                ? "bg-[var(--color-primary)] text-white"
                 : isRoot
-                  ? "text-[#555] hover:bg-[#f4f7fa]"
-                  : "text-[#64748b] hover:bg-[#f4f7fa] hover:text-[#555]"
+                  ? "text-slate-600 hover:bg-[var(--color-background)]"
+                  : "text-[var(--color-text-muted)] hover:bg-[var(--color-background)] hover:text-slate-600"
             )}
             aria-pressed={isActive}
           >
@@ -515,8 +416,8 @@ function CatalogFilters({
               className={cn(
                 "p-1 rounded transition-all",
                 isExpanded
-                  ? "text-[#5086a8] bg-[#5086a8]/10"
-                  : "text-[#999] hover:bg-[#f4f7fa]"
+                  ? "text-[var(--color-primary)] bg-[var(--color-primary)]/10"
+                  : "text-slate-400 hover:bg-[var(--color-background)]"
               )}
               aria-label={isExpanded ? "Daralt" : "Genişlet"}
             >
@@ -528,7 +429,7 @@ function CatalogFilters({
           )}
         </div>
         {hasChildren && isExpanded && (
-          <div className="ml-3 border-l-2 border-[#e2e8f0] pl-1 mt-0.5 mb-0.5 space-y-0.5">
+          <div className="ml-3 border-l-2 border-[var(--color-border)] pl-1 mt-0.5 mb-0.5 space-y-0.5">
             {cat.children!.map((child) => (
               <CategoryTreeItem key={child.id} cat={child} depth={depth + 1} />
             ))}
@@ -541,14 +442,14 @@ function CatalogFilters({
   return (
     <aside aria-label="Ürün filtreleri" className="space-y-6">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-semibold uppercase tracking-widest text-[#999]">
+        <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-400">
           Filtreler
         </h3>
         {filters.categorySlug || filters.brandSlug || filters.search ? (
           <button
             type="button"
             onClick={() => onChange({ categorySlug: "", brandSlug: "", search: "", page: 1 })}
-            className="text-xs font-medium text-[#64748b] hover:text-[#0040a4] transition-colors"
+            className="text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
           >
             Temizle
           </button>
@@ -567,8 +468,8 @@ function CatalogFilters({
           <div className={cn(
             "w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all",
             filters.inStock
-              ? "bg-[#5086a8] border-[#5086a8]"
-              : "border-[#e2e8f0]"
+              ? "bg-[var(--color-primary)] border-[var(--color-primary)]"
+              : "border-[var(--color-border)]"
           )}>
             {filters.inStock && (
               <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -576,13 +477,13 @@ function CatalogFilters({
               </svg>
             )}
           </div>
-          <span className="text-sm text-[#555]">Sadece stokta olanlar</span>
+          <span className="text-sm text-slate-600">Sadece stokta olanlar</span>
         </label>
       </div>
 
       {categories.length > 0 && (
         <div className="space-y-1">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#999] mb-3">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">
             Kategoriler
           </p>
           <button
@@ -591,8 +492,8 @@ function CatalogFilters({
             className={cn(
               "w-full text-left py-2.5 px-3 text-sm font-medium transition-all rounded-lg",
               !filters.categorySlug
-                ? "bg-[#5086a8] text-white"
-                : "text-[#555] hover:bg-[#f4f7fa]"
+                ? "bg-[var(--color-primary)] text-white"
+                : "text-slate-600 hover:bg-[var(--color-background)]"
             )}
             aria-pressed={!filters.categorySlug}
           >
@@ -606,12 +507,12 @@ function CatalogFilters({
 
       {brands.length > 0 && (
         <div className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#999]">
+          <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
             Markalar
           </p>
           <div className="relative">
             <Search
-              className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-[#999] pointer-events-none"
+              className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none"
               aria-hidden
             />
             <input
@@ -619,7 +520,7 @@ function CatalogFilters({
               placeholder="Marka ara..."
               value={brandSearch}
               onChange={(e) => setBrandSearch(e.target.value)}
-              className="w-full h-10 pl-10 pr-4 text-sm bg-[#f4f7fa] border border-[#e2e8f0] rounded-lg focus:outline-none focus:border-[#999] focus:ring-2 focus:ring-[#f4f7fa] transition-all"
+              className="w-full h-10 pl-10 pr-4 text-sm bg-[var(--color-background)] border border-[var(--color-border)] rounded-lg focus:outline-none focus:border-nx-accent focus:ring-2 focus:ring-[var(--color-background)] transition-all"
               aria-label="Marka ara"
             />
           </div>
@@ -640,14 +541,14 @@ function CatalogFilters({
                       page: 1,
                     })
                   }
-                  className="flex items-center gap-3 py-2 px-3 cursor-pointer rounded-lg hover:bg-[#f4f7fa] transition-colors w-full text-left"
+                  className="flex items-center gap-3 py-2 px-3 cursor-pointer rounded-lg hover:bg-[var(--color-background)] transition-colors w-full text-left"
                   aria-pressed={isChecked}
                 >
                   <div className={cn(
                     "w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all shrink-0",
                     isChecked
-                      ? "bg-[#5086a8] border-[#5086a8]"
-                      : "border-[#e2e8f0]"
+                      ? "bg-[var(--color-primary)] border-[var(--color-primary)]"
+                      : "border-[var(--color-border)]"
                   )}>
                     {isChecked && (
                       <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -655,7 +556,7 @@ function CatalogFilters({
                       </svg>
                     )}
                   </div>
-                  <span className="text-sm text-[#555] flex-1 truncate">
+                  <span className="text-sm text-slate-600 flex-1 truncate">
                     {brand.name}
                   </span>
                 </button>
@@ -666,7 +567,7 @@ function CatalogFilters({
             <button
               type="button"
               onClick={() => setShowAllBrands((v) => !v)}
-              className="flex items-center gap-1 text-xs font-medium text-[#64748b] hover:text-[#0040a4] transition-colors"
+              className="flex items-center gap-1 text-xs font-medium text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
             >
               {showAllBrands ? "Daha az" : `+${filteredBrands.length - 8} marka`}
               <ChevronDown className={cn("h-3 w-3 transition-transform", showAllBrands && "rotate-180")} />
@@ -717,12 +618,12 @@ function ActiveFilterTags({
 
   return (
     <div className="flex items-center gap-3 flex-wrap">
-      <span className="text-sm text-[#64748b]">
+      <span className="text-sm text-[var(--color-text-muted)]">
         {isLoading ? (
           <Skeleton className="h-5 w-24 inline-block" />
         ) : (
           <>
-            <span className="font-semibold text-[#0040a4]">{total.toLocaleString("tr-TR")}</span> ürün
+            <span className="font-semibold text-[var(--color-primary)]">{total.toLocaleString("tr-TR")}</span> ürün
           </>
         )}
       </span>
@@ -730,7 +631,7 @@ function ActiveFilterTags({
       {activeTags.map((tag) => (
         <span
           key={tag.key}
-          className="inline-flex items-center gap-1.5 h-8 px-3 bg-[#f4f7fa] text-[#555] text-sm font-medium rounded-full"
+          className="inline-flex items-center gap-1.5 h-8 px-3 bg-[var(--color-background)] text-slate-600 text-sm font-medium rounded-full"
         >
           {tag.label}
           <button
@@ -748,7 +649,7 @@ function ActiveFilterTags({
         <button
           type="button"
           onClick={onClearAll}
-          className="text-sm text-[#64748b] hover:text-red-500 transition-colors"
+          className="text-sm text-[var(--color-text-muted)] hover:text-red-500 transition-colors"
         >
           Tümünü temizle
         </button>
@@ -810,9 +711,7 @@ export default function KatalogPage() {
       if (next.page > 1) params.set("page", String(next.page))
       if (!next.inStock) params.set("inStock", "false")
 
-      startTransition(() => {
-        router.push(`${pathname}?${params.toString()}`, { scroll: false })
-      })
+      router.push(`${pathname}?${params.toString()}`, { scroll: false })
     },
     [filters, pathname, router]
   )
@@ -895,29 +794,29 @@ export default function KatalogPage() {
   const selectedCatPath = filters.categorySlug ? getCategoryPath(filters.categorySlug, categories) : null
 
   return (
-    <div className="bg-[#f4f7fa] min-h-screen">
+    <div className="bg-[var(--color-background)] min-h-screen">
       {showHero && (
-        <HeroBanner total={total} onSearch={handleSearchSubmit} />
+        <CatalogHero total={total} onSearch={handleSearchSubmit} />
       )}
 
       {/* Category Breadcrumb */}
       {selectedCatPath && (
-        <div className="bg-white border-b border-[#eeeeee]">
+        <div className="bg-white border-b border-[var(--color-border)]">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <nav className="flex items-center gap-1.5 text-[12px] text-[#64748b] flex-wrap">
-              <Link href="/katalog" className="hover:text-[#5086a8] transition-colors">Katalog</Link>
+            <nav className="flex items-center gap-1.5 text-[12px] text-[var(--color-text-muted)] flex-wrap">
+              <Link href="/katalog" className="hover:text-[var(--color-primary)] transition-colors">Katalog</Link>
               {selectedCatPath.map((cat, i) => (
                 <span key={cat.slug} className="contents">
                   <ChevronRight className="h-3 w-3 text-[#dddddd]" aria-hidden />
                   {i < selectedCatPath.length - 1 ? (
                     <Link
                       href={`/katalog?categorySlug=${cat.slug}`}
-                      className="hover:text-[#5086a8] transition-colors"
+                      className="hover:text-[var(--color-primary)] transition-colors"
                     >
                       {cat.name}
                     </Link>
                   ) : (
-                    <span className="text-[#333333] font-semibold">{cat.name}</span>
+                    <span className="text-[var(--color-foreground)] font-semibold">{cat.name}</span>
                   )}
                 </span>
               ))}
@@ -960,13 +859,13 @@ export default function KatalogPage() {
                 <button
                   type="button"
                   onClick={() => setFilterSheetOpen(true)}
-                  className="lg:hidden inline-flex items-center gap-2 h-10 px-4 bg-[#f4f7fa] border border-[#e2e8f0] text-sm font-medium text-[#555] hover:bg-[#f4f7fa] transition-colors rounded-lg"
+                  className="lg:hidden inline-flex items-center gap-2 h-10 px-4 bg-[var(--color-background)] border border-[var(--color-border)] text-sm font-medium text-slate-600 hover:bg-[var(--color-background)] transition-colors rounded-lg"
                   aria-label="Filtreleri aç"
                 >
                   <SlidersHorizontal className="h-4 w-4" aria-hidden />
                   Filtreler
                   {activeFilterCount > 0 && (
-                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#5086a8] text-white text-xs font-semibold">
+                    <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-nx-accent text-white text-xs font-semibold">
                       {activeFilterCount}
                     </span>
                   )}
@@ -988,9 +887,9 @@ export default function KatalogPage() {
                       type="checkbox"
                       checked={filters.inStock}
                       onChange={(e) => updateURL({ inStock: e.target.checked, page: 1 })}
-                      className="w-4 h-4 rounded border-[#e2e8f0] text-[#5086a8] focus:ring-[#5086a8]/30"
+                      className="w-4 h-4 rounded border-[var(--color-border)] text-[var(--color-primary)] focus:ring-nx-accent/30"
                     />
-                    <span className="text-xs font-medium text-[#64748b] whitespace-nowrap">Stoktakiler</span>
+                    <span className="text-xs font-medium text-[var(--color-text-muted)] whitespace-nowrap">Stoktakiler</span>
                   </label>
 
                   <Select
@@ -1001,7 +900,7 @@ export default function KatalogPage() {
                   >
                     <SelectTrigger
                       size="sm"
-                      className="w-40 h-10 border-[#e2e8f0] text-sm font-medium rounded-lg focus:ring-0"
+                      className="w-40 h-10 border-[var(--color-border)] text-sm font-medium rounded-lg focus:ring-0"
                       aria-label="Sıralama"
                     >
                       <SelectValue />
@@ -1016,7 +915,7 @@ export default function KatalogPage() {
                   </Select>
 
                   <div
-                    className="flex bg-[#f4f7fa] rounded-lg overflow-hidden p-1"
+                    className="flex bg-[var(--color-background)] rounded-lg overflow-hidden p-1"
                     role="group"
                     aria-label="Görünüm modu"
                   >
@@ -1026,8 +925,8 @@ export default function KatalogPage() {
                       className={cn(
                         "p-2.5 rounded-lg transition-all",
                         viewMode === "grid"
-                          ? "bg-[#5086a8] text-white shadow-sm"
-                          : "text-[#64748b] hover:text-[#0040a4]"
+                          ? "bg-nx-accent text-white shadow-sm"
+                          : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)]"
                       )}
                       aria-label="Grid görünüm"
                       aria-pressed={viewMode === "grid"}
@@ -1040,8 +939,8 @@ export default function KatalogPage() {
                       className={cn(
                         "p-2.5 rounded-lg transition-all",
                         viewMode === "list"
-                          ? "bg-[#5086a8] text-white shadow-sm"
-                          : "text-[#64748b] hover:text-[#0040a4]"
+                          ? "bg-nx-accent text-white shadow-sm"
+                          : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)]"
                       )}
                       aria-label="Liste görünüm"
                       aria-pressed={viewMode === "list"}
@@ -1054,8 +953,8 @@ export default function KatalogPage() {
             </div>
 
             {isPending && (
-              <div className="h-1 bg-[#f4f7fa] rounded-full overflow-hidden">
-                <div className="h-full bg-[#5086a8] animate-pulse" style={{ width: "40%" }} />
+              <div className="h-1 bg-[var(--color-background)] rounded-full overflow-hidden">
+                <div className="h-full bg-[var(--color-primary)] animate-pulse" style={{ width: "40%" }} />
               </div>
             )}
 
@@ -1101,7 +1000,7 @@ export default function KatalogPage() {
                   onClick={() => updateURL({ page: filters.page - 1 })}
                   disabled={filters.page <= 1}
                   aria-label="Önceki sayfa"
-                  className="inline-flex items-center justify-center h-10 w-10 border border-[#e2e8f0] text-[#555] hover:border-[#5086a8] hover:text-[#5086a8] disabled:opacity-40 disabled:cursor-not-allowed transition-all rounded-lg bg-white"
+                  className="inline-flex items-center justify-center h-10 w-10 border border-[var(--color-border)] text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:opacity-40 disabled:cursor-not-allowed transition-all rounded-lg bg-white"
                 >
                   <ChevronLeft className="h-4 w-4" aria-hidden />
                 </button>
@@ -1128,8 +1027,8 @@ export default function KatalogPage() {
                       className={cn(
                         "inline-flex items-center justify-center h-10 w-10 text-sm font-semibold transition-all rounded-lg",
                         filters.page === pageNum
-                          ? "bg-[#5086a8] text-white border border-[#5086a8]"
-                          : "bg-white border border-[#e2e8f0] text-[#555] hover:border-[#5086a8] hover:text-[#5086a8]"
+                          ? "bg-nx-accent text-white border border-nx-accent"
+                          : "bg-white border border-[var(--color-border)] text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]"
                       )}
                     >
                       {pageNum}
@@ -1142,7 +1041,7 @@ export default function KatalogPage() {
                   onClick={() => updateURL({ page: filters.page + 1 })}
                   disabled={filters.page >= totalPages}
                   aria-label="Sonraki sayfa"
-                  className="inline-flex items-center justify-center h-10 w-10 border border-[#e2e8f0] text-[#555] hover:border-[#5086a8] hover:text-[#5086a8] disabled:opacity-40 disabled:cursor-not-allowed transition-all rounded-lg bg-white"
+                  className="inline-flex items-center justify-center h-10 w-10 border border-[var(--color-border)] text-slate-600 hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] disabled:opacity-40 disabled:cursor-not-allowed transition-all rounded-lg bg-white"
                 >
                   <ChevronRight className="h-4 w-4" aria-hidden />
                 </button>

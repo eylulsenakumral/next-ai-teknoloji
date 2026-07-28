@@ -44,10 +44,10 @@ export function B2BSection({
   cta = { label: "Başvuru Yap", href: "/basvuru" },
 }: B2BSectionProps) {
   return (
-    <section className="py-16 bg-[#f3f3f3]">
+    <section className="py-16 bg-[var(--color-surface-muted)]">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <h2 className="text-2xl font-bold text-[#1e1e1e] tracking-tight mb-3">
+          <h2 className="text-2xl font-bold text-[var(--color-foreground)] tracking-tight mb-3">
             {heading}
           </h2>
           <p className="text-sm text-gray-600 max-w-xl mx-auto">{subheading}</p>
@@ -59,8 +59,8 @@ export function B2BSection({
               key={f.title}
               className="flex flex-col items-center text-center bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
             >
-              <div className="flex justify-center mb-4 text-[#0040a4]">{f.icon}</div>
-              <h3 className="text-sm font-semibold text-[#1e1e1e] mb-2">{f.title}</h3>
+              <div className="flex justify-center mb-4 text-[var(--color-primary)]">{f.icon}</div>
+              <h3 className="text-sm font-semibold text-[var(--color-foreground)] mb-2">{f.title}</h3>
               <p className="text-xs text-gray-600 leading-relaxed">{f.desc}</p>
             </div>
           ))}
@@ -69,7 +69,7 @@ export function B2BSection({
         <div className="text-center">
           <Link
             href={cta.href}
-            className="inline-flex items-center justify-center gap-2 bg-[#0040a4] text-white font-bold px-8 py-3 rounded-xl hover:bg-[#003080] transition-colors duration-200"
+            className="inline-flex items-center justify-center gap-2 bg-[var(--color-primary)] text-white font-bold px-8 py-3 rounded-xl hover:bg-[var(--color-primary-hover)] transition-colors duration-200"
           >
             {cta.label}
           </Link>

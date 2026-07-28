@@ -7,7 +7,7 @@ export function StockBadge({ inStock }: StockBadgeProps) {
 
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-black/30 z-10">
-      <div className="w-20 h-20 bg-[#a60811] rounded-full flex items-center justify-center">
+      <div className="w-20 h-20 bg-[var(--color-error)] rounded-full flex items-center justify-center">
         <span className="text-white font-bold text-center text-sm">
           Sold<br />Out
         </span>

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
+import { invalidateCategoryCache } from "@/lib/cache"
 
 export async function PATCH(req: NextRequest) {
   const session = await getAdminSession()
@@ -60,6 +61,8 @@ export async function PATCH(req: NextRequest) {
     deactivate: "pasif yapildi",
     delete: "silindi",
   }
+
+  await invalidateCategoryCache()
 
   return NextResponse.json({
     success: true,

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
+import { getAdminSession, requireReadPermission, requireWritePermission } from "@/lib/auth-helpers"
 import { updateOrderStatusSchema } from "@/lib/validators/order"
 import { getOrderById, updateOrderStatus } from "@/services/order.service"
 import type { OrderStatus } from "@prisma/client"
@@ -10,7 +10,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getAdminSession()
-  const authError = requireAdminSession(session)
+  const authError = requireReadPermission(session)
   if (authError) return authError
 
   const { id } = await params
@@ -35,7 +35,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await getAdminSession()
-  const authError = requireAdminSession(session)
+  const authError = requireWritePermission(session)
   if (authError) return authError
 
   const { id } = await params

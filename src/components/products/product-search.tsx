@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
+import Image from "next/image"
 import { Search, X, Package, Loader2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import type { SearchResult } from "@/types/catalog"
@@ -30,10 +31,11 @@ function ResultImage({ src, alt }: { src?: string | null; alt: string }) {
   }
 
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
-      className="h-full w-full object-contain p-1"
+      fill
+      className="object-contain p-1"
       onError={() => setError(true)}
     />
   )
@@ -129,7 +131,7 @@ export function ProductSearch({
   return (
     <div ref={containerRef} className={cn("relative", className)}>
       <form onSubmit={handleSubmit} role="search" aria-label="Ürün arama">
-        <div className="flex h-[50px] rounded-full border-2 border-[#00179e] bg-white overflow-hidden transition-all focus-within:shadow-md">
+        <div className="flex h-[50px] rounded-full border-2 border-[var(--color-primary)] bg-white overflow-hidden transition-all focus-within:shadow-md">
           {/* Arama input */}
           <div className="relative flex-1 flex items-center">
             <Search
@@ -173,7 +175,7 @@ export function ProductSearch({
           {/* Arama butonu */}
           <button
             type="submit"
-            className="flex items-center justify-center gap-2 px-5 bg-[#00179e] hover:bg-[#0284c7] text-white text-[13px] font-bold transition-colors shrink-0"
+            className="flex items-center justify-center gap-2 px-5 bg-[var(--color-primary)] hover:bg-[#0284c7] text-white text-[13px] font-bold transition-colors shrink-0"
             aria-label="Ara"
           >
             <Search className="h-4 w-4" aria-hidden />
@@ -217,7 +219,7 @@ export function ProductSearch({
             <button
               type="button"
               onClick={handleSubmit as unknown as React.MouseEventHandler<HTMLButtonElement>}
-              className="text-[12px] text-[#00179e] font-semibold hover:underline w-full text-left"
+              className="text-[12px] text-[var(--color-primary)] font-semibold hover:underline w-full text-left"
             >
               &ldquo;{query}&rdquo; için tüm sonuçları gör →
             </button>

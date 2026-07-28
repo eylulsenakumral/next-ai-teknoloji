@@ -5,6 +5,8 @@ export const metadata: Metadata = {
     default: "Giriş",
     template: "%s | Next AI Teknoloji",
   },
+  // Login/kayıt/sıfırlama — indexlenmemeli.
+  robots: { index: false, follow: false },
 }
 
 export default function AuthLayout({

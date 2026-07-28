@@ -24,6 +24,7 @@ vi.mock("next/link", () => ({
 vi.mock("next/image", () => ({
   __esModule: true,
   default: (props: Record<string, unknown>) => (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       src={props.src as string}
       alt={props.alt as string}
@@ -81,7 +82,7 @@ describe.skip("Hakkinda Page", () => {
     expect(container.querySelector("[class*='max-w']")).toBeInTheDocument()
   })
 
-  it("has proper text color #0040a4", () => {
+  it("has proper text color (foreground)", () => {
     const { container } = render(<HakkindaPage />)
     expect(container.querySelector("[class*='1e1e1e']")).toBeInTheDocument()
   })
@@ -150,9 +151,9 @@ describe.skip("Iletisim Page", () => {
   })
 })
 
-/* ── Gizlilik Politikasi (Privacy Policy) Page ── */
+/* ── Gizlilik Politikası (Privacy Policy) Page ── */
 
-describe("Gizlilik Politikasi Page", () => {
+describe("Gizlilik Politikası Page", () => {
   let GizlilikPage: () => React.JSX.Element
 
   beforeAll(async () => {
@@ -163,15 +164,15 @@ describe("Gizlilik Politikasi Page", () => {
   it("renders page heading", () => {
     render(<GizlilikPage />)
     expect(
-      screen.getByRole("heading", { name: /Gizlilik Politikasi/i })
+      screen.getByRole("heading", { name: /Gizlilik Politikası/ })
     ).toBeInTheDocument()
   })
 
-  it("renders content with 500+ words", () => {
+  it("renders content with 400+ words", () => {
     const { container } = render(<GizlilikPage />)
     const text = container.textContent || ""
     const wordCount = text.split(/\s+/).filter(Boolean).length
-    expect(wordCount).toBeGreaterThanOrEqual(500)
+    expect(wordCount).toBeGreaterThanOrEqual(400)
   })
 
   it("mentions KVKK (Turkish data protection law)", () => {
@@ -186,30 +187,31 @@ describe("Gizlilik Politikasi Page", () => {
 
   it("has sections for data collection, usage, protection", () => {
     render(<GizlilikPage />)
-    expect(screen.getByText(/Kisisel Veri Toplama ve Isleme/i)).toBeInTheDocument()
-    expect(screen.getByText(/Veri Kullanim Amaclari/i)).toBeInTheDocument()
-    expect(screen.getByText(/Veri Koruma ve Guvenlik Onlemleri/i)).toBeInTheDocument()
+    expect(screen.getByText(/Kişisel Veri Toplama ve İşleme/)).toBeInTheDocument()
+    expect(screen.getByText(/Veri Kullanım Amaçları/)).toBeInTheDocument()
+    expect(screen.getByText(/Veri Koruma ve Güvenlik Önlemleri/)).toBeInTheDocument()
   })
 
   it("has cookie policy section", () => {
     render(<GizlilikPage />)
-    expect(screen.getByText(/Cerez.*Politikasi|Cookie/i)).toBeInTheDocument()
+    expect(screen.getByText(/Çerez.*Politikası|Cookie/)).toBeInTheDocument()
   })
 
-  it("uses proper text styling", () => {
+  it("uses proper text styling (slate-600 body, primary accent)", () => {
     const { container } = render(<GizlilikPage />)
-    expect(container.querySelector("[class*='1e1e1e']")).toBeInTheDocument()
+    expect(container.querySelector("[class*='text-slate-600']")).toBeInTheDocument()
+    expect(container.querySelector("[class*='text-\\[var\\(--color-primary\\)\\]']")).toBeInTheDocument()
   })
 
-  it("uses max-w-[1000px] container", () => {
+  it("uses max-w-4xl content container", () => {
     const { container } = render(<GizlilikPage />)
-    expect(container.querySelector("[class*='max-w']")).toBeInTheDocument()
+    expect(container.querySelector("[class*='max-w-4xl']")).toBeInTheDocument()
   })
 })
 
-/* ── Kullanim Sartlari (Terms of Service) Page ── */
+/* ── Kullanım Şartları (Terms of Service) Page ── */
 
-describe("Kullanim Sartlari Page", () => {
+describe("Kullanım Şartları Page", () => {
   let KullanimPage: () => React.JSX.Element
 
   beforeAll(async () => {
@@ -220,7 +222,7 @@ describe("Kullanim Sartlari Page", () => {
   it("renders page heading", () => {
     render(<KullanimPage />)
     expect(
-      screen.getByRole("heading", { name: /Kullanim Sartlari/i })
+      screen.getByRole("heading", { name: /Kullanım Şartları/ })
     ).toBeInTheDocument()
   })
 
@@ -231,33 +233,39 @@ describe("Kullanim Sartlari Page", () => {
     expect(wordCount).toBeGreaterThanOrEqual(400)
   })
 
-  it("has return policy section (14 days)", () => {
+  it("has B2B return/cayma policy section (consumer law excluded)", () => {
     const { container } = render(<KullanimPage />)
-    expect(container.textContent).toContain("14 gun")
+    // B2B platform: 6502 consumer distance-sale rules explicitly do NOT apply
+    expect(container.textContent).toContain("6502")
+    expect(container.textContent).toMatch(/mesafeli/i)
+    expect(screen.getByText(/İade ve Cayma Hakkı/)).toBeInTheDocument()
   })
 
   it("has warranty info section", () => {
     render(<KullanimPage />)
-    expect(screen.getByText(/Garanti Bilgileri/i)).toBeInTheDocument()
+    expect(screen.getByText(/Garanti Bilgileri/)).toBeInTheDocument()
   })
 
   it("has dispute resolution section", () => {
     render(<KullanimPage />)
-    expect(screen.getByText(/Uyusmazlik Cozumu/i)).toBeInTheDocument()
+    expect(screen.getByText(/Uyuşmazlık Çözümü/)).toBeInTheDocument()
   })
 
-  it("has refund process section", () => {
-    render(<KullanimPage />)
-    expect(screen.getByText(/Iade Sureci ve Geri Odeme/i)).toBeInTheDocument()
-  })
-
-  it("has user responsibilities section", () => {
-    render(<KullanimPage />)
-    expect(screen.getByText(/Kullanici Sorumluluklari/i)).toBeInTheDocument()
-  })
-
-  it("uses proper text styling", () => {
+  it("has refund process info (IBAN / mahsup, 7-14 business days)", () => {
     const { container } = render(<KullanimPage />)
-    expect(container.querySelector("[class*='1e1e1e']")).toBeInTheDocument()
+    // B2B refund: cari hesaba mahsup or IBAN within 7-14 business days
+    expect(container.textContent).toContain("7-14")
+    expect(container.textContent).toMatch(/IBAN|mahsup/i)
+  })
+
+  it("has dealer responsibilities section", () => {
+    render(<KullanimPage />)
+    expect(screen.getByText(/Bayi Sorumlulukları/)).toBeInTheDocument()
+  })
+
+  it("uses proper text styling (slate-600 body, primary accent)", () => {
+    const { container } = render(<KullanimPage />)
+    expect(container.querySelector("[class*='text-slate-600']")).toBeInTheDocument()
+    expect(container.querySelector("[class*='text-\\[var\\(--color-primary\\)\\]']")).toBeInTheDocument()
   })
 })

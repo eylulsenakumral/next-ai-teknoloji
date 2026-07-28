@@ -6,7 +6,6 @@ import Link from "next/link"
 import {
   ArrowLeft,
   RefreshCw,
-  FileText,
   Send,
   ShoppingCart,
   Trash2,

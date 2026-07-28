@@ -8,6 +8,7 @@ export const createBrandSchema = z.object({
   websiteUrl: z.string().url("Geçerli bir URL girin").optional().or(z.literal("")),
   isActive: z.boolean().default(true),
   sortOrder: z.number().int().default(0),
+  source: z.string().max(50).optional().or(z.literal("")),
 })
 
 export const updateBrandSchema = createBrandSchema.partial()

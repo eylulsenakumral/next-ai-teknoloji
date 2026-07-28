@@ -33,8 +33,22 @@ export async function GET(
       return NextResponse.json({ error: "Bu siparişe erişim yetkiniz yok." }, { status: 403 })
     }
 
-    // Bayiye kar bilgisi gösterme
-    const { totalPurchaseCost: _, totalProfit: __, profitMarginPct: ___, ...safeOrder } = order
+    // Bayiye kar/maliyet bilgisi gönderme — hem üst seviye hem her sipariş kalemi.
+    // Kalem bazında purchasePrice (tedarik maliyeti) ve profitMarginPct (kâr marjı) sızmasını engeller.
+    // _-prefixed ve anonim destructure hedefleri kasıtlı omit (security) — eslint disable.
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    const {
+      totalPurchaseCost: _,
+      totalProfit: __,
+      profitMarginPct: ___,
+      items: rawItems,
+      ...safeRest
+    } = order
+    const safeItems = (rawItems ?? []).map(
+      ({ purchasePrice, profitMarginPct: _itemMargin, ...itemRest }) => itemRest
+    )
+    /* eslint-enable @typescript-eslint/no-unused-vars */
+    const safeOrder = { ...safeRest, items: safeItems }
 
     return NextResponse.json({ data: safeOrder })
   } catch (err) {

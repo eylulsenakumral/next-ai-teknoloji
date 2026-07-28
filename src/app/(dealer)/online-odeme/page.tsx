@@ -88,7 +88,7 @@ export default function OnlineOdemePage() {
       <div className="flex items-center gap-3 mb-6">
         <Link
           href="/"
-          className="flex items-center gap-1 text-sm text-[#767676] hover:text-[#0040a4] transition-colors"
+          className="flex items-center gap-1 text-sm text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           Geri
@@ -96,12 +96,12 @@ export default function OnlineOdemePage() {
       </div>
 
       <div className="flex items-center gap-3 mb-8">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0040a4]">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--color-primary)]">
           <Wallet className="h-5 w-5 text-white" />
         </div>
         <div>
           <h1 className="text-xl font-bold text-[#333]">Online Ödeme</h1>
-          <p className="text-sm text-[#767676]">
+          <p className="text-sm text-[var(--color-text-muted)]">
             Kredi kartı ile güvenli ödeme yapın
           </p>
         </div>
@@ -112,7 +112,7 @@ export default function OnlineOdemePage() {
         <div className="lg:col-span-2">
           <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-6">
             <div className="flex items-center gap-2 mb-6">
-              <CreditCard className="h-5 w-5 text-[#0040a4]" />
+              <CreditCard className="h-5 w-5 text-[var(--color-primary)]" />
               <h2 className="text-sm font-semibold text-[#333]">Ödeme Bilgileri</h2>
             </div>
 
@@ -133,7 +133,7 @@ export default function OnlineOdemePage() {
                       if (result) setResult(null)
                     }}
                     placeholder="0.00"
-                    className="w-full rounded-xl border border-[#e5e5e5] px-4 py-3 text-lg font-semibold text-[#333] placeholder:text-[#ccc] focus:border-[#0040a4] focus:outline-none focus:ring-2 focus:ring-[#0040a4]/20 transition-all"
+                    className="w-full rounded-xl border border-[#e5e5e5] px-4 py-3 text-lg font-semibold text-[#333] placeholder:text-[#ccc] focus:border-[var(--color-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 transition-all"
                     disabled={loading}
                   />
                   <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-medium text-[#999]">
@@ -152,14 +152,14 @@ export default function OnlineOdemePage() {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Ödeme açıklaması..."
-                  className="w-full rounded-xl border border-[#e5e5e5] px-4 py-3 text-sm text-[#333] placeholder:text-[#ccc] focus:border-[#0040a4] focus:outline-none focus:ring-2 focus:ring-[#0040a4]/20 transition-all"
+                  className="w-full rounded-xl border border-[#e5e5e5] px-4 py-3 text-sm text-[#333] placeholder:text-[#ccc] focus:border-[var(--color-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]/20 transition-all"
                   disabled={loading}
                 />
               </div>
 
               {/* Hesap Bilgisi */}
               <div className="rounded-xl bg-[#f8f9fa] p-4">
-                <div className="flex items-center gap-2 text-sm text-[#767676]">
+                <div className="flex items-center gap-2 text-sm text-[var(--color-text-muted)]">
                   <Receipt className="h-4 w-4" />
                   <span>Hesap: <strong className="text-[#333]">{companyName}</strong></span>
                 </div>
@@ -169,7 +169,7 @@ export default function OnlineOdemePage() {
               <button
                 type="submit"
                 disabled={loading || !amount}
-                className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#0040a4] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#003380] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="w-full flex items-center justify-center gap-2 rounded-xl bg-[var(--color-primary)] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#003380] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {loading ? (
                   <>
@@ -209,21 +209,21 @@ export default function OnlineOdemePage() {
         <div className="space-y-4">
           <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
             <h3 className="text-sm font-semibold text-[#333] mb-3">Güvenli Ödeme</h3>
-            <ul className="space-y-2.5 text-sm text-[#767676]">
+            <ul className="space-y-2.5 text-sm text-[var(--color-text-muted)]">
               <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#0040a4] shrink-0 mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[var(--color-primary)] shrink-0 mt-0.5" />
                 <span>256-bit SSL şifreleme</span>
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#0040a4] shrink-0 mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[var(--color-primary)] shrink-0 mt-0.5" />
                 <span>3D Secure doğrulama</span>
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#0040a4] shrink-0 mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[var(--color-primary)] shrink-0 mt-0.5" />
                 <span>Tüm kredi kartları kabul edilir</span>
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle2 className="h-4 w-4 text-[#0040a4] shrink-0 mt-0.5" />
+                <CheckCircle2 className="h-4 w-4 text-[var(--color-primary)] shrink-0 mt-0.5" />
                 <span>Kart bilgileriniz bizde saklanmaz</span>
               </li>
             </ul>
@@ -231,21 +231,21 @@ export default function OnlineOdemePage() {
 
           <div className="rounded-2xl bg-white shadow-sm ring-1 ring-black/5 p-5">
             <h3 className="text-sm font-semibold text-[#333] mb-3">Nasıl Çalışır?</h3>
-            <ol className="space-y-2.5 text-sm text-[#767676]">
+            <ol className="space-y-2.5 text-sm text-[var(--color-text-muted)]">
               <li className="flex items-start gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#0040a4] text-[10px] font-bold text-white shrink-0">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-primary)] text-[10px] font-bold text-white shrink-0">
                   1
                 </span>
                 <span>Ödeme tutarını girin</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#0040a4] text-[10px] font-bold text-white shrink-0">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-primary)] text-[10px] font-bold text-white shrink-0">
                   2
                 </span>
                 <span>Güvenli ödeme sayfasına yönlendirilirsiniz</span>
               </li>
               <li className="flex items-start gap-2">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#0040a4] text-[10px] font-bold text-white shrink-0">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-primary)] text-[10px] font-bold text-white shrink-0">
                   3
                 </span>
                 <span>Kart bilgilerinizi girip onaylayın</span>
@@ -253,10 +253,10 @@ export default function OnlineOdemePage() {
             </ol>
           </div>
 
-          <div className="rounded-2xl bg-[#0040a4]/5 ring-1 ring-[#0040a4]/10 p-4">
-            <p className="text-xs text-[#767676] leading-relaxed">
+          <div className="rounded-2xl bg-[var(--color-primary)]/5 ring-1 ring-[var(--color-primary)]/10 p-4">
+            <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
               Ödeme işlemleri NomuPay güvenli ödeme altyapısı üzerinden gerçekleştirilmektedir.
-              Sorularınız için <a href="tel:+905529895959" className="font-semibold text-[#0040a4]">0 552 989 5959</a> numarasından bize ulaşabilirsiniz.
+              Sorularınız için <a href="tel:+905529895959" className="font-semibold text-[var(--color-primary)]">0 552 989 5959</a> numarasından bize ulaşabilirsiniz.
             </p>
           </div>
         </div>

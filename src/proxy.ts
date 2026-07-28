@@ -6,30 +6,42 @@ const PUBLIC_PATHS = [
   "/",
   "/login",
   "/basvuru",
+  "/bayimiz-olun",
+  "/bayi-giris",
   "/katalog",
   "/markalar",
   "/urunler",
   "/urun",
   "/kategoriler",
   "/kategori",
-  "/garanti-takip",
-  "/hakkinda",
+  "/cozumler",
+  "/vitrin",
+  "/proje-tasarim",
+  "/teklif-iste",
+  "/bayi-programi",
+  "/kampanya",
+  "/kurumsal",
+  "/hakkimizda",
   "/iletisim",
+  "/garanti-takip",
+  "/garanti-sorgula",
   "/gizlilik-politikasi",
   "/kullanim-sartlari",
   "/kampanyalar",
   "/kampanya-setleri",
+  "/blog",
   "/sepet/odeme/sonuc",
   "/api/auth",
   "/_next",
   "/favicon.ico",
   "/robots.txt",
   "/sitemap.xml",
+  "/manifest.json",
 ]
 
 // API routes that are public (no auth required)
 // Cron ve sync endpoint'leri kendi auth mekanizmalarını kullanır (Bearer token)
-const PUBLIC_API_PATHS = ["/api/auth", "/api/public", "/api/cron", "/api/chat", "/api/exchange-rate", "/api/payment", "/api/locations", "/api/categories", "/api/error-report"]
+const PUBLIC_API_PATHS = ["/api/auth", "/api/public", "/api/cron", "/api/chat", "/api/exchange-rate", "/api/payment", "/api/locations", "/api/categories", "/api/error-report", "/api/newsletter"]
 
 function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.some(

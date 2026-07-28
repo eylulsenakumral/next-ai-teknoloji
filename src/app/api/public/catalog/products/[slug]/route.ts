@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { prisma } from "@/lib/db"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
+import { getActiveCategoryMarginsMap } from "@/services/pricing.service"
 
 // Tedarikçi kodu → Ürün Kodu prefix eşlemesi
 const SUPPLIER_CODE_PREFIX: Record<string, string> = {
@@ -15,11 +16,9 @@ const SUPPLIER_DEPO_MAP: Record<string, string> = {
   bizimhesap: "Çorlu Depo",
 }
 
-// Tedarikçi bazlı fiyat kar marjı (maliyet üzerine %)
-const SUPPLIER_MARKUP: Record<string, number> = {
-  B2BDEPO: 1.20,
-  BIZIMHESAP: 1.10,
-}
+// Varsayılan kar marjı — services/pricing.service DEFAULT_MARGIN_PCT ile aynı.
+// Hardcoded supplier markup kaldırıldı; margin artık DB'den supplier.marginRate üzerinden gelir.
+const DEFAULT_MARGIN_PCT = 30
 
 // TCMB döviz kuru cache
 let cachedUsdTry = 0
@@ -77,7 +76,7 @@ export async function GET(
             stockQuantity: true,
             purchasePrice: showPrice,
             currency: true,
-            supplier: { select: { name: true, code: true } },
+            supplier: { select: { name: true, code: true, marginRate: true } },
           },
         },
       },
@@ -95,8 +94,8 @@ export async function GET(
       while (current) {
         path.unshift({ name: current.name, slug: current.slug })
         if (!current.parentId) break
-        const parent = await prisma.category.findUnique({
-          where: { id: current.parentId },
+        const parent = await prisma.category.findFirst({
+          where: { id: current.parentId, deletedAt: null, isActive: true },
           select: { name: true, slug: true, parentId: true },
         })
         current = parent as { name: string; slug: string; parentId: string | null } | null
@@ -107,6 +106,10 @@ export async function GET(
     // Döviz kuru çek
     const usdTry = showPrice ? await getUsdTryRate() : 0
 
+    // Aktif kategori marjlarını yükle (kategori marjı varsa tedarikçi marjını ezer)
+    const categoryMargins = showPrice ? await getActiveCategoryMarginsMap() : new Map<string, number>()
+    const categoryMargin = product.categoryId ? categoryMargins.get(product.categoryId) : undefined
+
     const totalStock = product.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
     // Tedarikçi bazlı stok ve fiyat bilgisi (mark-up dahil)
@@ -114,7 +117,8 @@ export async function GET(
       const supplierCode = sp.supplier?.code ?? ""
       const depoName = SUPPLIER_DEPO_MAP[supplierCode] || sp.supplier?.name || supplierCode
       const basePrice = sp.purchasePrice ? Number(sp.purchasePrice) : null
-      const markup = SUPPLIER_MARKUP[supplierCode.toUpperCase()] ?? 1
+      const marginRate = categoryMargin ?? sp.supplier?.marginRate ?? DEFAULT_MARGIN_PCT
+      const markup = 1 + Number(marginRate) / 100
       const price = basePrice !== null ? basePrice * markup : null
       const currency = sp.currency || "TRY"
       const priceTry = price != null
@@ -154,15 +158,16 @@ export async function GET(
             name: true,
             slug: true,
             images: true,
+            categoryId: true,
             brand: { select: { name: true, slug: true } },
-            category: { select: { name: true, slug: true } },
+            category: { select: { id: true, name: true, slug: true } },
             supplierProducts: {
               where: { deletedAt: null, isAvailable: true },
               select: {
                 stockQuantity: true,
                 purchasePrice: showPrice,
                 currency: true,
-                supplier: { select: { code: true } },
+                supplier: { select: { code: true, marginRate: true } },
               },
             },
           },
@@ -222,13 +227,14 @@ export async function GET(
         suppliers,
         relatedProducts: relatedProducts.map((rp) => {
           const stock = rp.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
+          const rpCategoryMargin = rp.categoryId ? categoryMargins.get(rp.categoryId) : undefined
           const prices = showPrice
             ? rp.supplierProducts
                 .filter((sp) => sp.purchasePrice !== null)
                 .map((sp) => {
                   const base = Number(sp.purchasePrice)
-                  const markup = SUPPLIER_MARKUP[sp.supplier?.code?.toUpperCase() ?? ""] ?? 1
-                  return base * markup
+                  const marginRate = rpCategoryMargin ?? sp.supplier?.marginRate ?? DEFAULT_MARGIN_PCT
+                  return base * (1 + Number(marginRate) / 100)
                 })
             : []
           const rpLowest = prices.length > 0 ? Math.min(...prices) : null

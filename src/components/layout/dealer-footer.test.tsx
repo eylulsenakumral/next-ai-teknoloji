@@ -75,7 +75,7 @@ describe("DealerFooter", () => {
   it("renders bayi-specific links: Profil, Satis, Raporlar", () => {
     render(<DealerFooter />)
     expect(screen.getByText(/Profilim/i)).toBeInTheDocument()
-    expect(screen.getByText(/Satis Yonetimi/i)).toBeInTheDocument()
+    expect(screen.getByText(/Satış Yönetimi/i)).toBeInTheDocument()
     expect(screen.getByText(/Raporlar/i)).toBeInTheDocument()
   })
 
@@ -114,10 +114,10 @@ describe("DealerFooter", () => {
 
   /* ── Styling ── */
 
-  it("uses bg-[#1e1e1e] background color", () => {
+  it("uses bg-[var(--color-foreground)] background color", () => {
     render(<DealerFooter />)
     const footer = screen.getByRole("contentinfo")
-    expect(footer.className).toContain("bg-[#1e1e1e]")
+    expect(footer.className).toContain("bg-[var(--color-foreground)]")
   })
 
   it("has responsive grid classes", () => {
@@ -138,10 +138,12 @@ describe("DealerFooter", () => {
     ).not.toBeInTheDocument()
   })
 
-  it("link hover uses primary color class #0040a4", () => {
+  it("link hover uses primary color class var(--color-primary)", () => {
     render(<DealerFooter />)
     const footer = screen.getByRole("contentinfo")
-    const linkEls = footer.querySelectorAll("a[class*='2189ff']")
+    const linkEls = footer.querySelectorAll(
+      "a[class*='hover:text-[var(--color-primary)]']"
+    )
     expect(linkEls.length).toBeGreaterThan(0)
   })
 })

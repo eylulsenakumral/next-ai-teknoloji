@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth"
 import { decode } from "next-auth/jwt"
 import { authOptions } from "@/lib/auth"
 import { unstable_cache } from "next/cache"
+import { getActiveCategoryMarginsMap } from "@/services/pricing.service"
 
 // TCMB döviz kuru cache - unstable_cache ile 1 saat
 const getCachedUsdTryRate = unstable_cache(
@@ -25,16 +26,15 @@ const getCachedUsdTryRate = unstable_cache(
 )
 
 // Kategori hiyerarşisi cache - 5 dakika
-const getCategoryDescendants = unstable_cache(
-  async (categorySlug: string) => {
+async function getCategoryDescendants(categorySlug: string): Promise<string[]> {
     const cat = await prisma.category.findFirst({
-      where: { slug: categorySlug, deletedAt: null, isActive: true },
+      where: { slug: categorySlug, deletedAt: null },
       select: { id: true },
     })
     if (!cat) return []
 
     const allCats = await prisma.category.findMany({
-      where: { deletedAt: null, isActive: true },
+      where: { deletedAt: null },
       select: { id: true, parentId: true },
     })
 
@@ -49,14 +49,10 @@ const getCategoryDescendants = unstable_cache(
     }
     findDescendants(cat.id)
     return [...descendantIds]
-  },
-  ["category-descendants"],
-  { revalidate: 300 }
-)
+  }
 
 // Product listing cache - 60 saniye
-const getCachedProductListing = unstable_cache(
-  async (
+async function getCachedProductListing(
     brandSlug: string,
     categorySlug: string,
     search: string,
@@ -67,7 +63,7 @@ const getCachedProductListing = unstable_cache(
     maxPrice: number | null,
     page: number,
     limit: number
-  ) => {
+  ) {
     const orderBy =
       sortBy === "name-asc"
         ? { name: "asc" as const }
@@ -102,6 +98,8 @@ const getCachedProductListing = unstable_cache(
     const andConditions: Record<string, unknown>[] = [
       { deletedAt: null },
       { isActive: true },
+      { brand: { isActive: true } },
+      { category: { isActive: true } },
     ]
 
     if (search) {
@@ -168,6 +166,7 @@ const getCachedProductListing = unstable_cache(
           specs: true,
           manualPrice: true,
           manualPriceCurrency: true,
+          categoryId: true,
           brand: { select: { name: true, slug: true } },
           category: { select: { name: true, slug: true } },
           supplierProducts: {
@@ -185,10 +184,7 @@ const getCachedProductListing = unstable_cache(
     ])
 
     return { products, total }
-  },
-  ["product-listing"],
-  { revalidate: 60, tags: ["product-listing"] }
-)
+  }
 
 export async function GET(req: NextRequest) {
   try {
@@ -201,7 +197,18 @@ export async function GET(req: NextRequest) {
         try {
           const decoded = await decode({ secret: process.env.NEXTAUTH_SECRET, token: bearer })
           if (decoded?.role === "dealer" && decoded?.status === "APPROVED") {
-            authSession = { user: decoded as any, expires: "" }
+            authSession = {
+              user: {
+                id: decoded.id,
+                dealerCode: decoded.dealerCode,
+                companyName: decoded.companyName,
+                contactName: decoded.contactName,
+                email: decoded.email ?? undefined,
+                role: decoded.role,
+                status: decoded.status,
+              },
+              expires: "",
+            }
           }
         } catch {}
       }
@@ -238,34 +245,56 @@ export async function GET(req: NextRequest) {
       limit
     )
 
-    // Döviz kuru çek (sadece bayi/admin fiyat görecekse)
-    const usdTry = showPrice ? await getCachedUsdTryRate() : 0
-    if (showPrice && !usdTry) {
+    // Döviz kuru çek — public kullanıcılar da fiyat görecek
+    const usdTry = await getCachedUsdTryRate()
+    if (!usdTry) {
       return NextResponse.json({ error: "Kur bilgisi alınamadı." }, { status: 503 })
     }
+
+    // Aktif kategori marjlarını yükle (kategori marjı varsa tedarikçi marjını ezer)
+    const categoryMargins = await getActiveCategoryMarginsMap()
+
+    // Public markup (giriş yapmamış kullanıcılar için)
+    const publicMarkupSetting = await prisma.setting.findUnique({
+      where: { key: "pricing.public_markup_percent" },
+    })
+    const publicMarkupPct = Number(publicMarkupSetting?.value ?? 80)
 
     const data = products.map((p) => {
       const totalStock = p.supplierProducts.reduce((sum, sp) => sum + sp.stockQuantity, 0)
 
-      // Get lowest price if authenticated or admin (with supplier markup)
-      // Okisan ürünleri için fiyat gizlenir
-      const lowestSupplier = showPrice
-        ? p.supplierProducts
-            .filter((sp) => sp.purchasePrice !== null)
-            .map((sp) => {
-              const base = Number(sp.purchasePrice)
-              const code = sp.supplier?.code?.toUpperCase() ?? ""
-              const markup = 1 + Number(sp.supplier?.marginRate ?? 30) / 100
-              return { ...sp, markedUpPrice: base * markup, supplierCode: code }
-            })
-            .sort((a, b) => a.markedUpPrice - b.markedUpPrice)[0]
-        : null
+      // En düşük tedarikçi fiyatını bul
+      const lowestSupplier = p.supplierProducts
+        .filter((sp) => sp.purchasePrice !== null)
+        .map((sp) => {
+          const base = Number(sp.purchasePrice)
+          const code = sp.supplier?.code?.toUpperCase() ?? ""
+          const categoryMargin = p.categoryId ? categoryMargins.get(p.categoryId) : undefined
+          const markup = 1 + (categoryMargin ?? Number(sp.supplier?.marginRate ?? 30)) / 100
+          return { ...sp, markedUpPrice: base * markup, supplierCode: code }
+        })
+        .sort((a, b) => a.markedUpPrice - b.markedUpPrice)[0]
 
       const isOkisanOnly = lowestSupplier?.supplierCode === "OKISAN"
-      let lowestPrice = lowestSupplier && !isOkisanOnly ? lowestSupplier.markedUpPrice : null
+
+      // Fiyat hesapla:
+      // - Bayi/Admin (showPrice=true): tedarikçi marjı ile (mevcut sistem)
+      // - Public (showPrice=false): maliyet × (1 + publicMarkupPct/100) — retail fiyat
+      let lowestPrice: number | null = null
       let priceCurrency = lowestSupplier?.currency || "TRY"
 
-      // Fırsat/outlet ürünlerde manualPrice direkt satış fiyatıdır
+      if (lowestSupplier && !isOkisanOnly) {
+        if (showPrice) {
+          lowestPrice = lowestSupplier.markedUpPrice
+        } else {
+          // Public: cost × (1 + publicMarkup/100)
+          const cost = Number(lowestSupplier.purchasePrice)
+          lowestPrice = cost * (1 + publicMarkupPct / 100)
+          priceCurrency = lowestSupplier.currency || "TRY"
+        }
+      }
+
+      // Fırsat/outlet ürünlerde manualPrice direkt satış fiyatıdır (sadece bayi)
       if (showPrice && (p as { manualPrice?: unknown }).manualPrice != null) {
         lowestPrice = Number((p as { manualPrice: unknown }).manualPrice)
         priceCurrency = (p as { manualPriceCurrency?: string }).manualPriceCurrency ?? "USD"

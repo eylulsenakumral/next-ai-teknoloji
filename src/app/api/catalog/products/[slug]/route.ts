@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
+import { Prisma } from "@prisma/client"
 import { prisma } from "@/lib/db"
 import { getDealerSession, requireDealerSession } from "@/lib/dealer-auth"
-import { calculateProductPrice } from "@/lib/pricing"
+import { getAdminSession, requireAdminSession } from "@/lib/auth-helpers"
+import {
+  calculateProductPrice,
+  calculateBulkPrices,
+} from "@/services/pricing.service"
+
 
 const SUPPLIER_DEPO_MAP: Record<string, string> = {
   b2bdepo: "Mersin Depo",
@@ -69,18 +75,26 @@ export async function GET(
     return NextResponse.json({ error: "Ürün bulunamadı." }, { status: 404 })
   }
 
-  // Gerçek fiyat hesaplaması
-  const pricing = await calculateProductPrice(
-    product.id,
-    product.brandId,
-    product.categoryId
-  )
+  // Fiyat hesabı — services kullanılır (tek kaynak). Manuel inline hesap kaldırıldı.
+  const priceCalc = await calculateProductPrice(product.id)
 
-  // Stok
-  const totalStock = product.supplierProducts.reduce(
-    (sum, sp) => sum + sp.stockQuantity,
-    0
-  )
+  let pricing: {
+    salePriceExVat: number
+    salePriceIncVat: number
+    vatRate: number
+    currency: string
+  } | null = null
+  if (priceCalc) {
+    pricing = {
+      salePriceExVat: priceCalc.salePriceExVat,
+      salePriceIncVat: priceCalc.salePriceIncVat,
+      vatRate: priceCalc.vatRate,
+      currency: priceCalc.currency,
+    }
+  }
+
+  // Stok — services toplam stokla aynı (filter: deletedAt null + isAvailable true)
+  const totalStock = priceCalc?.stockQuantity ?? 0
 
   // Benzer ürünler (aynı kategoriden, bu ürün hariç)
   const relatedProducts = product.categoryId
@@ -95,48 +109,35 @@ export async function GET(
         orderBy: { viewCount: "desc" },
         include: {
           brand: { select: { id: true, name: true, slug: true } },
-          supplierProducts: {
-            where: { deletedAt: null, isAvailable: true },
-            select: {
-              purchasePrice: true,
-              vatRate: true,
-              stockQuantity: true,
-              supplier: { select: { marginRate: true } },
-            },
-            orderBy: { purchasePrice: "asc" },
-            take: 1,
-          },
         },
       })
     : []
 
+  // Benzer ürünlerin fiyat/stok hesabı — services (tek kaynak)
+  const relatedIds = relatedProducts.map((rp) => rp.id)
+  const relatedPriceMap = relatedIds.length > 0
+    ? await calculateBulkPrices(relatedIds)
+    : new Map<string, never>()
+
   const relatedWithPricing = relatedProducts.map((rp) => {
-    const sp = rp.supplierProducts[0]
-    let relPricing = null
-    if (sp?.purchasePrice) {
-      const purchasePrice = Number(sp.purchasePrice)
-      const vatRate = Number(sp.vatRate ?? 20)
-      const multiplier = 1 + Number(sp.supplier?.marginRate ?? 30) / 100
-      const salePriceExVat = purchasePrice * multiplier
-      const salePriceIncVat = salePriceExVat * (1 + vatRate / 100)
-      relPricing = {
-        salePriceExVat: Math.round(salePriceExVat * 100) / 100,
-        salePriceIncVat: Math.round(salePriceIncVat * 100) / 100,
-        vatRate,
-      }
-    }
-    const stock = rp.supplierProducts.reduce(
-      (sum, s) => sum + s.stockQuantity,
-      0
-    )
+    const calc = relatedPriceMap.get(rp.id)
     return {
       id: rp.id,
       name: rp.name,
       slug: rp.slug,
       images: rp.images,
       brand: rp.brand,
-      pricing: relPricing,
-      stock: { quantity: stock, isAvailable: stock > 0 },
+      pricing: calc
+        ? {
+            salePriceExVat: calc.salePriceExVat,
+            salePriceIncVat: calc.salePriceIncVat,
+            vatRate: calc.vatRate,
+          }
+        : null,
+      stock: {
+        quantity: calc?.stockQuantity ?? 0,
+        isAvailable: (calc?.stockQuantity ?? 0) > 0,
+      },
     }
   })
 
@@ -201,8 +202,9 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  const session = await getDealerSession()
-  const authError = requireDealerSession(session)
+  // Güvenlik: brand/category düzenleme admin yetkisi — dealer erişemez (KRİTİK).
+  const session = await getAdminSession()
+  const authError = requireAdminSession(session)
   if (authError) return authError
 
   const { slug } = await params
@@ -235,8 +237,7 @@ export async function PUT(
 
   const product = await prisma.product.update({
     where: { id: existing.id },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data: updateData as any,
+    data: updateData as Prisma.ProductUncheckedUpdateInput,
     include: {
       brand: { select: { id: true, name: true } },
       category: { select: { id: true, name: true } },

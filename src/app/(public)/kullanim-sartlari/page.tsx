@@ -13,7 +13,7 @@ export default function KullanimSartlariPage() {
     <LegalPage
       title="Kullanım Şartları & Bayi Sözleşmesi"
       subtitle="B2B Tedarik"
-      lastUpdated="15 Temmuz 2026"
+      lastUpdated="22 Temmuz 2026"
       intro={
         <p>
           Bu kullanım şartları, Next AI Teknoloji bayi portalını ve hizmetlerini kullanmanıza ilişkin koşulları
@@ -79,6 +79,13 @@ export default function KullanimSartlariPage() {
                 Sipariş onayından sonra ürün tedarik ve kargo süreci başlar. Stoklu ürünlerde aynı gün kargo,
                 özel siparişlerde tedarik süresi 7-30 iş günü arasında değişir. Proje siparişlerinde teslim
                 tarihi teklif aşamasında belirtilir.
+              </p>
+              <p className="mt-4">
+                <strong>Vadeli ödemelerde gecikme:</strong> Onaylı cari hesap vadesinde yapılmayan ödemeler
+                için, vade tarihinden itibaren aylık %5 gecikme faizi (BK md.120) ve gecikme bedeli tahakkuk
+                eder. Ödemenin 15 günü aşan gecikmesi halinde sipariş/sevkiyat askıya alınabilir ve cari hesap
+                limiti yeniden değerlendirilir. Yazılı ihtara rağmen 30 gün içinde ödenmeyen tutarlar için
+                icra ve hukuki takip başlatılma hakkı saklıdır.
               </p>
             </>
           ),
@@ -148,6 +155,15 @@ export default function KullanimSartlariPage() {
                   "Hasarlı/eksik teslimat 3 gün içinde bildirilmelidir",
                 ]}
               />
+              <p className="mt-4">
+                <strong>Taşıma sigortası ve risk geçişi:</strong> Kargo taşımada ürün hasarı/ziyaa karşı
+                nakliye sigortası tarafımızca yaptırılır; hasar halinde kargo firmasına rücu edilir.
+                <strong> Teslim anı risk geçişi:</strong> ürünlerin bayiye (veya bayinin belirttiği adrese)
+                teslimi ile mülkiyet ve risk bayiye geçer (TK md.188). Bayi, teslim aldığı ürünleri teslim
+                anında kontrol etmekle ve olası hasarı 3 iş günü içinde yazılı bildirmekle yükümlüdür; bu
+                süre içinde bildirilmeyen hasarlardan bayi sorumludur. Sevkıyat sonrası depolama/çalışma
+                koşullarından kaynaklı hasarlarda üretici/garanti hükümleri geçerlidir.
+              </p>
             </>
           ),
         },
@@ -198,7 +214,22 @@ export default function KullanimSartlariPage() {
           ),
         },
         {
-          title: "10. İletişim",
+          title: "10. Mücbir Sebep (Force Majeure)",
+          body: (
+            <p>
+              Taraflardan hiçbirinin kontrolü dışında oluşan, öngörülemez ve kaçınılamaz olaylar — doğal
+              afetler (deprem, sel, yangın), salgın hastalıklar, savaş, terör, isyan, resmi makamların
+              kararları (ithalat/ihracat yasakları, kısıtlamaları), telekomünikasyon/altyapı kesintileri,
+              küresel tedarik ve lojistik durmaları — mücbir sebep (6098 sayılı BK md.136) sayılır. Bu
+              durumlarda tarafların edimleri mücbir sebebin devam süresince askıya alınır; etkilenen taraf
+              durumu öğrenmesinden itibaren 5 iş günü içinde yazılı olarak diğer tarafa bildirmekle yükümlüdür.
+              Mücbir sebep 30 günü aşarsa, taraflardan her biri ilgili sipariş/sözleşmeyi feshetme hakkına
+              sahiptir; bu halde önceden yapılan ödemeler mahsup edilerek iade edilir.
+            </p>
+          ),
+        },
+        {
+          title: "11. İletişim",
           body: (
             <>
               <p>Bu kullanım şartları ile ilgili sorularınız için:</p>

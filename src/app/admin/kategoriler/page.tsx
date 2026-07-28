@@ -21,7 +21,7 @@ import {
 import { CSS } from "@dnd-kit/utilities"
 import {
   Plus, Pencil, Trash2, Search, RefreshCw, ChevronRight, ChevronDown,
-  Network, Download, Upload, ChevronsUpDown, ChevronsDownUp,
+  Download, Upload, ChevronsUpDown, ChevronsDownUp,
   FolderOpen, Folder, Package, Layers, Eye, EyeOff, GripVertical,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -29,6 +29,7 @@ import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Switch } from "@/components/ui/switch"
 import {
   Table,
   TableBody,
@@ -65,8 +66,6 @@ interface FlatCategory {
   parent?: { id: string; name: string } | null
 }
 
-type ViewMode = "tree"
-
 // ---------- Constants ----------
 const depthColors: Record<number, string> = {
   0: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300",
@@ -96,6 +95,7 @@ function SortableTreeRow({
   onAddChild,
   onEdit,
   onDelete,
+  onToggleActive,
 }: {
   cat: FlatCategory
   depth: number
@@ -107,6 +107,7 @@ function SortableTreeRow({
   onAddChild: (cat: FlatCategory) => void
   onEdit: (cat: FlatCategory) => void
   onDelete: (cat: FlatCategory) => void
+  onToggleActive: (cat: FlatCategory) => void
 }) {
   const {
     attributes,
@@ -187,9 +188,11 @@ function SortableTreeRow({
         {cat._count.products > 0 ? cat._count.products : <span className="text-muted-foreground/50">-</span>}
       </TableCell>
       <TableCell className="text-center">
-        <Badge variant={cat.isActive ? "default" : "outline"}>
-          {cat.isActive ? "Aktif" : "Pasif"}
-        </Badge>
+        <Switch
+          checked={cat.isActive}
+          onCheckedChange={() => onToggleActive(cat)}
+          size="sm"
+        />
       </TableCell>
       <TableCell className="text-right pr-4">
         <div className="flex items-center justify-end gap-1">
@@ -326,6 +329,29 @@ export default function KategorilerPage() {
     setEditCategory(cat)
     setDefaultParentId(null)
     setFormOpen(true)
+  }
+
+  async function handleToggleActiveCat(cat: FlatCategory) {
+    const newVal = !cat.isActive
+    // Optimistic update — sayfa yenilenmeden anında güncellenir
+    setCategories((prev) =>
+      prev.map((c) => (c.id === cat.id ? { ...c, isActive: newVal } : c))
+    )
+    try {
+      const res = await fetch(`/api/admin/icerik/${cat.id}?type=categories`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isActive: newVal }),
+      })
+      if (!res.ok) throw new Error()
+      toast({ title: newVal ? "Aktifleştirildi" : "Pasifleştirildi" })
+    } catch {
+      // Hata durumunda geri al
+      setCategories((prev) =>
+        prev.map((c) => (c.id === cat.id ? { ...c, isActive: cat.isActive } : c))
+      )
+      toast({ title: "Hata", description: "Durum güncellenemedi.", variant: "destructive" })
+    }
   }
 
   function handleAddChild(cat: FlatCategory) {
@@ -495,6 +521,7 @@ export default function KategorilerPage() {
           onAddChild={handleAddChild}
           onEdit={handleEdit}
           onDelete={handleDeleteRequest}
+          onToggleActive={handleToggleActiveCat}
         />
       )
 

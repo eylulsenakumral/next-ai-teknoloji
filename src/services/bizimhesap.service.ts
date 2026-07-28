@@ -8,6 +8,7 @@
 import { prisma } from "@/lib/db"
 import { generateSlug } from "@/lib/utils/slug"
 import bcrypt from "bcryptjs"
+import { randomBytes } from "crypto"
 
 const BASE_URL = "https://bizimhesap.com/api/b2b"
 
@@ -301,11 +302,6 @@ function normalizePhonesFromRaw(raw: string | undefined | null): {
   }
 }
 
-/** Tek değer döndüren basit helper (inventory / eski kullanım için) */
-function normalizePhone(raw: string | undefined | null): string | null {
-  return normalizePhonesFromRaw(raw).whatsappPhone
-}
-
 // ============================================================================
 // syncProducts
 // ============================================================================
@@ -396,10 +392,10 @@ export async function syncProducts(token: string): Promise<SyncProductsResult> {
           brand = await prisma.brand.findFirst({ where: { slug: brandSlug, deletedAt: null } })
           if (!brand) {
             try {
-              brand = await prisma.brand.create({ data: { name: brandName, slug: brandSlug } })
+              brand = await prisma.brand.create({ data: { name: brandName, slug: brandSlug, source: "bizimhesap" } })
             } catch {
               // Slug çakışması durumunda timestamp ekle
-              brand = await prisma.brand.create({ data: { name: brandName, slug: `${brandSlug}-${Date.now()}` } })
+              brand = await prisma.brand.create({ data: { name: brandName, slug: `${brandSlug}-${Date.now()}`, source: "bizimhesap" } })
             }
           }
         }
@@ -409,7 +405,7 @@ export async function syncProducts(token: string): Promise<SyncProductsResult> {
       // 2. Category eşleştir - SADECE BUL, otomatik oluşturma
       let categoryId: string | undefined
       if (categoryName) {
-        let cat = await prisma.category.findFirst({
+        const cat = await prisma.category.findFirst({
           where: { name: { equals: categoryName, mode: "insensitive" }, deletedAt: null },
         })
         categoryId = cat?.id ?? undefined
@@ -806,7 +802,7 @@ export async function syncCustomers(token: string): Promise<SyncCustomersResult>
       } else {
         // Yeni müşteri oluştur
         const dealerCode = await generateDealerCode()
-        const randomPassword = Math.random().toString(36).slice(2, 10)
+        const randomPassword = randomBytes(6).toString("hex")
         const passwordHash = await bcrypt.hash(randomPassword, 10)
 
         const newCustomer = await prisma.customer.create({

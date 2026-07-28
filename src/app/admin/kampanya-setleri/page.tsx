@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
+import Image from "next/image"
 import {
   Plus,
   Pencil,
@@ -735,7 +736,7 @@ function SetFormModal({ open, initial, onClose, onSaved }: SetFormModalProps) {
             </div>
             {form.imageUrl && (
               <div className="mt-1.5 w-full h-32 rounded-md border bg-muted/30 flex items-center justify-center overflow-hidden">
-                <img src={form.imageUrl} alt="Önizleme" className="max-h-full max-w-full object-contain" />
+                <Image src={form.imageUrl} alt="Önizleme" width={128} height={128} className="max-h-full max-w-full object-contain" />
               </div>
             )}
           </div>
@@ -1219,7 +1220,7 @@ export default function KampanyaSetleriPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Layers className="h-5 w-5 text-[#0040a4]" />
+          <Layers className="h-5 w-5 text-[var(--color-primary)]" />
           <h1 className="text-xl font-bold text-[#1a1a1a]">Kampanya Setleri</h1>
           {meta && (
             <Badge variant="outline" className="text-xs">

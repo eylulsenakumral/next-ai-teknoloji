@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import { Package, ShoppingCart, Check, Minus, Plus } from "lucide-react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { cn } from "@/lib/utils"
@@ -22,10 +23,11 @@ function ProductImage({ src, alt }: { src?: string; alt: string }) {
   }
 
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
-      className="h-full w-full object-contain p-2"
+      fill
+      className="object-contain p-2"
       onError={() => setError(true)}
     />
   )
@@ -90,7 +92,7 @@ interface ProductListItemProps {
   categories?: CategoryNode[]
 }
 
-export function ProductListItem({ product, onAddToCart, brands, categories }: ProductListItemProps) {
+export function ProductListItem({ product, brands, categories }: ProductListItemProps) {
   const mainImage = product.images[0]
   const { addItem, items, openCart } = useCart()
 
@@ -301,7 +303,7 @@ export function ProductListItem({ product, onAddToCart, brands, categories }: Pr
               onClick={handleAddToCart}
               className={cn(
                 "h-7 px-3 flex items-center justify-center gap-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200",
-                justAdded ? "bg-[#3b7300] text-white" : "bg-[#1e3a5f] hover:bg-[#00179e] text-white"
+                justAdded ? "bg-[var(--color-success)] text-white" : "bg-[#1e3a5f] hover:bg-[var(--color-primary)] text-white"
               )}
               aria-label={`${product.name} sepete ekle`}
             >
