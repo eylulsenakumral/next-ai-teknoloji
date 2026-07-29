@@ -123,7 +123,7 @@ importers:
         specifier: ^8.20.0
         version: 8.20.0
       playwright:
-        specifier: ^1.58.2
+        specifier: ^1.61.1
         version: 1.59.1
       prisma:
         specifier: ^7.5.0
@@ -193,8 +193,8 @@ importers:
         specifier: ^20
         version: 20.19.39
       '@types/pg':
-        specifier: 8.20.0
-        version: 8.20.0
+        specifier: 8.11.11
+        version: 8.11.11
       '@types/react':
         specifier: ^19
         version: 19.2.14
@@ -2162,8 +2162,8 @@ packages:
   '@types/pako@2.0.4':
     resolution: {integrity: sha512-VWDCbrLeVXJM9fihYodcLiIv0ku+AlOa/TQ1SvYOaBuyrSKgEcro95LJyIsJ4vSo6BXIxOKxiJAat04CmST9Fw==}
 
-  '@types/pg@8.20.0':
-    resolution: {integrity: sha512-bEPFOaMAHTEP1EzpvHTbmwR8UsFyHSKsRisLIHVMXnpNefSbGA1bD6CVy+qKjGSqmZqNqBDV2azOBo8TgkcVow==}
+  '@types/pg@8.11.11':
+    resolution: {integrity: sha512-kGT1qKM8wJQ5qlawUrEkXgvMSXoV213KfMGXcwfDwUIfUHXqXYXOfS1nE1LINRJVVVx5wCm70XnFlMHaIcQAfw==}
 
   '@types/qrcode-terminal@0.12.2':
     resolution: {integrity: sha512-v+RcIEJ+Uhd6ygSQ0u5YYY7ZM+la7GgPbs0V/7l/kFs2uO4S8BcIUEMoP7za4DNIqNnUD5npf0A/7kBhrCKG5Q==}
@@ -8373,7 +8373,7 @@ snapshots:
 
   '@types/pako@2.0.4': {}
 
-  '@types/pg@8.20.0':
+  '@types/pg@8.11.11':
     dependencies:
       '@types/node': 20.19.39
       pg-protocol: 1.13.0
