@@ -311,6 +311,7 @@ model Customer {
   carts                 Cart[]
   wishlists             Wishlist[]
   whatsappConversations WhatsAppConversation[]
+  simCardSales          SimCardSale[]
 
   @@index([phone])
   @@index([whatsappPhone])
@@ -1160,6 +1161,28 @@ model SiteText {
   @@map("site_texts")
 }
 
+model SimCardSale {
+  id              String      @id @default(uuid()) @db.Uuid
+  buyerName       String      @map("buyer_name") @db.VarChar(255)
+  contactPhone    String      @map("contact_phone") @db.VarChar(50)
+  simPhoneNumber  String?     @map("sim_phone_number") @db.VarChar(50)
+  tcNumber        String?     @map("tc_number") @db.VarChar(11)
+  idPhotoUrl      String?     @map("id_photo_url")
+  package         SimPackage  @default(GB5)
+  purchaseDate    DateTime    @map("purchase_date") @db.Timestamptz(6)
+  endDate         DateTime    @map("end_date") @db.Timestamptz(6)
+  customerId      String?     @map("customer_id") @db.Uuid
+  isActive        Boolean     @default(true) @map("is_active")
+  createdAt       DateTime    @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt       DateTime    @updatedAt @map("updated_at") @db.Timestamptz(6)
+  deletedAt       DateTime?   @map("deleted_at") @db.Timestamptz(6)
+  customer        Customer?   @relation(fields: [customerId], references: [id])
+
+  @@index([endDate])
+  @@index([deletedAt])
+  @@map("sim_card_sales")
+}
+
 enum PageName {
   HOMEPAGE
   COZUMLER
@@ -1167,4 +1190,10 @@ enum PageName {
   BAYI_PROGRAMI
   KURUMSAL
   LOGIN
+}
+
+enum SimPackage {
+  GB5
+  GB8
+  GB15
 }

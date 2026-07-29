@@ -8,13 +8,10 @@ export async function getAdminSession(): Promise<Session | null> {
   return session as Session | null
 }
 
-// Katı admin erişimi: admin, super_admin. viewer ve diğerleri -> 403.
-// requireAdminSession bilinçli olarak viewer'a açılmadı (KRİTİK-22):
+// Katı admin erişimi: admin, super_admin. dealer ve diğerleri -> 403.
 // middleware.ts yok ve ~53 write handler (POST/PUT/DELETE/PATCH) ile
-// hassas read route'ları (kar-marji, llm/*, settings, whatsapp...) hâlâ
-// bu helper üzerinden geçiyor. viewer'ı burada açarsak tüm o route'larda
-// viewer yazabilir/hassas veri okur hale gelir. viewer-readable GET'ler
-// için requireReadPermission, write'lar için requireWritePermission kullanın.
+// hassas read route'ları (kar-marji, llm/*, settings, whatsapp...) bu
+// helper üzerinden geçiyor. Write'lar için requireWritePermission kullanın.
 export function requireAdminSession(
   session: Session | null
 ): NextResponse | null {
@@ -33,8 +30,9 @@ export function requireAdminSession(
   return null
 }
 
-// Read erişimi: admin, super_admin, viewer. viewer buradan okuyabilir.
-// Sadece viewer-readable GET handler'larında kullanın.
+// Read erişimi: admin, super_admin. viewer rolü kullanımda olmadığından
+// requireAdminSession ile eşdeğerdir; yalnızca mevcut çağrı alanlarını
+// korumak için ayrı tutuldu.
 export function requireReadPermission(
   session: Session | null
 ): NextResponse | null {
@@ -44,11 +42,7 @@ export function requireReadPermission(
       { status: 401 }
     )
   }
-  if (
-    session.user.role !== "admin" &&
-    session.user.role !== "super_admin" &&
-    session.user.role !== "viewer"
-  ) {
+  if (session.user.role !== "admin" && session.user.role !== "super_admin") {
     return NextResponse.json(
       { error: "Bu işlem için yetkiniz yok." },
       { status: 403 }
@@ -57,7 +51,7 @@ export function requireReadPermission(
   return null
 }
 
-// Write erişimi: admin, super_admin only. viewer -> 403.
+// Write erişimi: admin, super_admin only. dealer -> 403.
 // Tüm POST/PUT/DELETE/PATCH handler'ları için kullanın.
 // requireAdminSession ile aynı kural — çağrı noktasında write niyetini
 // belli etmek için ayrı isimlendirilmiş helper.

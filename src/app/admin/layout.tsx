@@ -20,7 +20,7 @@ export default async function AdminLayout({
   children: React.ReactNode
 }) {
   // KRİTİK-22: Tüm /admin/* için tek server-side guard.
-  // Bayi (role: dealer) ve VIEWER (role: viewer) admin paneline erişemez.
+  // Bayi (role: dealer) admin paneline erişemez.
   const session = await getServerSession(authOptions)
   if (
     !session?.user ||

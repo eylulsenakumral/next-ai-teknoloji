@@ -13,6 +13,7 @@ import {
   XCircle,
   AlertCircle,
   InboxIcon,
+  CardSim,
 } from "lucide-react"
 import {
   Card,
@@ -33,11 +34,13 @@ import {
 import Link from "next/link"
 import { prisma } from "@/lib/db"
 import { formatCurrency, formatDate } from "@/lib/utils/format"
+import { addDays } from "date-fns"
 import { withCache, CacheKey, TTL } from "@/lib/cache"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { OrderStatusBadge } from "@/components/orders/order-status-badge"
+import { SimExpiryBadge } from "@/components/admin/sim-expiry-badge"
 import type { SupplierSyncStatus } from "@prisma/client"
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -326,6 +329,75 @@ function PendingApplicationsWidget({
   )
 }
 
+// ─── Expiring SIM Widget ─────────────────────────────────────────────────────
+
+interface ExpiringSim {
+  id: string
+  buyerName: string
+  package: "GB5" | "GB8" | "GB15"
+  endDate: Date
+}
+
+function ExpiringSimWidget({
+  sims,
+  totalCount,
+}: {
+  sims: ExpiringSim[]
+  totalCount: number
+}) {
+  return (
+    <Card>
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <div>
+          <CardTitle className="text-base flex items-center gap-2">
+            <CardSim className="h-4 w-4 text-primary" aria-hidden />
+            SIM Süresi Dolmak Üzere
+          </CardTitle>
+          <CardDescription>
+            {totalCount === 0
+              ? "30 gün içinde süresi dolacak SIM yok"
+              : `${totalCount} SIM yakında sona eriyor`}
+          </CardDescription>
+        </div>
+        <Link
+          href="/admin/sim-satislari"
+          className="inline-flex items-center gap-1 text-xs h-7 px-2.5 rounded-lg font-medium text-sm hover:bg-muted hover:text-foreground transition-colors"
+        >
+          Tümünü Gör
+          <ArrowRight className="h-3 w-3" />
+        </Link>
+      </CardHeader>
+      <CardContent>
+        {sims.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-6 text-center gap-2">
+            <CheckCircle2 className="h-7 w-7 text-emerald-500/60" aria-hidden />
+            <p className="text-sm text-muted-foreground">
+              Yaklaşan bitiş tarihi yok
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-2.5">
+            {sims.map((sim) => (
+              <div
+                key={sim.id}
+                className="flex items-center gap-3 p-2.5 rounded-lg border hover:bg-muted/30 transition-colors"
+              >
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium truncate">{sim.buyerName}</p>
+                  <p className="text-xs text-muted-foreground">
+                    Bitiş: {formatDate(sim.endDate)}
+                  </p>
+                </div>
+                <SimExpiryBadge endDate={sim.endDate} />
+              </div>
+            ))}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+
 // ─── Page (Server Component) ──────────────────────────────────────────────────
 
 export default async function AdminDashboardPage() {
@@ -339,7 +411,7 @@ export default async function AdminDashboardPage() {
 
   // Summary counts are cached for 2 minutes. Recent orders and scraper status
   // are real-time (no cache) because they change frequently.
-  const [cachedStats, recentOrders, pendingApplicationsData, suppliers] = await Promise.all([
+  const [cachedStats, recentOrders, pendingApplicationsData, suppliers, expiringSimData] = await Promise.all([
     withCache(CacheKey.dashboardStats(), TTL.DASHBOARD_STATS, async () => {
       const [productCount, customerCount, todayOrderCount, monthlyRevenue] = await Promise.all([
         prisma.product.count({ where: { deletedAt: null, isActive: true } }),
@@ -388,11 +460,30 @@ export default async function AdminDashboardPage() {
         },
       },
     }),
+    // Süresi 30 gün içinde dolacak SIM'ler (yaklaşan 5 + toplam sayı)
+    Promise.all([
+      prisma.simCardSale.findMany({
+        where: {
+          deletedAt: null,
+          endDate: { gte: new Date(), lte: addDays(new Date(), 30) },
+        },
+        take: 5,
+        orderBy: { endDate: "asc" },
+        select: { id: true, buyerName: true, package: true, endDate: true },
+      }),
+      prisma.simCardSale.count({
+        where: {
+          deletedAt: null,
+          endDate: { gte: new Date(), lte: addDays(new Date(), 30) },
+        },
+      }),
+    ]),
   ])
 
   const { productCount, customerCount, todayOrderCount, monthlyRevenue } = cachedStats
 
   const [pendingApps, pendingCount] = pendingApplicationsData
+  const [expiringSims, expiringSimCount] = expiringSimData
   const monthlyTotal = monthlyRevenue
 
   const stats: StatCardProps[] = [
@@ -451,9 +542,15 @@ export default async function AdminDashboardPage() {
 
       {/* Siparişler + Yan Panel */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <div className="xl:col-span-2">
+        <div className="xl:col-span-2 space-y-6">
           <Suspense fallback={<Skeleton className="h-64 rounded-xl" />}>
             <RecentOrdersTable orders={recentOrders} />
+          </Suspense>
+          <Suspense fallback={<Skeleton className="h-48 rounded-xl" />}>
+            <ExpiringSimWidget
+              sims={expiringSims}
+              totalCount={expiringSimCount}
+            />
           </Suspense>
         </div>
         <div className="space-y-6">

@@ -30,6 +30,7 @@ import {
   FileText,
   Percent,
   X,
+  CardSim,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
@@ -80,6 +81,7 @@ const menuGroups: MenuGroup[] = [
       { href: "/admin/teklifler", label: "Teklifler", icon: FileText },
       { href: "/admin/musteriler", label: "Müşteriler", icon: Users },
       { href: "/admin/basvurular", label: "Başvurular", icon: ClipboardList },
+      { href: "/admin/sim-satislari", label: "SIM Satışları", icon: CardSim },
     ],
   },
   {
