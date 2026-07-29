@@ -29,7 +29,11 @@ export const createSimSaleSchema = z.object({
     .max(11, "TC kimlik no 11 karakter olmalıdır")
     .optional()
     .or(z.literal("")),
-  idPhotoUrl: z.string().optional().or(z.literal("")),
+  idPhotoUrl: z
+    .string()
+    .max(3_000_000, "Fotoğraf çok büyük (en fazla 2MB).")
+    .optional()
+    .or(z.literal("")),
   package: z.enum(["GB5", "GB8", "GB15"]),
   purchaseDate: z
     .string()

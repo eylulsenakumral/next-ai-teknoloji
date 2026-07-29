@@ -185,13 +185,23 @@ export default function SimSatislariPage() {
                 sales.map((sale) => (
                   <TableRow key={sale.id}>
                     <TableCell>
-                      <div>
-                        <p className="font-medium text-sm">{sale.buyerName}</p>
-                        {sale.customer && (
-                          <p className="text-xs text-muted-foreground">
-                            Bayi: {sale.customer.companyName}
-                          </p>
+                      <div className="flex items-center gap-2.5">
+                        {sale.idPhotoUrl && (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={sale.idPhotoUrl}
+                            alt={sale.buyerName}
+                            className="w-9 h-9 rounded-lg object-cover border border-border bg-muted shrink-0"
+                          />
                         )}
+                        <div className="min-w-0">
+                          <p className="font-medium text-sm">{sale.buyerName}</p>
+                          {sale.customer && (
+                            <p className="text-xs text-muted-foreground">
+                              Bayi: {sale.customer.companyName}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </TableCell>
                     <TableCell className="text-sm">{sale.contactPhone}</TableCell>

@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
+import { X } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -18,7 +19,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { ImageUpload } from "@/components/admin/image-upload"
 import {
   SIM_PACKAGES,
   type CreateSimSaleInput,
@@ -84,6 +84,34 @@ export function SimSaleForm({ open, onOpenChange, initialData, onSuccess }: SimS
       setServerError("")
     }
   }, [open, initialData])
+
+  // Kimlik fotoğrafını base64 data URL'ine çevirir (storage altyapısı gerekmez)
+  const handlePhotoSelect = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0]
+      if (!file) return
+      setErrors((p) => ({ ...p, idPhotoUrl: undefined }))
+
+      // 2MB sınırı (base64 ~%33 büyüyeceği için DB'de ~2.7MB olur)
+      if (file.size > 2 * 1024 * 1024) {
+        setErrors((p) => ({ ...p, idPhotoUrl: ["Dosya boyutu en fazla 2MB olabilir."] }))
+        e.target.value = ""
+        return
+      }
+      if (!file.type.startsWith("image/")) {
+        setErrors((p) => ({ ...p, idPhotoUrl: ["Sadece görsel dosyaları yüklenebilir."] }))
+        e.target.value = ""
+        return
+      }
+
+      const reader = new FileReader()
+      reader.onload = () => {
+        setForm((p) => ({ ...p, idPhotoUrl: reader.result as string }))
+      }
+      reader.readAsDataURL(file)
+    },
+    []
+  )
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -276,17 +304,38 @@ export function SimSaleForm({ open, onOpenChange, initialData, onSuccess }: SimS
           </div>
 
           <div className="space-y-1.5">
-            <ImageUpload
-              value={form.idPhotoUrl}
-              onChange={(url) => setForm((p) => ({ ...p, idPhotoUrl: url }))}
-              label="Kimlik Fotoğrafı (opsiyonel)"
-              maxSize={5 * 1024 * 1024} // 5MB
-              accept="image/jpeg,image/png,image/webp"
-              folder="sim-id-photos"
-              disabled={loading}
-            />
+            <Label>Kimlik Fotoğrafı (opsiyonel)</Label>
+            {form.idPhotoUrl ? (
+              <div className="relative w-full h-40 rounded-lg border border-border overflow-hidden bg-muted">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={form.idPhotoUrl}
+                  alt="Kimlik fotoğrafı"
+                  className="w-full h-full object-contain"
+                />
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="icon"
+                  onClick={() => setForm((p) => ({ ...p, idPhotoUrl: "" }))}
+                  disabled={loading}
+                  className="absolute top-2 right-2 h-8 w-8"
+                  aria-label="Fotoğrafı kaldır"
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            ) : (
+              <Input
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={handlePhotoSelect}
+                disabled={loading}
+                aria-invalid={Boolean(errors.idPhotoUrl)}
+              />
+            )}
             <p className="text-xs text-muted-foreground">
-              Eklenmeden de kaydedilebilir.
+              Eklenmeden de kaydedilebilir. En fazla 2MB (JPEG, PNG, WebP).
             </p>
             {errors.idPhotoUrl && (
               <p className="text-xs text-destructive">{errors.idPhotoUrl[0]}</p>
