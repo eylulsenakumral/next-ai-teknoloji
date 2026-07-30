@@ -1,0 +1,19 @@
+# Binary dosyalari git'in text islemesinden (CRLF/LF) koru
+# Boylece PNG/JPG/webp gorseller, fontlar ve APK'lar bozulmaz.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.svg binary
+*.ico binary
+*.bmp binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+*.otf binary
+*.pdf binary
+*.zip binary
+*.apk binary
+*.aab binary
