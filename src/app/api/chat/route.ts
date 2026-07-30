@@ -5,6 +5,7 @@ import { NextRequest } from "next/server";
 import OpenAI from "openai";
 import { searchProducts } from "../../../../workers/whatsapp/tools/product-search";
 import { searchBySpecs } from "../../../../workers/whatsapp/tools/specs-search";
+import { getDealerSession } from "@/lib/dealer-auth";
 import type { ConversationContext } from "../../../../workers/whatsapp/types";
 
 const llm = new OpenAI({
@@ -88,14 +89,19 @@ function extractSearchContext(msg: string): {
 function buildPrompt(
   context: ConversationContext,
   searchResults?: string,
+  isDealer: boolean = false,
 ): string {
+  const priceRule = isDealer
+    ? "- Arama sonuçlarında bayi fiyatı varsa gösterebilirsiniz. Fiyat KDV dahildir."
+    : "- Fiyat ASLA verme. Sorarsa \"Fiyat için iletişime geçebilirsiniz\" de.";
+
   let prompt = `Sen NexaDepo Ürün Danışmanısın. Türkçe, "siz" diye hitap et.
 
 EN ÖNEMLİ KURAL: CEVAPLAR KISA VE NET OLSUN. Müşterinin sorduğuna doğrudan cevap ver, lafı uzatma. Ürün önerirken 2-3 madde yeterli.
 
 KURALLAR:
 - Sadece teknoloji/güvenlik ürünleri (kamera, NVR, switch, HDD, UPS vb.) hakkında konuş. Konu dışıysa kısaca belirt.
-- Fiyat ASLA verme. Sorarsa "Fiyat için iletişime geçebilirsiniz" de.
+${priceRule}
 - Ürün önerirken MARKA + MODEL adı yaz.
 - Detay eksikse en fazla 1-2 kısa soru sor.`;
 
@@ -126,6 +132,12 @@ export async function POST(req: NextRequest) {
       return new Response("Mesaj gerekli", { status: 400 });
     }
 
+    // Bayi session kontrolü — giriş yapmış bayilere fiyat göster
+    const dealerSession = await getDealerSession();
+    const isDealer = Boolean(
+      dealerSession?.user?.role === "dealer" && dealerSession?.user?.status === "APPROVED"
+    );
+
     const context: ConversationContext = { messageCount: history?.length ?? 0 };
 
     // Pre-search: detect product intent and search automatically
@@ -138,7 +150,7 @@ export async function POST(req: NextRequest) {
         // Include spec values (2MP, Dome etc.) in the text query for better name matching
         const specValues = Object.values(searchCtx.specs);
         const searchQuery = [searchCtx.category, ...searchCtx.keywords, ...specValues].filter(Boolean).join(" ") || message;
-        searchResults = await searchProducts(searchQuery, 5);
+        searchResults = await searchProducts(searchQuery, 5, isDealer);
 
         // Fallback: if text search found nothing AND we have specs, try spec-based search
         if ((!searchResults || searchResults.includes("bulunamadı")) && Object.keys(searchCtx.specs).length > 0) {
@@ -159,7 +171,7 @@ export async function POST(req: NextRequest) {
 
     // Build messages for LLM
     const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
-      { role: "system", content: buildPrompt(context, searchResults) },
+      { role: "system", content: buildPrompt(context, searchResults, isDealer) },
     ];
 
     // Add history (last 6 messages)
